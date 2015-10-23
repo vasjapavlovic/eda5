@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<ul>
+    <b>{{ object.title }}</b></br>
+    {{ object.block_address }}</br>
+    ____________________________________________________________________</br>
+    {{ object.phone }}</br>
+    {{ object.description }}</br>
+</ul>
+
+
+{% endblock %}

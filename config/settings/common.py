@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'eda5.users',  # custom users app
+    'eda5.stores', # testiram from django
     # Your stuff: custom apps go here
 )
 

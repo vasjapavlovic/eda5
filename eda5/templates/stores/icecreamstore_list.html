@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<ul>
+{% for object in object_list %}
+    {{ forloop.counter }}. <a href="{% url 'stores:detail' object.pk %}"><b>{{ object.title }}</b> | {{ object.description }}</br></a>
+{% endfor %}
+</br>
+<a href="{% url 'stores:create' %}">Create store</a>
+</ul></br>
+
+
+
+
+{% endblock %}

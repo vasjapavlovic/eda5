@@ -23,9 +23,14 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default='CHANGEME!!!yq)b*3$yla=j&(z%u41u&-
 
 # Mail settings
 # ------------------------------------------------------------------------------
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+# Email Settings
 
+EMAIL_HOST_USER = 'vasja.pavlovic@gmail.com'
+EMAIL_HOST_PASSWORD = 'pesMEDO833'
+
+EMAIL_USE_TLS = True
 
 # CACHING
 # ------------------------------------------------------------------------------
