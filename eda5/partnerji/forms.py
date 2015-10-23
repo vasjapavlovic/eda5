@@ -48,12 +48,35 @@ class OsebaCreateForm(forms.ModelForm):
             'podjetje',
             )
 
+
 class OsebaUpdateForm(OsebaCreateForm):
     pass
 
 
+class OsebaCreateWidget(forms.Form):
+
+    STATUS = (
+        ("A", 'pooblaščenec'),
+        ("B", 'delavec'),
+        )
+
+    priimek = forms.CharField()
+    ime = forms.CharField()
+    status = forms.ChoiceField(widget=forms.Select, choices=STATUS)
+    kvalifikacije = forms.CharField(widget=forms.Textarea)
 
 
+class TrrCreateWidget(forms.Form):
+
+    STATUS = (
+        ("A", 'pooblaščenec'),
+        ("B", 'delavec'),
+        )
+
+    priimek = forms.CharField()
+    ime = forms.CharField()
+    status = forms.ChoiceField(widget=forms.Select, choices=STATUS)
+    kvalifikacije = forms.CharField(widget=forms.Textarea)
 
 
     # OSEBA MODEL

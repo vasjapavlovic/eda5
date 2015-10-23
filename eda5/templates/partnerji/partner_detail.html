@@ -1,6 +1,6 @@
 {% extends "moduli/modul_list.html" %}
 {% load crispy_forms_tags %}
-
+{% include trr_modal.html %}
 {% block content %}
 
 <div class="container">
@@ -62,7 +62,11 @@
                             </tr>
                             
                             <tr>
-                                <td>TRR {{ forloop.counter }}</td>
+                                <td>TRR 
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTRR">
+                                      Dodaj TRR
+                                    </button>
+                                {{ forloop.counter }}</td>
                                 <td>
                                     {% for trr in object.trracun_set.all %}
                                         {{ trr.iban }} ({{trr.banka.bic_koda}})<br>
@@ -89,6 +93,9 @@
                 <div class="panel-body">
 
                     <div class="table-condensed table-hover table-bordered table-striped">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#novaOseba">
+                        Dodaj Osebo
+                        </button>
                         <table class="table">
                             <tr>
                                 <th>Priimek in Ime</th>
@@ -105,7 +112,30 @@
                             {% endfor %}
 
                         </table>
-                        <a href="{% url 'moduli:partnerji:oseba_create' %}">Vnesi osebo</a>
+
+                        <div class="modal fade" id="novaOseba" tabindex="-1" role="dialog" aria-labelledby="novaOseba">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            
+                                            Nova Osebo
+                                        
+                                        </h4>
+                                    </div>
+                                    <form action="" method="POST">{% csrf_token %}
+                                        <div class="modal-body">
+                                            {{ oseba_form|crispy  }}   
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                                            <button type="submit" class="btn btn-primary">Shrani</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,5 +159,29 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal ADD TRR-->
+<div class="modal fade" id="addTRR" tabindex="-1" role="dialog" aria-labelledby="addTRR">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nov Transakcijski Račun (IBAN)</h4>
+      </div>
+
+
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+        <button type="button" class="btn btn-primary">Shrani</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 {% endblock %}

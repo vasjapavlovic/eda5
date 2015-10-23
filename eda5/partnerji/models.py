@@ -3,6 +3,8 @@ from django.db import models
 
 from eda5.core.models import TimeStampedModel, IsActiveModel
 
+from .managers import OsebaManager
+
 
 class Partner(TimeStampedModel, IsActiveModel):
 
@@ -102,6 +104,8 @@ class Oseba(TimeStampedModel, IsActiveModel):
     status = models.CharField(max_length=1, choices=STATUS)
     kvalifikacije = models.TextField(blank=True)
     podjetje = models.ForeignKey(Partner)
+
+    objects = OsebaManager()
 
     class Meta:
         verbose_name = "Oseba"
