@@ -1,13 +1,36 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals
+
 from django.conf.urls import url
 
-from .views import IceCreamStoreListView
-from .views import IceCreamStoreDetailView
-from .views import IceCreamStoreCreateView
-from .views import IceCreamStoreUpdateView
+from . import views
 
 urlpatterns = [
-    url(r'^$', IceCreamStoreListView.as_view(), name="list"),
-    url(r'^(?P<pk>\d+)/detail/$', IceCreamStoreDetailView.as_view(), name="detail"),
-    url(r'^create/$', IceCreamStoreCreateView.as_view(), name="create"),
-    url(r'^(?P<pk>\d+)/update/$', IceCreamStoreUpdateView.as_view(), name="update"),
+    # URL pattern for the UserListView
+    url(
+        regex=r'^$',
+        view=views.IceCreamStoreListView.as_view(),
+        name='list'
+    ),
+
+    # URL pattern for the UserRedirectView
+    url(
+        regex=r'^create/$',
+        view=views.IceCreamStoreCreateView.as_view(),
+        name='create'
+    ),
+
+    # URL pattern for the UserDetailView
+    url(
+        regex=r'^(?P<pk>\d+)/detail/$',
+        view=views.IceCreamStoreDetailView.as_view(),
+        name='detail'
+    ),
+
+    # URL pattern for the UserUpdateView
+    url(
+        regex=r'^(?P<pk>\d+)/update/$',
+        view=views.IceCreamStoreUpdateView.as_view(),
+        name='update'
+    ),
 ]

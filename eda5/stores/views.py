@@ -2,12 +2,14 @@ from django.shortcuts import render
 
 from django.views.generic import CreateView, UpdateView, DetailView, ListView
 
+from eda5.core.views import SearchMixin
+
 from .forms import IceCreamStoreCreateForm
 from .forms import IceCreamStoreUpdateForm
 from .models import IceCreamStore
 
 
-class IceCreamStoreListView(ListView):
+class IceCreamStoreListView(SearchMixin, ListView):
     model = IceCreamStore
 
 class IceCreamStoreCreateView(CreateView):

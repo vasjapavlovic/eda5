@@ -4,13 +4,22 @@
 {% block content %}
 
 
-<ul>
-    <b>{{ object.title }}</b></br>
+
+    <h1>{{ object.title }}</h1></br>
     {{ object.block_address }}</br>
     ____________________________________________________________________</br>
     {{ object.phone }}</br>
     {{ object.description }}</br>
-</ul>
+    ____________________________________________________________________<br>
+    <small><b>Registered:</b> {{ object.created }} | <b>Updated:</b> <i>{{ object.updated }}</small></i>
+    
+
+</br>
+</br>
+<a href="{% url 'stores:update' object.id %}">Update</a></br>
+<a href="{% url 'stores:list' %}">List stores</a></br>
+
+
 
 
 {% endblock %}

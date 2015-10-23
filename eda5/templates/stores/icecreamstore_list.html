@@ -3,14 +3,28 @@
 
 {% block content %}
 
+<form action="" method="GET">
+    <select name="search_field">
+        <option value="-">-</option>
+        <option value="title">title</option>
+        <option value="address">address</option>
+        <option value="description">description</option>
+        <option value="all">all</option>
+    </select>
 
-<ul>
+    <input type="text" name="q" />
+
+
+    <input type="submit" value="search">
+</form><br>
+
 {% for object in object_list %}
     {{ forloop.counter }}. <a href="{% url 'stores:detail' object.pk %}"><b>{{ object.title }}</b> | {{ object.description }}</br></a>
 {% endfor %}
 </br>
-<a href="{% url 'stores:create' %}">Create store</a>
-</ul></br>
+</br>
+<a href="{% url 'stores:create' %}">Create new</a>
+</br>
 
 
 

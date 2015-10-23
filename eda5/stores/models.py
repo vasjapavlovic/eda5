@@ -1,9 +1,12 @@
 from django.db import models
 
 from django.core.urlresolvers import reverse
-from django.db import models
 
-class IceCreamStore(models.Model):
+from eda5.core.models import TimeStampedModel
+
+
+class IceCreamStore(TimeStampedModel):
+
     title = models.CharField(max_length=100)
     block_address = models.TextField()
     phone = models.CharField(max_length=20, blank=True)
