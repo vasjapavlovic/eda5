@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Partner, Oseba
+from .models import Partner, Oseba, Banka
 
 
 class PartnerCreateForm(forms.ModelForm):
@@ -68,15 +68,11 @@ class OsebaCreateWidget(forms.Form):
 
 class TrrCreateWidget(forms.Form):
 
-    STATUS = (
-        ("A", 'pooblaščenec'),
-        ("B", 'delavec'),
-        )
+    BANKE = Banka.objects.all()
 
-    priimek = forms.CharField()
-    ime = forms.CharField()
-    status = forms.ChoiceField(widget=forms.Select, choices=STATUS)
-    kvalifikacije = forms.CharField(widget=forms.Textarea)
+    iban = forms.CharField()
+    banka = forms.ModelChoiceField(queryset=BANKE)
+
 
 
     # OSEBA MODEL

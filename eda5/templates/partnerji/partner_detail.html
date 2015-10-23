@@ -64,9 +64,12 @@
                             <tr>
                                 <td>TRR 
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTRR">
-                                      Dodaj TRR
+                                       <i class="fa fa-plus"></i><small>Dodaj</small> 
+
+
                                     </button>
                                 {{ forloop.counter }}</td>
+
                                 <td>
                                     {% for trr in object.trracun_set.all %}
                                         {{ trr.iban }} ({{trr.banka.bic_koda}})<br>
@@ -171,17 +174,18 @@
       </div>
 
 
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
-        <button type="button" class="btn btn-primary">Shrani</button>
-      </div>
+                                <form action="" method="POST">{% csrf_token %}
+                                    <div class="modal-body">
+                                        {{ trr_form|crispy  }}   
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                                        <button type="submit" class="btn btn-primary">Shrani</button>
+                                    </div>
+                                </form>
     </div>
   </div>
 </div>
-
 
 
 {% endblock %}

@@ -3,7 +3,7 @@ from django.db import models
 
 from eda5.core.models import TimeStampedModel, IsActiveModel
 
-from .managers import OsebaManager
+from .managers import OsebaManager, TrrManager
 
 
 class Partner(TimeStampedModel, IsActiveModel):
@@ -76,6 +76,8 @@ class TRRacun(TimeStampedModel, IsActiveModel):
     iban = models.CharField(max_length=20, verbose_name="stevilka računa", unique=True)
     banka = models.ForeignKey(Banka)
     partner = models.ForeignKey(Partner, verbose_name='partner')
+
+    objects = TrrManager()
 
     class Meta:
         verbose_name = "TR Račun"
