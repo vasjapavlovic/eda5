@@ -1,0 +1,38 @@
+{% extends "moduli/modul_list.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<form action="" method="GET">
+    <label for="search_choice"><small><b>Search Choice</b></small></label>
+    <select name="search_field" id="search_choice">
+        <option value="-">-</option>
+        <option value="title">title</option>
+        <option value="address">address</option>
+        <option value="description">description</option>
+        <option value="all">all</option>
+    </select>
+
+    <label for="search_text"><small><b>Search Text</b></small></label>
+    <input type="text" name="q" id="search_text" />
+
+    <input type="submit" value="search">
+    
+    <a type="button" class="btn btn-default" href="{% url 'moduli:stores:list' %}" >reset</a>
+
+
+</form><br>
+
+
+{% for object in object_list %}
+    {{ forloop.counter }}. <a href="{% url 'moduli:stores:detail' object.pk %}"><b>{{ object.title }}</b> | {{ object.description }}</br></a>
+{% endfor %}
+</br>
+</br>
+<a href="{% url 'moduli:stores:create' %}">Create new</a>
+</br>
+
+
+
+
+{% endblock %}

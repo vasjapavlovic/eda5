@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% block extra_nav %}
+    <div class="m-b">
+      <nav class="navbar navbar-default navbar-static-top bg-inverse">
+        <div class="container">     
+          <button type="button" class="navbar-toggler hidden-sm-up pull-right" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+            &#9776;
+          </button>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
+          
+            <nav class="nav navbar-nav">
+
+              <a class="nav-link nav-item" href="{% url 'moduli:stores:list' %}">Trgovine</a>
+              <a class="nav-link nav-item" href="">Deli</a>
+              <a class="nav-link nav-item" href="">Planiranje</a>
+              <a class="nav-link nav-item" href="">Zahtevki</a>
+              <a class="nav-link nav-item" href="">Delovni nalogi</a>
+              <a class="nav-link nav-item" href="">Poizvedbe</a>
+              <a class="nav-link nav-item" href="">Računovodstvo</a>
+              <a class="nav-link nav-item" href="">Razdelilnik</a>
+            </nav>
+          </div>
+        </div>
+      </nav>
+    </div>
+{% endblock extra_nav %}
+
+{% block content %}
+
+<h1>Moduli</h1><br>
+
+              <div class="row">
+                <div class="col-xs-6 col-md-3">
+                  <a href="{% url 'moduli:stores:list' %}" class="thumbnail">
+                    <img src="{% static 'images/moduli/m1.png' %}" alt="">
+                  </a>
+    
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-3">
+                  <a href="{% url 'moduli:stores:list' %}" class="thumbnail">
+                    <img src="{% static 'images/moduli/m2.png' %}" alt="">
+                  </a>
+
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-3">
+                  <a href="{% url 'moduli:stores:list' %}" class="thumbnail">
+                    <img src="{% static 'images/moduli/m3.png' %}" alt="">
+                  </a>
+                </div> 
+              </div>
+
+
+{% for object in object_list %}
+
+
+{% endfor %}
+
+
+{% endblock %}

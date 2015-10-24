@@ -1,0 +1,25 @@
+{% extends "moduli/home.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+    <h1>{{ object.title }}</h1></br>
+    {{ object.block_address }}</br>
+    ____________________________________________________________________</br>
+    {{ object.phone }}</br>
+    {{ object.description }}</br>
+    ____________________________________________________________________<br>
+    <small><b>Registered:</b> {{ object.created }} | <b>Updated:</b> <i>{{ object.updated }}</small></i>
+    
+
+</br>
+</br>
+<a href="{% url 'moduli:stores:update' object.id %}">Update</a></br>
+<a href="{% url 'moduli:stores:list' %}">List stores</a></br>
+
+
+
+
+{% endblock %}
