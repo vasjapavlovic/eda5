@@ -1,4 +1,3 @@
-
 {% extends "moduli/modul_list.html" %}
 
 {% load crispy_forms_tags %}
@@ -6,24 +5,11 @@
 {% block content %}
 
 <form action="" method="GET">
-
-    <label for="search_choice"><small><b>Search Choice</b></small></label>
-    <select name="search_field" id="search_choice">
-        <option value="-">-</option>
-        <option value="title">title</option>
-        <option value="address">address</option>
-        <option value="description">description</option>
-        <option value="all">all</option>
-    </select>
-
-    <label for="search_text"><small><b>Search Text</b></small></label>
+    <label for="search_text"><small><b>Enter Search Text</b></small></label>
     <input type="text" name="q" id="search_text" />
-
     <input type="submit" value="search">
-    
     <a type="button" class="btn btn-default" href="{% url 'moduli:stores:list' %}" >reset</a>
-
-
+    <!--UŠTIMI  <p>Search applied: <small><b></b></small></p>-->
 </form><br>
 
 

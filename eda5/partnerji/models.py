@@ -7,8 +7,8 @@ class Partner(TimeStampedModel, IsActiveModel):
 
     is_pravnaoseba = models.BooleanField()
     davcni_zavezanec = models.BooleanField()
-    davcna_st = models.CharField(max_length=15)
-    maticna_st = models.CharField(max_length=15)
+    davcna_st = models.CharField(max_length=15, unique=True)
+    maticna_st = models.CharField(max_length=15, unique=True)
     dolgo_ime = models.CharField(max_length=255)
     kratko_ime = models.CharField(max_length=100)
     naslov = models.CharField(max_length=255)
@@ -25,7 +25,7 @@ class Partner(TimeStampedModel, IsActiveModel):
 class Drzava(models.Model):
 
     naziv = models.CharField(max_length=100)
-    iso_koda = models.CharField(max_length=3)
+    iso_koda = models.CharField(max_length=3, unique=True)
 
     class Meta:
         verbose_name = "Država"
@@ -37,7 +37,8 @@ class Drzava(models.Model):
 
 class Posta(TimeStampedModel, IsActiveModel):
 
-    postna_stevilka = models.CharField(max_length=10, verbose_name='poštna številka')
+    postna_stevilka = models.CharField(max_length=10, unique=True,
+                                       verbose_name='poštna številka')
     naziv = models.CharField(max_length=100)
     drzava = models.ForeignKey(Drzava)
 
@@ -52,8 +53,8 @@ class Posta(TimeStampedModel, IsActiveModel):
 class Banka(TimeStampedModel, IsActiveModel):
 
     partner = models.OneToOneField(Partner, blank=True)
-    bic_koda = models.CharField(max_length=8)
-    bancna_oznaka = models.CharField(max_length=2)
+    bic_koda = models.CharField(max_length=8, unique=True)
+    bancna_oznaka = models.CharField(max_length=2, unique=True)
 
     class Meta:
         verbose_name = "Banka"
@@ -65,7 +66,7 @@ class Banka(TimeStampedModel, IsActiveModel):
 
 class TRRacun(TimeStampedModel, IsActiveModel):
 
-    iban = models.CharField(max_length=20, verbose_name="stevilka računa")
+    iban = models.CharField(max_length=20, verbose_name="stevilka računa", unique=True)
     banka = models.ForeignKey(Banka)
     partner = models.ForeignKey(Partner, verbose_name='partner')
 

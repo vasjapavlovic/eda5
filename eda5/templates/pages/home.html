@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+{% load staticfiles i18n %}
 
 {% block content %}
 
-<h1>EDA5</h1>
-
-
-
+<div class="jumbotron">
+    <div class="row" align="center">
+        <img src="{% static 'images/eda5_logo.gif' %}" alt="EDA 5">
+        <p align="right">
+            <h3>Sodobno upravljanje stavb.</h3>
+        </p>
+    </div>
+</div>
 
 {% endblock %}

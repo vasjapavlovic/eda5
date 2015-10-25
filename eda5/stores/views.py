@@ -2,19 +2,18 @@ from django.shortcuts import render
 
 from django.views.generic import CreateView, UpdateView, DetailView, ListView
 
-from eda5.core.views import SearchMixin
 
 from .forms import IceCreamStoreCreateForm
 from .forms import IceCreamStoreUpdateForm
 from .models import IceCreamStore
 
+# mixins
+from .viewmixins import StoresSearchMixin
 
-from braces.views import LoginRequiredMixin
 
-
-class IceCreamStoreListView(LoginRequiredMixin, SearchMixin, ListView):
-
+class IceCreamStoreListView(StoresSearchMixin, ListView):
     model = IceCreamStore
+
 
 class IceCreamStoreCreateView(CreateView):
     model = IceCreamStore

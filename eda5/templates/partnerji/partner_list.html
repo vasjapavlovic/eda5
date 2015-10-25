@@ -1,0 +1,42 @@
+{% extends "moduli/modul_list.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <form action="" method="GET">
+        <label for="search_text"><small><b>Enter Search Text</b></small></label>
+        <input type="text" name="q" id="search_text" />
+        <input type="submit" value="search">
+        <a type="button" class="btn btn-default" href="{% url 'moduli:partnerji:list' %}" >reset</a>
+    </form><br>
+
+    <div class="table-condensed table-hover">
+        <table class="table">
+            <tr>
+                <th>zap. št.</th>
+                <th>Naziv</th>
+                <th>Naslov</th>
+                <th>Davčna št.</th>
+                <th>Matična št.</th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><b><a href="">{{ object.kratko_ime }}</a></b></td>
+                <td>{{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}</td>
+                <td>{{ object.davcna_st }}</td>
+                <td>{{ object.maticna_st }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+    
+    </br>
+    </br>
+    <a href="">Create new</a>
+
+{% endblock %}
