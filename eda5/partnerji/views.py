@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
 
 from .forms import PartnerCreateForm, PartnerUpdateForm
-from .models import Partner
+from .forms import OsebaCreateForm, OsebaUpdateForm
+
+from .models import Partner, Oseba
 
 # mixins
 from .viewmixins import PartnerSearchMixin
@@ -34,3 +36,13 @@ class PartnerCreateView(CreateView):
 class PartnerUpdateView(UpdateView):
     model = Partner
     form_class = PartnerUpdateForm
+
+
+class OsebaCreateView(CreateView):
+    model = Oseba
+    form_class = OsebaCreateForm
+
+
+class OsebaUpdateView(CreateView):
+    model = Oseba
+    form_class = OsebaUpdateForm

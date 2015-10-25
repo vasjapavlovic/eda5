@@ -33,4 +33,10 @@ urlpatterns = [
         view=views.PartnerUpdateView.as_view(),
         name='update'
     ),
+
+    url(
+        regex=r'^oseba_create/$',
+        view=views.OsebaCreateView.as_view(),
+        name='oseba_create'
+    ),
 ]

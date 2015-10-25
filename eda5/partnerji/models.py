@@ -59,6 +59,7 @@ class Banka(TimeStampedModel, IsActiveModel):
     partner = models.OneToOneField(Partner, blank=True)
     bic_koda = models.CharField(max_length=8, unique=True)
     bancna_oznaka = models.CharField(max_length=2, unique=True)
+    # Po možnosti dodaj "kratek_naziv", ki bi se izpisal pred IBANOM pod partnerji details
 
     class Meta:
         verbose_name = "Banka"
@@ -105,6 +106,9 @@ class Oseba(TimeStampedModel, IsActiveModel):
     class Meta:
         verbose_name = "Oseba"
         verbose_name_plural = "Osebe"
+
+    def get_absolute_url(self):
+        return reverse('moduli:partnerji:detail', kwargs={"pk": self.podjetje.pk})
 
     def __str__(self):
         return "%s %s - %s" % (self.priimek, self.ime, self.status)

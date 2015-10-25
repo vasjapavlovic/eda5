@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Partner
+from .models import Partner, Oseba
 
 
 class PartnerCreateForm(forms.ModelForm):
@@ -35,3 +35,30 @@ class PartnerUpdateForm(PartnerCreateForm):
     # kratko_ime
     # naslov
     # posta
+
+class OsebaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Oseba
+        fields = (
+            'priimek',
+            'ime',
+            'status',
+            'kvalifikacije',
+            'podjetje',
+            )
+
+class OsebaUpdateForm(OsebaCreateForm):
+    pass
+
+
+
+
+
+
+    # OSEBA MODEL
+    # priimek = models.CharField(max_length=50)
+    # ime = models.CharField(max_length=50)
+    # status = models.CharField(max_length=1, choices=STATUS)
+    # kvalifikacije = models.TextField(blank=True)
+    # podjetje = models.ForeignKey(Partner)
