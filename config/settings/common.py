@@ -44,10 +44,12 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     # Your stuff: custom apps go here
-    'eda5.users',  # custom users app
+    'eda5.core', # utils
     'eda5.moduli', # zbirnik vseh modulov
-    'eda5.stores', # testiram from django
-    'eda5.core', # testiram from django
+    'eda5.partnerji', # podatki o partnerjih
+    'eda5.stores', # samo testna apliakcija
+    'eda5.users',  # custom users app
+
 
 )
 
