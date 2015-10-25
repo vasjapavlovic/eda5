@@ -1,0 +1,122 @@
+{% extends "moduli/modul_list.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <small>
+        <i>
+            <a href="{% url 'moduli:partnerji:list' %}">Nazaj na seznam</a> | <a href="{% url 'moduli:partnerji:update' object.id %}">Posodobi</a>
+        </i>
+    </small>
+
+    <div class="jumbotron">
+        <h1>{{ object.kratko_ime }} ({{object.davcna_st}})</h1><br>
+        <p>{{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}, {{ object.posta.drzava.naziv }}<br>
+        ____________________________________________________________________<br>
+        <small><b>Dodano:</b> {{ object.created }} | <b>Posodobljeno:</b> <i>{{ object.updated }}</i></small>
+        </p>
+    </div>
+
+    <!-- colapse group -->
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <!-- podatki ===================================================================-->
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Podatki
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div class="table-condensed table-hover table-bordered table-striped">
+                        <table class="table">
+                            <tr>
+                                <td>Dolgi naziv</td>
+                                <td>{{ object.dolgo_ime }}</td>
+                            </tr>
+                            <tr>
+                                <td>Kratki naziv</td>
+                                <td>{{ object.kratko_ime }}</td>
+                            </tr>
+                            <tr>
+                                <td>Naslov</td>
+                                <td>{{ object.naslov }},<br>
+                                    {{ object.posta.postna_stevilka }} {{ object.posta.naziv }},<br>
+                                    {{ object.posta.drzava.naziv }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Davčni Zavezanec</td>
+                                <td>{% if object.davcni_zavezanec %}DA{% else %}NE{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Davčna Številka</td>
+                                <td>{{ object.davcna_st }}</td>
+                            </tr>
+                            <tr>
+                                <td>Matična Številka</td>
+                                <td>{{ object.maticna_st }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Osebe ===================================================================-->
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Osebe
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+
+                    <div class="table-condensed table-hover table-bordered table-striped">
+                        <table class="table">
+                            <tr>
+                                <th>Priimek in Ime</th>
+                                <th>Status</th>
+                                <th>Kvalifikacije</th>
+                            </tr>
+
+                            {% for oseba in object.oseba_set.all|dictsort:"status" %}
+                            <tr>
+                                <td>{{ oseba.priimek }} {{ oseba.ime }}</td>
+                                <td>{{ oseba.status }}</td>
+                                <td>{{ oseba.kvalifikacije }}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dokumentacija ===================================================================-->
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Dokumentacija
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <!-- INSERT HERE -->
+                    <p>Dokumentacije gre tukaj</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

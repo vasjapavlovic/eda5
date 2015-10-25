@@ -1,6 +1,4 @@
-
 {% extends "moduli/modul_list.html" %}
-
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -20,7 +18,7 @@
 </br>
 
 <a href="{% url 'moduli:stores:update' object.id %}">Update</a></br>
-<a href="{% url 'moduli:stores:list' %}">List stores</a></br>
+<a href="{% url 'moduli:stores:list' %}">Nazaj na seznam</a></br>
 
 
 {% endblock %}

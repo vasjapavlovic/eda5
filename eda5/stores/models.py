@@ -1,6 +1,5 @@
-from django.db import models
-
 from django.core.urlresolvers import reverse
+from django.db import models
 
 from eda5.core.models import TimeStampedModel
 
@@ -14,9 +13,6 @@ class IceCreamStore(TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse("moduli:stores:detail", kwargs={"pk": self.pk})
-
-        return reverse("stores:detail", kwargs={"pk": self.pk})
-
 
     def __str__(self):
         return self.title

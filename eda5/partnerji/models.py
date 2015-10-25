@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from eda5.core.models import TimeStampedModel, IsActiveModel
@@ -7,9 +8,9 @@ class Partner(TimeStampedModel, IsActiveModel):
 
     is_pravnaoseba = models.BooleanField()
     davcni_zavezanec = models.BooleanField()
-    davcna_st = models.CharField(max_length=15, unique=True)
-    maticna_st = models.CharField(max_length=15, unique=True)
-    dolgo_ime = models.CharField(max_length=255)
+    davcna_st = models.CharField(max_length=15, unique=True, blank=True)
+    maticna_st = models.CharField(max_length=15, unique=True, blank=True)
+    dolgo_ime = models.CharField(max_length=255, blank=True)
     kratko_ime = models.CharField(max_length=100)
     naslov = models.CharField(max_length=255)
     posta = models.ForeignKey("Posta", verbose_name='pošta')
@@ -17,6 +18,9 @@ class Partner(TimeStampedModel, IsActiveModel):
     class Meta:
         verbose_name = "Partner"
         verbose_name_plural = "Partnerji"
+
+    def get_absolute_url(self):
+        return reverse("moduli:partnerji:detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return "%s" % (self.kratko_ime)

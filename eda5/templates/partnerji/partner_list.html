@@ -4,12 +4,30 @@
 
 {% block content %}
 
-    <form action="" method="GET">
-        <label for="search_text"><small><b>Enter Search Text</b></small></label>
-        <input type="text" name="q" id="search_text" />
-        <input type="submit" value="search">
-        <a type="button" class="btn btn-default" href="{% url 'moduli:partnerji:list' %}" >reset</a>
-    </form><br>
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:list' %}">Nazaj</a> | <a href="{% url 'moduli:partnerji:create' %}">Nov vnos</a>
+    </i></small>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+                <h1>Partnerji</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-6">
+                    <form action="" method="GET">
+                        <input type="text" name="q" id="search_text" />
+                        <input type="submit" value="search">
+                        <a type="button" class="btn btn-default" href="{% url 'moduli:partnerji:list' %}" >reset</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <small><b><i>Seznam:</i></b></small><br>
+    ===================================================================<br>
 
     <div class="table-condensed table-hover">
         <table class="table">
@@ -24,7 +42,7 @@
             {% for object in object_list %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td><b><a href="">{{ object.kratko_ime }}</a></b></td>
+                <td><b><a href="{% url 'moduli:partnerji:detail' object.id %}">{{ object.kratko_ime }}</a></b></td>
                 <td>{{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}</td>
                 <td>{{ object.davcna_st }}</td>
                 <td>{{ object.maticna_st }}</td>
