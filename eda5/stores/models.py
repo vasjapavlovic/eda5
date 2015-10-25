@@ -15,5 +15,8 @@ class IceCreamStore(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("moduli:stores:detail", kwargs={"pk": self.pk})
 
+        return reverse("stores:detail", kwargs={"pk": self.pk})
+
+
     def __str__(self):
         return self.title

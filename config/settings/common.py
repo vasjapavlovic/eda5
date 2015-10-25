@@ -43,11 +43,12 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    # Your stuff: custom apps go here
     'eda5.users',  # custom users app
     'eda5.moduli', # zbirnik vseh modulov
     'eda5.stores', # testiram from django
+    'eda5.core', # testiram from django
 
-    # Your stuff: custom apps go here
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

@@ -8,10 +8,12 @@ from .forms import IceCreamStoreCreateForm
 from .forms import IceCreamStoreUpdateForm
 from .models import IceCreamStore
 
+
 from braces.views import LoginRequiredMixin
 
 
 class IceCreamStoreListView(LoginRequiredMixin, SearchMixin, ListView):
+
     model = IceCreamStore
 
 class IceCreamStoreCreateView(CreateView):

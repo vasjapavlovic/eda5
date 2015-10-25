@@ -11,7 +11,9 @@ from django.views import defaults as default_views
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
+
     # url(r'^moduli/$', TemplateView.as_view(template_name='moduli/home.html'), name="moduli"),
+
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, include(admin.site.urls)),
@@ -21,7 +23,11 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
+
     url(r'^moduli/', include("eda5.moduli.urls", namespace="moduli")),
+
+
+    url(r'^stores/', include("eda5.stores.urls", namespace="stores")),
 
 
 
