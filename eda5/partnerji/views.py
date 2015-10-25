@@ -1,11 +1,15 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
 
 from .forms import PartnerCreateForm, PartnerUpdateForm
 from .models import Partner
 
 # mixins
 from .viewmixins import PartnerSearchMixin
+
+
+class PartnerHomeView(TemplateView):
+    template_name="partnerji/home.html"
 
 
 class PartnerListView(PartnerSearchMixin, ListView):

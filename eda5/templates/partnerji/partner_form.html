@@ -4,6 +4,20 @@
 {% block content %}
 
 <div class="container">
+
+
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:partnerji:home' %}">Nazaj</a> | <a href="{% url 'moduli:partnerji:create' %}">Nov vnos</a>
+    </i></small>
+
+<div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+            <h1>Nov partner</h1>
+            </div>
+        </div>
+</div>
     <div class="row">
         <div class="col-md-6 col-md-6">
             <form method="POST", action="">{% csrf_token %}

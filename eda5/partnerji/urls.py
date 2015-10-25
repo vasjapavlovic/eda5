@@ -6,6 +6,12 @@ urlpatterns = [
     # URL pattern for the UserListView
     url(
         regex=r'^$',
+        view=views.PartnerHomeView.as_view(),
+        name='home'
+    ),
+
+    url(
+        regex=r'^seznam/$',
         view=views.PartnerListView.as_view(),
         name='list'
     ),

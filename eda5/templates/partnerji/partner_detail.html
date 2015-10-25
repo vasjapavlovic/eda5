@@ -60,6 +60,16 @@
                                 <td>Matična Številka</td>
                                 <td>{{ object.maticna_st }}</td>
                             </tr>
+                            
+                            <tr>
+                                <td>TRR {{ forloop.counter }}</td>
+                                <td>
+                                    {% for trr in object.trracun_set.all %}
+                                        {{ trr.iban }} ({{trr.banka.bic_koda}})<br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            
                         </table>
                     </div>
                 </div>
