@@ -1,10 +1,12 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
-from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec
-from eda5.prejeta_posta.models import Dokument
+from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikvidiranModel
+from eda5.posta.models import Dokument
+from .managers import RacunManager
 
 
-class Racun(TimeStampedModel):
+class Racun(TimeStampedModel, IsLikvidiranModel):
 
     dokument = models.ForeignKey(Dokument)
     davcna_klasifikacija = models.ForeignKey("DavcnaKlasifikacija")
@@ -13,9 +15,14 @@ class Racun(TimeStampedModel):
     obdobje_obracuna_leto = models.ForeignKey(ObdobjeLeto)
     obdobje_obracuna_mesec = models.ForeignKey(ObdobjeMesec)
 
+    objects = RacunManager()
+
     class Meta:
         verbose_name = 'račun'
         verbose_name_plural = "računi"
+
+    def get_absolute_url(self):
+        return reverse("moduli:racunovodstvo:home")
 
     def __str__(self):
         return "%s" % (self.dokument.oznaka)

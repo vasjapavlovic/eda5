@@ -18,6 +18,15 @@ class IsActiveModel(models.Model):
         abstract = True
 
 
+class IsLikvidiranModel(models.Model):
+
+    is_likvidiran = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+
+
 class ObdobjeLeto(models.Model):
     oznaka = models.CharField(max_length=4)
     naziv = models.CharField(max_length=4)

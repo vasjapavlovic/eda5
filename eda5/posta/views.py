@@ -15,7 +15,7 @@ class PostaLikvidacijaListView(ListView):
 
     def get_queryset(self):
         queryset = super(PostaLikvidacijaListView, self).get_queryset()
-        queryset = queryset.filter(likvidiran=False)
+        queryset = queryset.filter(is_likvidiran=False)
         return queryset
 
 
@@ -25,7 +25,7 @@ class PostaLikvidiranListView(ListView):
 
     def get_queryset(self):
         queryset = super(PostaLikvidiranListView, self).get_queryset()
-        queryset = queryset.filter(likvidiran=True)
+        queryset = queryset.filter(is_likvidiran=True)
         return queryset
 
 

@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from eda5.core.models import TimeStampedModel
+from eda5.core.models import TimeStampedModel, IsLikvidiranModel
 from eda5.partnerji.models import Partner
 
 
@@ -31,7 +31,7 @@ class VrstaDokumenta(TimeStampedModel):
         return "%s - %s" % (self.oznaka, self.naziv)
 
 
-class Dokument(TimeStampedModel):
+class Dokument(TimeStampedModel, IsLikvidiranModel):
 
     # upload_to settings
     def dokument_directory_path(instance, filename):
@@ -50,7 +50,6 @@ class Dokument(TimeStampedModel):
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
     opis = models.CharField(max_length=255, verbose_name="opis")
     priponka = models.FileField(upload_to=dokument_directory_path)
-    likvidiran = models.BooleanField(default=False)
     # definiraj upload_to="" za točno lokacijo
     # dokumenta, ki je morebiti vezana na vrsto dokumenta
 

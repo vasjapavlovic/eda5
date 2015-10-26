@@ -1,0 +1,31 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+{% include trr_modal.html %}
+
+{% block content %}
+
+<div class="container">
+    <small>
+        <i>
+            <a href="{% url 'moduli:racunovodstvo:home' %}">Nazaj na seznam</a> | <a href="">Posodobi</a>
+        </i>
+    </small>
+
+    <div class="jumbotron">
+        <h1>{{ object.oznaka }} | {{object.posiljatelj.kratko_ime}}</h1><br>
+        <p>{{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}, {{ object.posta.drzava.naziv }}<br>
+        ____________________________________________________________________<br>
+        <small><b>Dodano:</b> {{ object.created }} | <b>Posodobljeno:</b> <i>{{ object.updated }}</i></small>
+        </p>
+    </div>
+ <div class="row">
+        <div class="col-md-6 col-md-6">
+            <form method="POST", action="">{% csrf_token %}
+                {{ racun_form | crispy}}
+                <input type="submit" value="Potrdi">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
