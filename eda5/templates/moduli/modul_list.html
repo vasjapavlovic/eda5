@@ -16,8 +16,8 @@
 
             <!-- TU REGISTRIRAJ MODULE -->
               <a class="nav-link nav-item" href="{% url 'moduli:partnerji:home' %}">Partnerji</a>
-              <a class="nav-link nav-item" href="{% url 'moduli:stores:list' %}">Trgovine</a>
-
+              <a class="nav-link nav-item" href="{% url 'moduli:posta:home' %}">Pošta</a>
+              <a class="nav-link nav-item" href="{% url 'moduli:racunovodstvo:home' %}">Računovodstvo</a>
 
             </nav>
           </div>
@@ -42,11 +42,11 @@
                         <img src="{% static 'images/moduli/M1.png' %}" alt="great image" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
-                    <a href="#" class="thumbnail" />
+                    <a href="{% url 'moduli:posta:home' %}" class="thumbnail" />
                         <img src="{% static 'images/moduli/M2.png' %}" alt="great image" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
-                    <a href="#" class="thumbnail" />
+                    <a href="{% url 'moduli:racunovodstvo:home' %}" class="thumbnail" />
                         <img src="{% static 'images/moduli/M3.png' %}" alt="great image" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">

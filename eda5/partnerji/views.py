@@ -12,7 +12,7 @@ from .viewmixins import PartnerSearchMixin
 
 
 class PartnerHomeView(TemplateView):
-    template_name="partnerji/home.html"
+    template_name = "partnerji/home.html"
 
 
 class PartnerListView(PartnerSearchMixin, ListView):
