@@ -16,3 +16,19 @@ class IsActiveModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class ObdobjeLeto(models.Model):
+    oznaka = models.CharField(max_length=4)
+    naziv = models.CharField(max_length=4)
+
+    def __str__(self):
+        return "%s" % (self.naziv)
+
+
+class ObdobjeMesec(models.Model):
+    oznaka = models.CharField(max_length=2)
+    naziv = models.CharField(max_length=10)
+
+    def __str__(self):
+        return "%s" % (self.naziv)
