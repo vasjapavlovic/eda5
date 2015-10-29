@@ -49,6 +49,7 @@ LOCAL_APPS = (
     'eda5.partnerji', # podatki o partnerjih
     'eda5.posta', # apliakcija za prejeto in oddano pošto
     'eda5.racunovodstvo', # likvidacija računov, zapadli računi, plačani računi
+    'eda5.razdelilnik', # razdelilnik
     'eda5.stores', # samo testna apliakcija
     'eda5.users',  # custom users app
 )

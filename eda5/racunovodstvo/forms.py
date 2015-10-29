@@ -25,7 +25,13 @@ class RacunAddWidget(forms.Form):
     DAVCNA_KLASIFIKACIJA = DavcnaKlasifikacija.objects.all()
 
     davcna_klasifikacija = forms.ModelChoiceField(queryset=DAVCNA_KLASIFIKACIJA)
-    datum_storitve_od = forms.DateField()
-    datum_storitve_do = forms.DateField()
+    datum_storitve_od = forms.DateField(widget=forms.TextInput(attrs=
+                                {
+                                    'class':'datepicker'
+                                }))
+    datum_storitve_do = forms.DateField(widget=forms.TextInput(attrs=
+                                {
+                                    'class':'datepicker'
+                                }))
     obdobje_obracuna_leto = forms.ModelChoiceField(queryset=OBDOBJE_LETO)
     obdobje_obracuna_mesec = forms.ModelChoiceField(queryset=OBDOBJE_MESEC)
