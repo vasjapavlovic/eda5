@@ -5,6 +5,7 @@ from django.db import models
 from . import managers
 from eda5.katalog.models import ModelArtikla
 from eda5.etaznalastnina.models import LastniskaSkupina
+from eda5.posta.models import Dokument
 
 
 class Skupina(models.Model):
@@ -75,12 +76,13 @@ class DelStavbe(models.Model):
         parametri_imena = (instance.oznaka, "shema")
         new_filename = "_".join(parametri_imena)
 
-        return 'deli/{0}/{1}'.format((instance.oznaka + " " + instance.naziv), new_filename + ext)
+        return 'deli/{0}/{1}'.format(instance.oznaka, new_filename + ext)
 
     # ATRIBUTES
     # ***Relations***
     podskupina = models.ForeignKey(Podskupina)
     lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True, verbose_name="lastniška skupina",)
+    prejeta_dokumentacija = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)
@@ -109,10 +111,18 @@ class DelStavbe(models.Model):
 
 class Element(models.Model):
     # ---------------------------------------------------------------------------------------
+    def dokumentacija_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/deli/<del_oznaka>/<new_filename>
+        new_filename_raw = filename.split(".")
+        ext = '.' + new_filename_raw[1]
+        new_filename = new_filename_raw[0]
+        return 'deli/{0}/{1}/{2}'.format(instance.del_stavbe.oznaka, instance.oznaka, new_filename + ext)
+
     # ATRIBUTES
     # ***Relations***
     del_stavbe = models.ForeignKey(DelStavbe)
     model_artikla = models.ForeignKey(ModelArtikla, default=1, verbose_name='Model',)
+    prejeta_dokumentacija = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20, verbose_name='Oznaka',)
     naziv = models.CharField(max_length=255, verbose_name='Naziv',)
@@ -120,6 +130,7 @@ class Element(models.Model):
     serijska_st = models.CharField(max_length=100, verbose_name='Serijska Številka', blank=True,)
     tovarniska_st = models.CharField(max_length=100, verbose_name='Tovarniška Številka', blank=True,)
     datum_prevzema_v_upravljanje = models.DateField(verbose_name='datum prevzema v upravljanje', blank=True,)
+    dokumentacija = models.FileField(upload_to=dokumentacija_directory_path, blank=True, verbose_name="dokumentacija")
 
     # OBJECT MANAGER
     objects = managers.ElementManagers()

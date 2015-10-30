@@ -1,0 +1,52 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+
+<div class="container">
+<div class="jumbotron">
+<h1>Element<br>
+<b>{{ object.oznaka }}</b> {{ object.naziv }}
+</h1>
+</div>
+<h3>Osnovni podatki</h3>
+Oznaka: {{ object.oznaka }}<br>
+Naziv : {{ object.naziv }}<br>
+Serijska : {{ object.serijska_st }}<br>
+Tovarniška : {{ object.tovarniska_st }}<br>
+<br>
+<h3>Osnovni podatki</h3>
+<br>
+
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Prevzemna Dokumentacija</a></li>
+    <li><a data-toggle="tab" href="#menu1">Servisna Knjiga</a></li>
+    <li><a data-toggle="tab" href="#menu2">Plan Obratovanja in Vzdrževanja</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>Prevzemna Dokumentacija</h3>
+ 
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Servisna Knjiga</h3>
+
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Plan Obratovanja in Vzdrževanja</h3>
+
+    </div>
+  </div>
+ </div>
+
+
+
+
+
+
+{% endblock %}

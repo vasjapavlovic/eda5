@@ -1,0 +1,123 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="container">
+
+    <div class="jumbotron">
+    <h3> {{ object.oznaka }}|{{ object.naziv }}</h3><br>
+        <table class="table">
+            <tr>
+               <td><b><small>Oznaka</small></b></td>
+                <td>{{ object.oznaka }}</td>
+            </tr>
+            <tr>
+               <td><b><small>Naziv</small></b></td>
+                <td>{{ object.naziv }}</td>
+            </tr>
+            <tr>
+               <td><b><small>Lastniška skupina</small></b></td>
+                <td>{{ object.lastniska_skupina.oznaka }}|{{ object.lastniska_skupina.naziv }}</td>
+            </tr>
+            <tr>
+               <td><b><small>Shema</small></b></td>
+                <td>
+                    {% if object.shema %}
+                        <a href="{{MEDIA_URL}}{{ object.shema }}">Shema Sistema</a>
+                    {% else %}
+                       <i>Ni sheme</i>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+     </div>       
+
+
+
+
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Elementi</a></li>
+    <li><a data-toggle="tab" href="#menu1">Lastništvo</a></li>
+    <li><a data-toggle="tab" href="#menu2">Dokumentacija</a></li>
+  </ul>
+
+  <div class="tab-content">
+
+  <!-- PANEL št. 1 -->
+    <div id="home" class="tab-pane fade in active">
+    <div class="panel panel-default">
+        <div class="panel-heading">Seznam Elementov</div>
+        <div class="table">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>Oznaka</th>
+                    <th>Naziv</th>
+                    <th>Model</th>
+                </tr>
+
+                {% for element in object.element_set.all %}
+                <tr>
+                    <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ element.oznaka }}</a></td>
+                    <td>{{ element.naziv }}</td>
+                    <td>{{ element.model_artikla.naziv }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <!-- PANEL št. 2 -->
+    <div id="menu1" class="tab-pane fade">
+    <div class="panel panel-default">
+        <div class="panel-heading">Lastniki</div>
+        <div class="table">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>LE</th>
+                    <th>Lastniški delež</th>
+                </tr>
+
+                {% for interna_enota in object.lastniska_skupina.lastniska_enota.all %}
+
+                <tr>
+                    <td>{{ interna_enota.elaborat.oznaka }}</td>
+                    <td>{{ interna_enota.elaborat.povrsina_tlorisna_neto }}</td>
+                </tr>
+
+                {% endfor %}
+
+
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <!-- PANEL št. 3 -->
+    <div id="menu2" class="tab-pane fade">
+    <div class="panel panel-default">
+        <div class="panel-heading">Dokumentacija</div>
+        <div class="table">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>Oznaka</th>
+                    <th>Naziv</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+ 
+
+
+{% endblock %}

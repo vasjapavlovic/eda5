@@ -2,31 +2,24 @@
 {% load staticfiles i18n %}
 {% block extra_nav %}
 
-    <div class="m-b">
-      <nav class="navbar navbar-default navbar-static-top bg-inverse">
-        <div class="container">     
-          <button type="button" class="navbar-toggler hidden-sm-up pull-right" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-            &#9776;
-          </button>
+
+        <nav class="navbar navbar-inverse">
+        <div class="container">
+         
+
 
           <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
-          
             <nav class="nav navbar-nav">
-
-            <!-- TU REGISTRIRAJ MODULE -->
-              <a class="nav-link nav-item" href="{% url 'moduli:partnerji:home' %}">Partnerji</a>
-              <a class="nav-link nav-item" href="{% url 'moduli:posta:home' %}">Prejeta-Pošta</a>
-              <a class="nav-link nav-item" href="{% url 'moduli:racunovodstvo:home' %}">Računovodstvo</a>
-              <a class="nav-link nav-item" href="{% url 'moduli:razdelilnik:home' %}">Razdelilnik</a>
-              <a class="nav-link nav-item" href="">Etažna Lastnina</a>
-              <a class="nav-link nav-item" href="{% url 'moduli:deli:home' %}">Deli</a>
+              <a class="navbar-brand" href="{% url 'moduli:partnerji:home' %}">Partnerji</a>
+              <a class="navbar-brand" href="{% url 'moduli:posta:home' %}">Prejeta-Pošta</a>
+              <a class="navbar-brand" href="{% url 'moduli:racunovodstvo:home' %}">Računovodstvo</a>
+              <a class="navbar-brand" href="{% url 'moduli:razdelilnik:home' %}">Razdelilnik</a>
+              <a class="navbar-brand" href="">Etažna Lastnina</a>
+              <a class="navbar-brand" href="{% url 'moduli:deli:home' %}">Deli</a>
 
             </nav>
-          </div>
-        </div>
-      </nav>
-    </div>
+            </div>
+            </nav>
 {% endblock extra_nav %}
 
 {% block content %}
@@ -38,29 +31,30 @@
 
             <div class="row">
                 <div class="col-xs-3 col-md-3">
-                    <a href="{% url 'moduli:partnerji:home' %}" class="thumbnail" />
+                    <a href="{% url 'moduli:partnerji:home' %}" />
                         <img src="{% static 'images/moduli/M1.png' %}" alt="Partnerji" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
-                    <a href="{% url 'moduli:posta:home' %}" class="thumbnail" />
+                    <a href="{% url 'moduli:posta:home' %}" />
                         <img src="{% static 'images/moduli/M2.png' %}" alt="Prejeta Pošta" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
-                    <a href="{% url 'moduli:racunovodstvo:home' %}" class="thumbnail" />
+                    <a href="{% url 'moduli:racunovodstvo:home' %}"/>
                         <img src="{% static 'images/moduli/M3.png' %}" alt="Računovodstvo" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
-                    <a href="{% url 'moduli:razdelilnik:home' %}" class="thumbnail" />
+                    <a href="{% url 'moduli:razdelilnik:home' %}"/>
                         <img src="{% static 'images/moduli/M4.png' %}" alt="Razdelilnik" class="img-thumbnail">
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-xs-3 col-md-3">
-                    <a href="" class="thumbnail" />
+                    <a href=""  />
                         <img src="{% static 'images/moduli/M5.png' %}" alt="Etažna Lastnina" class="img-thumbnail">
                 </div>
             </div>
+
             
                 
 

@@ -8,6 +8,7 @@ class LastniskaEnotaElaborat(models.Model):
     # __Mandatory
     oznaka = models.CharField(max_length=4, verbose_name='številka dela stavbe')
     povrsina_tlorisna_neto = models.CharField(max_length=4, verbose_name='neto tlorisna površina')
+    '''************Dodaj Lastniški delež***********'''
     naslov = models.CharField(max_length=255)
     posta = models.ForeignKey(Posta, verbose_name='pošta')
     # __Optional
@@ -34,7 +35,7 @@ class LastniskaEnotaInterna(models.Model):
     placnik = models.ForeignKey(Partner, related_name="placnik")
     # __Mandatory
     oznaka = models.CharField(max_length=5, verbose_name='interna številka dela stavbe')
-    
+
     '''************Dodati je še ostale atribute***********'''
     # __Optional
     #______delež v obliki :  0.9999

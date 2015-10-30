@@ -10,7 +10,7 @@
     <div class="panel-group" id="accordionA" role="tablist" aria-multiselectable="true">
         {% for  skupina in object_list %}
 
-        <div class="panel panel-primary">
+        <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="heading{{ forloop.counter }}">
                 <h4 class="panel-title">
                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
@@ -25,7 +25,7 @@
                     <div class="panel-group" id="accordionB" role="tablist" aria-multiselectable="true">
 
                         {% for  podskupina in skupina.sorted_podskupinadelov_set %}
-                        <div class="panel panel-primary">
+                        <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="headingB{{ forloop.counter }}">
                                 <h4 class="panel-title">
                                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseB{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseB{{ forloop.counter }}">
@@ -34,10 +34,10 @@
                                 </h4>
                             </div>
                             <div id="collapseB{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingB{{ forloop.counter }}">  
-                                <div class="ist-group-item">
+                                <div class="panel-group">
 
                                 {% for  del in podskupina.sorted_delstavbe_set %}
-                                    <li class="panel-group"><span class="glyphicon glyphicon-chevron-right text-primary"></span><a href="{% url 'moduli:deli:detail' del.id %}"> (<b>{{ del.oznaka }}</b>) {{ del.naziv }}
+                                    <ul class="panel panel-default"><span class="glyphicon glyphicon-chevron-right text-primary"></span><a href="{% url 'moduli:deli:del_detail' del.id %}"> (<b>{{ del.oznaka }}</b>) {{ del.naziv }}</a></ul>
                                 {% endfor %}  
 
                                 </div>  

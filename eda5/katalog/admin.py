@@ -24,7 +24,7 @@ class ModelArtiklaAdmin(admin.ModelAdmin):
 
     inlines = [PlanOVInline,
                ]
-    filter_horizontal = ('dokumentacija',)
+    filter_horizontal = ('prejeta_dokumentacija',)
 
     class Meta:
         model = models.ModelArtikla

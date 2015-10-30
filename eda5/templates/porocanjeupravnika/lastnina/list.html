@@ -13,12 +13,11 @@
 
 <h3>ENOTE V LASTI</h3>
 
-<div class="table-condensed table-hover table-bordered">
 
         {% for object in object_list %}
         {% if object.lastnik.id == current_partner.id %}
 
-        <table class="table">
+        <table class="table table-bordered" >
             <tr>
                 <th>oznaka EDAFM</th>
                 <th>oznaka Elaborat</th>
@@ -52,17 +51,16 @@
             </table>
             
             {% endfor %}
-</div>
+
 
 
 <br><h3>ENOTE V NAJEMU</h3>
 
-<div class="table-condensed table-hover table-bordered">
 
         {% for object in object_list %}
         {% if object.najemnik.id == current_partner.id %}
 
-        <table class="table">
+        <table class="table table-bordered">
             <tr>
                 <th>oznaka EDAFM</th>
                 <th>oznaka Elaborat</th>
@@ -96,7 +94,7 @@
             </table>
             
             {% endfor %}
-</div>
+
 
 
 
