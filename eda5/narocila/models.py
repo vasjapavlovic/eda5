@@ -17,8 +17,8 @@ class Narocilo(TimeStampedModel):
     narocilo_telefon = models.OneToOneField("NarociloTelefon", blank=True, null=True)
     # narocilo_ustno = models.OneToOneField("NarociloUstno", blank=True, null=True)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20, verbose_name='oznaka')
-    predmet = models.CharField(max_length=255, verbose_name='predmet')
+    oznaka = models.CharField(max_length=20)
+    predmet = models.CharField(max_length=255)
     datum_narocila = models.DateField(verbose_name="datum naročila")
     datum_veljavnosti = models.DateField(verbose_name="velja do")
     # ____max = 99999.99 EUR
@@ -31,8 +31,8 @@ class Narocilo(TimeStampedModel):
 
     # META AND STRING
     class Meta:
-        verbose_name = 'Naročilo'
-        verbose_name_plural = 'Naročila'
+        verbose_name = 'naročilo'
+        verbose_name_plural = 'naročila'
 
     def __str__(self):
         return '%s - %s' % (self.oznaka, self.predmet)
