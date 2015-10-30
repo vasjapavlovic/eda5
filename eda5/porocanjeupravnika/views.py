@@ -3,12 +3,12 @@ from django.db.models import Q
 
 from django.views.generic import TemplateView, DetailView, ListView
 
-from eda5.razdelilnik.models import StrosekLE
-from eda5.etaznalastnina.models import LastniskaEnotaInterna
-from eda5.users.models import User
-from eda5.partnerji.models import Partner
 from eda5.deli.models import DelStavbe
-from eda5.etaznalastnina.models import LastniskaSkupina
+from eda5.etaznalastnina.models import LastniskaEnotaInterna, LastniskaSkupina
+from eda5.narocila.models import Narocilo
+from eda5.partnerji.models import Partner
+from eda5.razdelilnik.models import StrosekLE
+from eda5.users.models import User
 
 
 class PorocanjeHomeView(TemplateView):
@@ -38,13 +38,27 @@ class LastninaListView(ListView):
         current_user = Partner.objects.get(user=self.request.user.id)
         # filtriramo vnose kjer je lastnik = logirani partner
         queryset = queryset.filter(Q(lastnik=current_user.id) | Q(najemnik=current_user.id))
-        #queryset = queryset.filter(lastnik=current_user.id)  # self.user
+        # queryset = queryset.filter(lastnik=current_user.id)  # self.user
         return queryset
 
 
 class LastniskaEnotaInternaDetailView(DetailView):
     template_name = "porocanjeupravnika/lastnina/lastniskaenota_detail.html"
     model = LastniskaEnotaInterna
+
+
+class NarociloHomeView(TemplateView):
+    template_name = "porocanjeupravnika/narocila/home.html"
+
+
+class NarociloListView(ListView):
+    template_name = "porocanjeupravnika/narocila/narocilo_list.html"
+    model = Narocilo
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NarociloListView, self).get_context_data(*args, **kwargs)
+        context['current_partner'] = Partner.objects.get(user=self.request.user.id)
+        return context
 
 # class RazdelilnikListView(ListView):
 #     model = StrosekLE

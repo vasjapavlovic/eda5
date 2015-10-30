@@ -1,0 +1,3 @@
+PARTNERJI
+
+- Ko izdelaš partnerja naj izdela skupino partnerja avtomatsko - uporabi "django signals" 

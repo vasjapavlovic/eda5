@@ -7,24 +7,53 @@ from eda5.users.models import User
 from .managers import OsebaManager, TrrManager
 
 
-class Partner(TimeStampedModel, IsActiveModel):
+class SkupinaPartnerjev(TimeStampedModel):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    # ***Relations***
+    partner = models.ManyToManyField("Partner")
+    # ***Mandatory***
+    naziv = models.CharField(max_length=255)
+    # ***Optional***
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
 
-    is_pravnaoseba = models.BooleanField()
-    davcni_zavezanec = models.BooleanField()
-    davcna_st = models.CharField(max_length=15, unique=True, blank=True)
-    maticna_st = models.CharField(max_length=15, unique=True, blank=True)
-    dolgo_ime = models.CharField(max_length=255, blank=True)
+    # META AND STRING
+    class Meta:
+        verbose_name = "skupina partnerjev"
+        verbose_name_plural = "skupine partnerjev"
+
+    def __str__(self):
+        return "%s" % (self.naziv)
+
+
+class Partner(TimeStampedModel, IsActiveModel):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    # ***Relations***
+    user = models.OneToOneField(User, null=True, blank=True)
+    # ***Mandatory***
     kratko_ime = models.CharField(max_length=100)
     naslov = models.CharField(max_length=255)
     posta = models.ForeignKey("Posta", verbose_name='pošta')
-    user = models.OneToOneField(User, null=True, blank=True)
+    is_pravnaoseba = models.BooleanField()
+    davcni_zavezanec = models.BooleanField()
+    # ***Optional***
+    davcna_st = models.CharField(max_length=15, unique=True, blank=True)
+    maticna_st = models.CharField(max_length=15, unique=True, blank=True)
+    dolgo_ime = models.CharField(max_length=255, blank=True)
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
 
-    class Meta:
-        verbose_name = "Partner"
-        verbose_name_plural = "Partnerji"
-
+    # METHODS
     def get_absolute_url(self):
         return reverse("moduli:partnerji:detail", kwargs={"pk": self.pk})
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "partner"
+        verbose_name_plural = "partnerji"
 
     def __str__(self):
         return "%s" % (self.kratko_ime)
@@ -41,6 +70,7 @@ class Drzava(models.Model):
 
     def __str__(self):
         return "%s (%s)" % (self.naziv, self.iso_koda)
+
 
 
 class Posta(TimeStampedModel, IsActiveModel):
@@ -120,3 +150,6 @@ class Oseba(TimeStampedModel, IsActiveModel):
 
     def __str__(self):
         return "%s %s - %s" % (self.priimek, self.ime, self.status)
+
+
+

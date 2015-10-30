@@ -1,0 +1,16 @@
+{% extends "porocanjeupravnika/home.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+
+
+<div class="container">
+<div class="jumbotron">
+<h1>NAROČILA</h1>
+</div>
+
+<a href="{% url 'porocanje:narocila:list' %}">Izvedena naročila partnerja</a>
+</div>
+
+
+{% endblock %}
