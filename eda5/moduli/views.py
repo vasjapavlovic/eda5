@@ -7,6 +7,6 @@ from .models import Modul
 from braces.views import LoginRequiredMixin
 
 
-class ModulListView(LoginRequiredMixin, ListView):
+class ModulHomeView(LoginRequiredMixin, ListView):
 
     model = Modul

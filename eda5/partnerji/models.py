@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 from eda5.core.models import TimeStampedModel, IsActiveModel
+from eda5.users.models import User
 
 from .managers import OsebaManager, TrrManager
 
@@ -16,6 +17,7 @@ class Partner(TimeStampedModel, IsActiveModel):
     kratko_ime = models.CharField(max_length=100)
     naslov = models.CharField(max_length=255)
     posta = models.ForeignKey("Posta", verbose_name='pošta')
+    user = models.OneToOneField(User, null=True, blank=True)
 
     class Meta:
         verbose_name = "Partner"

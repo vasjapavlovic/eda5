@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% block extra_nav %}
+
+    <div class="m-b">
+      <nav class="navbar navbar-default navbar-static-top bg-inverse">
+        <div class="container">     
+          <button type="button" class="navbar-toggler hidden-sm-up pull-right" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+            &#9776;
+          </button>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
+          
+            <nav class="nav navbar-nav">
+
+
+              <a class="nav-link nav-item" href="{% url 'porocanje:lastnina:home' %}">Etažna-Lastnina</a>
+              <a class="nav-link nav-item" href="">Števčno-Stanje</a>
+              <a class="nav-link nav-item" href="{% url 'porocanje:prejetiracuni:home' %}">Prejeti-Računi</a>
+              <a class="nav-link nav-item" href="">Zahtevki</a>
+              <a class="nav-link nav-item" href="">Delovni-Nalogi</a>
+              
+
+            </nav>
+          </div>
+        </div>
+      </nav>
+    </div>
+{% endblock extra_nav %}
+
+{% block content %}
+
+
+<div class="container">
+
+            <h1>MODULI</h1>
+
+            <div class="row">
+                <div class="col-xs-3 col-md-3">
+                    <a href="{% url 'porocanje:lastnina:home' %}" class="thumbnail" />
+                        <img src="" alt="Etažna Lastnina" class="img-thumbnail">
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <a href="{% url 'moduli:posta:home' %}" class="thumbnail" />
+                        <img src="" alt="Števčno Stanje" class="img-thumbnail">
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <a href="{% url 'porocanje:prejetiracuni:home' %}" class="thumbnail" />
+                        <img src="" alt="Prejeti Računi" class="img-thumbnail">
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <a href="{% url 'moduli:razdelilnik:home' %}" class="thumbnail" />
+                        <img src="" alt="Zahtevki" class="img-thumbnail">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-md-3">
+                    <a href="" class="thumbnail" />
+                        <img src="" alt="Delovni Nalogi" class="img-thumbnail">
+                </div>
+            </div>
+            
+                
+
+
+</div>
+
+    </div>
+
+{% endblock %}

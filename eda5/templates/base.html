@@ -54,8 +54,12 @@
               <a class="nav-link nav-item" href="{% url 'home' %}">Home</a>
               <a class="nav-link nav-item" href="{% url 'about' %}">About</a>
 
-              <a class="nav-link nav-item" href="{% url 'moduli:list' %}">Moduli</a>
-
+              {% if request.user.is_staff %}
+                <a class="nav-link nav-item" href="{% url 'moduli:home' %}">Moduli</a>
+                <a class="nav-link nav-item" href="{% url 'porocanje:home' %}">Poročanje</a>
+              {% else %}
+                <a class="nav-link nav-item" href="{% url 'porocanje:home' %}">Poročanje</a>
+              {% endif %}
             </nav>
         
             <nav class="nav navbar-nav pull-right">

@@ -1,0 +1,34 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+<div class="container">
+    <div class="jumbotron">
+    <h1>Del Stavbe:<br>
+        <b>{{ object.oznaka }}</b> {{ object.naziv }}</h1>
+    </div>
+    
+
+
+
+            {{ object.oznaka }}</b> {{ object.naziv }}<br>
+            {{ object.lastniska_skupina.oznaka }}</b> {{ object.lastniska_skupina.naziv }}<br>
+            <a href="{{MEDIA_URL}}{{ object.shema }}">Shema Sistema</a><br><br>
+            
+
+
+                {% for element in object.element_set.all %}
+                <ul>{{ element.oznaka }} {{ element.naziv }}</ul>
+                {% endfor %}
+
+
+
+        </div>
+
+
+
+
+{% endblock %}

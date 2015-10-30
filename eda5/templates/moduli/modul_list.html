@@ -19,6 +19,8 @@
               <a class="nav-link nav-item" href="{% url 'moduli:posta:home' %}">Prejeta-Pošta</a>
               <a class="nav-link nav-item" href="{% url 'moduli:racunovodstvo:home' %}">Računovodstvo</a>
               <a class="nav-link nav-item" href="{% url 'moduli:razdelilnik:home' %}">Razdelilnik</a>
+              <a class="nav-link nav-item" href="">Etažna Lastnina</a>
+              <a class="nav-link nav-item" href="{% url 'moduli:deli:home' %}">Deli</a>
 
             </nav>
           </div>
@@ -32,31 +34,35 @@
 
 <div class="container">
 
-
-
-                <h1>MODULI</h1>
-
+            <h1>MODULI</h1>
 
             <div class="row">
                 <div class="col-xs-3 col-md-3">
                     <a href="{% url 'moduli:partnerji:home' %}" class="thumbnail" />
-                        <img src="{% static 'images/moduli/M1.png' %}" alt="great image" class="img-thumbnail">
+                        <img src="{% static 'images/moduli/M1.png' %}" alt="Partnerji" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
                     <a href="{% url 'moduli:posta:home' %}" class="thumbnail" />
-                        <img src="{% static 'images/moduli/M2.png' %}" alt="great image" class="img-thumbnail">
+                        <img src="{% static 'images/moduli/M2.png' %}" alt="Prejeta Pošta" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
                     <a href="{% url 'moduli:racunovodstvo:home' %}" class="thumbnail" />
-                        <img src="{% static 'images/moduli/M3.png' %}" alt="great image" class="img-thumbnail">
+                        <img src="{% static 'images/moduli/M3.png' %}" alt="Računovodstvo" class="img-thumbnail">
                 </div>
                 <div class="col-xs-3 col-md-3">
                     <a href="{% url 'moduli:razdelilnik:home' %}" class="thumbnail" />
-                        <img src="{% static 'images/moduli/M4.png' %}" alt="great image" class="img-thumbnail">
+                        <img src="{% static 'images/moduli/M4.png' %}" alt="Razdelilnik" class="img-thumbnail">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-md-3">
+                    <a href="" class="thumbnail" />
+                        <img src="{% static 'images/moduli/M5.png' %}" alt="Etažna Lastnina" class="img-thumbnail">
                 </div>
             </div>
             
-
+                
 
 
 </div>

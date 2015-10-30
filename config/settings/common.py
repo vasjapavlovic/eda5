@@ -44,13 +44,17 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     # Your stuff: custom apps go here
-    'eda5.core', # utils
-    'eda5.moduli', # zbirnik vseh modulov
-    'eda5.partnerji', # podatki o partnerjih
-    'eda5.posta', # apliakcija za prejeto in oddano pošto
-    'eda5.racunovodstvo', # likvidacija računov, zapadli računi, plačani računi
-    'eda5.razdelilnik', # razdelilnik
-    'eda5.stores', # samo testna apliakcija
+    'eda5.core',  # utils
+    'eda5.deli',  # deli stavbe
+    'eda5.etaznalastnina',  # elaborat etažne lastnine, interne lastniske enote
+    'eda5.katalog',  # katalog artiklov
+    'eda5.lastnistvo',  # lastniške skupine, lastniške enote
+    'eda5.moduli',  # zbirnik vseh modulov
+    'eda5.partnerji',  # podatki o partnerjih
+    'eda5.posta',  # apliakcija za prejeto in oddano pošto
+    'eda5.racunovodstvo',  # likvidacija računov, zapadli računi, plačani računi
+    'eda5.razdelilnik',  # razdelilnik
+    'eda5.stores',  # samo testna apliakcija
     'eda5.users',  # custom users app
 )
 

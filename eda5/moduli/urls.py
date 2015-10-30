@@ -1,9 +1,12 @@
 from django.conf.urls import include, url
 
-from .views import ModulListView
+from . import views
 
 urlpatterns = [
     # registracija MODULOV (urlji)
+    url(r'^deli/', include("eda5.deli.urls", namespace="deli")),
+    url(r'^lastnina/', include("eda5.etaznalastnina.urls", namespace="lastnina")),
+    url(r'^katalog/', include("eda5.katalog.urls", namespace="katalog")),
     url(r'^partnerji/', include("eda5.partnerji.urls", namespace="partnerji")),
     url(r'^posta/', include("eda5.posta.urls", namespace="posta")),
     url(r'^racunovodstvo/', include("eda5.racunovodstvo.urls", namespace="racunovodstvo")),
@@ -13,5 +16,5 @@ urlpatterns = [
 
 # Glavni URL za modul
 urlpatterns += [
-    url(r'^$', ModulListView.as_view(), name="list"),
+    url(r'^$', views.ModulHomeView.as_view(), name="home"),
 ]
