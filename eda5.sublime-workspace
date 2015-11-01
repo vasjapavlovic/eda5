@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"ZAhte",
+				"ZahtevekSestanek〔class〕"
+			],
+			[
+				"Zahteve",
+				"ZahtevekSestanek〔class〕"
+			],
+			[
+				"doku",
+				"dokument_prijava_skode"
+			],
+			[
+				"verbo",
+				"verbose_name_plural"
+			],
+			[
+				"Naro",
+				"NarociloTelefon	class"
+			],
+			[
+				"Lastniska",
+				"LastniskaSkupinaAdmin	class"
+			],
+			[
+				"get_",
+				"get_context_data"
+			],
+			[
 				"D",
 				"DavcnaKlasifikacija〔class〕"
 			],
@@ -124,10 +152,6 @@
 				"kratko_ime"
 			],
 			[
-				"ZAhte",
-				"ZahtevekListView	class"
-			],
-			[
 				"ver",
 				"verbose_name"
 			],
@@ -228,10 +252,6 @@
 				"content_file_name	function"
 			],
 			[
-				"Naro",
-				"NarocilaDokumenti	class"
-			],
-			[
 				"Nar",
 				"NarocilaCommentsInLine	class"
 			],
@@ -311,6 +331,30 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "eda5/zahtevki/models.py",
+			"settings":
+			{
+				"buffer_size": 2332,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/settings/common.py",
+			"settings":
+			{
+				"buffer_size": 10655,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/zahtevki/admin.py",
+			"settings":
+			{
+				"buffer_size": 63,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -354,38 +398,125 @@
 	"expanded_folders":
 	[
 		"/home/pavlovicv/Desktop/django_projects/eda5",
+		"/home/pavlovicv/Desktop/django_projects/eda5/compose",
+		"/home/pavlovicv/Desktop/django_projects/eda5/config",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/media/prejeta_posta",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/static/images/moduli"
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/narocila",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/migrations"
 	],
 	"file_history":
 	[
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/razdelilnik/home.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/moduli/modul_list.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/urls.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/zahtevki/zahtevek_detail.html",
+		"/home/pavlovicv/dumb-2015-11-1.sql",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/migrations/0006_auto_20151030_1737.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/migrations/0007_auto_20151030_1739.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/zahtevki/zahtevek_list.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/views.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/urls.py",
+		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/narocila/narocilo_list.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/core/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/zahtevki/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/narocila/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/UREDI.txt",
 		"/home/pavlovicv/Desktop/django_projects/eda5/config/settings/common.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/views.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/moduli/modul_list.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/managers.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/forms.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/views.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/narocila/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/urls_narocila.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/lastnina/list.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/lastnina/lastniskaenota_detail.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/element_detail.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/del_detail.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/narocila/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/katalog/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/katalog/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/etaznalastnina/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/views.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/list.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/pages/about.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/base.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/detail.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/deli/list.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/lastnina/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/urls_lastnina.py",
+		"/home/pavlovicv/Desktop/EDA5_DB_BACKUP/deli_element.sql",
+		"/home/pavlovicv/Desktop/EDA5_DB_BACKUP/deli_deli.sql",
+		"/home/pavlovicv/Desktop/EDA5_DB_BACKUP/deli_skupine.sql",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/migrations/0004_auto_20151030_0208.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/katalog/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/etaznalastnina/admin.py",
+		"/home/pavlovicv/Desktop/EDA5_DB_BACKUP/etaznalastnina_lastniskeskupine.sql",
+		"/home/pavlovicv/Desktop/EDA5_DB_BACKUP/etaznalastnina_elaborat.sql",
+		"/home/pavlovicv/Desktop/EDA5_DB_BACKUP/lastnistvo_programi.sql",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/katalog/forms.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/katalog/managers.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/katalog/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/managers.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/forms.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/porocanjeupravnika/prejetiracuni/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/partnerji/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/posta/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/racunovodstvo/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/razdelilnik/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/urls_prejetiracuni.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/users/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/urls_sub.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/pages/home.html",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/views.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/config/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/forms.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/porocanjeupravnika/managers.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/users/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/users/migrations/0003_user_partner.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/admin.py",
+		"/home/pavlovicv/Desktop/insert.sql",
+		"/home/pavlovicv/Desktop/column_insert.sql",
+		"/home/pavlovicv/Desktop/createdb_insert.sql",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/lastnistvo/admin.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/lastnina/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/elaboratetaznelastnine/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/elaboratetaznelastnine/managers.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/elaboratetaznelastnine/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/elaboratetaznelastnine/forms.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/managers.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/forms.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/lastnina/forms.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/lastnina/managers.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/lastnina/urls.py",
+		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/urls.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/razdelilnik/views.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/views.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/urls.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/racunovodstvo/racun_list.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/racunovodstvo/racun_detail.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/racunovodstvo/racun_likvidacija_detail.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/racunovodstvo/test.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/base.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/forms.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/managers.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/racunovodstvo/racun_list_likvidacija.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/racunovodstvo/home.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/core/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/posta/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/posta/views.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/racunovodstvo/admin.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/core/admin.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/posta/home.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/partnerji/home.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/views.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/partnerji/partner_detail.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/posta/dokument_form.html",
@@ -397,7 +528,6 @@
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/posta/forms.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/posta/admin.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/posta/managers.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/urls.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/partnerji/oseba_form.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/forms.py",
@@ -405,97 +535,15 @@
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/partnerji/partner_form.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/stores/icecreamstore_list.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/stores/models.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/stores/icecreamstore_form.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/stores/icecreamstore_detail.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/pages/home.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/stores/views.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/views.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/viewmixins.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/stores/viewmixins.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/core/views.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/config/urls.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/migrations/0003_auto_20151025_1306.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/admin.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/migrations/0001_initial.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/pages/about.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/admin.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/models.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/moduli/migrations/0002_modul_url_name.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/moduli/home.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/pages/moduli.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/racunovodstvo/migrations/0002_auto_20151021_2328.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/settings/base.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/racunovodstvo/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/racunovodstvo/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/edafm/index.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/edafm/about.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/urls.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/edafm/kontakt.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/edafm/reference.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zaznamki/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/base.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zaznamki/managers.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zahtevki/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/zahtevki/zahtevek_detail.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/zahtevki/zahtevek_form.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zahtevki/forms.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zaznamki/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/settings/secret.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/eda5/index.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/wsgi.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/settings/production.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/views.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/deli/views.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/pomanjkljivosti/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/delovniNalog/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/katalog/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/pomanjkljivosti/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prejetaposta/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prejetaposta/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prijavanapak/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prijavanapak/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/deli/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/deli/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zaznamki/migrations/__init__.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/elementi/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/core/models.py",
-		"/home/pavlovicv/Desktop/eda5/requirements/development.txt",
-		"/home/pavlovicv/Desktop/eda5/requirements/base.txt",
-		"/home/pavlovicv/Desktop/eda5/eda5/testsettingsfile.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zahtevki/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prejeta_posta/models.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zahtevki/views.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zahtevki/urls.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/settings/s3utils.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/settings/testing.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/dja/s3utils.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/zaznamki/urls.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/eda5/login.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/edafm/contact.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/static/css/main.css",
-		"/home/pavlovicv/Desktop/eda5/eda5/static/css/bootstrap.css",
-		"/home/pavlovicv/Desktop/eda5/eda5/static/css/cover.css",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/index.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/edafm/about.thml",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/eda5/index_main.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/zahtevki/zahtevek_list.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/zahtevki/zaznamek_form.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/zahtevki/zahtevek_confirm_delete.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prijavaNapak/forms.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/zahtevki/zahtevek_edit.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/elementi/delstavbe_detail.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prijavaNapak/views.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/apps/prijavaNapak/admin.py",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/prijava_napak/prijava.html",
-		"/home/pavlovicv/Desktop/eda5/eda5/templates/odcitki/odcitki.html"
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/stores/icecreamstore_form.html"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 114.0,
 		"where_history":
 		[
 		]
@@ -505,6 +553,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"deli_del",
+			"''",
+			"elementi_element",
 			"/small",
 			"small",
 			"favicon",
@@ -525,6 +576,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"deli_delstavbe",
+			"'2015-10-05'",
+			"deli_element"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -535,14 +589,106 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "eda5/zahtevki/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2332,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1488.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "config/settings/common.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10655,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "eda5/zahtevki/admin.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 63,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 30.0
+		"height": 32.0
 	},
 	"input":
 	{
@@ -579,7 +725,7 @@
 	"project": "eda5.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 74.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -617,7 +763,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 317.0,
+	"side_bar_width": 466.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
