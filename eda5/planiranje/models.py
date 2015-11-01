@@ -58,7 +58,7 @@ class PlanIzdaja(TimeStampedModel, IsActiveModel):
     plan = models.ForeignKey(Plan)
     potrditvena_dokumentacija = models.ForeignKey(Dokument)
     #   Mandatory
-    datum_izdaje = models.DateTimeField()
+    datum_izdaje = models.DateField()
     #   Optional
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
