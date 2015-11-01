@@ -30,7 +30,7 @@ Površina: {{ object.povrsina_tlorisna_neto }} m2<br>
         {% for del in lastniska_skupina.delstavbe_set.all %}
         {{ del.podskupina.oznaka }}{{ del.podskupina.naziv }}
 
-        <ul><a href="{% url 'moduli:deli:detail' del.id %}">{{ del.oznaka }} {{ del.naziv }}</a></ul>
+        <ul><a href="{% url 'moduli:deli:del_detail' del.id %}">{{ del.oznaka }} {{ del.naziv }}</a></ul>
 
         {% endfor %}
 

@@ -4,7 +4,7 @@ from eda5.core.models import StatusModel, TimeStampedModel
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba, Partner
 from eda5.posta.models import Dokument
-from eda5.deli.models import DelStavbe, Element
+from eda5.deli.models import Element
 
 
 class Zahtevek(TimeStampedModel, StatusModel):
@@ -24,12 +24,13 @@ class Zahtevek(TimeStampedModel, StatusModel):
 
     # ATRIBUTES
     # ***Relations***
+    zahtevek_parent = models.ForeignKey("self", null=True, blank=True)
     narocilo = models.ForeignKey(Narocilo)  # ***izbira samo med veljavnimi naročili****
     nosilec = models.ForeignKey(Oseba)
     zahtevek_skodni_dogodek = models.OneToOneField("ZahtevekSkodniDogodek", blank=True, null=True)
     # zahtevek_zbor_lastnikov = models.OneToOneField(ZahtevekZborLastnikov)
     zahtevek_sestanek = models.OneToOneField("ZahtevekSestanek", blank=True, null=True)
-    # zahtevek_izvedba_dela = models.OneToOneField(ZahtevekIzvedbaDela)
+    zahtevek_izvedba_dela = models.OneToOneField("ZahtevekIzvedbaDela", blank=True, null=True)
     # zahtevek_reklamacija_nabave = models.OneToOneField(ZahtevekReklamacijaNabave)
     # zahtevek_reklamacija_prodaje = models.OneToOneField(ZahtevekReklamacijaProdaje)
     # zaznamki SPLOŠNO
@@ -111,3 +112,23 @@ class ZahtevekSestanek(models.Model):
 
     def __str__(self):
         return "%s | %s" % (self.datum, self.sklicatelj)
+
+
+class ZahtevekIzvedbaDela(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    #   Mandatory
+    is_zakonska_obveza = models.BooleanField(verbose_name='zakonska obveza')
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "izvedba dela"
+        verbose_name_plural = "izvedba del"
+
+    def __str__(self):
+        return "%s" % (self.is_zakonska_obveza)

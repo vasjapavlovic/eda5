@@ -98,10 +98,10 @@ class ModelArtikla(TimeStampedModel):
 
 class PlanOV(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
-    dan = 'Dan'
-    teden = 'Teden'
-    mesec = 'Mesec'
-    leto = 'Leto'
+    dan = 'dan'
+    teden = 'teden'
+    mesec = 'mesec'
+    leto = 'leto'
 
     ENOTE = (
         (dan, "Dan"),

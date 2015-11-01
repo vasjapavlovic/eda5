@@ -4,16 +4,19 @@ from eda5.deli.models import Element
 from eda5.partnerji.models import Oseba
 from eda5.zahtevki.models import Zahtevek
 from eda5.narocila.models import Narocilo
-from eda5.core.models import TimeStampedModel
+from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
+from eda5.racunovodstvo.models import VrstaStroska
 
 
-class Opravilo(TimeStampedModel):
+class Opravilo(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
     zahtevek = models.ForeignKey(Zahtevek)
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
     '''pod naročilo je odzadaj tudi relacija na naročnika in izvajalca'''
+    # planirano_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)
+    vrsta_stroska = models.ForeignKey(VrstaStroska, verbose_name="vrsta stroška")
     element = models.ManyToManyField(Element)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
@@ -41,7 +44,7 @@ class Opravilo(TimeStampedModel):
         return "%s - %s" % (self.oznaka, self.naziv)
 
 
-class DelovniNalog(TimeStampedModel):
+class DelovniNalog(TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -49,6 +52,7 @@ class DelovniNalog(TimeStampedModel):
     nosilec = models.ForeignKey(Oseba)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
+    '''***naziv ni potreben-vsi podatki v opravilu. Preveri druge možnosti***'''
     naziv = models.CharField(max_length=255)
     date_plan = models.DateField(verbose_name='V planu za dne')
     #   Optional
@@ -76,7 +80,7 @@ class DelovniNalog(TimeStampedModel):
 
 
 # DELO
-class Delo(TimeStampedModel):
+class Delo(TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -86,7 +90,7 @@ class Delo(TimeStampedModel):
     #   Optional
     datum = models.DateField(blank=True, null=True)
     time_start = models.TimeField(blank=True, null=True, verbose_name="Ura:Začeto")
-    time_start = models.TimeField(blank=True, null=True, verbose_name="Ura:Končano")
+    time_stop = models.TimeField(blank=True, null=True, verbose_name="Ura:Končano")
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS

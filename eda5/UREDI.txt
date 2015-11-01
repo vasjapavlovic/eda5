@@ -4,6 +4,9 @@ APLIKACIJE
 - zavarovanja
     *Sklenjena zavarovanje
     *DelStavbe je lahko zavarovan po sklenjeni zavarovalni polici
+- Plan obratovanja in vzdrževanja
+- lokacije
+- predpisi
 
 
 PARTNERJI
@@ -14,3 +17,18 @@ ZAHTEVKI
 - Analiza
 -ŠkodniDogodki
     *mogoče dodaj pisanje dnevnika reševanja
+
+PREDPISI ( ZAKONODAJA )
+- SklopPredpisov
+- PodsklopPredpisov
+- Predpis
+- veljavnostiPredpisov
+- PredpisanoOpravila 
+
+PLAN
+- SklopPlanov
+- Plan
+- PlanIzdaja
+- PlanOpravilo
+ ***relacija na PLANOV
+

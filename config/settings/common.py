@@ -53,6 +53,7 @@ LOCAL_APPS = (
     'eda5.moduli',  # zbirnik vseh modulov
     'eda5.narocila',  # naročila partnerjev
     'eda5.partnerji',  # podatki o partnerjih
+    'eda5.planiranje',  # izdelava planov:  OV, Čiščenje, Ostalo
     'eda5.posta',  # apliakcija za prejeto in oddano pošto
     'eda5.racunovodstvo',  # likvidacija računov, zapadli računi, plačani računi
     'eda5.razdelilnik',  # razdelilnik

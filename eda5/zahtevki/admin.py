@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek
+from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 
 
 @admin.register(Zahtevek)
@@ -16,4 +16,8 @@ class ZahtevekSkodniDogodekAdmin(admin.ModelAdmin):
 @admin.register(ZahtevekSestanek)
 class ZahtevekSestanekAdmin(admin.ModelAdmin):
     filter_horizontal = ("udelezenci",)
+
+
+@admin.register(ZahtevekIzvedbaDela)
+class ZahtevekIzvedbaDelaAdmin(admin.ModelAdmin):
     pass
