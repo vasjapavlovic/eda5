@@ -1,7 +1,16 @@
 APLIKACIJE
 - taskmanager (opomnik)
 - zaznamki
+- zavarovanja
+    *Sklenjena zavarovanje
+    *DelStavbe je lahko zavarovan po sklenjeni zavarovalni polici
 
 
 PARTNERJI
 - Ko izdelaš partnerja naj izdela skupino partnerja avtomatsko - uporabi "django signals" 
+
+ZAHTEVKI
+- Povpraševanje
+- Analiza
+-ŠkodniDogodki
+    *mogoče dodaj pisanje dnevnika reševanja
