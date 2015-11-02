@@ -26,7 +26,6 @@ class IsLikvidiranModel(models.Model):
         abstract = True
 
 
-
 class ObdobjeLeto(models.Model):
     oznaka = models.CharField(max_length=4)
     naziv = models.CharField(max_length=4)
