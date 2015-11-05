@@ -1,0 +1,49 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:stevci:home' %}">Nazaj</a> | <a href="">Nov vnos</a>
+    </i></small>
+
+    <div class="jumbotron">
+        <h1>ŠTEVČNO STANJE</h1>
+        <p>Merilna mesta</p>
+    </div>
+
+            <div class="col-xs-6 col-md-6" align="right">
+                <form action="" method="GET">
+                    <input type="text" name="q" id="search_text" />
+                    <input type="checkbox" name="distribucija" id="distribucija">Prikaži samo distribucijo<br>
+                    <input type="submit" value="search">
+                    <a type="button" class="btn btn-default" href="{% url 'moduli:stevci:delilnik_list' %}" >reset</a>
+                </form>
+            </div>
+
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <tr>
+                <th>oznaka</th>
+                <th>meritev</th>
+                <th>stevec</th>
+                <th>upravljavec</th>
+            </tr>
+
+{% for object in object_list %}
+
+            <tr>
+                <td><b><a href="{% url 'moduli:stevci:delilnik_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
+                <td>{{ object.meritev }}</td>
+                <td>{{ object.stevec.naziv }}</td>
+                <td>{{ object.stevec.upravljavec.kratko_ime }}</td>
+            </tr>
+
+{% endfor %}
+
+        </table>
+    </div>
+
+{% endblock %}

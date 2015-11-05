@@ -2,7 +2,8 @@ from django.db import models
 
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec, TimeStampedModel
 from eda5.deli.models import DelStavbe
-from eda5.partnerji.models import Partner
+from eda5.partnerji.models import Partner, Oseba
+from . import managers
 
 
 class Stevec(models.Model):
@@ -10,7 +11,7 @@ class Stevec(models.Model):
     # ATRIBUTES
     #   Relations
     #   __lokacija
-    del_stavbe = models.ForeignKey(DelStavbe)
+    del_stavbe = models.ForeignKey(DelStavbe, null=True, blank=True)
     upravljavec = models.ForeignKey(Partner)
     # lokacija stevca !!!!!!
     #   Mandatory
@@ -49,10 +50,10 @@ class StevecStatus(TimeStampedModel):
     class Meta:
         verbose_name = "status števca"
         verbose_name_plural = "status števcev"
-        ordering = ("modified",)
+        ordering = ("updated",)
 
     def __str__(self):
-        return "%s | %s" % (self.modified, self.stevec)
+        return "%s | %s" % (self.updated, self.stevec)
 
 
 class Delilnik(models.Model):
@@ -94,13 +95,21 @@ class Odcitek(models.Model):
     delilnik = models.ForeignKey(Delilnik)
     obdobje_leto = models.ForeignKey(ObdobjeLeto)
     obdobje_mesec = models.ForeignKey(ObdobjeMesec)
+    odcital = models.ForeignKey(Oseba, null=True, blank=True, verbose_name="odčital")
     #   Mandatory
     datum_odcitka = models.DateField()
     stanje_staro = models.DecimalField(max_digits=15, decimal_places=3)
     stanje_novo = models.DecimalField(max_digits=15, decimal_places=3)
     #   Optional
+
     # OBJECT MANAGER
+    objects = managers.OdcitekManager()
+
     # CUSTOM PROPERTIES
+    @property
+    def poraba(self):
+        return (self.stanje_novo - self.stanje_staro)
+
     # METHODS
 
     # META AND STRING
@@ -110,4 +119,4 @@ class Odcitek(models.Model):
         ordering = ("delilnik", "datum_odcitka", )
 
     def __str__(self):
-        return "%s | %s" % (self.stevec, self.oznaka)
+        return "%s | %s-%s" % (self.delilnik, self.obdobje_leto, self.obdobje_mesec)

@@ -22,6 +22,7 @@ urlpatterns = [
 
     # Your stuff: custom urls includes go here
     url(r'^moduli/', include("eda5.moduli.urls", namespace="moduli")),
+    url(r'^charts/', TemplateView.as_view(template_name='line_chart.html'), name="charts"),
     # url(r'^partnerji/', include("eda5.partnerji.urls", namespace="partnerji")),
     # url(r'^stores/', include("eda5.stores.urls", namespace="stores")),
 
