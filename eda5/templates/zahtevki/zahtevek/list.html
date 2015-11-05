@@ -35,9 +35,9 @@
 
             {% for object in object_list %}
             <tr>
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}">{{ object.oznaka }}</a></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ object.predmet }}</td>
             </tr>
             {% endfor %}
 

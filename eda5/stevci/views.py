@@ -60,4 +60,4 @@ class DelilnikDetailView(DetailView):
                 )
 
         # return HttpResponseRedirect('/moduli/stevci/')
-        return HttpResponseRedirect(reverse('moduli:stevci:delilnik_list'))
+        return HttpResponseRedirect(reverse('moduli:stevci:delilnik_detail', kwargs={'pk': delilnik.pk}))
