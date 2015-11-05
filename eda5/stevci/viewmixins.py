@@ -24,7 +24,8 @@ class DelilnikSearchMixin(object):
         if q:
             # if filter is applied
             return queryset.filter(
-                Q(oznaka__icontains=q)
+                Q(oznaka__icontains=q) |
+                Q(stevec__naziv__icontains=q)
                 # Preveri možnost search v "related fields"
             )
 
