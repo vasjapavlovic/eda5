@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikvidiranModel
 from eda5.lastnistvo.models import LastniskaSkupina
 from eda5.posta.models import Dokument
+from eda5.delovninalogi.models import DelovniNalog
+
 
 from .managers import RacunManager
 
@@ -158,7 +160,6 @@ class VrstaStroska(models.Model):
 
 class Strosek(models.Model):
     # ---------------------------------------------------------------------------------------
-
     DELILNIK_VRSTA = (
             ("fiksni", "fiksni strošek"),
             ("vuporabi", "LE v uporabi"),
@@ -177,6 +178,7 @@ class Strosek(models.Model):
     racun = models.ForeignKey(Racun)
     lastniska_skupina = models.ForeignKey(LastniskaSkupina)
     vrsta_stroska = models.ForeignKey(VrstaStroska)
+    delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=200)

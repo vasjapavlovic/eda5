@@ -33,7 +33,6 @@ class Zahtevek(TimeStampedModel, StatusModel):
     zahtevek_izvedba_dela = models.OneToOneField("ZahtevekIzvedbaDela", blank=True, null=True)
     # zahtevek_reklamacija_nabave = models.OneToOneField(ZahtevekReklamacijaNabave)
     # zahtevek_reklamacija_prodaje = models.OneToOneField(ZahtevekReklamacijaProdaje)
-    # zaznamki SPLOŠNO
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     predmet = models.CharField(max_length=255)

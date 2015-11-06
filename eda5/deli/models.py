@@ -95,7 +95,7 @@ class DelStavbe(models.Model):
 
     # CUSTOM PROPERTIES
     @property
-    def sorted_delstavbe_set(self):
+    def elementi_vsi(self):
         return self.element_set.order_by('oznaka')
 
     # METHODS
@@ -137,20 +137,6 @@ class Element(models.Model):
     objects = managers.ElementManagers()
 
     # CUSTOM PROPERTIES
-    @property
-    def celotnistrosek(self):
-        from eda5.delovninalogi.models import Opravilo
-        from eda5.delovninalogi.models import DelovniNalog
-        opravila = Opravilo.objects.filter(element=self.id)
-        dn = DelovniNalog.objects.filter(opravilo=opravila)
-
-        for delovninalog in dn:
-            dn_strosek = delovninalog.strosek.strosek_z_ddv
-            dn_strosek += dn_strosek
-
-        dn_strosek = str(round(dn_strosek)) + ',00 EUR'
-
-        return dn_strosek
 
     # METHODS
 

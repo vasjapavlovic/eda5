@@ -2,21 +2,18 @@
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block content2 %}
+
+
+ 
 
 <div class="container">
-    <small><i>
-        <a href="{% url 'moduli:home' %}">Nazaj</a> | <a href="">Nov vnos</a>
-    </i></small>
 
-<div class="jumbotron">
-    <div class="row">
-        <div class="col-xs-3 col-md-3">
-            <img src="" alt="Zahtevki" class="img-thumbnail">
-        </div>
+    <div class="jumbotron">
+    <h3>zahtevki : home</h3>
     </div>
 </div>
-</div>
+
 
 <div class="container">
     <div class="table-condensed table-hover table-bordered">
@@ -26,6 +23,7 @@
             </tr>
 
         </table>
+    </div>
     </div>
 
 {% endblock %}

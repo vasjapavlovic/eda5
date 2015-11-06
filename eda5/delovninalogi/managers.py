@@ -8,7 +8,6 @@ class OpraviloManager(models.Manager):
                         naziv=None,
                         rok_izvedbe=None,
                         narocilo=None,
-                        vrsta_stroska=None,
                         zahtevek=None,
                         ):
         if not zahtevek:
@@ -18,7 +17,6 @@ class OpraviloManager(models.Manager):
                               naziv=naziv,
                               rok_izvedbe=rok_izvedbe,
                               narocilo=narocilo,
-                              vrsta_stroska=vrsta_stroska,
                               # element=element,
                               zahtevek=zahtevek,
                               )

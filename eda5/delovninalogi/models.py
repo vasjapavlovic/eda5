@@ -7,7 +7,6 @@ from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
-from eda5.racunovodstvo.models import Strosek, VrstaStroska
 from eda5.zahtevki.models import Zahtevek
 from eda5.deli.models import Element
 
@@ -20,7 +19,6 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
     '''pod naročilo je odzadaj tudi relacija na naročnika in izvajalca'''
     # planirano_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)
-    vrsta_stroska = models.ForeignKey(VrstaStroska, verbose_name="vrsta stroška")
     element = models.ManyToManyField(Element)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
@@ -59,7 +57,6 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     #   Relations
     opravilo = models.ForeignKey(Opravilo)
     nosilec = models.ForeignKey(Oseba)
-    strosek = models.ForeignKey(Strosek, blank=True, null=True)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
     '''***naziv ni potreben-vsi podatki v opravilu. Preveri druge možnosti***'''

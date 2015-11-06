@@ -59,7 +59,7 @@
                     <th>Model</th>
                 </tr>
 
-                {% for element in object.element_set.all %}
+                {% for element in object.elementi_vsi %}
                 <tr>
                     <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ element.oznaka }}</a></td>
                     <td>{{ element.naziv }}</td>

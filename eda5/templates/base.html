@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
+
     {% endblock %}
 
 
@@ -38,11 +41,11 @@
     
  
 
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-default">
         <div class="container">
          
 
-
+        <div class="row">
           <!-- Collect the nav links, forms, and other content for toggling -->
             <nav class="nav navbar-nav">
               <a class="navbar-brand" href="/">EDA5</a>
@@ -66,13 +69,19 @@
                 <a class="navbar-brand" href="{% url 'account_login' %}">{% trans "Log In" %}</a>
               {% endif %}
             </nav>
+          </div>
+
+            {% block extra_nav %}{% endblock extra_nav %}
+
+
+
         </div>
       </nav>
 
 
 
 
-      {% block extra_nav %}{% endblock extra_nav %}
+      
 
     
 
@@ -83,12 +92,12 @@
               <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
           {% endfor %}
       {% endif %}
-
+    </div> <!-- /container -->
       {% block content %}
         <p>Use this document as a way to quick start any new project.</p>
       {% endblock content %}
 
-    </div> <!-- /container -->
+
 
     {% block modal %}{% endblock modal %}
 
@@ -106,8 +115,8 @@
       <!-- place project specific Javascript in this file -->
       <script src="{% static 'js/project.js' %}"></script>
 
-    {% block graf %}{% endblock graf %}
-      
+    {% block javascript_extra %}{% endblock javascript_extra %}
+
     {% endblock javascript %}
 
   </body>

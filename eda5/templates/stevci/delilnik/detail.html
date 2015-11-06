@@ -2,7 +2,7 @@
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block content2 %}
 
 <div class="container">
     <small><i>
@@ -62,7 +62,7 @@
 {% endblock %}
 
 
-{% block graf %}
+{% block javascript_extra %}
 
 <script>
 $(function () {
@@ -90,4 +90,4 @@ data: [{% for odcitek in object.odcitek_set.all %}{{ odcitek.poraba }},{% endfor
 });
 });
 </script>
-{% endblock graf %}
+{% endblock javascript_extra %}

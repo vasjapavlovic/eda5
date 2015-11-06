@@ -21,7 +21,7 @@ class ZahtevekListView(ListView):
 
 class ZahtevekDetailView(DetailView):
     model = Zahtevek
-    template_name = "zahtevki/zahtevek/detail.html"
+    template_name = "zahtevki/zahtevek/detail/base.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekDetailView, self).get_context_data(*args, **kwargs)
