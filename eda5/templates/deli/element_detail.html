@@ -26,6 +26,7 @@ Tovarniška : {{ object.tovarniska_st }}<br>
     <li class="active"><a data-toggle="tab" href="#home">Prevzemna Dokumentacija</a></li>
     <li><a data-toggle="tab" href="#menu1">Servisna Knjiga</a></li>
     <li><a data-toggle="tab" href="#menu2">Plan Obratovanja in Vzdrževanja</a></li>
+    <li><a data-toggle="tab" href="#strosek1">Strošek v življenski dobi</a></li>
   </ul>
 
   <div class="tab-content">
@@ -44,6 +45,7 @@ Tovarniška : {{ object.tovarniska_st }}<br>
                     <th>oznaka</th>
                     <th>naziv</th>
                     <th>vrsta_dela</th>
+                    <th>strošek (z ddv)</th>
 
                 </tr>
 
@@ -54,6 +56,8 @@ Tovarniška : {{ object.tovarniska_st }}<br>
                           <td>{{ dn.oznaka }}</td>
                           <td>{{ opravilo.naziv }} ({{ opravilo.oznaka }})</td>
                           <td>{{ opravilo.vrsta_stroska.naziv }} ({{ opravilo.vrsta_stroska.oznaka }})</td>
+                          <td>{{ dn.strosek.strosek_z_ddv }} EUR</td>
+                          
                       </tr>
                   {% endfor %}
                 {% endfor %}
@@ -61,26 +65,71 @@ Tovarniška : {{ object.tovarniska_st }}<br>
 
             </table>
         </div>
-    </div>
-
-
-      
-
-
-
-
 
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>Plan Obratovanja in Vzdrževanja</h3>
 
     </div>
+
+    <div id="strosek1" class="tab-pane fade">
+      <h3>Strošek v življenski dobi: {{ object.celotnistrosek }}   </h3>
+      <br><h3>GRAF</h3>
+      <div id="chart_container" style="width:100%; height:400px;"></div>
+
+    </div>
   </div>
  </div>
 
 
-
-
-
-
 {% endblock %}
+
+{% block graf %}
+
+<script>
+$(function () {
+$('#chart_container').highcharts({
+chart: {
+type: 'areaspline'
+},
+title: {
+text: 'Strošek na elementu {{ object.oznaka }}'
+},
+xAxis: {
+categories: [
+
+{% for opravilo in object.opravilo_set.all %}
+{% for dn in opravilo.delovninalog_set.all %}
+
+{{ dn.datum_start }},
+
+{% endfor %}
+{% endfor %}
+
+]
+},
+yAxis: {
+title: {
+text: 'enota ...'
+}
+},
+series: [
+{
+name: '{{ object.oznaka }}',
+data: ['abc',
+
+{% for opravilo in object.opravilo_set.all %}
+{% for dn in opravilo.delovninalog_set.all %}
+
+{{ dn.strosek.strosek_z_ddv }},
+
+{% endfor %}
+{% endfor %}
+
+]
+}
+]
+});
+});
+</script>
+{% endblock graf %}

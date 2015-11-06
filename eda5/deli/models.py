@@ -3,6 +3,7 @@
 from django.db import models
 
 from . import managers
+
 from eda5.katalog.models import ModelArtikla
 from eda5.etaznalastnina.models import LastniskaSkupina
 from eda5.posta.models import Dokument
@@ -134,7 +135,23 @@ class Element(models.Model):
 
     # OBJECT MANAGER
     objects = managers.ElementManagers()
+
     # CUSTOM PROPERTIES
+    @property
+    def celotnistrosek(self):
+        from eda5.delovninalogi.models import Opravilo
+        from eda5.delovninalogi.models import DelovniNalog
+        opravila = Opravilo.objects.filter(element=self.id)
+        dn = DelovniNalog.objects.filter(opravilo=opravila)
+
+        for delovninalog in dn:
+            dn_strosek = delovninalog.strosek.strosek_z_ddv
+            dn_strosek += dn_strosek
+
+        dn_strosek = str(round(dn_strosek)) + ',00 EUR'
+
+        return dn_strosek
+
     # METHODS
 
     # META AND STRING

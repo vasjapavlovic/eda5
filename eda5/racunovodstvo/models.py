@@ -191,7 +191,13 @@ class Strosek(models.Model):
     is_strosek_posameznidel = models.BooleanField(verbose_name="strosek na posameznem delu")
     # ***Optional***
     # OBJECT MANAGER
+
     # CUSTOM PROPERTIES
+    @property
+    def strosek_z_ddv(self):
+        strosek_z_ddv = self.vrednost * (1 + self.stopnja_ddv)
+        return strosek_z_ddv
+
     # METHODS
 
     # META AND STRING
