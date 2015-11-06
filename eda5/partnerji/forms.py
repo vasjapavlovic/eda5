@@ -36,6 +36,7 @@ class PartnerUpdateForm(PartnerCreateForm):
     # naslov
     # posta
 
+
 class OsebaCreateForm(forms.ModelForm):
 
     class Meta:

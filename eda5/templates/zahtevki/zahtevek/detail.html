@@ -69,8 +69,8 @@
                             <td><b>{{ object.rok_izvedbe }}</b></td>
                         </tr>
                         <tr>
-                            <td><small><b>naročilnica</b></small></td>
-                            <td><b><a href="">{{ object.narocilo }}</a></b></td>
+                            <td><small><b><a href="">naročilnica</a></b></small></td>
+                            <td><b>{{ object.narocilo.oznaka }}</b></td>
                         </tr>
                         
 
@@ -83,21 +83,64 @@
 {# ********************NAVIGATION BAR #}
 <div class="container">
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Zaznamki</a></li>
-    <li><a data-toggle="tab" href="#menu1">Opravila</a></li>
-    <li><a data-toggle="tab" href="#menu2">Dokumentacija</a></li>
+    <li class="active"><a data-toggle="tab" href="#zaznamki">Zaznamki</a></li>
+    <li><a data-toggle="tab" href="#opravila">Opravila</a></li>
+    <li><a data-toggle="tab" href="#dokumentacija">Dokumentacija</a></li>
   </ul>
 
   <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
+    <div id="zaznamki" class="tab-pane fade in active">
       <h3>HOME</h3>
       <p>Some content.</p>
     </div>
-    <div id="menu1" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <p>Some content in menu 1.</p>
+    <div id="opravila" class="tab-pane fade">
+        <nav class="navbar navbar-inverse">
+
+              <a class="navbar-brand">Seznam Opravil</a>
+              <button type="button" class="navbar-brand pull-right btn-default" data-toggle="modal" data-target="#addOpravilo">
+                        Novo Opravilo
+                        </button>
+        </nav>
+
+        <div class="">
+            <table class="table table-hover table-condensed">
+                <tr>
+                    <th>oznaka</th>
+                    <th>naziv</th>
+                    <th>vrsta stroška</th>
+                    <th>rok izvedbe</th>
+                    <th>status</th>
+                </tr>
+
+                {% for opravilo in opravilo_list %}
+
+                {% if opravilo.is_active %}
+                <tr>
+                {% else %}
+                
+
+
+                <tr class="success">
+                {% endif %}
+                    <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a></td>
+                    <td>{{ opravilo.naziv }}</td>
+                    <td>{{ opravilo.vrsta_stroska.naziv }} ({{ opravilo.vrsta_stroska.oznaka }})</td>
+                    <td>{{ opravilo.rok_izvedbe }}</td>
+
+                    {# status #}
+                    {% if opravilo.delovninalog_set.all %}
+                    <td>V reševanju</td>
+                    {% else %}
+                    <td>v čakanju</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
     </div>
-    <div id="menu2" class="tab-pane fade">
+    <div id="dokumentacija" class="tab-pane fade">
       <h3>Menu 2</h3>
       <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
     </div>
@@ -107,5 +150,31 @@
 
 
 </div>
+
+
+
+<!-- Modal ADD Opravilo-->
+<div class="modal fade" id="addOpravilo" tabindex="-1" role="dialog" aria-labelledby="addOpravilo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Novo Opravilo</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ opravilo_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

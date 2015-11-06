@@ -35,6 +35,40 @@ Tovarniška : {{ object.tovarniska_st }}<br>
     </div>
     <div id="menu1" class="tab-pane fade">
       <h3>Servisna Knjiga</h3>
+      
+
+      <div class="">
+            <table class="table table-hover table-condensed">
+                <tr>
+                    <th>datum</th>
+                    <th>oznaka</th>
+                    <th>naziv</th>
+                    <th>vrsta_dela</th>
+
+                </tr>
+
+                {% for opravilo in object.opravilo_set.all %}
+                  {% for dn in opravilo.delovninalog_set.all %}
+                      <tr>
+                          <td>{{ dn.datum_start }}</td>
+                          <td>{{ dn.oznaka }}</td>
+                          <td>{{ opravilo.naziv }} ({{ opravilo.oznaka }})</td>
+                          <td>{{ opravilo.vrsta_stroska.naziv }} ({{ opravilo.vrsta_stroska.oznaka }})</td>
+                      </tr>
+                  {% endfor %}
+                {% endfor %}
+
+
+            </table>
+        </div>
+    </div>
+
+
+      
+
+
+
+
 
     </div>
     <div id="menu2" class="tab-pane fade">

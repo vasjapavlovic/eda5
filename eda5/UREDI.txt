@@ -1,34 +1,27 @@
-APLIKACIJE
+### DODATNE APLIKACIJE ###
 - taskmanager (opomnik)
 - zaznamki
 - zavarovanja
     *Sklenjena zavarovanje
     *DelStavbe je lahko zavarovan po sklenjeni zavarovalni polici
-- Plan obratovanja in vzdrževanja
 - lokacije
-- predpisi
 
 
-PARTNERJI
+### PARTNERJI ###
 - Ko izdelaš partnerja naj izdela skupino partnerja avtomatsko - uporabi "django signals" 
 
-ZAHTEVKI
+### ZAHTEVKI ###
 - Povpraševanje
 - Analiza
 -ŠkodniDogodki
     *mogoče dodaj pisanje dnevnika reševanja
+- models --> create_opravilo --> uredi tako, da bo že tu izdelalo ManyToManyRelacijo ELEMENTI
 
-PREDPISI ( ZAKONODAJA )
-- SklopPredpisov
-- PodsklopPredpisov
-- Predpis
-- veljavnostiPredpisov
-- PredpisanoOpravila 
+### PREDPISI ###
 
-PLAN
-- SklopPlanov
-- Plan
-- PlanIzdaja
-- PlanOpravilo
- ***relacija na PLANOV
+### PLAN ###
+-relacija na PLANOV
+
+
+
 

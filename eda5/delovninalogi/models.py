@@ -1,11 +1,14 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
-from eda5.deli.models import Element
-from eda5.partnerji.models import Oseba
-from eda5.zahtevki.models import Zahtevek
-from eda5.narocila.models import Narocilo
+from . import managers
+
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
-from eda5.racunovodstvo.models import VrstaStroska
+from eda5.deli.models import Element
+from eda5.narocila.models import Narocilo
+from eda5.partnerji.models import Oseba
+from eda5.racunovodstvo.models import Strosek, VrstaStroska
+from eda5.zahtevki.models import Zahtevek
 
 
 class Opravilo(TimeStampedModel, IsActiveModel):
@@ -23,7 +26,9 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     naziv = models.CharField(max_length=255)
     rok_izvedbe = models.DateField()
     #   Optional
+
     # OBJECT MANAGER
+    objects = managers.OpraviloManager()
 
     # CUSTOM PROPERTIES
     @property
@@ -33,7 +38,10 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     @property
     def delovninalog_vdelu_sorted_by_date(self):
         return self.delovninalog_set.exclude(datum_stop__isnull=False).order_by("datum_start")
+
     # METHODS
+    def get_absolute_url(self):
+        return reverse("moduli:delovninalogi:opravilo_detail", kwargs={'pk': self.pk})
 
     # META AND STRING
     class Meta:
@@ -50,6 +58,7 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     #   Relations
     opravilo = models.ForeignKey(Opravilo)
     nosilec = models.ForeignKey(Oseba)
+    strosek = models.ForeignKey(Strosek)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
     '''***naziv ni potreben-vsi podatki v opravilu. Preveri druge možnosti***'''

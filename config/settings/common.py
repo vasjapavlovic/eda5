@@ -139,7 +139,8 @@ SITE_ID = 1
 USE_I18N = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
-USE_L10N = True
+USE_L10N = False  # LOCALE DATE FORMAT
+DATE_FORMAT = "d.m.Y"
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
@@ -299,3 +300,4 @@ BROKER_URL = env("CELERY_BROKER_URL", default='django://')
 ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
+

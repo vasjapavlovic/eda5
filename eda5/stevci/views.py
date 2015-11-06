@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 from django.views.generic import TemplateView, ListView, DetailView
 from .models import Delilnik, Odcitek
