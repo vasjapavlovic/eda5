@@ -7,7 +7,10 @@ from django.views.generic import TemplateView, ListView, DetailView
 from .models import Zahtevek
 
 from eda5.delovninalogi.forms import OpraviloForm
-from eda5.delovninalogi.models import DelovniNalog, Opravilo
+from eda5.delovninalogi.models import Opravilo
+
+from eda5.zaznamki.forms import ZaznamekForm
+from eda5.zaznamki.models import Zaznamek
 
 
 class ZahtevekHomeView(TemplateView):
@@ -26,15 +29,19 @@ class ZahtevekDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekDetailView, self).get_context_data(*args, **kwargs)
 
-        # opravilo form
+        # opravilo
         context['opravilo_form'] = OpraviloForm
-        # opravilo list
         context['opravilo_list'] = Opravilo.objects.filter(zahtevek=self.object.id)
+
+        # zaznamek
+        context['zaznamek_form'] = ZaznamekForm
+        context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id)
 
         return context
 
     def post(self, request, *args, **kwargs):
         opravilo_form = OpraviloForm(request.POST or None)
+        zaznamek_form = ZaznamekForm(request.POST or None)
 
         # avtomatski podatki
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
@@ -54,6 +61,17 @@ class ZahtevekDetailView(DetailView):
                                              vrsta_stroska=vrsta_stroska,
                                              zahtevek=zahtevek,
                                              # element=element,
+                                             )
+
+        if zaznamek_form.is_valid():
+            tekst = zaznamek_form.cleaned_data['tekst']
+            datum = zaznamek_form.cleaned_data['datum']
+            ura = zaznamek_form.cleaned_data['ura']
+
+            Zaznamek.objects.create_zaznamek(tekst=tekst,
+                                             datum=datum,
+                                             ura=ura,
+                                             zahtevek=zahtevek,
                                              )
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
