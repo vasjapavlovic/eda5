@@ -5,11 +5,11 @@
     <h4>
         <div class="row">
             <div class="col-xs-6 col-md-6"><!--prva vrstica-->
-                {% include "zahtevki/zahtevek/detail/header/glavni_stolpec1.html" %}
+                {% include "zahtevki/zahtevek/detail/header/glavni/stolpec_1.html" %}
             </div><!--end prva vrstica-->
 
             <div class="col-xs-6 col-md-6"><!--druga vrstica-->
-                {% include "zahtevki/zahtevek/detail/header/glavni_stolpec2.html" %}
+                {% include "zahtevki/zahtevek/detail/header/glavni/stolpec_2.html" %}
             </div><!--end druga vrstica-->
         </div><!--row-->
     </h4>
@@ -33,17 +33,17 @@
 
                     <!--IF : ŠKODNI DOGODEK-->
                     {% if object.zahtevek_skodni_dogodek %}
-                        {% include "zahtevki/zahtevek/detail/header/pomozni_skodni_dogodek/stolpec_1.html" %}
+                        {% include "zahtevki/zahtevek/detail/header/pomozni/skodni_dogodek/stolpec_1.html" %}
                     {% endif %} 
 
                     <!--IF : SESTANEK-->
                     {% if object.zahtevek_sestanek %}
-                        {% include "zahtevki/zahtevek/detail/header/pomozni_sestanek/stolpec_1.html" %}
+                        {% include "zahtevki/zahtevek/detail/header/pomozni/sestanek/stolpec_1.html" %}
                     {% endif %} 
 
                     <!--IF : IZVEDBA-DEL-->
                     {% if object.zahtevek_izvedba_dela %}
-                        {% include "zahtevki/zahtevek/detail/header/pomozni_izvedba_del/stolpec_1.html" %}
+                        {% include "zahtevki/zahtevek/detail/header/pomozni/izvedba_del/stolpec_1.html" %}
                     {% endif %}
 
                     
@@ -53,17 +53,17 @@
 
                     <!--IF : ŠKODNI DOGODEK-->
                     {% if object.zahtevek_skodni_dogodek %}
-                        {% include "zahtevki/zahtevek/detail/header/pomozni_skodni_dogodek/stolpec_2.html" %}
+                        {% include "zahtevki/zahtevek/detail/header/pomozni/skodni_dogodek/stolpec_2.html" %}
                     {% endif %} 
 
                     <!--IF : SESTANEK-->
                     {% if object.zahtevek_sestanek %}
-                        {% include "zahtevki/zahtevek/detail/header/pomozni_sestanek/stolpec_2.html" %}
+                        {% include "zahtevki/zahtevek/detail/header/pomozni/sestanek/stolpec_2.html" %}
                     {% endif %} 
 
                     <!--IF : IZVEDBA-DEL-->
                     {% if object.zahtevek_izvedba_dela %}
-                        {% include "zahtevki/zahtevek/detail/header/pomozni_izvedba_del/stolpec_2.html" %}
+                        {% include "zahtevki/zahtevek/detail/header/pomozni/izvedba_del/stolpec_2.html" %}
                     {% endif %}
 
                 </div><!--end druga vrstica-->

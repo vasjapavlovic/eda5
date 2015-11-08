@@ -1,4 +1,5 @@
-{% extends "zahtevki/zahtevek/detail/navigacija_menu/tabs/tab_base.html" %} 
+{% extends "zahtevki/zahtevek/detail/navigacija_menu/tabs/tab_base.html" %}
+{% load crispy_forms_tags %}
 
 
 <!-- TAB_NAVIGACIJA############################################ -->
@@ -10,9 +11,7 @@
 
     <!--CONTROLER_LEFT-->
     {% block zahtevek_detail_tab_controler_left %}
-        <a type="button" class="btn btn-default" data-toggle="modal" data-target="#addZaznamek">
-            Nov Zaznamek
-            </a>
+        <li><a href="" data-toggle="modal" data-target="#addZaznamek">Nov Zaznamek</a></li>
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
@@ -50,7 +49,7 @@
 
 
         <!-- Modal ADD Zaznamek-->
-        <div class="modal fade" id="addOpravilo" tabindex="-1" role="dialog" aria-labelledby="addZaznamek">
+        <div class="modal fade" id="addZaznamek" tabindex="-1" role="dialog" aria-labelledby="addZaznamek">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

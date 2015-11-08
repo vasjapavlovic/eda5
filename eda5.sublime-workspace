@@ -335,7 +335,7 @@
 			"file": "eda5/zahtevki/models.py",
 			"settings":
 			{
-				"buffer_size": 2332,
+				"buffer_size": 4978,
 				"line_ending": "Unix"
 			}
 		},
@@ -343,7 +343,7 @@
 			"file": "config/settings/common.py",
 			"settings":
 			{
-				"buffer_size": 10655,
+				"buffer_size": 10903,
 				"line_ending": "Unix"
 			}
 		},
@@ -351,7 +351,7 @@
 			"file": "eda5/zahtevki/admin.py",
 			"settings":
 			{
-				"buffer_size": 63,
+				"buffer_size": 563,
 				"line_ending": "Unix"
 			}
 		}
@@ -598,7 +598,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2332,
+						"buffer_size": 4978,
 						"regions":
 						{
 						},
@@ -629,7 +629,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10655,
+						"buffer_size": 10903,
 						"regions":
 						{
 						},
@@ -660,7 +660,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 63,
+						"buffer_size": 563,
 						"regions":
 						{
 						},
