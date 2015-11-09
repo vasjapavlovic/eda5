@@ -1,0 +1,18 @@
+<table class="table">
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Udeleženci</b></small></td>
+
+            <td>
+                <ul>
+                {% for udelezenec in object.zahtevek_sestanek.udelezenci.all %}
+                    <li>{{ udelezenec.priimek }} {{ udelezenec.ime }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+
+
+</table>

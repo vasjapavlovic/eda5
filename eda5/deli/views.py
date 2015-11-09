@@ -11,17 +11,17 @@ class DelHomeView(TemplateView):
 
 
 class DelListView(ListView):
-    template_name = "deli/list.html"
+    template_name = "deli/delstavbe/list.html"
     model = Skupina
 
 
 class DelDetailView(DetailView):
-    template_name = "deli/del_detail.html"
+    template_name = "deli/delstavbe/detail/base.html"
     model = DelStavbe
 
 
 class ElementDetailView(DetailView):
-    template_name = "deli/element_detail.html"
+    template_name = "deli/element/detail/base.html"
     model = Element
 
     def get_context_data(self, *args, **kwargs):

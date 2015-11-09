@@ -1,0 +1,24 @@
+<!--tabela-->
+<table class="table">
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b>lastniska skupina</b></small></td>
+        <td><b>{{ object.lastniska_skupina.naziv }} ({{ object.lastniska_skupina.oznaka }})</b></td>
+    </tr>
+
+
+    <!--vrstica******************************** -->
+    <tr>
+        {% if object.shema %}
+        <td><small><b>shema</b></small></td>
+        <td><b><a href="{{ MEDIA_URL }}{{ object.shema }}">priponka</a></b></td>
+        {% else %}
+        <td><small><b>shema</b></small></td>
+        <td><b>Ni sheme</b></td>
+        {% endif %}
+    </tr>
+
+
+</table>
+<!--end tabela-->
