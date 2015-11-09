@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from . import managers
@@ -69,6 +69,7 @@ class Podskupina(models.Model):
 
 class DelStavbe(models.Model):
     # ---------------------------------------------------------------------------------------
+
     def shema_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/deli/<del_oznaka>/<new_filename>
         new_filename_raw = filename.split(".")
@@ -99,6 +100,8 @@ class DelStavbe(models.Model):
         return self.element_set.order_by('oznaka')
 
     # METHODS
+    def get_absolute_url(self):
+        return reverse('moduli:deli:del_detail', kwargs={'pk': self.pk})
 
     # META AND STRING
     class Meta:
@@ -112,6 +115,7 @@ class DelStavbe(models.Model):
 
 class Element(models.Model):
     # ---------------------------------------------------------------------------------------
+
     def dokumentacija_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/deli/<del_oznaka>/<new_filename>
         new_filename_raw = filename.split(".")

@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikvidiranModel
-from eda5.lastnistvo.models import LastniskaSkupina
+from eda5.etaznalastnina.models import LastniskaSkupina
 from eda5.posta.models import Dokument
 from eda5.delovninalogi.models import DelovniNalog
 

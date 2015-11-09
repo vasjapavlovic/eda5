@@ -1,0 +1,14 @@
+
+{% load crispy_forms_tags %}
+
+</div>
+    <div class="row">
+        <div class="col-md-6 col-md-6">
+            <form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" value="Potrdi">
+            </form>
+        </div>
+    </div>
+</div>
+

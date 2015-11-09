@@ -23,6 +23,7 @@ class OpraviloForm(forms.Form):
 
 
 class OpraviloModelForm(forms.ModelForm):
+
     class Meta:
         model = Opravilo
         fields = (

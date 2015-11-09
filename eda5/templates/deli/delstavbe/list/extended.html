@@ -1,0 +1,39 @@
+{% extends "deli/delstavbe/list/base.html" %} 
+
+<!-- TAB_NAVIGACIJA############################################ -->
+
+    <!--NASLOV-->
+    {% block delstavbe_list_tab_title %}SEZNAM{% endblock %}
+    <!--end NASLOV-->
+
+
+    <!--CONTROLER_LEFT-->
+    {% block delstavbe_list_tab_controler_left %}
+        <li><a href="" data-toggle="modal" data-target="#addDel">Nov Del</a></li>
+    {% endblock %}
+    <!--end CONTROLER_LEFT-->
+
+
+    <!--CONTROLER_RIGHT-->
+    {% block delstavbe_list_tab_controler_right %}
+
+    {% endblock %}
+    <!--end CONTROLER_RIGHT-->
+
+<!-- end TAB_NAVIGACIJA -->
+
+
+<!-- CONTENT################################################### -->
+
+    {% block delstavbe_list_content %}
+
+        {% include "deli/delstavbe/list/content.html" %}
+           
+        
+        <!-- MODAL -->
+        {% include "deli/delstavbe/list/modal.html" %}
+
+
+    {% endblock %}
+
+<!-- end CONTENT -->

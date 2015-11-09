@@ -1,0 +1,54 @@
+{% extends "deli/delstavbe/detail/navigacija_menu/tabs/base.html" %} 
+
+<!-- TAB_NAVIGACIJA############################################ -->
+
+    <!--NASLOV-->
+    {% block zahtevek_detail_tab_title %}ELEMENTI{% endblock %}
+    <!--end NASLOV-->
+
+
+    <!--CONTROLER_LEFT-->
+    {% block zahtevek_detail_tab_controler_left %}
+        <li><a href="" data-toggle="modal" data-target="#addElement">Nov Element</a></li>
+    {% endblock %}
+    <!--end CONTROLER_LEFT-->
+
+
+    <!--CONTROLER_RIGHT-->
+    {% block zahtevek_detail_tab_controler_right %}
+
+    {% endblock %}
+    <!--end CONTROLER_RIGHT-->
+
+<!-- end TAB_NAVIGACIJA -->
+
+
+<!-- CONTENT################################################### -->
+
+    {% block zahtevek_detail_tab_content %}
+
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>Oznaka</th>
+                    <th>Naziv</th>
+                    <th>Model</th>
+                </tr>
+
+                {% for element in object.elementi_vsi %}
+                <tr>
+                    <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ element.oznaka }}</a></td>
+                    <td>{{ element.naziv }}</td>
+                    <td>{{ element.model_artikla.naziv }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        
+
+
+        <!-- MODAL -->
+        {% include "deli/delstavbe/detail/navigacija_menu/tabs/elementi/modal.html" %}
+
+
+    {% endblock %}
+
+<!-- end CONTENT -->
