@@ -30,9 +30,9 @@ class LastniskaEnotaInterna(models.Model):
     # ATRIBUTES
     # __Relations
     elaborat = models.ForeignKey(LastniskaEnotaElaborat)
-    lastnik = models.ForeignKey(Partner, related_name="lastnik")
-    najemnik = models.ForeignKey(Partner, null=True, blank=True, related_name="najemnik")
-    placnik = models.ForeignKey(Partner, related_name="placnik")
+    # lastnik = models.ForeignKey(Partner, related_name="lastnik")
+    # najemnik = models.ForeignKey(Partner, null=True, blank=True, related_name="najemnik")
+    # placnik = models.ForeignKey(Partner, related_name="placnik")
     # __Mandatory
     oznaka = models.CharField(max_length=5, verbose_name='interna številka dela stavbe')
 
@@ -83,7 +83,7 @@ class LastniskaSkupina(models.Model):
     # ATRIBUTES
     # ***Relations***
     program = models.ForeignKey(Program)
-    lastniska_enota = models.ManyToManyField(LastniskaEnotaInterna, blank=True)
+    lastniska_enota = models.ManyToManyField(LastniskaEnotaElaborat, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)

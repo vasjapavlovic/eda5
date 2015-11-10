@@ -50,7 +50,7 @@ LOCAL_APPS = (
     'eda5.delovninalogi',  # elektronski delovni nalogi
     'eda5.etaznalastnina',  # elaborat etažne lastnine, interne lastniske enote
     'eda5.katalog',  # katalog artiklov
-    'eda5.lastnistvo',  # lastniške skupine, lastniške enote
+    'eda5.lastnistvo',  # prevzem v last, oddaja v najem
     'eda5.moduli',  # zbirnik vseh modulov
     'eda5.narocila',  # naročila partnerjev
     'eda5.partnerji',  # podatki o partnerjih

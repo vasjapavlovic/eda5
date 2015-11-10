@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lastnistvo', '0001_initial'),
+        # ('lastnistvo', '0001_initial'),
         ('racunovodstvo', '0002_racun_is_likvidiran'),
     ]
 
