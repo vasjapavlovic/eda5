@@ -1,0 +1,11 @@
+Delovni Nalogi
+=================
+
+Namen
+^^^^^
+
+- Elektronski Delovni Nalog
+- Dnevniki in Obračuni
+- Servisna Knjiga
+- Arhiv Prejete Dokumentacije
+

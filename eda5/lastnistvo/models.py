@@ -20,7 +20,16 @@ class Prodaja(IsActiveModel, TimeStampedModel):
     #   Optional
     datum_vpisa = models.DateField(blank=True, null= True, verbose_name="datum vpisa v zemljiško knjigo")
     # OBJECT MANAGER
+
     # CUSTOM PROPERTIES
+    @property
+    def aktiven(self):
+        if self.is_active:
+            status = "Aktiven"
+        else:
+            status = "Neaktiven"
+        return status
+
     # METHODS
 
     # META AND STRING
@@ -29,7 +38,7 @@ class Prodaja(IsActiveModel, TimeStampedModel):
         verbose_name_plural = "prodaja"
 
     def __str__(self):
-        return "%s | %s" % (self.datum_predaje, self.kupec)
+        return "%s | %s | %s" % (self.datum_predaje, self.kupec, self.aktiven)
 
 
 class Najem(IsActiveModel, TimeStampedModel):
@@ -65,6 +74,14 @@ class Najem(IsActiveModel, TimeStampedModel):
     
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
+    @property
+    def aktiven(self):
+        if self.is_active:
+            status = "Aktiven"
+        else:
+            status = "Neaktiven"
+        return status
+
     # METHODS
     
     # META AND STRING
@@ -73,6 +90,6 @@ class Najem(IsActiveModel, TimeStampedModel):
         verbose_name_plural = "najem"
 
     def __str__(self):
-        return "%s | %s" % (self.datum_predaje, self.najemnik)
+        return "%s | %s | %s" % (self.datum_predaje, self.najemnik, self.aktiven)
 
 

@@ -17,6 +17,7 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     #   Relations
     zahtevek = models.ForeignKey(Zahtevek)
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
+    nadzornik = models.ForeignKey(Oseba)
     '''pod naročilo je odzadaj tudi relacija na naročnika in izvajalca'''
     # planirano_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)
     element = models.ManyToManyField(Element)
@@ -24,7 +25,9 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)
     rok_izvedbe = models.DateField()
+    is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno iz strani nadzornika")
     #   Optional
+
 
     # OBJECT MANAGER
     objects = managers.OpraviloManager()
@@ -61,20 +64,32 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     oznaka = models.CharField(max_length=20)
     '''***naziv ni potreben-vsi podatki v opravilu. Preveri druge možnosti***'''
     naziv = models.CharField(max_length=255)
-    date_plan = models.DateField(verbose_name='V planu za dne')
+    
     #   Optional
+    datum_plan = models.DateField(blank=True, null=True, verbose_name='V planu za dne')
     datum_start = models.DateField(blank=True, null=True, verbose_name="Začeto dne")
     datum_stop = models.DateField(blank=True, null=True, verbose_name="Končano dne")
+
     # OBJECT MANAGER
+    objects = managers.DelovniNalogManager()
 
     # CUSTOM PROPERTIES
-    @property
-    def delo_vdelu(self):
-        return self.delo_set.filter(time_stop__isnull=True).order_by("-time_start")
 
-    @property
-    def delo_koncano(self):
-        return self.delo_set.filter(time_stop__isnull=False).order_by("-time_stop")
+
+    # @property
+    # def delo_vdelu(self):
+    #     return self.delo_set.filter(time_stop__isnull=True).order_by("-time_start")
+
+    # @property
+    # def delo_koncano(self):
+    #     return self.delo_set.filter(time_stop__isnull=False).order_by("-time_stop")
+
+    
+
+    
+
+
+
     # METHODS
 
     # META AND STRING
@@ -108,4 +123,4 @@ class Delo(TimeStampedModel, StatusModel):
         verbose_name_plural = "Dela"
 
     def __str__(self):
-        return "%s - %s" % (self.datum, self.delavec)
+        return "%s | %s %s | %s" % (self.datum, self.delavec.priimek, self.delavec.ime, self.delovninalog.oznaka)

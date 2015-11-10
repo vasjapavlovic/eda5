@@ -52,7 +52,7 @@ class LastniskaEnotaInterna(models.Model):
         ordering = ("oznaka",)
 
     def __str__(self):
-        return "%s" % (self.oznaka)
+        return "%s | %s" % (self.oznaka, self.elaborat)
 
 
 class Program(models.Model):
