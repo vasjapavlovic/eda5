@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.db import models
+from datetime import datetime
 
 from . import managers
 
@@ -33,6 +34,7 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     objects = managers.OpraviloManager()
 
     # CUSTOM PROPERTIES
+
     @property
     def delovninalog_koncan_sorted_by_date(self):
         return self.delovninalog_set.exclude(datum_stop__isnull=True).order_by("datum_start")
@@ -108,13 +110,28 @@ class Delo(TimeStampedModel, StatusModel):
     #   Relations
     delavec = models.ForeignKey(Oseba)
     delovninalog = models.ForeignKey(DelovniNalog, verbose_name="delovni nalog")
+    # ******vrsta dela
     #   Mandatory
     #   Optional
     datum = models.DateField(blank=True, null=True)
     time_start = models.TimeField(blank=True, null=True, verbose_name="Ura:Začeto")
     time_stop = models.TimeField(blank=True, null=True, verbose_name="Ura:Končano")
+
     # OBJECT MANAGER
+    objects = managers.DeloManager()
+
     # CUSTOM PROPERTIES
+    @property
+    def porabljen_cas(self):
+        t1 = str(self.time_start)
+        t2 = str(self.time_stop)
+        # time format
+        FMT = '%H:%M:%S'
+        # izračun razlike
+        tdelta = datetime.strptime(t2, FMT) - datetime.strptime(t1, FMT)
+        # output
+        return tdelta
+
     # METHODS
 
     # META AND STRING

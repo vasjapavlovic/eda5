@@ -13,7 +13,7 @@ urlpatterns = [
 # DELOVNI NALOG
 urlpatterns += [
     url(r'^dn/$', views.DelovniNalogList.as_view(), name="dn_list"),
-    # url(r'^seznam/$', views.OpraviloListView.as_view(), name="opravilo_list"),
+    url(r'^dn/(?P<pk>\d+)/detail$', views.DelovniNalogDetailView.as_view(), name="dn_detail"),
     # url(r'^(?P<pk>\d+)/detail$', views.OpraviloDetailView.as_view(), name="opravilo_detail"),
     # url(r'^(?P<pk>\d+)/update$', views.OpraviloUpdateView.as_view(), name="opravilo_update"),
 ]
@@ -21,8 +21,8 @@ urlpatterns += [
 
 # OPRAVILO
 urlpatterns += [
-    url(r'^seznam/$', views.OpraviloListView.as_view(), name="opravilo_list"),
-    url(r'^(?P<pk>\d+)/detail$', views.OpraviloDetailView.as_view(), name="opravilo_detail"),
-    url(r'^(?P<pk>\d+)/update$', views.OpraviloUpdateView.as_view(), name="opravilo_update"),
+    url(r'^opravila/$', views.OpraviloListView.as_view(), name="opravilo_list"),
+    url(r'^opravila/(?P<pk>\d+)/detail$', views.OpraviloDetailView.as_view(), name="opravilo_detail"),
+    url(r'^opravila/(?P<pk>\d+)/update$', views.OpraviloUpdateView.as_view(), name="opravilo_update"),
 
 ]

@@ -25,8 +25,10 @@
                 </tr>
 
                 {% for dn in dn_vcakanju_list %}
+                
                 <tr>
-                    <td>{{ dn.oznaka }}</td>
+                
+                    <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
                     <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
                     <td>{{ dn.opravilo.rok_izvedbe }}</td>
                     <td><b>{{ dn.nosilec.priimek }} {{ dn.nosilec.ime }}</b><br>
@@ -35,7 +37,9 @@
                     <td><b>{{ dn.opravilo.nadzornik.priimek }} {{ dn.opravilo.nadzornik.ime }}</b><br>
                         ({{ dn.opravilo.nadzornik.podjetje.kratko_ime}})
                     </td>
+
                 </tr>
+                
                 {% endfor %}
              
             </table>
@@ -60,8 +64,9 @@
                 </tr>
 
                 {% for dn in dn_vplanu_list %}
+                <a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">
                 <tr>
-                    <td>{{ dn.oznaka }}</td>
+                    <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
                     <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
                     <td>{{ dn.opravilo.rok_izvedbe }}</td>
                     <td>{{ dn.datum_plan }}</td>
@@ -72,6 +77,7 @@
                         ({{ dn.opravilo.nadzornik.podjetje.kratko_ime}})
                     </td>
                 </tr>
+                
                 {% endfor %}
              
             </table>
@@ -100,7 +106,7 @@
 
                 {% for dn in dn_vresevanju_list %}
                 <tr>
-                    <td>{{ dn.oznaka }}</td>
+                    <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
                     <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
                     <td>{{ dn.opravilo.rok_izvedbe }}</td>
                     <td>{{ dn.datum_start }}</td>
@@ -111,6 +117,7 @@
                         ({{ dn.opravilo.nadzornik.podjetje.kratko_ime}})
                     </td>
                 </tr>
+                
                 {% endfor %}
              
             </table>
@@ -141,7 +148,7 @@
                 {% else %}
                 <tr>
                 {% endif %}
-                    <td>{{ dn.oznaka }}</td>
+                    <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
                     <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
                     <td>{{ dn.opravilo.rok_izvedbe }}</td>
                     <td>{{ dn.datum_stop }}</td>
@@ -153,6 +160,7 @@
                     </td>
                 </tr>
                 </div>
+                
                 {% endfor %}
              
             </table>

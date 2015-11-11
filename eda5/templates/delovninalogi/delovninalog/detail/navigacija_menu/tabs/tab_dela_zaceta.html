@@ -1,0 +1,99 @@
+{% extends "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_base.html" %} 
+{% load crispy_forms_tags %}
+
+<!-- TAB_NAVIGACIJA############################################ -->
+
+    <!--NASLOV-->
+    {% block detail_tab_title %}ZAČETA DELA{% endblock %}
+    <!--end NASLOV-->
+
+
+    <!--CONTROLER_LEFT-->
+    {% block detail_tab_controler_left %}
+        <li><a href="" data-toggle="modal" data-target="#addDelo">Novo Delo</a></li>
+    {% endblock %}
+    <!--end CONTROLER_LEFT-->
+
+
+    <!--CONTROLER_RIGHT-->
+    {% block detail_tab_controler_right %}
+
+    {% endblock %}
+    <!--end CONTROLER_RIGHT-->
+
+<!-- end TAB_NAVIGACIJA -->
+
+
+<!-- CONTENT################################################### -->
+
+    {% block detail_tab_content %}
+
+        <table class="table table-hover table-condensed">
+        <tr>
+            <th>datum</th>
+            <th>začetek</th>
+            <th>delavec</th>
+            <th>vrsta_dela</th>
+        </tr>
+
+    {% for delo in object.delo_set.odprta_dela %}
+
+
+    <tr>
+    
+        <td>{{ delo.datum }}</td>
+        <td>{{ delo.time_start }}</td>
+        <td>{{ delo.delavec.priimek }} ({{ delo.delavec.ime }})</td>
+        <td> (še potrebno vključiti) </td>
+
+    </tr>
+
+    {% endfor %}
+
+    </table>
+        
+
+<!-- Modal ADD Opravilo-->
+<div class="modal fade" id="addDelo" tabindex="-1" role="dialog" aria-labelledby="addDelo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Novo Delo</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ delo_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+        
+    {% endblock %}
+
+<!-- end CONTENT -->
+
+
+
+
+
+
+
+
+
+
+
+
+    

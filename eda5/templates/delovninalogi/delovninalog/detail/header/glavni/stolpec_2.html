@@ -1,0 +1,34 @@
+<!-- zahtevek detail : HEADER-GLAVNI-STOLPEC2 -->
+
+
+<!--tabela-->
+<table class="table">
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b>nosilec</b></small></td>
+        <td><b>{{ object.opravilo.nadzornik.priimek }} {{ object.opravilo.nadzornik.ime }}<br></b>
+            {{ object.opravilo.nadzornik.podjetje.kratko_ime }}
+        </td>
+    </tr>
+
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b>rok izvedbe</b></small></td>
+        <td><b>{{ object.opravilo.rok_izvedbe }}</b></td>
+    </tr>
+
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b><a href="">naročilnica</a></b></small></td>
+        <td><b>{{ object.opravilo.narocilo.oznaka }}</b></td>
+    </tr>
+
+
+
+
+
+</table>
+<!--end tabela-->

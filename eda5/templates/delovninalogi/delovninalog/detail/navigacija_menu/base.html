@@ -1,0 +1,57 @@
+<!-- zahtevek detail : NAVIGACIJA_MENU -->
+
+
+<!--nav-tabs-->
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab_dashboard"><b>D</b>ashboard</a></li>
+    <li><a data-toggle="tab" href="#tab_dela_zaceta"><b>Z</b>ačeta Dela</a></li>
+    <li><a data-toggle="tab" href="#tab_dela_koncana"><b>K</b>ončana Dela</a></li>
+    <li><a data-toggle="tab" href="#tab_material"><b>M</b>aterial</a></li>
+    <li><a data-toggle="tab" href="#tab_zaznamki"><b>Z</b>aznamki</a></li>
+    <li><a data-toggle="tab" href="#tab_doc"><b>D</b>okumentacija</a></li>
+</ul>
+<!--end nav-tabs-->
+
+<!--tab-content-->
+<div class="tab-content">
+
+
+    <!--tab******************************** -->
+        <div id="tab_dashboard" class="tab-pane fade in active">
+            {% include "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_dashboard.html" %}  
+        </div>
+
+
+    <!--tab******************************** -->
+        <div id="tab_dela_zaceta" class="tab-pane fade">
+            {% include "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_dela_zaceta.html" %}  
+        </div>
+
+
+    <!--tab******************************** -->
+        <div id="tab_dela_koncana" class="tab-pane fade">
+            {% include "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_dela_koncana.html" %}
+        </div>
+
+
+    <!--tab******************************** -->
+        <div id="tab_material" class="tab-pane fade">
+            {% include "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_material.html" %}
+        </div>
+
+
+    <!--tab******************************** -->
+        <div id="tab_doc" class="tab-pane fade">
+            {% include "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_dokumentacija.html" %}
+        </div>
+
+
+    <!--tab******************************** -->
+        <div id="tab_zaznamki" class="tab-pane fade">
+            {% include "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_zaznamki.html" %}
+        </div>
+
+
+</div>
+<!--end tab-content-->
+

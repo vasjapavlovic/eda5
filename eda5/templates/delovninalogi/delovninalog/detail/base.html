@@ -1,0 +1,26 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+
+<div class="container">
+
+
+    <small><i>
+        <a href="{% url 'moduli:delovninalogi:dn_list' %}">Nazaj</a> | 
+        <a href="">Nov vnos</a>
+    </i></small>
+
+    <!-- HEADER -->
+    {% include 'delovninalogi/delovninalog/detail/header/base.html' %}
+        
+    <!-- NAVIGACIJA_MENU -->
+    {% include "delovninalogi/delovninalog/detail/navigacija_menu/base.html" %}
+
+
+</div>
+
+
+{% endblock %}
