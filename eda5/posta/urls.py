@@ -19,9 +19,9 @@ urlpatterns = [
         view=views.PostaLikvidiranListView.as_view(),
         name='list_likvidiran'
     ),
-    url(
-        regex=r'^create/$',
-        view=views.PostaCreateView.as_view(),
-        name='create'
-    ),
+    # url(
+    #     regex=r'^create/$',
+    #     view=views.PostaCreateView.as_view(),
+    #     name='create'
+    # ),
 ]

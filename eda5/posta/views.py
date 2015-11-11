@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.views.generic import TemplateView, ListView, CreateView
 from .models import Dokument
-from .forms import PrejetaPostaCreateForm
+# from .forms import PrejetaPostaCreateForm
 
 
 class PostaHomeView(TemplateView):
@@ -29,6 +29,6 @@ class PostaLikvidiranListView(ListView):
         return queryset
 
 
-class PostaCreateView(CreateView):
-    model = Dokument
-    form_class = PrejetaPostaCreateForm
+# class PostaCreateView(CreateView):
+#     model = Dokument
+#     form_class = PrejetaPostaCreateForm

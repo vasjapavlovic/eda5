@@ -3,15 +3,15 @@ from django import forms
 from .models import Dokument
 
 
-class PrejetaPostaCreateForm(forms.ModelForm):
+# class DokumentCreateModelForm(forms.ModelForm):
 
-    class Meta:
-        model = Dokument
-        fields = (
-            "vrsta_dokumenta",
-            "posiljatelj",
-            "datum_prejema",
-            "oznaka",
-            "opis",
-            "priponka",
-            )
+#     class Meta:
+#         model = Dokument
+#         fields = (
+#             "vrsta_dokumenta",
+#             "posiljatelj",
+#             "naslovnik",
+#             "oznaka",
+#             "opis",
+#             "priponka",
+#             )
