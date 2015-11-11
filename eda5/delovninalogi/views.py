@@ -1,10 +1,12 @@
-from django.shortcuts import render
-
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
-from .forms import OpraviloModelForm
+from .forms import OpraviloModelForm, DelovniNalogVcakanjuModelForm, DelovniNalogVresevanjuModelForm
 from .models import Opravilo, DelovniNalog, Delo
 
+from eda5.zaznamki.forms import ZaznamekForm
+from eda5.zaznamki.models import Zaznamek
 
 class AppHomeView(TemplateView):
     template_name = "delovninalogi/home.html"
@@ -53,4 +55,41 @@ class DelovniNalogDetailView(DetailView):
         context['odprta_dela'] = Delo.objects.odprta_dela()
         context['koncana_dela'] = Delo.objects.koncana_dela()
 
+        # zaznamek
+        context['zaznamek_form'] = ZaznamekForm
+        context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=self.object.id)
+
         return context
+
+
+    def post(self, request, *args, **kwargs):
+        zaznamek_form = ZaznamekForm(request.POST or None)
+
+        # avtomatski podatki
+        delovninalog = DelovniNalog.objects.get(id=self.get_object().id)
+
+        if zaznamek_form.is_valid():
+            tekst = zaznamek_form.cleaned_data['tekst']
+            datum = zaznamek_form.cleaned_data['datum']
+            ura = zaznamek_form.cleaned_data['ura']
+
+            Zaznamek.objects.create_zaznamek(tekst=tekst,
+                                             datum=datum,
+                                             ura=ura,
+                                             delovninalog=delovninalog,
+                                             )
+
+        return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
+
+
+class DelovniNalogUpdateVcakanjuView(UpdateView):
+    
+    model = DelovniNalog
+    form_class = DelovniNalogVcakanjuModelForm
+    template_name = "delovninalogi/delovninalog/update_vcakanju.html"
+    success_url = reverse_lazy('moduli:delovninalogi:dn_list')
+
+class DelovniNalogUpdateVresevanjuView(UpdateView):
+    model = DelovniNalog
+    form_class = DelovniNalogVresevanjuModelForm
+    template_name = "delovninalogi/delovninalog/update_vresevanju.html"

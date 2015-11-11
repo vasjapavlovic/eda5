@@ -14,8 +14,8 @@ urlpatterns = [
 urlpatterns += [
     url(r'^dn/$', views.DelovniNalogList.as_view(), name="dn_list"),
     url(r'^dn/(?P<pk>\d+)/detail$', views.DelovniNalogDetailView.as_view(), name="dn_detail"),
-    # url(r'^(?P<pk>\d+)/detail$', views.OpraviloDetailView.as_view(), name="opravilo_detail"),
-    # url(r'^(?P<pk>\d+)/update$', views.OpraviloUpdateView.as_view(), name="opravilo_update"),
+    url(r'^dn/(?P<pk>\d+)/update/vcakanju$', views.DelovniNalogUpdateVcakanjuView.as_view(), name="dn_update_vcakanju"),
+    url(r'^dn/(?P<pk>\d+)/update/vresevanju$', views.DelovniNalogUpdateVresevanjuView.as_view(), name="dn_update_vresevanju"),
 ]
 
 

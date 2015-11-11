@@ -10,15 +10,40 @@
 
     <!--CONTROLER_LEFT-->
     {% block zahtevek_detail_tab_controler_left %}
-        <li><a>Aktivnosti</a></li>
-        <li><a>Koledar</a></li>
+
+
+
+        <!-- V ČAKANJU -->
+        {% if object.status == 1 %}
+        <li><a align="center" href="{% url 'moduli:delovninalogi:dn_update_vcakanju' object.id %}">Planiraj</a></li>
+        {% endif %}
+
+        
+        {% if object.status == 3 %}
+        <li><a align="center" href="{% url 'moduli:delovninalogi:dn_update_vresevanju' object.id %}">Zaključi</a></li>
+        {% endif %}
+
+        <!-- ZAKLJUČENO -->
+        {% if object.status == 4 %}
+        <li><a align="center" href="">Natisni Delovni Nalog</a></li>
+        {% endif %}
+
+
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
 
     <!--CONTROLER_RIGHT-->
     {% block zahtevek_detail_tab_controler_right %}
-        <li><a></a></li>
+
+
+        
+
+
+        
+
+
+
     {% endblock %}
     <!--end CONTROLER_RIGHT-->
 

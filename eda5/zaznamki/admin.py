@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Zaznamek
+
+@admin.register(Zaznamek)
+class ZaznamekAdmin(admin.ModelAdmin):
+    pass

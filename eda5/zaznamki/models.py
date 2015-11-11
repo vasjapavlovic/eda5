@@ -3,6 +3,7 @@ from django.db import models
 from . import managers
 
 from eda5.zahtevki.models import Zahtevek
+from eda5.delovninalogi.models import DelovniNalog
 
 
 class Zaznamek(models.Model):
@@ -10,6 +11,7 @@ class Zaznamek(models.Model):
     # ATRIBUTES
     #   Relations
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
+    delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     #   Mandatory
     tekst = models.TextField(verbose_name='Tekst')
     datum = models.DateField(verbose_name='Datum')

@@ -76,6 +76,8 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     objects = managers.DelovniNalogManager()
 
     # CUSTOM PROPERTIES
+    def get_absolute_url(self):
+        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.pk})
 
 
     # @property
