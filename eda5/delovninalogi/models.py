@@ -2,6 +2,9 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from datetime import datetime
 
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
 from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
@@ -61,16 +64,24 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     # ATRIBUTES
     #   Relations
     opravilo = models.ForeignKey(Opravilo)
-    nosilec = models.ForeignKey(Oseba)
-    dokument = models.ManyToManyField(Dokument, blank=True)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
     '''***naziv ni potreben-vsi podatki v opravilu. Preveri druge možnosti***'''
     naziv = models.CharField(max_length=255)
     #   Optional
+    nosilec = models.ForeignKey(Oseba, blank=True, null=True)
+    dokument = models.ManyToManyField(Dokument, blank=True)
     datum_plan = models.DateField(blank=True, null=True, verbose_name='V planu za dne')
     datum_start = models.DateField(blank=True, null=True, verbose_name="Začeto dne")
     datum_stop = models.DateField(blank=True, null=True, verbose_name="Končano dne")
+
+    @receiver(post_save, sender=Opravilo)
+    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+        oseba = Oseba.objects.get(id=3)
+        if created:
+            dn = DelovniNalog(opravilo=instance, nosilec=oseba, oznaka="DN-SIGNALS", naziv="NAZIV SIGNALS", status=1)
+            dn.save()
+
 
     # OBJECT MANAGER
     objects = managers.DelovniNalogManager()
@@ -79,6 +90,8 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     def get_absolute_url(self):
         return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.pk})
 
+
+ 
 
     # @property
     # def delo_vdelu(self):

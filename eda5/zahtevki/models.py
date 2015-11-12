@@ -1,13 +1,16 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
-from eda5.core.models import StatusModel, TimeStampedModel
+from . import managers
+
+from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba, Partner
 from eda5.posta.models import Dokument
 from eda5.deli.models import Element
 
 
-class Zahtevek(TimeStampedModel, StatusModel):
+class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     # STATUS
     draft = 0
@@ -33,14 +36,19 @@ class Zahtevek(TimeStampedModel, StatusModel):
     zahtevek_izvedba_dela = models.OneToOneField("ZahtevekIzvedbaDela", blank=True, null=True)
     # zahtevek_reklamacija_nabave = models.OneToOneField(ZahtevekReklamacijaNabave)
     # zahtevek_reklamacija_prodaje = models.OneToOneField(ZahtevekReklamacijaProdaje)
+    dokument = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     predmet = models.CharField(max_length=255)
     rok_izvedbe = models.DateField()
     # ***Optional***
     # OBJECT MANAGER
+    objects = managers.ZahtevekManager()
     # CUSTOM PROPERTIES
     # METHODS
+    def get_absolute_url(self):
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk', self.pk})
+
 
     # META AND STRING
     class Meta:

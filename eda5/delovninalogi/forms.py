@@ -27,6 +27,37 @@ class OpraviloForm(forms.Form):
     nadzornik = forms.ModelChoiceField(queryset=OSEBE)
     # element = forms.ModelMultipleChoiceField(queryset=ELEMENTI)
 
+class OpraviloCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(OpraviloCreateForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+
+        leto = timezone.now().date().year
+        zap_st = Opravilo.objects.all().count()
+        zap_st = zap_st +1
+
+        nova_oznaka = "OPR-%s-%s" % (leto, zap_st)  #
+
+
+        self.initial['oznaka'] = nova_oznaka
+
+        #querysets
+        self.fields["narocilo"].queryset = Narocilo.objects.all()
+        self.fields["nadzornik"].queryset = Oseba.objects.all()
+
+    class Meta:
+        model = Opravilo
+        fields = (
+            'naziv',
+            'rok_izvedbe',
+            'narocilo',
+            'nadzornik',
+            'oznaka',
+        )
+        widgets = {'oznaka': forms.HiddenInput(),}
+
+
 
 class OpraviloModelForm(forms.ModelForm):
 
@@ -48,6 +79,7 @@ class DelovniNalogVcakanjuModelForm(forms.ModelForm):
         fields = (
             'status',
             'datum_plan',
+            'nosilec',
             )
         widgets = {
             'status': forms.HiddenInput()}

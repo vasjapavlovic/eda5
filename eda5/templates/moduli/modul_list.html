@@ -3,6 +3,7 @@
 
 {% block extra_nav %}
 
+
 <div class="row">
 <nav class="navbar navbar" role="navigation">
 
@@ -81,8 +82,8 @@
         
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            {% block content2 %}
             <div class="container">
+            {% block content2 %}
                 <li>
                     <a href="{% url 'moduli:deli:del_list' %}">Deli</a>
                 </li>
@@ -110,11 +111,12 @@
                 <li>
                     <a href="{% url 'moduli:zahtevki:home' %}">Zahtevki</a>
                 </li>
-            </div>
+
 
 
 
             {% endblock content2 %}
+            </div>
         </div>
         <!-- /#page-content-wrapper -->
         
@@ -130,6 +132,7 @@
 </div>
 
     </div>
+    <
 
 {% endblock %}
 

@@ -4,13 +4,13 @@
 <!-- TAB_NAVIGACIJA############################################ -->
 
     <!--NASLOV-->
-    {% block zahtevek_detail_tab_title %}OPRAVILA{% endblock %}
+    {% block zahtevek_detail_tab_title %}POD-ZAHTEVKI{% endblock %}
     <!--end NASLOV-->
 
 
     <!--CONTROLER_LEFT-->
     {% block zahtevek_detail_tab_controler_left %}
-        <li><a href="" data-toggle="modal" data-target="#addOpravilo">Novo Opravilo</a></li>
+        <li><a href="" data-toggle="modal" data-target="#addPodzahtevek">Nov Pod-Zahtevek</a></li>
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
@@ -31,50 +31,42 @@
         <table class="table table-hover table-condensed">
         <tr>
         <th>oznaka</th>
-        <th>naziv</th>
+        <th>predmet</th>
         <th>rok izvedbe</th>
-        <th>status</th>
+        <th>vrsta</th>
         </tr>
 
-    {% for opravilo in opravilo_list %}
+    {% for podzahtevek in zahtevek_child_list %}
 
-    {% if opravilo.is_potrjen %}
-    <tr class="success">
-    {% else %}
+    {% if podzahtevek.is_active %}
     <tr>
-    {% endif %}
-
-
-    
-    <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a></td>
-    <td>{{ opravilo.naziv }}</td>
-    <td>{{ opravilo.rok_izvedbe }}</td>
-
-    {# status #}
-    {% if opravilo.delovninalog_set.all %}
-    <td>V reševanju</td>
     {% else %}
-    <td>v čakanju</td>
+    
+    <tr class="success">
     {% endif %}
+
+        <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' podzahtevek.pk %}">{{ podzahtevek.oznaka }}</a></td>
+        <td>{{ podzahtevek.predmet }}</td>
+        <td>{{ podzahtevek.rok_izvedbe }}</td>
     </tr>
     {% endfor %}
 
     </table>
         
 
-<!-- Modal ADD Opravilo-->
-<div class="modal fade" id="addOpravilo" tabindex="-1" role="dialog" aria-labelledby="addOpravilo">
+<!-- Modal ADD Pod-Zahtevek -->
+<div class="modal fade" id="addPodzahtevek" tabindex="-1" role="dialog" aria-labelledby="addPodzahtevek">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Novo Opravilo</h4>
+                <h4 class="modal-title" id="myModalLabel">Novo Pod-Zahtevek</h4>
             </div>
 
 
             <form action="" method="POST">{% csrf_token %}
                 <div class="modal-body">
-                    {{ opravilo_form|crispy  }}   
+                    {{ zahtevek_create_form|crispy  }}   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
