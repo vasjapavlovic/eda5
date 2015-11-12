@@ -2,8 +2,6 @@ from django.db import models
 from django.db.models import Q
 
 
-
-
 class OpraviloManager(models.Manager):
 
     def create_opravilo(self,
@@ -27,49 +25,64 @@ class OpraviloManager(models.Manager):
         opravilo.save(using=self._db)
         return opravilo
 
+
 class DelovniNalogManager(models.Manager):
 
-  use_for_related_fields = True
+    use_for_related_fields = True
 
+    # nepopolno izpolnjeni delovni nalogi
+    def dn_draft(self, **kwargs):
+        return self.filter(status=0)
 
-  # nepopolno izpolnjeni delovni nalogi
-  def dn_draft(self, **kwargs):
-      return self.filter(status=0)
+    # delovni nalogi v čakanju
+    def dn_vcakanju(self, **kwargs):
+        return self.filter(status=1)
 
+    # delovni nalogi v planu
+    def dn_vplanu(self, **kwargs):
+        return self.filter(status=2)
 
-  # delovni nalogi v čakanju
-  def dn_vcakanju(self, **kwargs):
-      return self.filter(status=1)
+    # delovni nalogi v reševanju
+    def dn_vresevanju(self, **kwargs):
+        return self.filter(status=3)
 
+    # zaključeni delovni nalogi
+    def dn_zakljuceni(self, **kwargs):
+        return self.filter(status=4).order_by("opravilo__is_potrjen", "-datum_stop")
 
-  # delovni nalogi v planu
-  def dn_vplanu(self, **kwargs):
-      return self.filter(status=2)
-
-
-  # delovni nalogi v reševanju
-  def dn_vresevanju(self, **kwargs):
-    return self.filter(status=3)
-
-
-
-  # zaključeni delovni nalogi
-  def dn_zakljuceni(self, **kwargs):
-      return self.filter(status=4).order_by("opravilo__is_potrjen", "-datum_stop")
-
-      '''
-      razvrstitev:
-      -nepotrjeni naprej
-      -zadnje končani naprej
-      '''
+        '''
+        razvrstitev:
+        -nepotrjeni naprej
+        -zadnje končani naprej
+        '''
 
 class DeloManager(models.Manager):
 
-  use_for_related_fields = True
+    use_for_related_fields = True
 
-  def odprta_dela(self, **kwargs):
-    return self.filter(time_stop__isnull=True)
+    def odprta_dela(self, **kwargs):
+        return self.filter(time_stop__isnull=True)
 
-  def koncana_dela(self, **kwargs):
-    return self.filter(time_stop__isnull=False)
+    def koncana_dela(self, **kwargs):
+      return self.filter(time_stop__isnull=False)
 
+    def create_delo(self,
+                    delavec=None,
+                    datum=None,
+                    time_start=None,
+                    time_stop=None,
+                    delovninalog=None,
+                    ):
+
+        if not delovninalog:
+            raise ValueError("Izbran mora biti delovninalog")
+
+        delo = self.model(self,
+                          delavec=delavec,
+                          datum=datum,
+                          time_start=time_start,
+                          # time_stop=time_stop,
+                          delovninalog=delovninalog,
+                          )
+
+        delo.save(self._db)

@@ -35,28 +35,33 @@ class PostnaStoritev(TimeStampedModel):
 
 
 class Dokument(TimeStampedModel, IsLikvidiranModel):
-
-    # upload_to settings
+    # ---------------------------------------------------------------------------------------
 
     def dokument_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
         new_filename_raw = filename.split(".")
         ext = '.' + new_filename_raw[1]
 
-        parametri_imena = (str(instance.datum_prejema), instance.oznaka, instance.posiljatelj.davcna_st)
+        parametri_imena = (str(instance.datum), instance.oznaka, instance.posiljatelj.davcna_st)
         new_filename = "_".join(parametri_imena)
 
         return 'prejeta_posta/{0}/{1}'.format(instance.vrsta_dokumenta.oznaka, new_filename + ext)
-
+    # ATRIBUTES
+    #   Relations
     vrsta_dokumenta = models.ForeignKey('VrstaDokumenta', verbose_name="vrsta dokumenta")
     posiljatelj = models.ForeignKey(SkupinaPartnerjev, related_name="posiljatelj", verbose_name="pošiljatelj")
     naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik", verbose_name="naslovnik")
+    #   Mandatory
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
+    datum = models.DateField()
     opis = models.CharField(max_length=255, verbose_name="opis")
     priponka = models.FileField(upload_to=dokument_directory_path)
-    # definiraj upload_to="" za točno lokacijo
-    # dokumenta, ki je morebiti vezana na vrsto dokumenta
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
 
+    # META AND STRING
     class Meta:
         verbose_name = "dokument"
         verbose_name_plural = "dokumenti"
@@ -65,8 +70,7 @@ class Dokument(TimeStampedModel, IsLikvidiranModel):
         return reverse("moduli:posta:list_likvidacija")
 
     def __str__(self):
-        return "%s - %s" % (self.datum_prejema, self.opis)
-
+        return "%s - %s | %s" % (self.datum, self.oznaka, self.opis)
 
 class SkupinaDokumenta(TimeStampedModel):
     oznaka = models.CharField(max_length=3, verbose_name='oznaka')

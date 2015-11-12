@@ -10,7 +10,7 @@ class OpraviloAdmin(admin.ModelAdmin):
 
 @admin.register(DelovniNalog)
 class DelovniNalogAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ("dokument",)
 
 
 @admin.register(Delo)
