@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from eda5.core.models import TimeStampedModel, IsLikvidiranModel
-from eda5.partnerji.models import Partner, Oseba
+from eda5.partnerji.models import SkupinaPartnerjev, Oseba
 
 
 class PostnaStoritev(TimeStampedModel):
@@ -49,8 +49,8 @@ class Dokument(TimeStampedModel, IsLikvidiranModel):
         return 'prejeta_posta/{0}/{1}'.format(instance.vrsta_dokumenta.oznaka, new_filename + ext)
 
     vrsta_dokumenta = models.ForeignKey('VrstaDokumenta', verbose_name="vrsta dokumenta")
-    posiljatelj = models.ForeignKey(Partner, related_name="posiljatelj", verbose_name="pošiljatelj")
-    naslovnik = models.ForeignKey(Partner, related_name="naslovnik", verbose_name="naslovnik")
+    posiljatelj = models.ForeignKey(SkupinaPartnerjev, related_name="posiljatelj", verbose_name="pošiljatelj")
+    naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik", verbose_name="naslovnik")
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
     opis = models.CharField(max_length=255, verbose_name="opis")
     priponka = models.FileField(upload_to=dokument_directory_path)

@@ -5,11 +5,11 @@ from datetime import datetime
 from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
-
+from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
+from eda5.posta.models import Dokument
 from eda5.zahtevki.models import Zahtevek
-from eda5.deli.models import Element
 
 
 class Opravilo(TimeStampedModel, IsActiveModel):
@@ -62,11 +62,11 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     #   Relations
     opravilo = models.ForeignKey(Opravilo)
     nosilec = models.ForeignKey(Oseba)
+    dokument = models.ManyToManyField(Dokument, blank=True)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
     '''***naziv ni potreben-vsi podatki v opravilu. Preveri druge možnosti***'''
     naziv = models.CharField(max_length=255)
-    
     #   Optional
     datum_plan = models.DateField(blank=True, null=True, verbose_name='V planu za dne')
     datum_start = models.DateField(blank=True, null=True, verbose_name="Začeto dne")
