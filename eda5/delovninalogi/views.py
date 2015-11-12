@@ -5,6 +5,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 
 from .forms import OpraviloModelForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm, DelovniNalogVresevanjuModelForm, DeloForm, DeloZacetoUpdateModelForm
+from .forms import DelovniNalogAddDokumentForm
 from .models import Opravilo, DelovniNalog, Delo
 
 from eda5.zaznamki.forms import ZaznamekForm
@@ -89,15 +90,34 @@ class DelovniNalogDetailView(DetailView):
         zaznamek_form = ZaznamekForm(request.POST or None)
 
         if zaznamek_form.is_valid():
+
+            # PODATKI ZA VNOS
+            # ---------------------------------------------------------------------------------------------
             tekst = zaznamek_form.cleaned_data['tekst']
             datum = zaznamek_form.cleaned_data['datum']
             ura = zaznamek_form.cleaned_data['ura']
 
+
+            # DODATNE VALIDACIJE
+            # ---------------------------------------------------------------------------------------------
+            # validacija_zaznamek_add_01
+            '''če je delovni-nalog že zaključen novih zaznamkov ni mogoče vnašati. V templates je gumb za nove vnose 
+            odstranjen.Ta validacija je samo za slučaj če bi se link do gumba ročno vnesel'''
+
+            if delovninalog.status == 4:
+                raise ValueError("Delovni nalog je že zaključen! Novih zaznamkov ni mogoče vnašati.")
+
+
+            # VNOS V BAZO
+            # ---------------------------------------------------------------------------------------------
             Zaznamek.objects.create_zaznamek(tekst=tekst,
                                              datum=datum,
                                              ura=ura,
                                              delovninalog=delovninalog,
                                              )
+
+            # POGOJI PREUSMERJANJA
+            # ---------------------------------------------------------------------------------------------
 
 
         # VNOS NOVEGA DELA
@@ -122,20 +142,20 @@ class DelovniNalogDetailView(DetailView):
 
             delavec_ze_dela = any(x.delavec.id == delavec.id for x in Delo.objects.filter(time_stop__isnull=True))
             if delavec_ze_dela:
-                raise ValidationError("Končati je potrebno predhodno delo")
+                raise ValueError("Končati je potrebno predhodno delo")
 
             # validacija_02
             '''če je delovni-nalog že zaključen novih del ni mogoče vnašati. V templates je gumb za nove vnose 
             odstranjen.Ta validacija je samo za slučaj če bi se link do gumba ročno vnesel'''
 
             if delovninalog.status == 4:
-                raise ValidationError("Delovni nalog je že zaključen! Novih delih ni mogoče vnašati.")
+                raise ValueError("Delovni nalog je že zaključen! Novih del ni mogoče vnašati.")
 
             # validacija_03
             '''za delovne-naloge s statusom "V ČAKANJU" ni mogoče vnašati del'''
 
             if delovninalog.status == 1:
-                raise ValidationError("V delovni nalog s statusom %s ni mogoče vnašati del" % (delovninalog.status)) 
+                raise ValueError("V delovni nalog s statusom %s ni mogoče vnašati del" % (delovninalog.status)) 
 
 
             # VNOS V BAZO
@@ -180,10 +200,20 @@ class DelovniNalogUpdateVresevanjuView(UpdateView):
     form_class = DelovniNalogVresevanjuModelForm
     template_name = "delovninalogi/delovninalog/update_vresevanju.html"
 
+
+# ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+class DelovniNalogUpdateDokumentFormView(UpdateView):
+    model = DelovniNalog
+    form_class = DelovniNalogAddDokumentForm
+    template_name = "delovninalogi/delovninalog/update_dokument.html"
+
+
 # DELO****************************************************************************************************
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 class DeloZacetoUpdateView(UpdateView):
     model = Delo
     form_class = DeloZacetoUpdateModelForm
     template_name = "delovninalogi/delo/update_zaceto.html"
+
+
 

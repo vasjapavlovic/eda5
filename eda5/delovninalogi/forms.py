@@ -1,11 +1,13 @@
 from django import forms
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 from .models import Opravilo, DelovniNalog, Delo
 
 from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
+from eda5.posta.models import Dokument
 
 
 class OpraviloForm(forms.Form):
@@ -88,12 +90,18 @@ class DelovniNalogVresevanjuModelForm(forms.ModelForm):
         self.initial['status'] = 4
         self.initial['datum_stop'] = timezone.now().date()
 
+    def clean(self):
+
+        if self.delo_set.filter(time_stop__isnull=True):
+            raise ValidationError('Dokler so odprta dela, delovnega naloga ne moreš končati')
+
 
 class DeloForm(forms.Form):
 
     DELAVCI = Oseba.objects.all()
 
     delavec = forms.ModelChoiceField(queryset=DELAVCI)
+
 
 
 class DeloZacetoUpdateModelForm(forms.ModelForm):
@@ -108,3 +116,19 @@ class DeloZacetoUpdateModelForm(forms.ModelForm):
         # custom initial properties
         self.initial['time_stop'] = timezone.now().time().strftime("%H:%M:%S")
 
+
+
+
+class DelovniNalogAddDokumentForm(forms.ModelForm):
+
+    class Meta:
+        model = DelovniNalog
+        fields = ("dokument",)
+        widgets = {"dokument": forms.CheckboxSelectMultiple}
+
+    def __init__(self, *args, **kwargs):
+        super(DelovniNalogAddDokumentForm, self).__init__(*args, **kwargs)
+
+        # vidni samo računi
+        vrsta_dokumenta = 1
+        self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)

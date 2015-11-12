@@ -1,4 +1,5 @@
 {% extends "delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_base.html" %}
+{% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
 
@@ -11,7 +12,7 @@
 
     <!--CONTROLER_LEFT-->
     {% block detail_tab_controler_left %}
-        <li><a href="" data-toggle="modal" data-target="#addDokumentacija">Dodaj dokument</a></li>
+        <li><a href="{% url 'moduli:delovninalogi:dn_update_dokument' object.id %}">Dodaj dokument</a></li>
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
