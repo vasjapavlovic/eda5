@@ -40,7 +40,9 @@
             <td><small><b>osnova za zahtevek</b></small></td>
             <td>
                 <small><b>
-                        {{ object.zahtevek_parent.predmet }} ({{ object.zahtevek_parent.oznaka }}
+                        <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.pk %}">
+                            {{ object.zahtevek_parent.predmet }} ({{ object.zahtevek_parent.oznaka }})
+                        </a>
                 </b></small>
             </td>
         </tr>

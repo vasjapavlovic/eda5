@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -75,11 +76,20 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     datum_start = models.DateField(blank=True, null=True, verbose_name="Začeto dne")
     datum_stop = models.DateField(blank=True, null=True, verbose_name="Končano dne")
 
+
     @receiver(post_save, sender=Opravilo)
     def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
-        oseba = Oseba.objects.get(id=3)
+        
+        # nova oznaka
+        leto = timezone.now().date().year
+        zap_st = DelovniNalog.objects.all().count()
+        zap_st = zap_st +1
+        nova_oznaka = "DN-%s-%s" % (leto, zap_st)
+        # naziv
+        naziv = "Skladno z opravilom."
+
         if created:
-            dn = DelovniNalog(opravilo=instance, nosilec=oseba, oznaka="DN-SIGNALS", naziv="NAZIV SIGNALS", status=1)
+            dn = DelovniNalog(opravilo=instance, oznaka=nova_oznaka, naziv=naziv, status=1)
             dn.save()
 
 

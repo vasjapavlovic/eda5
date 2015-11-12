@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/detail/$', views.ZahtevekDetailView.as_view(), name="zahtevek_detail"),
     url(r'^create/$', views.ZahtevekCreateView.as_view(), name="zahtevek_create"),
     url(r'^(?P<pk>\d+)/update/$', views.ZahtevekUpdateView.as_view(), name="zahtevek_update"),
+    url(r'^(?P<pk>\d+)/dokument/update/$', views.ZahtevekUpdateDokumentFormView.as_view(), name="zahtevek_update_dokument"),
 ]

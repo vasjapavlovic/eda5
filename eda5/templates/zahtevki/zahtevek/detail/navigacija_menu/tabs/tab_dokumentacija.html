@@ -1,22 +1,24 @@
 {% extends "zahtevki/zahtevek/detail/navigacija_menu/tabs/tab_base.html" %}
+{% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
 
 <!-- TAB_NAVIGACIJA############################################ -->
 
     <!--NASLOV-->
-    {% block zahtevek_detail_tab_title %}DOKUMENTACIJA{% endblock %}
+    {% block detail_tab_title %}DOKUMENTACIJA{% endblock %}
     <!--end NASLOV-->
 
 
     <!--CONTROLER_LEFT-->
-    {% block zahtevek_detail_tab_controler_left %}
+    {% block detail_tab_controler_left %}
+        <li><a href="{% url 'moduli:zahtevki:zahtevek_update_dokument' object.id %}">Dodaj dokument</a></li>
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
 
     <!--CONTROLER_RIGHT-->
-    {% block zahtevek_detail_tab_controler_right %}
+    {% block detail_tab_controler_right %}
     {% endblock %}
     <!--end CONTROLER_RIGHT-->
 
@@ -25,10 +27,31 @@
 
 <!-- CONTENT################################################### -->
 
-    {% block zahtevek_detail_tab_content %}
+    {% block detail_tab_content %}
+
+        <table class="table table-hover table-condensed">
+                <tr>
+                    <th>datum</th>
+                    <th>oznaka</th>
+                    <th>izdal</th>
+                    <th>opis</th>
+                </tr>
+
+                {% for dokument in object.dokument.all %}
+
+
+                <tr>
+                
+                    <td>{{ dokument.datum }}</td>
+                    <td>{{ dokument.oznaka }}</td>
+                    <td>{{ dokument.posiljatelj }}</td>
+                    <td>{{ dokument.opis }}</td>
+
+                </tr>
+                {% endfor %}
+
+        </table>
+
     {% endblock %}
     
 <!-- end CONTENT -->
-
-
-

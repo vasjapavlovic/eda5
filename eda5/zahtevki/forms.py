@@ -3,6 +3,8 @@ from django.utils import timezone
 
 from .models import Zahtevek
 
+from eda5.posta.models import Dokument
+
 
 class ZahtevekCreateForm(forms.ModelForm):
 
@@ -39,4 +41,33 @@ class ZahtevekCreateForm(forms.ModelForm):
             'zahtevek_izvedba_dela',
         )
 
-    
+
+class PodzahtevekCreateForm(ZahtevekCreateForm):
+
+    class Meta(ZahtevekCreateForm.Meta):
+
+        # brez "narocilo" --> ni potrebno saj je naročilo enako zahtevek_parent
+        fields = (
+            'oznaka',
+            'predmet',
+            'rok_izvedbe',
+            'nosilec',
+            'zahtevek_skodni_dogodek',
+            'zahtevek_sestanek',
+            'zahtevek_izvedba_dela',
+        )
+
+
+class ZahtevekUpdateDokumentForm(forms.ModelForm):
+
+    class Meta:
+        model = Zahtevek
+        fields = ("dokument",)
+        widgets = {"dokument": forms.CheckboxSelectMultiple}
+
+    def __init__(self, *args, **kwargs):
+        super(ZahtevekUpdateDokumentForm, self).__init__(*args, **kwargs)
+
+        # vidni samo računi
+        vrsta_dokumenta = 1
+        self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)

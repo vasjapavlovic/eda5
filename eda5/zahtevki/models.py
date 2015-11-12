@@ -45,9 +45,11 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # OBJECT MANAGER
     objects = managers.ZahtevekManager()
     # CUSTOM PROPERTIES
+
     # METHODS
     def get_absolute_url(self):
-        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk', self.pk})
+        return reverse('moduli:zahtevki:zahtevek_list')
+        # return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk', self.pk})  <-- nevem zakaj ne dela
 
 
     # META AND STRING
