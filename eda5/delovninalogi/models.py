@@ -135,6 +135,8 @@ class Delo(TimeStampedModel, StatusModel):
         return tdelta
 
     # METHODS
+    def get_absolute_url(self):
+        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.delovninalog.pk })
 
     # META AND STRING
     class Meta:

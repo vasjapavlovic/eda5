@@ -1,10 +1,11 @@
 from django import forms
 from django.utils import timezone
 
-from .models import Opravilo, DelovniNalog
+from .models import Opravilo, DelovniNalog, Delo
 
 from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
+from eda5.partnerji.models import Oseba
 
 
 class OpraviloForm(forms.Form):
@@ -47,14 +48,25 @@ class DelovniNalogVcakanjuModelForm(forms.ModelForm):
             'status': forms.HiddenInput()}
 
     def __init__(self, *args, **kwargs):
-        
-        initial = kwargs.get('initial', {})
-
-        # custom initial properties
-        initial['status'] = 2
-
-        kwargs['initial'] = initial
         super(DelovniNalogVcakanjuModelForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+        self.initial['status'] = 2
+
+        
+class DelovniNalogVplanuModelForm(forms.ModelForm):
+
+    class Meta:
+        model = DelovniNalog
+        fields = (
+            'status',
+            )
+        widgets = {
+            'status': forms.HiddenInput()}
+
+    def __init__(self, *args, **kwargs):
+        super(DelovniNalogVplanuModelForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+        self.initial['status'] = 3
 
 
 class DelovniNalogVresevanjuModelForm(forms.ModelForm):
@@ -71,12 +83,28 @@ class DelovniNalogVresevanjuModelForm(forms.ModelForm):
             }
 
     def __init__(self, *args, **kwargs):
-        # initial1 = kwargs.get('initial', {})
-        # initial2 = kwargs.get('initial', {})
         super(DelovniNalogVresevanjuModelForm, self).__init__(*args, **kwargs)
+        # custom initial properties
         self.initial['status'] = 4
         self.initial['datum_stop'] = timezone.now().date()
 
-        #kwargs['initial'] = initial
 
-        
+class DeloForm(forms.Form):
+
+    DELAVCI = Oseba.objects.all()
+
+    delavec = forms.ModelChoiceField(queryset=DELAVCI)
+
+
+class DeloZacetoUpdateModelForm(forms.ModelForm):
+
+    class Meta:
+        model = Delo
+        fields = ('time_stop',)
+        widgets = {'time_stop': forms.HiddenInput(),}
+
+    def __init__(self, *args, **kwargs):
+        super(DeloZacetoUpdateModelForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+        self.initial['time_stop'] = timezone.now().time().strftime("%H:%M:%S")
+

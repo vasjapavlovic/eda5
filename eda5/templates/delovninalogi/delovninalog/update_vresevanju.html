@@ -5,7 +5,10 @@
 {% block content2 %}
 
 <form method="POST", action="">{% csrf_token %}
+                <h1>Zaključi delo</h1>
+                
                 {{ form | crispy}}
+
                 <input type="submit" value="Potrdi">
 </form>
 

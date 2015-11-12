@@ -41,9 +41,11 @@
 
     <tr>
     
-        <td>{{ delo.datum }}</td>
+        <td><a href="{% url 'moduli:delovninalogi:delo_update' delo.id %}">{{ delo.datum }}</a></td>
         <td>{{ delo.time_start }}</td>
-        <td>{{ delo.delavec.priimek }} ({{ delo.delavec.ime }})</td>
+        <td>{{ delo.delavec.priimek }} {{ delo.delavec.ime }}<br>
+            ({{ delo.delavec.podjetje.kratko_ime }})
+        </td>
         <td> (še potrebno vključiti) </td>
 
     </tr>
@@ -53,7 +55,7 @@
     </table>
         
 
-<!-- Modal ADD Opravilo-->
+<!-- Modal ADD Delo-->
 <div class="modal fade" id="addDelo" tabindex="-1" role="dialog" aria-labelledby="addDelo">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -77,6 +79,28 @@
 </div>
 
 
+<!-- Modal Update Delo-->
+<div class="modal fade" id="updateDelo" tabindex="-1" role="dialog" aria-labelledby="updateDelo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Končaj delo</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ delo_update_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 

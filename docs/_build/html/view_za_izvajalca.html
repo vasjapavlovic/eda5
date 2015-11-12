@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Pogled za Izvajalca Del &mdash; EDA5 Project 0.1 documentation</title>
+    <title>IZVAJALEC STORITEV - POSTOPEK IZ VIDIKA UPORABNIKA &mdash; EDA5 Project 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -51,104 +51,49 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="pogled-za-izvajalca-del">
-<span id="glossary"></span><h1>Pogled za Izvajalca Del<a class="headerlink" href="#pogled-za-izvajalca-del" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="izvedba-del-delovni-nalogi">
-<h2>IZVEDBA DEL : DELOVNI-NALOGI<a class="headerlink" href="#izvedba-del-delovni-nalogi" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Statusi delovnega-naloga:</dt>
-<dd><ul class="first last simple">
-<li>V ČAKANJU</li>
-<li>V PLANU</li>
-<li>V REŠEVANJU</li>
-<li>ZAKLJUČENI</li>
+  <div class="section" id="izvajalec-storitev-postopek-iz-vidika-uporabnika">
+<span id="glossary"></span><h1>IZVAJALEC STORITEV - POSTOPEK IZ VIDIKA UPORABNIKA<a class="headerlink" href="#izvajalec-storitev-postopek-iz-vidika-uporabnika" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="uvodne-dolocbe">
+<h2>Uvodne določbe:<a class="headerlink" href="#uvodne-dolocbe" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Nosilec delovnega naloga = NOSILEC,</li>
+<li>Delavec po delovnem nalogu = DELAVEC</li>
+<li>Upravljavec opravila, ki se izvaja po delovnih nalogih = UPRAVLJAVEC</li>
 </ul>
-</dd>
-</dl>
-<div class="section" id="v-cakanju">
-<h3>V ČAKANJU<a class="headerlink" href="#v-cakanju" title="Permalink to this headline">¶</a></h3>
-<dl class="glossary docutils">
-<dt id="term-namen">Namen:</dt>
-<dd><ul class="first last simple">
-<li>Čakanje na potrditev nosilca izvedbe-del po delovnem-nalogu.</li>
-</ul>
-</dd>
-<dt id="term-polja">Polja:</dt>
-<dd><ul class="first last simple">
-<li>delovni nalog (oznaka)</li>
-<li>opravilo</li>
-<li>rok izvedbe</li>
-<li>nosilec</li>
-<li>nadzor</li>
-</ul>
-</dd>
-<dt id="term-posebnosti-prikaza">Posebnosti prikaza:</dt>
-<dd><ul class="first last simple">
-<li>delovne-naloge vidi samo nosilec (opcijsko vključi v nastavitev)</li>
-</ul>
-</dd>
-<dt id="term-aktivnosti">Aktivnosti:</dt>
-<dd><ul class="first last">
-<li><p class="first">kliknemo na delovni-nalog</p>
-</li>
-<li><dl class="first docutils">
-<dt>vnesemo &#8220;planirani datum izvedbe del&#8221; po delovnem-nalogu</dt>
-<dd><ul class="first last simple">
-<li>datum ne sme biti čez rok-izvedbe-opravila</li>
-<li>razpon dni med datumom &#8220;v planu&#8221; in &#8220;rok izvedbe&#8221; ne sme biti večji od &#8220;št_dni&#8221; &lt;&#8211; definiraj v opravilih</li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p class="first">možnost vpisa zaznamkov (posebnosti) za nadzor</p>
-</li>
-<li><p class="first">potrditev s klikom na &#8220;POTRDI&#8221;</p>
-</li>
-<li><p class="first">po uspešni potrditvi (validacija) se status delovnega-naloga spremeni = &#8220;V PLANU&#8221;</p>
-</li>
-</ul>
-</dd>
-</dl>
+</div></blockquote>
 </div>
-<div class="section" id="v-planu">
-<h3>V PLANU<a class="headerlink" href="#v-planu" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="postopek-upravljanja-strani">
+<h2>Postopek upravljanja strani:<a class="headerlink" href="#postopek-upravljanja-strani" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
-<dt>Aktivnosti:</dt>
+<dt>Start-string = &#8220;[&#8221;, end-string = &#8220;]_&#8221;.</dt>
+<dd><p class="first">Program EDA5 se nahaja na spletnem naslovu &lt;<a class="reference external" href="HTTPS://EDA5.SI">HTTPS://EDA5.SI</a>&gt;.
+NOSILEC ga odpre vnosom naslova v brskalnik (FIREFOX, CHROME, INTERNET EXPLORER 8:9:10).</p>
+<p>Na uvodni strani se mu prikaže <a class="reference external" href="http://firefox.com/">predstavitev</a> informacijskega sistema EDA5 ter možnosti
+navigacije.</p>
+<p>NOSILEC klikne na navigacijsko povezavo <a class="reference external" href="http://eda5.si/">delovni nalogi</a>, ki izvrši preusmeritev na
+osnovno stran aplikacije DELOVNI-NALOGI. Na ekranu se prikažejo
+<a class="reference external" href="http://www.24ur.com/">delovni nalogi razvrščeni po statusu</a>.</p>
+<p>Različne Variante:</p>
+<blockquote class="last">
+<div><p>Pomembna informacija: Delovne naloge v čakanju lahko spreminja samo NOSILEC delovnega naloga,
+ki ga določi UPRAVLJAVEC.</p>
+<dl class="docutils">
+<dt>NOSILEC klikne na delovni nalog v čakanju kjer si prebere <a class="reference external" href="http://www.24ur.com/">informacije o delovnem nalogu</a>.</dt>
 <dd><ul class="first last simple">
-<li>vnos prvega dela = sprememba statusa delovnega-naloga = &#8220;V REŠEVANJU&#8221;</li>
+<li>oznaka, naziv in opis delovnega naloga ...</li>
+<li>kdo je nadzornik ...</li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="v-resevanju">
-<h3>V REŠEVANJU<a class="headerlink" href="#v-resevanju" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>Aktivnosti:</dt>
-<dd><ul class="first simple">
-<li>s pritiksom na zaključi delovni-nalog se status spremeni = &#8220;ZAKLJUČENO&#8221;</li>
-<li>delovni-nalog se avtomatsko natisne. Kasnejše tiskanje je možno pod</li>
-</ul>
-<p class="last">zaključeni delovni-nalogi</p>
+<p>Na zgornjem meniju ima povezavo &#8220;PLANIRAJ&#8221;. S klikom na povezavo se odpre &#8220;form za dela v čakanju&#8221;.
+V okence &#8220;planirani datum&#8221; vnese datum planirane izvedbe dela. Če vneseni datum ni ustrezne oblike
+se na ekranu pokaže <a href="#id1"><span class="problematic" id="id2">`napaka`_</span></a> (link na validator_01). Ko se napaka odpravi se izvrši
+<a href="#id3"><span class="problematic" id="id4">`sprememba statusa delovnega naloga`_</span></a> = &#8220;V PLANU&#8221; (link na sprememba statusa delovnega naloga).</p>
+</div></blockquote>
 </dd>
 </dl>
-</div>
-<div class="section" id="zakljuceni">
-<h3>ZAKLJUČENI<a class="headerlink" href="#zakljuceni" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>Podatki:</dt>
-<dd><ul class="first last simple">
-<li>Podatki o OPRAVILU in DELOVNEM NALOGU</li>
-<li></li>
-<li></li>
-</ul>
-</dd>
-<dt>Dodatne opcije:</dt>
-<dd><ul class="first last simple">
-<li>možnost tiskanja delovnega naloga</li>
-</ul>
-</dd>
-</dl>
-</div>
+<p>LINKS</p>
 </div>
 </div>
 
@@ -160,14 +105,9 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Pogled za Izvajalca Del</a><ul>
-<li><a class="reference internal" href="#izvedba-del-delovni-nalogi">IZVEDBA DEL : DELOVNI-NALOGI</a><ul>
-<li><a class="reference internal" href="#v-cakanju">V ČAKANJU</a></li>
-<li><a class="reference internal" href="#v-planu">V PLANU</a></li>
-<li><a class="reference internal" href="#v-resevanju">V REŠEVANJU</a></li>
-<li><a class="reference internal" href="#zakljuceni">ZAKLJUČENI</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">IZVAJALEC STORITEV - POSTOPEK IZ VIDIKA UPORABNIKA</a><ul>
+<li><a class="reference internal" href="#uvodne-dolocbe">Uvodne določbe:</a></li>
+<li><a class="reference internal" href="#postopek-upravljanja-strani">Postopek upravljanja strani:</a></li>
 </ul>
 </li>
 </ul>

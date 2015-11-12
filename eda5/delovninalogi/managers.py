@@ -70,19 +70,18 @@ class DeloManager(models.Manager):
                     delavec=None,
                     datum=None,
                     time_start=None,
-                    time_stop=None,
                     delovninalog=None,
                     ):
 
         if not delovninalog:
             raise ValueError("Izbran mora biti delovninalog")
 
-        delo = self.model(self,
-                          delavec=delavec,
+        delo = self.model(delavec=delavec,
                           datum=datum,
                           time_start=time_start,
-                          # time_stop=time_stop,
                           delovninalog=delovninalog,
                           )
 
-        delo.save(self._db)
+        delo.save(using=self._db)
+        return delo
+

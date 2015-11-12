@@ -1,73 +1,59 @@
 .. _glossary:
 
-Pogled za Izvajalca Del
-=======================
+IZVAJALEC STORITEV - POSTOPEK IZ VIDIKA UPORABNIKA
+==================================================
 
-IZVEDBA DEL : DELOVNI-NALOGI
+Uvodne določbe:
+^^^^^^^^^^^^^^^
+
+ - Nosilec delovnega naloga = NOSILEC,
+ - Delavec po delovnem nalogu = DELAVEC
+ - Upravljavec opravila, ki se izvaja po delovnih nalogih = UPRAVLJAVEC
+
+Postopek upravljanja strani:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Statusi delovnega-naloga:
-    - V ČAKANJU
-    - V PLANU
-    - V REŠEVANJU
-    - ZAKLJUČENI   
+Start-string = "[", end-string = "]_".
+    Program EDA5 se nahaja na spletnem naslovu <HTTPS://EDA5.SI>.
+    NOSILEC ga odpre vnosom naslova v brskalnik (FIREFOX, CHROME, INTERNET EXPLORER 8:9:10).
+
+    Na uvodni strani se mu prikaže `predstavitev`_ informacijskega sistema EDA5 ter možnosti
+    navigacije.
+
+    .. _predstavitev: http://firefox.com/
+
+    NOSILEC klikne na navigacijsko povezavo `delovni nalogi`_, ki izvrši preusmeritev na
+    osnovno stran aplikacije DELOVNI-NALOGI. Na ekranu se prikažejo 
+    `delovni nalogi razvrščeni po statusu`_.
+
+    .. _delovni nalogi: http://eda5.si/
+    .. _delovni nalogi razvrščeni po statusu: http://www.24ur.com/
+
+    
+    Različne Variante:
+
+        A. Delovni nalogi "STATUS - V čakanju" :
+        ----------------------------------------
+
+        Pomembna informacija: Delovne naloge v čakanju lahko spreminja samo NOSILEC delovnega naloga,
+        ki ga določi UPRAVLJAVEC.
+
+        NOSILEC klikne na delovni nalog v čakanju kjer si prebere `informacije o delovnem nalogu`_.
+            - oznaka, naziv in opis delovnega naloga ...
+            - kdo je nadzornik ...
+
+        .. _informacije o delovnem nalogu: http://www.24ur.com/
+
+        Na zgornjem meniju ima povezavo "PLANIRAJ". S klikom na povezavo se odpre "form za dela v čakanju".
+        V okence "planirani datum" vnese datum planirane izvedbe dela. Če vneseni datum ni ustrezne oblike 
+        se na ekranu pokaže `napaka`_ (link na validator_01). Ko se napaka odpravi se izvrši 
+        `sprememba statusa delovnega naloga`_ = "V PLANU" (link na sprememba statusa delovnega naloga).
 
 
 
-V ČAKANJU
----------
-
-.. glossary::
-
-    Namen:
-        - Čakanje na potrditev nosilca izvedbe-del po delovnem-nalogu.
-
-    Polja:
-        - delovni nalog (oznaka)
-        - opravilo
-        - rok izvedbe
-        - nosilec
-        - nadzor
-
-    Posebnosti prikaza:
-        - delovne-naloge vidi samo nosilec (opcijsko vključi v nastavitev)
-
-    Aktivnosti:
-        - kliknemo na delovni-nalog
-
-        - vnesemo "planirani datum izvedbe del" po delovnem-nalogu
-            - datum ne sme biti čez rok-izvedbe-opravila
-            - razpon dni med datumom "v planu" in "rok izvedbe" ne sme biti večji od "št_dni" <-- definiraj v opravilih
-
-        - možnost vpisa zaznamkov (posebnosti) za nadzor
-        - potrditev s klikom na "POTRDI"
-        - po uspešni potrditvi (validacija) se status delovnega-naloga spremeni = "V PLANU"
 
 
-V PLANU
--------
-
-Aktivnosti:
-    - vnos prvega dela = sprememba statusa delovnega-naloga = "V REŠEVANJU"
+LINKS
 
 
-
-V REŠEVANJU
------------
-
-Aktivnosti:
-    - s pritiksom na zaključi delovni-nalog se status spremeni = "ZAKLJUČENO"
-    - delovni-nalog se avtomatsko natisne. Kasnejše tiskanje je možno pod
-    zaključeni delovni-nalogi
-
-ZAKLJUČENI
-----------
-
-Podatki:
-    - Podatki o OPRAVILU in DELOVNEM NALOGU
-    - 
-    -
-
-Dodatne opcije:
-    - možnost tiskanja delovnega naloga
 
