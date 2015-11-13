@@ -55,6 +55,7 @@ class DelovniNalogManager(models.Manager):
         -nepotrjeni naprej
         -zadnje končani naprej
         '''
+    
 
 class DeloManager(models.Manager):
 
@@ -64,7 +65,7 @@ class DeloManager(models.Manager):
         return self.filter(time_stop__isnull=True)
 
     def koncana_dela(self, **kwargs):
-      return self.filter(time_stop__isnull=False)
+        return self.filter(time_stop__isnull=False)
 
     def create_delo(self,
                     delavec=None,

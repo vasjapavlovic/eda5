@@ -39,10 +39,10 @@
 
     {% for opravilo in opravilo_list %}
 
-    {% if opravilo.is_active %}
-    <tr>
-    {% else %}
+    {% if opravilo.is_potrjen %}
     <tr class="success">
+    {% else %}
+    <tr>
     {% endif %}
 
 

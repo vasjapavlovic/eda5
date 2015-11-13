@@ -343,7 +343,7 @@
 			"file": "eda5/delovninalogi/views.py",
 			"settings":
 			{
-				"buffer_size": 3346,
+				"buffer_size": 9453,
 				"line_ending": "Unix"
 			}
 		},
@@ -351,7 +351,7 @@
 			"file": "eda5/templates/delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_dela_zaceta.html",
 			"settings":
 			{
-				"buffer_size": 2273,
+				"buffer_size": 3363,
 				"line_ending": "Unix"
 			}
 		},
@@ -383,7 +383,7 @@
 			"file": "eda5/delovninalogi/models.py",
 			"settings":
 			{
-				"buffer_size": 4576,
+				"buffer_size": 4796,
 				"line_ending": "Unix"
 			}
 		},
@@ -391,7 +391,7 @@
 			"file": "eda5/delovninalogi/managers.py",
 			"settings":
 			{
-				"buffer_size": 1795,
+				"buffer_size": 2396,
 				"line_ending": "Unix"
 			}
 		}
@@ -644,7 +644,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3346,
+						"buffer_size": 9453,
 						"regions":
 						{
 						},
@@ -675,15 +675,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2273,
+						"buffer_size": 3363,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2273,
-								2273
+								0,
+								0
 							]
 						],
 						"settings":
@@ -799,7 +799,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4576,
+						"buffer_size": 4796,
 						"regions":
 						{
 						},
@@ -830,15 +830,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1795,
+						"buffer_size": 2396,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1762,
-								1762
+								0,
+								0
 							]
 						],
 						"settings":

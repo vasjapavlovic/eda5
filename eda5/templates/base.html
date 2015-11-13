@@ -89,7 +89,9 @@
 
       {% if messages %}
           {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              </div>
           {% endfor %}
       {% endif %}
     </div> <!-- /container -->

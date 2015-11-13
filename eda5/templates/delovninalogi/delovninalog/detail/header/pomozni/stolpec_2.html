@@ -16,7 +16,7 @@
     <tr>
         <td><small><b>delavci</b></small></td>
         <td><b>
-            {% for delo in object.delo_set.all %}
+            {% for delo in delo_delavec_distinct_list %}
                 {{ delo.delavec.priimek }} {{ delo.delavec.ime }}<br>
             {% endfor %}
         </b></td>

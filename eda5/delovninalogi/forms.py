@@ -90,10 +90,9 @@ class DelovniNalogVresevanjuModelForm(forms.ModelForm):
         self.initial['status'] = 4
         self.initial['datum_stop'] = timezone.now().date()
 
-    def clean(self):
 
-        if self.delo_set.filter(time_stop__isnull=True):
-            raise ValidationError('Dokler so odprta dela, delovnega naloga ne moreš končati')
+        ''' validiraj Dokler so odprta dela, delovnega naloga ne moreš končati'''
+
 
 
 class DeloForm(forms.Form):
