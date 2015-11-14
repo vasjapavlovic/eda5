@@ -150,6 +150,3 @@ class Oseba(TimeStampedModel, IsActiveModel):
 
     def __str__(self):
         return "%s %s - %s" % (self.priimek, self.ime, self.status)
-
-
-

@@ -7,14 +7,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('posta', '0008_auto_20151026_0727'),
+        ('posta', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Plan',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -31,11 +31,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PlanIzdaja',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('datum_izdaje', models.DateTimeField()),
+                ('datum_izdaje', models.DateField()),
                 ('plan', models.ForeignKey(to='planiranje.Plan')),
                 ('potrditvena_dokumentacija', models.ForeignKey(to='posta.Dokument')),
             ],
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PlanOpravilo',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -55,12 +55,12 @@ class Migration(migrations.Migration):
                 ('naziv', models.CharField(max_length=255)),
                 ('namen', models.CharField(max_length=255)),
                 ('obseg', models.TextField()),
-                ('perioda_predpisana_enota', models.CharField(verbose_name='enota periode', max_length=5, choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')])),
+                ('perioda_predpisana_enota', models.CharField(max_length=5, choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')], verbose_name='enota periode')),
                 ('perioda_predpisana_enota_kolicina', models.IntegerField(verbose_name='kolicina enote periode')),
                 ('perioda_predpisana_kolicina_na_enoto', models.IntegerField(verbose_name='kolicina na enoto periode')),
                 ('zap_st', models.IntegerField(verbose_name='zaporedna številka', default=0)),
                 ('opomba', models.TextField()),
-                ('plan', models.ForeignKey(to='planiranje.PlanIzdaja', verbose_name='izdaja plana')),
+                ('plan', models.ForeignKey(verbose_name='izdaja plana', to='planiranje.PlanIzdaja')),
             ],
             options={
                 'verbose_name': 'planirano opravilo',
@@ -70,14 +70,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SklopPlanov',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('oznaka', models.CharField(max_length=25)),
                 ('naziv', models.CharField(max_length=255)),
                 ('zap_st', models.IntegerField(verbose_name='zaporedna številka', default=0)),
             ],
             options={
-                'ordering': ('zap_st',),
                 'verbose_name': 'sklop planov',
+                'ordering': ('zap_st',),
                 'verbose_name_plural': 'sklopi planov',
             },
         ),

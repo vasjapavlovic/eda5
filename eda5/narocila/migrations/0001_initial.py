@@ -7,37 +7,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('posta', '0008_auto_20151026_0727'),
-        ('partnerji', '0012_partner_user'),
+        ('partnerji', '0001_initial'),
+        ('posta', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Narocilo',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('oznaka', models.CharField(verbose_name='oznaka', max_length=20)),
-                ('predmet', models.CharField(verbose_name='predmet', max_length=255)),
+                ('oznaka', models.CharField(max_length=20)),
+                ('predmet', models.CharField(max_length=255)),
                 ('datum_narocila', models.DateField(verbose_name='datum naročila')),
                 ('datum_veljavnosti', models.DateField(verbose_name='velja do')),
-                ('vrednost', models.DecimalField(max_digits=7, decimal_places=2)),
-                ('dodatna_dokumentacija', models.ManyToManyField(to='posta.Dokument')),
+                ('vrednost', models.DecimalField(decimal_places=2, max_digits=7)),
+                ('dodatna_dokumentacija', models.ManyToManyField(to='posta.Dokument', blank=True)),
                 ('izvajalec', models.ForeignKey(related_name='izvajalec', to='partnerji.Partner')),
             ],
             options={
-                'verbose_name': 'Naročilo',
-                'verbose_name_plural': 'Naročila',
+                'verbose_name': 'naročilo',
+                'verbose_name_plural': 'naročila',
             },
         ),
         migrations.CreateModel(
             name='NarociloPogodba',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('st_pogodbe', models.CharField(verbose_name='številka pogodbe', max_length=20)),
+                ('st_pogodbe', models.CharField(max_length=20, verbose_name='številka pogodbe')),
+                ('predmet_pogodbe', models.CharField(max_length=255, verbose_name='številka pogodbe')),
                 ('pogodba', models.ForeignKey(to='posta.Dokument')),
             ],
             options={
@@ -48,7 +49,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='NarociloTelefon',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('telefonska_stevilka', models.CharField(max_length=20)),
@@ -64,16 +65,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='narocilo',
             name='narocilo_pogodba',
-            field=models.OneToOneField(to='narocila.NarociloPogodba'),
+            field=models.OneToOneField(to='narocila.NarociloPogodba', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='narocilo',
             name='narocilo_telefon',
-            field=models.OneToOneField(to='narocila.NarociloTelefon'),
+            field=models.OneToOneField(to='narocila.NarociloTelefon', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='narocilo',
             name='narocnik',
-            field=models.ForeignKey(related_name='narocnik', to='partnerji.Partner'),
+            field=models.ForeignKey(related_name='narocnik', to='partnerji.SkupinaPartnerjev'),
         ),
     ]

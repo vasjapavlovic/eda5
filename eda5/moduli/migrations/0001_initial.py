@@ -13,12 +13,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Modul',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('oznaka', models.CharField(max_length=10)),
                 ('naziv', models.CharField(max_length=200)),
                 ('opis', models.TextField()),
+                ('url_name', models.CharField(max_length=500)),
             ],
             options={
                 'abstract': False,
