@@ -51,15 +51,15 @@ class ZahtevekDetailView(DetailView):
             naziv = opravilo_form.cleaned_data['naziv']
             rok_izvedbe = opravilo_form.cleaned_data['rok_izvedbe']
             narocilo = opravilo_form.cleaned_data['narocilo']
-            vrsta_stroska = opravilo_form.cleaned_data['vrsta_stroska']
+            nadzornik = opravilo_form.cleaned_data['nadzornik']
             # element = opravilo_form.cleaned_data['element']
 
             Opravilo.objects.create_opravilo(oznaka=oznaka,
                                              naziv=naziv,
                                              rok_izvedbe=rok_izvedbe,
                                              narocilo=narocilo,
-                                             vrsta_stroska=vrsta_stroska,
                                              zahtevek=zahtevek,
+                                             nadzornik=nadzornik
                                              # element=element,
                                              )
 

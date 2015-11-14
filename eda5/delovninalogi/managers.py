@@ -10,6 +10,7 @@ class OpraviloManager(models.Manager):
                         rok_izvedbe=None,
                         narocilo=None,
                         zahtevek=None,
+                        nadzornik=None,
                         ):
         if not zahtevek:
             raise ValueError("Izbran mora biti zahtevek")
@@ -20,6 +21,7 @@ class OpraviloManager(models.Manager):
                               narocilo=narocilo,
                               # element=element,
                               zahtevek=zahtevek,
+                              nadzornik=nadzornik,
                               )
 
         opravilo.save(using=self._db)

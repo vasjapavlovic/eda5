@@ -15,6 +15,7 @@ class OpraviloForm(forms.Form):
     # querysets
     NAROCILA = Narocilo.objects.all()
     ELEMENTI = Element.objects.all()
+    OSEBE = Oseba.objects.all()
 
     # FORM
     # **onovno
@@ -23,6 +24,7 @@ class OpraviloForm(forms.Form):
     rok_izvedbe = forms.DateField()
     # **relacije
     narocilo = forms.ModelChoiceField(queryset=NAROCILA)
+    nadzornik = forms.ModelChoiceField(queryset=OSEBE)
     # element = forms.ModelMultipleChoiceField(queryset=ELEMENTI)
 
 
@@ -37,6 +39,7 @@ class OpraviloModelForm(forms.ModelForm):
             'naziv',
             'rok_izvedbe',
             )
+
 
 class DelovniNalogVcakanjuModelForm(forms.ModelForm):
 
@@ -54,7 +57,7 @@ class DelovniNalogVcakanjuModelForm(forms.ModelForm):
         # custom initial properties
         self.initial['status'] = 2
 
-        
+
 class DelovniNalogVplanuModelForm(forms.ModelForm):
 
     class Meta:

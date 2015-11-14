@@ -138,31 +138,29 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             # ---------------------------------------------------------------------------------------------
 
             # validacija_01
-            '''pred vnosom novega dela NOSILEC ali DELAVEC ne sme imeti odprtih del. Istočasno ni mogoče
-            opravljati več del'''
-            for delo in Delo.objects.filter(time_stop__isnull=True):
-                if delo.delavec.id == delavec.id:
-                    messages.error(request,"Končati je potrebno predhodno delo z oznako '%s'" % (delo.delovninalog.oznaka))
-                    return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
-
-            # validacija_02
-            '''če je delovni-nalog že zaključen novih del ni mogoče vnašati. V templates je gumb za nove vnose
-            odstranjen.Ta validacija je samo za slučaj če bi se link do gumba ročno vnesel'''
-
-            if delovninalog.status == 4:
-                messages.error(request,"Delovni nalog je že zaključen! Novih del ni mogoče vnašati.")
-                return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
-                
-
-            # validacija_03
             '''Delovnim nalogom "V ČAKANJU" ni mogoče dodajati del'''
 
             if delovninalog.status == 1:
                 messages.error(request, 'Delovnim nalogom "V ČAKANJU" ni mogoče dodajati del. Poterbno je planirati \
                                  na povezavi DASHBOARD : Planiraj.')  # sporočilo uporabniku
                 return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
-                
-                # raise ValueError("V delovni nalog s statusom %s ni mogoče vnašati del" % (delovninalog.status))
+
+            # validacija_02
+            '''pred vnosom novega dela NOSILEC ali DELAVEC ne sme imeti odprtih del. Istočasno ni mogoče
+            opravljati več del'''
+            for delo in Delo.objects.filter(time_stop__isnull=True):
+                if delo.delavec.id == delavec.id:
+                    messages.error(request, "Končati je potrebno predhodno delo z oznako '%s'"
+                                   % (delo.delovninalog.oznaka))
+                    return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
+
+            # validacija_03
+            '''če je delovni-nalog že zaključen novih del ni mogoče vnašati. V templates je gumb za nove vnose
+            odstranjen.Ta validacija je samo za slučaj če bi se link do gumba ročno vnesel'''
+
+            if delovninalog.status == 4:
+                messages.error(request, "Delovni nalog je že zaključen! Novih del ni mogoče vnašati.")
+                return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
             # VNOS V BAZO
             # ---------------------------------------------------------------------------------------------

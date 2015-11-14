@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
             name='Strosek',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('lastniska_skupina', models.ForeignKey(to='lastnistvo.LastniskaSkupina')),
+                ('lastniska_skupina', models.ForeignKey(to='etaznalastnina.LastniskaSkupina')),
                 ('racun', models.ForeignKey(to='racunovodstvo.Racun')),
             ],
             options={
