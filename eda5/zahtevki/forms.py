@@ -1,7 +1,7 @@
 from django import forms
 from django.utils import timezone
 
-from .models import Zahtevek
+from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 
 from eda5.posta.models import Dokument
 
@@ -14,7 +14,7 @@ class ZahtevekCreateForm(forms.ModelForm):
         # OZNAKA - tuki je napisano z namen, ker je form uporabljen na dveh različnih mestih
         leto = timezone.now().date().year
         zap_st = Zahtevek.objects.all().count()
-        zap_st = zap_st +1
+        zap_st = zap_st + 1
         nova_oznaka = "ZHT-%s-%s" % (leto, zap_st)
         self.initial['oznaka'] = nova_oznaka
 
@@ -32,13 +32,11 @@ class ZahtevekCreateForm(forms.ModelForm):
         model = Zahtevek
         fields = (
             'oznaka',
+            'vrsta',
             'predmet',
             'rok_izvedbe',
             'narocilo',
             'nosilec',
-            'zahtevek_skodni_dogodek',
-            'zahtevek_sestanek',
-            'zahtevek_izvedba_dela',
         )
 
 
@@ -50,11 +48,9 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
         fields = (
             'oznaka',
             'predmet',
+            'vrsta',
             'rok_izvedbe',
             'nosilec',
-            'zahtevek_skodni_dogodek',
-            'zahtevek_sestanek',
-            'zahtevek_izvedba_dela',
         )
 
 
@@ -71,3 +67,53 @@ class ZahtevekUpdateDokumentForm(forms.ModelForm):
         # vidni samo računi
         vrsta_dokumenta = 1
         self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)
+
+
+class ZahtevekUpdateForm(ZahtevekCreateForm):
+
+    class Meta(ZahtevekCreateForm.Meta):
+        widgets = {
+            'vrsta': forms.HiddenInput(),
+            'narocilo': forms.HiddenInput(),
+        }
+
+
+class ZahtevekSkodniDogodekUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = ZahtevekSkodniDogodek
+        fields = (
+            'dokument_prijava_skode',
+            'dokument_zapisnik_ogleda',
+            'dokument_poravnava',
+            'dokazno_gradivo',
+            'datum_nastanka_skode',
+            'vzrok_skode',
+            'is_prijava_policiji',
+            'povzrocitelj',
+            'predvidena_visina_skode',
+            'poskodovane_stvari',
+        )
+        widgets = {"poskodovane_stvari": forms.CheckboxSelectMultiple}
+
+
+class ZahtevekSestanekUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = ZahtevekSestanek
+        fields = (
+            'sklicatelj',
+            'zapisnik',
+            'datum',
+            'udelezenci',
+        )
+        widgets = {"udelezenci": forms.CheckboxSelectMultiple}
+
+
+class ZahtevekIzvedbaDelUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = ZahtevekIzvedbaDela
+        fields = (
+            'is_zakonska_obveza',
+        )

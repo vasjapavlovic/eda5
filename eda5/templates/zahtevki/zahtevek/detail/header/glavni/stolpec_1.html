@@ -22,16 +22,7 @@
     <!--vrstica******************************** -->
         <tr>
             <td><small><b>vrsta</b></small></td>
-            <td>
-                <!--IF : ŠKODNI DOGODEK-->
-                {% if object.zahtevek_skodni_dogodek %}Škodni Dogodek{% endif %} 
-
-                <!--IF : SESTANEK-->
-                {% if object.zahtevek_sestanek %}Sestanek{% endif %} 
-
-                <!--IF : IZVEDBA-DEL-->
-                {% if object.zahtevek_izvedba_dela %}Izvedba del{% endif %}
-            </td> 
+            <td>{{ object.get_vrsta_display }}</td> 
 
 
     <!--vrstica***********OPCIJSKA****** ****** -->

@@ -4,14 +4,14 @@
     <!--vrstica******************************** -->
         <tr>
             <td><small><b>Sklicatelj</b></small></td>
-            <td>{{ object.zahtevek_sestanek.sklicatelj.kratko_ime }}</td>
+            <td>{{ object.zahteveksestanek.sklicatelj.kratko_ime }}</td>
         </tr>
 
 
     <!--vrstica******************************** -->
         <tr>
             <td><small><b>Datum sestanka</b></small></td>
-            <td>{{ object.zahtevek_sestanek.datum }}</td>
+            <td>{{ object.zahteveksestanek.datum }}</td>
         </tr>   
 
 
@@ -19,8 +19,8 @@
         <tr>
             <td><small><b>Zapisnik</b></small></td>
             <td>
-                <a href="{{ MEDIA_URL }}{{ object.zahtevek_sestanek.zapisnik.priponka }}">
-                    {{ object.zahtevek_sestanek.zapisnik }}
+                <a href="{{ MEDIA_URL }}{{ object.zahteveksestanek.zapisnik.priponka }}">
+                    {{ object.zahteveksestanek.zapisnik }}
                 </a>
             </td>
         </tr>

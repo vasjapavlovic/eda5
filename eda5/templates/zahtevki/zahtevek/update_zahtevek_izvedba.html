@@ -4,10 +4,11 @@
 
 {% block content2 %}
 
-<form method="POST", action="">{% csrf_token %}
-                <h1>Urejevalnik Zahtevka</h1>
-                
+<form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
+                <h1>Izvedba del</h1>
+
                 {{ form | crispy }}
+
 
                 <input type="submit" value="Potrdi">
 </form>

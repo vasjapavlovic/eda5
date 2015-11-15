@@ -32,17 +32,17 @@
 
 
                     <!--IF : ŠKODNI DOGODEK-->
-                    {% if object.zahtevek_skodni_dogodek %}
+                    {% if object.vrsta == 1 %}
                         {% include "zahtevki/zahtevek/detail/header/pomozni/skodni_dogodek/stolpec_1.html" %}
                     {% endif %} 
 
                     <!--IF : SESTANEK-->
-                    {% if object.zahtevek_sestanek %}
+                    {% if object.vrsta == 2 %}
                         {% include "zahtevki/zahtevek/detail/header/pomozni/sestanek/stolpec_1.html" %}
                     {% endif %} 
 
                     <!--IF : IZVEDBA-DEL-->
-                    {% if object.zahtevek_izvedba_dela %}
+                    {% if object.vrsta == 3 %}
                         {% include "zahtevki/zahtevek/detail/header/pomozni/izvedba_del/stolpec_1.html" %}
                     {% endif %}
 
@@ -52,17 +52,17 @@
                 <div class="col-xs-6 col-md-6"><!--druga vrstica-->
 
                     <!--IF : ŠKODNI DOGODEK-->
-                    {% if object.zahtevek_skodni_dogodek %}
+                    {% if object.vrsta == 1 %}
                         {% include "zahtevki/zahtevek/detail/header/pomozni/skodni_dogodek/stolpec_2.html" %}
                     {% endif %} 
 
                     <!--IF : SESTANEK-->
-                    {% if object.zahtevek_sestanek %}
+                    {% if object.vrsta == 2 %}
                         {% include "zahtevki/zahtevek/detail/header/pomozni/sestanek/stolpec_2.html" %}
                     {% endif %} 
 
                     <!--IF : IZVEDBA-DEL-->
-                    {% if object.zahtevek_izvedba_dela %}
+                    {% if object.vrsta == 3 %}
                         {% include "zahtevki/zahtevek/detail/header/pomozni/izvedba_del/stolpec_2.html" %}
                     {% endif %}
 

@@ -17,6 +17,11 @@
     *mogoče dodaj pisanje dnevnika reševanja
 - models --> create_opravilo --> uredi tako, da bo že tu izdelalo ManyToManyRelacijo ELEMENTI
 
+- ZahtevekSkodniDogodek -- Poškodovane stvari se podvajajo
+                            Nepotrebno jih je izbirati za prijavo škode.
+                            pravilno --> Takoj vnesti opravila potrebna za popravilo na podlagi katerih
+                            nastane seznam poškodovanih stvari
+
 ### PREDPISI ###
 
 ### PLAN ###

@@ -13,21 +13,33 @@
         <li><a>Aktivnosti</a></li>
         <li><a>Koledar</a></li>
         <li><a>Drevesna struktura</a></li>
+
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
 
     <!--CONTROLER_RIGHT-->
     {% block detail_tab_controler_right %}
-        <li><a></a></li>
+
+        <li><a href="{% url 'moduli:zahtevki:zahtevek_update_main' object.pk %}">Spremeni <b>Osnovne</b> Podatke</a></li>
+
+        {% if object.vrsta == 1 %}
+        <li><a href="{% url 'moduli:zahtevki:zahtevek_update_skodni' object.zahtevekskodnidogodek.pk %}">Spremeni <b>Specifične</b> Podatke</a></li>
+        {% endif %}
+
+        {% if object.vrsta == 2 %}
+        <li><a href="{% url 'moduli:zahtevki:zahtevek_update_sestanek' object.zahteveksestanek.pk %}">Spremeni <b>Specifične</b> Podatke</a></li>
+        {% endif %}
+
+        {% if object.vrsta == 3 %}
+        <li><a href="{% url 'moduli:zahtevki:zahtevek_update_izvedba' object.zahtevekizvedbadela.pk %}">Spremeni <b>Specifične</b> Podatke</a></li>
+        {% endif %}
+
+        <li><a>|||||||||||||||</a></li>
     {% endblock %}
     <!--end CONTROLER_RIGHT-->
 
 <!-- end TAB_NAVIGACIJA -->
-
-
-
-
 
 <!-- CONTENT################################################### -->
 

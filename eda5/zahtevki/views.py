@@ -4,8 +4,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 
-from .forms import ZahtevekCreateForm, PodzahtevekCreateForm, ZahtevekUpdateDokumentForm
-from .models import Zahtevek
+from .forms import ZahtevekCreateForm, PodzahtevekCreateForm, ZahtevekUpdateDokumentForm,\
+                   ZahtevekUpdateForm, ZahtevekSkodniDogodekUpdateForm, ZahtevekSestanekUpdateForm,\
+                   ZahtevekIzvedbaDelUpdateForm
+from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 
 from eda5.delovninalogi.forms import OpraviloCreateForm
 from eda5.delovninalogi.models import Opravilo
@@ -31,8 +33,26 @@ class ZahtevekCreateView(CreateView):
 
 class ZahtevekUpdateView(UpdateView):
     model = Zahtevek
-    form_class = ZahtevekCreateForm
-    template_name = "zahtevki/zahtevek/update.html"
+    form_class = ZahtevekUpdateForm
+    template_name = "zahtevki/zahtevek/update_zahtevek_main.html"
+
+
+class ZahtevekUpdateSkodniView(UpdateView):
+    model = ZahtevekSkodniDogodek
+    form_class = ZahtevekSkodniDogodekUpdateForm
+    template_name = "zahtevki/zahtevek/update_zahtevek_skodni.html"
+
+
+class ZahtevekUpdateSestanekView(UpdateView):
+    model = ZahtevekSestanek
+    form_class = ZahtevekSestanekUpdateForm
+    template_name = "zahtevki/zahtevek/update_zahtevek_sestanek.html"
+
+
+class ZahtevekUpdateIzvedbaView(UpdateView):
+    model = ZahtevekIzvedbaDela
+    form_class = ZahtevekIzvedbaDelUpdateForm
+    template_name = "zahtevki/zahtevek/update_zahtevek_izvedba.html"
 
 
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -99,7 +119,6 @@ class ZahtevekDetailView(DetailView):
                                              zahtevek=zahtevek,
                                              )
 
-
         if zahtevek_form.is_valid():
 
             oznaka = zahtevek_form.cleaned_data['oznaka']  # avtomatizirano v .forms
@@ -122,6 +141,4 @@ class ZahtevekDetailView(DetailView):
                                              zahtevek_parent=zahtevek,
                                              )
 
-
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
-

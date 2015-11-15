@@ -7,7 +7,7 @@
 
             <td>
                 <ul>
-                {% for udelezenec in object.zahtevek_sestanek.udelezenci.all %}
+                {% for udelezenec in object.zahteveksestanek.udelezenci.all %}
                     <li>{{ udelezenec.priimek }} {{ udelezenec.ime }}</li>
                 {% endfor %}
                 </ul>

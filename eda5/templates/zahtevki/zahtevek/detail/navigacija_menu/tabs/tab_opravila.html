@@ -38,12 +38,11 @@
 
     {% for opravilo in opravilo_list %}
 
-    {% if opravilo.is_potrjen %}
+        {% if opravilo.is_potrjen %}
     <tr class="success">
-    {% else %}
+    {% else  %}
     <tr>
     {% endif %}
-
 
     
     <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a></td>
@@ -51,11 +50,12 @@
     <td>{{ opravilo.rok_izvedbe }}</td>
 
     {# status #}
-    {% if opravilo.delovninalog_set.all %}
-    <td>V reševanju</td>
+    {% if opravilo.is_potrjen %}
+    <td>Zaključeno</td>
     {% else %}
-    <td>v čakanju</td>
+    <td>V reševanju</td>
     {% endif %}
+
     </tr>
     {% endfor %}
 

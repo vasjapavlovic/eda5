@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from . import managers
 
@@ -25,20 +27,24 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
         (zakljuceno, 'Zaključeno'),
         )
 
+    VRSTE_ZAHTEVKOV = (
+        (1, 'Škodni Dogodek'),
+        (2, 'Sestanek'),
+        (3, 'Izvedba del'),
+        # (4, 'Zbor Lastnikov'),
+        # (5, 'Reklamacija Nabave'),
+        # (6, 'Reklamacija Prodaje'),
+    )
+
     # ATRIBUTES
     # ***Relations***
     zahtevek_parent = models.ForeignKey("self", null=True, blank=True)
     narocilo = models.ForeignKey(Narocilo)  # ***izbira samo med veljavnimi naročili****
     nosilec = models.ForeignKey(Oseba)
-    zahtevek_skodni_dogodek = models.OneToOneField("ZahtevekSkodniDogodek", blank=True, null=True)
-    # zahtevek_zbor_lastnikov = models.OneToOneField(ZahtevekZborLastnikov)
-    zahtevek_sestanek = models.OneToOneField("ZahtevekSestanek", blank=True, null=True)
-    zahtevek_izvedba_dela = models.OneToOneField("ZahtevekIzvedbaDela", blank=True, null=True)
-    # zahtevek_reklamacija_nabave = models.OneToOneField(ZahtevekReklamacijaNabave)
-    # zahtevek_reklamacija_prodaje = models.OneToOneField(ZahtevekReklamacijaProdaje)
     dokument = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
+    vrsta = models.IntegerField(choices=VRSTE_ZAHTEVKOV)
     predmet = models.CharField(max_length=255)
     rok_izvedbe = models.DateField()
     # ***Optional***
@@ -48,9 +54,8 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
 
     # METHODS
     def get_absolute_url(self):
-        return reverse('moduli:zahtevki:zahtevek_list')
-        # return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk', self.pk})  <-- nevem zakaj ne dela
-
+        # return reverse('moduli:zahtevki:zahtevek_list')
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.pk})
 
     # META AND STRING
     class Meta:
@@ -66,6 +71,7 @@ class ZahtevekSkodniDogodek(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
+    zahtevek = models.OneToOneField(Zahtevek)
     poskodovane_stvari = models.ManyToManyField(Element, blank=True)
     #     dokumenti
     dokument_prijava_skode = models.ForeignKey(Dokument, related_name="dokument_prijava_skode",
@@ -77,17 +83,30 @@ class ZahtevekSkodniDogodek(models.Model):
     dokazno_gradivo = models.ForeignKey(Dokument, blank=True, null=True, related_name="dokazno_gradivo")
     # zaznamki ZAVAROVALNICA
     #   Mandatory
-    datum_nastanka_skode = models.DateField(verbose_name="datum nastanka škdoe")
+    datum_nastanka_skode = models.DateField(blank=True, null=True, verbose_name="datum nastanka škode")
     vzrok_skode = models.TextField(blank=True, verbose_name="vzrok škode")
     #   Optional
-    is_prijava_policiji = models.BooleanField(blank=True, verbose_name="prijavljeno policiji")
-    povzrocitelj = models.CharField(max_length=255, blank=True, verbose_name="povzročitelj")
+    is_prijava_policiji = models.NullBooleanField(verbose_name="prijavljeno policiji")
+    povzrocitelj = models.CharField(max_length=255, blank=True, verbose_name="povzročitelj (opisno)")
     #     oblika: 99999.99
     predvidena_visina_skode = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True,
                                                   verbose_name="predvidena višina škode")
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
+
     # METHODS
+    @receiver(post_save, sender=Zahtevek)
+    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+
+        if instance.vrsta == 1:
+            if created:
+                sd = ZahtevekSkodniDogodek(zahtevek=instance)
+                sd.save()
+
+    def get_absolute_url(self):
+        # return reverse('moduli:zahtevki:zahtevek_list')
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
+
 
     # META AND STRING
     class Meta:
@@ -96,22 +115,35 @@ class ZahtevekSkodniDogodek(models.Model):
         ordering = ("datum_nastanka_skode",)
 
     def __str__(self):
-        return "%s" % (self.datum_nastanka_skode)
+        return "%s" % (self.zahtevek.oznaka)
 
 
 class ZahtevekSestanek(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    sklicatelj = models.ForeignKey(Partner)
-    udelezenci = models.ManyToManyField(Oseba, verbose_name="udeleženci")
+    zahtevek = models.OneToOneField(Zahtevek)
+    sklicatelj = models.ForeignKey(Partner, null=True, blank=True)
+    udelezenci = models.ManyToManyField(Oseba, blank=True, verbose_name="udeleženci")
     zapisnik = models.ForeignKey(Dokument, null=True, blank=True)
     #   Mandatory
-    datum = models.DateField()
+    datum = models.DateField(null=True, blank=True)
     #   Optional
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
+
     # METHODS
+    @receiver(post_save, sender=Zahtevek)
+    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+
+        if instance.vrsta == 2:
+            if created:
+                ses = ZahtevekSestanek(zahtevek=instance)
+                ses.save()
+
+    def get_absolute_url(self):
+        # return reverse('moduli:zahtevki:zahtevek_list')
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
 
     # META AND STRING
     class Meta:
@@ -120,19 +152,32 @@ class ZahtevekSestanek(models.Model):
         ordering = ("datum",)
 
     def __str__(self):
-        return "%s | %s" % (self.datum, self.sklicatelj)
+        return "%s" % (self.zahtevek.oznaka)
 
 
 class ZahtevekIzvedbaDela(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
+    zahtevek = models.OneToOneField(Zahtevek)
     #   Mandatory
-    is_zakonska_obveza = models.BooleanField(verbose_name='zakonska obveza')
     #   Optional
+    is_zakonska_obveza = models.NullBooleanField(verbose_name='zakonska obveza')
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
-    # METHODS
+
+    # # METHODS
+    @receiver(post_save, sender=Zahtevek)
+    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+
+        if instance.vrsta == 3:
+            if created:
+                izvedba_del = ZahtevekIzvedbaDela(zahtevek=instance)
+                izvedba_del.save()
+
+    def get_absolute_url(self):
+        # return reverse('moduli:zahtevki:zahtevek_list')
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
 
     # META AND STRING
     class Meta:
@@ -140,4 +185,4 @@ class ZahtevekIzvedbaDela(models.Model):
         verbose_name_plural = "izvedba del"
 
     def __str__(self):
-        return "%s" % (self.is_zakonska_obveza)
+        return "%s" % (self.zahtevek.oznaka)
