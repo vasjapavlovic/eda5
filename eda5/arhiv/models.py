@@ -35,7 +35,7 @@ class Arhiviranje(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    dokument = models.OneToOneField(Dokument)
+    dokument = models.OneToOneField(Dokument, blank=True, null=True)
     arhiviral = models.ForeignKey(Oseba)
     lokacija_hrambe = models.ForeignKey(ArhivMesto, blank=True, null=True, verbose_name="lokacija hrambe")
     #   Mandatory

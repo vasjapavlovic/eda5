@@ -31,7 +31,7 @@ class Aktivnost(TimeStampedModel):
         verbose_name_plural = "aktivnosti"
 
     def __str__(self):
-        return "%s - %s | %s" % (self.datum, self.aktivnost, self.dokument)
+        return "%s - %s" % (self.datum, self.aktivnost)
 
 
 class Dokument(TimeStampedModel):

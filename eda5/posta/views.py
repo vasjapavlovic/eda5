@@ -13,10 +13,10 @@ class PostaArhiviranjeListView(ListView):
     model = Dokument
     template_name = "posta/posta/list/extended.html"
 
-    # def get_queryset(self):
-    #     queryset = super(PostaArhiviranjeListView, self).get_queryset()
-    #     queryset = queryset.filter(arhiviranje=None)
-    #     return queryset
+    def get_queryset(self):
+        queryset = super(PostaArhiviranjeListView, self).get_queryset()
+        queryset = queryset.filter(arhiviranje=None)
+        return queryset
 
 
 class AktivnostCreateView(CreateView):

@@ -15,7 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='arhiviranje',
             name='dokument',
-            field=models.OneToOneField(to='posta.Dokument', default=10),
-            preserve_default=False,
+            field=models.OneToOneField(blank=True, to='posta.Dokument', null=True),
         ),
     ]
