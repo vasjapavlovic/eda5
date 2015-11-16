@@ -1,8 +1,12 @@
-Struktura projekt
+KAZALO
 =================
 
-Vidiki uporabe
-^^^^^^^^^^^^^^
+Vsebina
+^^^^^^^
+
+Pogledi
+-------
+
 
 .. toctree::
    :maxdepth: 1
@@ -11,8 +15,9 @@ Vidiki uporabe
    view_za_izvajalca
    Bralec
 
+
 Aplikacije
-^^^^^^^^^^
+----------
 
 .. toctree::
    :maxdepth: 1

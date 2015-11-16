@@ -1,0 +1,30 @@
+ARHIV DOKUMENTACIJE
+===================
+
+
+Struktura arhiva
+^^^^^^^^^^^^^^^^
+
++---------------------+-------------------+-------------------+-----------------------+---------------------+
+|    objekt           |   arhivsko mesto  |    Zbirne mape    |     Vrsta dokumenta   |    Dokument         |
++---------------------+-------------------+-------------------+-----------------------+---------------------+
+| 3037 (Eda center)   |    ZHT-2015-0001  |        ZHT        |   RAC (racunovodstvo) |RAC_št-doc_avtor.pdf |
++---------------------+-------------------+-------------------+-----------------------+---------------------+
+|                     |                   |                   |                       |CES_št-doc_avtor.pdf |
++---------------------+-------------------+-------------------+-----------------------+---------------------+
+|                     |                   |                   |   OST (Ostalo)        |DOP_št-doc_avtor.pdf |
++---------------------+-------------------+-------------------+-----------------------+---------------------+
+|                     |                   |  DN-2015-000423   |   IZD (Izvedba del)   |DN_št-doc_avtor.pdf  |
++---------------------+-------------------+-------------------+-----------------------+---------------------+
+
+
+Postopek:
+^^^^^^^^^
+
+#. Odpremo nov zahtevek, kjer je definirano za kateri objekt gre, na katero leto se zahtevek nanaša
+#. Za zahtevek se avtomatsko izdela Arhivsko Mesto z enako oznako kot jo ima zahtevek
+#. Dokumentacija se nato dodaja v arhivska mesta
+#. Hramba dokumentacije je v obliki Strukture arhiva prikazane v zgornji tabeli
+#. Fizično arhivirana dokumentacije se hrani v ARHIVSKI MAPI, ki je vložena v ARHIVSKI FASCIKEL
+
+

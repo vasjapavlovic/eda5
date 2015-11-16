@@ -3,11 +3,6 @@
 IZVAJALEC STORITEV - POSTOPEK IZ VIDIKA UPORABNIKA
 ==================================================
 
-Contents:
-
-.. toc::view_za_upravnika
-
-
 Definicije:
 ^^^^^^^^^^^
 

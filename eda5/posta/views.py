@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
-from django.views.generic import TemplateView, ListView, CreateView
-from .models import Dokument
+from .forms import AktivnostCreateForm, DokumentCreateForm
+from .models import Aktivnost, Dokument
 # from .forms import PrejetaPostaCreateForm
 
 
@@ -9,26 +9,29 @@ class PostaHomeView(TemplateView):
     template_name = "posta/home.html"
 
 
-class PostaLikvidacijaListView(ListView):
+class PostaArhiviranjeListView(ListView):
     model = Dokument
-    template_name = "posta/dokument_likvidacija.html"
+    template_name = "posta/posta/list/extended.html"
 
-    def get_queryset(self):
-        queryset = super(PostaLikvidacijaListView, self).get_queryset()
-        queryset = queryset.filter(is_likvidiran=False)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = super(PostaArhiviranjeListView, self).get_queryset()
+    #     queryset = queryset.filter(arhiviranje=None)
+    #     return queryset
 
 
-class PostaLikvidiranListView(ListView):
+class AktivnostCreateView(CreateView):
     model = Dokument
-    template_name = "posta/dokument_likvidiran.html"
+    #from_class = AktivnostCreateForm
+    #second_form_class = DokumentCreateForm
+    template_name = "posta/dokument/create.html"
 
-    def get_queryset(self):
-        queryset = super(PostaLikvidiranListView, self).get_queryset()
-        queryset = queryset.filter(is_likvidiran=True)
-        return queryset
+    fields = (
+            'oznaka',
+            'naziv',
+            'aktivnost',
+        )
 
-
-# class PostaCreateView(CreateView):
-#     model = Dokument
-#     form_class = PrejetaPostaCreateForm
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(AktivnostCreateView, self).get_context_data(*args, **kwargs)
+    #     context['form2'] = self.second_form_class
+    #     return context

@@ -10,24 +10,22 @@
     </i></small>
 
 <div class="jumbotron">
-    <div class="row">
-        <div class="col-xs-3 col-md-3">
-            <img src="{% static 'images/moduli/M2.png' %}" alt="great image" class="img-thumbnail">
-        </div>
-    </div>
+    <h1>Pošta</h1>
 </div>
 
     <div class="table-condensed table-hover table-bordered">
         <table class="table">
+
             <tr>
-                <td><b><a href="{% url 'moduli:posta:list_likvidacija' %}">Pošta za likvidacijo</a></b></td>
+                <td><b><a href="{% url 'moduli:posta:aktivnost_create' %}">Nov Vnos</a></b></td>
             </tr>
             <tr>
-                <td><b><a href="{% url 'moduli:posta:list_likvidiran' %}">Likvidirana pošta</a></b></td>
+                <td><b><a href="{% url 'moduli:posta:posta_arhiviranje_list' %}">Za Arhiviranje</a></b></td>
             </tr>
             <tr>
-                <td><b><a href="">Vnesi Novo Pošto</a></b></td>
+                <td><b><a href="">Likvidirana/Arhivirana Pošta</a></b></td>
             </tr>
+            
         </table>
     </div>
 

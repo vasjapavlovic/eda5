@@ -1,18 +1,30 @@
 from django import forms
 
-from .models import Dokument
+from .models import Aktivnost, Dokument
 
 
-# class DokumentCreateModelForm(forms.ModelForm):
+class AktivnostCreateForm(forms.ModelForm):
 
-#     class Meta:
-#         model = Dokument
-#         fields = (
-#             "vrsta_dokumenta",
-#             "posiljatelj",
-#             "naslovnik",
-#             "oznaka",
-#             "opis",
-#             "priponka",
-#             )
+    class Meta:
+        model = Aktivnost
+        fields = (
+            'izvajalec',
+            'aktivnost',
+            'datum',
+        )
 
+
+class DokumentCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Dokument
+        fields = (
+            'aktivnost',
+            'vrsta_dokumenta',
+            'avtor',
+            'naslovnik',
+            'oznaka',
+            'naziv',
+            'datum',
+            'priponka',
+        )

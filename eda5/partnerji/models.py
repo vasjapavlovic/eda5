@@ -15,6 +15,7 @@ class SkupinaPartnerjev(TimeStampedModel):
     # ***Mandatory***
     naziv = models.CharField(max_length=255)
     # ***Optional***
+    oznaka = models.CharField(blank=True, max_length=20)
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS

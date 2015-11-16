@@ -1,0 +1,30 @@
+{% extends "posta/posta/list/base.html" %}
+
+
+{% block title %}Arhiviranje Pošte{% endblock %}
+
+
+{% block main_content %}
+
+<table class="table">
+
+    <tr>
+        <td>oznaka</td>
+        <td>datum</td>
+        <td>predmet</td>
+        <td>priponka</td>
+    </tr>
+
+    {% for dokument in object_list %}
+    <tr>
+        <td>{{ dokument.oznaka }}</td>
+        <td>{{ dokument.naziv }}</td>
+        <td>{{ dokument.datum }}</td>
+        <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+{% endblock %}

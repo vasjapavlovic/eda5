@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     # Your stuff: custom apps go here
+    'eda5.arhiv',  # aplikacija za arhiviranje dokumentacije
     'eda5.core',  # utils
     'eda5.deli',  # deli stavbe
     'eda5.delovninalogi',  # elektronski delovni nalogi

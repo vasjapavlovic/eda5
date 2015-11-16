@@ -1,11 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from eda5.core.models import TimeStampedModel, IsLikvidiranModel
+from eda5.core.models import TimeStampedModel
 from eda5.partnerji.models import SkupinaPartnerjev, Oseba
 
 
-class PostnaStoritev(TimeStampedModel):
+
+class Aktivnost(TimeStampedModel):
 
     AKTIVNOSTI = (
         (1, "prejeta posta"),
@@ -15,7 +16,6 @@ class PostnaStoritev(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    dokument = models.OneToOneField('Dokument')
     izvajalec = models.ForeignKey(Oseba, verbose_name="izvajalec poštne storitve")
     #   Mandatory
     aktivnost = models.IntegerField(choices=AKTIVNOSTI)
@@ -27,34 +27,33 @@ class PostnaStoritev(TimeStampedModel):
 
     # META AND STRING
     class Meta:
-        verbose_name = "poštna storitev"
-        verbose_name_plural = "poštne storitve"
+        verbose_name = "aktivnost"
+        verbose_name_plural = "aktivnosti"
 
     def __str__(self):
-        return "%s - %s | %s" % (self.datum, self.aktivnost, self.izvajalec)
+        return "%s - %s | %s" % (self.datum, self.aktivnost, self.dokument)
 
 
-class Dokument(TimeStampedModel, IsLikvidiranModel):
+class Dokument(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
-
     def dokument_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
         new_filename_raw = filename.split(".")
         ext = '.' + new_filename_raw[1]
-
-        parametri_imena = (str(instance.datum), instance.oznaka, instance.posiljatelj.davcna_st)
+        parametri_imena = (instance.oznaka, str(instance.datum), instance.avtor.oznaka)
         new_filename = "_".join(parametri_imena)
+        return 'Dokumentacija/NE_Arhivirano/{0}'.format(instance.vrsta_dokumenta.oznaka, new_filename + ext)
 
-        return 'prejeta_posta/{0}/{1}'.format(instance.vrsta_dokumenta.oznaka, new_filename + ext)
     # ATRIBUTES
     #   Relations
+    aktivnost = models.OneToOneField(Aktivnost)
     vrsta_dokumenta = models.ForeignKey('VrstaDokumenta', verbose_name="vrsta dokumenta")
-    posiljatelj = models.ForeignKey(SkupinaPartnerjev, related_name="posiljatelj", verbose_name="pošiljatelj")
-    naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik", verbose_name="naslovnik")
+    avtor = models.ForeignKey(SkupinaPartnerjev, related_name="avtor")
+    naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik")
     #   Mandatory
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
+    naziv = models.CharField(max_length=255, verbose_name="naziv")
     datum = models.DateField()
-    opis = models.CharField(max_length=255, verbose_name="opis")
     priponka = models.FileField(upload_to=dokument_directory_path)
     #   Optional
     # OBJECT MANAGER
@@ -70,7 +69,8 @@ class Dokument(TimeStampedModel, IsLikvidiranModel):
         return reverse("moduli:posta:list_likvidacija")
 
     def __str__(self):
-        return "%s - %s | %s" % (self.datum, self.oznaka, self.opis)
+        return "%s - %s | %s" % (self.datum, self.oznaka, self.naziv)
+
 
 class SkupinaDokumenta(TimeStampedModel):
     oznaka = models.CharField(max_length=3, verbose_name='oznaka')
