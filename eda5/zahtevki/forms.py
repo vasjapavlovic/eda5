@@ -33,7 +33,7 @@ class ZahtevekCreateForm(forms.ModelForm):
         fields = (
             'oznaka',
             'vrsta',
-            'predmet',
+            'naziv',
             'rok_izvedbe',
             'narocilo',
             'nosilec',
@@ -47,7 +47,7 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
         # brez "narocilo" --> ni potrebno saj je naročilo enako zahtevek_parent
         fields = (
             'oznaka',
-            'predmet',
+            'naziv',
             'vrsta',
             'rok_izvedbe',
             'nosilec',

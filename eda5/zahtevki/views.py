@@ -122,7 +122,7 @@ class ZahtevekDetailView(DetailView):
         if zahtevek_form.is_valid():
 
             oznaka = zahtevek_form.cleaned_data['oznaka']  # avtomatizirano v .forms
-            predmet = zahtevek_form.cleaned_data['predmet']
+            naziv = zahtevek_form.cleaned_data['naziv']
             rok_izvedbe = zahtevek_form.cleaned_data['rok_izvedbe']
             # narocilo = zahtevek_form.cleaned_data['narocilo']
             nosilec = zahtevek_form.cleaned_data['nosilec']
@@ -131,7 +131,7 @@ class ZahtevekDetailView(DetailView):
             zahtevek_izvedba_dela = zahtevek_form.cleaned_data['zahtevek_izvedba_dela']
 
             Zahtevek.objects.create_zahtevek(oznaka=oznaka,
-                                             predmet=predmet,
+                                             naziv=naziv,
                                              rok_izvedbe=rok_izvedbe,
                                              narocilo=zahtevek.narocilo,
                                              nosilec=nosilec,

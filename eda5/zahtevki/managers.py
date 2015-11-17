@@ -7,7 +7,7 @@ class ZahtevekManager(models.Manager):
         self,
         oznaka=None,
         vrsta=None,
-        predmet=None,
+        naziv=None,
         rok_izvedbe=None,
         narocilo=None,
         nosilec=None,
@@ -17,7 +17,7 @@ class ZahtevekManager(models.Manager):
         zahtevek = self.model(
             oznaka=oznaka,
             vrsta=vrsta,
-            predmet=predmet,
+            naziv=naziv,
             rok_izvedbe=rok_izvedbe,
             narocilo=narocilo,
             nosilec=nosilec,

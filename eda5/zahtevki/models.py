@@ -45,7 +45,7 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     vrsta = models.IntegerField(choices=VRSTE_ZAHTEVKOV)
-    predmet = models.CharField(max_length=255)
+    naziv = models.CharField(max_length=255)
     rok_izvedbe = models.DateField()
     # ***Optional***
     # OBJECT MANAGER
@@ -64,7 +64,7 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
         ordering = ("oznaka",)
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.predmet)
+        return "%s | %s" % (self.oznaka, self.naziv)
 
 
 class ZahtevekSkodniDogodek(models.Model):

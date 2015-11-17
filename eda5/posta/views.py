@@ -1,9 +1,9 @@
-import shutil
-from django.conf import settings
+import os
 
-from django.views.generic import CreateView, DetailView, ListView, TemplateView, FormView
+from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.views.generic import DetailView, ListView, TemplateView
 
 from .forms import AktivnostCreateForm, DokumentCreateForm
 from .models import Aktivnost, Dokument
@@ -16,14 +16,24 @@ class PostaHomeView(TemplateView):
     template_name = "posta/home.html"
 
 
-class PostaArhiviranjeListView(ListView):
+class DokumentZaArhiviranjeListView(ListView):
     model = Dokument
-    template_name = "posta/dokument/list/extended.html"
+    template_name = "posta/dokument/list/za_arhiviranje.html"
 
     def get_queryset(self):
         # prikaži samo nearhivirano pošto
-        queryset = self.model.objects.filter(arhiviranje=None)  # arhiviranje lahko uporabiš ker je
-        return queryset                                         # OneToOne relacija
+        queryset = self.model.objects.filter(arhiviranje__isnull=True)
+        return queryset
+
+
+class DokumentArhiviranoListView(ListView):
+    model = Dokument
+    template_name = "posta/dokument/list/arhivirano.html"
+
+    def get_queryset(self):
+        # prikaži samo nearhivirano pošto
+        queryset = self.model.objects.filter(arhiviranje__isnull=False)
+        return queryset
 
 
 class PostaDokumentDetailView(DetailView):
@@ -58,6 +68,7 @@ class PostaDokumentDetailView(DetailView):
             )
 
             # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
+
             old_path = str(dokument.priponka)
             filename = old_path.split('/')[2]
 
@@ -67,15 +78,14 @@ class PostaDokumentDetailView(DetailView):
             dokument.priponka = new_path
             dokument.save()
 
-            shutil.move(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
+            # izdelamo direktorjih arhivskega mesta
+            mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
+            if not os.path.exists(mapa):
+                os.makedirs(mapa)
 
-        return HttpResponseRedirect(reverse('moduli:posta:dokument_arhiviranje_list'))
+            os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
-# new_filename_raw = filename.split(".")
-#         ext = '.' + new_filename_raw[1]
-#         parametri_imena = (instance.oznaka, str(instance.datum), instance.avtor.oznaka)
-#         new_filename = "_".join(parametri_imena)
-#         return 'Dokumentacija/NE_Arhivirano/{0}'.format(instance.vrsta_dokumenta.oznaka, new_filename + ext)
+        return HttpResponseRedirect(reverse('moduli:posta:dokument_arhivirano_list'))
 
 
 class DokumentCreateView(TemplateView):
@@ -130,4 +140,4 @@ class DokumentCreateView(TemplateView):
                 aktivnost=aktivnost,
             )
 
-        return HttpResponseRedirect(reverse('moduli:posta:dokument_arhiviranje_list'))
+        return HttpResponseRedirect(reverse('moduli:posta:dokument_za_arhiviranje_list'))

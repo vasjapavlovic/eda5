@@ -12,7 +12,12 @@
     <!--CONTROLER_LEFT-->
     {% block detail_tab_controler_left %}
 
+        {% if object.vrsta_dokumenta.skupina.id == 1 %} <!-- RAČUNOVODSKA DOKUMENTACIJA-->
+        <li><a href="{% url 'moduli:racunovodstvo:home' %}">Računovodska dokumentacija se lahko arhivira samo v modulu "RAČUNOVODSTVO"</a></li>
+        {% else %}
         <li><a href="" data-toggle="modal" data-target="#addArhiviraj">Arhiviraj</a></li>
+        {% endif %}
+        
 
         
 
@@ -22,13 +27,6 @@
 
     <!--CONTROLER_RIGHT-->
     {% block detail_tab_controler_right %}
-
-
-        
-
-
-        
-
 
 
     {% endblock %}
