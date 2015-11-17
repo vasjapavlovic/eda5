@@ -22,3 +22,24 @@ class ArhiviranjeManager(models.Manager):
 
         arhiviranje.save(using=self._db)
         return arhiviranje
+
+
+class ArhivMestoManager(models.Manager):
+
+    def create_arhiv_mesto(
+        self=None,
+        arhiv=None,
+        zahtevek=None,
+        oznaka=None,
+        naziv=None,
+    ):
+
+        arhiv_mesto = self.model(
+            arhiv=arhiv,
+            zahtevek=zahtevek,
+            oznaka=oznaka,
+            naziv=naziv,
+        )
+
+        arhiv_mesto.save(using=self._db)
+        return arhiv_mesto

@@ -54,21 +54,6 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
         )
 
 
-class ZahtevekUpdateDokumentForm(forms.ModelForm):
-
-    class Meta:
-        model = Zahtevek
-        fields = ("dokument",)
-        widgets = {"dokument": forms.CheckboxSelectMultiple}
-
-    def __init__(self, *args, **kwargs):
-        super(ZahtevekUpdateDokumentForm, self).__init__(*args, **kwargs)
-
-        # vidni samo računi
-        vrsta_dokumenta = 1
-        self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)
-
-
 class ZahtevekUpdateForm(ZahtevekCreateForm):
 
     class Meta(ZahtevekCreateForm.Meta):

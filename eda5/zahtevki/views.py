@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 
-from .forms import ZahtevekCreateForm, PodzahtevekCreateForm, ZahtevekUpdateDokumentForm,\
+from .forms import ZahtevekCreateForm, PodzahtevekCreateForm,\
                    ZahtevekUpdateForm, ZahtevekSkodniDogodekUpdateForm, ZahtevekSestanekUpdateForm,\
                    ZahtevekIzvedbaDelUpdateForm
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
@@ -14,6 +14,8 @@ from eda5.delovninalogi.models import Opravilo
 
 from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
+
+from eda5.arhiv.models import Arhiv, ArhivMesto
 
 
 class ZahtevekHomeView(TemplateView):
@@ -25,10 +27,52 @@ class ZahtevekListView(ListView):
     template_name = "zahtevki/zahtevek/list.html"
 
 
-class ZahtevekCreateView(CreateView):
+# sem spremenil v TemplateView ker se avtomatsko doda tudi ArhivskoMesto (drugače je bil CreateView)
+class ZahtevekCreateView(TemplateView):
     model = Zahtevek
     form_class = ZahtevekCreateForm
     template_name = "zahtevki/zahtevek/create.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ZahtevekCreateView, self).get_context_data(*args, **kwargs)
+        context['zahtevek_form'] = ZahtevekCreateForm
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        zahtevek_form = ZahtevekCreateForm(request.POST or None)
+
+        if zahtevek_form.is_valid():
+
+            oznaka = zahtevek_form.cleaned_data['oznaka']
+            vrsta = zahtevek_form.cleaned_data['vrsta']
+            naziv = zahtevek_form.cleaned_data['naziv']
+            rok_izvedbe = zahtevek_form.cleaned_data['rok_izvedbe']
+            narocilo = zahtevek_form.cleaned_data['narocilo']
+            nosilec = zahtevek_form.cleaned_data['nosilec']
+
+            Zahtevek.objects.create_zahtevek(
+                oznaka=oznaka,
+                vrsta=vrsta,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                nosilec=nosilec,
+            )
+
+
+            zahtevek = Zahtevek.objects.get(oznaka=oznaka)  # bolje bi bilo na ID ampak neznam
+            arhiv = Arhiv.objects.get(id=1)  # v končni fazi bo arhiv == objektu
+
+
+            ArhivMesto.objects.create_arhiv_mesto(
+                arhiv=arhiv,
+                zahtevek=zahtevek,
+                oznaka=zahtevek.oznaka,
+                naziv=zahtevek.naziv,
+            )
+            
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
 class ZahtevekUpdateView(UpdateView):
@@ -56,10 +100,10 @@ class ZahtevekUpdateIzvedbaView(UpdateView):
 
 
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-class ZahtevekUpdateDokumentFormView(UpdateView):
-    model = Zahtevek
-    form_class = ZahtevekUpdateDokumentForm
-    template_name = "zahtevki/zahtevek/update_dokument.html"
+# class ZahtevekUpdateDokumentFormView(UpdateView):
+#     model = Zahtevek
+#     form_class = ZahtevekUpdateDokumentForm
+#     template_name = "zahtevki/zahtevek/update_dokument.html"
 
 
 class ZahtevekDetailView(DetailView):

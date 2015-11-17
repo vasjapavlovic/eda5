@@ -37,25 +37,27 @@ class ArhivMesto(models.Model):
     # ATRIBUTES
     #   Relations
     arhiv = models.ForeignKey(Arhiv)
+    zahtevek = models.OneToOneField(Zahtevek)
     #   Mandatory
     oznaka = models.CharField(max_length=10, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
     #   Optional
     # OBJECT MANAGER
+    objects = managers.ArhivMestoManager()
     # CUSTOM PROPERTIES
 
     # METHODS
-    @receiver(post_save, sender=Zahtevek)
-    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+    # @receiver(post_save, sender=Zahtevek)
+    # def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
 
-        # Arhiv
-        '''v končni fazi bo arhiv = objektu '''
-        arhiv = Arhiv.objects.get(id=1)
+    #     # Arhiv
+    #     '''v končni fazi bo arhiv = objektu '''
+    #     arhiv = Arhiv.objects.get(id=1)
 
-        # izdelava Arhivskega Mesta v bazi
-        if created:
-            dn = ArhivMesto(oznaka=instance.oznaka, naziv=instance.naziv, arhiv=arhiv)
-            dn.save()
+    #     # izdelava Arhivskega Mesta v bazi
+    #     if created:
+    #         dn = ArhivMesto(oznaka=instance.oznaka, naziv=instance.naziv, arhiv=arhiv, zahtevek=instance)
+    #         dn.save()
 
     # META AND STRING
     class Meta:

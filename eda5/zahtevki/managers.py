@@ -26,3 +26,5 @@ class ZahtevekManager(models.Manager):
 
         zahtevek.save(using=self._db)
         return zahtevek
+
+

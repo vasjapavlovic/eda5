@@ -68,6 +68,7 @@ class PostaDokumentDetailView(DetailView):
             )
 
             # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
+            '''Za račune poskrbimo varnostno kopijo pod Dokumenti/Računovodstvo'''
 
             old_path = str(dokument.priponka)
             filename = old_path.split('/')[2]

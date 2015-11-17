@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/sestanek/update/$', views.ZahtevekUpdateSestanekView.as_view(), name="zahtevek_update_sestanek"),
     url(r'^(?P<pk>\d+)/izvedba/update/$', views.ZahtevekUpdateIzvedbaView.as_view(), name="zahtevek_update_izvedba"),
 
-    url(r'^(?P<pk>\d+)/dokument/update/$', views.ZahtevekUpdateDokumentFormView.as_view(), name="zahtevek_update_dokument"),
+    # url(r'^(?P<pk>\d+)/dokument/update/$', views.ZahtevekUpdateDokumentFormView.as_view(), name="zahtevek_update_dokument"),
 ]

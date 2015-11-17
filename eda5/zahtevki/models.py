@@ -12,6 +12,7 @@ from eda5.posta.models import Dokument
 from eda5.deli.models import Element
 
 
+
 class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     # STATUS
@@ -41,7 +42,6 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     zahtevek_parent = models.ForeignKey("self", null=True, blank=True)
     narocilo = models.ForeignKey(Narocilo)  # ***izbira samo med veljavnimi naročili****
     nosilec = models.ForeignKey(Oseba)
-    dokument = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     vrsta = models.IntegerField(choices=VRSTE_ZAHTEVKOV)

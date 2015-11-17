@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Arhiviranje
+from .models import Arhiviranje, ArhivMesto
 
 
 class ArhiviranjeCreateForm(forms.ModelForm):
