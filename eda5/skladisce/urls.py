@@ -12,4 +12,5 @@ urlpatterns = [
 urlpatterns += [
     url(r'^dobava/seznam/$', views.DobavaListView.as_view(), name="dobava_list"),
     url(r'^dobava/create/$', views.DobavaCreateView.as_view(), name="dobava_create"),
+    url(r'^dobava/(?P<pk>\d+)/detail/$', views.DobavaDetailView.as_view(), name="dobava_detail"),
 ]

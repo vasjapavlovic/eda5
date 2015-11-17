@@ -35,7 +35,7 @@
 
             {% for object in object_list %}
             <tr>
-                <td><a href="">{{ object.oznaka }}</a></td>
+                <td><a href="{% url 'moduli:skladisce:dobava_detail' object.pk %}">{{ object.oznaka }}</a></td>
                 <td>{{ object.naziv }}</td>
                 <td>{{ object.datum }}</td>
             </tr>

@@ -1,0 +1,31 @@
+<!-- zahtevek detail : HEADER-GLAVNI-STOLPEC2 -->
+
+
+<!--tabela-->
+<table class="table">
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b>prevzel</b></small></td>
+        <td><b>{{ object.prevzel.priimek }} {{ object.prevzel.ime }}<br></b>
+        </td>
+    </tr>
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b>dobavitelj</b></small></td>
+        <td>
+            <b>{{ object.dobavitelj.kratko_ime }}<br></b>
+        </td>
+    </tr>
+
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b><a href="">dobavnica</a></b></small></td>
+        <td><a href="{{ MEDIA_URL }}{{object.dobavnica.priponka}}"><b>priponka</b></td>
+    </tr>
+
+
+</table>
+<!--end tabela-->

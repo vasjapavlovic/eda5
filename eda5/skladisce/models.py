@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from. import managers
+
 from eda5.core.models import TimeStampedModel
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.partnerji.models import Oseba, Partner
@@ -24,7 +26,7 @@ class Dobava(TimeStampedModel):
 
     # METHODS
     def get_absolute_url(self):
-        return reverse("moduli:skladisce:dobava_list")
+        return reverse("moduli:skladisce:dobava_detail", kwargs={"pk": self.pk})
 
     # META AND STRING
     class Meta:
@@ -108,6 +110,11 @@ class SklopArtikla(models.Model):
 
 class Dnevnik(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
+    # DDV = (
+    #     (0.095, '9,5%'),
+    #     (0.20, '22,0%'),
+    # )
+
     # ATRIBUTES
     #   Relations
     dobava = models.ForeignKey(Dobava, blank=True, null=True)
@@ -116,10 +123,12 @@ class Dnevnik(TimeStampedModel):
     likvidiral = models.ForeignKey(Oseba, verbose_name="likvidiral blago")
     #   Mandatory
     kom = models.IntegerField()
-    nabavna_vrednost = models.DecimalField(decimal_places=2, max_digits=6)  # zneski do 9999,99 EUR
+    cena = models.DecimalField(decimal_places=2, max_digits=6)  # zneski do 9999,99 EUR
     stopnja_ddv = models.DecimalField(decimal_places=3, max_digits=4)  # 0,095 :  0,200
     #   Optional
+
     # OBJECT MANAGER
+    objects = managers.DnevnikManager()
 
     # CUSTOM PROPERTIES
     @property
@@ -128,6 +137,11 @@ class Dnevnik(TimeStampedModel):
             return "poraba"
         if self.delovninalog:
             return "dobava"
+
+    @property
+    def cena_z_ddv(self):
+        cena_z_ddv = self.cena * (1 + self.stopnja_ddv)
+        return cena_z_ddv
 
     # METHODS
 
