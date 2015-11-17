@@ -123,9 +123,9 @@ class Dnevnik(TimeStampedModel):
     likvidiral = models.ForeignKey(Oseba, verbose_name="likvidiral blago")
     #   Mandatory
     kom = models.IntegerField()
-    cena = models.DecimalField(decimal_places=2, max_digits=6)  # zneski do 9999,99 EUR
-    stopnja_ddv = models.DecimalField(decimal_places=3, max_digits=4)  # 0,095 :  0,200
     #   Optional
+    cena = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=6)  # zneski do 9999,99 EUR
+    stopnja_ddv = models.DecimalField(blank=True, null=True, decimal_places=3, max_digits=4)  # 0,095 :  0,200
 
     # OBJECT MANAGER
     objects = managers.DnevnikManager()

@@ -30,3 +30,14 @@ class DnevnikDobavaCreateForm(forms.ModelForm):
             'cena',
             'stopnja_ddv',
         )
+
+
+class DnevnikDelovniNalogCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Dnevnik
+        fields = (
+            'artikel',
+            'likvidiral',
+            'kom',
+        )

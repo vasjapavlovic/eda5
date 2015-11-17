@@ -12,6 +12,8 @@ from .models import Opravilo, DelovniNalog, Delo
 
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
 from eda5.arhiv.models import Arhiviranje
+from eda5.skladisce.models import Dnevnik
+from eda5.skladisce.forms import DnevnikDelovniNalogCreateForm
 from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
 
@@ -71,16 +73,21 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['odprta_dela'] = Delo.objects.odprta_dela()
         context['koncana_dela'] = Delo.objects.koncana_dela()
 
-        # zaznamek
-        context['zaznamek_form'] = ZaznamekForm
-        context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=self.object.id)
+        # arhiv
+        context['arhiviranje_form'] = ArhiviranjeDelovniNalogForm
 
         # delo
         context['delo_form'] = DeloForm
         context['delo_list'] = Delo.objects.filter(delovninalog=self.object.id)
         context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=self.object.id).distinct('delavec')
 
-        context['arhiviranje_form'] = ArhiviranjeDelovniNalogForm
+        # skladisce
+        context['material_form'] = DnevnikDelovniNalogCreateForm
+        context['material_list'] = Dnevnik.objects.filter(delovninalog=self.object.id)
+
+        # zaznamek
+        context['zaznamek_form'] = ZaznamekForm
+        context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=self.object.id)
 
         return context
 
@@ -204,7 +211,20 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 lokacija_hrambe=lokacija_hrambe,
             )
 
+        dnevnik_delovninalog_form = DnevnikDelovniNalogCreateForm(request.POST or None)
 
+        if dnevnik_delovninalog_form.is_valid():
+
+            artikel = dnevnik_delovninalog_form.cleaned_data['artikel']
+            likvidiral = dnevnik_delovninalog_form.cleaned_data['likvidiral']
+            kom = dnevnik_delovninalog_form.cleaned_data['kom']
+
+            Dnevnik.objects.create_dnevnik(
+                delovninalog=delovninalog,
+                artikel=artikel,
+                likvidiral=likvidiral,
+                kom=kom,
+            )
 
 
         return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
