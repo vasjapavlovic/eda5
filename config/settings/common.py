@@ -50,6 +50,7 @@ LOCAL_APPS = (
     'eda5.core',  # utils
     'eda5.deli',  # deli stavbe
     'eda5.delovninalogi',  # elektronski delovni nalogi
+    'eda5.skladisce',   # dobava in prevzem blaga
     'eda5.etaznalastnina',  # elaborat etažne lastnine, interne lastniske enote
     'eda5.katalog',  # katalog artiklov
     'eda5.lastnistvo',  # prevzem v last, oddaja v najem
