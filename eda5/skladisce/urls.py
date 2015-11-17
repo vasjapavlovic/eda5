@@ -14,3 +14,8 @@ urlpatterns += [
     url(r'^dobava/create/$', views.DobavaCreateView.as_view(), name="dobava_create"),
     url(r'^dobava/(?P<pk>\d+)/detail/$', views.DobavaDetailView.as_view(), name="dobava_detail"),
 ]
+
+# DNEVNIK
+urlpatterns += [
+    url(r'^dnevnik/seznam/$', views.DnevnikListView.as_view(), name="dnevnik_list"),
+]

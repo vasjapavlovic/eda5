@@ -55,3 +55,8 @@ class DobavaDetailView(DetailView):
             )
 
         return HttpResponseRedirect(reverse('moduli:skladisce:dobava_detail', kwargs={"pk": dobava.pk}))
+
+
+class DnevnikListView(ListView):
+    model = Dnevnik
+    template_name = "skladisce/dnevnik/list.html"

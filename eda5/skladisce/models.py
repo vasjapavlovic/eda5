@@ -132,11 +132,17 @@ class Dnevnik(TimeStampedModel):
 
     # CUSTOM PROPERTIES
     @property
-    def vrsta(self):
+    def datum(self):
+        datum = self.created
+        datum = datum.date()
+        return datum
+
+    @property
+    def storitev(self):
         if self.dobava:
-            return "poraba"
-        if self.delovninalog:
             return "dobava"
+        if self.delovninalog:
+            return "poraba"
 
     @property
     def cena_z_ddv(self):
