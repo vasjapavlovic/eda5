@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from eda5.core.models import TimeStampedModel
 from eda5.delovninalogi.models import DelovniNalog
@@ -20,7 +21,10 @@ class Dobava(TimeStampedModel):
     #   Optional
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
+
     # METHODS
+    def get_absolute_url(self):
+        return reverse("moduli:skladisce:dobava_list")
 
     # META AND STRING
     class Meta:
@@ -37,6 +41,7 @@ class Artikel(TimeStampedModel):
     #   Relations
     tip = models.ForeignKey("TipArtikla")
     dobava = models.ManyToManyField(Dobava, through="Dnevnik")
+    dobavitelj = models.ForeignKey(Partner)
     #   Mandatory
     oznaka = models.CharField(max_length=50)
     naziv = models.CharField(max_length=255)
