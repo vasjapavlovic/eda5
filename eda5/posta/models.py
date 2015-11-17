@@ -44,9 +44,9 @@ class Dokument(TimeStampedModel):
         # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
         new_filename_raw = filename.split(".")
         ext = '.' + new_filename_raw[1]
-        parametri_imena = (instance.oznaka, str(instance.datum), instance.avtor.oznaka)
+        parametri_imena = (instance.vrsta_dokumenta.oznaka, instance.oznaka, str(instance.datum), instance.avtor.oznaka)
         new_filename = "_".join(parametri_imena)
-        return 'Dokumentacija/NE_Arhivirano/{0}'.format(instance.vrsta_dokumenta.oznaka, new_filename + ext)
+        return 'Dokumentacija/NE_Arhivirano/{0}'.format(new_filename + ext)
 
     # ATRIBUTES
     #   Relations

@@ -1,3 +1,6 @@
+import shutil
+from django.conf import settings
+
 from django.views.generic import CreateView, DetailView, ListView, TemplateView, FormView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -54,9 +57,25 @@ class PostaDokumentDetailView(DetailView):
                 fizicni=fizicni,
             )
 
+            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
+            old_path = str(dokument.priponka)
+            filename = old_path.split('/')[2]
+
+            new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.oznaka, filename)
+
+            new_path = '/'.join(new_path)
+            dokument.priponka = new_path
+            dokument.save()
+
+            shutil.move(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
+
         return HttpResponseRedirect(reverse('moduli:posta:dokument_arhiviranje_list'))
 
-
+# new_filename_raw = filename.split(".")
+#         ext = '.' + new_filename_raw[1]
+#         parametri_imena = (instance.oznaka, str(instance.datum), instance.avtor.oznaka)
+#         new_filename = "_".join(parametri_imena)
+#         return 'Dokumentacija/NE_Arhivirano/{0}'.format(instance.vrsta_dokumenta.oznaka, new_filename + ext)
 
 
 class DokumentCreateView(TemplateView):
