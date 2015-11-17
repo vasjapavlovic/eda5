@@ -4,31 +4,66 @@ from django.core.urlresolvers import reverse, reverse_lazy
 
 from .forms import AktivnostCreateForm, DokumentCreateForm
 from .models import Aktivnost, Dokument
-# from .forms import PrejetaPostaCreateForm
+
+from eda5.arhiv.forms import ArhiviranjeCreateForm
+from eda5.arhiv.models import Arhiviranje
 
 
 class PostaHomeView(TemplateView):
     template_name = "posta/home.html"
 
 
-
 class PostaArhiviranjeListView(ListView):
     model = Dokument
-    template_name = "posta/posta/list/extended.html"
+    template_name = "posta/dokument/list/extended.html"
 
-    def get_queryset_(self):
-        queryset = self.filter(oznaka___startswith='ff')
-        return queryset
+    def get_queryset(self):
+        # prikaži samo nearhivirano pošto
+        queryset = self.model.objects.filter(arhiviranje=None)  # arhiviranje lahko uporabiš ker je
+        return queryset                                         # OneToOne relacija
 
 
+class PostaDokumentDetailView(DetailView):
 
-class AktivnostCreateView(TemplateView):   
-    model = Aktivnost
-    template_name = "posta/aktivnost/create.html"
-
+    model = Dokument
+    template_name = 'posta/dokument/detail/base.html'
 
     def get_context_data(self, *args, **kwargs):
-        context = super(AktivnostCreateView, self).get_context_data(*args, **kwargs)
+        context = super(PostaDokumentDetailView, self).get_context_data(*args, **kwargs)
+        # custom context here
+        context['arhiviranje_form'] = ArhiviranjeCreateForm
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        arhiviranje_form = ArhiviranjeCreateForm(request.POST or None)
+
+        if arhiviranje_form.is_valid():
+
+            dokument = Dokument.objects.get(id=self.get_object().id)
+            arhiviral = arhiviranje_form.cleaned_data['arhiviral']
+            lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
+            elektronski = arhiviranje_form.cleaned_data['elektronski']
+            fizicni = arhiviranje_form.cleaned_data['fizicni']
+
+            Arhiviranje.objects.create_arhiviranje(
+                dokument=dokument,
+                arhiviral=arhiviral,
+                lokacija_hrambe=lokacija_hrambe,
+                elektronski=elektronski,
+                fizicni=fizicni,
+            )
+
+        return HttpResponseRedirect(reverse('moduli:posta:dokument_arhiviranje_list'))
+
+
+
+
+class DokumentCreateView(TemplateView):
+    template_name = "posta/dokument/create.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DokumentCreateView, self).get_context_data(*args, **kwargs)
         context['aktivnost_form'] = AktivnostCreateForm
         context['dokument_form'] = DokumentCreateForm
         return context
@@ -76,4 +111,4 @@ class AktivnostCreateView(TemplateView):
                 aktivnost=aktivnost,
             )
 
-        return HttpResponseRedirect(reverse('moduli:posta:posta_arhiviranje_list'))
+        return HttpResponseRedirect(reverse('moduli:posta:dokument_arhiviranje_list'))

@@ -49,3 +49,4 @@ class DokumentManager(models.Manager):
 
         dokument_model.save(using=self._db)
         return dokument_model
+

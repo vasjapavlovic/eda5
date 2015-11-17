@@ -1,5 +1,7 @@
 from django.db import models
 
+from . import managers
+
 from eda5.core.models import TimeStampedModel
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
@@ -42,7 +44,9 @@ class Arhiviranje(TimeStampedModel):
     elektronski = models.BooleanField(default=True, verbose_name="elektronski hramba")
     fizicni = models.BooleanField(default=False, verbose_name="fizični hramba")
     #   Optional
+
     # OBJECT MANAGER
+    objects = managers.ArhiviranjeManager()
     # CUSTOM PROPERTIES
     # METHODS
 

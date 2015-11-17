@@ -1,0 +1,81 @@
+<!-- zahtevek detail : HEADER-GLAVNI-STOLPEC1 -->
+
+
+<!--tabela-->
+<table class="table">
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>oznaka</b></small></td>
+            <td><b style="color:#0000FF">{{ object.oznaka }}</b></td>
+        </tr>
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>predmet</b></small></td>
+            <td><b style="color:#0000FF">{{ object.opravilo.naziv }} ({{ object.opravilo.oznaka }})</b></td>
+        </tr>
+
+
+    <!--vrstica******************************** -->
+    <tr>
+        <td><small><b>rok izvedbe</b></small></td>
+        <td><b>{{ object.opravilo.rok_izvedbe }}</b></td>
+    </tr>
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>status</b></small></td>
+            <td>
+                <!--VRSTE STATUSA-->
+                {% if object.status == 0 %}<b>Draft</b>{% endif %} 
+                {% if object.status == 1 %}<b>V Čakanju</b>{% endif %} 
+                {% if object.status == 2 %}<b>V Planu</b>{% endif %} 
+                {% if object.status == 3 %}<b>V Reševanju</b>{% endif %} 
+                {% if object.status == 4 %}<b>Zaključeno</b>{% endif %} 
+
+            </td> 
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Potrjen od nadzornika</b></small></td>
+            <td>
+                <!--VRSTE STATUSA-->
+                {% if object.opravilo.is_potrjen %}
+
+                    <b>DA</b>
+
+                {% else %}
+
+                    <b>NE</b>
+
+                {% endif %} 
+
+            </td> 
+
+
+</table>
+<!--end tabela-->
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+
+ 
+
+
+
+

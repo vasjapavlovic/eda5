@@ -17,13 +17,10 @@
         <table class="table">
 
             <tr>
-                <td><a href="" data-toggle="modal" data-target="#addDokument">Nova Pošta</a></td>
+                <td><b><a href="{% url 'moduli:posta:dokument_create' %}">Dodaj Novo Pošto</a></b></td>
             </tr>
             <tr>
-                <td><a href="{% url 'moduli:posta:aktivnost_create' %}">NOVA 2</a></td>
-            </tr>
-            <tr>
-                <td><b><a href="{% url 'moduli:posta:posta_arhiviranje_list' %}">Za Arhiviranje</a></b></td>
+                <td><b><a href="{% url 'moduli:posta:dokument_arhiviranje_list' %}">Za Arhiviranje</a></b></td>
             </tr>
             <tr>
                 <td><b><a href="">Likvidirana/Arhivirana Pošta</a></b></td>
@@ -32,30 +29,6 @@
         </table>
     </div>
 
-
-<!-- Modal ADDdokument-->
-        <div class="modal fade" id="addDokument" tabindex="-1" role="dialog" aria-labelledby="addDokument">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Nov Dokument</h4>
-                    </div>
-
-
-                    <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-                        <div class="modal-body">
-                            {{ aktivnost_form|crispy  }}  
-                            {{ dokument_form|crispy  }}   
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
-                            <button type="submit" class="btn btn-primary">Shrani</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
 
 {% endblock %}

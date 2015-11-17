@@ -7,12 +7,9 @@ urlpatterns = [
     url(r'^$', views.PostaHomeView.as_view(), name="home"),
 ]
 
-# POSTA
+# DOKUMENT
 urlpatterns += [
-    url(r'^za-arhiviranje/$', views.PostaArhiviranjeListView.as_view(), name="posta_arhiviranje_list"),
-]
-
-# AKTIVNOST
-urlpatterns += [
-    url(r'^create/$', views.AktivnostCreateView.as_view(), name="aktivnost_create"),
+    url(r'^za-arhiviranje/$', views.PostaArhiviranjeListView.as_view(), name="dokument_arhiviranje_list"),
+    url(r'^create/$', views.DokumentCreateView.as_view(), name="dokument_create"),
+    url(r'^(?P<pk>\d+)/detail/$', views.PostaDokumentDetailView.as_view(), name="dokument_detail"),
 ]
