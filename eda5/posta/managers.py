@@ -5,12 +5,14 @@ class AktivnostManager(models.Manager):
 
     def create_aktivnost(
                         self,
+                        id_1=None,
                         izvajalec=None,
                         vrsta_aktivnosti=None,
                         datum=None,
                         ):
 
         aktivnost_model = self.model(
+            id_1=id_1,
             izvajalec=izvajalec,
             vrsta_aktivnosti=vrsta_aktivnosti,
             datum=datum,

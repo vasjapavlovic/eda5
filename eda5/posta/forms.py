@@ -8,9 +8,11 @@ class AktivnostCreateForm(forms.ModelForm):
     class Meta:
         model = Aktivnost
         fields = (
+            'id_1',
             'izvajalec',
             'vrsta_aktivnosti',
             'datum',
+
         )
 
 

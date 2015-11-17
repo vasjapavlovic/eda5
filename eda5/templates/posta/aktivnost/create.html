@@ -7,8 +7,8 @@
 <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
                 <h1>Vnos Dokumenta</h1>
                 
-                {{ form | crispy }}
-                {{ form2 | crispy }}
+                {{ aktivnost_form|crispy  }}  
+                {{ dokument_form|crispy  }}   
 
                 <input type="submit" value="Potrdi">
 </form>
