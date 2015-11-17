@@ -1,6 +1,5 @@
 from django.db import models
 
-from eda5.posta.models import Dokument
 from eda5.core.models import TimeStampedModel
 
 
@@ -52,7 +51,6 @@ class ModelArtikla(TimeStampedModel):
     # ATRIBUTES
     # ***Relations***
     proizvajalec = models.ForeignKey(Proizvajalec)
-    prejeta_dokumentacija = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     tip = models.ForeignKey(TipArtikla)
     oznaka = models.CharField(max_length=20)

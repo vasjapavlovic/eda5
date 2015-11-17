@@ -1,25 +1,33 @@
-ARHIV DOKUMENTACIJE
-===================
+ARHIVIRANJE DOKUMENTACIJE
+=========================
 
 
 Struktura arhiva
 ^^^^^^^^^^^^^^^^
 
 +---------------------+-------------------+-------------------+-----------------------+---------------------+
-|    objekt           |   arhivsko mesto  |    Zbirne mape    |     Vrsta dokumenta   |    Dokument         |
+|    objekt           |   Arhiv           |   Zbirna Mapa     |     Arhivska Mapa     |    Dokument         |
 +---------------------+-------------------+-------------------+-----------------------+---------------------+
-| 3037 (Eda center)   |    ZHT-2015-0001  |        ZHT        |   RAC (racunovodstvo) |RAC_št-doc_avtor.pdf |
+| 3037 (Eda center)   |    Zahtevki       | ZHT               |  ZHT-2015-9999        |DOP_št-doc_avtor.pdf |
 +---------------------+-------------------+-------------------+-----------------------+---------------------+
 |                     |                   |                   |                       |CES_št-doc_avtor.pdf |
 +---------------------+-------------------+-------------------+-----------------------+---------------------+
-|                     |                   |                   |   OST (Ostalo)        |DOP_št-doc_avtor.pdf |
+|                     |   Računovodstvo   |  RAC (Računi)     |    RAC (Računi)       |RAC_št-doc_avtor.pdf |
 +---------------------+-------------------+-------------------+-----------------------+---------------------+
-|                     |                   |  DN-2015-000423   |   IZD (Izvedba del)   |DN_št-doc_avtor.pdf  |
+|                     |   Računovodstvo   |  As     |    RAC (Računi)       |RAC_št-doc_avtor.pdf |
 +---------------------+-------------------+-------------------+-----------------------+---------------------+
 
 
 Postopek:
 ^^^^^^^^^
+
+Dokumentacije se arhivira skladno z zgoraj prikazano strukturo.
+
+Zahtevki
+--------
+
+Ob izdelavi zahtevka se izdela arhivska mapa za zahtevek, kamor se shranjuje dokumentacija
+
 
 #. Odpremo nov zahtevek, kjer je definirano za kateri objekt gre, na katero leto se zahtevek nanaša
 #. Za zahtevek se avtomatsko izdela Arhivsko Mesto z enako oznako kot jo ima zahtevek

@@ -18,8 +18,9 @@ class AktivnostCreateForm(forms.ModelForm):
         model = Aktivnost
         fields = (
             'id_1',
-            'izvajalec',
             'vrsta_aktivnosti',
+            'izvajalec',
+            'likvidiral',
             'datum',
         )
         widgets = {

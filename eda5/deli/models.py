@@ -6,7 +6,6 @@ from . import managers
 
 from eda5.katalog.models import ModelArtikla
 from eda5.etaznalastnina.models import LastniskaSkupina
-from eda5.posta.models import Dokument
 
 
 class Skupina(models.Model):
@@ -84,7 +83,6 @@ class DelStavbe(models.Model):
     # ***Relations***
     podskupina = models.ForeignKey(Podskupina)
     lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True, verbose_name="lastniška skupina",)
-    prejeta_dokumentacija = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)
@@ -127,7 +125,6 @@ class Element(models.Model):
     # ***Relations***
     del_stavbe = models.ForeignKey(DelStavbe)
     model_artikla = models.ForeignKey(ModelArtikla, default=1, verbose_name='Model',)
-    prejeta_dokumentacija = models.ManyToManyField(Dokument, blank=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20, verbose_name='Oznaka',)
     naziv = models.CharField(max_length=255, verbose_name='Naziv',)

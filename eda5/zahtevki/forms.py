@@ -3,8 +3,6 @@ from django.utils import timezone
 
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 
-from eda5.posta.models import Dokument
-
 
 class ZahtevekCreateForm(forms.ModelForm):
 
@@ -68,10 +66,6 @@ class ZahtevekSkodniDogodekUpdateForm(forms.ModelForm):
     class Meta:
         model = ZahtevekSkodniDogodek
         fields = (
-            'dokument_prijava_skode',
-            'dokument_zapisnik_ogleda',
-            'dokument_poravnava',
-            'dokazno_gradivo',
             'datum_nastanka_skode',
             'vzrok_skode',
             'is_prijava_policiji',
@@ -88,7 +82,6 @@ class ZahtevekSestanekUpdateForm(forms.ModelForm):
         model = ZahtevekSestanek
         fields = (
             'sklicatelj',
-            'zapisnik',
             'datum',
             'udelezenci',
         )

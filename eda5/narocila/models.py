@@ -2,7 +2,6 @@ from django.db import models
 
 from eda5.core.models import TimeStampedModel
 from eda5.partnerji.models import Partner, SkupinaPartnerjev
-from eda5.posta.models import Dokument
 
 
 class Narocilo(TimeStampedModel):
@@ -24,7 +23,6 @@ class Narocilo(TimeStampedModel):
     # ____max = 99999.99 EUR
     vrednost = models.DecimalField(decimal_places=2, max_digits=7)
     # ***Optional***
-    dodatna_dokumentacija = models.ManyToManyField(Dokument, blank=True)
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
@@ -44,7 +42,6 @@ class NarociloPogodba(TimeStampedModel):
     # ***Relations***
     st_pogodbe = models.CharField(max_length=20, verbose_name="številka pogodbe")
     predmet_pogodbe = models.CharField(max_length=255, verbose_name="številka pogodbe")
-    pogodba = models.ForeignKey(Dokument)
     # ***Mandatory***
     # ***Optional***
     # OBJECT MANAGER

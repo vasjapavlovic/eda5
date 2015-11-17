@@ -84,6 +84,7 @@ class PostaDokumentDetailView(DetailView):
             if not os.path.exists(mapa):
                 os.makedirs(mapa)
 
+            # prenos datoteke v arhivsko mesto
             os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
         return HttpResponseRedirect(reverse('moduli:posta:dokument_arhivirano_list'))
@@ -107,12 +108,14 @@ class DokumentCreateView(TemplateView):
 
             id_1 = aktivnost_form.cleaned_data['id_1']
             izvajalec = aktivnost_form.cleaned_data['izvajalec']
+            likvidiral = aktivnost_form.cleaned_data['likvidiral']
             vrsta_aktivnosti = aktivnost_form.cleaned_data['vrsta_aktivnosti']
             datum = aktivnost_form.cleaned_data['datum']
 
             Aktivnost.objects.create_aktivnost(
                 id_1=id_1,
                 izvajalec=izvajalec,
+                likvidiral=likvidiral,
                 vrsta_aktivnosti=vrsta_aktivnosti,
                 datum=datum,
             )

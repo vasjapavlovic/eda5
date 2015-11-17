@@ -8,9 +8,7 @@ from . import managers
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba, Partner
-from eda5.posta.models import Dokument
 from eda5.deli.models import Element
-
 
 
 class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
@@ -74,13 +72,7 @@ class ZahtevekSkodniDogodek(models.Model):
     zahtevek = models.OneToOneField(Zahtevek)
     poskodovane_stvari = models.ManyToManyField(Element, blank=True)
     #     dokumenti
-    dokument_prijava_skode = models.ForeignKey(Dokument, related_name="dokument_prijava_skode",
-                                               blank=True, null=True, verbose_name="prijava škode")
-    dokument_zapisnik_ogleda = models.ForeignKey(Dokument, related_name="dokument_zapisnik_ogleda",
-                                                 blank=True, null=True, verbose_name="zapisnik o ogledu škode")
-    dokument_poravnava = models.ForeignKey(Dokument, related_name="dokument_poravnava",
-                                           blank=True, null=True, verbose_name="poravnava škode")
-    dokazno_gradivo = models.ForeignKey(Dokument, blank=True, null=True, related_name="dokazno_gradivo")
+
     # zaznamki ZAVAROVALNICA
     #   Mandatory
     datum_nastanka_skode = models.DateField(blank=True, null=True, verbose_name="datum nastanka škode")
@@ -125,7 +117,6 @@ class ZahtevekSestanek(models.Model):
     zahtevek = models.OneToOneField(Zahtevek)
     sklicatelj = models.ForeignKey(Partner, null=True, blank=True)
     udelezenci = models.ManyToManyField(Oseba, blank=True, verbose_name="udeleženci")
-    zapisnik = models.ForeignKey(Dokument, null=True, blank=True)
     #   Mandatory
     datum = models.DateField(null=True, blank=True)
     #   Optional

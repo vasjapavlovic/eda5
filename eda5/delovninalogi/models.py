@@ -12,7 +12,6 @@ from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
-from eda5.posta.models import Dokument
 from eda5.zahtevki.models import Zahtevek
 
 
@@ -71,7 +70,6 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     naziv = models.CharField(max_length=255)
     #   Optional
     nosilec = models.ForeignKey(Oseba, blank=True, null=True)
-    dokument = models.ManyToManyField(Dokument, blank=True)
     datum_plan = models.DateField(blank=True, null=True, verbose_name='V planu za dne')
     datum_start = models.DateField(blank=True, null=True, verbose_name="Začeto dne")
     datum_stop = models.DateField(blank=True, null=True, verbose_name="Končano dne")

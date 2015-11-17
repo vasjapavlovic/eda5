@@ -8,10 +8,10 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from .mixins import MessagesActionMixin
 from .forms import OpraviloModelForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm,\
                    DelovniNalogVresevanjuModelForm, DeloForm, DeloZacetoUpdateModelForm
-
-from .forms import DelovniNalogAddDokumentForm
 from .models import Opravilo, DelovniNalog, Delo
 
+from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
+from eda5.arhiv.models import Arhiviranje
 from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
 
@@ -79,6 +79,8 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['delo_form'] = DeloForm
         context['delo_list'] = Delo.objects.filter(delovninalog=self.object.id)
         context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=self.object.id).distinct('delavec')
+
+        context['arhiviranje_form'] = ArhiviranjeDelovniNalogForm
 
         return context
 
@@ -178,13 +180,32 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             # POGOJI PREUSMERJANJA
             # ---------------------------------------------------------------------------------------------
 
-
-
-
             '''Ko je status delovnega-naloga "V PLANU" izvedi preusmeritev na UPDATE-STATUS --> dn_update_vplanu'''
             if delovninalog.status == 2:
                 return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_update_vplanu',
                                                     kwargs={'pk': delovninalog.pk}))
+
+        arhiviranje_form = ArhiviranjeDelovniNalogForm(request.POST or None)
+
+        if arhiviranje_form.is_valid():
+
+            dokument = arhiviranje_form.cleaned_data['dokument']
+            arhiviral = arhiviranje_form.cleaned_data['arhiviral']
+            elektronski = arhiviranje_form.cleaned_data['elektronski']
+            fizicni = arhiviranje_form.cleaned_data['fizicni']
+            lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
+
+            Arhiviranje.objects.create_arhiviranje(
+                delovninalog=delovninalog,
+                dokument=dokument,
+                arhiviral=arhiviral,
+                elektronski=elektronski,
+                fizicni=fizicni,
+                lokacija_hrambe=lokacija_hrambe,
+            )
+
+
+
 
         return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
@@ -232,17 +253,16 @@ class DelovniNalogUpdateVresevanjuView(MessagesActionMixin, UpdateView):
             messages.error(self.request, "Delovnega naloga z odprtimi deli ni mogoče zaključiti!")
             return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog_id}))
 
-
         return super(DelovniNalogUpdateVresevanjuView, self).form_valid(form)
 
 
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-class DelovniNalogUpdateDokumentFormView(MessagesActionMixin, UpdateView):
-    model = DelovniNalog
-    form_class = DelovniNalogAddDokumentForm
-    template_name = "delovninalogi/delovninalog/update_dokument.html"
+# class DelovniNalogUpdateDokumentFormView(MessagesActionMixin, UpdateView):
+#     model = DelovniNalog
+#     form_class = DelovniNalogAddDokumentForm
+#     template_name = "delovninalogi/delovninalog/update_dokument.html"
 
-    success_msg = "Dokumentacija je bila uspešno spremenjena."
+#     success_msg = "Dokumentacija je bila uspešno spremenjena."
 
 
 # DELO****************************************************************************************************

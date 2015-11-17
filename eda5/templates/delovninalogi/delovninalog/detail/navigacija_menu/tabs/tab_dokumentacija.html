@@ -12,7 +12,7 @@
 
     <!--CONTROLER_LEFT-->
     {% block detail_tab_controler_left %}
-        <li><a href="{% url 'moduli:delovninalogi:dn_update_dokument' object.id %}">Dodaj dokument</a></li>
+        <li><a href="" data-toggle="modal" data-target="#addDokumentacija">Dodaj Dokument</a></li>
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
@@ -35,22 +35,49 @@
                     <th>oznaka</th>
                     <th>izdal</th>
                     <th>opis</th>
+                    <th>priponka</th>
                 </tr>
 
-                {% for dokument in object.dokument.all %}
+                {% for arhiviranje in object.arhiviranje_set.all %}
 
 
                 <tr>
                 
-                    <td>{{ dokument.datum }}</td>
-                    <td>{{ dokument.oznaka }}</td>
-                    <td>{{ dokument.posiljatelj }}</td>
-                    <td>{{ dokument.opis }}</td>
+                    <td>{{ arhiviranje.dokument.datum }}</td>
+                    <td>{{ arhiviranje.dokument.oznaka }}</td>
+                    <td>{{ arhiviranje.dokument.avtor }}</td>
+                    <td>{{ arhiviranje.dokument.naziv }}</td>
+                    <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
 
                 </tr>
                 {% endfor %}
 
         </table>
+
+
+
+<!-- Modal addDokumentacija -->
+<div class="modal fade" id="addDokumentacija" tabindex="-1" role="dialog" aria-labelledby="addDokumentacija">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Dodajanje Dokumentacije</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ arhiviranje_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     {% endblock %}
     

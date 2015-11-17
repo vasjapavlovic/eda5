@@ -35,10 +35,9 @@ class OpraviloCreateForm(forms.ModelForm):
 
         leto = timezone.now().date().year
         zap_st = Opravilo.objects.all().count()
-        zap_st = zap_st +1
+        zap_st = zap_st + 1
 
         nova_oznaka = "OPR-%s-%s" % (leto, zap_st)  #
-
 
         self.initial['oznaka'] = nova_oznaka
 
@@ -153,16 +152,16 @@ class DeloZacetoUpdateModelForm(forms.ModelForm):
 
 
 
-class DelovniNalogAddDokumentForm(forms.ModelForm):
+# class DelovniNalogAddDokumentForm(forms.ModelForm):
 
-    class Meta:
-        model = DelovniNalog
-        fields = ("dokument",)
-        widgets = {"dokument": forms.CheckboxSelectMultiple}
+#     class Meta:
+#         model = DelovniNalog
+#         fields = ("dokument",)
+#         widgets = {"dokument": forms.CheckboxSelectMultiple}
 
-    def __init__(self, *args, **kwargs):
-        super(DelovniNalogAddDokumentForm, self).__init__(*args, **kwargs)
+#     def __init__(self, *args, **kwargs):
+#         super(DelovniNalogAddDokumentForm, self).__init__(*args, **kwargs)
 
-        # vidni samo računi
-        vrsta_dokumenta = 1
-        self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)
+#         # vidni samo računi
+#         vrsta_dokumenta = 1
+#         self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)

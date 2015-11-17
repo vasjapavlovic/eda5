@@ -48,7 +48,6 @@ class DelStavbeAdmin(admin.ModelAdmin):
     ordering = ["oznaka"]
     search_fields = ["oznaka", ]
     # readonly_fields = ["stevilka",]
-    filter_horizontal = ('prejeta_dokumentacija',)
 
     inlines = [
         ElementInlines,
@@ -57,4 +56,4 @@ class DelStavbeAdmin(admin.ModelAdmin):
 
 @admin.register(models.Element)
 class ElementAdmin(admin.ModelAdmin):
-    filter_horizontal = ('prejeta_dokumentacija',)
+    pass

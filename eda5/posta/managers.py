@@ -7,6 +7,7 @@ class AktivnostManager(models.Manager):
                         self,
                         id_1=None,
                         izvajalec=None,
+                        likvidiral=None,
                         vrsta_aktivnosti=None,
                         datum=None,
                         ):
@@ -14,6 +15,7 @@ class AktivnostManager(models.Manager):
         aktivnost_model = self.model(
             id_1=id_1,
             izvajalec=izvajalec,
+            likvidiral=likvidiral,
             vrsta_aktivnosti=vrsta_aktivnosti,
             datum=datum,
         )

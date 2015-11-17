@@ -15,7 +15,8 @@ from eda5.delovninalogi.models import Opravilo
 from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
 
-from eda5.arhiv.models import Arhiv, ArhivMesto
+from eda5.arhiv.forms import ArhiviranjeZahtevekForm
+from eda5.arhiv.models import Arhiv, ArhivMesto, Arhiviranje
 
 
 class ZahtevekHomeView(TemplateView):
@@ -61,16 +62,16 @@ class ZahtevekCreateView(TemplateView):
             )
 
 
-            zahtevek = Zahtevek.objects.get(oznaka=oznaka)  # bolje bi bilo na ID ampak neznam
-            arhiv = Arhiv.objects.get(id=1)  # v končni fazi bo arhiv == objektu
+            # zahtevek = Zahtevek.objects.get(oznaka=oznaka)  # bolje bi bilo na ID ampak neznam
+            # arhiv = Arhiv.objects.get(id=1)  # v končni fazi bo arhiv == objektu
 
 
-            ArhivMesto.objects.create_arhiv_mesto(
-                arhiv=arhiv,
-                zahtevek=zahtevek,
-                oznaka=zahtevek.oznaka,
-                naziv=zahtevek.naziv,
-            )
+            # ArhivMesto.objects.create_arhiv_mesto(
+            #     arhiv=arhiv,
+            #     zahtevek=zahtevek,
+            #     oznaka=zahtevek.oznaka,
+            #     naziv=zahtevek.naziv,
+            # )
             
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
@@ -124,6 +125,8 @@ class ZahtevekDetailView(DetailView):
         # zahtevek - child
         context['zahtevek_create_form'] = PodzahtevekCreateForm
         context['zahtevek_child_list'] = Zahtevek.objects.filter(zahtevek_parent=self.object.id)
+
+        context['arhiviranje_form'] = ArhiviranjeZahtevekForm
 
         return context
 
@@ -184,5 +187,45 @@ class ZahtevekDetailView(DetailView):
                                              zahtevek_izvedba_dela=zahtevek_izvedba_dela,
                                              zahtevek_parent=zahtevek,
                                              )
+
+        # ARHIVIRANJE
+        arhiviranje_form = ArhiviranjeZahtevekForm(request.POST or None)
+
+        if arhiviranje_form.is_valid():
+
+            dokument = arhiviranje_form.cleaned_data['dokument']
+            arhiviral = arhiviranje_form.cleaned_data['arhiviral']
+            elektronski = arhiviranje_form.cleaned_data['elektronski']
+            fizicni = arhiviranje_form.cleaned_data['fizicni']
+            lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
+
+            Arhiviranje.objects.create_arhiviranje(
+                zahtevek=zahtevek,
+                dokument=dokument,
+                arhiviral=arhiviral,
+                elektronski=elektronski,
+                fizicni=fizicni,
+                lokacija_hrambe=lokacija_hrambe,
+            )
+
+            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
+            # '''Za račune poskrbimo varnostno kopijo pod Dokumenti/Računovodstvo'''
+
+            # old_path = str(dokument.priponka)
+            # filename = old_path.split('/')[2]
+
+            # new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.oznaka, filename)
+
+            # new_path = '/'.join(new_path)
+            # dokument.priponka = new_path
+            # dokument.save()
+
+            # # izdelamo direktorjih arhivskega mesta
+            # mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
+            # if not os.path.exists(mapa):
+            #     os.makedirs(mapa)
+
+            # # prenos datoteke v arhivsko mesto
+            # os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))

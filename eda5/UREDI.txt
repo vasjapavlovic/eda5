@@ -5,6 +5,8 @@
     *Sklenjena zavarovanje
     *DelStavbe je lahko zavarovan po sklenjeni zavarovalni polici
 - lokacije
+- vnos pomankljivosti
+- vnos delovnega naloga za INTERVENCIJSKA DELA (ročni vpis podatkov, ko je čas)
 
 
 ### PARTNERJI ###
@@ -26,6 +28,8 @@
 
 ### PLAN ###
 -relacija na PLANOV
+
+
 
 
 

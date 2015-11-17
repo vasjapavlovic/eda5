@@ -6,6 +6,12 @@ class ArhiviranjeManager(models.Manager):
     def create_arhiviranje(
                 self,
                 dokument=None,
+                zahtevek=None,
+                delovninalog=None,
+                delstavbe=None,
+                element=None,
+                narocilo=None,
+                artikel=None,
                 arhiviral=None,
                 lokacija_hrambe=None,
                 elektronski=None,
@@ -18,6 +24,12 @@ class ArhiviranjeManager(models.Manager):
             lokacija_hrambe=lokacija_hrambe,
             elektronski=elektronski,
             fizicni=fizicni,
+            zahtevek=zahtevek,
+            delovninalog=delovninalog,
+            delstavbe=delstavbe,
+            element=element,
+            narocilo=narocilo,
+            artikel=artikel,
         )
 
         arhiviranje.save(using=self._db)

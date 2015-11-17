@@ -17,7 +17,7 @@ urlpatterns += [
     url(r'^dn/(?P<pk>\d+)/update/vcakanju$', views.DelovniNalogUpdateVcakanjuView.as_view(), name="dn_update_vcakanju"),
     url(r'^dn/(?P<pk>\d+)/update/vplanu$', views.DelovniNalogUpdateVplanuView.as_view(), name="dn_update_vplanu"),
     url(r'^dn/(?P<pk>\d+)/update/vresevanju$', views.DelovniNalogUpdateVresevanjuView.as_view(), name="dn_update_vresevanju"),
-    url(r'^dn/(?P<pk>\d+)/update/dokument$', views.DelovniNalogUpdateDokumentFormView.as_view(), name="dn_update_dokument"),
+    # url(r'^dn/(?P<pk>\d+)/update/dokument$', views.DelovniNalogUpdateDokumentFormView.as_view(), name="dn_update_dokument"),
 ]
 
 # OPRAVILO
