@@ -1,10 +1,13 @@
 {% extends "posta/posta/list/base.html" %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}Arhiviranje Pošte{% endblock %}
 
-
 {% block main_content %}
+
+<li><a href="" data-toggle="modal" data-target="#addAktivnost">Nov Aktivnost</a></li>
+<li><a href="" data-toggle="modal" data-target="#addDokument">Nov Dokument</a></li>
 
 <table class="table">
 
@@ -27,4 +30,56 @@
 </table>
 
 
+<!-- Modal ADD aktivnost-->
+        <div class="modal fade" id="addAktivnost" tabindex="-1" role="dialog" aria-labelledby="addAktivnost">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Nova Aktivnost</h4>
+                    </div>
+
+
+                    <form action="" method="POST">{% csrf_token %}
+                        <div class="modal-body">
+                            {{ aktivnost_form|crispy  }}   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                            <button type="submit" class="btn btn-primary">Shrani</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Modal ADD aktivnost-->
+        <div class="modal fade" id="addDokument" tabindex="-1" role="dialog" aria-labelledby="addDokument">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Nov Dokument</h4>
+                    </div>
+
+
+                    <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                        <div class="modal-body">
+                            {{ dokument_form|crispy  }}   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                            <button type="submit" class="btn btn-primary">Shrani</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+
 {% endblock %}
+<!-- end CONTENT -->

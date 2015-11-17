@@ -9,7 +9,7 @@ class AktivnostCreateForm(forms.ModelForm):
         model = Aktivnost
         fields = (
             'izvajalec',
-            'aktivnost',
+            'vrsta_aktivnosti',
             'datum',
         )
 
@@ -19,7 +19,7 @@ class DokumentCreateForm(forms.ModelForm):
     class Meta:
         model = Dokument
         fields = (
-            'aktivnost',
+            # 'aktivnost',
             'vrsta_dokumenta',
             'avtor',
             'naslovnik',

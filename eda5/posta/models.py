@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from eda5.core.models import TimeStampedModel
 from eda5.partnerji.models import SkupinaPartnerjev, Oseba
 
+from . import managers
 
 
 class Aktivnost(TimeStampedModel):
@@ -18,10 +19,13 @@ class Aktivnost(TimeStampedModel):
     #   Relations
     izvajalec = models.ForeignKey(Oseba, verbose_name="izvajalec poštne storitve")
     #   Mandatory
-    aktivnost = models.IntegerField(choices=AKTIVNOSTI)
+    id_1 = models.IntegerField(primary_key=True)
+    vrsta_aktivnosti = models.IntegerField(choices=AKTIVNOSTI)
     datum = models.DateField()
     #   Optional
+
     # OBJECT MANAGER
+    objects = managers.AktivnostManager()
     # CUSTOM PROPERTIES
     # METHODS
 
@@ -31,7 +35,7 @@ class Aktivnost(TimeStampedModel):
         verbose_name_plural = "aktivnosti"
 
     def __str__(self):
-        return "%s - %s" % (self.datum, self.aktivnost)
+        return "%s - %s" % (self.datum, self.vrsta_aktivnosti)
 
 
 class Dokument(TimeStampedModel):
@@ -54,9 +58,11 @@ class Dokument(TimeStampedModel):
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
     naziv = models.CharField(max_length=255, verbose_name="naziv")
     datum = models.DateField()
-    priponka = models.FileField(upload_to=dokument_directory_path)
+    priponka = models.FileField(upload_to=dokument_directory_path, blank=True, null=True)
     #   Optional
+
     # OBJECT MANAGER
+    objects = managers.DokumentManager()
     # CUSTOM PROPERTIES
     # METHODS
 
