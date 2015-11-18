@@ -1,0 +1,59 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:pomanjkljivosti:home' %}">Nazaj</a>
+    </i></small>
+
+<div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+            <h1>Seznam Odprtih Pomanjkljivosti</h1>
+            </div>
+
+            <div class="col-xs-6 col-md-6" align="right">
+                <form action="" method="GET">
+                    <input type="text" name="q" id="search_text" />
+                    <input type="submit" value="search">
+                    <a type="button" class="btn btn-default" href="" >reset</a>
+                </form>
+            </div>
+        </div>
+</div>
+
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <tr>
+                <th>oznaka</th>
+                <th>prijava</th>
+                <th>prijavil</th>
+                <th>datum ugotovitve</th>
+                <th>elementi</th>
+                <th>lokacija</th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.prijavil }}</td>
+                <td>{{ object.datum_ugotovitve }}</td>
+                <td>{{ object.element }}</td>
+                <td>{{ object.lokacija }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% endblock %}
+
+oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=255, verbose_name='predmet')
+    element = models.CharField(max_length=255)
+    lokacija = models.CharField(max_length=255)
+    datum_prijave = models.DateField()
