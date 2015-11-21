@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
+from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.utils import timezone
@@ -88,6 +89,13 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         # zaznamek
         context['zaznamek_form'] = ZaznamekForm
         context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=self.object.id)
+
+        
+        # koncana_dela = Delo.objects.koncana_dela(delovninalog=self.object.id)
+
+        #############
+        # izračun porabljenega časa za končana dela
+
 
         return context
 

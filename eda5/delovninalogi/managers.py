@@ -57,7 +57,7 @@ class DelovniNalogManager(models.Manager):
         -nepotrjeni naprej
         -zadnje končani naprej
         '''
-    
+
 
 class DeloManager(models.Manager):
 

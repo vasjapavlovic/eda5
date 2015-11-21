@@ -95,10 +95,7 @@ class DelovniNalog(TimeStampedModel, StatusModel):
 
     # CUSTOM PROPERTIES
     def get_absolute_url(self):
-        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.pk})
-
-
- 
+        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.pk}) 
 
     # @property
     # def delo_vdelu(self):
@@ -137,8 +134,8 @@ class Delo(TimeStampedModel, StatusModel):
     #   Optional
     datum = models.DateField(blank=True, null=True)
     '''****spremeni v DurationField*****'''
-    time_start = models.TimeField(blank=True, null=True, verbose_name="Ura:Začeto")
-    time_stop = models.TimeField(blank=True, null=True, verbose_name="Ura:Končano")
+    time_start = models.DurationField(blank=True, null=True, verbose_name="Ura:Začeto")
+    time_stop = models.DurationField(blank=True, null=True, verbose_name="Ura:Končano")
 
     # OBJECT MANAGER
     objects = managers.DeloManager()
