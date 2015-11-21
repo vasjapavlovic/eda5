@@ -47,7 +47,7 @@
         <td>{{ delo.time_stop }}</td>
         <td>{{ delo.porabljen_cas }}</td>
         <td>{{ delo.delavec.priimek }} ({{ delo.delavec.ime }})</td>
-        <td> (še potrebno vključiti) </td>
+        <td>{{ delo.vrsta_dela.naziv }}<br> (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
 
     </tr>
 

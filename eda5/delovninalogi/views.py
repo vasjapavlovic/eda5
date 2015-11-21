@@ -140,6 +140,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             # ---------------------------------------------------------------------------------------------
 
             delavec = delo_form.cleaned_data['delavec']
+            vrsta_dela = delo_form.cleaned_data['vrsta_dela']
             datum = timezone.now().date()
             time_start = timezone.now().time().strftime("%H:%M:%S")
 
@@ -177,6 +178,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
             Delo.objects.create_delo(delavec=delavec,
                                      datum=datum,
+                                     vrsta_dela=vrsta_dela,
                                      time_start=time_start,
                                      delovninalog=delovninalog,
                                      )

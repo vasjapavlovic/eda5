@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Opravilo, DelovniNalog, Delo
+from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop
 
 
 @admin.register(Opravilo)
@@ -16,3 +16,14 @@ class DelovniNalogAdmin(admin.ModelAdmin):
 @admin.register(Delo)
 class DeloAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(DeloVrsta)
+class DeloVrstaAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(DeloVrstaSklop)
+class DeloVrstaSklopAdmin(admin.ModelAdmin):
+    pass
+

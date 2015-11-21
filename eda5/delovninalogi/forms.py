@@ -2,7 +2,7 @@ from django import forms
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
-from .models import Opravilo, DelovniNalog, Delo
+from .models import Opravilo, DelovniNalog, Delo, DeloVrsta
 
 from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
@@ -132,8 +132,10 @@ class DelovniNalogVresevanjuModelForm(forms.ModelForm):
 class DeloForm(forms.Form):
 
     DELAVCI = Oseba.objects.all()
+    VRSTE_DEL = DeloVrsta.objects.all()
 
     delavec = forms.ModelChoiceField(queryset=DELAVCI)
+    vrsta_dela = forms.ModelChoiceField(queryset=VRSTE_DEL)
 
 
 

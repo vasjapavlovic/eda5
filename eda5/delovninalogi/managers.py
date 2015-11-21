@@ -72,6 +72,7 @@ class DeloManager(models.Manager):
     def create_delo(self,
                     delavec=None,
                     datum=None,
+                    vrsta_dela=None,
                     time_start=None,
                     delovninalog=None,
                     ):
@@ -81,6 +82,7 @@ class DeloManager(models.Manager):
 
         delo = self.model(delavec=delavec,
                           datum=datum,
+                          vrsta_dela=vrsta_dela,
                           time_start=time_start,
                           delovninalog=delovninalog,
                           )

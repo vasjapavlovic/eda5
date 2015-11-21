@@ -132,7 +132,7 @@ class Delo(TimeStampedModel, StatusModel):
     #   Relations
     delavec = models.ForeignKey(Oseba)
     delovninalog = models.ForeignKey(DelovniNalog, verbose_name="delovni nalog")
-    vrsta_dela = models.ForeignKey('DeloVrsta')
+    vrsta_dela = models.ForeignKey('DeloVrsta', blank=True, null=True)
     #   Mandatory
     #   Optional
     datum = models.DateField(blank=True, null=True)
