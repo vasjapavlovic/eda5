@@ -132,10 +132,11 @@ class Delo(TimeStampedModel, StatusModel):
     #   Relations
     delavec = models.ForeignKey(Oseba)
     delovninalog = models.ForeignKey(DelovniNalog, verbose_name="delovni nalog")
-    # ******vrsta dela
+    vrsta_dela = models.ForeignKey('DeloVrsta')
     #   Mandatory
     #   Optional
     datum = models.DateField(blank=True, null=True)
+    '''****spremeni v DurationField*****'''
     time_start = models.TimeField(blank=True, null=True, verbose_name="Ura:Začeto")
     time_stop = models.TimeField(blank=True, null=True, verbose_name="Ura:Končano")
 
@@ -156,7 +157,7 @@ class Delo(TimeStampedModel, StatusModel):
 
     # METHODS
     def get_absolute_url(self):
-        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.delovninalog.pk })
+        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.delovninalog.pk})
 
     # META AND STRING
     class Meta:
@@ -165,3 +166,52 @@ class Delo(TimeStampedModel, StatusModel):
 
     def __str__(self):
         return "%s | %s %s | %s" % (self.datum, self.delavec.priimek, self.delavec.ime, self.delovninalog.oznaka)
+
+
+class DeloVrsta(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    sklo = models.ForeignKey('DeloVrstaSklop')
+    #   Mandatory
+    oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=255)
+    zap_st = models.IntegerField(default=99)
+    # vrednosti do 99,99 EUR (na dve decimalni mesti natančno)
+    cena = models.DecimalField(decimal_places=2, max_digits=4)
+    # 0.22(22%) in 0.095(9,5%) | 0.000
+    stopnja_ddv = models.DecimalField(decimal_places=3, max_digits=4)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "vrsta dela"
+        verbose_name_plural = "vrste del"
+
+    def __str__(self):
+        return "%s - %s" % (self.oznaka, self.naziv)
+
+
+class DeloVrstaSklop(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    #   Mandatory
+    oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=255)
+    zap_st = models.IntegerField(default=99)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "sklop vrst del"
+        verbose_name_plural = "sklopi vrst del"
+
+    def __str__(self):
+        return "%s - %s" % (self.oznaka, self.naziv)
