@@ -106,7 +106,7 @@ class Banka(TimeStampedModel, IsActiveModel):
 
 class TRRacun(TimeStampedModel, IsActiveModel):
 
-    iban = models.CharField(max_length=20, verbose_name="stevilka računa", unique=True)
+    iban = models.CharField(max_length=20, unique=True, verbose_name="stevilka računa")
     banka = models.ForeignKey(Banka)
     partner = models.ForeignKey(Partner, verbose_name='partner')
 

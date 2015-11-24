@@ -6,38 +6,32 @@ class TestDrzava(TestCase):
 
     def setUp(self):
 
-        self.drzava = Drzava.objects.create(naziv='Slovenija',
-                              iso_koda='SLO',
-                              )
+        Drzava.objects.create(naziv='Slovenija', iso_koda='SLO',)
 
     def test__str__(self):
 
+        drzava = Drzava.objects.get(naziv="Slovenija")
+
         self.assertEqual(
-            self.drzava.__str__(),
+            drzava.__str__(),
             "Slovenija (SLO)"
         )
+
 
 class TestPosta(TestCase):
 
     def setUp(self):
 
-        self.drzava = Drzava.objects.create(naziv='Slovenija',
-                              iso_koda='SLO',
-                              )
+        Drzava.objects.create(naziv='Slovenija', iso_koda='SLO',)
+        drzava = Drzava.objects.get(naziv="Slovenija")
 
-        # SLO = Drzava.objects.get(naziv='Slovenija')
-
-
-        self.posta = Posta.objects.create(postna_stevilka='5000',
-                             naziv='Nova Grica',
-                             drzava=self.drzava,
-                             )
-
-        # super(TestPosta, self).setUp()
+        Posta.objects.create(postna_stevilka='5000', naziv='Nova Grica', drzava=drzava,)
 
     def test__str__(self):
 
+        posta = Posta.objects.get(postna_stevilka="5000")
+
         self.assertEqual(
-            self.posta.__str__(),
+            posta.__str__(),
             "5000 Nova Grica"
         )

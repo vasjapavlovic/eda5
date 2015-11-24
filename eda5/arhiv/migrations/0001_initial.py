@@ -7,16 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('partnerji', '0002_skupinapartnerjev_oznaka'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Arhiv',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('oznaka', models.CharField(verbose_name='oznaka', max_length=10)),
-                ('naziv', models.CharField(verbose_name='naziv', max_length=255)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('oznaka', models.CharField(max_length=10, verbose_name='oznaka')),
+                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
             ],
             options={
                 'verbose_name': 'arhiv',
@@ -26,12 +25,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Arhiviranje',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('elektronski', models.BooleanField(verbose_name='elektronski hramba', default=True)),
                 ('fizicni', models.BooleanField(verbose_name='fizični hramba', default=False)),
-                ('arhiviral', models.ForeignKey(to='partnerji.Oseba')),
             ],
             options={
                 'verbose_name': 'arhiviranje',
@@ -41,19 +39,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ArhivMesto',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('oznaka', models.CharField(verbose_name='oznaka', max_length=10)),
-                ('naziv', models.CharField(verbose_name='naziv', max_length=255)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('oznaka', models.CharField(max_length=10, verbose_name='oznaka')),
+                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
                 ('arhiv', models.ForeignKey(to='arhiv.Arhiv')),
             ],
             options={
                 'verbose_name': 'arhivsko mesto',
                 'verbose_name_plural': 'arhivska mesta',
             },
-        ),
-        migrations.AddField(
-            model_name='arhiviranje',
-            name='lokacija_hrambe',
-            field=models.ForeignKey(to='arhiv.ArhivMesto', null=True, verbose_name='lokacija hrambe', blank=True),
         ),
     ]

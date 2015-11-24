@@ -8,7 +8,7 @@ import django.contrib.sites.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sites', '0002_set_site_domain_and_name'),
+        ('sites', '0001_initial'),
     ]
 
     operations = [

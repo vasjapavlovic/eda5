@@ -7,16 +7,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('etaznalastnina', '0001_initial'),
         ('racunovodstvo', '0001_initial'),
+        ('etaznalastnina', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='StrosekLE',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-                ('delilnik_vrednost', models.DecimalField(decimal_places=4, max_digits=8)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('delilnik_vrednost', models.DecimalField(max_digits=8, decimal_places=4)),
                 ('lastniska_enota', models.ForeignKey(to='etaznalastnina.LastniskaEnotaInterna')),
                 ('strosek', models.ForeignKey(to='racunovodstvo.Strosek')),
             ],

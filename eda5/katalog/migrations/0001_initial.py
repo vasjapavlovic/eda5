@@ -7,40 +7,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('posta', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='ModelArtikla',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
-                ('P1_title', models.CharField(max_length=255, verbose_name='P1 title', blank=True, null=True)),
-                ('P1_value', models.CharField(max_length=255, verbose_name='P1 value', blank=True, null=True)),
-                ('P2_title', models.CharField(max_length=255, verbose_name='P2 title', blank=True, null=True)),
-                ('P2_value', models.CharField(max_length=255, verbose_name='P2 value', blank=True, null=True)),
-                ('P3_title', models.CharField(max_length=255, verbose_name='P3 title', blank=True, null=True)),
-                ('P3_value', models.CharField(max_length=255, verbose_name='P3 value', blank=True, null=True)),
-                ('P4_title', models.CharField(max_length=255, verbose_name='P4 title', blank=True, null=True)),
-                ('P4_value', models.CharField(max_length=255, verbose_name='P4 value', blank=True, null=True)),
-                ('P5_title', models.CharField(max_length=255, verbose_name='P5 title', blank=True, null=True)),
-                ('P5_value', models.CharField(max_length=255, verbose_name='P5 value', blank=True, null=True)),
-                ('prejeta_dokumentacija', models.ManyToManyField(to='posta.Dokument', blank=True)),
+                ('P1_title', models.CharField(max_length=255, blank=True, null=True, verbose_name='P1 title')),
+                ('P1_value', models.CharField(max_length=255, blank=True, null=True, verbose_name='P1 value')),
+                ('P2_title', models.CharField(max_length=255, blank=True, null=True, verbose_name='P2 title')),
+                ('P2_value', models.CharField(max_length=255, blank=True, null=True, verbose_name='P2 value')),
+                ('P3_title', models.CharField(max_length=255, blank=True, null=True, verbose_name='P3 title')),
+                ('P3_value', models.CharField(max_length=255, blank=True, null=True, verbose_name='P3 value')),
+                ('P4_title', models.CharField(max_length=255, blank=True, null=True, verbose_name='P4 title')),
+                ('P4_value', models.CharField(max_length=255, blank=True, null=True, verbose_name='P4 value')),
+                ('P5_title', models.CharField(max_length=255, blank=True, null=True, verbose_name='P5 title')),
+                ('P5_value', models.CharField(max_length=255, blank=True, null=True, verbose_name='P5 value')),
             ],
             options={
                 'verbose_name': 'model artikla',
-                'ordering': ('naziv',),
                 'verbose_name_plural': 'modeli artiklov',
+                'ordering': ('naziv',),
             },
         ),
         migrations.CreateModel(
             name='PlanOV',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('oznaka', models.CharField(max_length=25)),
@@ -58,21 +56,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Proizvajalec',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('naziv', models.CharField(max_length=100, unique=True)),
             ],
             options={
                 'verbose_name': 'proizvajalec',
-                'ordering': ('naziv',),
                 'verbose_name_plural': 'proizvajalci',
+                'ordering': ('naziv',),
             },
         ),
         migrations.CreateModel(
             name='RezervniDel',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('naziv', models.CharField(max_length=255)),
@@ -87,7 +85,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TipArtikla',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('oznaka', models.CharField(max_length=20)),
@@ -95,8 +93,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'tip artikla',
-                'ordering': ('oznaka',),
                 'verbose_name_plural': 'tipi artiklov',
+                'ordering': ('oznaka',),
             },
         ),
         migrations.AddField(

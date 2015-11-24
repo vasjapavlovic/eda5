@@ -13,18 +13,34 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Dokument',
+            name='Aktivnost',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('is_likvidiran', models.BooleanField(default=False)),
-                ('oznaka', models.CharField(max_length=20, verbose_name='številka dokumenta')),
+                ('id_1', models.IntegerField(primary_key=True, serialize=False)),
+                ('vrsta_aktivnosti', models.IntegerField(choices=[(1, 'prejeta posta'), (2, 'izdana pošta')])),
                 ('datum', models.DateField()),
-                ('opis', models.CharField(max_length=255, verbose_name='opis')),
-                ('priponka', models.FileField(upload_to=eda5.posta.models.Dokument.dokument_directory_path)),
-                ('naslovnik', models.ForeignKey(related_name='naslovnik', verbose_name='naslovnik', to='partnerji.SkupinaPartnerjev')),
-                ('posiljatelj', models.ForeignKey(related_name='posiljatelj', verbose_name='pošiljatelj', to='partnerji.SkupinaPartnerjev')),
+                ('izvajalec', models.ForeignKey(related_name='izvajalec', verbose_name='izvajalec poštne storitve', to='partnerji.Oseba')),
+                ('likvidiral', models.ForeignKey(related_name='likvidiral', verbose_name='pošto bo likvidiral', to='partnerji.Oseba')),
+            ],
+            options={
+                'verbose_name': 'aktivnost',
+                'verbose_name_plural': 'aktivnosti',
+            },
+        ),
+        migrations.CreateModel(
+            name='Dokument',
+            fields=[
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('updated', models.DateTimeField(auto_now=True)),
+                ('oznaka', models.CharField(max_length=20, verbose_name='številka dokumenta')),
+                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
+                ('datum', models.DateField()),
+                ('priponka', models.FileField(upload_to=eda5.posta.models.Dokument.dokument_directory_path, blank=True, null=True)),
+                ('aktivnost', models.OneToOneField(to='posta.Aktivnost')),
+                ('avtor', models.ForeignKey(related_name='avtor', to='partnerji.SkupinaPartnerjev')),
+                ('naslovnik', models.ForeignKey(related_name='naslovnik', to='partnerji.SkupinaPartnerjev')),
             ],
             options={
                 'verbose_name': 'dokument',
@@ -32,25 +48,9 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='PostnaStoritev',
-            fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('aktivnost', models.IntegerField(choices=[(1, 'prejeta posta'), (2, 'izdana pošta')])),
-                ('datum', models.DateField()),
-                ('dokument', models.OneToOneField(to='posta.Dokument')),
-                ('izvajalec', models.ForeignKey(verbose_name='izvajalec poštne storitve', to='partnerji.Oseba')),
-            ],
-            options={
-                'verbose_name': 'poštna storitev',
-                'verbose_name_plural': 'poštne storitve',
-            },
-        ),
-        migrations.CreateModel(
             name='SkupinaDokumenta',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('oznaka', models.CharField(max_length=3, verbose_name='oznaka')),
@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='VrstaDokumenta',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('oznaka', models.CharField(max_length=3, verbose_name='oznaka')),

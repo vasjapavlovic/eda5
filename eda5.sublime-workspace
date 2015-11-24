@@ -361,33 +361,6 @@
 			]
 		]
 	},
-	"buffers":
-	[
-		{
-			"file": "config/settings/production.py",
-			"settings":
-			{
-				"buffer_size": 7048,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/pavlovicv/Desktop/postactivate",
-			"settings":
-			{
-				"buffer_size": 879,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/pavlovicv/Desktop/predeactivate",
-			"settings":
-			{
-				"buffer_size": 495,
-				"line_ending": "Unix"
-			}
-		}
-	],
 	"build_system": "",
 	"build_system_choices":
 	[
@@ -395,10 +368,22 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 96.0,
-		"last_filter": "",
+		"height": 392.0,
+		"last_filter": "package ",
 		"selected_items":
 		[
+			[
+				"package ",
+				"Package Control: Enable Package"
+			],
+			[
+				"Packa",
+				"Package Control: Install Package"
+			],
+			[
+				"Package",
+				"Package Control: Install Package"
+			],
 			[
 				"Package Control: Insta",
 				"Package Control: Install Package"
@@ -408,7 +393,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 449.0
+		"width": 593.0
 	},
 	"console":
 	{
@@ -427,21 +412,25 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/home/pavlovicv/Desktop/django_projects/eda5",
-		"/home/pavlovicv/Desktop/django_projects/eda5/compose",
-		"/home/pavlovicv/Desktop/django_projects/eda5/compose/django",
-		"/home/pavlovicv/Desktop/django_projects/eda5/compose/nginx",
-		"/home/pavlovicv/Desktop/django_projects/eda5/config",
-		"/home/pavlovicv/Desktop/django_projects/eda5/config/settings",
-		"/home/pavlovicv/Desktop/django_projects/eda5/requirements"
-	],
 	"file_history":
 	[
+		"/home/pavlovicv/Desktop/django/eda5/eda5/partnerji/tests/test_models.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/partnerji/tests/mixins.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/highcharts/tests.py",
+		"/root/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/root/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/root/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/pavlovicv/Desktop/django_projects/eda5/config/settings/common.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/posta/models.py",
+		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Package Control.sublime-settings",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5.sublime-project",
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/arhiv/models.py",
+		"/home/pavlovicv/Desktop/django_projects/eda5/config/settings/production.py",
+		"/home/pavlovicv/Desktop/predeactivate",
+		"/home/pavlovicv/Desktop/postactivate",
 		"/home/pavlovicv/Desktop/django_projects/eda5/config/wsgi.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/requirements/production.txt",
-		"/home/pavlovicv/Desktop/django_projects/eda5/config/settings/common.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/config/settings/local.py",
 		"/home/pavlovicv/Desktop/environ.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/compose/django/entrypoint.sh",
@@ -507,13 +496,11 @@
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/element/detail/navigacija_menu/tabs/tab_obratovanje.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/element/detail/navigacija_menu/tabs/tab_servisnaknjiga.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/docs/delovninalogi.rst",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/arhiv/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/arhiv/managers.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/arhiv/forms.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/delovninalogi/delovninalog/detail/navigacija_menu/tabs/tab_dokumentacija.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/zahtevki/views.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/zahtevki/zahtevek/detail/navigacija_menu/tabs/tab_dokumentacija.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/posta/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/narocila/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/katalog/models.py",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/models.py",
@@ -554,23 +541,11 @@
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/delovninalogi/delovninalog/detail/header/glavni/stolpec_2.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/delovninalogi/delovninalog/detail/header/pomozni/stolpec_1.html",
 		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/delovninalogi/delovninalog/detail/header/base.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/zahtevki/zahtevek/detail/header/base.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/zahtevki/zahtevek/detail/header/glavni/stolpec_2.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/delstavbe/detail/navigacija_menu/tabs/elementi/base.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/delstavbe/detail/base.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/views.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/delstavbe/detail/navigacija_menu/tabs/lastniki/base.html",
-		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/pavlovicv/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
-		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/managers.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/deli/forms.py",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/deli/delstavbe/list/modal.html",
-		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/partnerji/views.py"
+		"/home/pavlovicv/Desktop/django_projects/eda5/eda5/templates/zahtevki/zahtevek/detail/header/base.html"
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 30.0
 	},
 	"find_in_files":
 	{
@@ -584,6 +559,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"config",
 			"ssl",
 			"export",
 			"static",
@@ -632,105 +608,9 @@
 		"whole_word": false,
 		"wrap": true
 	},
-	"groups":
-	[
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "config/settings/production.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7048,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1173,
-								1173
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3450.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/pavlovicv/Desktop/postactivate",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 879,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								258,
-								258
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/pavlovicv/Desktop/predeactivate",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 495,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								492,
-								492
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
-			]
-		}
-	],
 	"incremental_find":
 	{
-		"height": 31.0
+		"height": 30.0
 	},
 	"input":
 	{
@@ -764,10 +644,9 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "eda5.sublime-project",
 	"replace":
 	{
-		"height": 58.0
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -797,7 +676,6 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
 	"settings":
 	{
 	},
