@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
 
 from .forms import PartnerCreateForm, PartnerUpdateForm
@@ -67,6 +69,12 @@ class PartnerDetailView(DetailView):
             iban = trr_form.cleaned_data['iban']
             banka_clean = trr_form.cleaned_data['banka']
             banka_id = banka_clean.id
+
+            # validacija: v primeru da TRR že obstaja
+            trracun = TRRacun.objects.get(iban='SI56047500002032492')
+            if iban == trracun.iban:
+                messages.error(request, "IBAN: %s že obstaja." % (iban))
+                return HttpResponseRedirect(reverse('moduli:partnerji:detail', kwargs={'pk': partner.pk}))
 
             TRRacun.objects.create_trr(
                 iban=iban,

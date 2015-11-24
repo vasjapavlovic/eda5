@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.contrib.messages import get_messages
+from django.contrib import messages
 
 from ..models import Partner, TRRacun, Posta
 
@@ -226,7 +228,7 @@ class PartnerDetailViewTestCase(TestCase):
         # kontrola: partner ima dva (2) računa
         self.assertEqual(partner_1.trracun_set.all().count(), 2)
 
-    def test_partnerju_ne_morem_dodati_trr_katerega_iban_obstaja(self):
+    def test_partnerju_ne_morem_dodati_trr_ki_ze_obstaja(self):
         partner_1 = Partner.objects.get(pk=1)
         # preverimo da je kratko_ime partnerja_1 = EDAFM d.o.o.
         self.assertEqual(partner_1.kratko_ime, "EDAFM d.o.o.")
@@ -240,6 +242,16 @@ class PartnerDetailViewTestCase(TestCase):
                 'partner': partner_1.pk,
             }
         )
-        # kontrola: partner ima dva (2) računa
+
+        # stran vrne error_message : "IBAN: %s že obstaja" self.iban
+        self.assertEqual(resp.status_code, 302)
+
+        resp = self.client.get(reverse('moduli:partnerji:detail', kwargs={'pk': 1}))
+        self.assertTrue(resp.context, 'messages')
+
+        storage = resp.context['messages']
+        # self.assertTrue(any("IBAN: SI56047500002032492 že obstaja." == message for message in storage))
+
+        # kontrola: že obstoječega računa ni vneslo ponovno
         self.assertEqual(partner_1.trracun_set.all().count(), 1)
 
