@@ -60,6 +60,7 @@ class PartnerDetailView(DetailView):
                 podjetje=podjetje,
                 )
 
+            '''Oseba je samo enkrat registrirana pod partnerja'''
             # OPCIJA Z UPORABO MODEL FORM
             # obj_instance = oseba_form.save(commit=False)
             # obj_instance.priimek = oseba_form.cleaned_data['priimek']
@@ -71,8 +72,8 @@ class PartnerDetailView(DetailView):
             banka_id = banka_clean.id
 
             # validacija: v primeru da TRR že obstaja
-            trracun = TRRacun.objects.get(iban='SI56047500002032492')
-            if iban == trracun.iban:
+            trracuni = TRRacun.objects.filter(iban=iban)
+            if any(iban == trr.iban for trr in trracuni):
                 messages.error(request, "IBAN: %s že obstaja." % (iban))
                 return HttpResponseRedirect(reverse('moduli:partnerji:detail', kwargs={'pk': partner.pk}))
 

@@ -1,7 +1,5 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.messages import get_messages
-from django.contrib import messages
 
 from ..models import Partner, TRRacun, Posta
 
@@ -211,7 +209,7 @@ class PartnerDetailViewTestCase(TestCase):
         resp = self.client.get(reverse('moduli:partnerji:detail', kwargs={'pk': 100}))
         self.assertEqual(resp.status_code, 404)  # vrne napako = Page Not Found
 
-    def test_partneru_lahko_dodamo_trr(self):
+    def test_partnerju_lahko_dodamo_trr(self):
         partner_1 = Partner.objects.get(pk=1)
         # preverimo da je kratko_ime partnerja_1 = EDAFM d.o.o.
         self.assertEqual(partner_1.kratko_ime, "EDAFM d.o.o.")
@@ -220,7 +218,7 @@ class PartnerDetailViewTestCase(TestCase):
         # dodamo TRR račun
         resp = self.client.post(reverse('moduli:partnerji:detail', kwargs={'pk': 1}),
             {
-                'iban': 'TESTIBAN',
+                'iban': 'TESTIBAN2',
                 'banka': 2,
                 'partner': partner_1.pk,
             }
@@ -246,12 +244,60 @@ class PartnerDetailViewTestCase(TestCase):
         # stran vrne error_message : "IBAN: %s že obstaja" self.iban
         self.assertEqual(resp.status_code, 302)
 
-        resp = self.client.get(reverse('moduli:partnerji:detail', kwargs={'pk': 1}))
-        self.assertTrue(resp.context, 'messages')
-
-        storage = resp.context['messages']
+        # resp = self.client.get(reverse('moduli:partnerji:detail', kwargs={'pk': 1}))
+        # self.assertTrue(resp.context, 'messages')
+        # storage = resp.context['messages']
         # self.assertTrue(any("IBAN: SI56047500002032492 že obstaja." == message for message in storage))
 
         # kontrola: že obstoječega računa ni vneslo ponovno
         self.assertEqual(partner_1.trracun_set.all().count(), 1)
+
+    def test_partnerju_lahko_dodamo_osebo(self):
+        partner_1 = Partner.objects.get(pk=1)
+        # preverimo da je kratko_ime partnerja_1 = EDAFM d.o.o.
+        self.assertEqual(partner_1.kratko_ime, "EDAFM d.o.o.")
+        # kontrola: partner ima dve osebi
+        self.assertEqual(partner_1.oseba_set.all().count(), 2)
+        # dodamo TRR račun
+        resp = self.client.post(reverse('moduli:partnerji:detail', kwargs={'pk': 1}),
+            {
+                'priimek': 'TestPriimek',
+                'ime': 'TestIme',
+                'status': 'A',
+                'kvalifikacije': "Statika",
+                'podjetje': partner_1.pk,
+            }
+        )
+        # kontrola: partner ima (3) osebe
+        self.assertEqual(partner_1.oseba_set.all().count(), 3)
+
+    def test_partnerju_ne_morem_dodati_osebe_ki_ze_obstaja(self):
+        partner_1 = Partner.objects.get(pk=1)
+        # preverimo da je kratko_ime partnerja_1 = EDAFM d.o.o.
+        self.assertEqual(partner_1.kratko_ime, "EDAFM d.o.o.")
+        # število oseb partnerja
+        self.assertEqual(partner_1.oseba_set.all().count(), 2)
+        # kontrola: ima že eno osebo z enakim imenom
+        self.assertEqual(partner_1.oseba_set.filter(priimek="Pavlovič", ime="Vasja", podjetje=partner_1.pk).count(), 1)
+        # poskušamo dodati še enkrat že obstoječ račun --> ga ne sme vnesti
+        resp = self.client.post(reverse('moduli:partnerji:detail', kwargs={'pk': 1}),
+            {
+                'priimek': 'Pavlovič',
+                'ime': 'Vasja',
+                'status': 'A',
+                'kvalifikacije': "Statika",
+                'podjetje': partner_1.pk,
+            }
+        )
+
+        # stran vrne error_message : "OSEBA: %s %s že obstaja" % (self.priimek, self.ime)
+        self.assertEqual(resp.status_code, 302)
+
+        # resp = self.client.get(reverse('moduli:partnerji:detail', kwargs={'pk': 1}))
+        # self.assertTrue(resp.context, 'messages')
+        # storage = resp.context['messages']
+        # self.assertTrue(any("IBAN: SI56047500002032492 že obstaja." == message for message in storage))
+
+        # kontrola: že obstoječega računa ni vneslo ponovno
+        self.assertEqual(partner_1.oseba_set.all().count(), 2)
 

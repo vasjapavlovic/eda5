@@ -140,6 +140,8 @@ class Oseba(TimeStampedModel, IsActiveModel):
     kvalifikacije = models.TextField(blank=True)
     podjetje = models.ForeignKey(Partner)
 
+    '''Dodaj Davčno Številko Osebam.'''
+
     objects = OsebaManager()
 
     class Meta:
