@@ -290,9 +290,9 @@ class PartnerDetailViewTestCase(TestCase):
             }
         )
 
-        # stran vrne error_message : "OSEBA: %s %s že obstaja" % (self.priimek, self.ime)
+        # izvrši se preusmeritev na detail view
         self.assertEqual(resp.status_code, 302)
-
+        # stran vrne error_message : "OSEBA: %s %s že obstaja" % (self.priimek, self.ime)
         # resp = self.client.get(reverse('moduli:partnerji:detail', kwargs={'pk': 1}))
         # self.assertTrue(resp.context, 'messages')
         # storage = resp.context['messages']

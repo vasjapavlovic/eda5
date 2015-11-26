@@ -23,7 +23,7 @@ class LastniskaEnotaElaborat(models.Model):
         ordering = ("oznaka",)
 
     def __str__(self):
-        return "%s" % (self.oznaka)
+        return "%s | %s, %s" % (self.oznaka, self.naslov, self.posta)
 
 
 class LastniskaEnotaInterna(models.Model):
@@ -35,6 +35,7 @@ class LastniskaEnotaInterna(models.Model):
     # placnik = models.ForeignKey(Partner, related_name="placnik")
     # __Mandatory
     oznaka = models.CharField(max_length=5, verbose_name='interna številka dela stavbe')
+    program = models.CharField(max_length=50)
 
     '''************Dodati je še ostale atribute***********'''
     # __Optional
@@ -45,6 +46,7 @@ class LastniskaEnotaInterna(models.Model):
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
+
     # META AND STRING
     class Meta:
         verbose_name = "lastniška enota interna"
@@ -52,7 +54,7 @@ class LastniskaEnotaInterna(models.Model):
         ordering = ("oznaka",)
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.elaborat)
+        return "%s | %s | %s" % (self.oznaka, self.elaborat.oznaka, self.program)
 
 
 class Program(models.Model):
@@ -100,4 +102,4 @@ class LastniskaSkupina(models.Model):
         ordering = ("oznaka",)
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "%s | %s | %s" % (self.oznaka, self.program.naziv, self.naziv)

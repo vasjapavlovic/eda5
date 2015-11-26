@@ -1,0 +1,26 @@
+[
+{
+    "pk": 1,
+    "model": "predaja_lastnine.predajalastnine",
+    "fields": {
+        "oznaka": "001",
+        "datum": "2015-11-26",
+        "tip_predaje": "P",
+        "prodajalec": 2,
+        "kupec": 1,
+        "lastniska_enota_interna": 1,
+    },
+},
+{
+    "pk": 2,
+    "model": "predaja_lastnine.predajalastnine",
+    "fields": {
+        "oznaka": "002",
+        "datum": "2015-11-26",
+        "tip_predaje": "N",
+        "prodajalec": 2,
+        "kupec": 1,
+        "lastniska_enota_interna": 2,
+    },
+},
+]

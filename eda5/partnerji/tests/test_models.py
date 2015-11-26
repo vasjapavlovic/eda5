@@ -4,34 +4,27 @@ from ..models import Drzava, Posta
 
 class TestDrzava(TestCase):
 
-    def setUp(self):
+    fixtures = ['partnerji_models_testdata.json']
 
-        Drzava.objects.create(naziv='Slovenija', iso_koda='SLO',)
+    def setUp(self):
+        self.drzava = Drzava.objects.get(naziv='Slovenija', iso_koda='SI',)
 
     def test__str__(self):
-
-        drzava = Drzava.objects.get(naziv="Slovenija")
-
         self.assertEqual(
-            drzava.__str__(),
-            "Slovenija (SLO)"
+            self.drzava.__str__(),
+            "Slovenija (SI)"
         )
 
 
 class TestPosta(TestCase):
 
+    fixtures = ['partnerji_models_testdata.json']
+
     def setUp(self):
-
-        Drzava.objects.create(naziv='Slovenija', iso_koda='SLO',)
-        drzava = Drzava.objects.get(naziv="Slovenija")
-
-        Posta.objects.create(postna_stevilka='5000', naziv='Nova Grica', drzava=drzava,)
+        self.posta = Posta.objects.get(postna_stevilka="5000")
 
     def test__str__(self):
-
-        posta = Posta.objects.get(postna_stevilka="5000")
-
         self.assertEqual(
-            posta.__str__(),
-            "5000 Nova Grica"
+            self.posta.__str__(),
+            "5000 Nova Gorica"
         )

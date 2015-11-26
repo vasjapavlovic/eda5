@@ -52,6 +52,13 @@ class PartnerDetailView(DetailView):
             status = oseba_form.cleaned_data['status']
             kvalifikacije = oseba_form.cleaned_data['kvalifikacije']
 
+            # validacija: če oseba že obstaja vrni redirect in obvesti uporabnika
+            osebe_baza = Oseba.objects.filter(priimek=priimek, ime=ime)
+
+            if osebe_baza.count() == 1:  # če je oseba že v bazi
+                messages.error(request, "OSEBA: %s %s že obstaja." % (priimek, ime))
+                return HttpResponseRedirect(reverse('moduli:partnerji:detail', kwargs={'pk': partner.pk}))
+
             Oseba.objects.create_oseba(
                 priimek=priimek,
                 ime=ime,
@@ -73,7 +80,7 @@ class PartnerDetailView(DetailView):
 
             # validacija: v primeru da TRR že obstaja
             trracuni = TRRacun.objects.filter(iban=iban)
-            if any(iban == trr.iban for trr in trracuni):
+            if trracuni.count() == 1:
                 messages.error(request, "IBAN: %s že obstaja." % (iban))
                 return HttpResponseRedirect(reverse('moduli:partnerji:detail', kwargs={'pk': partner.pk}))
 
