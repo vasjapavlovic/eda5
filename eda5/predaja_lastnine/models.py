@@ -15,7 +15,7 @@ class PredajaLastnine(models.Model):
     prodajalec = models.ForeignKey(Partner, related_name="prodajalec")
     kupec = models.ForeignKey(Partner, related_name="kupec")
     lastniska_enota_interna = models.ForeignKey(LastniskaEnotaInterna, verbose_name="Interna lastniška enota")
-    daljinec = models.ManyToManyField(Daljinec, through="PredajaDaljinca")
+    daljinec = models.ManyToManyField("Daljinec", through="PredajaDaljinca")
     #   Mandatory
     oznaka = models.CharField(max_length=4)
     datum = models.DateField()

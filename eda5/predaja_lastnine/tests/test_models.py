@@ -54,7 +54,7 @@ class TestPredajaDaljinca(TestCase):
     ]
 
     def setUp(self):
-        self.predaja_daljinca_1 = PredajaDaljinca.objecets.get(pk=1)
+        self.predaja_daljinca_1 = PredajaDaljinca.objects.get(pk=1)
 
     def test__str__(self):
         self.assertEqual(
