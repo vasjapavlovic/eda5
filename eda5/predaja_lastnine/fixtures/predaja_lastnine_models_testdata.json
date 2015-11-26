@@ -3,24 +3,83 @@
     "pk": 1,
     "model": "predaja_lastnine.predajalastnine",
     "fields": {
-        "oznaka": "001",
+        "oznaka": "0001",
         "datum": "2015-11-26",
         "tip_predaje": "P",
         "prodajalec": 2,
         "kupec": 1,
         "lastniska_enota_interna": 1,
-    },
+        "trajanje": "",
+        "dokument": ""
+    }
 },
 {
     "pk": 2,
     "model": "predaja_lastnine.predajalastnine",
     "fields": {
-        "oznaka": "002",
+        "oznaka": "0002",
         "datum": "2015-11-26",
         "tip_predaje": "N",
         "prodajalec": 2,
         "kupec": 1,
-        "lastniska_enota_interna": 2,
-    },
+        "lastniska_enota_interna": 2
+    }
 },
+{
+    "pk": 1,
+    "model": "predaja_lastnine.daljinec",
+    "fields": {
+        "oznaka": "0001",
+        "status": 1,
+        "stevilka": "123"
+    }
+},
+{
+    "pk": 2,
+    "model": "predaja_lastnine.daljinec",
+    "fields": {
+        "oznaka": "0002",
+        "status": 2,
+        "stevilka": "123"
+    }
+},
+{
+    "pk": 3,
+    "model": "predaja_lastnine.daljinec",
+    "fields": {
+        "oznaka": "0003",
+        "status": 1,
+        "stevilka": "123"
+    }
+},
+{
+    "pk": 1,
+    "model": "predaja_lastnine.predajadaljinca",
+    "fields": {
+        "oznaka": "0001",
+        "datum": "2015-11-26",
+        "daljinec": 1,
+        "predaja_lastnine": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "predaja_lastnine.predajadaljinca",
+    "fields": {
+        "oznaka": "0001",
+        "datum": "2015-11-26",
+        "daljinec": 2,
+        "predaja_lastnine": 1
+    }
+},
+{
+    "pk": 3,
+    "model": "predaja_lastnine.predajadaljinca",
+    "fields": {
+        "oznaka": "0001",
+        "datum": "2015-11-26",
+        "daljinec": 3,
+        "predaja_lastnine": 2
+    }
+}
 ]
