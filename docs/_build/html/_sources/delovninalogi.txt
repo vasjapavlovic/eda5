@@ -9,12 +9,30 @@ Namen/Opis
 - Servisna Knjiga
 - Arhiv Prejete Dokumentacije
 
-models
+Postopek
 ^^^^^^
 
-.. code-block:: python
+Seznam delovnih nalogov
+-----------------------
 
-    asdasd
-    asd
 
-asd
+Podrobnosti delovnega naloga
+----------------------------
+
+Dashboard
+.........
+
+Zaznamki
+........
+
+Začeta Dela
+...........
+
+Končana Dela
+............
+
+Material
+........
+
+Dokumentacija
+.............

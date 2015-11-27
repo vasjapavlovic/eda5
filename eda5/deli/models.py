@@ -4,7 +4,7 @@ from django.db import models
 
 from . import managers
 
-from eda5.katalog.models import ModelArtikla
+from eda5.katalog.models import ModelArtikla, TipArtikla
 from eda5.etaznalastnina.models import LastniskaSkupina
 
 
@@ -33,7 +33,7 @@ class Skupina(models.Model):
         verbose_name_plural = 'skupine delov'
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "(%s)%s" % (self.oznaka, self.naziv)
 
 
 class Podskupina(models.Model):
@@ -63,7 +63,7 @@ class Podskupina(models.Model):
         verbose_name_plural = 'podskupine delov'
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "(%s)%s" % (self.oznaka, self.naziv)
 
 
 class DelStavbe(models.Model):
@@ -108,7 +108,31 @@ class DelStavbe(models.Model):
         verbose_name_plural = 'deli stavbe'
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "(%s)%s" % (self.oznaka, self.naziv)
+
+
+class ProjektnoMesto(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    tip_elementa = models.ForeignKey(TipArtikla)
+    del_stavbe = models.ForeignKey(DelStavbe)
+    #   Mandatory
+    oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=255)
+    funkcija = models.CharField(max_length=255)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "projektno mesto"
+        verbose_name_plural = "projektna mesta"
+
+    def __str__(self):
+        return "(%s)%s-%s" % (self.oznaka, self.tip_elementa.naziv, self.naziv)
 
 
 class Element(models.Model):
@@ -123,16 +147,12 @@ class Element(models.Model):
 
     # ATRIBUTES
     # ***Relations***
-    del_stavbe = models.ForeignKey(DelStavbe)
+    projektno_mesto = models.ForeignKey(ProjektnoMesto)
     model_artikla = models.ForeignKey(ModelArtikla, default=1, verbose_name='Model',)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20, verbose_name='Oznaka',)
-    naziv = models.CharField(max_length=255, verbose_name='Naziv',)
-    # ***Optional***
+    tovarniska_st = models.CharField(max_length=100, verbose_name='Tovarniška Številka')
     serijska_st = models.CharField(max_length=100, verbose_name='Serijska Številka', blank=True,)
-    tovarniska_st = models.CharField(max_length=100, verbose_name='Tovarniška Številka', blank=True,)
-    datum_prevzema_v_upravljanje = models.DateField(verbose_name='datum prevzema v upravljanje', blank=True,)
-    dokumentacija = models.FileField(upload_to=dokumentacija_directory_path, blank=True, verbose_name="dokumentacija")
+    # ***Optional***
 
     # OBJECT MANAGER
     objects = managers.ElementManagers()
@@ -147,4 +167,5 @@ class Element(models.Model):
         verbose_name_plural = 'elementi'
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "(%s)%s-%s" % (self.tovarniska_st, self.model_artikla.proizvajalec,
+                              self.model_artikla.naziv)

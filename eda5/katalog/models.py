@@ -3,7 +3,7 @@ from django.db import models
 from eda5.core.models import TimeStampedModel
 
 
-class Proizvajalec(TimeStampedModel):
+class Proizvajalec(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
@@ -24,7 +24,7 @@ class Proizvajalec(TimeStampedModel):
         return "%s" % (self.naziv)
 
 
-class TipArtikla(TimeStampedModel):
+class TipArtikla(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
@@ -43,17 +43,16 @@ class TipArtikla(TimeStampedModel):
         ordering = ('oznaka',)
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "(%s)%s" % (self.oznaka, self.naziv)
 
 
-class ModelArtikla(TimeStampedModel):
+class ModelArtikla(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
     proizvajalec = models.ForeignKey(Proizvajalec)
     # ***Mandatory***
     tip = models.ForeignKey(TipArtikla)
-    oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)
     # ***Optional***
     P1_title = models.CharField(max_length=255, verbose_name='P1 title',
@@ -94,7 +93,7 @@ class ModelArtikla(TimeStampedModel):
         return "%s | %s" % (self.oznaka, self.naziv)
 
 
-class PlanOV(TimeStampedModel):
+class PlanOV(models.Model):
     # ---------------------------------------------------------------------------------------
     dan = 'dan'
     teden = 'teden'
@@ -131,7 +130,7 @@ class PlanOV(TimeStampedModel):
         return "%s | %s" % (self.oznaka, self.naziv)
 
 
-class RezervniDel(TimeStampedModel):
+class RezervniDel(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***

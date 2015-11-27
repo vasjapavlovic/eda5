@@ -1,0 +1,44 @@
+[
+{
+    "model": "katalog.tipartikla",
+    "pk": 1,
+    "fields": {
+        "oznaka": "CR",
+        "naziv": "Cevni Razvod"
+    }
+},
+{
+    "model": "katalog.tipartikla",
+    "pk": 2,
+    "fields": {
+        "oznaka": "HA",
+        "naziv": "Hladilni Agregat"
+    }
+},
+{
+    "model": "katalog.proizvajalec",
+    "pk": 1,
+    "fields": {
+        "naziv": "Blue Box"
+    }
+},
+{
+    "model": "katalog.modelartikla",
+    "pk": 1,
+    "fields": {
+        "tip": 2,
+        "naziv": "Frigus 102",
+        "proizvajalec": 1,
+        "P1_title": null,
+        "P1_value": null,
+        "P2_title": null,
+        "P2_value": null,
+        "P3_title": null,
+        "P3_value": null,
+        "P4_title": null,
+        "P4_value": null,
+        "P5_title": null,
+        "P5_value": null
+    }
+}
+]

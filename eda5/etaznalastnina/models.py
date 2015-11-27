@@ -7,7 +7,7 @@ class LastniskaEnotaElaborat(models.Model):
     # __Relations
     # __Mandatory
     oznaka = models.CharField(max_length=4, verbose_name='številka dela stavbe')
-    povrsina_tlorisna_neto = models.CharField(max_length=4, verbose_name='neto tlorisna površina')
+    povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
     '''************Dodaj Lastniški delež***********'''
     naslov = models.CharField(max_length=255)
     posta = models.ForeignKey(Posta, verbose_name='pošta')
@@ -41,8 +41,8 @@ class LastniskaEnotaInterna(models.Model):
     # __Optional
     #______delež v obliki :  0.9999
     lastniski_delez = models.DecimalField(decimal_places=4, max_digits=5, blank=True, verbose_name="lastniški delež")
-    povrsina_tlorisna_neto = models.CharField(max_length=4, blank=True, verbose_name='neto tlorisna površina')
-    st_oseb = models.IntegerField(blank=True, verbose_name="število oseb")
+    povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
+    st_oseb = models.DecimalField(max_digits=2, decimal_places=1, blank=True, verbose_name="število oseb")
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS

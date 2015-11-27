@@ -1,0 +1,33 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:home' %}">Nazaj</a>
+    </i></small>
+
+<div class="jumbotron">
+    <h1>Pošta</h1>
+</div>
+
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+
+            <tr>
+                <td><b><a href="{% url 'moduli:predaja_lastnine:predaja_create' %}">Nova Predaja</a></b></td>
+            </tr>
+            <tr>
+                <td><b><a href="{% url 'moduli:predaja_lastnine:predaja_list' %}">Dnevnik Predaj Lastnine</a></b></td>
+            </tr>
+            <tr>
+                <td><b><a href="">Lastnina v Razmerju</a></b></td>
+            </tr>
+        </table>
+    </div>
+
+
+
+{% endblock %}

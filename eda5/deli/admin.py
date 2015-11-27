@@ -49,9 +49,10 @@ class DelStavbeAdmin(admin.ModelAdmin):
     search_fields = ["oznaka", ]
     # readonly_fields = ["stevilka",]
 
-    inlines = [
-        ElementInlines,
-    ]
+
+@admin.register(models.ProjektnoMesto)
+class ProjektnoMestoAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(models.Element)

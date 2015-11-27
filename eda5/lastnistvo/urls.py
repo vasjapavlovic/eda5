@@ -1,1 +1,1 @@
-form django.conf.ulrs import url, inlcude
+from django.conf.ulrs import url, inlcude
