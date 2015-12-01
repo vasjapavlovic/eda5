@@ -9,6 +9,11 @@ class ElementInlines(admin.TabularInline):
     extra = 0
 
 
+class ProjektnoMestoInlines(admin.TabularInline):
+    model = models.ProjektnoMesto
+    extra = 0
+
+
 class DelStavbeInlines(admin.TabularInline):
     model = models.DelStavbe
     extra = 0
@@ -48,11 +53,20 @@ class DelStavbeAdmin(admin.ModelAdmin):
     ordering = ["oznaka"]
     search_fields = ["oznaka", ]
     # readonly_fields = ["stevilka",]
+    inlines = [
+        ProjektnoMestoInlines,
+    ]
 
 
 @admin.register(models.ProjektnoMesto)
 class ProjektnoMestoAdmin(admin.ModelAdmin):
-    pass
+    inlines = [
+        ElementInlines,
+    ]
+    ordering = [
+        "del_stavbe__oznaka", 
+        "oznaka",
+    ]
 
 
 @admin.register(models.Element)

@@ -1,21 +1,21 @@
-{% extends "deli/delstavbe/detail/navigacija_menu/tabs/base.html" %} 
+{% extends "deli/delstavbe/detail/navigacija_menu/tabs/tab_base.html" %} 
 
 <!-- TAB_NAVIGACIJA############################################ -->
 
     <!--NASLOV-->
-    {% block zahtevek_detail_tab_title %}ELEMENTI{% endblock %}
+    {% block detail_tab_title %}ELEMENTI{% endblock %}
     <!--end NASLOV-->
 
 
     <!--CONTROLER_LEFT-->
-    {% block zahtevek_detail_tab_controler_left %}
+    {% block detail_tab_controler_left %}
         <li><a href="" data-toggle="modal" data-target="#addElement">Nov Element</a></li>
     {% endblock %}
     <!--end CONTROLER_LEFT-->
 
 
     <!--CONTROLER_RIGHT-->
-    {% block zahtevek_detail_tab_controler_right %}
+    {% block detail_tab_controler_right %}
 
     {% endblock %}
     <!--end CONTROLER_RIGHT-->
@@ -25,21 +25,23 @@
 
 <!-- CONTENT################################################### -->
 
-    {% block zahtevek_detail_tab_content %}
+    {% block detail_tab_content %}
 
             <table class="table table-bordered table-hover">
                 <tr>
-                    <th>Oznaka</th>
-                    <th>Naziv</th>
-                    <th>Model</th>
+                    <th>Oznaka Projektnega Mesta</th>
+                    <th>Naziv Projektnega Mesta</th>
+                    <th>Artikel</th>
                 </tr>
 
-                {% for element in object.elementi_vsi %}
+                {% for projektno_mesto in object.projektna_mesta_all %}
+                {% for element in projektno_mesto.elementi_aktivni %}
                 <tr>
-                    <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ element.oznaka }}</a></td>
-                    <td>{{ element.naziv }}</td>
-                    <td>{{ element.model_artikla.naziv }}</td>
+                    <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ projektno_mesto.oznaka }}</a></td>
+                    <td>{{ projektno_mesto.tip_elementa.naziv }}-{{ projektno_mesto.naziv }}</td>
+                    <td>{{ element.model_artikla.proizvajalec.naziv }}-{{ element.model_artikla.naziv }}</td>
                 </tr>
+                {% endfor %}
                 {% endfor %}
             </table>
         

@@ -56,6 +56,23 @@ class DelStavbeTest(TestCase):
             "/moduli/deli/del/1/detail/"
         )
 
+    def test_elementi_vsi(self):
+
+        projektna_mesta = ProjektnoMesto.objects.filter(del_stavbe=self.delstavbe)
+        projektno_mesto = projektna_mesta.first()
+        elementi = projektno_mesto.elementi_aktivni
+        element = elementi[0]
+
+        self.assertEqual(
+            element.projektno_mesto.oznaka,
+            "01AA01"
+        )
+
+        self.assertEqual(
+            element.tovarniska_st,
+            "BBX20152232"
+        )
+
 
 class ProjektnoMestoTest(TestCase):
 

@@ -60,6 +60,10 @@ class OpraviloCreateForm(forms.ModelForm):
 
 class OpraviloModelForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(OpraviloModelForm, self).__init__(*args, **kwargs)
+        self.fields['element'].queryset = Element.objects.filter(is_active=True)
+
     class Meta:
         model = Opravilo
         fields = (

@@ -8,7 +8,16 @@ class PlanOVInline(admin.TabularInline):
     extra = 0
 
 
+class ModelArtiklaInline(admin.TabularInline):
+    model = models.ModelArtikla
+    extra = 0
+
+
 class ProizvajalecAdmin(admin.ModelAdmin):
+
+    inlines = [
+        ModelArtiklaInline,
+    ]
 
     class Meta:
         model = models.Proizvajalec

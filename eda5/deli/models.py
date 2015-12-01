@@ -4,6 +4,8 @@ from django.db import models
 
 from . import managers
 
+from eda5.core.models import IsActiveModel
+
 from eda5.katalog.models import ModelArtikla, TipArtikla
 from eda5.etaznalastnina.models import LastniskaSkupina
 
@@ -94,8 +96,9 @@ class DelStavbe(models.Model):
 
     # CUSTOM PROPERTIES
     @property
-    def elementi_vsi(self):
-        return self.element_set.order_by('oznaka')
+    def projektna_mesta_all(self):
+        projektno_mesto = self.projektnomesto_set.all()
+        return projektno_mesto
 
     # METHODS
     def get_absolute_url(self):
@@ -123,7 +126,13 @@ class ProjektnoMesto(models.Model):
     funkcija = models.CharField(max_length=255)
     #   Optional
     # OBJECT MANAGER
+
     # CUSTOM PROPERTIES
+    @property
+    def elementi_aktivni(self):
+        elementi = self.element_set.filter(is_active=True)
+        return elementi
+
     # METHODS
 
     # META AND STRING
@@ -135,7 +144,7 @@ class ProjektnoMesto(models.Model):
         return "(%s)%s-%s" % (self.oznaka, self.tip_elementa.naziv, self.naziv)
 
 
-class Element(models.Model):
+class Element(IsActiveModel):
     # ---------------------------------------------------------------------------------------
 
     def dokumentacija_directory_path(instance, filename):
@@ -143,14 +152,14 @@ class Element(models.Model):
         new_filename_raw = filename.split(".")
         ext = '.' + new_filename_raw[1]
         new_filename = new_filename_raw[0]
-        return 'deli/{0}/{1}/{2}'.format(instance.del_stavbe.oznaka, instance.oznaka, new_filename + ext)
+        return 'deli/{0}/{1}/{2}'.format(instance.projektno_mesto.del_stavbe.oznaka, instance.projektno_mesto.oznaka, new_filename + ext)
 
     # ATRIBUTES
     # ***Relations***
     projektno_mesto = models.ForeignKey(ProjektnoMesto)
     model_artikla = models.ForeignKey(ModelArtikla, default=1, verbose_name='Model',)
     # ***Mandatory***
-    tovarniska_st = models.CharField(max_length=100, verbose_name='Tovarniška Številka')
+    tovarniska_st = models.CharField(max_length=100, verbose_name='Tovarniška Številka', blank=True)
     serijska_st = models.CharField(max_length=100, verbose_name='Serijska Številka', blank=True,)
     # ***Optional***
 

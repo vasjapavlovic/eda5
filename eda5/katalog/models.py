@@ -90,7 +90,7 @@ class ModelArtikla(models.Model):
         ordering = ('naziv',)
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "%s-%s" % (self.proizvajalec, self.naziv)
 
 
 class PlanOV(models.Model):

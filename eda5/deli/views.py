@@ -64,9 +64,7 @@ class DelUpdateView(UpdateView):
               'podskupina',
               'oznaka',
               'naziv',
-              'shema',
               'lastniska_skupina',
-              'prejeta_dokumentacija',
               ]
 
 

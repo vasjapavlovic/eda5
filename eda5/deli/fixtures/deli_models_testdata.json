@@ -39,13 +39,36 @@
     }
 },
 {
+    "pk": 2,
+    "model": "deli.projektnomesto",
+    "fields": {
+        "oznaka": "02AA01",
+        "naziv": "k2.g2.cr.2",
+        "tip_elementa": 1,
+        "funkcija": "priprava tople vode",
+        "del_stavbe": 1
+    }
+},
+{
     "pk": 1,
     "model": "deli.element",
     "fields": {
         "tovarniska_st": "BBX20152232",
         "serijska_st": "",
         "projektno_mesto": 1,
-        "model_artikla": 1
+        "model_artikla": 1,
+        "is_active": true
+    }
+},
+{
+    "pk": 2,
+    "model": "deli.element",
+    "fields": {
+        "tovarniska_st": "BBXXXXXX",
+        "serijska_st": "",
+        "projektno_mesto": 1,
+        "model_artikla": 1,
+        "is_active": false
     }
 }
 ]
