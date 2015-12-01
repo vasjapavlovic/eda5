@@ -137,6 +137,7 @@ class ProjektnoMesto(models.Model):
 
     # META AND STRING
     class Meta:
+        ordering = ["oznaka",]
         verbose_name = "projektno mesto"
         verbose_name_plural = "projektna mesta"
 

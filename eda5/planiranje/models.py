@@ -56,8 +56,9 @@ class PlanIzdaja(TimeStampedModel, IsActiveModel):
     # ATRIBUTES
     #   Relations
     plan = models.ForeignKey(Plan)
-    potrditvena_dokumentacija = models.ForeignKey(Dokument)
+    '''dodaj, da je potrebna potrditvena dokumentacija za plan'''
     #   Mandatory
+    oznaka = models.CharField(max_length=20, blank=True)
     datum_izdaje = models.DateField()
     #   Optional
     # OBJECT MANAGER
@@ -98,8 +99,7 @@ class PlanOpravilo(TimeStampedModel, IsActiveModel):
     perioda_predpisana_enota_kolicina = models.IntegerField(verbose_name="kolicina enote periode")
     perioda_predpisana_kolicina_na_enoto = models.IntegerField(verbose_name="kolicina na enoto periode")
     #   Optional
-    zap_st = models.IntegerField(default=0, verbose_name="zaporedna številka")
-    opomba = models.TextField()
+    opomba = models.TextField(blank=True)
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS

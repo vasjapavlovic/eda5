@@ -33,6 +33,9 @@ class ModelArtiklaAdmin(admin.ModelAdmin):
 
     inlines = [PlanOVInline,
                ]
+    ordering = [
+        'proizvajalec__naziv'
+    ]
 
     class Meta:
         model = models.ModelArtikla
