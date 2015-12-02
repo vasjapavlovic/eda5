@@ -1,36 +1,48 @@
 from django.contrib import admin
 
-from .models import SklopPlanov, Plan, PlanIzdaja, PlanOpravilo
+from .models import SkupinaPlanov, Plan, PlaniranoOpravilo, PlaniranaAktivnost
 
-class PlanIzdajaInline(admin.TabularInline):
-    model = PlanIzdaja
+# class PlanIzdajaInline(admin.TabularInline):
+#     model = PlanIzdaja
+#     extra = 0
+
+
+class PlaniranoOpraviloInline(admin.TabularInline):
+    model = PlaniranoOpravilo
     extra = 0
 
 
-class PlanOpraviloInline(admin.TabularInline):
-    model = PlanOpravilo
+class PlaniranaAktivnostInline(admin.TabularInline):
+    model = PlaniranaAktivnost
     extra = 0
 
 
-@admin.register(SklopPlanov)
-class SklopPlanovAdmin(admin.ModelAdmin):
+@admin.register(SkupinaPlanov)
+class SkupinaPlanovAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
     inlines = [
-        PlanIzdajaInline,
+        PlaniranoOpraviloInline,
     ]
 
 
-@admin.register(PlanIzdaja)
-class PlanIzdajaAdmin(admin.ModelAdmin):
-    inlines = [
-        PlanOpraviloInline,
-    ]
+
+# @admin.register(PlanIzdaja)
+# class PlanIzdajaAdmin(admin.ModelAdmin):
+#     # inlines = [
+#     #     PlanOpraviloInline,
+#     # ]
+#     pass
 
 
-@admin.register(PlanOpravilo)
-class PlanOpraviloAdmin(admin.ModelAdmin):
+@admin.register(PlaniranoOpravilo)
+class PlaniranoOpraviloAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(PlaniranaAktivnost)
+class PlaniranaAktivnostAdmin(admin.ModelAdmin):
     pass

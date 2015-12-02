@@ -7,44 +7,21 @@
 
     <!--vrstica******************************** -->
         <tr>
-            <td><small><b>oznaka</b></small></td>
-            <td><b style="color:#0000FF">{{ object.oznaka }}</b></td>
+            <td><small><b>model</b></small></td>
+            <td><b style="color:#0000FF">{{ object.model_artikla.tip.naziv }} {{ object.model_artikla.proizvajalec.naziv }} {{ object.model_artikla.naziv }}</b></td>
         </tr>
 
 
     <!--vrstica******************************** -->
         <tr>
-            <td><small><b>predmet</b></small></td>
-            <td><b style="color:#0000FF">{{ object.predmet }}</b></td>
+            <td><small><b>projektno mesto</b></small></td>
+            <td><b style="color:#0000FF">({{ object.projektno_mesto.oznaka }}) {{ object.projektno_mesto.naziv }}</b></td>
         </tr>
 
 
-    <!--vrstica******************************** -->
-        <tr>
-            <td><small><b>vrsta</b></small></td>
-            <td>
-                <!--IF : ŠKODNI DOGODEK-->
-                {% if object.zahtevek_skodni_dogodek %}Škodni Dogodek{% endif %} 
+    
+        
 
-                <!--IF : SESTANEK-->
-                {% if object.zahtevek_sestanek %}Sestanek{% endif %} 
-
-                <!--IF : IZVEDBA-DEL-->
-                {% if object.zahtevek_izvedba_dela %}Izvedba del{% endif %}
-            </td> 
-
-
-    <!--vrstica***********OPCIJSKA****** ****** -->
-        {% if object.zahtevek_parent %}     
-        <tr>
-            <td><small><b>osnova za zahtevek</b></small></td>
-            <td>
-                <small><b>
-                        {{ object.zahtevek_parent.predmet }} ({{ object.zahtevek_parent.oznaka }}
-                </b></small>
-            </td>
-        </tr>
-        {% endif %}
 
 
 </table>

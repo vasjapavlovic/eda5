@@ -1,7 +1,6 @@
 from django.db import models
 
 from eda5.core.models import TimeStampedModel
-from eda5.planiranje.models import PlanOpravilo
 
 
 class Proizvajalec(models.Model):
@@ -94,7 +93,7 @@ class ModelArtikla(models.Model):
         return "%s-%s" % (self.proizvajalec, self.naziv)
 
 
-class PlanOV(models.Model):
+class ArtikelPlan(models.Model):
     # ---------------------------------------------------------------------------------------
     dan = 'dan'
     teden = 'teden'
@@ -110,8 +109,7 @@ class PlanOV(models.Model):
 
     # ATRIBUTES
     # ***Relations***
-    element = models.ForeignKey(ModelArtikla)
-    plan_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)
+    artikel = models.ForeignKey(ModelArtikla)
     # ***Mandatory***
     naziv = models.CharField(max_length=255)
     perioda_predpisana_enota = models.CharField(max_length=5, choices=ENOTE, verbose_name="enota periode")

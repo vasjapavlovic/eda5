@@ -65,7 +65,6 @@ LOCAL_APPS = (
     'eda5.razdelilnik',  # razdelilnik
     'eda5.stevci',
     'eda5.users',  # custom users app
-    'eda5.stores',  # SAMO TESTNA APLIKACIJA
     'eda5.zahtevki',  # reševanje zahtevkov naročnikov
     'eda5.zaznamki',  # zaznamki
 )

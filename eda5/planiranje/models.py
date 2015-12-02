@@ -2,9 +2,11 @@ from django.db import models
 
 from eda5.posta.models import Dokument
 from eda5.core.models import TimeStampedModel, IsActiveModel
+from eda5.katalog.models import ArtikelPlan
+from eda5.deli.models import Element
 
 
-class SklopPlanov(models.Model):
+class SkupinaPlanov(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -19,8 +21,8 @@ class SklopPlanov(models.Model):
 
     # META AND STRING
     class Meta:
-        verbose_name = "sklop planov"
-        verbose_name_plural = "sklopi planov"
+        verbose_name = "skupina planov"
+        verbose_name_plural = "skupine planov"
         ordering = ("zap_st",)
 
     def __str__(self):
@@ -31,7 +33,7 @@ class Plan(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    sklop = models.ForeignKey(SklopPlanov)
+    sklop = models.ForeignKey(SkupinaPlanov)
     #   Mandatory
     oznaka = models.CharField(max_length=25)
     naziv = models.CharField(max_length=255)
@@ -51,30 +53,30 @@ class Plan(TimeStampedModel, IsActiveModel):
         return "%s | %s" % (self.oznaka, self.naziv)
 
 
-class PlanIzdaja(TimeStampedModel, IsActiveModel):
-    # ---------------------------------------------------------------------------------------
-    # ATRIBUTES
-    #   Relations
-    plan = models.ForeignKey(Plan)
-    '''dodaj, da je potrebna potrditvena dokumentacija za plan'''
-    #   Mandatory
-    oznaka = models.CharField(max_length=20, blank=True)
-    datum_izdaje = models.DateField()
-    #   Optional
-    # OBJECT MANAGER
-    # CUSTOM PROPERTIES
-    # METHODS
+# class PlanIzdaja(TimeStampedModel, IsActiveModel):
+#     # ---------------------------------------------------------------------------------------
+#     # ATRIBUTES
+#     #   Relations
+#     plan = models.ForeignKey(Plan)
+#     '''dodaj, da je potrebna potrditvena dokumentacija za plan'''
+#     #   Mandatory
+#     oznaka = models.CharField(max_length=20, blank=True)
+#     datum_izdaje = models.DateField()
+#     #   Optional
+#     # OBJECT MANAGER
+#     # CUSTOM PROPERTIES
+#     # METHODS
 
-    # META AND STRING
-    class Meta:
-        verbose_name = "izdaja plana"
-        verbose_name_plural = "izdaje planov"
+#     # META AND STRING
+#     class Meta:
+#         verbose_name = "izdaja plana"
+#         verbose_name_plural = "izdaje planov"
 
-    def __str__(self):
-        return "%s | %s(%s)" % (self.datum_izdaje, self.plan.naziv, self.plan.oznaka)
+#     def __str__(self):
+#         return "%s | %s(%s)" % (self.datum_izdaje, self.plan.naziv, self.plan.oznaka)
 
 
-class PlanOpravilo(TimeStampedModel, IsActiveModel):
+class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     dan = 'dan'
     teden = 'teden'
@@ -89,7 +91,7 @@ class PlanOpravilo(TimeStampedModel, IsActiveModel):
         )
     # ATRIBUTES
     #   Relations
-    plan = models.ForeignKey(PlanIzdaja, verbose_name="izdaja plana")
+    plan = models.ForeignKey(Plan)
     #   Mandatory
     oznaka = models.CharField(max_length=25)
     naziv = models.CharField(max_length=255)
@@ -111,3 +113,32 @@ class PlanOpravilo(TimeStampedModel, IsActiveModel):
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)
+
+
+class PlaniranaAktivnost(TimeStampedModel, IsActiveModel):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    artikel_plan = models.ForeignKey(ArtikelPlan, blank=True, null=True)
+    planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
+    element = models.ForeignKey(Element, blank=True, null=True)
+    #   Mandatory
+    naziv_opravila_izven_plana = models.CharField(max_length=255, blank=True)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "planirana aktivnost"
+        verbose_name_plural = "planirane aktivnosti"
+
+
+    def __str__(self):
+        if self.artikel_plan:
+            return "%s" % (self.artikel_plan.naziv)
+        else:
+            return "%s" % (self.naziv_opravila_izven_plana)
+            
+

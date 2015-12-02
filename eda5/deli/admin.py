@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from . import models
+from eda5.planiranje.admin import PlaniranaAktivnostInline
 # from .forms import ModelArtiklaAdminForm
 
 
@@ -62,6 +63,7 @@ class DelStavbeAdmin(admin.ModelAdmin):
 class ProjektnoMestoAdmin(admin.ModelAdmin):
     inlines = [
         ElementInlines,
+
     ]
     ordering = [
         "del_stavbe__oznaka", 
@@ -71,4 +73,6 @@ class ProjektnoMestoAdmin(admin.ModelAdmin):
 
 @admin.register(models.Element)
 class ElementAdmin(admin.ModelAdmin):
-    pass
+    inlines = [
+        PlaniranaAktivnostInline,
+    ]

@@ -137,7 +137,7 @@ class ProjektnoMesto(models.Model):
 
     # META AND STRING
     class Meta:
-        ordering = ["oznaka",]
+        ordering = ["oznaka", ]
         verbose_name = "projektno mesto"
         verbose_name_plural = "projektna mesta"
 
@@ -177,5 +177,5 @@ class Element(IsActiveModel):
         verbose_name_plural = 'elementi'
 
     def __str__(self):
-        return "(%s)%s-%s" % (self.tovarniska_st, self.model_artikla.proizvajalec,
+        return "(%s)%s-%s-%s" % (self.projektno_mesto.oznaka, self.tovarniska_st, self.model_artikla.proizvajalec,
                               self.model_artikla.naziv)

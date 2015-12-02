@@ -3,8 +3,8 @@ from django.contrib import admin
 from . import models
 
 
-class PlanOVInline(admin.TabularInline):
-    model = models.PlanOV
+class ArtikelPlanInline(admin.TabularInline):
+    model = models.ArtikelPlan
     extra = 0
 
 
@@ -31,7 +31,7 @@ class TipArtiklaAdmin(admin.ModelAdmin):
 
 class ModelArtiklaAdmin(admin.ModelAdmin):
 
-    inlines = [PlanOVInline,
+    inlines = [ArtikelPlanInline,
                ]
     ordering = [
         'proizvajalec__naziv'
@@ -41,10 +41,10 @@ class ModelArtiklaAdmin(admin.ModelAdmin):
         model = models.ModelArtikla
 
 
-class PlanOVAdmin(admin.ModelAdmin):
+class ArtikelPlanAdmin(admin.ModelAdmin):
 
     class Meta:
-        model = models.PlanOV
+        model = models.ArtikelPlan
 
 
 class RezevniDelAdmin(admin.ModelAdmin):
@@ -55,5 +55,5 @@ class RezevniDelAdmin(admin.ModelAdmin):
 admin.site.register(models.Proizvajalec, ProizvajalecAdmin)
 admin.site.register(models.TipArtikla, TipArtiklaAdmin)
 admin.site.register(models.ModelArtikla, ModelArtiklaAdmin)
-admin.site.register(models.PlanOV, PlanOVAdmin)
+admin.site.register(models.ArtikelPlan, ArtikelPlanAdmin)
 admin.site.register(models.RezervniDel, RezevniDelAdmin)

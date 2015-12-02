@@ -1,0 +1,31 @@
+<table class="table">
+
+
+    <!--vrstica******************************** -->
+    {% if object.model_artikla.P1_title %}
+        <tr>
+            <td><small><b>{{ object.model_artikla.P1_title }}</b></small></td>
+            <td>{{ object.model_artikla.P1_value }}</td> 
+        </tr>
+    {% endif %}
+
+
+    <!--vrstica******************************** -->
+    {% if object.model_artikla.P2_title %}
+        <tr>
+            <td><small><b>{{ object.model_artikla.P2_title }}</b></small></td>
+            <td>{{ object.model_artikla.P2_value }}</td> 
+        </tr>
+    {% endif %}
+
+
+    <!--vrstica******************************** -->
+    {% if object.model_artikla.P3_title %}
+        <tr>
+            <td><small><b>{{ object.model_artikla.P3_title }}</b></small></td>
+            <td>{{ object.model_artikla.P3_value }}</td> 
+        </tr>
+    {% endif %}
+
+
+</table>
