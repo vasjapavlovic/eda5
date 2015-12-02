@@ -28,7 +28,7 @@ class PredpisPodsklop(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    predpis_sklop = models.ForeignKey(PredpisSklop)
+    predpis_sklop = models.ForeignKey(PredpisSklop, blank=True, null=True)
     #   Mandatory
     oznaka = models.CharField(max_length=25)
     naziv = models.CharField(max_length=255)
@@ -46,11 +46,12 @@ class PredpisPodsklop(models.Model):
         return "%s | %s" % (self.oznaka, self.naziv)
 
 
-class Predpis(models.Model):
+class PredpisOpravilo(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    predpis_podsklop = models.ForeignKey(PredpisPodsklop)
+    predpis_podsklop = models.ForeignKey(PredpisPodsklop, blank=True, null=True)
+    predpis = models.ManyToManyField("Predpis", blank=True)
     #   Mandatory
     oznaka = models.CharField(max_length=25)
     naziv = models.CharField(max_length=255)
@@ -61,18 +62,17 @@ class Predpis(models.Model):
 
     # META AND STRING
     class Meta:
-        verbose_name = "predpis"
-        verbose_name_plural = "predpisi"
+        verbose_name = "predpisano opravilo"
+        verbose_name_plural = "predpisana opravila"
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)
 
 
-class PredpisOpravilo(models.Model):
+class Predpis(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    predpis = models.ManyToManyField(Predpis)
     #   Mandatory
     oznaka = models.CharField(max_length=25)
     naziv = models.CharField(max_length=255)
