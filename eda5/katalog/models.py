@@ -1,6 +1,7 @@
 from django.db import models
 
 from eda5.core.models import TimeStampedModel
+from eda5.predpisi.models import PredpisOpravilo
 
 
 class Proizvajalec(models.Model):
@@ -110,6 +111,7 @@ class ArtikelPlan(models.Model):
     # ATRIBUTES
     # ***Relations***
     artikel = models.ForeignKey(ModelArtikla)
+    predpis_opravilo = models.ForeignKey(PredpisOpravilo, blank=True, null=True)
     # ***Mandatory***
     naziv = models.CharField(max_length=255)
     perioda_predpisana_enota = models.CharField(max_length=5, choices=ENOTE, verbose_name="enota periode")
