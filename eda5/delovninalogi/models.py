@@ -169,7 +169,7 @@ class DeloVrsta(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    sklo = models.ForeignKey('DeloVrstaSklop')
+    sklop = models.ForeignKey('DeloVrstaSklop')
     #   Mandatory
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)

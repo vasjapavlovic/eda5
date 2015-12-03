@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
+from django.db.models import Max
 
 from .forms import DelCreateForm
 from .models import DelStavbe, Skupina, Element, Podskupina
@@ -76,6 +77,12 @@ class ElementDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ElementDetailView, self).get_context_data(*args, **kwargs)
 
+
+        opravila = Opravilo.objects.filter(element=self.object.id)
+        # dn = DelovniNalog.objects.filter(opravilo=opravila)
+
+        context['opravilo_list'] = opravila
+
         # opravila = Opravilo.objects.filter(element=self.object.id)
         # dn = DelovniNalog.objects.filter(opravilo=opravila).exclude(strosek__isnull=True)
 
@@ -96,9 +103,15 @@ class ElementDetailView(DetailView):
         nastavitve = self.object.nastavitev_set.all()
         context['nastavitve'] = nastavitve
 
-        nastavitev_max = self.object.nastavitev_set.order_by('-datum_nastavitve')
-        nastavitev_max = nastavitev_max.distinct()
+        # DOLOČITEV ZADNJIH NASTAVLJENIH VREDNOSTI
+        nastavitev_max = self.object.nastavitev_set.values("obratovalni_parameter").annotate(datum=Max("datum_nastavitve"))
 
-        context['nastavitev_max'] = nastavitev_max
+        # sestavimo ustrezen seznam za izpis
+        nastavitev_max_izpis = []
+        for nastavitev in nastavitev_max:
+            nastavitev_max_izpis.append(self.object.nastavitev_set.filter(
+                obratovalni_parameter=nastavitev['obratovalni_parameter'], datum_nastavitve=nastavitev['datum'])[0])
+
+        context['nastavitev_max'] = nastavitev_max_izpis
 
         return context

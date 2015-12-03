@@ -40,8 +40,14 @@
 
         {% for nastavitev in nastavitev_max %}
         <tr>
-            <td>{{ nastavitev.obratovalni_parameter.oznaka }}</td>
-            <td>{{ nastavitev.vrednost }} {{ nastavitev.obratovalni_parameter.enota }}</td>
+            <td><b>{{ nastavitev.obratovalni_parameter.oznaka }}</b></td>
+            {% if nastavitev.vrednost == "OFF" %}
+            <td class="btn btn-danger">
+            {% else %}
+            <td class="btn btn-success">
+            {% endif %}
+                {{ nastavitev.vrednost }} {{ nastavitev.obratovalni_parameter.enota }}
+            </td>
         </tr>
         {% endfor %}
 

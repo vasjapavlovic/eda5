@@ -51,7 +51,7 @@ class ArhivMesto(models.Model):
 
     # METHODS
     @receiver(post_save, sender=Zahtevek)
-    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+    def create_arhivsko_mesto_za_nov_zahtevek(sender, created, instance, **kwargs):
 
         # Arhiv
         '''v končni fazi bo arhiv = objektu '''
@@ -59,7 +59,7 @@ class ArhivMesto(models.Model):
 
         # izdelava Arhivskega Mesta v bazi
         if created:
-            dn = ArhivMesto(oznaka=instance.oznaka, naziv=instance.naziv, arhiv=arhiv, zahtevek=instance)
+            dn = ArhivMesto(oznaka=instance.oznaka, naziv=instance.naziv, arhiv=arhiv)
             dn.save()
 
     # META AND STRING

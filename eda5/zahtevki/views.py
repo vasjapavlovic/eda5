@@ -62,7 +62,7 @@ class ZahtevekCreateView(TemplateView):
             )
 
 
-            # zahtevek = Zahtevek.objects.get(oznaka=oznaka)  # bolje bi bilo na ID ampak neznam
+            zahtevek = Zahtevek.objects.get(oznaka=oznaka)  # bolje bi bilo na ID ampak neznam
             # arhiv = Arhiv.objects.get(id=1)  # v končni fazi bo arhiv == objektu
 
 

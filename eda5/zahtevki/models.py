@@ -13,6 +13,10 @@ from eda5.deli.models import Element
 
 class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
+
+    ''' POZOR !!! uporabljeni DJANGO-SIGNALS.
+    Avtomatsko se izdelajo posamezne vrste Zahtevkov. Glej spodaj'''
+
     # STATUS
     draft = 0
     # vCakanju = 1
