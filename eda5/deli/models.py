@@ -6,7 +6,7 @@ from . import managers
 
 from eda5.core.models import IsActiveModel
 
-from eda5.katalog.models import ModelArtikla, TipArtikla
+from eda5.katalog.models import ModelArtikla, TipArtikla, ObratovalniParameter
 from eda5.etaznalastnina.models import LastniskaSkupina
 
 
@@ -179,3 +179,27 @@ class Element(IsActiveModel):
     def __str__(self):
         return "(%s)%s-%s-%s" % (self.projektno_mesto.oznaka, self.tovarniska_st, self.model_artikla.proizvajalec,
                               self.model_artikla.naziv)
+
+
+class Nastavitev(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    element = models.ForeignKey(Element)
+    obratovalni_parameter = models.ForeignKey(ObratovalniParameter)
+    #   Mandatory
+    ''' datum nastavitve kasneje vzami iz zahtevka. Dodati je relacijo na zahtevek'''
+    datum_nastavitve = models.DateField()
+    vrednost = models.CharField(max_length=20)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "nastavitev"
+        verbose_name_plural = "nastavitve"
+
+    def __str__(self):
+        return "%s | %s | %s" % (self.obratovalni_parameter.oznaka, self.vrednost, self.datum_nastavitve)

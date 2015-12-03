@@ -6,6 +6,7 @@ from .forms import DelCreateForm
 from .models import DelStavbe, Skupina, Element, Podskupina
 
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
+from eda5.katalog.models import ObratovalniParameter
 
 
 class DelHomeView(TemplateView):
@@ -68,8 +69,6 @@ class DelUpdateView(UpdateView):
               ]
 
 
-
-
 class ElementDetailView(DetailView):
     template_name = "deli/element/detail/base.html"
     model = Element
@@ -77,16 +76,24 @@ class ElementDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ElementDetailView, self).get_context_data(*args, **kwargs)
 
-        opravila = Opravilo.objects.filter(element=self.object.id)
-        dn = DelovniNalog.objects.filter(opravilo=opravila).exclude(strosek__isnull=True)
+        # opravila = Opravilo.objects.filter(element=self.object.id)
+        # dn = DelovniNalog.objects.filter(opravilo=opravila).exclude(strosek__isnull=True)
 
-        dn_strosek_skp = 0
+        # dn_strosek_skp = 0
 
-        for dnx in dn:
-            dn_strosek = dnx.strosek.strosek_z_ddv
-            dn_strosek_skp = dn_strosek_skp + dn_strosek
+        # for dnx in dn:
+        #     dn_strosek = dnx.strosek.strosek_z_ddv
+        #     dn_strosek_skp = dn_strosek_skp + dn_strosek
 
-        dn_strosek_skp = str(round(dn_strosek_skp)) + ',00 EUR'
+        # dn_strosek_skp = str(round(dn_strosek_skp)) + ',00 EUR'
 
-        context['celotnistrosek'] = dn_strosek_skp
+        # context['celotnistrosek'] = dn_strosek_skp
+
+        # artikel = self.object.model_artikla
+        # obratovalni_parametri = ObratovalniParameter.objects.filter(artikel=artikel)
+        # context['obratovalni_parmateri'] = obratovalni_parametri
+
+        nastavitve = self.object.nastavitev_set.all()
+        context['nastavitve'] = nastavitve
+
         return context

@@ -25,6 +25,14 @@ class PodskupinaDelovInlines(admin.TabularInline):
     extra = 0
 
 
+class NastavitevInlines(admin.TabularInline):
+    model = models.Nastavitev
+    extra = 0
+
+
+
+
+
 @admin.register(models.Skupina)
 class SkupinaAdmin(admin.ModelAdmin):
     list_display = ("oznaka", "naziv")
@@ -75,4 +83,10 @@ class ProjektnoMestoAdmin(admin.ModelAdmin):
 class ElementAdmin(admin.ModelAdmin):
     inlines = [
         PlaniranaAktivnostInline,
+        NastavitevInlines,
     ]
+
+
+@admin.register(models.Nastavitev)
+class NastavitevAdmin(admin.ModelAdmin):
+    pass

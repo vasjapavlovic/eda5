@@ -13,6 +13,11 @@ class ModelArtiklaInline(admin.TabularInline):
     extra = 0
 
 
+class ObratovalniParameterInline(admin.TabularInline):
+    model = models.ObratovalniParameter
+    extra = 0
+
+
 class ProizvajalecAdmin(admin.ModelAdmin):
 
     inlines = [
@@ -31,8 +36,11 @@ class TipArtiklaAdmin(admin.ModelAdmin):
 
 class ModelArtiklaAdmin(admin.ModelAdmin):
 
-    inlines = [ArtikelPlanInline,
-               ]
+    inlines = [
+        ArtikelPlanInline,
+        ObratovalniParameterInline,
+    ]
+
     ordering = [
         'proizvajalec__naziv'
     ]
@@ -51,6 +59,11 @@ class RezevniDelAdmin(admin.ModelAdmin):
 
     class Meta:
         model = models.RezervniDel
+
+
+@admin.register(models.ObratovalniParameter)
+class ObratovalniParameterAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(models.Proizvajalec, ProizvajalecAdmin)
 admin.site.register(models.TipArtikla, TipArtiklaAdmin)

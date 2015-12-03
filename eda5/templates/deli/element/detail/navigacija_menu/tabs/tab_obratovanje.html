@@ -28,6 +28,23 @@
 
     {% block detail_tab_content %}
 
+    <table class="table">
+        <tr>
+            <th>parameter</th>
+            <th>vrednost</th>
+            <th>nastavljeno dne</th>
+        </tr>
+
+        {% for nastavitev in nastavitve %}
+        <tr>
+            <td>{{ nastavitev.obratovalni_parameter.oznaka }}</td>
+            <td>{{ nastavitev.vrednost }} {{ nastavitev.obratovalni_parameter.enota }}</td>
+            <td>{{ nastavitev.datum_nastavitve }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
 
         
     {% endblock %}

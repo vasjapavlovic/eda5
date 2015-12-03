@@ -94,6 +94,29 @@ class ModelArtikla(models.Model):
         return "%s-%s" % (self.proizvajalec, self.naziv)
 
 
+class ObratovalniParameter(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    # ***Relations***
+    artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
+    # ***Mandatory***
+    oznaka = models.CharField(max_length=20)
+    enota = models.CharField(max_length=20, blank=True)
+    opis = models.CharField(max_length=255, blank=True, verbose_name="opis")
+    # ***Optional***
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = 'obratovalni parameter'
+        verbose_name_plural = 'obratovalni parametri'
+
+    def __str__(self):
+        return "(%s)%s" % (self.artikel.naziv, self.oznaka)
+
+
 class ArtikelPlan(models.Model):
     # ---------------------------------------------------------------------------------------
     dan = 'dan'
