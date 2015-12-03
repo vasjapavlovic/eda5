@@ -15,29 +15,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DelStavbe',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
-                ('shema', models.FileField(upload_to=eda5.deli.models.DelStavbe.shema_directory_path, blank=True, verbose_name='shema sistema')),
+                ('shema', models.FileField(upload_to=eda5.deli.models.DelStavbe.shema_directory_path, verbose_name='shema sistema', blank=True)),
             ],
             options={
                 'verbose_name': 'del stavbe',
-                'verbose_name_plural': 'deli stavbe',
                 'ordering': ['oznaka'],
+                'verbose_name_plural': 'deli stavbe',
             },
         ),
         migrations.CreateModel(
             name='Element',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('oznaka', models.CharField(max_length=20, verbose_name='Oznaka')),
-                ('naziv', models.CharField(max_length=255, verbose_name='Naziv')),
-                ('serijska_st', models.CharField(max_length=100, blank=True, verbose_name='Serijska Številka')),
-                ('tovarniska_st', models.CharField(max_length=100, blank=True, verbose_name='Tovarniška Številka')),
-                ('datum_prevzema_v_upravljanje', models.DateField(verbose_name='datum prevzema v upravljanje', blank=True)),
-                ('dokumentacija', models.FileField(upload_to=eda5.deli.models.Element.dokumentacija_directory_path, blank=True, verbose_name='dokumentacija')),
-                ('del_stavbe', models.ForeignKey(to='deli.DelStavbe')),
-                ('model_artikla', models.ForeignKey(default=1, verbose_name='Model', to='katalog.ModelArtikla')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('tovarniska_st', models.CharField(verbose_name='Tovarniška Številka', max_length=100, blank=True)),
+                ('serijska_st', models.CharField(verbose_name='Serijska Številka', max_length=100, blank=True)),
+                ('artikel', models.ForeignKey(to='katalog.ModelArtikla', null=True, verbose_name='Model', blank=True)),
             ],
             options={
                 'verbose_name': 'element',
@@ -45,34 +41,69 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='Nastavitev',
+            fields=[
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('datum_nastavitve', models.DateField()),
+                ('vrednost', models.CharField(max_length=20)),
+                ('element', models.ForeignKey(to='deli.Element')),
+                ('obratovalni_parameter', models.ForeignKey(to='katalog.ObratovalniParameter')),
+            ],
+            options={
+                'verbose_name': 'nastavitev',
+                'verbose_name_plural': 'nastavitve',
+            },
+        ),
+        migrations.CreateModel(
             name='Podskupina',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
                 'verbose_name': 'podskupina delov',
-                'verbose_name_plural': 'podskupine delov',
                 'ordering': ['oznaka'],
+                'verbose_name_plural': 'podskupine delov',
+            },
+        ),
+        migrations.CreateModel(
+            name='ProjektnoMesto',
+            fields=[
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('oznaka', models.CharField(max_length=20)),
+                ('naziv', models.CharField(max_length=255)),
+                ('funkcija', models.CharField(max_length=255)),
+                ('del_stavbe', models.ForeignKey(to='deli.DelStavbe')),
+                ('tip_elementa', models.ForeignKey(to='katalog.TipArtikla')),
+            ],
+            options={
+                'verbose_name': 'projektno mesto',
+                'ordering': ['oznaka'],
+                'verbose_name_plural': 'projektna mesta',
             },
         ),
         migrations.CreateModel(
             name='Skupina',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
                 'verbose_name': 'skupina delov',
-                'verbose_name_plural': 'skupine delov',
                 'ordering': ['oznaka'],
+                'verbose_name_plural': 'skupine delov',
             },
         ),
         migrations.AddField(
             model_name='podskupina',
             name='skupina',
             field=models.ForeignKey(to='deli.Skupina'),
+        ),
+        migrations.AddField(
+            model_name='element',
+            name='projektno_mesto',
+            field=models.ForeignKey(to='deli.ProjektnoMesto'),
         ),
     ]

@@ -4,27 +4,6 @@ from eda5.core.models import TimeStampedModel
 from eda5.predpisi.models import PredpisOpravilo
 
 
-class Proizvajalec(models.Model):
-    # ---------------------------------------------------------------------------------------
-    # ATRIBUTES
-    # ***Relations***
-    # ***Mandatory***
-    naziv = models.CharField(max_length=100, unique=True)
-    # ***Optional***
-    # OBJECT MANAGER
-    # CUSTOM PROPERTIES
-    # METHODS
-
-    # META AND STRING
-    class Meta:
-        verbose_name = 'proizvajalec'
-        verbose_name_plural = 'proizvajalci'
-        ordering = ('naziv',)
-
-    def __str__(self):
-        return "%s" % (self.naziv)
-
-
 class TipArtikla(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
@@ -47,6 +26,73 @@ class TipArtikla(models.Model):
         return "(%s)%s" % (self.oznaka, self.naziv)
 
 
+class Karakteristika(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    # ***Relations***
+    tip_artikla = models.ForeignKey(TipArtikla, blank=True, null=True)
+    # ***Mandatory***
+    oznaka = models.CharField(max_length=20)
+    enota = models.CharField(max_length=20, blank=True)
+    opis = models.CharField(max_length=255, blank=True, verbose_name="opis")
+    # ***Optional***
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = 'karakteristika artikla'
+        verbose_name_plural = 'karakteristike artiklov'
+
+    def __str__(self):
+        return "(%s)%s[%s]" % (self.tip_artikla.naziv, self.oznaka, self.enota)
+
+
+class ObratovalniParameter(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    # ***Relations***
+    tip_artikla = models.ForeignKey(TipArtikla, blank=True, null=True)
+    # ***Mandatory***
+    oznaka = models.CharField(max_length=20)
+    enota = models.CharField(max_length=20, blank=True)
+    opis = models.CharField(max_length=255, blank=True, verbose_name="opis")
+    # ***Optional***
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = 'obratovalni parameter'
+        verbose_name_plural = 'obratovalni parametri'
+
+    def __str__(self):
+        return "(%s)%s[%s]" % (self.tip_artikla.naziv, self.oznaka, self.enota)
+
+
+class Proizvajalec(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    # ***Relations***
+    # ***Mandatory***
+    naziv = models.CharField(max_length=100, unique=True)
+    # ***Optional***
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = 'proizvajalec'
+        verbose_name_plural = 'proizvajalci'
+        ordering = ('naziv',)
+
+    def __str__(self):
+        return "%s" % (self.naziv)
+
+
 class ModelArtikla(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
@@ -56,26 +102,6 @@ class ModelArtikla(models.Model):
     tip = models.ForeignKey(TipArtikla)
     naziv = models.CharField(max_length=255)
     # ***Optional***
-    P1_title = models.CharField(max_length=255, verbose_name='P1 title',
-                                null=True, blank=True,)
-    P1_value = models.CharField(max_length=255, verbose_name='P1 value',
-                                null=True, blank=True,)
-    P2_title = models.CharField(max_length=255, verbose_name='P2 title',
-                                null=True, blank=True,)
-    P2_value = models.CharField(max_length=255, verbose_name='P2 value',
-                                null=True, blank=True,)
-    P3_title = models.CharField(max_length=255, verbose_name='P3 title',
-                                null=True, blank=True,)
-    P3_value = models.CharField(max_length=255, verbose_name='P3 value',
-                                null=True, blank=True,)
-    P4_title = models.CharField(max_length=255, verbose_name='P4 title',
-                                null=True, blank=True,)
-    P4_value = models.CharField(max_length=255, verbose_name='P4 value',
-                                null=True, blank=True,)
-    P5_title = models.CharField(max_length=255, verbose_name='P5 title',
-                                null=True, blank=True,)
-    P5_value = models.CharField(max_length=255, verbose_name='P5 value',
-                                null=True, blank=True,)
     # OBJECT MANAGER
 
     # CUSTOM PROPERTIES
@@ -94,27 +120,26 @@ class ModelArtikla(models.Model):
         return "%s-%s" % (self.proizvajalec, self.naziv)
 
 
-class ObratovalniParameter(models.Model):
+class KarakteristikaVrednost(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
     artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
-    # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
-    enota = models.CharField(max_length=20, blank=True)
-    opis = models.CharField(max_length=255, blank=True, verbose_name="opis")
-    # ***Optional***
+    karakteristika = models.ForeignKey(Karakteristika)
+    #   Mandatory
+    vrednost = models.CharField(max_length=20)
+    #   Optional
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
 
     # META AND STRING
     class Meta:
-        verbose_name = 'obratovalni parameter'
-        verbose_name_plural = 'obratovalni parametri'
+        verbose_name = "vrednost karakteristike"
+        verbose_name_plural = "vrednosti karakteristik"
 
     def __str__(self):
-        return "(%s)%s" % (self.artikel.naziv, self.oznaka)
+        return "%s | %s | %s %s" % (self.artikel.naziv, self.karakteristika.oznaka, self.vrednost, self.karakteristika.enota)
 
 
 class ArtikelPlan(models.Model):

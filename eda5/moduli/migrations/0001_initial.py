@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Modul',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('oznaka', models.CharField(max_length=10)),
                 ('naziv', models.CharField(max_length=200)),
                 ('opis', models.TextField()),

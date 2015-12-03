@@ -39,7 +39,7 @@
                 <tr>
                     <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ projektno_mesto.oznaka }}</a></td>
                     <td>{{ projektno_mesto.tip_elementa.naziv }}-{{ projektno_mesto.naziv }}</td>
-                    <td>{{ element.model_artikla.proizvajalec.naziv }}-{{ element.model_artikla.naziv }}</td>
+                    <td>{{ element.artikel.proizvajalec.naziv }}-{{ element.artikel.naziv }}</td>
                 </tr>
                 {% endfor %}
                 {% endfor %}

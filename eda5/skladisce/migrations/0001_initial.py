@@ -7,22 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('delovninalogi', '0001_initial'),
         ('partnerji', '0001_initial'),
         ('posta', '0001_initial'),
-        ('delovninalogi', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Artikel',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('oznaka', models.CharField(max_length=50)),
                 ('naziv', models.CharField(max_length=255)),
                 ('opis', models.CharField(max_length=255, blank=True)),
-                ('st_police', models.IntegerField(verbose_name='številka police', blank=True, null=True)),
+                ('st_police', models.IntegerField(verbose_name='številka police', null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'artikel',
@@ -32,14 +32,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Dnevnik',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('kom', models.IntegerField()),
-                ('cena', models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)),
-                ('stopnja_ddv', models.DecimalField(max_digits=4, decimal_places=3, blank=True, null=True)),
+                ('cena', models.DecimalField(null=True, max_digits=6, decimal_places=2, blank=True)),
+                ('stopnja_ddv', models.DecimalField(null=True, max_digits=4, decimal_places=3, blank=True)),
                 ('artikel', models.ForeignKey(to='skladisce.Artikel')),
-                ('delovninalog', models.ForeignKey(null=True, verbose_name='delovni nalog', to='delovninalogi.DelovniNalog', blank=True)),
+                ('delovninalog', models.ForeignKey(to='delovninalogi.DelovniNalog', null=True, verbose_name='delovni nalog', blank=True)),
             ],
             options={
                 'verbose_name': 'dnevnik',
@@ -49,9 +49,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Dobava',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
                 ('datum', models.DateField(verbose_name='datum prevzema blaga')),
@@ -67,7 +67,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SklopArtikla',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=50)),
                 ('naziv', models.CharField(max_length=255)),
                 ('opis', models.CharField(max_length=255, blank=True)),
@@ -80,7 +80,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TipArtikla',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=50)),
                 ('naziv', models.CharField(max_length=255)),
                 ('opis', models.CharField(max_length=255, blank=True)),
@@ -94,12 +94,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dnevnik',
             name='dobava',
-            field=models.ForeignKey(null=True, to='skladisce.Dobava', blank=True),
+            field=models.ForeignKey(to='skladisce.Dobava', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='dnevnik',
             name='likvidiral',
-            field=models.ForeignKey(verbose_name='likvidiral blago', to='partnerji.Oseba'),
+            field=models.ForeignKey(to='partnerji.Oseba', verbose_name='likvidiral blago'),
         ),
         migrations.AddField(
             model_name='artikel',

@@ -15,21 +15,21 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='narocilo',
             name='izvajalec',
-            field=models.ForeignKey(related_name='izvajalec', to='partnerji.Partner'),
+            field=models.ForeignKey(to='partnerji.Partner', related_name='izvajalec'),
         ),
         migrations.AddField(
             model_name='narocilo',
             name='narocilo_pogodba',
-            field=models.OneToOneField(null=True, to='narocila.NarociloPogodba', blank=True),
+            field=models.OneToOneField(to='narocila.NarociloPogodba', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='narocilo',
             name='narocilo_telefon',
-            field=models.OneToOneField(null=True, to='narocila.NarociloTelefon', blank=True),
+            field=models.OneToOneField(to='narocila.NarociloTelefon', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='narocilo',
             name='narocnik',
-            field=models.ForeignKey(related_name='narocnik', to='partnerji.SkupinaPartnerjev'),
+            field=models.ForeignKey(to='partnerji.SkupinaPartnerjev', related_name='narocnik'),
         ),
     ]

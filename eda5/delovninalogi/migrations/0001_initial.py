@@ -14,13 +14,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Delo',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('status', models.IntegerField(default=0, choices=[(0, 'draft'), (1, 'v čakanju'), (2, 'v planu'), (3, 'v reševanju'), (4, 'zaključeno')])),
-                ('datum', models.DateField(blank=True, null=True)),
-                ('time_start', models.DurationField(verbose_name='Ura:Začeto', blank=True, null=True)),
-                ('time_stop', models.DurationField(verbose_name='Ura:Končano', blank=True, null=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('status', models.IntegerField(choices=[(0, 'draft'), (1, 'v čakanju'), (2, 'v planu'), (3, 'v reševanju'), (4, 'zaključeno')], default=0)),
+                ('datum', models.DateField(null=True, blank=True)),
+                ('time_start', models.DurationField(verbose_name='Ura:Začeto', null=True, blank=True)),
+                ('time_stop', models.DurationField(verbose_name='Ura:Končano', null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'Delo',
@@ -30,15 +30,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DelovniNalog',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('status', models.IntegerField(default=0, choices=[(0, 'draft'), (1, 'v čakanju'), (2, 'v planu'), (3, 'v reševanju'), (4, 'zaključeno')])),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('status', models.IntegerField(choices=[(0, 'draft'), (1, 'v čakanju'), (2, 'v planu'), (3, 'v reševanju'), (4, 'zaključeno')], default=0)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
-                ('datum_plan', models.DateField(verbose_name='V planu za dne', blank=True, null=True)),
-                ('datum_start', models.DateField(verbose_name='Začeto dne', blank=True, null=True)),
-                ('datum_stop', models.DateField(verbose_name='Končano dne', blank=True, null=True)),
+                ('datum_plan', models.DateField(verbose_name='V planu za dne', null=True, blank=True)),
+                ('datum_start', models.DateField(verbose_name='Začeto dne', null=True, blank=True)),
+                ('datum_stop', models.DateField(verbose_name='Končano dne', null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'Delovni Nalog',
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DeloVrsta',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
                 ('zap_st', models.IntegerField(default=99)),
@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DeloVrstaSklop',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
                 ('zap_st', models.IntegerField(default=99)),
@@ -76,9 +76,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Opravilo',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),

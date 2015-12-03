@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Arhiv',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('oznaka', models.CharField(max_length=10, verbose_name='oznaka')),
-                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('oznaka', models.CharField(verbose_name='oznaka', max_length=10)),
+                ('naziv', models.CharField(verbose_name='naziv', max_length=255)),
             ],
             options={
                 'verbose_name': 'arhiv',
@@ -25,9 +25,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Arhiviranje',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('elektronski', models.BooleanField(verbose_name='elektronski hramba', default=True)),
                 ('fizicni', models.BooleanField(verbose_name='fizični hramba', default=False)),
             ],
@@ -39,9 +39,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ArhivMesto',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('oznaka', models.CharField(max_length=10, verbose_name='oznaka')),
-                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('oznaka', models.CharField(verbose_name='oznaka', max_length=10)),
+                ('naziv', models.CharField(verbose_name='naziv', max_length=255)),
                 ('arhiv', models.ForeignKey(to='arhiv.Arhiv')),
             ],
             options={

@@ -7,16 +7,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('posta', '0001_initial'),
+        ('deli', '0001_initial'),
+        ('katalog', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Plan',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('oznaka', models.CharField(max_length=25)),
                 ('naziv', models.CharField(max_length=255)),
@@ -29,38 +30,37 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='PlanIzdaja',
+            name='PlaniranaAktivnost',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('datum_izdaje', models.DateField()),
-                ('plan', models.ForeignKey(to='planiranje.Plan')),
-                ('potrditvena_dokumentacija', models.ForeignKey(to='posta.Dokument')),
+                ('naziv_opravila_izven_plana', models.CharField(max_length=255, blank=True)),
+                ('artikel_plan', models.ForeignKey(to='katalog.ArtikelPlan', null=True, blank=True)),
+                ('element', models.ForeignKey(to='deli.Element', null=True, blank=True)),
             ],
             options={
-                'verbose_name': 'izdaja plana',
-                'verbose_name_plural': 'izdaje planov',
+                'verbose_name': 'planirana aktivnost',
+                'verbose_name_plural': 'planirane aktivnosti',
             },
         ),
         migrations.CreateModel(
-            name='PlanOpravilo',
+            name='PlaniranoOpravilo',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('oznaka', models.CharField(max_length=25)),
                 ('naziv', models.CharField(max_length=255)),
                 ('namen', models.CharField(max_length=255)),
                 ('obseg', models.TextField()),
-                ('perioda_predpisana_enota', models.CharField(max_length=5, choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')], verbose_name='enota periode')),
+                ('perioda_predpisana_enota', models.CharField(verbose_name='enota periode', choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')], max_length=5)),
                 ('perioda_predpisana_enota_kolicina', models.IntegerField(verbose_name='kolicina enote periode')),
                 ('perioda_predpisana_kolicina_na_enoto', models.IntegerField(verbose_name='kolicina na enoto periode')),
-                ('zap_st', models.IntegerField(verbose_name='zaporedna številka', default=0)),
-                ('opomba', models.TextField()),
-                ('plan', models.ForeignKey(verbose_name='izdaja plana', to='planiranje.PlanIzdaja')),
+                ('opomba', models.TextField(blank=True)),
+                ('plan', models.ForeignKey(to='planiranje.Plan')),
             ],
             options={
                 'verbose_name': 'planirano opravilo',
@@ -68,22 +68,27 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='SklopPlanov',
+            name='SkupinaPlanov',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=25)),
                 ('naziv', models.CharField(max_length=255)),
                 ('zap_st', models.IntegerField(verbose_name='zaporedna številka', default=0)),
             ],
             options={
-                'verbose_name': 'sklop planov',
-                'verbose_name_plural': 'sklopi planov',
+                'verbose_name': 'skupina planov',
                 'ordering': ('zap_st',),
+                'verbose_name_plural': 'skupine planov',
             },
+        ),
+        migrations.AddField(
+            model_name='planiranaaktivnost',
+            name='planirano_opravilo',
+            field=models.ForeignKey(to='planiranje.PlaniranoOpravilo', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='plan',
             name='sklop',
-            field=models.ForeignKey(to='planiranje.SklopPlanov'),
+            field=models.ForeignKey(to='planiranje.SkupinaPlanov'),
         ),
     ]

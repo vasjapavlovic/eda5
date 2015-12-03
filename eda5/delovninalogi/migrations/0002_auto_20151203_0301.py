@@ -7,10 +7,10 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('zahtevki', '0001_initial'),
-        ('partnerji', '0001_initial'),
         ('delovninalogi', '0001_initial'),
+        ('partnerji', '0001_initial'),
         ('narocila', '0001_initial'),
+        ('zahtevki', '0001_initial'),
     ]
 
     operations = [
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='opravilo',
             name='narocilo',
-            field=models.ForeignKey(verbose_name='naročilo', to='narocila.Narocilo'),
+            field=models.ForeignKey(to='narocila.Narocilo', verbose_name='naročilo'),
         ),
         migrations.AddField(
             model_name='opravilo',
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='delovninalog',
             name='nosilec',
-            field=models.ForeignKey(null=True, to='partnerji.Oseba', blank=True),
+            field=models.ForeignKey(to='partnerji.Oseba', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='delovninalog',
@@ -52,11 +52,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='delo',
             name='delovninalog',
-            field=models.ForeignKey(verbose_name='delovni nalog', to='delovninalogi.DelovniNalog'),
+            field=models.ForeignKey(to='delovninalogi.DelovniNalog', verbose_name='delovni nalog'),
         ),
         migrations.AddField(
             model_name='delo',
             name='vrsta_dela',
-            field=models.ForeignKey(null=True, to='delovninalogi.DeloVrsta', blank=True),
+            field=models.ForeignKey(to='delovninalogi.DeloVrsta', null=True, blank=True),
         ),
     ]

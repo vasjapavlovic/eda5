@@ -158,7 +158,7 @@ class Element(IsActiveModel):
     # ATRIBUTES
     # ***Relations***
     projektno_mesto = models.ForeignKey(ProjektnoMesto)
-    model_artikla = models.ForeignKey(ModelArtikla, default=1, verbose_name='Model',)
+    artikel = models.ForeignKey(ModelArtikla, blank=True, null=True, verbose_name='Model',)
     # ***Mandatory***
     tovarniska_st = models.CharField(max_length=100, verbose_name='Tovarniška Številka', blank=True)
     serijska_st = models.CharField(max_length=100, verbose_name='Serijska Številka', blank=True,)
@@ -177,8 +177,8 @@ class Element(IsActiveModel):
         verbose_name_plural = 'elementi'
 
     def __str__(self):
-        return "(%s)%s-%s-%s" % (self.projektno_mesto.oznaka, self.tovarniska_st, self.model_artikla.proizvajalec,
-                              self.model_artikla.naziv)
+        return "(%s)%s-%s-%s" % (self.projektno_mesto.oznaka, self.tovarniska_st, self.artikel.proizvajalec,
+                              self.artikel.naziv)
 
 
 class Nastavitev(models.Model):

@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='partner',
             name='user',
-            field=models.OneToOneField(null=True, to=settings.AUTH_USER_MODEL, blank=True),
+            field=models.OneToOneField(to=settings.AUTH_USER_MODEL, null=True, blank=True),
         ),
         migrations.AddField(
             model_name='oseba',

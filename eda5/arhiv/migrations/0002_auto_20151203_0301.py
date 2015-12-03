@@ -7,14 +7,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('zahtevki', '0001_initial'),
-        ('partnerji', '0001_initial'),
-        ('delovninalogi', '0001_initial'),
-        ('narocila', '0001_initial'),
+        ('deli', '0002_auto_20151203_0301'),
         ('posta', '0001_initial'),
-        ('arhiv', '0001_initial'),
+        ('delovninalogi', '0001_initial'),
         ('katalog', '0001_initial'),
-        ('deli', '0002_auto_20151122_2204'),
+        ('arhiv', '0001_initial'),
+        ('partnerji', '0001_initial'),
+        ('narocila', '0001_initial'),
+        ('zahtevki', '0001_initial'),
     ]
 
     operations = [
@@ -26,41 +26,41 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='arhiviranje',
             name='artikel',
-            field=models.ForeignKey(null=True, to='katalog.ModelArtikla', blank=True),
+            field=models.ForeignKey(to='katalog.ModelArtikla', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='arhiviranje',
             name='delovninalog',
-            field=models.ForeignKey(null=True, to='delovninalogi.DelovniNalog', blank=True),
+            field=models.ForeignKey(to='delovninalogi.DelovniNalog', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='arhiviranje',
             name='delstavbe',
-            field=models.ForeignKey(null=True, to='deli.DelStavbe', blank=True),
+            field=models.ForeignKey(to='deli.DelStavbe', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='arhiviranje',
             name='dokument',
-            field=models.OneToOneField(null=True, to='posta.Dokument', blank=True),
+            field=models.OneToOneField(to='posta.Dokument', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='arhiviranje',
             name='element',
-            field=models.ForeignKey(null=True, to='deli.Element', blank=True),
+            field=models.ForeignKey(to='deli.Element', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='arhiviranje',
             name='lokacija_hrambe',
-            field=models.ForeignKey(null=True, verbose_name='lokacija hrambe', to='arhiv.ArhivMesto', blank=True),
+            field=models.ForeignKey(to='arhiv.ArhivMesto', null=True, verbose_name='lokacija hrambe', blank=True),
         ),
         migrations.AddField(
             model_name='arhiviranje',
             name='narocilo',
-            field=models.ForeignKey(null=True, to='narocila.Narocilo', blank=True),
+            field=models.ForeignKey(to='narocila.Narocilo', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='arhiviranje',
             name='zahtevek',
-            field=models.ForeignKey(null=True, to='zahtevki.Zahtevek', blank=True),
+            field=models.ForeignKey(to='zahtevki.Zahtevek', null=True, blank=True),
         ),
     ]

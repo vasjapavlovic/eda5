@@ -18,6 +18,16 @@ class ObratovalniParameterInline(admin.TabularInline):
     extra = 0
 
 
+class KarakteristikaInline(admin.TabularInline):
+    model = models.Karakteristika
+    extra = 0
+
+
+class KarakteristikaVrednostInline(admin.TabularInline):
+    model = models.KarakteristikaVrednost
+    extra = 0
+
+
 class ProizvajalecAdmin(admin.ModelAdmin):
 
     inlines = [
@@ -30,6 +40,11 @@ class ProizvajalecAdmin(admin.ModelAdmin):
 
 class TipArtiklaAdmin(admin.ModelAdmin):
 
+    inlines = [
+        KarakteristikaInline,
+        ObratovalniParameterInline,
+    ]
+
     class Meta:
         model = models.TipArtikla
 
@@ -37,8 +52,8 @@ class TipArtiklaAdmin(admin.ModelAdmin):
 class ModelArtiklaAdmin(admin.ModelAdmin):
 
     inlines = [
+        KarakteristikaVrednostInline,
         ArtikelPlanInline,
-        ObratovalniParameterInline,
     ]
 
     ordering = [

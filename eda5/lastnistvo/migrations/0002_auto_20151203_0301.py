@@ -7,10 +7,10 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('partnerji', '0001_initial'),
         ('etaznalastnina', '0002_lastniskaenotaelaborat_posta'),
-        ('posta', '0001_initial'),
         ('lastnistvo', '0001_initial'),
+        ('partnerji', '0001_initial'),
+        ('posta', '0001_initial'),
     ]
 
     operations = [
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='prodaja',
             name='zapisnik_predaje',
-            field=models.ForeignKey(verbose_name='zapisnik predaje v posest', to='posta.Dokument'),
+            field=models.ForeignKey(to='posta.Dokument', verbose_name='zapisnik predaje v posest'),
         ),
         migrations.AddField(
             model_name='najem',
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='najem',
             name='najemna_pogodba',
-            field=models.ForeignKey(verbose_name='najemna pogodba', to='posta.Dokument'),
+            field=models.ForeignKey(to='posta.Dokument', verbose_name='najemna pogodba'),
         ),
         migrations.AddField(
             model_name='najem',

@@ -31,6 +31,22 @@
 <!-- CONTENT################################################### -->
 
     {% block detail_tab_content %}
+
+        <table class="table">
+        <tr>
+            <th>parameter</th>
+            <th>vrednost</th>
+        </tr>
+
+        {% for nastavitev in nastavitev_max %}
+        <tr>
+            <td>{{ nastavitev.obratovalni_parameter.oznaka }}</td>
+            <td>{{ nastavitev.vrednost }} {{ nastavitev.obratovalni_parameter.enota }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
     {% endblock %}
     
 <!-- end CONTENT -->

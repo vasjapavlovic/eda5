@@ -13,37 +13,38 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='LastniskaEnotaElaborat',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('oznaka', models.CharField(max_length=4, verbose_name='številka dela stavbe')),
-                ('povrsina_tlorisna_neto', models.CharField(max_length=4, verbose_name='neto tlorisna površina')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('oznaka', models.CharField(verbose_name='številka dela stavbe', max_length=4)),
+                ('povrsina_tlorisna_neto', models.DecimalField(verbose_name='neto tlorisna površina', max_digits=6, decimal_places=2)),
                 ('naslov', models.CharField(max_length=255)),
             ],
             options={
                 'verbose_name': 'lastniška enota elaborat',
-                'verbose_name_plural': 'lastniške enote elaborat',
                 'ordering': ('oznaka',),
+                'verbose_name_plural': 'lastniške enote elaborat',
             },
         ),
         migrations.CreateModel(
             name='LastniskaEnotaInterna',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('oznaka', models.CharField(max_length=5, verbose_name='interna številka dela stavbe')),
-                ('lastniski_delez', models.DecimalField(max_digits=5, verbose_name='lastniški delež', blank=True, decimal_places=4)),
-                ('povrsina_tlorisna_neto', models.CharField(max_length=4, blank=True, verbose_name='neto tlorisna površina')),
-                ('st_oseb', models.IntegerField(verbose_name='število oseb', blank=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('oznaka', models.CharField(verbose_name='interna številka dela stavbe', max_length=5)),
+                ('program', models.CharField(max_length=50)),
+                ('lastniski_delez', models.DecimalField(verbose_name='lastniški delež', max_digits=5, decimal_places=4, blank=True)),
+                ('povrsina_tlorisna_neto', models.DecimalField(verbose_name='neto tlorisna površina', max_digits=6, decimal_places=2)),
+                ('st_oseb', models.DecimalField(verbose_name='število oseb', max_digits=2, decimal_places=1, blank=True)),
                 ('elaborat', models.ForeignKey(to='etaznalastnina.LastniskaEnotaElaborat')),
             ],
             options={
                 'verbose_name': 'lastniška enota interna',
-                'verbose_name_plural': 'lastniške enote interna',
                 'ordering': ('oznaka',),
+                'verbose_name_plural': 'lastniške enote interna',
             },
         ),
         migrations.CreateModel(
             name='LastniskaSkupina',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
                 ('opis', models.CharField(max_length=255, blank=True)),
@@ -51,22 +52,22 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'lastniška skupina',
-                'verbose_name_plural': 'lastniške skupine',
                 'ordering': ('oznaka',),
+                'verbose_name_plural': 'lastniške skupine',
             },
         ),
         migrations.CreateModel(
             name='Program',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
                 ('zap_st', models.IntegerField(verbose_name='zaporedna Številka', default=0)),
             ],
             options={
                 'verbose_name': 'Program',
-                'verbose_name_plural': 'Programi',
                 'ordering': ('zap_st',),
+                'verbose_name_plural': 'Programi',
             },
         ),
         migrations.AddField(

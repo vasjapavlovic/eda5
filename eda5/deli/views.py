@@ -96,4 +96,9 @@ class ElementDetailView(DetailView):
         nastavitve = self.object.nastavitev_set.all()
         context['nastavitve'] = nastavitve
 
+        nastavitev_max = self.object.nastavitev_set.order_by('-datum_nastavitve')
+        nastavitev_max = nastavitev_max.distinct()
+
+        context['nastavitev_max'] = nastavitev_max
+
         return context

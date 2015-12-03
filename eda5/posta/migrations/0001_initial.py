@@ -15,13 +15,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Aktivnost',
             fields=[
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('id_1', models.IntegerField(primary_key=True, serialize=False)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('id_1', models.IntegerField(serialize=False, primary_key=True)),
                 ('vrsta_aktivnosti', models.IntegerField(choices=[(1, 'prejeta posta'), (2, 'izdana pošta')])),
                 ('datum', models.DateField()),
-                ('izvajalec', models.ForeignKey(related_name='izvajalec', verbose_name='izvajalec poštne storitve', to='partnerji.Oseba')),
-                ('likvidiral', models.ForeignKey(related_name='likvidiral', verbose_name='pošto bo likvidiral', to='partnerji.Oseba')),
+                ('izvajalec', models.ForeignKey(to='partnerji.Oseba', verbose_name='izvajalec poštne storitve', related_name='izvajalec')),
+                ('likvidiral', models.ForeignKey(to='partnerji.Oseba', verbose_name='pošto bo likvidiral', related_name='likvidiral')),
             ],
             options={
                 'verbose_name': 'aktivnost',
@@ -31,16 +31,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Dokument',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('oznaka', models.CharField(max_length=20, verbose_name='številka dokumenta')),
-                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('oznaka', models.CharField(verbose_name='številka dokumenta', max_length=20)),
+                ('naziv', models.CharField(verbose_name='naziv', max_length=255)),
                 ('datum', models.DateField()),
-                ('priponka', models.FileField(upload_to=eda5.posta.models.Dokument.dokument_directory_path, blank=True, null=True)),
+                ('priponka', models.FileField(upload_to=eda5.posta.models.Dokument.dokument_directory_path, null=True, blank=True)),
                 ('aktivnost', models.OneToOneField(to='posta.Aktivnost')),
-                ('avtor', models.ForeignKey(related_name='avtor', to='partnerji.SkupinaPartnerjev')),
-                ('naslovnik', models.ForeignKey(related_name='naslovnik', to='partnerji.SkupinaPartnerjev')),
+                ('avtor', models.ForeignKey(to='partnerji.SkupinaPartnerjev', related_name='avtor')),
+                ('naslovnik', models.ForeignKey(to='partnerji.SkupinaPartnerjev', related_name='naslovnik')),
             ],
             options={
                 'verbose_name': 'dokument',
@@ -50,11 +50,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SkupinaDokumenta',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('oznaka', models.CharField(max_length=3, verbose_name='oznaka')),
-                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('oznaka', models.CharField(verbose_name='oznaka', max_length=3)),
+                ('naziv', models.CharField(verbose_name='naziv', max_length=255)),
             ],
             options={
                 'verbose_name': 'Skupina Dokumentov',
@@ -64,13 +64,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='VrstaDokumenta',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('oznaka', models.CharField(max_length=3, verbose_name='oznaka')),
-                ('naziv', models.CharField(max_length=255, verbose_name='naziv')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('oznaka', models.CharField(verbose_name='oznaka', max_length=3)),
+                ('naziv', models.CharField(verbose_name='naziv', max_length=255)),
                 ('zap_st', models.IntegerField(verbose_name='zaporedna številka')),
-                ('skupina', models.ForeignKey(verbose_name='Skupina Dokumentov', to='posta.SkupinaDokumenta')),
+                ('skupina', models.ForeignKey(to='posta.SkupinaDokumenta', verbose_name='Skupina Dokumentov')),
             ],
             options={
                 'verbose_name': 'Vrsta Dokumenta',
@@ -80,6 +80,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dokument',
             name='vrsta_dokumenta',
-            field=models.ForeignKey(verbose_name='vrsta dokumenta', to='posta.VrstaDokumenta'),
+            field=models.ForeignKey(to='posta.VrstaDokumenta', verbose_name='vrsta dokumenta'),
         ),
     ]
