@@ -7,6 +7,7 @@ from . import models
 @admin.register(models.SkupinaPartnerjev)
 class SkupinaAdmin(admin.ModelAdmin):
     filter_horizontal = ['partner']
+    pass
 
 
 

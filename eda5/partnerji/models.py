@@ -52,12 +52,12 @@ class SkupinaPartnerjev(TimeStampedModel):
     davcna_st = models.CharField(blank=True, max_length=20)
 
     @receiver(post_save, sender=Partner)
-    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+    def create_skupina_partnerjev_from_partner(sender, created, instance, **kwargs):
+
         if created:
-            skupina_partnerjev = SkupinaPartnerjev(
-                partner=instance, davcna_st=instance.davcna_st, naziv=instance.kratko_ime
-            )
+            skupina_partnerjev = SkupinaPartnerjev(davcna_st=instance.davcna_st, naziv=instance.kratko_ime)
             skupina_partnerjev.save()
+            skupina_partnerjev.partner.add(instance.pk)  # dodajanje k many-to-many
 
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
