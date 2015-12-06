@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"datum",
+				"datum_nastavitve"
+			],
+			[
+				"nastaiv",
+				"nastavitev_max	statement"
+			],
+			[
 				"verbos",
 				"verbose_name_plural"
 			],

@@ -14,7 +14,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
-    dokument = models.ForeignKey(Dokument)
+    dokument = models.ForeignKey(Dokument, blank=True, null=True)
     davcna_klasifikacija = models.ForeignKey("DavcnaKlasifikacija")
     obdobje_obracuna_leto = models.ForeignKey(ObdobjeLeto)
     obdobje_obracuna_mesec = models.ForeignKey(ObdobjeMesec)
@@ -176,8 +176,8 @@ class Strosek(models.Model):
     # ATRIBUTES
     # ***Relations***
     racun = models.ForeignKey(Racun)
-    lastniska_skupina = models.ForeignKey(LastniskaSkupina)
     vrsta_stroska = models.ForeignKey(VrstaStroska)
+    lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True)
     delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)

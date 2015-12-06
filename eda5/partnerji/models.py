@@ -1,32 +1,12 @@
 from django.core.urlresolvers import reverse
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.db import models
 
 from eda5.core.models import TimeStampedModel, IsActiveModel
 from eda5.users.models import User
 
 from .managers import OsebaManager, TrrManager
-
-
-class SkupinaPartnerjev(TimeStampedModel):
-    # ---------------------------------------------------------------------------------------
-    # ATRIBUTES
-    # ***Relations***
-    partner = models.ManyToManyField("Partner")
-    # ***Mandatory***
-    naziv = models.CharField(max_length=255)
-    # ***Optional***
-    oznaka = models.CharField(blank=True, max_length=20)
-    # OBJECT MANAGER
-    # CUSTOM PROPERTIES
-    # METHODS
-
-    # META AND STRING
-    class Meta:
-        verbose_name = "skupina partnerjev"
-        verbose_name_plural = "skupine partnerjev"
-
-    def __str__(self):
-        return "%s" % (self.naziv)
 
 
 class Partner(TimeStampedModel, IsActiveModel):
@@ -44,6 +24,7 @@ class Partner(TimeStampedModel, IsActiveModel):
     davcna_st = models.CharField(max_length=15, unique=True, blank=True)
     maticna_st = models.CharField(max_length=15, unique=True, blank=True)
     dolgo_ime = models.CharField(max_length=255, blank=True)
+
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
 
@@ -58,6 +39,37 @@ class Partner(TimeStampedModel, IsActiveModel):
 
     def __str__(self):
         return "%s" % (self.kratko_ime)
+
+
+class SkupinaPartnerjev(TimeStampedModel):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    # ***Relations***
+    partner = models.ManyToManyField("Partner")
+    # ***Mandatory***
+    naziv = models.CharField(max_length=255)
+    # ***Optional***
+    davcna_st = models.CharField(blank=True, max_length=20)
+
+    @receiver(post_save, sender=Partner)
+    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
+        if created:
+            skupina_partnerjev = SkupinaPartnerjev(
+                partner=instance, davcna_st=instance.davcna_st, naziv=instance.kratko_ime
+            )
+            skupina_partnerjev.save()
+
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "skupina partnerjev"
+        verbose_name_plural = "skupine partnerjev"
+
+    def __str__(self):
+        return "%s" % (self.naziv)
 
 
 class Drzava(models.Model):
