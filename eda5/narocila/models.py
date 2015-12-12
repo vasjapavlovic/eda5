@@ -78,6 +78,7 @@ class NarociloTelefon(TimeStampedModel):
     telefonsko_sporocilo = models.CharField(max_length=255)
     # ***Optional***
     # OBJECT MANAGER
+    objects = managers.NarociloTelefonManager()
     # CUSTOM PROPERTIES
     # METHODS
 

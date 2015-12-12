@@ -10,7 +10,7 @@ urlpatterns = [
 ]
 
 
-# DELOVNI NALOG
-# urlpatterns += [
-#     url(r'^dn/$', views.DelovniNalogList.as_view(), name="dn_list"),
-# ]
+# NAROCILO
+urlpatterns += [
+    url(r'^narocilo-telefon/$', views.NarociloTelefonCreateView.as_view(), name="narocilo_create_telefon"),
+]

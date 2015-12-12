@@ -1,0 +1,28 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+    <h1>Nova Naročilo : Način= Po Telefonu</h1>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Splosni podatki</div>
+        <div class="panel-body">
+            {{ narocilo_splosno_form|crispy  }} 
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Podatki o telefonskem naročilu</div>
+        <div class="panel-body">
+            {{ narocilo_telefon_form|crispy  }}
+        </div>
+    </div>
+
+
+    <input type="submit" value="Potrdi">
+</form>
+
+{% endblock %}
