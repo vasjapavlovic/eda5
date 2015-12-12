@@ -20,7 +20,6 @@ class Aktivnost(TimeStampedModel):
     izvajalec = models.ForeignKey(Oseba, related_name="izvajalec", verbose_name="izvajalec poštne storitve")
     likvidiral = models.ForeignKey(Oseba, related_name="likvidiral", verbose_name="pošto bo likvidiral")
     #   Mandatory
-    id_1 = models.IntegerField(primary_key=True)
     vrsta_aktivnosti = models.IntegerField(choices=AKTIVNOSTI)
     datum = models.DateField()
     #   Optional

@@ -106,22 +106,19 @@ class DokumentCreateView(TemplateView):
 
         if aktivnost_form.is_valid():
 
-            id_1 = aktivnost_form.cleaned_data['id_1']
             izvajalec = aktivnost_form.cleaned_data['izvajalec']
             likvidiral = aktivnost_form.cleaned_data['likvidiral']
             vrsta_aktivnosti = aktivnost_form.cleaned_data['vrsta_aktivnosti']
             datum = aktivnost_form.cleaned_data['datum']
 
-            Aktivnost.objects.create_aktivnost(
-                id_1=id_1,
+            aktivnost_create_data = Aktivnost.objects.create_aktivnost(
                 izvajalec=izvajalec,
                 likvidiral=likvidiral,
                 vrsta_aktivnosti=vrsta_aktivnosti,
                 datum=datum,
             )
 
-            aktivnost_id = request.POST.get('id_1', '')
-            aktivnost = Aktivnost.objects.get(id_1=aktivnost_id)
+            aktivnost = Aktivnost.objects.get(id_1=aktivnost_create_data.pk)
 
         if dokument_form.is_valid():
 
