@@ -22,7 +22,7 @@ class Partner(TimeStampedModel, IsActiveModel):
     davcni_zavezanec = models.BooleanField()
     # ***Optional***
     davcna_st = models.CharField(max_length=15, unique=True, blank=True)
-    maticna_st = models.CharField(max_length=15, unique=True, blank=True)
+    maticna_st = models.CharField(max_length=15, blank=True)
     dolgo_ime = models.CharField(max_length=255, blank=True)
 
     # OBJECT MANAGER
@@ -36,6 +36,7 @@ class Partner(TimeStampedModel, IsActiveModel):
     class Meta:
         verbose_name = "partner"
         verbose_name_plural = "partnerji"
+        ordering = ['kratko_ime',]
 
     def __str__(self):
         return "%s" % (self.kratko_ime)
@@ -49,7 +50,7 @@ class SkupinaPartnerjev(TimeStampedModel):
     # ***Mandatory***
     naziv = models.CharField(max_length=255)
     # ***Optional***
-    davcna_st = models.CharField(blank=True, max_length=20)
+    oznaka = models.CharField(blank=True, max_length=20)
 
     @receiver(post_save, sender=Partner)
     def create_skupina_partnerjev_from_partner(sender, created, instance, **kwargs):
@@ -67,6 +68,7 @@ class SkupinaPartnerjev(TimeStampedModel):
     class Meta:
         verbose_name = "skupina partnerjev"
         verbose_name_plural = "skupine partnerjev"
+        ordering = ['naziv',]
 
     def __str__(self):
         return "%s" % (self.naziv)

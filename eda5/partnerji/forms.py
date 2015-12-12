@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Partner, Oseba, Banka
+from .models import Partner, Oseba, Banka, Posta
 
 
 class PartnerCreateForm(forms.ModelForm):
@@ -76,9 +76,55 @@ class TrrCreateWidget(forms.Form):
 
 
 
+class UvozPartnerjiCsvForm(forms.Form):
+
+    uvozim = forms.BooleanField()
+
+
     # OSEBA MODEL
     # priimek = models.CharField(max_length=50)
     # ime = models.CharField(max_length=50)
     # status = models.CharField(max_length=1, choices=STATUS)
     # kvalifikacije = models.TextField(blank=True)
     # podjetje = models.ForeignKey(Partner)
+
+# def add_new_partners(rows):
+#     rows = io.StringIO(rows)
+#     records_added = 0
+
+#     seznam = csv.DictReader(rows, delimiter=";")
+#     print(seznam.fieldnames)
+
+#     # for row in csv.DictReader(rows, delimiter=";"):
+#     for row in seznam:
+#     # Generate a dict per row, with the first CSV row being the keys.
+    
+#     # Bind the row data to the PurchaseForm.
+#         print(row)
+#         form2 = PartnerCreateForm(row)
+#         # Check to see if the row data is valid.
+#         if form2.is_valid():
+#         # Row data is valid so save the record.
+#             form2.save()
+#             records_added += 1
+
+#     print(records_added)
+#     return records_added
+
+# filename = os.path.abspath("eda5/partnerji/rows1.csv")
+# with open(filename, 'r') as file:
+#     partnerji_file = file.read()
+
+
+
+# add_new_partners(partnerji_file)
+
+class PostaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Posta
+        fields = (
+            'postna_stevilka',
+            'naziv',
+            'drzava',
+            )

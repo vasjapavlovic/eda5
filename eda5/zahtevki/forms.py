@@ -2,6 +2,7 @@ from django import forms
 from django.utils import timezone
 
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
+from eda5.narocila.models import Narocilo
 
 
 class ZahtevekCreateForm(forms.ModelForm):
@@ -15,8 +16,10 @@ class ZahtevekCreateForm(forms.ModelForm):
         zap_st = zap_st + 1
         nova_oznaka = "ZHT-%s-%s" % (leto, zap_st)
         self.initial['oznaka'] = nova_oznaka
-
         self.fields['oznaka'].widget.attrs['readonly'] = True
+
+        # prikažemo samo veljavna naročila
+        self.fields['narocilo'].queryset = Narocilo.objects.veljavna()
 
     def clean_oznaka(self):
         # poskrbimo, post ne more povoziti OZNAKO, ki je readonly

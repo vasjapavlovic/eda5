@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import DavcnaKlasifikacija, Racun
+from .models import Racun
 from .models import Konto, PodKonto, SkupinaVrsteStroska, VrstaStroska, Strosek
 
 
@@ -22,11 +22,6 @@ class SkupinaVrsteStroskaInline(admin.TabularInline):
 class VrstaStroskaInline(admin.TabularInline):
     model = VrstaStroska
     extra = 0
-
-
-@admin.register(DavcnaKlasifikacija)
-class DavcnaKlasifikacijaAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(Racun)

@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+
+from . import managers
 
 from eda5.core.models import TimeStampedModel
 from eda5.partnerji.models import Partner, SkupinaPartnerjev
@@ -24,7 +27,14 @@ class Narocilo(TimeStampedModel):
     vrednost = models.DecimalField(decimal_places=2, max_digits=7)
     # ***Optional***
     # OBJECT MANAGER
+    objects = managers.NarociloManager()
     # CUSTOM PROPERTIES
+    @property
+    def status(self):
+        if datum_veljavnosti__lte == timezone.now().date():
+            return "veljavno"
+        else:
+            return "neveljavno"
     # METHODS
 
     # META AND STRING

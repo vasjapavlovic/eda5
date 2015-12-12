@@ -39,4 +39,16 @@ urlpatterns = [
         view=views.OsebaCreateView.as_view(),
         name='oseba_create'
     ),
+
+    url(
+        regex=r'^uvoz/$',
+        view=views.UvozPartnerjevCsv.as_view(),
+        name='uvoz'
+    ),
+
+    url(
+        regex=r'^uvoz_posta/$',
+        view=views.UvozPostCsv.as_view(),
+        name='uvoz_posta'
+    ),
 ]
