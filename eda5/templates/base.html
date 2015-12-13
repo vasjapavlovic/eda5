@@ -25,6 +25,11 @@
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
     <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+
+    <link href="{% static 'timepicker/timepicker.css' %}" rel="stylesheet">
+
 
     {% endblock %}
 
@@ -117,9 +122,24 @@
       <!-- place project specific Javascript in this file -->
       <script src="{% static 'js/project.js' %}"></script>
 
+
+      
+
     {% block javascript_extra %}{% endblock javascript_extra %}
 
-    {% endblock javascript %}
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+        <script src="{% static 'timepicker/timepicker.js' %}"></script>
+        <script>
+        $(document).ready(function() {
+          $('.datepicker').datepicker();
+          $('.timepicker').AnyTime_picker({ format: "%H:%i", labelTitle: "Ura",
+      labelHour: "Ura", labelMinute: "Minuta" });
+        });
+        </script>
+        
+
+        {% endblock javascript %}
 
   </body>
 </html>
