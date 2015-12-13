@@ -9,6 +9,10 @@ from eda5.users.models import User
 from .managers import OsebaManager, TrrManager
 
 
+''' POZOR !!! uporabljeni DJANGO-SIGNALS.
+    Avtomatsko se izdelajo SkupinaPartnerjev. Glej spodaj'''
+
+
 class Partner(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES

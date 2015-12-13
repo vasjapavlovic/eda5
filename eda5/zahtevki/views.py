@@ -7,6 +7,10 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from .forms import ZahtevekCreateForm, PodzahtevekCreateForm,\
                    ZahtevekUpdateForm, ZahtevekSkodniDogodekUpdateForm, ZahtevekSestanekUpdateForm,\
                    ZahtevekIzvedbaDelUpdateForm
+
+from .forms import ZahtevekSestanekCreateForm
+
+
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 
 from eda5.delovninalogi.forms import OpraviloCreateForm
@@ -123,7 +127,7 @@ class ZahtevekDetailView(DetailView):
         context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id)
 
         # zahtevek - child
-        context['zahtevek_create_form'] = PodzahtevekCreateForm
+        context['zahtevek_create_form'] = ZahtevekCreateForm
         context['zahtevek_child_list'] = Zahtevek.objects.filter(zahtevek_parent=self.object.id)
 
         context['arhiviranje_form'] = ArhiviranjeZahtevekForm
@@ -133,7 +137,7 @@ class ZahtevekDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         opravilo_form = OpraviloCreateForm(request.POST or None)
         zaznamek_form = ZaznamekForm(request.POST or None)
-        zahtevek_form = PodzahtevekCreateForm(request.POST or None)
+        zahtevek_form = ZahtevekCreateForm(request.POST or None)
 
         # avtomatski podatki
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
@@ -173,18 +177,12 @@ class ZahtevekDetailView(DetailView):
             rok_izvedbe = zahtevek_form.cleaned_data['rok_izvedbe']
             # narocilo = zahtevek_form.cleaned_data['narocilo']
             nosilec = zahtevek_form.cleaned_data['nosilec']
-            zahtevek_skodni_dogodek = zahtevek_form.cleaned_data['zahtevek_skodni_dogodek']
-            zahtevek_sestanek = zahtevek_form.cleaned_data['zahtevek_sestanek']
-            zahtevek_izvedba_dela = zahtevek_form.cleaned_data['zahtevek_izvedba_dela']
 
             Zahtevek.objects.create_zahtevek(oznaka=oznaka,
                                              naziv=naziv,
                                              rok_izvedbe=rok_izvedbe,
                                              narocilo=zahtevek.narocilo,
                                              nosilec=nosilec,
-                                             zahtevek_skodni_dogodek=zahtevek_skodni_dogodek,
-                                             zahtevek_sestanek=zahtevek_sestanek,
-                                             zahtevek_izvedba_dela=zahtevek_izvedba_dela,
                                              zahtevek_parent=zahtevek,
                                              )
 
@@ -229,3 +227,55 @@ class ZahtevekDetailView(DetailView):
             # os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
+class ZahtevekCreateIzbira():
+    pass
+
+
+class ZahtevekSestanekCreateView(TemplateView):
+    template_name = "zahtevki/zahtevek/create_sestanek.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ZahtevekSestanekCreateView, self).get_context_data(*args, **kwargs)
+        context['zahtevek_splosno_form'] = ZahtevekCreateForm
+        context['zahtevek_sestanek_form'] = ZahtevekSestanekCreateForm
+        return context
+
+    def post(self, request, *Args, **kwargs):
+        
+        zahtevek_splosno_form = ZahtevekCreateForm(request.POST or None)
+        zahtevek_sestanek_form = ZahtevekSestanekCreateForm(request.POST or None)
+
+        if zahtevek_splosno_form.is_valid():
+            oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
+            naziv = zahtevek_splosno_form.cleaned_data['naziv']
+            vrsta = zahtevek_splosno_form.cleaned_data['vrsta']
+            rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
+            narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
+            nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
+
+            zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
+                oznaka=oznaka,
+                vrsta=vrsta,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                nosilec=nosilec,
+            )
+            zahtevek = Zahtevek.objects.get(id=zahtevek_splosno_data.pk)
+
+        if zahtevek_sestanek_form.is_valid():
+
+            sklicatelj = zahtevek_sestanek_form.cleaned_data['sklicatelj']
+            # udelezenci = zahtevek_sestanek_form.cleaned_data['udelezenci']
+            datum = zahtevek_sestanek_form.cleaned_data['datum']
+
+            ZahtevekSestanek.objects.create_zahtevek_sestanek(
+                zahtevek=zahtevek,
+                sklicatelj=sklicatelj,
+                # udelezenci=udelezenci,
+                datum=datum,
+            )
+
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_list'))

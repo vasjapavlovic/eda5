@@ -13,10 +13,6 @@ from eda5.deli.models import Element
 
 class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
-
-    ''' POZOR !!! uporabljeni DJANGO-SIGNALS.
-    Avtomatsko se izdelajo posamezne vrste Zahtevkov. Glej spodaj'''
-
     # STATUS
     draft = 0
     # vCakanju = 1
@@ -91,14 +87,6 @@ class ZahtevekSkodniDogodek(models.Model):
     # CUSTOM PROPERTIES
 
     # METHODS
-    @receiver(post_save, sender=Zahtevek)
-    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
-
-        if instance.vrsta == 1:
-            if created:
-                sd = ZahtevekSkodniDogodek(zahtevek=instance)
-                sd.save()
-
     def get_absolute_url(self):
         # return reverse('moduli:zahtevki:zahtevek_list')
         return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
@@ -125,17 +113,10 @@ class ZahtevekSestanek(models.Model):
     datum = models.DateField(null=True, blank=True)
     #   Optional
     # OBJECT MANAGER
+    objects = managers.ZahtevekSestanekManager()
     # CUSTOM PROPERTIES
 
     # METHODS
-    @receiver(post_save, sender=Zahtevek)
-    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
-
-        if instance.vrsta == 2:
-            if created:
-                ses = ZahtevekSestanek(zahtevek=instance)
-                ses.save()
-
     def get_absolute_url(self):
         # return reverse('moduli:zahtevki:zahtevek_list')
         return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
@@ -159,17 +140,10 @@ class ZahtevekIzvedbaDela(models.Model):
     #   Optional
     is_zakonska_obveza = models.NullBooleanField(verbose_name='zakonska obveza')
     # OBJECT MANAGER
+    objects = managers.ZahtevekIzvedbaDelaManager()
     # CUSTOM PROPERTIES
 
-    # # METHODS
-    @receiver(post_save, sender=Zahtevek)
-    def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
-
-        if instance.vrsta == 3:
-            if created:
-                izvedba_del = ZahtevekIzvedbaDela(zahtevek=instance)
-                izvedba_del.save()
-
+    # METHODS
     def get_absolute_url(self):
         # return reverse('moduli:zahtevki:zahtevek_list')
         return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})

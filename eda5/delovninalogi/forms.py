@@ -1,3 +1,5 @@
+from functools import partial
+
 from django import forms
 from django.utils import timezone
 from django.core.exceptions import ValidationError
@@ -9,6 +11,8 @@ from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 
+DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 class OpraviloForm(forms.Form):
 
@@ -54,7 +58,10 @@ class OpraviloCreateForm(forms.ModelForm):
             'nadzornik',
             'oznaka',
         )
-        widgets = {'oznaka': forms.HiddenInput(),}
+        widgets = {
+            'oznaka': forms.HiddenInput(),
+            'rok_izvedbe': DateInput(),
+        }
 
 
 
@@ -73,9 +80,17 @@ class OpraviloModelForm(forms.ModelForm):
             'naziv',
             'rok_izvedbe',
             )
+        widgets = {
+            'rok_izvedbe': DateInput(),
+        }
 
 
 class DelovniNalogVcakanjuModelForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(DelovniNalogVcakanjuModelForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+        self.initial['status'] = 2
 
     class Meta:
         model = DelovniNalog
@@ -85,12 +100,9 @@ class DelovniNalogVcakanjuModelForm(forms.ModelForm):
             'nosilec',
             )
         widgets = {
-            'status': forms.HiddenInput()}
-
-    def __init__(self, *args, **kwargs):
-        super(DelovniNalogVcakanjuModelForm, self).__init__(*args, **kwargs)
-        # custom initial properties
-        self.initial['status'] = 2
+            'status': forms.HiddenInput(),
+            'datum_plan': DateInput(),
+        }
 
 
 class DelovniNalogVplanuModelForm(forms.ModelForm):
@@ -111,6 +123,14 @@ class DelovniNalogVplanuModelForm(forms.ModelForm):
 
 class DelovniNalogVresevanjuModelForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(DelovniNalogVresevanjuModelForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+        self.initial['status'] = 4
+        self.initial['datum_stop'] = timezone.now().date()
+
+        ''' validiraj Dokler so odprta dela, delovnega naloga ne moreš končati'''
+
     class Meta:
         model = DelovniNalog
         fields = (
@@ -119,18 +139,9 @@ class DelovniNalogVresevanjuModelForm(forms.ModelForm):
             )
         widgets = {
             'status': forms.HiddenInput(),
-            'datum_stop': forms.TextInput(attrs={'readonly':'True'})
+            'datum_stop': forms.TextInput(attrs={'readonly': 'True'},),
+            'datum_stop': DateInput(),
             }
-
-    def __init__(self, *args, **kwargs):
-        super(DelovniNalogVresevanjuModelForm, self).__init__(*args, **kwargs)
-        # custom initial properties
-        self.initial['status'] = 4
-        self.initial['datum_stop'] = timezone.now().date()
-
-
-        ''' validiraj Dokler so odprta dela, delovnega naloga ne moreš končati'''
-
 
 
 class DeloForm(forms.Form):
@@ -145,17 +156,18 @@ class DeloForm(forms.Form):
 
 class DeloZacetoUpdateModelForm(forms.ModelForm):
 
-    class Meta:
-        model = Delo
-        fields = ('time_stop',)
-        widgets = {'time_stop': forms.HiddenInput(),}
-
     def __init__(self, *args, **kwargs):
         super(DeloZacetoUpdateModelForm, self).__init__(*args, **kwargs)
         # custom initial properties
         self.initial['time_stop'] = timezone.now().time().strftime("%H:%M:%S")
 
-
+    class Meta:
+        model = Delo
+        fields = ('time_stop',)
+        widgets = {
+            'time_stop': forms.HiddenInput(),
+            'time_stop': TimeInput()
+        }
 
 
 # class DelovniNalogAddDokumentForm(forms.ModelForm):

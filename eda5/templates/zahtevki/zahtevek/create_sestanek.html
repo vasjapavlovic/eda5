@@ -1,0 +1,28 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+    <h1>Nov Zahtevek : Tip= Sestanek</h1>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Splosni podatki</div>
+        <div class="panel-body">
+            {{ zahtevek_splosno_form|crispy  }} 
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Posebnosti sestanka</div>
+        <div class="panel-body">
+            {{ zahtevek_sestanek_form|crispy  }}
+        </div>
+    </div>
+
+
+    <input type="submit" value="Potrdi">
+</form>
+
+{% endblock %}

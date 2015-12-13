@@ -1,8 +1,13 @@
+from functools import partial
+
 from django import forms
 from django.utils import timezone
 
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 from eda5.narocila.models import Narocilo
+
+DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
 class ZahtevekCreateForm(forms.ModelForm):
@@ -22,7 +27,7 @@ class ZahtevekCreateForm(forms.ModelForm):
         self.fields['narocilo'].queryset = Narocilo.objects.veljavna()
 
     def clean_oznaka(self):
-        # poskrbimo, post ne more povoziti OZNAKO, ki je readonly
+        # poskrbimo: post ne more povoziti OZNAKO, ki je readonly
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             return instance.oznaka
@@ -39,6 +44,9 @@ class ZahtevekCreateForm(forms.ModelForm):
             'narocilo',
             'nosilec',
         )
+        widgets = {
+            'rok_izvedbe': DateInput(),
+        }
 
 
 class PodzahtevekCreateForm(ZahtevekCreateForm):
@@ -79,6 +87,21 @@ class ZahtevekSkodniDogodekUpdateForm(forms.ModelForm):
         widgets = {"poskodovane_stvari": forms.CheckboxSelectMultiple}
 
 
+class ZahtevekSestanekCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = ZahtevekSestanek
+        fields = (
+            'datum',
+            'sklicatelj',
+            'udelezenci',
+        )
+        widgets = {
+            "udelezenci": forms.CheckboxSelectMultiple,
+            "datum": DateInput(),
+        }
+
+
 class ZahtevekSestanekUpdateForm(forms.ModelForm):
 
     class Meta:
@@ -88,7 +111,19 @@ class ZahtevekSestanekUpdateForm(forms.ModelForm):
             'datum',
             'udelezenci',
         )
-        widgets = {"udelezenci": forms.CheckboxSelectMultiple}
+        widgets = {
+            "udelezenci": forms.CheckboxSelectMultiple,
+            "datum": DateInput(),
+        }
+
+
+class ZahtevekIzvedbaDelaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = ZahtevekIzvedbaDela
+        fields = (
+            'is_zakonska_obveza',
+        )
 
 
 class ZahtevekIzvedbaDelUpdateForm(forms.ModelForm):

@@ -14,7 +14,6 @@ class NarociloIzbiraForm(forms.Form):
     pass
 
 
-
 class NarociloSplosnoCreateForm(forms.ModelForm):
 
     class Meta:

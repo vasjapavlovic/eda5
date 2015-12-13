@@ -28,37 +28,24 @@
 
     {% block detail_tab_content %}
 
-        <table class="table table-hover table-condensed">
+    <table class="table table-hover table-condensed">
         <tr>
-        <th>oznaka</th>
-        <th>naziv</th>
-        <th>stroškovno mesto</th>
-        <th>rok izvedbe</th>
-        <th>status</th>
+            <th>oznaka</th>
+            <th>opravilo</th>
+            <th>izvedeno dne</th>
+            <th>stroškovno mesto</th>
         </tr>
 
-    {% for opravilo in opravilo_list %}
 
-    {% if opravilo.is_active %}
+    {% for dn in delovninalog_list %}
+
     <tr>
-    {% else %}
-    <tr class="success">
-    {% endif %}
-
-
-    
-    <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a></td>
-    <td>{{ opravilo.naziv }}</td>
-    <td>{{ opravilo.vrsta_stroska.naziv }} ({{ opravilo.vrsta_stroska.oznaka }})</td>
-    <td>{{ opravilo.rok_izvedbe }}</td>
-
-    {# status #}
-    {% if opravilo.delovninalog_set.all %}
-    <td>V reševanju</td>
-    {% else %}
-    <td>v čakanju</td>
-    {% endif %}
+        <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.pk %}">{{ dn.oznaka }}</a></td>
+        <td>{{ dn.opravilo.naziv }}({{ dn.opravilo.oznaka }})</td>
+        <td>{{ dn.datum_stop }}</td>
+        <td>{{ dn.strosek.vrsta_stroska.naziv }} ({{ dn.strosek.vrsta_stroska.oznaka }})</td>
     </tr>
+
     {% endfor %}
 
     </table>

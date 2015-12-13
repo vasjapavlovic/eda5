@@ -49,7 +49,10 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
         verbose_name_plural = "računi"
 
     def __str__(self):
-        return "%s" % (self.dokument.oznaka)
+        if self.dokument:
+            return "%s" % (self.dokument.oznaka)
+        else:
+            return "%s" % (self.id)
 
 
 class Strosek(models.Model):

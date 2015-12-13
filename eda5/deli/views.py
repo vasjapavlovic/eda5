@@ -8,6 +8,7 @@ from .models import DelStavbe, Skupina, Element, Podskupina
 
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
 from eda5.katalog.models import ObratovalniParameter
+from eda5.racunovodstvo.models import Strosek
 
 
 class DelHomeView(TemplateView):
@@ -77,11 +78,17 @@ class ElementDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ElementDetailView, self).get_context_data(*args, **kwargs)
 
-
         opravila = Opravilo.objects.filter(element=self.object.id)
-        # dn = DelovniNalog.objects.filter(opravilo=opravila)
+
+        # sestavim sesznam delovnih-nalogov
+        delovninalog_list = []
+        for opravilo in opravila:
+            delovninalog_list = DelovniNalog.objects.filter(opravilo=opravilo)
+            list(delovninalog_list)
 
         context['opravilo_list'] = opravila
+        context['delovninalog_list'] = delovninalog_list
+
 
         # opravila = Opravilo.objects.filter(element=self.object.id)
         # dn = DelovniNalog.objects.filter(opravilo=opravila).exclude(strosek__isnull=True)

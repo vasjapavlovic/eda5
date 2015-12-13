@@ -46,6 +46,11 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     def delovninalog_vdelu_sorted_by_date(self):
         return self.delovninalog_set.exclude(datum_stop__isnull=False).order_by("datum_start")
 
+    @property
+    def st_elementov(self):
+        st_elementov = self.element.count()
+        return st_elementov
+
     # METHODS
     def get_absolute_url(self):
         return reverse("moduli:delovninalogi:opravilo_detail", kwargs={'pk': self.pk})
