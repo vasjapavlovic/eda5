@@ -30,6 +30,10 @@
 
     <link href="{% static 'timepicker/timepicker.css' %}" rel="stylesheet">
 
+    <!-- VELONIC -->
+    <link href="{% static 'admin/assets/notifications/notification.css' %}" rel="stylesheet" />
+
+
 
     {% endblock %}
 
@@ -82,12 +86,6 @@
 
         </div>
       </nav>
-
-
-
-
-      
-
     
 
     <div class="container">
@@ -95,7 +93,7 @@
       {% if messages %}
           {% for message in messages %}
               <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" >&times;</a>
               </div>
           {% endfor %}
       {% endif %}
@@ -137,6 +135,12 @@
       labelHour: "Ura", labelMinute: "Minuta" });
         });
         </script>
+
+        <!-- VELONIC -->
+        <script src="{% static 'admin/assets/notifications/notify.min.js' %}"></script>
+        <script src="{% static 'admin/assets/notifications/notify-metro.js' %}"></script>
+        <script src="{% static 'admin/assets/notifications/notifications.js' %}"></script>
+
         
 
         {% endblock javascript %}

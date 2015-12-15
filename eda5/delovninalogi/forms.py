@@ -4,7 +4,7 @@ from django import forms
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
-from .models import Opravilo, DelovniNalog, Delo, DeloVrsta
+from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop
 
 from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
@@ -183,3 +183,27 @@ class DeloZacetoUpdateModelForm(forms.ModelForm):
 #         # vidni samo računi
 #         vrsta_dokumenta = 1
 #         self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)
+
+class DeloVrstaSklopCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = DeloVrstaSklop
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+        )
+
+
+class DeloVrstaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = DeloVrsta
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+            'cena',
+            'stopnja_ddv',
+            'skupina',
+        )

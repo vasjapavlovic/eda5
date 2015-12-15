@@ -4,7 +4,7 @@ from django.utils import timezone
 from . import managers
 
 from eda5.core.models import TimeStampedModel
-from eda5.partnerji.models import Partner, SkupinaPartnerjev
+from eda5.partnerji.models import Partner, SkupinaPartnerjev, Oseba
 
 
 class Narocilo(TimeStampedModel):
@@ -28,10 +28,11 @@ class Narocilo(TimeStampedModel):
     # ***Optional***
     # OBJECT MANAGER
     objects = managers.NarociloManager()
+
     # CUSTOM PROPERTIES
     @property
     def status(self):
-        if datum_veljavnosti__lte == timezone.now().date():
+        if datum_veljavnosti <= timezone.now().date():
             return "veljavno"
         else:
             return "neveljavno"
@@ -71,6 +72,7 @@ class NarociloTelefon(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
+    oseba = models.ForeignKey(Oseba, blank=True, null=True)
     # ***Mandatory***
     telefonska_stevilka = models.CharField(max_length=20)
     datum_klica = models.DateField()

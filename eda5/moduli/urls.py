@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^deli/', include("eda5.deli.urls", namespace="deli")),
     url(r'^delovninalogi/', include("eda5.delovninalogi.urls", namespace="delovninalogi")),
     url(r'^lastnina/', include("eda5.etaznalastnina.urls", namespace="lastnina")),
+    url(r'^uvoz/', include("eda5.import.urls", namespace="import")),
     url(r'^katalog/', include("eda5.katalog.urls", namespace="katalog")),
     url(r'^narocila/', include("eda5.narocila.urls", namespace="narocila")),
     url(r'^partnerji/', include("eda5.partnerji.urls", namespace="partnerji")),

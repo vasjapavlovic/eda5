@@ -1,0 +1,12 @@
+oznaka,naziv,zap_st,cena,stopnja_ddv,skupina
+LVZ,Lažja vzdrževalna dela,1,10,0.22,TVZ
+ZVZ,Zahtevna vzdrževalna dela,2,15,0.22,TVZ
+KOO,Koordinacija izvajalcev del,3,10,0.22,TVZ
+TEH,Tehnični nadzori,1,15,0.22,PRG
+EC,Enostavno čiščenje,1,10,0.22,CIS
+CS,Čiščenje steklenih površin,2,10,0.095,CIS
+GC,Generalno čiščenje,3,10,0.22,CIS
+SC,Strojno čiščenje,4,10,0.22,CIS
+UPR-S,Splošne upravljavske naloge,1,10,0.22,UPR
+UPR-D,Dodatne upravljavske naloge,2,15,0.22,UPR
+VOD-P,Vodenje - prokurist,1,10,0.22,VOD

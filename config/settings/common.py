@@ -53,6 +53,7 @@ LOCAL_APPS = (
     'eda5.skladisce',   # dobava in prevzem blaga
     'eda5.etaznalastnina',  # elaborat etažne lastnine, interne lastniske enote
     'eda5.katalog',  # katalog artiklov
+    'eda5.import',  # uvoz podatkov v bazo
     'eda5.lastnistvo',  # prevzem v last, oddaja v najem
     'eda5.moduli',  # zbirnik vseh modulov
     'eda5.narocila',  # naročila partnerjev

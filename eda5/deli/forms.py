@@ -23,3 +23,24 @@ class DelCreateForm(forms.Form):
     naziv = forms.CharField(max_length=255)
     shema = forms.FileField(required=False)
     lastniska_skupina = forms.ModelChoiceField(required=False, queryset=LASTNISKE_SKUPINE)
+
+
+class SkupinaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Skupina
+        fields = (
+            'oznaka',
+            'naziv',
+        )
+
+
+class PodskupinaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Podskupina
+        fields = (
+            'oznaka',
+            'naziv',
+            'skupina'
+        )

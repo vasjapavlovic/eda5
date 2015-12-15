@@ -30,12 +30,14 @@ class NarociloTelefonCreateView(TemplateView):
         narocilo_telefon_form = forms.NarociloTelefonCreateForm(request.POST or None)
 
         if narocilo_telefon_form.is_valid():
+            oseba = narocilo_telefon_form.cleaned_data['oseba']
             telefonska_stevilka = narocilo_telefon_form.cleaned_data['telefonska_stevilka']
             datum_klica = narocilo_telefon_form.cleaned_data['datum_klica']
             cas_klica = narocilo_telefon_form.cleaned_data['cas_klica']
             telefonsko_sporocilo = narocilo_telefon_form.cleaned_data['telefonsko_sporocilo']
 
             narocilo_telefon_data = NarociloTelefon.objects.create_narocilo_telefon(
+                oseba=oseba,
                 telefonska_stevilka=telefonska_stevilka,
                 datum_klica=datum_klica,
                 cas_klica=cas_klica,

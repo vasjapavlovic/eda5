@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Racun
+from .models import Racun, Konto, PodKonto, SkupinaVrsteStroska, VrstaStroska
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec
 
 
@@ -39,3 +39,49 @@ class RacunAddWidget(forms.Form):
     obdobje_obracuna_leto = forms.ModelChoiceField(queryset=OBDOBJE_LETO)
     obdobje_obracuna_mesec = forms.ModelChoiceField(queryset=OBDOBJE_MESEC)
 
+
+class KontoCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Konto
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+        )
+
+
+class PodkontoCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = PodKonto
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+            'skupina',
+        )
+
+
+class SkupinaVrsteStroskaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = SkupinaVrsteStroska
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+            'skupina',
+        )
+
+
+class VrstaStroskaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = VrstaStroska
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+            'skupina',
+        )

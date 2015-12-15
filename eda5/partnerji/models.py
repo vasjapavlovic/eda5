@@ -10,7 +10,9 @@ from .managers import OsebaManager, TrrManager
 
 
 ''' POZOR !!! uporabljeni DJANGO-SIGNALS.
-    Avtomatsko se izdelajo SkupinaPartnerjev. Glej spodaj'''
+    Avtomatsko se izdelajo 
+        - SkupinaPartnerjev
+        - osebe za partnerje kot fizične osebe.'''
 
 
 class Partner(TimeStampedModel, IsActiveModel):
@@ -60,7 +62,7 @@ class SkupinaPartnerjev(TimeStampedModel):
     def create_skupina_partnerjev_from_partner(sender, created, instance, **kwargs):
 
         if created:
-            skupina_partnerjev = SkupinaPartnerjev(davcna_st=instance.davcna_st, naziv=instance.kratko_ime)
+            skupina_partnerjev = SkupinaPartnerjev(oznaka=instance.davcna_st, naziv=instance.kratko_ime)
             skupina_partnerjev.save()
             skupina_partnerjev.partner.add(instance.pk)  # dodajanje k many-to-many
 
@@ -102,6 +104,7 @@ class Posta(TimeStampedModel, IsActiveModel):
     class Meta:
         verbose_name = "Pošta"
         verbose_name_plural = "Pošte"
+        ordering = ['postna_stevilka',]
 
     def __str__(self):
         return "%s %s" % (self.postna_stevilka, self.naziv)
@@ -138,9 +141,6 @@ class TRRacun(TimeStampedModel, IsActiveModel):
         return "%s - %s | %s" % (self.partner.kratko_ime, self.iban, self.banka.bic_koda)
 
 
-'''
-Pooblaščene osebe partnerja. Pooblaščena za naročila, Delavci, itd.
-'''
 class Oseba(TimeStampedModel, IsActiveModel):
 
     # STATUS
@@ -158,7 +158,14 @@ class Oseba(TimeStampedModel, IsActiveModel):
     kvalifikacije = models.TextField(blank=True)
     podjetje = models.ForeignKey(Partner)
 
-    '''Dodaj Davčno Številko Osebam.'''
+    @receiver(post_save, sender=Partner)
+    def create_oseba_from_partner(sender, created, instance, **kwargs):
+
+        if created:
+            if instance.is_pravnaoseba is False:
+                parametri_imena = instance.kratko_ime.split(' ')
+                oseba = Oseba(priimek=parametri_imena[0], ime=parametri_imena[1], status="A", podjetje=instance)
+                oseba.save()
 
     objects = OsebaManager()
 

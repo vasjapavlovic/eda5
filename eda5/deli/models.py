@@ -15,7 +15,7 @@ class Skupina(models.Model):
     # ATRIBUTES
     # ***Relations***
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     # ***Optional***
 
@@ -44,7 +44,7 @@ class Podskupina(models.Model):
     # ***Relations***
     skupina = models.ForeignKey(Skupina)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     # ***Optional***
 

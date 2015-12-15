@@ -31,7 +31,6 @@ class NarociloManager(models.Manager):
             narocilo_telefon=narocilo_telefon,
         )
         narocilo_model.save(using=self._db)
-        print(narocilo_model.pk)
         return narocilo_model
 
 
@@ -39,12 +38,14 @@ class NarociloTelefonManager(models.Manager):
 
     def create_narocilo_telefon(
         self,
+        oseba=None,
         telefonska_stevilka=None,
         datum_klica=None,
         cas_klica=None,
         telefonsko_sporocilo=None,
     ):
         narocilo_telefon_model = self.model(
+            oseba=oseba,
             telefonska_stevilka=telefonska_stevilka,
             datum_klica=datum_klica,
             cas_klica=cas_klica,

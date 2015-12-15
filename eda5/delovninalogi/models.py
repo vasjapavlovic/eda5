@@ -174,9 +174,9 @@ class DeloVrsta(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    sklop = models.ForeignKey('DeloVrstaSklop')
+    skupina = models.ForeignKey('DeloVrstaSklop')
     #   Mandatory
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     zap_st = models.IntegerField(default=99)
     # vrednosti do 99,99 EUR (na dve decimalni mesti natančno)
@@ -202,10 +202,10 @@ class DeloVrstaSklop(models.Model):
     # ATRIBUTES
     #   Relations
     #   Mandatory
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
-    zap_st = models.IntegerField(default=99)
     #   Optional
+    zap_st = models.IntegerField(default=99)
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS

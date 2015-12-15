@@ -122,9 +122,10 @@ class Konto(models.Model):
     # ATRIBUTES
     # ***Relations***
     # ***Mandatory***
-    oznaka = models.CharField(max_length=10)
+    oznaka = models.CharField(max_length=10, unique=True)
     naziv = models.CharField(max_length=50)
     # ***Optional***
+    zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
@@ -133,7 +134,7 @@ class Konto(models.Model):
     class Meta:
         verbose_name = 'konto'
         verbose_name_plural = "konti"
-        ordering = ("oznaka",)
+        ordering = ("zap_st",)
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)
@@ -146,7 +147,7 @@ class PodKonto(models.Model):
     # ***Relations***
     skupina = models.ForeignKey(Konto)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=10)
+    oznaka = models.CharField(max_length=10, unique=True)
     naziv = models.CharField(max_length=50)
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # ***Optional***
@@ -170,7 +171,7 @@ class SkupinaVrsteStroska(models.Model):
     # ***Relations***
     skupina = models.ForeignKey(PodKonto)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=200)
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # ***Optional***
@@ -194,7 +195,7 @@ class VrstaStroska(models.Model):
     # ***Relations***
     skupina = models.ForeignKey(SkupinaVrsteStroska)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=200)
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # ***Optional***
@@ -210,6 +211,3 @@ class VrstaStroska(models.Model):
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)
-
-
-

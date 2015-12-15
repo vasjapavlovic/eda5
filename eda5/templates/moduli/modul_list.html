@@ -96,12 +96,77 @@
         <div id="page-content-wrapper">
             <div class="container">
             {% block content2 %}
-                <li>
-                    <a href="{% url 'moduli:deli:del_list' %}">Deli</a>
-                </li>
-                <li>
-                    <a href="{% url 'moduli:delovninalogi:home' %}">Delovni-Nalogi</a>
-                </li>
+
+
+
+                    <a class="btn btn-success href" href="{% url 'moduli:delovninalogi:home' %}">Delovni-Nalogi</a>
+
+<div class="wraper container-fluid">
+                <div class="page-title"> 
+                    <h3 class="title">Welcome !</h3> 
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 bg-pink">
+                            <i class="ion-eye"></i> 
+                            <h2 class="m-0 counter">50</h2>
+                            <div>Daily Visits</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 bg-purple">
+                            <i class="ion-paper-airplane"></i> 
+                            <h2 class="m-0 counter">12056</h2>
+                            <div>Sales</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 bg-info">
+                            <i class="ion-ios7-pricetag"></i> 
+                            <h2 class="m-0 counter">1268</h2>
+                            <div>New Orders</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 bg-success">
+                            <i class="ion-android-contacts"></i> 
+                            <h2 class="m-0 counter">145</h2>
+                            <div>New Users</div>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+</div>
+
+
+
+<!-- /.row -->
+            <div class="row">
+
+                <div class="col-lg-2 col-md-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h3><a href="{% url 'moduli:delovninalogi:home' %}"><b>D</b>elovni Nalogi</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h3><a href="{% url 'moduli:narocila:home' %}"><b>N</b>aročila</a></h3>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
                 <li>
                     <a href="">Etažna Lastnina</a>
                 </li>
@@ -137,6 +202,9 @@
                 </li>
 
 
+            
+
+
 
 
             {% endblock content2 %}
@@ -156,7 +224,7 @@
 </div>
 
     </div>
-    <
+    
 
 {% endblock %}
 
