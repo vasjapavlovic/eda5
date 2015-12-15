@@ -128,3 +128,14 @@ class PostaCreateForm(forms.ModelForm):
             'naziv',
             'drzava',
             )
+
+
+class BankaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Banka
+        fields = (
+            'bic_koda',
+            'bancna_oznaka',
+            'partner',
+        )

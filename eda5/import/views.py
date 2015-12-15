@@ -10,8 +10,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, T
 
 from .forms import UvozCsvForm
 
-from eda5.partnerji.forms import PostaCreateForm, PartnerCreateForm
-from eda5.partnerji.models import Posta
+from eda5.partnerji.forms import PostaCreateForm, PartnerCreateForm, BankaCreateForm
+from eda5.partnerji.models import Partner, Posta
 
 from eda5.deli.forms import SkupinaCreateForm, PodskupinaCreateForm
 from eda5.deli.models import Skupina
@@ -65,9 +65,7 @@ class UvozCsv(TemplateView):
             seznam = csv.DictReader(rows, delimiter=",")
 
             for row in seznam:
-                print(row)
                 postna_stevilka = row['posta']
-                print(postna_stevilka)
                 try:
                     posta = Posta.objects.get(postna_stevilka=postna_stevilka)
                 except:
@@ -84,6 +82,68 @@ class UvozCsv(TemplateView):
                     records_added += 1
 
             return messages.success(request, "Število novo dodanih parnerjev: %s" % (records_added))
+
+        def import_partnerji_samo_banke():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/partnerji/partner_banka.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            for row in seznam:
+
+                # oznako skupine zamenjamo z ID skupine
+                postna_stevilka = row['posta']
+                try:
+                    posta = Posta.objects.get(postna_stevilka=postna_stevilka)
+                    row['posta'] = posta.pk
+                    form = PartnerCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
+                except:
+                    import_poste()
+
+            # na ekranu prikažem informacijo o številu uvozov
+            return messages.success(request, "BANKE: Število dodanih vnosov: %s" % (records_added))
+
+        def import_partnerji_banka():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/partnerji/banka.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            for row in seznam:
+
+                # oznako skupine zamenjamo z ID skupine
+                partner_davcna_st = row['partner']
+                try:
+                    partner = Partner.objects.get(davcna_st=partner_davcna_st)
+                    row['partner'] = partner.pk
+                    form = BankaCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
+                except:
+                    import_partnerji_samo_banke()
+
+            # na ekranu prikažem informacijo o številu uvozov
+            return messages.success(request, "BANKA-BIC: Število dodanih vnosov: %s" % (records_added))
 
         def import_deli_skupine():
 
@@ -265,7 +325,10 @@ class UvozCsv(TemplateView):
                     form.save()
                     records_added += 1
 
-            return messages.success(request, "DELOVNI_NALOGI:DELO_VRSTA_SKLOP Število dodanih vnosov: %s" % (records_added))
+            return messages.success(
+                request,
+                "DELOVNI_NALOGI:DELO_VRSTA_SKLOP Število dodanih vnosov: %s" % (records_added)
+            )
 
         def import_delovninalog_delo_vrsta():
 
@@ -302,6 +365,9 @@ class UvozCsv(TemplateView):
 
             if uvoz_form.cleaned_data['poste'] is True:
                 import_poste()
+
+            if uvoz_form.cleaned_data['banke'] is True:
+                import_partnerji_banka()
 
             if uvoz_form.cleaned_data['partnerji'] is True:
                 import_partnerji()
