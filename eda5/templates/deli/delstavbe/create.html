@@ -1,0 +1,18 @@
+{% extends "moduli/detail.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block vsebina_modula %}
+
+<h1 class="widget-panel widget-style-3 bg-muted">Deli Stavbe : Nov Vnos</h1>
+
+<form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
+    
+                
+        {{ form | crispy }}
+
+        <input type="submit" value="Potrdi">
+
+</form>
+
+{% endblock %}

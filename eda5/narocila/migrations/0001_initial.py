@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Narocilo',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
+                ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('predmet', models.CharField(max_length=255)),
                 ('datum_narocila', models.DateField(verbose_name='datum naročila')),
@@ -23,38 +23,38 @@ class Migration(migrations.Migration):
                 ('vrednost', models.DecimalField(max_digits=7, decimal_places=2)),
             ],
             options={
-                'verbose_name': 'naročilo',
                 'verbose_name_plural': 'naročila',
+                'verbose_name': 'naročilo',
             },
         ),
         migrations.CreateModel(
             name='NarociloPogodba',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated', models.DateTimeField(auto_now=True, null=True)),
-                ('st_pogodbe', models.CharField(verbose_name='številka pogodbe', max_length=20)),
-                ('predmet_pogodbe', models.CharField(verbose_name='številka pogodbe', max_length=255)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
+                ('updated', models.DateTimeField(null=True, auto_now=True)),
+                ('st_pogodbe', models.CharField(max_length=20, verbose_name='številka pogodbe')),
+                ('predmet_pogodbe', models.CharField(max_length=255, verbose_name='številka pogodbe')),
             ],
             options={
-                'verbose_name': 'pogodbeno naročilo',
                 'verbose_name_plural': 'pogodbena naročila',
+                'verbose_name': 'pogodbeno naročilo',
             },
         ),
         migrations.CreateModel(
             name='NarociloTelefon',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
+                ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('telefonska_stevilka', models.CharField(max_length=20)),
                 ('datum_klica', models.DateField()),
                 ('cas_klica', models.TimeField()),
                 ('telefonsko_sporocilo', models.CharField(max_length=255)),
             ],
             options={
-                'verbose_name': 'naročilo po telefonu',
                 'verbose_name_plural': 'naročila po telefonu',
+                'verbose_name': 'naročilo po telefonu',
             },
         ),
     ]

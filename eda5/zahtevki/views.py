@@ -22,6 +22,8 @@ from eda5.zaznamki.models import Zaznamek
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
 from eda5.arhiv.models import Arhiv, ArhivMesto, Arhiviranje
 
+from eda5.moduli.models import Zavihek
+
 
 class ZahtevekHomeView(TemplateView):
     template_name = "zahtevki/home.html"
@@ -40,7 +42,9 @@ class ZahtevekCreateView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekCreateView, self).get_context_data(*args, **kwargs)
+
         context['zahtevek_form'] = ZahtevekCreateForm
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -240,6 +244,10 @@ class ZahtevekSestanekCreateView(TemplateView):
         context = super(ZahtevekSestanekCreateView, self).get_context_data(*args, **kwargs)
         context['zahtevek_splosno_form'] = ZahtevekCreateForm
         context['zahtevek_sestanek_form'] = ZahtevekSestanekCreateForm
+
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_SESTANEK_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
         return context
 
     def post(self, request, *Args, **kwargs):

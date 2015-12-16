@@ -14,90 +14,108 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ArtikelPlan',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('naziv', models.CharField(max_length=255)),
-                ('perioda_predpisana_enota', models.CharField(verbose_name='enota periode', choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')], max_length=5)),
+                ('perioda_predpisana_enota', models.CharField(choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')], max_length=5, verbose_name='enota periode')),
                 ('perioda_predpisana_enota_kolicina', models.IntegerField(verbose_name='kolicina enote periode')),
                 ('perioda_predpisana_kolicina_na_enoto', models.IntegerField(verbose_name='kolicina na enoto periode')),
             ],
             options={
-                'verbose_name': 'Plan Obratovanja in Vzdrževanja',
                 'verbose_name_plural': 'Plan Obratovanja in Vzdrževanja',
+                'verbose_name': 'Plan Obratovanja in Vzdrževanja',
+            },
+        ),
+        migrations.CreateModel(
+            name='Karakteristika',
+            fields=[
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('oznaka', models.CharField(max_length=20)),
+                ('enota', models.CharField(blank=True, max_length=20)),
+                ('opis', models.CharField(blank=True, max_length=255, verbose_name='opis')),
+            ],
+            options={
+                'verbose_name_plural': 'karakteristike artiklov',
+                'verbose_name': 'karakteristika artikla',
+            },
+        ),
+        migrations.CreateModel(
+            name='KarakteristikaVrednost',
+            fields=[
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('vrednost', models.CharField(max_length=20)),
+            ],
+            options={
+                'verbose_name_plural': 'vrednosti karakteristik',
+                'verbose_name': 'vrednost karakteristike',
             },
         ),
         migrations.CreateModel(
             name='ModelArtikla',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('naziv', models.CharField(max_length=255)),
-                ('P1_title', models.CharField(verbose_name='P1 title', null=True, max_length=255, blank=True)),
-                ('P1_value', models.CharField(verbose_name='P1 value', null=True, max_length=255, blank=True)),
-                ('P2_title', models.CharField(verbose_name='P2 title', null=True, max_length=255, blank=True)),
-                ('P2_value', models.CharField(verbose_name='P2 value', null=True, max_length=255, blank=True)),
-                ('P3_title', models.CharField(verbose_name='P3 title', null=True, max_length=255, blank=True)),
-                ('P3_value', models.CharField(verbose_name='P3 value', null=True, max_length=255, blank=True)),
-                ('P4_title', models.CharField(verbose_name='P4 title', null=True, max_length=255, blank=True)),
-                ('P4_value', models.CharField(verbose_name='P4 value', null=True, max_length=255, blank=True)),
-                ('P5_title', models.CharField(verbose_name='P5 title', null=True, max_length=255, blank=True)),
-                ('P5_value', models.CharField(verbose_name='P5 value', null=True, max_length=255, blank=True)),
             ],
             options={
+                'verbose_name_plural': 'modeli artiklov',
                 'verbose_name': 'model artikla',
                 'ordering': ('naziv',),
-                'verbose_name_plural': 'modeli artiklov',
             },
         ),
         migrations.CreateModel(
             name='ObratovalniParameter',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('oznaka', models.CharField(max_length=20)),
-                ('enota', models.CharField(max_length=20, blank=True)),
-                ('opis', models.CharField(verbose_name='opis', max_length=255, blank=True)),
-                ('artikel', models.ForeignKey(to='katalog.ModelArtikla', null=True, blank=True)),
+                ('enota', models.CharField(blank=True, max_length=20)),
+                ('opis', models.CharField(blank=True, max_length=255, verbose_name='opis')),
             ],
             options={
-                'verbose_name': 'obratovalni parameter',
                 'verbose_name_plural': 'obratovalni parametri',
+                'verbose_name': 'obratovalni parameter',
             },
         ),
         migrations.CreateModel(
             name='Proizvajalec',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('naziv', models.CharField(max_length=100, unique=True)),
             ],
             options={
+                'verbose_name_plural': 'proizvajalci',
                 'verbose_name': 'proizvajalec',
                 'ordering': ('naziv',),
-                'verbose_name_plural': 'proizvajalci',
             },
         ),
         migrations.CreateModel(
             name='RezervniDel',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('naziv', models.CharField(max_length=255)),
-                ('oznaka', models.CharField(max_length=25, blank=True)),
+                ('oznaka', models.CharField(blank=True, max_length=25)),
                 ('artikel', models.ForeignKey(to='katalog.ModelArtikla')),
             ],
             options={
-                'verbose_name': 'Rezervni Del',
                 'verbose_name_plural': 'Rezervni Deli',
+                'verbose_name': 'Rezervni Del',
             },
         ),
         migrations.CreateModel(
             name='TipArtikla',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
+                'verbose_name_plural': 'tipi artiklov',
                 'verbose_name': 'tip artikla',
                 'ordering': ('oznaka',),
-                'verbose_name_plural': 'tipi artiklov',
             },
+        ),
+        migrations.AddField(
+            model_name='obratovalniparameter',
+            name='tip_artikla',
+            field=models.ForeignKey(to='katalog.TipArtikla', blank=True, null=True),
         ),
         migrations.AddField(
             model_name='modelartikla',
@@ -110,6 +128,21 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(to='katalog.TipArtikla'),
         ),
         migrations.AddField(
+            model_name='karakteristikavrednost',
+            name='artikel',
+            field=models.ForeignKey(to='katalog.ModelArtikla', blank=True, null=True),
+        ),
+        migrations.AddField(
+            model_name='karakteristikavrednost',
+            name='karakteristika',
+            field=models.ForeignKey(to='katalog.Karakteristika'),
+        ),
+        migrations.AddField(
+            model_name='karakteristika',
+            name='tip_artikla',
+            field=models.ForeignKey(to='katalog.TipArtikla', blank=True, null=True),
+        ),
+        migrations.AddField(
             model_name='artikelplan',
             name='artikel',
             field=models.ForeignKey(to='katalog.ModelArtikla'),
@@ -117,6 +150,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='artikelplan',
             name='predpis_opravilo',
-            field=models.ForeignKey(to='predpisi.PredpisOpravilo', null=True, blank=True),
+            field=models.ForeignKey(to='predpisi.PredpisOpravilo', blank=True, null=True),
         ),
     ]

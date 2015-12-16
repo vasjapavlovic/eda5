@@ -1,0 +1,109 @@
+{% extends "moduli/detail.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- sidebar podatki -->
+{% block navbar %}
+    
+    <li>
+        <a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}"><i class="ion-home"></i>
+            <span class="nav-label">{{ modul_zavihek.modul.naziv }}</span>
+        </a>
+    </li>
+
+    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
+    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+    {% endfor %}
+
+{% endblock %}
+
+
+
+{% block naziv_modula %}
+
+    <a class="navbar-brand" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">
+        {{ modul_zavihek.modul.naziv }}
+    </a>
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block left-navbar %}
+
+    <li><a href="{% url 'moduli:partnerji:partner_list' %}">Celoten Seznam</a></li>
+    <form role="search" class="navbar-left app-search pull-left hidden-xs">
+        <input type="text" placeholder="Search..." class="form-control" name="q" id="search_text">
+    </form>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="wraper container-fluid">
+                <div class="page-title"> 
+                    <h3 class="title">{{ modul_zavihek.naziv }}</h3> 
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                           
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <table id="datatable" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>zap. št.</th>
+                                                    <th>Naziv</th>
+                                                    <th>Naslov</th>
+                                                    <th>Davčna št.</th>
+                                                    <th>Matična št.</th>
+                                                </tr>
+                                            </thead>
+
+                                     
+                                            <tbody>
+                                                {% for object in object_list %}
+
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td><b><a href="{% url 'moduli:partnerji:partner_detail' object.id %}">{{ object.kratko_ime }}</a></b></td>
+                                                    <td>{{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}</td>
+                                                    <td>{{ object.davcna_st }}</td>
+                                                    <td>{{ object.maticna_st }}</td>
+                                                </tr>
+
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div> <!-- End Row -->
+
+{% endblock %}
+
+{% block javascript_extra %}
+
+        
+
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#datatable').dataTable();
+            } );
+        </script>
+
+{% endblock %}

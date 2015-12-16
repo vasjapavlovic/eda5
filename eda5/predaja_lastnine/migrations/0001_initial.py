@@ -15,46 +15,46 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Daljinec',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('oznaka', models.CharField(max_length=4)),
                 ('status', models.IntegerField(choices=[(1, 'v uporabi'), (2, 'izklopljen')], default=1)),
-                ('stevilka', models.CharField(max_length=20, blank=True)),
+                ('stevilka', models.CharField(blank=True, max_length=20)),
             ],
             options={
-                'verbose_name': 'daljinec',
                 'verbose_name_plural': 'daljinci',
+                'verbose_name': 'daljinec',
             },
         ),
         migrations.CreateModel(
             name='PredajaDaljinca',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('oznaka', models.CharField(max_length=4)),
                 ('datum', models.DateField()),
                 ('daljinec', models.ForeignKey(to='predaja_lastnine.Daljinec')),
             ],
             options={
-                'verbose_name': 'predaja daljinca',
                 'verbose_name_plural': 'predaje daljincev',
+                'verbose_name': 'predaja daljinca',
             },
         ),
         migrations.CreateModel(
             name='PredajaLastnine',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('oznaka', models.CharField(max_length=4)),
                 ('datum', models.DateField()),
-                ('tip_predaje', models.CharField(verbose_name='tip predaje etažne lastnine', choices=[('P', 'predaja v last'), ('N', 'predaja v najem')], max_length=1)),
-                ('trajanje', models.CharField(max_length=50, blank=True)),
-                ('dokument', models.CharField(max_length=50, blank=True)),
+                ('tip_predaje', models.CharField(choices=[('P', 'predaja v last'), ('N', 'predaja v najem')], max_length=1, verbose_name='tip predaje etažne lastnine')),
+                ('trajanje', models.CharField(blank=True, max_length=50)),
+                ('dokument', models.CharField(blank=True, max_length=50)),
                 ('daljinec', models.ManyToManyField(through='predaja_lastnine.PredajaDaljinca', to='predaja_lastnine.Daljinec')),
                 ('kupec', models.ForeignKey(to='partnerji.Partner', related_name='kupec')),
                 ('lastniska_enota_interna', models.ForeignKey(to='etaznalastnina.LastniskaEnotaInterna', verbose_name='Interna lastniška enota')),
                 ('prodajalec', models.ForeignKey(to='partnerji.Partner', related_name='prodajalec')),
             ],
             options={
-                'verbose_name': 'predaja lastnine',
                 'verbose_name_plural': 'predaje lastnine',
+                'verbose_name': 'predaja lastnine',
             },
         ),
         migrations.AddField(

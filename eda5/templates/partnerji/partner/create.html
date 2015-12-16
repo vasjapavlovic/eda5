@@ -1,0 +1,37 @@
+{% extends "moduli/detail.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- sidebar podatki -->
+{% block navbar %}
+    <li><a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}"><i class="ion-home"></i><span class="nav-label">{{ modul_zavihek.modul.naziv }}</span></a></li>
+    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
+    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+
+{% block naziv_modula %}<a class="navbar-brand" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">{{ modul_zavihek.modul.naziv }}</a>{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class="container">
+
+<div class="wraper container-fluid">
+    <div class="page-title"> 
+        <h3 class="title">{{ modul_zavihek.naziv }}</h3> 
+    </div>
+
+<form method="POST", action="">{% csrf_token %}
+            
+    {{ form | crispy }}
+    <input type="submit" value="Potrdi">
+
+</form>
+
+</div>
+
+{% endblock %}

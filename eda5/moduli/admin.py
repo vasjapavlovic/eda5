@@ -1,5 +1,21 @@
 from django.contrib import admin
 
-from .models import Modul
+from .models import Modul, Zavihek
 
-admin.site.register(Modul)
+
+class ZavihekInline(admin.TabularInline):
+    model = Zavihek
+    extra = 0
+
+
+@admin.register(Modul)
+class ModulAdmin(admin.ModelAdmin):
+
+    inlines = [
+        ZavihekInline,
+    ]
+
+
+@admin.register(Zavihek)
+class ZavihekAdmin(admin.ModelAdmin):
+    pass

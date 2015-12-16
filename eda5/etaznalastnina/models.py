@@ -2,67 +2,12 @@ from django.db import models
 from eda5.partnerji.models import Partner, Posta
 
 
-class LastniskaEnotaElaborat(models.Model):
-    # ATRIBUTES
-    # __Relations
-    # __Mandatory
-    oznaka = models.CharField(max_length=4, verbose_name='številka dela stavbe')
-    povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
-    '''************Dodaj Lastniški delež***********'''
-    naslov = models.CharField(max_length=255)
-    posta = models.ForeignKey(Posta, verbose_name='pošta')
-    # __Optional
-    # OBJECT MANAGER
-    # CUSTOM PROPERTIES
-    # METHODS
-
-    # META AND STRING
-    class Meta:
-        verbose_name = "lastniška enota elaborat"
-        verbose_name_plural = "lastniške enote elaborat"
-        ordering = ("oznaka",)
-
-    def __str__(self):
-        return "%s | %s, %s" % (self.oznaka, self.naslov, self.posta)
-
-
-class LastniskaEnotaInterna(models.Model):
-    # ATRIBUTES
-    # __Relations
-    elaborat = models.ForeignKey(LastniskaEnotaElaborat)
-    # lastnik = models.ForeignKey(Partner, related_name="lastnik")
-    # najemnik = models.ForeignKey(Partner, null=True, blank=True, related_name="najemnik")
-    # placnik = models.ForeignKey(Partner, related_name="placnik")
-    # __Mandatory
-    oznaka = models.CharField(max_length=5, verbose_name='interna številka dela stavbe')
-    program = models.CharField(max_length=50)
-
-    '''************Dodati je še ostale atribute***********'''
-    # __Optional
-    #______delež v obliki :  0.9999
-    lastniski_delez = models.DecimalField(decimal_places=4, max_digits=5, blank=True, verbose_name="lastniški delež")
-    povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
-    st_oseb = models.DecimalField(max_digits=2, decimal_places=1, blank=True, verbose_name="število oseb")
-    # OBJECT MANAGER
-    # CUSTOM PROPERTIES
-    # METHODS
-
-    # META AND STRING
-    class Meta:
-        verbose_name = "lastniška enota interna"
-        verbose_name_plural = "lastniške enote interna"
-        ordering = ("oznaka",)
-
-    def __str__(self):
-        return "%s | %s | %s" % (self.oznaka, self.elaborat.oznaka, self.program)
-
-
 class Program(models.Model):
 
     # ATRIBUTES
     # ***Relations***
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # ***Optional***
@@ -80,6 +25,62 @@ class Program(models.Model):
         return "%s | %s" % (self.oznaka, self.naziv)
 
 
+class LastniskaEnotaElaborat(models.Model):
+    # ATRIBUTES
+    # __Relations
+    program = models.ForeignKey(Program, blank=True, null=True)
+    posta = models.ForeignKey(Posta, verbose_name='pošta')
+    # __Mandatory
+    oznaka = models.CharField(max_length=4, unique=True, verbose_name='številka dela stavbe')
+    naslov = models.CharField(max_length=255)
+    opis = models.CharField(max_length=255, blank=True)
+    povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
+    lastniski_delez = models.DecimalField(decimal_places=4, max_digits=5, blank=True, null=True, verbose_name="lastniški delež")
+
+    # __Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    @property
+    def id_stevilka(self):
+        id_stevilka = int(self.oznaka)
+        return id_stevilka
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "lastniška enota elaborat"
+        verbose_name_plural = "lastniške enote elaborat"
+        ordering = ("id",)
+
+    def __str__(self):
+        return "%s | %s, %s" % (self.oznaka, self.naslov, self.posta)
+
+
+class LastniskaEnotaInterna(models.Model):
+    # ATRIBUTES
+    # __Relations
+    elaborat = models.ForeignKey(LastniskaEnotaElaborat)
+    # __Mandatory
+    oznaka = models.CharField(max_length=5, unique=True, verbose_name='interna številka dela stavbe')
+    # __Optional
+    #______delež v obliki :  0.9999
+    lastniski_delez = models.DecimalField(decimal_places=4, max_digits=5, blank=True, verbose_name="lastniški delež")
+    povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
+    st_oseb = models.DecimalField(max_digits=2, decimal_places=1, blank=True, verbose_name="število oseb")
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "lastniška enota interna"
+        verbose_name_plural = "lastniške enote interna"
+        ordering = ("oznaka",)
+
+    def __str__(self):
+        return "%s" % (self.oznaka)
+
+
 class LastniskaSkupina(models.Model):
 
     # ATRIBUTES
@@ -87,7 +88,7 @@ class LastniskaSkupina(models.Model):
     program = models.ForeignKey(Program)
     lastniska_enota = models.ManyToManyField(LastniskaEnotaElaborat, blank=True)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     opis = models.CharField(max_length=255, blank=True)
     # ***Optional***

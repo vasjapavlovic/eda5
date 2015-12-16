@@ -27,15 +27,14 @@ class IsLikvidiranModel(models.Model):
 
 
 class ObdobjeLeto(models.Model):
-    oznaka = models.CharField(max_length=4)
-    naziv = models.CharField(max_length=4)
+    oznaka = models.IntegerField(primary_key=True)
 
     def __str__(self):
-        return "%s" % (self.naziv)
+        return "%s" % (self.oznaka)
 
 
 class ObdobjeMesec(models.Model):
-    oznaka = models.CharField(max_length=2)
+    oznaka = models.IntegerField(primary_key=True)
     naziv = models.CharField(max_length=10)
 
     def __str__(self):

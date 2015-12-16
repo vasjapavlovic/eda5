@@ -82,8 +82,8 @@ class SkupinaPartnerjev(TimeStampedModel):
 
 class Drzava(models.Model):
 
-    naziv = models.CharField(max_length=100)
     iso_koda = models.CharField(max_length=3, unique=True)
+    naziv = models.CharField(max_length=100)
 
     class Meta:
         verbose_name = "Država"

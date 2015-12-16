@@ -18,6 +18,8 @@ from eda5.skladisce.forms import DnevnikDelovniNalogCreateForm
 from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
 
+from eda5.moduli.models import Zavihek
+
 
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 class AppHomeView(TemplateView):
@@ -58,6 +60,9 @@ class DelovniNalogList(ListView):
         context['dn_vplanu_list'] = self.model.objects.dn_vplanu()
         context['dn_vresevanju_list'] = self.model.objects.dn_vresevanju()
         context['dn_zakljuceni_list'] = self.model.objects.dn_zakljuceni()
+
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_LIST")
+        context['modul_zavihek'] = modul_zavihek
 
         return context
 

@@ -1,28 +1,79 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "moduli/detail.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block content2 %}
 
-<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-    <h1>Nov Zahtevek : Tip= Sestanek</h1>
+<!-- sidebar podatki -->
+{% block navbar %}
+    
+    <li>
+        <a class="bg-{{ modul_zavihek.modul.barva }}" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}"><i class="ion-home"></i>
+            <span class="nav-label">{{ modul_zavihek.modul.naziv }}</span>
+        </a>
+    </li>
 
-    <div class="panel panel-info">
-        <div class="panel-heading">Splosni podatki</div>
-        <div class="panel-body">
-            {{ zahtevek_splosno_form|crispy  }} 
-        </div>
-    </div>
+    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
+    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+    {% endfor %}
 
-    <div class="panel panel-info">
-        <div class="panel-heading">Posebnosti sestanka</div>
-        <div class="panel-body">
-            {{ zahtevek_sestanek_form|crispy  }}
-        </div>
-    </div>
+{% endblock %}
 
 
-    <input type="submit" value="Potrdi">
-</form>
+{% block naziv_modula %}<a class="navbar-brand" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">{{ modul_zavihek.modul.naziv }}</a>{% endblock %}
+
+
+{% block content %}
+
+
+<!-- Page Content Start -->
+            <!-- ================== -->
+
+            <div class="wraper container-fluid">
+                <div class="page-title"> 
+                    <h3 class="title">Nov Sestanek</h3> 
+                </div>
+
+                <!-- Basic Form Wizard -->
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> 
+                                <h3 class="panel-title">Vnos</h3> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <form id="wizard-validation-form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+                                    <div>
+                                        <h3>Splosni podatki Zahtevka </h3>
+                                        <section>
+                                            {{ zahtevek_splosno_form|crispy  }} 
+                                        </section>
+
+
+                                        <h3>Posebnosti sestanka</h3>
+                                        <section>
+                                            {{ zahtevek_sestanek_form|crispy  }}
+                                        </section>
+                                        <h3>Finish</h3>
+                                        <section>
+                                            <div class="form-group clearfix">
+                                                <div class="col-lg-12">
+                                                    <input id="acceptTerms-2" name="acceptTerms2" type="checkbox" class="required">
+                                                    <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                    </div>
+                                    <input type="submit" value="Potrdi">
+                                </form> 
+                            </div>  <!-- End panel-body -->
+                        </div> <!-- End panel -->
+
+                    </div> <!-- end col -->
+
+                </div> <!-- End row -->
+
+
 
 {% endblock %}

@@ -10,8 +10,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, T
 
 from .forms import UvozCsvForm
 
-from eda5.partnerji.forms import PostaCreateForm, PartnerCreateForm, BankaCreateForm
-from eda5.partnerji.models import Partner, Posta
+from eda5.core.forms import ObdobjeLetoCreateForm, ObdobjeMesecCreateForm
+
+from eda5.partnerji.forms import PostaCreateForm, PartnerCreateForm, BankaCreateForm, DrzavaCreateForm
+from eda5.partnerji.models import Partner, Posta, Drzava
 
 from eda5.deli.forms import SkupinaCreateForm, PodskupinaCreateForm
 from eda5.deli.models import Skupina
@@ -22,6 +24,10 @@ from eda5.racunovodstvo.models import Konto, PodKonto, SkupinaVrsteStroska
 
 from eda5.delovninalogi.forms import DeloVrstaSklopCreateForm, DeloVrstaCreateForm
 from eda5.delovninalogi.models import DeloVrstaSklop
+
+from eda5.etaznalastnina.forms import ProgramCreateForm, LastniskaEnotaElaboratCreateForm,\
+                                      LastniskaEnotaInternaCreateForm, LastniskaSkupinaCreateForm
+from eda5.etaznalastnina.models import Program, LastniskaEnotaElaborat
 
 
 class UvozCsv(TemplateView):
@@ -35,6 +41,74 @@ class UvozCsv(TemplateView):
     def post(self, request, *args, **kwargs):
         uvoz_form = UvozCsvForm(request.POST or None)
 
+        def import_core_obdobje_leto():
+
+            filename = os.path.abspath("eda5/templates/import/utility/obdobje_leto.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = ObdobjeLetoCreateForm(row)
+
+                if form.is_valid():
+                    form.save()
+                    records_added += 1
+
+            return messages.success(
+                request,
+                "DELOVNI_NALOGI:DODANA LETA Število dodanih vnosov: %s" % (records_added)
+            )
+
+        def import_core_obdobje_mesec():
+
+            filename = os.path.abspath("eda5/templates/import/utility/obdobje_mesec.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = ObdobjeMesecCreateForm(row)
+
+                if form.is_valid():
+                    form.save()
+                    records_added += 1
+
+            return messages.success(
+                request,
+                "DELOVNI_NALOGI:DODANI MESECI Število dodanih vnosov: %s" % (records_added)
+            )
+
+        def import_utility():
+            import_core_obdobje_leto()
+            import_core_obdobje_mesec()
+
+        def import_drzava():
+            filename = os.path.abspath("eda5/templates/import/partnerji/drzava.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = DrzavaCreateForm(row)
+                if form.is_valid():
+                    form.save()
+                    records_added += 1
+
+            return messages.success(request, "DRŽAVE: Število dodanih vnosov pošte: %s" % (records_added))
+
         def import_poste():
             filename = os.path.abspath("eda5/templates/import/partnerji/poste_slovenije.csv")
             with open(filename, 'r') as file:
@@ -46,12 +120,23 @@ class UvozCsv(TemplateView):
             seznam = csv.DictReader(rows, delimiter=",")
 
             for row in seznam:
-                form1 = PostaCreateForm(row)
-                if form1.is_valid():
-                    form1.save()
-                    records_added += 1
+                drzava_oznaka = row['drzava']
+                try:
+                    drzava = Drzava.objects.get(iso_koda=drzava_oznaka)
+                    row['drzava'] = drzava.pk
+                    form = PostaCreateForm(row)
 
-            return messages.success(request, "Število dodanih vnosov pošte: %s" % (records_added))
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
+                except:
+                    # print("NEPRAVILNA POSTA:", row['posta'], row['kratko_ime'])
+                    # posta = Posta.objects.get(postna_stevilka=5000)  # uvozimo pod nepravo poštno številko
+                    # ODVISNOSTI
+                    import_drzava()
+
+            return messages.success(request, "POSTA: Število novo dodanih parnerjev: %s" % (records_added))
 
         def import_partnerji():
 
@@ -68,18 +153,18 @@ class UvozCsv(TemplateView):
                 postna_stevilka = row['posta']
                 try:
                     posta = Posta.objects.get(postna_stevilka=postna_stevilka)
+                    row['posta'] = posta.pk
+                    form = PartnerCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
                 except:
                     # print("NEPRAVILNA POSTA:", row['posta'], row['kratko_ime'])
                     # posta = Posta.objects.get(postna_stevilka=5000)  # uvozimo pod nepravo poštno številko
                     # ODVISNOSTI
                     import_poste()
-
-                row['posta'] = posta.pk
-                form2 = PartnerCreateForm(row)
-
-                if form2.is_valid():
-                    form2.save()
-                    records_added += 1
 
             return messages.success(request, "Število novo dodanih parnerjev: %s" % (records_added))
 
@@ -179,15 +264,15 @@ class UvozCsv(TemplateView):
                 skupina_oznaka = row['skupina']
                 try:
                     skupina = Skupina.objects.get(oznaka=skupina_oznaka)
+                    row['skupina'] = skupina.pk
+                    form = PodskupinaCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
                 except:
                     import_deli_skupine()
-
-                row['skupina'] = skupina.pk
-                form = PodskupinaCreateForm(row)
-
-                if form.is_valid():
-                    form.save()
-                    records_added += 1
 
             return messages.success(request, "DELI:PODSKUPINE Število dodanih vnosov: %s" % (records_added))
 
@@ -361,7 +446,100 @@ class UvozCsv(TemplateView):
             # na ekranu prikažem informacijo o številu uvozov
             return messages.success(request, "DELOVNI_NALOGI:DELO_VRSTA Število dodanih vnosov: %s" % (records_added))
 
+        def import_etaznalastnina_program():
+            filename = os.path.abspath("eda5/templates/import/etazna_lastnina/program.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = ProgramCreateForm(row)
+                if form.is_valid():
+                    form.save()
+                    records_added += 1
+
+            return messages.success(request, "PROGRAM: Število dodanih vnosov: %s" % (records_added))
+
+        def import_etaznalastnina_elaborat():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/etazna_lastnina/elaborat.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            for row in seznam:
+
+                # oznako skupine zamenjamo z ID skupine
+                postna_stevilka = row['posta']
+                program_oznaka = row['program']
+
+                try:
+                    program = Program.objects.get(oznaka=program_oznaka)
+                    posta = Posta.objects.get(postna_stevilka=postna_stevilka)
+
+                    row['posta'] = posta.pk
+                    row['program'] = program.pk
+
+                    form = LastniskaEnotaElaboratCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
+                except:
+                    import_etaznalastnina_program()
+                    import_poste()
+
+            # na ekranu prikažem informacijo o številu uvozov
+            return messages.success(request, "ELABORAT LE: Število dodanih vnosov: %s" % (records_added))
+
+        def import_etaznalastnina_interna():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/etazna_lastnina/interna.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            for row in seznam:
+
+                # oznako skupine zamenjamo z ID skupine
+                elaborat_oznaka = row['elaborat']
+
+                try:
+                    elaborat = LastniskaEnotaElaborat.objects.get(oznaka=elaborat_oznaka)
+
+                    row['elaborat'] = elaborat.pk
+
+                    form = LastniskaEnotaInternaCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
+                except:
+                    import_etaznalastnina_elaborat()
+
+            # na ekranu prikažem informacijo o številu uvozov
+            return messages.success(request, "INTERNA LE: Število dodanih vnosov: %s" % (records_added))
+
         if uvoz_form.is_valid():
+
+            if uvoz_form.cleaned_data['utiliti'] is True:
+                import_utility()
 
             if uvoz_form.cleaned_data['poste'] is True:
                 import_poste()
@@ -380,5 +558,8 @@ class UvozCsv(TemplateView):
 
             if uvoz_form.cleaned_data['vrste_del'] is True:
                 import_delovninalog_delo_vrsta()
+
+            if uvoz_form.cleaned_data['etazna_lastnina'] is True:
+                import_etaznalastnina_interna()
 
         return HttpResponseRedirect(reverse('moduli:import:form'))

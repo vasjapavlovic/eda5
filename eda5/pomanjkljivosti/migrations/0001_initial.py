@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Pomanjkljivost',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
+                ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_likvidiran', models.BooleanField(default=False)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.TextField(verbose_name='prijave - sporočilo')),
@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
                 ('lokacija', models.CharField(max_length=255)),
             ],
             options={
-                'verbose_name': 'pomanjkljivost',
                 'verbose_name_plural': 'pomanjkljivosti',
+                'verbose_name': 'pomanjkljivost',
             },
         ),
     ]

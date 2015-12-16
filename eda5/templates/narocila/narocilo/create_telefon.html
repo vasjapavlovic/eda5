@@ -25,4 +25,59 @@
     <input type="submit" value="Potrdi">
 </form>
 
+
+<!-- Wizard with Validation -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"> 
+                <h3 class="panel-title">Wizard with Validation</h3> 
+            </div> 
+            <div class="panel-body"> 
+                <form id="wizard-validation-form" method="POST" action="">{% csrf_token %}
+                    <div>
+                        <h3>Step 1</h3>
+                        <section>
+
+                            {{ narocilo_splosno_form|crispy  }} 
+
+                        </section>
+                        <h3>Step 2</h3>
+                        <section>
+
+                            {{ narocilo_telefon_form|crispy  }}
+
+                        </section>
+                        <h3>Step 3</h3>
+                        <section>
+                            <div class="form-group clearfix">
+                                <div class="col-lg-12">
+                                    <ul class="list-unstyled w-list">
+                                        <li>First Name : Jonathan </li>
+                                        <li>Last Name : Smith </li>
+                                        <li>Emial: jonathan@smith.com</li>
+                                        <li>Address: 123 Your City, Cityname. </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                        <h3>Step Final</h3>
+                        <section>
+                            <div class="form-group clearfix">
+                                <div class="col-lg-12">
+                                    <input id="acceptTerms-2" name="acceptTerms2" type="checkbox" class="required">
+                                    <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+                </form>
+            </div>  <!-- End panel-body -->
+        </div> <!-- End panel -->
+
+    </div> <!-- end col -->
+
+</div> <!-- End row -->
+
 {% endblock %}

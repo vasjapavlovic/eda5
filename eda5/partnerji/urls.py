@@ -2,53 +2,20 @@ from django.conf.urls import url
 
 from . import views
 
+# HOME
 urlpatterns = [
-    # URL pattern for the UserListView
-    url(
-        regex=r'^$',
-        view=views.PartnerHomeView.as_view(),
-        name='home'
-    ),
+    url(r'^$', views.PartnerHomeView.as_view(), name='home'),
+]
 
-    url(
-        regex=r'^seznam/$',
-        view=views.PartnerListView.as_view(),
-        name='list'
-    ),
+# Partner
+urlpatterns += [
+    url(r'^seznam/$', views.PartnerListView.as_view(), name='partner_list'),
+    url(r'^(?P<pk>\d+)/detail/$', views.PartnerDetailView.as_view(), name='partner_detail'),
+    url(r'^create/$', views.PartnerCreateView.as_view(), name='partner_create'),
+    url(r'^(?P<pk>\d+)/update/$', views.PartnerUpdateView.as_view(), name='update')
+]
 
-    url(
-        regex=r'^(?P<pk>\d+)/detail/$',
-        view=views.PartnerDetailView.as_view(),
-        name='detail'
-    ),
-
-    url(
-        regex=r'^create/$',
-        view=views.PartnerCreateView.as_view(),
-        name='create'
-    ),
-
-    url(
-        regex=r'^(?P<pk>\d+)/update/$',
-        view=views.PartnerUpdateView.as_view(),
-        name='update'
-    ),
-
-    url(
-        regex=r'^oseba_create/$',
-        view=views.OsebaCreateView.as_view(),
-        name='oseba_create'
-    ),
-
-    url(
-        regex=r'^uvoz/$',
-        view=views.UvozPartnerjevCsv.as_view(),
-        name='uvoz'
-    ),
-
-    url(
-        regex=r'^uvoz_posta/$',
-        view=views.UvozPostCsv.as_view(),
-        name='uvoz_posta'
-    ),
+# Oseba
+urlpatterns += [
+    url(r'^oseba_create/$', views.OsebaCreateView.as_view(), name='oseba_create'),
 ]

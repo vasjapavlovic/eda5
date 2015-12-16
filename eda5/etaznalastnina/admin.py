@@ -4,14 +4,31 @@ from .models import LastniskaEnotaElaborat, LastniskaEnotaInterna
 from .models import Program, LastniskaSkupina
 
 
+class LastniskaEnotaInternaInline(admin.TabularInline):
+    model = LastniskaEnotaInterna
+    extra = 0
+
+
+@admin.register(Program)
+class ProgramAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(LastniskaEnotaElaborat)
+class LastniskaEnotaElaboratAdmin(admin.ModelAdmin):
+    
+    inlines = [
+        LastniskaEnotaInternaInline,
+    ]
+
+
+@admin.register(LastniskaEnotaInterna)
+class LastniskaEnotaInternaAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(LastniskaSkupina)
 class LastniskaSkupinaAdmin(admin.ModelAdmin):
+
     filter_horizontal = ('lastniska_enota',)
 
-    class Meta:
-        model = LastniskaSkupina
-
-
-admin.site.register(LastniskaEnotaElaborat)
-admin.site.register(LastniskaEnotaInterna)
-admin.site.register(Program)
-admin.site.register(LastniskaSkupina, LastniskaSkupinaAdmin)

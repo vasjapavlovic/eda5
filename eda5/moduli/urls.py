@@ -24,4 +24,5 @@ urlpatterns = [
 # Glavni URL za modul
 urlpatterns += [
     url(r'^$', views.ModulHomeView.as_view(), name="home"),
+    url(r'^(?P<pk>\d+)/detail$', views.ModulDetailView.as_view(), name="detail"),
 ]

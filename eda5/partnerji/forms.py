@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Partner, Oseba, Banka, Posta
+from .models import Partner, Oseba, Banka, Posta, Drzava
 
 
 class PartnerCreateForm(forms.ModelForm):
@@ -138,4 +138,14 @@ class BankaCreateForm(forms.ModelForm):
             'bic_koda',
             'bancna_oznaka',
             'partner',
+        )
+
+
+class DrzavaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Drzava
+        fields = (
+            'naziv',
+            'iso_koda',
         )

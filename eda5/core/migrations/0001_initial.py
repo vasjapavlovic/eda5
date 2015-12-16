@@ -13,16 +13,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ObdobjeLeto',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('oznaka', models.CharField(max_length=4)),
-                ('naziv', models.CharField(max_length=4)),
+                ('oznaka', models.IntegerField(primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='ObdobjeMesec',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('oznaka', models.CharField(max_length=2)),
+                ('oznaka', models.IntegerField(primary_key=True, serialize=False)),
                 ('naziv', models.CharField(max_length=10)),
             ],
         ),

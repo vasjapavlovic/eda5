@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, ListView, DetailView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from django.db.models import Max
 
 from .forms import DelCreateForm
@@ -122,3 +122,10 @@ class ElementDetailView(DetailView):
         context['nastavitev_max'] = nastavitev_max_izpis
 
         return context
+
+
+class DelCreateView(CreateView):
+
+    model = DelStavbe
+    form_class = DelCreateForm
+    template_name = "deli/delstavbe/create.html"

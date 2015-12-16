@@ -1,13 +1,46 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "moduli/detail.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
 
-{% block content2 %}
+<!-- sidebar podatki -->
+{% block navbar %}
+    
+    <li>
+        <a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}"><i class="ion-home"></i>
+            <span class="nav-label">{{ modul_zavihek.modul.naziv }}</span>
+        </a>
+    </li>
+
+    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
+    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+    {% endfor %}
+
+{% endblock %}
+
+
+
+{% block naziv_modula %}
+
+    <a class="navbar-brand" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">
+        {{ modul_zavihek.modul.naziv }}
+    </a>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="wraper container-fluid">
+                <div class="page-title"> 
+                    <h3 class="title">{{ modul_zavihek.naziv }}</h3> 
+                </div>
+
+
 
 <!--CONTENT-->
 <div class="container">
-    <h3>{% block dn_title %}{% endblock %}</h3>
+    
 
     <!--PANEL1-->
     <div class="panel-group" id="panel1" role="tablist" aria-multiselectable="true">
@@ -89,5 +122,7 @@
 
 </div>
 <!--end CONTENT2-->
+
+</div>
 
 {% endblock %}

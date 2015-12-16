@@ -8,17 +8,17 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('partnerji', '0001_initial'),
-        ('deli', '0002_auto_20151203_0301'),
         ('narocila', '0001_initial'),
+        ('deli', '0002_auto_20151215_1854'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Zahtevek',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated', models.DateTimeField(auto_now=True, null=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
+                ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('status', models.IntegerField(choices=[(0, 'draft'), (1, 'v čakanju'), (2, 'v planu'), (3, 'v reševanju'), (4, 'zaključeno')], default=0)),
                 ('oznaka', models.CharField(max_length=20)),
@@ -27,57 +27,57 @@ class Migration(migrations.Migration):
                 ('rok_izvedbe', models.DateField()),
                 ('narocilo', models.ForeignKey(to='narocila.Narocilo')),
                 ('nosilec', models.ForeignKey(to='partnerji.Oseba')),
-                ('zahtevek_parent', models.ForeignKey(to='zahtevki.Zahtevek', null=True, blank=True)),
+                ('zahtevek_parent', models.ForeignKey(to='zahtevki.Zahtevek', blank=True, null=True)),
             ],
             options={
+                'verbose_name_plural': 'zahtevki',
                 'verbose_name': 'zahtevek',
                 'ordering': ('oznaka',),
-                'verbose_name_plural': 'zahtevki',
             },
         ),
         migrations.CreateModel(
             name='ZahtevekIzvedbaDela',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('is_zakonska_obveza', models.NullBooleanField(verbose_name='zakonska obveza')),
                 ('zahtevek', models.OneToOneField(to='zahtevki.Zahtevek')),
             ],
             options={
-                'verbose_name': 'izvedba dela',
                 'verbose_name_plural': 'izvedba del',
+                'verbose_name': 'izvedba dela',
             },
         ),
         migrations.CreateModel(
             name='ZahtevekSestanek',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('datum', models.DateField(null=True, blank=True)),
-                ('sklicatelj', models.ForeignKey(to='partnerji.Partner', null=True, blank=True)),
-                ('udelezenci', models.ManyToManyField(verbose_name='udeleženci', to='partnerji.Oseba', blank=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('datum', models.DateField(blank=True, null=True)),
+                ('sklicatelj', models.ForeignKey(to='partnerji.Partner', blank=True, null=True)),
+                ('udelezenci', models.ManyToManyField(blank=True, to='partnerji.Oseba', verbose_name='udeleženci')),
                 ('zahtevek', models.OneToOneField(to='zahtevki.Zahtevek')),
             ],
             options={
+                'verbose_name_plural': 'sestanki',
                 'verbose_name': 'sestanek',
                 'ordering': ('datum',),
-                'verbose_name_plural': 'sestanki',
             },
         ),
         migrations.CreateModel(
             name='ZahtevekSkodniDogodek',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('datum_nastanka_skode', models.DateField(verbose_name='datum nastanka škode', null=True, blank=True)),
-                ('vzrok_skode', models.TextField(verbose_name='vzrok škode', blank=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('datum_nastanka_skode', models.DateField(blank=True, null=True, verbose_name='datum nastanka škode')),
+                ('vzrok_skode', models.TextField(blank=True, verbose_name='vzrok škode')),
                 ('is_prijava_policiji', models.NullBooleanField(verbose_name='prijavljeno policiji')),
-                ('povzrocitelj', models.CharField(verbose_name='povzročitelj (opisno)', max_length=255, blank=True)),
-                ('predvidena_visina_skode', models.DecimalField(verbose_name='predvidena višina škode', null=True, max_digits=7, decimal_places=2, blank=True)),
-                ('poskodovane_stvari', models.ManyToManyField(to='deli.Element', blank=True)),
+                ('povzrocitelj', models.CharField(blank=True, max_length=255, verbose_name='povzročitelj (opisno)')),
+                ('predvidena_visina_skode', models.DecimalField(max_digits=7, blank=True, decimal_places=2, null=True, verbose_name='predvidena višina škode')),
+                ('poskodovane_stvari', models.ManyToManyField(blank=True, to='deli.Element')),
                 ('zahtevek', models.OneToOneField(to='zahtevki.Zahtevek')),
             ],
             options={
+                'verbose_name_plural': 'škodni dogodki',
                 'verbose_name': 'škodni dogodek',
                 'ordering': ('datum_nastanka_skode',),
-                'verbose_name_plural': 'škodni dogodki',
             },
         ),
     ]
