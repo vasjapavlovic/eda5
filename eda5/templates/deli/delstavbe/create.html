@@ -1,18 +1,55 @@
-{% extends "moduli/detail.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block vsebina_modula %}
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
 
-<h1 class="widget-panel widget-style-3 bg-muted">Deli Stavbe : Nov Vnos</h1>
 
-<form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
-    
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+
+    <form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
                 
         {{ form | crispy }}
 
         <input type="submit" value="Potrdi">
 
-</form>
+    </form>
 
 {% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

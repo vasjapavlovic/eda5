@@ -7,6 +7,8 @@ from django.views.generic import TemplateView, FormView
 from . import forms
 from .models import NarociloTelefon, NarociloPogodba, Narocilo
 
+from eda5.moduli.models import Zavihek
+
 
 class NarocilaHomeView(TemplateView):
     template_name = "narocila/home.html"
@@ -23,11 +25,16 @@ class NarociloTelefonCreateView(TemplateView):
         context = super(NarociloTelefonCreateView, self).get_context_data(*args, **kwargs)
         context['narocilo_splosno_form'] = forms.NarociloSplosnoCreateForm
         context['narocilo_telefon_form'] = forms.NarociloTelefonCreateForm
+
+        modul_zavihek = Zavihek.objects.get(oznaka="NRC_CREATE_TEL")
+        context['modul_zavihek'] = modul_zavihek
+
         return context
 
     def post(self, request, *args, **kwargs):
         narocilo_splosno_form = forms.NarociloSplosnoCreateForm(request.POST or None)
         narocilo_telefon_form = forms.NarociloTelefonCreateForm(request.POST or None)
+        modul_zavihek = Zavihek.objects.get(oznaka="NRC_CREATE_TEL")
 
         if narocilo_telefon_form.is_valid():
             oseba = narocilo_telefon_form.cleaned_data['oseba']
@@ -44,6 +51,14 @@ class NarociloTelefonCreateView(TemplateView):
                 telefonsko_sporocilo=telefonsko_sporocilo,
             )
             narocilo_telefon = NarociloTelefon.objects.get(id=narocilo_telefon_data.pk)
+
+        else:
+            return render(request, self.template_name, {
+                'narocilo_splosno_form': narocilo_splosno_form,
+                'narocilo_telefon_form': narocilo_telefon_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
 
         if narocilo_splosno_form.is_valid():
             narocnik = narocilo_splosno_form.cleaned_data['narocnik']
@@ -63,6 +78,14 @@ class NarociloTelefonCreateView(TemplateView):
                 datum_narocila=datum_narocila,
                 datum_veljavnosti=datum_veljavnosti,
                 vrednost=vrednost,
+            )
+
+        else:
+            return render(request, self.template_name, {
+                'narocilo_splosno_form': narocilo_splosno_form,
+                'narocilo_telefon_form': narocilo_telefon_form,
+                'modul_zavihek': modul_zavihek,
+                }
             )
 
         return HttpResponseRedirect(reverse('moduli:narocila:home'))

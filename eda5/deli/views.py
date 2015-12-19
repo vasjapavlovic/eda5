@@ -10,18 +10,24 @@ from eda5.delovninalogi.models import Opravilo, DelovniNalog
 from eda5.katalog.models import ObratovalniParameter
 from eda5.racunovodstvo.models import Strosek
 
+from eda5.moduli.models import Zavihek
+
 
 class DelHomeView(TemplateView):
     template_name = "deli/home.html"
 
 
 class DelListView(ListView):
-    template_name = "deli/delstavbe/list/extended.html"
+    template_name = "deli/delstavbe/list/base.html"
     model = Skupina
 
     def get_context_data(self, *args, **kwargs):
         context = super(DelListView, self).get_context_data(*args, **kwargs)
         context['del_form'] = DelCreateForm
+
+        modul_zavihek = Zavihek.objects.get(oznaka="DEL_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -58,6 +64,12 @@ class DelListView(ListView):
 class DelDetailView(DetailView):
     template_name = "deli/delstavbe/detail/base.html"
     model = DelStavbe
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelDetailView, self).get_context_data(*args, **kwargs)
+        modul_zavihek = Zavihek.objects.get(oznaka="DEL_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+        return context
 
 
 class DelUpdateView(UpdateView):
@@ -129,3 +141,9 @@ class DelCreateView(CreateView):
     model = DelStavbe
     form_class = DelCreateForm
     template_name = "deli/delstavbe/create.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelCreateView, self).get_context_data(*args, **kwargs)
+        modul_zavihek = Zavihek.objects.get(oznaka="DEL_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+        return context

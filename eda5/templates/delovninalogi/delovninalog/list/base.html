@@ -1,128 +1,48 @@
-{% extends "moduli/detail.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-
-<!-- sidebar podatki -->
-{% block navbar %}
-    
-    <li>
-        <a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}"><i class="ion-home"></i>
-            <span class="nav-label">{{ modul_zavihek.modul.naziv }}</span>
-        </a>
-    </li>
-
-    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
-    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
-    {% endfor %}
-
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
 {% endblock %}
+<!-- end SideBar podatki -->
 
 
 
-{% block naziv_modula %}
-
-    <a class="navbar-brand" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">
-        {{ modul_zavihek.modul.naziv }}
-    </a>
-
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
 {% endblock %}
+<!-- end Navbar Title -->
 
 
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
 {% block content %}
-
-<div class="wraper container-fluid">
-                <div class="page-title"> 
-                    <h3 class="title">{{ modul_zavihek.naziv }}</h3> 
-                </div>
-
-
-
-<!--CONTENT-->
-<div class="container">
-    
-
-    <!--PANEL1-->
-    <div class="panel-group" id="panel1" role="tablist" aria-multiselectable="true">
-
-
-            <!--COLLAPSE1-->
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-              <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#panel1" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  {% block dn_panel1_heading1 %}{% endblock %}
-                </a>
-              </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-              <div class="panel-body">
-                {% block dn_panel1_content1 %}{% endblock %}
-              </div>
-            </div>
-          </div>
-          <!--end COLLAPSE1-->
-
-
-          <!--COLLAPSE2-->
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-              <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#panel1" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  {% block dn_panel1_heading2 %}{% endblock %}
-                </a>
-              </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-              <div class="panel-body">
-                {% block dn_panel1_content2 %}{% endblock %}
-              </div>
-            </div>
-          </div>
-            <!--end COLLAPSE2-->
-
-
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-              <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#panel1" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  {% block dn_panel1_heading3 %}{% endblock %}
-                </a>
-              </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-              <div class="panel-body">
-                {% block dn_panel1_content3 %}{% endblock %}
-              </div>
-            </div>
-          </div>
-
-
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingFour">
-              <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#panel1" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                  {% block dn_panel1_heading4 %}{% endblock %}
-                </a>
-              </h4>
-            </div>
-            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-              <div class="panel-body">
-                {% block dn_panel1_content4 %}{% endblock %}
-              </div>
-            </div>
-          </div>
-
-
-    </div>
-    <!--end PANEL1-->
-
-<h3>Tu naprej bo Koledar planiranih del in del v izvajanju</h3>
-
-
-</div>
-<!--end CONTENT2-->
-
-</div>
-
+{% include "delovninalogi/delovninalog/list/content.html" %}
+{% include "delovninalogi/delovninalog/list/modal.html" %}
 {% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

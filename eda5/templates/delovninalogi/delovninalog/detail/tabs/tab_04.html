@@ -1,0 +1,24 @@
+<!-- material -->
+
+
+<table class="table table-hover table-condensed">
+        <tr>
+            <th>oznaka</th>
+            <th>naziv</th>
+            <th>količina</th>
+        </tr>
+
+    {% for material in material_list %}
+
+
+    <tr>
+    
+        <td>{{ material.artikel.oznaka }}</td>
+        <td>{{ material.artikel.naziv }}</td>
+        <td>{{ material.kom }}</td>
+        
+    </tr>
+
+    {% endfor %}
+
+    </table>

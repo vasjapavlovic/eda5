@@ -1,0 +1,17 @@
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Oznaka Projektnega Mesta</th>
+        <th>Naziv Projektnega Mesta</th>
+        <th>Artikel</th>
+    </tr>
+
+    {% for projektno_mesto in object.projektna_mesta_all %}
+    {% for element in projektno_mesto.elementi_aktivni %}
+    <tr>
+        <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ projektno_mesto.oznaka }}</a></td>
+        <td>{{ projektno_mesto.tip_elementa.naziv }}-{{ projektno_mesto.naziv }}</td>
+        <td>{{ element.artikel.proizvajalec.naziv }}-{{ element.artikel.naziv }}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+</table>

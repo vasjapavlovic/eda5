@@ -1,31 +1,61 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block content2 %}
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
 
 
-<div class="container">
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
 
 
-    <small><i>
-        <a href="{% url 'moduli:deli:del_list' %}">Nazaj</a> | 
-        <a href="">Nov vnos</a>
-    </i></small>
 
-    <small><i>
-        <a href="{% url 'moduli:deli:del_update' object.pk %}" class="pull-right">Popravi</a>
-    </i></small>
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
 
-
-    <!-- HEADER -->
-    {% include 'deli/delstavbe/detail/header/base.html' %}
-        
-    <!-- NAVIGACIJA_MENU -->
-    {% include "deli/delstavbe/detail/navigacija_menu/base.html" %}
-
-
-</div>
-
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="">
+            <b>Uredi</b> Podatke</a></li>
+    <li><a> | </a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addElement">
+            <b>Dodaj</b> Element</a></li>
+    <li><a> | </a></li>
 
 {% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+
+
+    <div class="jumbotron p-0 p-t-10">
+        <h3>{{ object.naziv }} ({{object.oznaka}})</h3>
+    </div><!-- end jumbotron -->
+
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+{% include "deli/delstavbe/detail/content.html" %}
+{% include "deli/delstavbe/detail/modal.html" %}
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

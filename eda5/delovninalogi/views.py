@@ -50,7 +50,7 @@ class OpraviloUpdateView(UpdateView):
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 class DelovniNalogList(ListView):
     model = DelovniNalog
-    template_name = "delovninalogi/delovninalog/list/extended.html"
+    template_name = "delovninalogi/delovninalog/list/base.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(DelovniNalogList, self).get_context_data(*args, **kwargs)

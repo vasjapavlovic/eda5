@@ -1,5 +1,5 @@
 from django.db import models
-from eda5.partnerji.models import Partner, Posta
+from eda5.partnerji.models import SkupinaPartnerjev, Partner, Posta
 
 
 class Program(models.Model):
@@ -104,3 +104,53 @@ class LastniskaSkupina(models.Model):
 
     def __str__(self):
         return "%s | %s | %s" % (self.oznaka, self.program.naziv, self.naziv)
+
+
+class InternaDodatno(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    interna = models.OneToOneField(LastniskaEnotaInterna, verbose_name="interna LE")
+    lastnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='lastnik')
+    najemnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='najemnik')
+    placnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='placnik')
+    uporabno_dovoljenje = models.ForeignKey("UporabnoDovoljenje", blank=True, null=True)
+    #   Mandatory
+    stanje_prostora = models.CharField(max_length=255, blank=True, null=True)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "dodatek interni LE"
+        verbose_name_plural = "dodatki internim LE"
+        ordering = ['interna',]
+
+    def __str__(self):
+        return "%s" % (self.interna.oznaka)
+
+
+class UporabnoDovoljenje(models.Model):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    #   Mandatory
+    oznaka = models.CharField(max_length=20, unique=True)
+    st_dokumenta = models.CharField(max_length=50, unique=True)
+    datum = models.DateField()
+    objekt = models.CharField(max_length=255)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "uporabno dovoljenje"
+        verbose_name_plural = "uporabna dovoljenja"
+        ordering = ['datum',]
+
+    def __str__(self):
+        return "%s | %s" % (self.oznaka, self.datum)

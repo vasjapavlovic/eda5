@@ -1,0 +1,34 @@
+<!-- TAB_01 Content -->
+
+    <table class="table table-condensed">
+        <tbody>
+            <tr>
+                <td><b>Davčna številka</b></td>
+                <td>
+                    <a href="#" class="ng-binding">{{object.davcna_st}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Matična Številka</td>
+                <td><a href="#" class="ng-binding">{{ object.maticna_st }}</a></td>
+            </tr>
+             <tr>
+                <td>Davčni Zavezanec</td>
+                <td><a href="#" class="ng-binding">{% if object.davcni_zavezanec %}DA{% else %}NE{% endif %}</a></td>
+            </tr>
+            <tr>
+                <td><b>Naziv</b></td>
+                <td>
+                <a href="" class="ng-binding">
+                    {{ object.dolgo_ime }}
+                </a></td>
+            </tr>
+            <tr>
+                <td><b>Naslov</b></td>
+                <td>
+                <a href="" class="ng-binding">
+                    {{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}, {{ object.posta.drzava.naziv }}
+                </a></td>
+            </tr>
+        </tbody>
+    </table>

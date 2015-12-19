@@ -1,25 +1,69 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block content2 %}
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
 
 
-<div class="container">
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
 
 
-    <small><i>
-        <a href="{% url 'moduli:zahtevki:zahtevek_list' %}">Nazaj</a> | 
-    </i></small>
 
-    <!-- HEADER -->
-    {% include 'zahtevki/zahtevek/detail/header/base.html' %}
-        
-    <!-- NAVIGACIJA_MENU -->
-    {% include "zahtevki/zahtevek/detail/navigacija_menu/base.html" %}
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
 
-
-</div>
-
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="">
+            <b>Uredi</b> Podatke</a></li>
+    <li><a> | </a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addOpravilo">
+            <b>Dodaj</b> Opravilo</a></li>
+    <li><a> | </a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addDokumentacija">
+            <b>Dodaj</b> Dokument</a></li>
+    <li><a> | </a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addZaznamek">
+            <b>Dodaj</b> Zaznamek</a></li>
+    <li><a> | </a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addPodzahtevek">
+            <b>Dodaj</b> Podzahtevek</a></li>
 
 {% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+
+
+    <div class="jumbotron">
+        {{ object.naziv }} ({{object.oznaka}})
+    </div><!-- end jumbotron -->
+
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+{% include "zahtevki/zahtevek/detail/content.html" %}
+{% include "zahtevki/zahtevek/detail/modal.html" %}
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

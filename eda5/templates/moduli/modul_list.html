@@ -1,39 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles i18n %}
+{% load crispy_forms_tags %}
 
-
-{% block content %}
-
-<div class="wraper container-fluid">
-    <div class="page-title"><h3 class="title">Moduli :</h3></div>
-
-    <div class="container">
-
-        <div class="row">
-
-            {% for modul in object_list %}
-
-            <div class="col-lg-3 col-sm-6">
-                <div class="widget-panel widget-style-2 bg-{{ modul.barva }}">
-                    <i class="ion-eye"></i> 
-                        <h2 class="m-0 counter"><a href="{% url 'moduli:detail' modul.pk %}">{{ modul.naziv }}</a></h2>
-                    <div>{{ modul.opis }}</div>
-                </div>
-            </div>
-
-            {% endfor %}
-
-        </div> <!-- end row -->
-
-    </div><!-- end container -->
-
-</div> <!-- end wraper container-fluid -->
-
-{% endblock %}
-
-
-{% block navbar %}<!-- sidebar -->
-
+<!-- SideBar podatki -->
+{% block sidebar %}
     <li>
         <a href="{% url 'moduli:home' %}"><i class="ion-home"></i>
             <span class="nav-label">Moduli</span>
@@ -44,12 +14,56 @@
             <span class="nav-label">Uvoz Podatkov</span>
         </a>
     </li>
-    
-{% endblock %}<!-- END sidebar -->
+{% endblock %}
+<!-- end SideBar podatki -->
 
 
 
+<!-- Navbar Title -->
+{% block navbar_title %}
+{% endblock %}
+<!-- end Navbar Title -->
 
-{% block javascript_extra %}{% endblock %}
 
-   
+
+<!-- Navbar-Left podatki -->
+{% block left-navbar %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->Moduli :<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+
+
+    {% for modul in object_list %}
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="widget-panel widget-style-2 bg-{{ modul.barva }}">
+            <i class="ion-eye"></i> 
+                <h2 class="m-0 counter"><a href="{% url 'moduli:detail' modul.pk %}">{{ modul.naziv }}</a></h2>
+            <div>{{ modul.opis }}</div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

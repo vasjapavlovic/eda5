@@ -1,0 +1,30 @@
+<!-- TAB_02 -->
+
+    <table class="table">
+        <tr>
+            <th>delovni nalog</th>
+            <th>opravilo</th>
+            <th>rok izvedbe</th>
+            <th>planirano dne</th>
+            <th>nosilec</th>
+            <th>nadzor</th>
+        </tr>
+
+        {% for dn in dn_vplanu_list %}
+        <a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">
+        <tr>
+            <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
+            <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
+            <td>{{ dn.opravilo.rok_izvedbe }}</td>
+            <td>{{ dn.datum_plan }}</td>
+            <td><b>{{ dn.nosilec.priimek }} {{ dn.nosilec.ime }}</b><br>
+                ({{ dn.nosilec.podjetje.kratko_ime }})
+            </td>
+            <td><b>{{ dn.opravilo.nadzornik.priimek }} {{ dn.opravilo.nadzornik.ime }}</b><br>
+                ({{ dn.opravilo.nadzornik.podjetje.kratko_ime}})
+            </td>
+        </tr>
+        
+        {% endfor %}
+     
+    </table>

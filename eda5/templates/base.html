@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <link rel="shortcut icon" href="img/favicon_1.ico">
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 
         <title>{% block title %}EDA5{% endblock %}</title>
 
@@ -27,8 +27,8 @@
 
     <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
     
-    <!-- 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">-->
+    <!-- -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 
     <link href="{% static 'timepicker/timepicker.css' %}" rel="stylesheet">
 
@@ -79,9 +79,9 @@
 
             <!-- brand -->
             <div class="logo">
-                <a href="index.html" class="logo-expanded">
-                    <img src="img/single-logo.png" alt="logo">
-                    <span class="nav-label">EDA5</span>
+                <a href="{% url 'moduli:home' %}" class="logo-expanded">
+                    <img src="{% static 'images/eda5_sidebar.png' %}" alt="logo">
+                    <span class="nav-label"></span>
                 </a>
             </div>
             <!-- / brand -->
@@ -90,7 +90,7 @@
             <nav class="navigation">
                 <ul class="list-unstyled">
 
-                    {% block navbar %}
+                    {% block sidebar %}
                     <li class="has-submenu"><a href="#"><i class="ion-home"></i> <span class="nav-label">Naročila</span></a>
                         <ul class="list-unstyled">
                             <li><a href="{% url 'moduli:narocila:home' %}">Naročila</a></li>
@@ -214,10 +214,10 @@
                 <nav class=" navbar-default hidden-xs" role="navigation">
                     <ul class="nav navbar-nav">
                         
-                        {% block naziv_modula %}{% endblock %}
+                        {% block navbar_title %}{% endblock %}
                         <!-- <a class="navbar-brand" href=""> </a>-->
 
-                        {% block left-navbar %}
+                        {% block navbar_left %}{% endblock %}
                         <!--
                         <li class="dropdown">
                           <a data-toggle="dropdown" class="dropdown-toggle" href="#">English <span class="caret"></span></a>
@@ -234,7 +234,7 @@
                             <input type="text" placeholder="Search..." class="form-control">
                         </form>
                         -->
-                        {% endblock %}
+                        
                     </ul>
                     
                 </nav>
@@ -352,9 +352,25 @@
 
             
 
-                {% block content %}
-                <p>Use this document as a way to quick start any new project.</p>
-                {% endblock %}
+                <!-- PAGE CONTENT -->
+
+<div class="wraper container-fluid">
+    <div class="bg-{{ object.barva }}"><h3>
+    {% block content_title %}
+    {% endblock %}
+    </h3></div>
+
+    <div class="row">
+        <div class="col-md-12">
+               
+            {% block content %}
+            {% endblock %}
+
+        </div>
+    </div> <!-- End Row -->
+</div>
+
+<!-- end PAGE CONTENT -->
 
               
             <!-- Page Content Ends -->
@@ -440,7 +456,7 @@
 
         <script src="{% static 'admin_page2/assets/datatables/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'admin_page2/assets/datatables/dataTables.bootstrap.js' %}"></script>
-        
+
 
         {% endblock javascript %}
 

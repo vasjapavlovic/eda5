@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^seznam/$', views.ZahtevekListView.as_view(), name="zahtevek_list"),
     url(r'^(?P<pk>\d+)/detail/$', views.ZahtevekDetailView.as_view(), name="zahtevek_detail"),
     url(r'^zahtevek-sestanek/$', views.ZahtevekSestanekCreateView.as_view(), name="zahtevek_create_sestanek"),
+    url(r'^zahtevek-izvedba-del/$', views.ZahtevekIzvedbaDelCreateView.as_view(), name="zahtevek_create_izvedba_del"),
     # update zahtevek main
     url(r'^(?P<pk>\d+)/main/update/$', views.ZahtevekUpdateView.as_view(), name="zahtevek_update_main"),
     # update vrste zahtevka

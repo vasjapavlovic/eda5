@@ -1,0 +1,19 @@
+<table class="table table-hover table-condensed">
+
+    <tr>
+        <th>tekst</th>
+        <th>datum</th>
+        <th>ura</th>
+    </tr>
+
+    {% if zaznamek_list %}
+    {% for zaznamek in zaznamek_list %}
+    <tr>
+        <td>{{ zaznamek.tekst }}</td>
+        <td>{{ zaznamek.datum }}</td>
+        <td>{{ zaznamek.ura }}</td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+
+</table>

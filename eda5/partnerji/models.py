@@ -172,6 +172,7 @@ class Oseba(TimeStampedModel, IsActiveModel):
     class Meta:
         verbose_name = "Oseba"
         verbose_name_plural = "Osebe"
+        ordering = ['priimek', ]
 
     def get_absolute_url(self):
         return reverse('moduli:partnerji:detail', kwargs={"pk": self.podjetje.pk})

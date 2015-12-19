@@ -1,51 +1,61 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
+{% load crispy_forms_tags %}
 
-
-
-{% block content %}<!-- vsebina modula -->
-
-    <!-- napis modula -->
-    <div class="bg-{{ object.barva }}"><h3>{{ object.naziv }}</h3></div>
-
-
-
-    <div class="container">
-
-
-
-        <!-- seznam zavihkov -->
-        <table class="table">
-            {% for zavihek in object.zavihek_set.all %}
-
-            <tr>
-                <td><h3><a href="{{ zavihek.urlreference }}" >{{ zavihek.naziv }}</a></h3></td>
-            </tr>
-            
-            {% endfor %}
-        </table><!-- end seznam zavihkov -->
-
-
-
-    </div><!-- end container -->
-
-{% endblock %}<!-- END vsebina modula -->
-
-
-
-{% block navbar %}<!-- sidebar -->
-
+<!-- SideBar podatki -->
+{% block sidebar %}
     <li>
         <a href="{% url 'moduli:home' %}"><i class="ion-home"></i>
             <span class="nav-label">Moduli</span>
         </a>
     </li>
-    
-{% endblock %}<!-- END sidebar -->
+{% endblock %}
+<!-- end SideBar podatki -->
 
 
 
+<!-- Navbar Title -->
+{% block navbar_title %}
+{% endblock %}
+<!-- end Navbar Title -->
 
-{% block javascript_extra %}{% endblock %}
 
 
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ object.naziv }}<!-- napis modula -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+
+    <!-- seznam zavihkov -->
+    <table class="table">
+        {% for zavihek in object.zavihek_set.all %}
+
+        <tr>
+            <td><h3><a href="{{ zavihek.urlreference }}" >{{ zavihek.naziv }}</a></h3></td>
+        </tr>
+        
+        {% endfor %}
+    </table><!-- end seznam zavihkov -->
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

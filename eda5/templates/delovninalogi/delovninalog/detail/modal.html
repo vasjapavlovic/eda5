@@ -1,0 +1,118 @@
+<!-- Modal ADD Delo-->
+<div class="modal fade" id="addDelo" tabindex="-1" role="dialog" aria-labelledby="addDelo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Novo Delo</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ delo_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Update Delo-->
+<div class="modal fade" id="updateDelo" tabindex="-1" role="dialog" aria-labelledby="updateDelo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Končaj delo</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ delo_update_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal ADD material-->
+<div class="modal fade" id="addMaterial" tabindex="-1" role="dialog" aria-labelledby="addMaterial">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Dodaj Material</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ material_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal ADD Zaznamek-->
+        <div class="modal fade" id="addZaznamek" tabindex="-1" role="dialog" aria-labelledby="addZaznamek">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Novo Zaznamek</h4>
+                    </div>
+
+
+                    <form action="" method="POST">{% csrf_token %}
+                        <div class="modal-body">
+                            {{ zaznamek_form|crispy  }}   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                            <button type="submit" class="btn btn-primary">Shrani</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Modal addDokumentacija -->
+<div class="modal fade" id="addDokumentacija" tabindex="-1" role="dialog" aria-labelledby="addDokumentacija">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Dodajanje Dokumentacije</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ arhiviranje_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

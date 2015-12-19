@@ -1,0 +1,20 @@
+<!-- SideBar znotraj zavihka-->
+
+
+
+    <!-- Naziv Modula + Link -->
+    <li>
+        <a class="bg-{{ modul_zavihek.modul.barva }}" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">
+            <i class="ion-home"></i>
+            <span class="nav-label">{{ modul_zavihek.modul.naziv }}</span>
+        </a>
+    </li><!-- end Naziv Modula + Link -->
+
+
+
+    <!-- Zavihki -->
+    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
+
+    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+
+    {% endfor %}<!-- end Zavihki -->

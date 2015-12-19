@@ -1,0 +1,34 @@
+<table class="table table-hover table-condensed">
+    <tr>
+        <th>oznaka</th>
+        <th>naziv</th>
+        <th>rok izvedbe</th>
+        <th>status</th>
+    </tr>
+
+{% for opravilo in opravilo_list %}
+
+    <!-- obarva potrjena opravila -->
+    {% if opravilo.is_potrjen %}
+    <tr class="success">
+    {% else  %}
+    <tr>
+    {% endif %}
+
+
+        <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a></td>
+        <td>{{ opravilo.naziv }}</td>
+        <td>{{ opravilo.rok_izvedbe }}</td>
+
+    <!-- status -->
+    {% if opravilo.is_potrjen %}
+        <td>Zaključeno</td>
+    {% else %}
+        <td>V reševanju</td>
+    {% endif %}
+
+    </tr>
+    
+{% endfor %}
+
+</table>

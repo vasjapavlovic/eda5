@@ -1,0 +1,15 @@
+<!-- TAB_03 Content -->
+
+<table class="table table-condensed">
+    <tbody>
+        {% for trr in object.trracun_set.all %}
+
+        <tr>
+            <td>TRR.0{{ forloop.counter }}</td>
+            <td>{{ trr.iban }} ({{trr.banka.bic_koda}})</td>
+            <td>{{trr.banka.partner.kratko_ime}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>

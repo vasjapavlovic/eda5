@@ -1,0 +1,22 @@
+<!-- TAB_02 Content -->
+
+    <table class="table table-condensed">
+        <tbody>
+            {% for oseba in object.oseba_set.all %}
+
+            <tr>
+                <td><b>Ime in Priimek</b></td>
+                <td>{{ oseba.ime }} {{ oseba.ime }}</td>
+            </tr>
+            <tr>
+                <td><b>Status</b></td>
+                <td>{{ oseba.status }}</td>
+            </tr>
+            <tr>
+                <td><b>Kvalifikacije</b></td>
+                <td>{{ oseba.kvalifikacije }}</td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>

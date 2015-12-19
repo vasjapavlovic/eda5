@@ -65,7 +65,7 @@ class OsebaUpdateView(CreateView):
 
 class PartnerDetailView(DetailView):
     model = Partner
-    template_name = "partnerji/partner/detail.html"
+    template_name = "partnerji/partner/detail/base.html"
 
     # subform "Dodaj Osebo"
     form_class = OsebaCreateWidget

@@ -1,0 +1,76 @@
+<!-- zahtevek detail : NAVIGACIJA_MENU -->
+
+
+
+<div class="row m-t-30">
+    <div class="col-sm-12">
+        <div class="panel panel-default p-0">
+            <div class="panel-body p-0"> 
+
+
+
+                <!--nav-tabs-->              
+                <ul class="nav nav-tabs profile-tabs">
+                    <li class="active"><a data-toggle="tab" href="#vcakanju"><b>V Č</b>akanju</a></li>
+                    <li><a data-toggle="tab" href="#vplanu"><b>V P</b>lanu</a></li>
+                    <li><a data-toggle="tab" href="#vresevanju"><b>V R</b>eševanju</a></li>
+                    <li><a data-toggle="tab" href="#zakljuceni"><b>Z</b>aključeni</a></li>
+                </ul>
+                <!--end nav-tabs-->
+
+
+
+                <!--tab-content-->
+                <div class="tab-content m-0"> 
+
+
+
+                    <!--tab******************************** -->
+                    <div id="vcakanju" class="tab-pane active">
+                        <div class="profile-desk">
+                            <h1>V ČAKANJU :</h1>
+                            {% include "delovninalogi/delovninalog/list/tabs/tab_01.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="vplanu" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>V PLANU :</h1>
+                            {% include "delovninalogi/delovninalog/list/tabs/tab_02.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="vresevanju" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>V REŠEVANJU :</h1>
+                            {% include "delovninalogi/delovninalog/list/tabs/tab_03.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="zakljuceni" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>ZAKLJUČENI :</h1>
+                            {% include "delovninalogi/delovninalog/list/tabs/tab_04.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                </div>
+                <!--end tab-content-->
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

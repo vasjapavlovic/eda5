@@ -11,6 +11,7 @@ class ZahtevekManager(models.Manager):
         rok_izvedbe=None,
         narocilo=None,
         nosilec=None,
+        status=None,
         zahtevek_parent=None,
     ):
 
@@ -21,11 +22,20 @@ class ZahtevekManager(models.Manager):
             rok_izvedbe=rok_izvedbe,
             narocilo=narocilo,
             nosilec=nosilec,
+            status=status,
             zahtevek_parent=zahtevek_parent,
         )
 
         zahtevek.save(using=self._db)
         return zahtevek
+
+    # zahtevki v reševanju
+    def zahtevki_vresevanju(self, **kwargs):
+        return self.filter(status=3)
+
+    # zaključeni zahtevki
+    def zahtevki_zakljuceni(self, **kwargs):
+        return self.filter(status=4).order_by("-created",)
 
 
 class ZahtevekSestanekManager(models.Manager):

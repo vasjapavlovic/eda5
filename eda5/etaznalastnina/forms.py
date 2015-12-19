@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Program, LastniskaEnotaElaborat, LastniskaEnotaInterna, LastniskaSkupina
+from .models import Program, LastniskaEnotaElaborat, LastniskaEnotaInterna, LastniskaSkupina, InternaDodatno, UporabnoDovoljenje
 
 
 class ProgramCreateForm(forms.ModelForm):
@@ -52,4 +52,30 @@ class LastniskaSkupinaCreateForm(forms.ModelForm):
             'opis',
             'program',
             'lastniska_enota',
+        )
+
+
+class InternaDodatnoCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = InternaDodatno
+        fields = (
+            'interna',
+            'lastnik',
+            'najemnik',
+            'placnik',
+            'uporabno_dovoljenje',
+            'stanje_prostora',
+        )
+
+
+class UporabnoDovoljenjeCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = UporabnoDovoljenje
+        fields = (
+            'oznaka',
+            'st_dokumenta',
+            'datum',
+            'objekt',
         )

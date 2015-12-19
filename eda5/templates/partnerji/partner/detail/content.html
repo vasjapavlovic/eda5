@@ -1,0 +1,66 @@
+<!-- zahtevek detail : NAVIGACIJA_MENU -->
+
+
+
+<div class="row m-t-30">
+    <div class="col-sm-12">
+        <div class="panel panel-default p-0">
+            <div class="panel-body p-0"> 
+
+
+
+                <!--nav-tabs-->              
+                <ul class="nav nav-tabs profile-tabs">
+                    <li class="active"><a data-toggle="tab" href="#izkaznica"><b>I</b>zkaznica</a></li>
+                    <li><a data-toggle="tab" href="#osebe"><b>O</b>sebe</a></li>
+                    <li><a data-toggle="tab" href="#trr"><b>TR</b> Račun</a></li>
+
+                </ul>
+                <!--end nav-tabs-->
+
+
+
+                <!--tab-content-->
+                <div class="tab-content m-0"> 
+
+
+
+                    <!--tab******************************** -->
+                    <div id="izkaznica" class="tab-pane active">
+                        <div class="profile-desk">
+                            <h1>IZKAZNICA :</h1>
+                            {% include "partnerji/partner/detail/tabs/tab_01.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="osebe" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>OSEBE :</h1>
+                            {% include "partnerji/partner/detail/tabs/tab_02.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="trr" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>TRR :</h1>
+                            {% include "partnerji/partner/detail/tabs/tab_03.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                </div>
+                <!--end tab-content-->
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

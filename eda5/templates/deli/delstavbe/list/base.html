@@ -1,62 +1,49 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-
-{% block moduli_title %}Deli Stavbe{% endblock %}
-
-
-{% block moduli_content %}
-
-
-<!-- TAB_NAVIGACIJA############################################ -->
-<div class="row">
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>    
-    </div>
-
-
-    <!--NASLOV-->
-    <ul id="brand" class="nav navbar-nav">
-        <li>
-            <a class="btn btn-danger">
-                {% block delstavbe_list_tab_title %}{% endblock %}
-            </a>
-        </li>
-    </ul>
-    <!--end NASLOV-->
-
-
-    <!--CONTROLER_LEFT-->
-    <ul class="nav navbar-nav navbar-left">
-        {% block delstavbe_list_tab_controler_left %}{% endblock %}
-    </ul>
-    <!--end CONTROLER_LEFT-->
-
-
-    <!--CONTROLER_RIGHT-->
-    <ul class="nav navbar-nav navbar-right">
-        {% block delstavbe_list_tab_controler_right %}
-        {% endblock %}
-    </ul>
-    <!--end CONTROLER_RIGHT-->
-
-
-</nav>
-</div>
-<!-- end TAB_NAVIGACIJA -->
-
-
-<!-- CONTENT################################################### -->
-
-{% block delstavbe_list_content %}{% endblock %}  
-    
-<!-- end CONTENT -->
-
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
 {% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+    <li><a href="" data-toggle="modal" data-target="#addDel">Nov Del</a></li>
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+{% include "deli/delstavbe/list/content.html" %}
+{% include "deli/delstavbe/list/modal.html" %}
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->
