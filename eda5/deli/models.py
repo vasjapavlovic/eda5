@@ -177,8 +177,7 @@ class Element(IsActiveModel):
         verbose_name_plural = 'elementi'
 
     def __str__(self):
-        return "(%s)%s" % (self.projektno_mesto.oznaka, self.tovarniska_st
-                              )
+        return "(%s)%s" % (self.projektno_mesto.oznaka, self.tovarniska_st)
 
 
 class Nastavitev(models.Model):
