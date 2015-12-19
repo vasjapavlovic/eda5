@@ -10,3 +10,8 @@ urlpatterns = [
     url(r'^del/(?P<pk>\d+)/update/$', views.DelUpdateView.as_view(), name="del_update"),
     url(r'^element/(?P<pk>\d+)/detail/$', views.ElementDetailView.as_view(), name="element_detail"),
 ]
+
+# Projektno Mesto
+urlpatterns += [
+    url(r'^projektno-mesto-create/$', views.ProjektnoMestoCreateView.as_view(), name="projektno_mesto_create"),
+]

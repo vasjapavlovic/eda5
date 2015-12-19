@@ -134,6 +134,8 @@ class ProjektnoMesto(models.Model):
         return elementi
 
     # METHODS
+    def get_absolute_url(self):
+        return reverse('moduli:deli:del_detail', kwargs={'pk': self.del_stavbe.pk})
 
     # META AND STRING
     class Meta:

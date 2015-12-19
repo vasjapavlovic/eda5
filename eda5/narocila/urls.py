@@ -12,5 +12,6 @@ urlpatterns = [
 
 # NAROCILO
 urlpatterns += [
+    url(r'^dn/(?P<pk>\d+)/detail$', views.NarociloDetailView.as_view(), name="narocilo_detail"),
     url(r'^narocilo-telefon/$', views.NarociloTelefonCreateView.as_view(), name="narocilo_create_telefon"),
 ]

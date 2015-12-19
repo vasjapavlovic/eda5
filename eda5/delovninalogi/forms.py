@@ -63,8 +63,6 @@ class OpraviloCreateForm(forms.ModelForm):
             'rok_izvedbe': DateInput(),
         }
 
-
-
 class OpraviloModelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -91,6 +89,8 @@ class DelovniNalogVcakanjuModelForm(forms.ModelForm):
         super(DelovniNalogVcakanjuModelForm, self).__init__(*args, **kwargs)
         # custom initial properties
         self.initial['status'] = 2
+        self.fields['datum_plan'].required = True
+        self.fields['nosilec'].required = True
 
     class Meta:
         model = DelovniNalog

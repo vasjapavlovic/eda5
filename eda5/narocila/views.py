@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, DetailView
 
 from . import forms
 from .models import NarociloTelefon, NarociloPogodba, Narocilo
@@ -93,3 +93,17 @@ class NarociloTelefonCreateView(TemplateView):
 
 class NarociloPogodbaCreateView(TemplateView):
     template_name = "narocila/narocilo/create_pogodba.html"
+
+
+class NarociloDetailView(DetailView):
+    model = Narocilo
+    template_name = 'narocila/narocilo/detail/base.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NarociloDetailView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context

@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from django.db.models import Max
 
-from .forms import DelCreateForm
-from .models import DelStavbe, Skupina, Element, Podskupina
+from .forms import DelCreateForm, ProjektnoMestoCreateForm, ElementCreateForm, NastavitevCreateForm
+from .models import DelStavbe, Skupina, Element, Podskupina, ProjektnoMesto
 
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
 from eda5.katalog.models import ObratovalniParameter
@@ -90,48 +90,34 @@ class ElementDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ElementDetailView, self).get_context_data(*args, **kwargs)
 
+        # seznam delovnih nalogov (za servisno knjigo)
         opravila = Opravilo.objects.filter(element=self.object.id)
-
-        # sestavim sesznam delovnih-nalogov
         delovninalog_list = []
         for opravilo in opravila:
             delovninalog_list = DelovniNalog.objects.filter(opravilo=opravilo)
             list(delovninalog_list)
-
-        context['opravilo_list'] = opravila
         context['delovninalog_list'] = delovninalog_list
 
-
-        # opravila = Opravilo.objects.filter(element=self.object.id)
-        # dn = DelovniNalog.objects.filter(opravilo=opravila).exclude(strosek__isnull=True)
-
-        # dn_strosek_skp = 0
-
-        # for dnx in dn:
-        #     dn_strosek = dnx.strosek.strosek_z_ddv
-        #     dn_strosek_skp = dn_strosek_skp + dn_strosek
-
-        # dn_strosek_skp = str(round(dn_strosek_skp)) + ',00 EUR'
-
-        # context['celotnistrosek'] = dn_strosek_skp
-
-        # artikel = self.object.model_artikla
-        # obratovalni_parametri = ObratovalniParameter.objects.filter(artikel=artikel)
-        # context['obratovalni_parmateri'] = obratovalni_parametri
-
+        # seznam nastavitev (za obratovanje)
         nastavitve = self.object.nastavitev_set.all()
-        context['nastavitve'] = nastavitve
+        context['nastavitev_list'] = nastavitve
 
-        # DOLOČITEV ZADNJIH NASTAVLJENIH VREDNOSTI
-        nastavitev_max = self.object.nastavitev_set.values("obratovalni_parameter").annotate(datum=Max("datum_nastavitve"))
+        # nastavljene vrednosti (parametri obratovanja)
+        nastavitev_max = self.object.nastavitev_set.values(
+            "obratovalni_parameter").annotate(datum=Max("datum_nastavitve"))
 
         # sestavimo ustrezen seznam za izpis
         nastavitev_max_izpis = []
         for nastavitev in nastavitev_max:
             nastavitev_max_izpis.append(self.object.nastavitev_set.filter(
-                obratovalni_parameter=nastavitev['obratovalni_parameter'], datum_nastavitve=nastavitev['datum'])[0])
-
+                obratovalni_parameter=nastavitev['obratovalni_parameter'],
+                datum_nastavitve=nastavitev['datum'])[0]
+            )
         context['nastavitev_max'] = nastavitev_max_izpis
+
+        # Zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="ELEMENT_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
 
         return context
 
@@ -145,5 +131,18 @@ class DelCreateView(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(DelCreateView, self).get_context_data(*args, **kwargs)
         modul_zavihek = Zavihek.objects.get(oznaka="DEL_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+        return context
+
+
+class ProjektnoMestoCreateView(CreateView):
+
+    model = ProjektnoMesto
+    form_class = ProjektnoMestoCreateForm
+    template_name = "deli/projektno_mesto/create.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProjektnoMestoCreateView, self).get_context_data(*args, **kwargs)
+        modul_zavihek = Zavihek.objects.get(oznaka="PROJEKTNO_MESTO_CREATE")
         context['modul_zavihek'] = modul_zavihek
         return context

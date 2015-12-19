@@ -35,7 +35,7 @@ class ZahtevekListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekListView, self).get_context_data(*args, **kwargs)
-        
+
         # content
         context['zahtevki_vresevanju_list'] = self.model.objects.zahtevki_vresevanju()
         context['zahtevki_zakljuceni_list'] = self.model.objects.zahtevki_zakljuceni()
@@ -80,7 +80,6 @@ class ZahtevekCreateView(TemplateView):
                 narocilo=narocilo,
                 nosilec=nosilec,
             )
-
 
             zahtevek = Zahtevek.objects.get(oznaka=oznaka)  # bolje bi bilo na ID ampak neznam
             # arhiv = Arhiv.objects.get(id=1)  # v končni fazi bo arhiv == objektu

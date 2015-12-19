@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 from django.core.urlresolvers import reverse, reverse_lazy
 from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
@@ -36,7 +38,16 @@ class OpraviloListView(ListView):
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 class OpraviloDetailView(DetailView):
     model = Opravilo
-    template_name = "delovninalogi/opravilo/detail.html"
+    template_name = "delovninalogi/opravilo/detail/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(OpraviloDetailView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -106,10 +117,14 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         # DELOVNI-NALOG s katerim imamo opravka
         # =================================================================================================
         delovninalog = DelovniNalog.objects.get(id=self.get_object().id)
+        arhiviranje_form = ArhiviranjeDelovniNalogForm(request.POST or None)
+        zaznamek_form = ZaznamekForm(request.POST or None)
+        delo_form = DeloForm(request.POST or None)
+        dnevnik_delovninalog_form = DnevnikDelovniNalogCreateForm(request.POST or None)
 
         # VNOS ZAZNAMKA
         # =================================================================================================
-        zaznamek_form = ZaznamekForm(request.POST or None)
+        
 
         if zaznamek_form.is_valid():
 
@@ -142,7 +157,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
         # VNOS NOVEGA DELA
         # =================================================================================================
-        delo_form = DeloForm(request.POST or None)
+        
 
         if delo_form.is_valid():
 
@@ -204,7 +219,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_update_vplanu',
                                                     kwargs={'pk': delovninalog.pk}))
 
-        arhiviranje_form = ArhiviranjeDelovniNalogForm(request.POST or None)
+        
 
         if arhiviranje_form.is_valid():
 
@@ -223,7 +238,9 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 lokacija_hrambe=lokacija_hrambe,
             )
 
-        dnevnik_delovninalog_form = DnevnikDelovniNalogCreateForm(request.POST or None)
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
+
+        
 
         if dnevnik_delovninalog_form.is_valid():
 
@@ -238,7 +255,16 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 kom=kom,
             )
 
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
+        # return render(request, self.template_name, {
+        #     'object': delovninalog,
+        #     'dnevnik_delovninalog_form': dnevnik_delovninalog_form,
+        #     'delo_form': delo_form,
+        #     'zaznamek_form': zaznamek_form,
+        #     'arhiviranje_form': arhiviranje_form,
+        #     }
+        # )
         return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
 

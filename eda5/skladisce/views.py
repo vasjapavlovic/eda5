@@ -6,6 +6,8 @@ from django.views.generic import TemplateView, ListView, CreateView, DetailView
 from .forms import DobavaCreateForm, DnevnikDobavaCreateForm
 from .models import Dobava, Dnevnik
 
+from eda5.moduli.models import Zavihek
+
 
 class SkladisceHomeView(TemplateView):
     template_name = "skladisce/home.html"
@@ -20,6 +22,15 @@ class DobavaCreateView(CreateView):
     model = Dobava
     template_name = "skladisce/dobava/create.html"
     form_class = DobavaCreateForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DobavaCreateView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOBAVA_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
 class DobavaDetailView(DetailView):
