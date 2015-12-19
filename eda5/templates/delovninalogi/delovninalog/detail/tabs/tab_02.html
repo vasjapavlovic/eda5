@@ -1,59 +1,72 @@
 <!-- delo -->
 
+
+{% if not object.status == 4 %}
 <!-- ODPRTA DELA -->
-<table class="table table-hover table-condensed">
-        <tr>
-            <th>datum</th>
-            <th>začetek</th>
-            <th>delavec</th>
-            <th>vrsta_dela</th>
-        </tr>
+    <div class="panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Odprta Dela</div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>datum</th>
+                            <th>začetek</th>
+                            <th>delavec</th>
+                            <th>vrsta_dela</th>
+                        </tr>
 
-    {% for delo in object.delo_set.odprta_dela %}
+                    {% for delo in object.delo_set.odprta_dela %}
 
 
-    <tr>
-    
-        <td><a href="{% url 'moduli:delovninalogi:delo_update' delo.id %}">{{ delo.datum }}</a></td>
-        <td>{{ delo.time_start }}</td>
-        <td>{{ delo.delavec.priimek }} {{ delo.delavec.ime }}<br>
-            ({{ delo.delavec.podjetje.kratko_ime }})
-        </td>
-        <td>{{ delo.vrsta_dela.naziv }}<br> (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
+                    <tr>
+                    
+                        <td><a href="{% url 'moduli:delovninalogi:delo_update' delo.id %}">{{ delo.datum }}</a></td>
+                        <td>{{ delo.time_start }}</td>
+                        <td>{{ delo.delavec.priimek }} {{ delo.delavec.ime }}<br>
+                            ({{ delo.delavec.podjetje.kratko_ime }})
+                        </td>
+                        <td>{{ delo.vrsta_dela.naziv }}<br> (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
 
-    </tr>
+                    </tr>
 
-    {% endfor %}
+                    {% endfor %}
 
-    </table>
+                </table>
+            </div>
+        </div>
+{% endif %}
 
 
 
 <!-- ZAKLJUČENA DELA -->
-<table class="table table-hover table-condensed">
-        <tr>
-            <th>datum</th>
-            <th>začetek</th>
-            <th>konec</th>
-            <th>porabljen čas</th>
-            <th>delavec</th>
-            <th>vrsta_dela</th>
-        </tr>
+        <div class="panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Zaključena Dela</div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>datum</th>
+                            <th>začetek</th>
+                            <th>konec</th>
+                            <th>porabljen čas</th>
+                            <th>delavec</th>
+                            <th>vrsta_dela</th>
+                        </tr>
 
-    {% for delo in object.delo_set.koncana_dela %}
+                    {% for delo in object.delo_set.koncana_dela %}
 
 
-    <tr>
-    
-        <td>{{ delo.datum }}</td>
-        <td>{{ delo.time_start }}</td>
-        <td>{{ delo.time_stop }}</td>
-        <td>{{ delo.porabljen_cas }}</td>
-        <td>{{ delo.delavec.priimek }} ({{ delo.delavec.ime }})</td>
-        <td>{{ delo.vrsta_dela.naziv }}<br> (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
+                    <tr>
+                    
+                        <td>{{ delo.datum }}</td>
+                        <td>{{ delo.time_start }}</td>
+                        <td>{{ delo.time_stop }}</td>
+                        <td>{{ delo.porabljen_cas }}</td>
+                        <td>{{ delo.delavec.priimek }} ({{ delo.delavec.ime }})</td>
+                        <td>{{ delo.vrsta_dela.naziv }}<br> (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
 
-    </tr>
+                    </tr>
 
-    {% endfor %}
+                    {% endfor %}
 
-    </table>
+                </table>
+            </div>
+        </div>

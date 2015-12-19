@@ -1,15 +1,54 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block content2 %}
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
 
-<form method="POST", action="">{% csrf_token %}
-                <h1>Začni delo</h1>
-                
-                {{ form | crispy }}
 
-                <input type="submit" value="Potrdi">
-</form>
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->Začni delo<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+             
+
+    <form method="POST", action="">{% csrf_token %}
+
+        {{ form | crispy }}
+
+        <input type="submit" value="Potrdi">
+
+    </form>
+
 
 {% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

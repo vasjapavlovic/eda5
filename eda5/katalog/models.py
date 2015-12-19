@@ -9,7 +9,7 @@ class TipArtikla(models.Model):
     # ATRIBUTES
     # ***Relations***
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     # ***Optional***
     # OBJECT MANAGER
@@ -77,7 +77,8 @@ class Proizvajalec(models.Model):
     # ATRIBUTES
     # ***Relations***
     # ***Mandatory***
-    naziv = models.CharField(max_length=100, unique=True)
+    oznaka = models.CharField(max_length=20, unique=True)
+    naziv = models.CharField(max_length=100)
     # ***Optional***
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
@@ -90,7 +91,7 @@ class Proizvajalec(models.Model):
         ordering = ('naziv',)
 
     def __str__(self):
-        return "%s" % (self.naziv)
+        return "%s | %s" % (self.oznaka, self.naziv)
 
 
 class ModelArtikla(models.Model):
@@ -98,8 +99,9 @@ class ModelArtikla(models.Model):
     # ATRIBUTES
     # ***Relations***
     proizvajalec = models.ForeignKey(Proizvajalec)
+    tip_artikla = models.ForeignKey(TipArtikla)
     # ***Mandatory***
-    tip = models.ForeignKey(TipArtikla)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     # ***Optional***
     # OBJECT MANAGER
@@ -117,7 +119,7 @@ class ModelArtikla(models.Model):
         ordering = ('naziv',)
 
     def __str__(self):
-        return "%s-%s" % (self.proizvajalec, self.naziv)
+        return "%s-%s" % (self.proizvajalec.naziv, self.naziv)
 
 
 class KarakteristikaVrednost(models.Model):

@@ -8,7 +8,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
 
-from .forms import UvozCsvForm
+from .forms import UtilitiUvozCsvForm, PartnerjiUvozCsvForm, DeliUvozCsvForm, RacunovodstvoUvozCsvForm,\
+                   DelovniNalogiUvozCsvForm, EtaznaLastninaUvozCsvForm, KatalogUvozCsvForm
 
 from eda5.core.forms import ObdobjeLetoCreateForm, ObdobjeMesecCreateForm
 
@@ -30,17 +31,36 @@ from eda5.etaznalastnina.forms import ProgramCreateForm, LastniskaEnotaElaboratC
                                       UporabnoDovoljenjeCreateForm, InternaDodatnoCreateForm
 from eda5.etaznalastnina.models import Program, LastniskaEnotaElaborat, LastniskaEnotaInterna, UporabnoDovoljenje
 
+from eda5.katalog.forms import TipArtiklaCreateForm, ProizvajalecCreateForm, ModelArtiklaCreateForm
+from eda5.katalog.models import Proizvajalec ,TipArtikla
+
 
 class UvozCsv(TemplateView):
     template_name = "import/form.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(UvozCsv, self).get_context_data(*args, **kwargs)
-        context['uvoz_form'] = UvozCsvForm
+
+        # forms
+        context['utiliti_uvoz_form'] = UtilitiUvozCsvForm
+        context['partnerji_uvoz_form'] = PartnerjiUvozCsvForm
+        context['deli_uvoz_form'] = DeliUvozCsvForm
+        context['racunovodstvo_uvoz_form'] = RacunovodstvoUvozCsvForm
+        context['delovninalogi_uvoz_form'] = DelovniNalogiUvozCsvForm
+        context['etaznalastnina_uvoz_form'] = EtaznaLastninaUvozCsvForm
+        context['katalog_uvoz_form'] = KatalogUvozCsvForm
+
         return context
 
     def post(self, request, *args, **kwargs):
-        uvoz_form = UvozCsvForm(request.POST or None)
+        utiliti_uvoz_form = UtilitiUvozCsvForm(request.POST or None)
+        partnerji_uvoz_form = PartnerjiUvozCsvForm(request.POST or None)
+        deli_uvoz_form = DeliUvozCsvForm(request.POST or None)
+        racunovodstvo_uvoz_form = RacunovodstvoUvozCsvForm(request.POST or None)
+        delovninalogi_uvoz_form = DelovniNalogiUvozCsvForm(request.POST or None)
+        etaznalastnina_uvoz_form = EtaznaLastninaUvozCsvForm(request.POST or None)
+        katalog_uvoz_form = KatalogUvozCsvForm(request.POST or None)
+
 
         def import_core_obdobje_leto():
 
@@ -657,7 +677,6 @@ class UvozCsv(TemplateView):
                     else:
                         row['uporabno_dovoljenje'] = ""
 
-                    print(interna)
                     form = InternaDodatnoCreateForm(row)
 
                     if form.is_valid():
@@ -671,42 +690,138 @@ class UvozCsv(TemplateView):
             # na ekranu prikažem informacijo o številu uvozov
             return messages.success(request, "INTERNA-DODATNO LE: Število dodanih vnosov: %s" % (records_added))
 
-        if uvoz_form.is_valid():
+        def import_katalog_tip_artikla():
 
-            if uvoz_form.cleaned_data['utiliti'] is True:
+            filename = os.path.abspath("eda5/templates/import/katalog/tip_artikla.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = TipArtiklaCreateForm(row)
+                if form.is_valid():
+                    form.save()
+                    records_added += 1
+
+            return messages.success(request, "KATALOG/ TIP ARTIKLA: Število dodanih vnosov: %s" % (records_added))
+
+        def import_katalog_proizvajalec():
+
+            filename = os.path.abspath("eda5/templates/import/katalog/proizvajalec.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = ProizvajalecCreateForm(row)
+                if form.is_valid():
+                    form.save()
+                    records_added += 1
+
+            return messages.success(request, "KATALOG/ PROIZVAJALEC: Število dodanih vnosov: %s" % (records_added))
+
+        def import_katalog_model_artikla():
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/katalog/model_artikla.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            for row in seznam:
+
+                # oznako skupine zamenjamo z ID skupine
+                tip_artikla_oznaka = row['tip_artikla']
+                proizvajalec_oznaka = row['proizvajalec']
+
+                try:
+                    tip_artikla = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+                    proizvajalec = Proizvajalec.objects.get(oznaka=proizvajalec_oznaka)
+
+                    row['tip_artikla'] = tip_artikla.pk
+                    row['proizvajalec'] = proizvajalec.pk
+
+                    form = ModelArtiklaCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
+                except:
+                    import_katalog_proizvajalec()
+                    import_katalog_tip_artikla()
+
+            # na ekranu prikažem informacijo o številu uvozov
+            return messages.success(request, "KATALOG/ MODEL ARTIKLA: Število dodanih vnosov: %s" % (records_added))
+
+        if utiliti_uvoz_form.is_valid():
+
+            if utiliti_uvoz_form.cleaned_data['utiliti'] is True:
                 import_utility()
 
-            if uvoz_form.cleaned_data['poste'] is True:
+        if partnerji_uvoz_form.is_valid():
+
+            if partnerji_uvoz_form.cleaned_data['poste'] is True:
                 import_poste()
 
-            if uvoz_form.cleaned_data['poste_tujina'] is True:
+            if partnerji_uvoz_form.cleaned_data['poste_tujina'] is True:
                 import_poste_tujina()
 
-            if uvoz_form.cleaned_data['banke'] is True:
+            if partnerji_uvoz_form.cleaned_data['banke'] is True:
                 import_partnerji_banka()
 
-            if uvoz_form.cleaned_data['partnerji'] is True:
+            if partnerji_uvoz_form.cleaned_data['partnerji'] is True:
                 import_partnerji()
 
-            if uvoz_form.cleaned_data['partnerji_edacenter'] is True:
+            if partnerji_uvoz_form.cleaned_data['partnerji_edacenter'] is True:
                 import_partnerji_edacenter()
 
-            if uvoz_form.cleaned_data['skupine_delov_stavbe'] is True:
+        if deli_uvoz_form.is_valid():
+
+            if deli_uvoz_form.cleaned_data['skupine_delov_stavbe'] is True:
                 import_deli_podskupine()
 
-            if uvoz_form.cleaned_data['stroskovna_mesta'] is True:
+        if racunovodstvo_uvoz_form.is_valid():
+
+            if racunovodstvo_uvoz_form.cleaned_data['stroskovna_mesta'] is True:
                 import_racunovodstvo_vrste_stroskov()
 
-            if uvoz_form.cleaned_data['vrste_del'] is True:
+        if delovninalogi_uvoz_form.is_valid():
+
+            if delovninalogi_uvoz_form.cleaned_data['vrste_del'] is True:
                 import_delovninalog_delo_vrsta()
 
-            if uvoz_form.cleaned_data['etazna_lastnina'] is True:
+        if etaznalastnina_uvoz_form.is_valid():
+
+            if etaznalastnina_uvoz_form.cleaned_data['etazna_lastnina'] is True:
                 import_etaznalastnina_interna()
 
-            if uvoz_form.cleaned_data['interna_dodatno'] is True:
+            if etaznalastnina_uvoz_form.cleaned_data['interna_dodatno'] is True:
                 import_etaznalastnina_interna_dodatno()
 
-            if uvoz_form.cleaned_data['uporabno_dovoljenje'] is True:
+            if etaznalastnina_uvoz_form.cleaned_data['uporabno_dovoljenje'] is True:
                 import_etaznalastnina_uporabno_dovoljenje()
+
+        if katalog_uvoz_form.is_valid():
+
+            if katalog_uvoz_form.cleaned_data['tip_artikla'] is True:
+                import_katalog_tip_artikla()
+
+            if katalog_uvoz_form.cleaned_data['proizvajalec'] is True:
+                import_katalog_proizvajalec()
+
+            if katalog_uvoz_form.cleaned_data['model_artikla'] is True:
+                import_katalog_model_artikla()
 
         return HttpResponseRedirect(reverse('moduli:import:form'))

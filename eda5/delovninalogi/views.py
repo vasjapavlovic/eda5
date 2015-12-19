@@ -95,12 +95,9 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['zaznamek_form'] = ZaznamekForm
         context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=self.object.id)
 
-        
-        # koncana_dela = Delo.objects.koncana_dela(delovninalog=self.object.id)
-
-        #############
-        # izračun porabljenega časa za končana dela
-
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
 
         return context
 
@@ -173,7 +170,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             opravljati več del'''
             for delo in Delo.objects.filter(time_stop__isnull=True):
                 if delo.delavec.id == delavec.id:
-                    messages.error(request, "Končati je potrebno predhodno delo z oznako '%s'"
+                    messages.error(request, "Končati je potrebno predhodno delo v delovnem nalogu z oznako '%s'"
                                    % (delo.delovninalog.oznaka))
                     return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
@@ -250,9 +247,18 @@ class DelovniNalogUpdateVcakanjuView(MessagesActionMixin, UpdateView):
     model = DelovniNalog
     form_class = DelovniNalogVcakanjuModelForm
     template_name = "delovninalogi/delovninalog/update_vcakanju.html"
-    success_url = reverse_lazy('moduli:delovninalogi:dn_list')
+    success_url = reverse_lazy('moduli:delovninalogi:dn_list')  # redirect na seznam delovnih nalogov
 
-    success_msg = "Status zahtevka je spremenjen na 'V PLANU'"
+    success_msg = "Status Delovnega Naloga je spremenjen na 'V PLANU'"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelovniNalogUpdateVcakanjuView, self).get_context_data(*args, **kwargs)
+
+        # Zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -261,7 +267,16 @@ class DelovniNalogUpdateVplanuView(MessagesActionMixin, UpdateView):
     form_class = DelovniNalogVplanuModelForm
     template_name = "delovninalogi/delovninalog/update_vplanu.html"
 
-    success_msg = "Status zahtevka je spremenjen na 'V REŠEVANJU'"
+    success_msg = "Status Delovnega Naloga je spremenjen na 'V REŠEVANJU'"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelovniNalogUpdateVplanuView, self).get_context_data(*args, **kwargs)
+
+        # Zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -270,8 +285,17 @@ class DelovniNalogUpdateVresevanjuView(MessagesActionMixin, UpdateView):
     form_class = DelovniNalogVresevanjuModelForm
     template_name = "delovninalogi/delovninalog/update_vresevanju.html"
 
-    success_msg = "Status zahtevka je spremenjen na 'ZAKLJUČENO'. Potrjeni delovni nalogi\
+    success_msg = "Status Delovnega Naloga je spremenjen na 'ZAKLJUČENO'. Potrjeni delovni nalogi\
                   iz strani nadzornika bodo obarvani v zeleno."
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelovniNalogUpdateVresevanjuView, self).get_context_data(*args, **kwargs)
+
+        # Zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
     # DODATNE VALIDACIJE
@@ -308,3 +332,12 @@ class DeloZacetoUpdateView(MessagesActionMixin, UpdateView):
     template_name = "delovninalogi/delo/update_zaceto.html"
 
     success_msg = "Delo je uspešno končano."
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DeloZacetoUpdateView, self).get_context_data(*args, **kwargs)
+
+        # Zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context

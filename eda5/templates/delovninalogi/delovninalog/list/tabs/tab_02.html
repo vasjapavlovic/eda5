@@ -11,7 +11,7 @@
         </tr>
 
         {% for dn in dn_vplanu_list %}
-        <a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">
+        
         <tr>
             <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
             <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
