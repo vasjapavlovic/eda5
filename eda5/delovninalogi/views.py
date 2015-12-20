@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 
 from .mixins import MessagesActionMixin
-from .forms import OpraviloModelForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm,\
+from .forms import OpraviloUpdateForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm,\
                    DelovniNalogVresevanjuModelForm, DeloForm, DeloZacetoUpdateModelForm
 from .models import Opravilo, DelovniNalog, Delo
 
@@ -53,7 +53,7 @@ class OpraviloDetailView(DetailView):
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 class OpraviloUpdateView(UpdateView):
     model = Opravilo
-    form_class = OpraviloModelForm
+    form_class = OpraviloUpdateForm
     template_name = "delovninalogi/opravilo/update.html"
 
 

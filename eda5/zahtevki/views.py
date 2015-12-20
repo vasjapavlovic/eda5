@@ -13,7 +13,7 @@ from .forms import ZahtevekSestanekCreateForm
 
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 
-from eda5.delovninalogi.forms import OpraviloCreateForm
+from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm
 from eda5.delovninalogi.models import Opravilo
 
 from eda5.zaznamki.forms import ZaznamekForm
@@ -203,7 +203,7 @@ class ZahtevekDetailView(DetailView):
             vrsta_zahtevka = zahtevek_create_form.cleaned_data['vrsta_zahtevka']
 
             if vrsta_zahtevka == '1':
-                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_sestanek'))
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_sestanek', kwargs={'pk': zahtevek.pk}))
             if vrsta_zahtevka == '2':
                 return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_izvedba_del'))
 
@@ -339,6 +339,82 @@ class ZahtevekSestanekCreateView(TemplateView):
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_list'))
 
 
+class PodzahtevekSestanekCreateView(UpdateView):
+    model = Zahtevek
+    fields = ('id', )
+    template_name = "zahtevki/zahtevek/create_sestanek.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PodzahtevekSestanekCreateView, self).get_context_data(*args, **kwargs)
+        context['zahtevek_splosno_form'] = ZahtevekCreateForm
+        context['zahtevek_sestanek_form'] = ZahtevekSestanekCreateForm
+
+        modul_zavihek = Zavihek.objects.get(oznaka="PODZAHTEVEK_SESTANEK_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *Args, **kwargs):
+
+        # object
+        zahtevek_parent = Zahtevek.objects.get(id=self.get_object().id)
+
+        zahtevek_splosno_form = ZahtevekCreateForm(request.POST or None)
+        zahtevek_sestanek_form = ZahtevekSestanekCreateForm(request.POST or None)
+        modul_zavihek = Zavihek.objects.get(oznaka="PODZAHTEVEK_SESTANEK_CREATE")
+
+        if zahtevek_splosno_form.is_valid():
+            oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
+            naziv = zahtevek_splosno_form.cleaned_data['naziv']
+            vrsta = zahtevek_splosno_form.cleaned_data['vrsta']
+            rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
+            narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
+            nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
+
+            zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
+                oznaka=oznaka,
+                vrsta=vrsta,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                nosilec=nosilec,
+                status=3,
+                zahtevek_parent=zahtevek_parent,
+            )
+            zahtevek = Zahtevek.objects.get(id=zahtevek_splosno_data.pk)
+
+        else:
+            return render(request, self.template_name, {
+                'zahtevek_splosno_form': zahtevek_splosno_form,
+                'zahtevek_sestanek_form': zahtevek_sestanek_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        if zahtevek_sestanek_form.is_valid():
+
+            sklicatelj = zahtevek_sestanek_form.cleaned_data['sklicatelj']
+            # udelezenci = zahtevek_sestanek_form.cleaned_data['udelezenci']
+            datum = zahtevek_sestanek_form.cleaned_data['datum']
+
+            ZahtevekSestanek.objects.create_zahtevek_sestanek(
+                zahtevek=zahtevek,
+                sklicatelj=sklicatelj,
+                # udelezenci=udelezenci,
+                datum=datum,
+            )
+
+        else:
+            return render(request, self.template_name, {
+                'zahtevek_splosno_form': zahtevek_splosno_form,
+                'zahtevek_sestanek_form': zahtevek_sestanek_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_list'))
+
+
 class ZahtevekIzvedbaDelCreateView(TemplateView):
     template_name = "zahtevki/zahtevek/create_izvedba_del.html"
 
@@ -402,3 +478,147 @@ class ZahtevekIzvedbaDelCreateView(TemplateView):
             )
 
         return HttpResponseRedirect(reverse('moduli:home'))
+
+
+class PodzahtevekIzvedbaDelCreateView(UpdateView):
+    model = Zahtevek
+    fields = ('id', )
+    template_name = "zahtevki/zahtevek/create_izvedba_del.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PodzahtevekIzvedbaDelCreateView, self).get_context_data(*args, **kwargs)
+        context['zahtevek_splosno_form'] = ZahtevekCreateForm
+        context['zahtevek_izvedba_del_form'] = ZahtevekIzvedbaDelaCreateForm
+
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_IZVEDBA_DEL_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *Args, **kwargs):
+
+        zahtevek_parent = Zahtevek.objects.get(id=self.get_object().id)
+
+        zahtevek_splosno_form = ZahtevekCreateForm(request.POST or None)
+        zahtevek_izvedba_del_form = ZahtevekIzvedbaDelaCreateForm(request.POST or None)
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_IZVEDBA_DEL_CREATE")
+
+        if zahtevek_splosno_form.is_valid():
+            oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
+            naziv = zahtevek_splosno_form.cleaned_data['naziv']
+            vrsta = zahtevek_splosno_form.cleaned_data['vrsta']
+            rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
+            narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
+            nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
+
+            zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
+                oznaka=oznaka,
+                vrsta=vrsta,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                nosilec=nosilec,
+                status=3,
+                zahtevek_parent=zahtevek_parent
+            )
+            zahtevek = Zahtevek.objects.get(id=zahtevek_splosno_data.pk)
+
+        else:
+            return render(request, self.template_name, {
+                'zahtevek_splosno_form': zahtevek_splosno_form,
+                'zahtevek_izvedba_del_form': zahtevek_izvedba_del_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        if zahtevek_izvedba_del_form.is_valid():
+
+            is_zakonska_obveza = zahtevek_izvedba_del_form.cleaned_data['is_zakonska_obveza']
+
+            ZahtevekIzvedbaDela.objects.create_zahtevek_sestanek(
+                zahtevek=zahtevek,
+                is_zakonska_obveza=is_zakonska_obveza,
+            )
+        else:
+            return render(request, self.template_name, {
+                'zahtevek_splosno_form': zahtevek_splosno_form,
+                'zahtevek_izvedba_del_form': zahtevek_izvedba_del_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        return HttpResponseRedirect(reverse('moduli:home'))
+
+
+class OpraviloCreateView(UpdateView):
+    model = Zahtevek
+    template_name = "delovninalogi/opravilo/create_from_zahtevek.html"
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(OpraviloCreateView, self).get_context_data(*args, **kwargs)
+
+        # opravilo
+        context['opravilo_create_form'] = OpraviloCreateForm
+        context['opravilo_element_update_form'] = OpraviloElementUpdateForm
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # object
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+
+        # forms
+        opravilo_create_form = OpraviloCreateForm(request.POST or None)
+        opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
+
+        # izdelamo opravilo (!!!elemente opravilu dodamo kasneje)
+        if opravilo_create_form.is_valid():
+            oznaka = opravilo_create_form.cleaned_data['oznaka']
+            naziv = opravilo_create_form.cleaned_data['naziv']
+            rok_izvedbe = opravilo_create_form.cleaned_data['rok_izvedbe']
+            narocilo = opravilo_create_form.cleaned_data['narocilo']
+            nadzornik = opravilo_create_form.cleaned_data['nadzornik']
+
+            opravilo_data = Opravilo.objects.create_opravilo(
+                oznaka=oznaka,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                zahtevek=zahtevek,
+                nadzornik=nadzornik
+            )
+
+            opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
+
+        else:
+            return render(request, self.template_name, {
+                'opravilo_create_form': opravilo_create_form,
+                'opravilo_element_update_form': opravilo_element_update_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        if opravilo_element_update_form.is_valid():
+            element = opravilo_element_update_form.cleaned_data['element']
+
+            opravilo_object.element = element
+            opravilo_object.save()
+
+        else:
+            return render(request, self.template_name, {
+                'opravilo_create_form': opravilo_create_form,
+                'opravilo_element_update_form': opravilo_element_update_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))

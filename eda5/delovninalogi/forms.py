@@ -14,25 +14,10 @@ from eda5.posta.models import Dokument
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
-class OpraviloForm(forms.Form):
-
-    # querysets
-    NAROCILA = Narocilo.objects.all()
-    ELEMENTI = Element.objects.all()
-    OSEBE = Oseba.objects.all()
-
-    # FORM
-    # **onovno
-    oznaka = forms.CharField()
-    naziv = forms.CharField()
-    rok_izvedbe = forms.DateField()
-    # **relacije
-    narocilo = forms.ModelChoiceField(queryset=NAROCILA)
-    nadzornik = forms.ModelChoiceField(queryset=OSEBE)
-    # element = forms.ModelMultipleChoiceField(queryset=ELEMENTI)
-
 
 class OpraviloCreateForm(forms.ModelForm):
+
+    ''' *** Opravila se izdelajo samo pod zahtevkih *** '''
 
     def __init__(self, *args, **kwargs):
         super(OpraviloCreateForm, self).__init__(*args, **kwargs)
@@ -46,29 +31,40 @@ class OpraviloCreateForm(forms.ModelForm):
 
         self.initial['oznaka'] = nova_oznaka
 
+        # avtomatsko dodeljena oznaka = ReadOnly
+        self.fields['oznaka'].widget.attrs['readonly'] = True
+
         #querysets
         self.fields["narocilo"].queryset = Narocilo.objects.all()
         self.fields["nadzornik"].queryset = Oseba.objects.all()
 
+    # post ne more povozit okence ki je readonly
+    def clean_oznaka(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.oznaka
+        else:
+            return self.cleaned_data['oznaka']
+
     class Meta:
         model = Opravilo
         fields = (
+            'oznaka',
             'naziv',
             'rok_izvedbe',
             'narocilo',
             'nadzornik',
-            'oznaka',
+            
         )
         widgets = {
-            'oznaka': forms.HiddenInput(),
             'rok_izvedbe': DateInput(),
         }
 
 
-class OpraviloModelForm(forms.ModelForm):
+class OpraviloUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super(OpraviloModelForm, self).__init__(*args, **kwargs)
+        super(OpraviloUpdateForm, self).__init__(*args, **kwargs)
         self.fields['element'].queryset = Element.objects.filter(is_active=True)
 
     class Meta:
@@ -83,6 +79,16 @@ class OpraviloModelForm(forms.ModelForm):
         widgets = {
             'rok_izvedbe': DateInput(),
         }
+
+
+class OpraviloElementUpdateForm(OpraviloUpdateForm):
+
+    class Meta:
+        model = Opravilo
+        fields = (
+            'element',
+        )
+
 
 
 class DelovniNalogVcakanjuModelForm(forms.ModelForm):

@@ -14,9 +14,6 @@ class ZahtevekCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
-        zahtevek_parent = kwargs.pop('zahtevek', None)
-        print(zahtevek_parent)
-
         super(ZahtevekCreateForm, self).__init__(*args, **kwargs)
         # custom initial properties
         # OZNAKA - tuki je napisano z namen, ker je form uporabljen na dveh različnih mestih
@@ -27,12 +24,6 @@ class ZahtevekCreateForm(forms.ModelForm):
         self.initial['oznaka'] = nova_oznaka
         self.fields['oznaka'].widget.attrs['readonly'] = True
 
-        if zahtevek_parent:
-            self.initial['zahtevek_parent'] = zahtevek_parent.pk
-            print("PARENT ID: ", zahtevek_parent.pk, zahtevek_parent)
-
-        else:
-            print("NI PARENT ID-ja")
         # prikažemo samo veljavna naročila
         self.fields['narocilo'].queryset = Narocilo.objects.veljavna()
 

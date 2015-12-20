@@ -4,16 +4,35 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.ZahtevekHomeView.as_view(), name="home"),
+]
+
+# zahtevek
+urlpatterns += [
     url(r'^seznam/$', views.ZahtevekListView.as_view(), name="zahtevek_list"),
     url(r'^(?P<pk>\d+)/detail/$', views.ZahtevekDetailView.as_view(), name="zahtevek_detail"),
-    url(r'^zahtevek-sestanek/$', views.ZahtevekSestanekCreateView.as_view(), name="zahtevek_create_sestanek"),
-    url(r'^zahtevek-izvedba-del/$', views.ZahtevekIzvedbaDelCreateView.as_view(), name="zahtevek_create_izvedba_del"),
-    # update zahtevek main
     url(r'^(?P<pk>\d+)/main/update/$', views.ZahtevekUpdateView.as_view(), name="zahtevek_update_main"),
-    # update vrste zahtevka
-    url(r'^(?P<pk>\d+)/skodni/update/$', views.ZahtevekUpdateSkodniView.as_view(), name="zahtevek_update_skodni"),
-    url(r'^(?P<pk>\d+)/sestanek/update/$', views.ZahtevekUpdateSestanekView.as_view(), name="zahtevek_update_sestanek"),
-    url(r'^(?P<pk>\d+)/izvedba/update/$', views.ZahtevekUpdateIzvedbaView.as_view(), name="zahtevek_update_izvedba"),
+]
 
-    # url(r'^(?P<pk>\d+)/dokument/update/$', views.ZahtevekUpdateDokumentFormView.as_view(), name="zahtevek_update_dokument"),
+# zahtevek škodni dogodek
+urlpatterns += [
+    url(r'^(?P<pk>\d+)/skodni/update/$', views.ZahtevekUpdateSkodniView.as_view(), name="zahtevek_update_skodni"),
+]
+
+# zahtevek sestanek
+urlpatterns += [
+    url(r'^zahtevek-sestanek/$', views.ZahtevekSestanekCreateView.as_view(), name="zahtevek_create_sestanek"),
+    url(r'^podzahtevek-izvedba-del/$', views.PodzahtevekIzvedbaDelCreateView.as_view(),name="podzahtevek_create_izvedba_del"),
+    url(r'^(?P<pk>\d+)/sestanek/update/$', views.ZahtevekUpdateSestanekView.as_view(), name="zahtevek_update_sestanek"),
+]
+
+# zahtevek izvedba del
+urlpatterns += [
+    url(r'^zahtevek-izvedba-del/$', views.ZahtevekIzvedbaDelCreateView.as_view(), name="zahtevek_create_izvedba_del"),
+    url(r'^podzahtevek-izvedba-del/$', views.PodzahtevekIzvedbaDelCreateView.as_view(), name="podzahtevek_create_izvedba_del"),
+    url(r'^(?P<pk>\d+)/izvedba/update/$', views.ZahtevekUpdateIzvedbaView.as_view(), name="zahtevek_update_izvedba"),
+]
+
+# opravilo
+urlpatterns += [
+    url(r'^opravilo-create/(?P<pk>\d+)$', views.OpraviloCreateView.as_view(), name="opravilo_create"),
 ]

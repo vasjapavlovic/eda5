@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+
+    <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Podatki o opravilu</div>
+            <div class="panel-body">
+                {{ opravilo_create_form|crispy  }} 
+            </div>
+        </div>
+
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Elementi na katerih se opravilo izvaja (servisna knjiga)</div>
+            <div class="panel-body">
+                
+                <!--  multi select -->
+                <select name="element" class="multi-select" multiple="" id="my_multi_select3">
+
+                    <!--  choices -->
+                    {% for element in opravilo_element_update_form.fields.element.queryset %}
+                    <option value="{{ element.pk }}">{{ element.projektno_mesto.oznaka }} {{ element.artikel.naziv }}</option>
+                    {% endfor %}
+
+                </select><!-- end multi select -->
+
+            </div>
+        </div>
+
+        <input type="submit" value="Potrdi">
+
+    </form>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->
+
+
