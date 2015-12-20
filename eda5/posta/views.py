@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 import os
 
 from django.conf import settings
@@ -10,6 +12,8 @@ from .models import Aktivnost, Dokument
 
 from eda5.arhiv.forms import ArhiviranjeCreateForm
 from eda5.arhiv.models import Arhiviranje
+
+from eda5.moduli.models import Zavihek
 
 
 class PostaHomeView(TemplateView):
@@ -97,12 +101,18 @@ class DokumentCreateView(TemplateView):
         context = super(DokumentCreateView, self).get_context_data(*args, **kwargs)
         context['aktivnost_form'] = AktivnostCreateForm
         context['dokument_form'] = DokumentCreateForm
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
         return context
 
     def post(self, request, *args, **kwargs):
 
         aktivnost_form = AktivnostCreateForm(request.POST or None)
         dokument_form = DokumentCreateForm(request.POST or None, request.FILES)
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_CREATE")
 
         if aktivnost_form.is_valid():
 
@@ -118,7 +128,15 @@ class DokumentCreateView(TemplateView):
                 datum=datum,
             )
 
-            aktivnost = Aktivnost.objects.get(id_1=aktivnost_create_data.pk)
+            aktivnost = Aktivnost.objects.get(id=aktivnost_create_data.pk)
+
+        else:
+            return render(request, self.template_name, {
+                'aktivnost_form': aktivnost_form,
+                'dokument_form': dokument_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
 
         if dokument_form.is_valid():
 
@@ -139,6 +157,14 @@ class DokumentCreateView(TemplateView):
                 datum=datum,
                 priponka=priponka,
                 aktivnost=aktivnost,
+            )
+
+        else:
+            return render(request, self.template_name, {
+                'aktivnost_form': aktivnost_form,
+                'dokument_form': dokument_form,
+                'modul_zavihek': modul_zavihek,
+                }
             )
 
         return HttpResponseRedirect(reverse('moduli:posta:dokument_za_arhiviranje_list'))

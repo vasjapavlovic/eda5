@@ -31,6 +31,7 @@ class OpraviloForm(forms.Form):
     nadzornik = forms.ModelChoiceField(queryset=OSEBE)
     # element = forms.ModelMultipleChoiceField(queryset=ELEMENTI)
 
+
 class OpraviloCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -62,6 +63,7 @@ class OpraviloCreateForm(forms.ModelForm):
             'oznaka': forms.HiddenInput(),
             'rok_izvedbe': DateInput(),
         }
+
 
 class OpraviloModelForm(forms.ModelForm):
 

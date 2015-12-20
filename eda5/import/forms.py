@@ -11,6 +11,8 @@ class PartnerjiUvozCsvForm(forms.Form):
     partnerji_edacenter = forms.BooleanField(initial=False, required=False)
     banke = forms.BooleanField(initial=False, required=False)
 
+    partnerji_edafm_update = forms.BooleanField(initial=False, required=False)
+
 class DeliUvozCsvForm(forms.Form):
     skupine_delov_stavbe = forms.BooleanField(initial=False, required=False)
 

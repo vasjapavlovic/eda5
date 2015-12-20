@@ -19,7 +19,6 @@ class NarociloIzbiraForm(forms.Form):
     izbira = forms.ChoiceField(choices=CHOICES)
 
 
-
 class NarociloSplosnoCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):

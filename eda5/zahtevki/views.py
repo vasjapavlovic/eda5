@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
@@ -242,6 +242,7 @@ class ZahtevekDetailView(DetailView):
             'modul_zavihek': modul_zavihek,
             }
         )
+        
 
             # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
             # '''Za račune poskrbimo varnostno kopijo pod Dokumenti/Računovodstvo'''

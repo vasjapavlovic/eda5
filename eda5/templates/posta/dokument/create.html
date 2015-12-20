@@ -1,28 +1,68 @@
-{% extends "moduli/modul_list.html" %}
+{% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-{% block content2 %}
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
 
-<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-    <h1>Vnos Dokumenta</h1>
 
-    <div class="panel panel-info">
-        <div class="panel-heading">Podatki o obdelavi</div>
-        <div class="panel-body">
-            {{ aktivnost_form|crispy  }} 
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+
+    <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+        <h1>Vnos Dokumenta</h1>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Podatki o obdelavi</div>
+            <div class="panel-body">
+                {{ aktivnost_form|crispy  }} 
+            </div>
         </div>
-    </div>
 
-    <div class="panel panel-info">
-        <div class="panel-heading">Podatki o dokumentu</div>
-        <div class="panel-body">
-            {{ dokument_form|crispy  }}
+        <div class="panel panel-info">
+            <div class="panel-heading">Podatki o dokumentu</div>
+            <div class="panel-body">
+                {{ dokument_form|crispy  }}
+            </div>
         </div>
-    </div>
 
 
-    <input type="submit" value="Potrdi">
-</form>
+        <input type="submit" value="Potrdi">
+    </form>
 
 {% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

@@ -218,6 +218,32 @@ class UvozCsv(TemplateView):
 
             return messages.success(request, "Število novo dodanih parnerjev: %s" % (records_added))
 
+        def partnerji_edafm_update():
+
+            filename = os.path.abspath("eda5/templates/import/partnerji/partnerji_edafm.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+
+                postna_stevilka = row['posta']
+                posta = Posta.objects.get(postna_stevilka=postna_stevilka)
+
+                # update
+                davcna_st = row['davcna_st']
+                partner = Partner.objects.get(davcna_st=davcna_st)
+                partner.dolgo_ime = row['dolgo_ime']
+                partner.kratko_ime = row['kratko_ime']
+                partner.naslov = row['naslov']
+                partner.posta = posta
+                partner.save()
+
+            return messages.success(request, "Partnerji : Update : Končano")
+
         def import_partnerji_edacenter():
 
             filename = os.path.abspath("eda5/templates/import/partnerji/partnerji_edacenter.csv")
@@ -786,6 +812,9 @@ class UvozCsv(TemplateView):
 
             if partnerji_uvoz_form.cleaned_data['partnerji_edacenter'] is True:
                 import_partnerji_edacenter()
+
+            if partnerji_uvoz_form.cleaned_data['partnerji_edafm_update'] is True:
+                partnerji_edafm_update()
 
         if deli_uvoz_form.is_valid():
 

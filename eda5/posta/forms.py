@@ -1,6 +1,11 @@
+from functools import partial
+
 from django import forms
 
 from .models import Aktivnost, Dokument
+
+DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
 class AktivnostCreateForm(forms.ModelForm):
@@ -13,6 +18,9 @@ class AktivnostCreateForm(forms.ModelForm):
             'likvidiral',
             'datum',
         )
+        widgets = {
+            'datum': DateInput(),
+        }
 
 
 class DokumentCreateForm(forms.ModelForm):
@@ -29,3 +37,6 @@ class DokumentCreateForm(forms.ModelForm):
             'datum',
             'priponka',
         )
+        widgets = {
+            'datum': DateInput(),
+        }

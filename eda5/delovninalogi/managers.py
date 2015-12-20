@@ -26,6 +26,7 @@ class OpraviloManager(models.Manager):
 
         opravilo.save(using=self._db)
         return opravilo
+        
 
 
 class DelovniNalogManager(models.Manager):
