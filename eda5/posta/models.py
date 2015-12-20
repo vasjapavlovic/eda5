@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from eda5.core.models import TimeStampedModel
+from eda5.core.models import TimeStampedModel, ZaporednaStevilka
 from eda5.partnerji.models import SkupinaPartnerjev, Oseba
 
 from . import managers
@@ -21,7 +21,7 @@ class Aktivnost(TimeStampedModel):
     likvidiral = models.ForeignKey(Oseba, related_name="likvidiral", verbose_name="pošto bo likvidiral")
     #   Mandatory
     vrsta_aktivnosti = models.IntegerField(choices=AKTIVNOSTI)
-    datum = models.DateField()
+    datum_aktivnosti = models.DateField()
     #   Optional
 
     # OBJECT MANAGER
@@ -35,7 +35,7 @@ class Aktivnost(TimeStampedModel):
         verbose_name_plural = "aktivnosti"
 
     def __str__(self):
-        return "%s - %s" % (self.datum, self.vrsta_aktivnosti)
+        return "%s - %s" % (self.datum_aktivnosti, self.vrsta_aktivnosti)
 
 
 class Dokument(TimeStampedModel):
@@ -44,7 +44,7 @@ class Dokument(TimeStampedModel):
         # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
         new_filename_raw = filename.split(".")
         ext = '.' + new_filename_raw[1]
-        parametri_imena = (instance.vrsta_dokumenta.oznaka, instance.oznaka, str(instance.datum), instance.avtor.oznaka)
+        parametri_imena = (instance.vrsta_dokumenta.oznaka, instance.oznaka, str(instance.datum_dokumenta), instance.avtor.oznaka)
         new_filename = "_".join(parametri_imena)
         return 'Dokumentacija/NE_Arhivirano/{0}'.format(new_filename + ext)
 
@@ -57,7 +57,7 @@ class Dokument(TimeStampedModel):
     #   Mandatory
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
     naziv = models.CharField(max_length=255, verbose_name="naziv")
-    datum = models.DateField()
+    datum_dokumenta = models.DateField()
     priponka = models.FileField(upload_to=dokument_directory_path, blank=True, null=True)
     #   Optional
 
@@ -75,30 +75,31 @@ class Dokument(TimeStampedModel):
         return reverse("moduli:posta:list_likvidacija")
 
     def __str__(self):
-        return "%s - %s | %s" % (self.datum, self.oznaka, self.naziv)
+        return "%s - %s | %s" % (self.datum_dokumenta, self.oznaka, self.naziv)
 
 
-class SkupinaDokumenta(TimeStampedModel):
-    oznaka = models.CharField(max_length=3, verbose_name='oznaka')
+class SkupinaDokumenta(ZaporednaStevilka):
+    oznaka = models.CharField(max_length=3, unique=True, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
 
     class Meta:
         verbose_name = "Skupina Dokumentov"
         verbose_name_plural = "Skupine Dokumentov"
+        ordering = ('zap_st', )
 
     def __str__(self):
         return "%s - %s" % (self.oznaka, self.naziv)
 
 
-class VrstaDokumenta(TimeStampedModel):
+class VrstaDokumenta(ZaporednaStevilka):
     skupina = models.ForeignKey(SkupinaDokumenta, verbose_name='Skupina Dokumentov')
-    oznaka = models.CharField(max_length=3, verbose_name='oznaka')
+    oznaka = models.CharField(max_length=3, unique=True, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
-    zap_st = models.IntegerField(verbose_name="zaporedna številka")
 
     class Meta:
         verbose_name = "Vrsta Dokumenta"
         verbose_name_plural = "Vrste Dokumentov"
+        ordering = ('oznaka', )
 
     def __str__(self):
         return "%s - %s" % (self.oznaka, self.naziv)

@@ -1,27 +1,28 @@
 <!-- dokumentacija -->
 
 
-<table class="table table-striped table-bordered">
-                <tr>
-                    <th>datum</th>
-                    <th>oznaka</th>
-                    <th>izdal</th>
-                    <th>opis</th>
-                    <th>priponka</th>
-                </tr>
+<table class="table table-hover table-condensed">
+    <tr>
+        <th>datum</th>
+        <th>oznaka</th>
+        <th>izdal</th>
+        <th>opis</th>
+        <th>priponka</th>
+    </tr>
 
-                {% for arhiviranje in object.arhiviranje_set.all %}
+{% for arhiviranje in object.arhiviranje_set.all %}
 
 
-                <tr>
-                
-                    <td>{{ arhiviranje.dokument.datum }}</td>
-                    <td>{{ arhiviranje.dokument.oznaka }}</td>
-                    <td>{{ arhiviranje.dokument.avtor }}</td>
-                    <td>{{ arhiviranje.dokument.naziv }}</td>
-                    <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+    <tr>
 
-                </tr>
-                {% endfor %}
+        <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+        <td>{{ arhiviranje.dokument.oznaka }}</td>
+        <td>{{ arhiviranje.dokument.avtor }}</td>
+        <td>{{ arhiviranje.dokument.naziv }}</td>
+        <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
 
-        </table>
+    </tr>
+
+{% endfor %}
+
+</table>

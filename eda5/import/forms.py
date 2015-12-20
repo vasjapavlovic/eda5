@@ -31,3 +31,6 @@ class KatalogUvozCsvForm(forms.Form):
     tip_artikla = forms.BooleanField(initial=False, required=False)
     proizvajalec = forms.BooleanField(initial=False, required=False)
     model_artikla = forms.BooleanField(initial=False, required=False)
+
+class PostaUvozCsvForm(forms.Form):
+    vrsta_dokumenta = forms.BooleanField(initial=False, required=False)

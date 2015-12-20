@@ -14,13 +14,17 @@ from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.zahtevki.models import Zahtevek
 
+''' POZOR !!! uporabljeni DJANGO-SIGNALS.
+    Avtomatsko se izdelajo 
+        - ArhivskoMesto
+'''
 
 class Arhiv(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
     #   Mandatory
-    oznaka = models.CharField(max_length=10, verbose_name='oznaka')
+    oznaka = models.CharField(max_length=10, unique=True, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
     #   Optional
     # OBJECT MANAGER
@@ -103,6 +107,3 @@ class Arhiviranje(TimeStampedModel):
 
     def __str__(self):
         return "%s | %s" % (self.dokument, self.lokacija_hrambe)
-
-
-

@@ -1,9 +1,14 @@
-from django.shortcuts import render
-
-from django.core.urlresolvers import reverse, reverse_lazy
+# PYTHON ##############################################################
 from datetime import datetime, timedelta
-from django.http import HttpResponseRedirect
+import os
+
+
+# DJANGO ##############################################################
+from django.conf import settings
 from django.contrib import messages
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
+# from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
@@ -14,7 +19,7 @@ from .forms import OpraviloUpdateForm, DelovniNalogVcakanjuModelForm, DelovniNal
 from .models import Opravilo, DelovniNalog, Delo
 
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
-from eda5.arhiv.models import Arhiviranje
+from eda5.arhiv.models import Arhiviranje, ArhivMesto
 from eda5.skladisce.models import Dnevnik
 from eda5.skladisce.forms import DnevnikDelovniNalogCreateForm
 from eda5.zaznamki.forms import ZaznamekForm
@@ -124,8 +129,6 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
         # VNOS ZAZNAMKA
         # =================================================================================================
-        
-
         if zaznamek_form.is_valid():
 
             # PODATKI ZA VNOS
@@ -219,15 +222,13 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_update_vplanu',
                                                     kwargs={'pk': delovninalog.pk}))
 
-        
-
         if arhiviranje_form.is_valid():
 
             dokument = arhiviranje_form.cleaned_data['dokument']
             arhiviral = arhiviranje_form.cleaned_data['arhiviral']
             elektronski = arhiviranje_form.cleaned_data['elektronski']
             fizicni = arhiviranje_form.cleaned_data['fizicni']
-            lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
+            lokacija_hrambe = ArhivMesto.objects.get(oznaka=delovninalog.opravilo.zahtevek.oznaka)
 
             Arhiviranje.objects.create_arhiviranje(
                 delovninalog=delovninalog,
@@ -237,6 +238,26 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 fizicni=fizicni,
                 lokacija_hrambe=lokacija_hrambe,
             )
+
+            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
+            old_path = str(dokument.priponka)
+            filename = old_path.split('/')[2]
+
+            new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.arhiv.oznaka, lokacija_hrambe.oznaka, filename)
+
+            new_path = '/'.join(new_path)
+
+            dokument.priponka = new_path
+            dokument.save()
+
+            # izdelamo direktorjih arhivskega mesta
+            mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
+
+            if not os.path.exists(mapa):
+                os.makedirs(mapa)
+
+            # prenos datoteke v arhivsko mesto
+            os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
             return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 

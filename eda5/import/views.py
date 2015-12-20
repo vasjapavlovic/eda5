@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
 
 from .forms import UtilitiUvozCsvForm, PartnerjiUvozCsvForm, DeliUvozCsvForm, RacunovodstvoUvozCsvForm,\
-                   DelovniNalogiUvozCsvForm, EtaznaLastninaUvozCsvForm, KatalogUvozCsvForm
+                   DelovniNalogiUvozCsvForm, EtaznaLastninaUvozCsvForm, KatalogUvozCsvForm, PostaUvozCsvForm
 
 from eda5.core.forms import ObdobjeLetoCreateForm, ObdobjeMesecCreateForm
 
@@ -34,6 +34,11 @@ from eda5.etaznalastnina.models import Program, LastniskaEnotaElaborat, Lastnisk
 from eda5.katalog.forms import TipArtiklaCreateForm, ProizvajalecCreateForm, ModelArtiklaCreateForm
 from eda5.katalog.models import Proizvajalec ,TipArtikla
 
+from eda5.posta.forms import SkupinaDokumentaCreateForm, VrstaDokumentaCreateForm
+from eda5.posta.models import SkupinaDokumenta
+
+from eda5.users.forms import UserCreateForm
+
 
 class UvozCsv(TemplateView):
     template_name = "import/form.html"
@@ -49,6 +54,7 @@ class UvozCsv(TemplateView):
         context['delovninalogi_uvoz_form'] = DelovniNalogiUvozCsvForm
         context['etaznalastnina_uvoz_form'] = EtaznaLastninaUvozCsvForm
         context['katalog_uvoz_form'] = KatalogUvozCsvForm
+        context['posta_uvoz_form'] = PostaUvozCsvForm
 
         return context
 
@@ -60,6 +66,7 @@ class UvozCsv(TemplateView):
         delovninalogi_uvoz_form = DelovniNalogiUvozCsvForm(request.POST or None)
         etaznalastnina_uvoz_form = EtaznaLastninaUvozCsvForm(request.POST or None)
         katalog_uvoz_form = KatalogUvozCsvForm(request.POST or None)
+        posta_uvoz_form = PostaUvozCsvForm(request.POST or None)
 
 
         def import_core_obdobje_leto():
@@ -108,9 +115,31 @@ class UvozCsv(TemplateView):
                 "DELOVNI_NALOGI:DODANI MESECI Število dodanih vnosov: %s" % (records_added)
             )
 
+        def import_users_admin():
+
+            filename = os.path.abspath("eda5/templates/import/users/admin.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = UserCreateForm(row)
+
+                if form.is_valid():
+                    form.save()
+
+            return messages.success(
+                request,
+                "UTILS: Administratorski uporabnik je dodan"
+            )
+
         def import_utility():
             import_core_obdobje_leto()
             import_core_obdobje_mesec()
+            import_users_admin()
 
         def import_drzava():
             filename = os.path.abspath("eda5/templates/import/partnerji/drzava.csv")
@@ -791,6 +820,58 @@ class UvozCsv(TemplateView):
             # na ekranu prikažem informacijo o številu uvozov
             return messages.success(request, "KATALOG/ MODEL ARTIKLA: Število dodanih vnosov: %s" % (records_added))
 
+
+        def import_posta_skupina_dokumenta():
+
+            filename = os.path.abspath("eda5/templates/import/posta/skupina_dokumenta.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = SkupinaDokumentaCreateForm(row)
+                if form.is_valid():
+                    form.save()
+                    records_added += 1
+
+            return messages.success(request, "POSTA/ SKUPINA_DOKUMENTA: Število dodanih vnosov: %s" % (records_added))
+
+        def import_posta_vrsta_dokumenta():
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/posta/vrsta_dokumenta.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # oznako skupine zamenjamo z ID skupine
+                    skupina_oznaka = row['skupina']
+                    skupina = SkupinaDokumenta.objects.get(oznaka=skupina_oznaka)
+                    row['skupina'] = skupina.pk
+                    form = VrstaDokumentaCreateForm(row)
+
+                    if form.is_valid():
+                        form.save()
+                        records_added += 1
+
+                return messages.success(request, "POSTA/ VRSTA_DOKUMENTA: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_posta_skupina_dokumenta()
+
+            # na ekranu prikažem informacijo o številu uvozov
+
         if utiliti_uvoz_form.is_valid():
 
             if utiliti_uvoz_form.cleaned_data['utiliti'] is True:
@@ -852,5 +933,10 @@ class UvozCsv(TemplateView):
 
             if katalog_uvoz_form.cleaned_data['model_artikla'] is True:
                 import_katalog_model_artikla()
+
+        if posta_uvoz_form.is_valid():
+
+            if posta_uvoz_form.cleaned_data['vrsta_dokumenta'] is True:
+                import_posta_vrsta_dokumenta()
 
         return HttpResponseRedirect(reverse('moduli:import:form'))

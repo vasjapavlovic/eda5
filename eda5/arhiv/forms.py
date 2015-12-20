@@ -30,14 +30,11 @@ class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
 
     class Meta(ArhiviranjeCreateForm.Meta):
         fields = (
-            'zahtevek',
             'dokument',
             'arhiviral',
             'elektronski',
             'fizicni',
-            'lokacija_hrambe',
         )
-        widgets = {'zahtevek': forms.HiddenInput()}
 
 
 class ArhiviranjeDelovniNalogForm(ArhiviranjeCreateForm):
@@ -49,6 +46,5 @@ class ArhiviranjeDelovniNalogForm(ArhiviranjeCreateForm):
             'arhiviral',
             'elektronski',
             'fizicni',
-            'lokacija_hrambe',
         )
         widgets = {'delovninalog': forms.HiddenInput()}

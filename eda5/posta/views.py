@@ -11,7 +11,7 @@ from .forms import AktivnostCreateForm, DokumentCreateForm
 from .models import Aktivnost, Dokument
 
 from eda5.arhiv.forms import ArhiviranjeCreateForm
-from eda5.arhiv.models import Arhiviranje
+from eda5.arhiv.models import Arhiviranje, ArhivMesto, Arhiv
 
 from eda5.moduli.models import Zavihek
 
@@ -45,53 +45,55 @@ class PostaDokumentDetailView(DetailView):
     model = Dokument
     template_name = 'posta/dokument/detail/base.html'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(PostaDokumentDetailView, self).get_context_data(*args, **kwargs)
-        # custom context here
-        context['arhiviranje_form'] = ArhiviranjeCreateForm
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(PostaDokumentDetailView, self).get_context_data(*args, **kwargs)
+    #     # custom context here
+    #     context['arhiviranje_form'] = ArhiviranjeCreateForm
+    #     return context
 
-    def post(self, request, *args, **kwargs):
+    # def post(self, request, *args, **kwargs):
 
-        arhiviranje_form = ArhiviranjeCreateForm(request.POST or None)
+    #     arhiviranje_form = ArhiviranjeCreateForm(request.POST or None)
 
-        if arhiviranje_form.is_valid():
+    #     if arhiviranje_form.is_valid():
 
-            dokument = Dokument.objects.get(id=self.get_object().id)
-            arhiviral = arhiviranje_form.cleaned_data['arhiviral']
-            lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
-            elektronski = arhiviranje_form.cleaned_data['elektronski']
-            fizicni = arhiviranje_form.cleaned_data['fizicni']
+    #         dokument = Dokument.objects.get(id=self.get_object().id)
+    #         arhiviral = arhiviranje_form.cleaned_data['arhiviral']
+    #         lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
+    #         elektronski = arhiviranje_form.cleaned_data['elektronski']
+    #         fizicni = arhiviranje_form.cleaned_data['fizicni']
 
-            Arhiviranje.objects.create_arhiviranje(
-                dokument=dokument,
-                arhiviral=arhiviral,
-                lokacija_hrambe=lokacija_hrambe,
-                elektronski=elektronski,
-                fizicni=fizicni,
-            )
+    #         Arhiviranje.objects.create_arhiviranje(
+    #             dokument=dokument,
+    #             arhiviral=arhiviral,
+    #             lokacija_hrambe=lokacija_hrambe,
+    #             elektronski=elektronski,
+    #             fizicni=fizicni,
+    #         )
 
-            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
-            '''Za račune poskrbimo varnostno kopijo pod Dokumenti/Računovodstvo'''
+    #         # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
+    #         '''Za račune poskrbimo varnostno kopijo pod Dokumenti/Računovodstvo'''
 
-            old_path = str(dokument.priponka)
-            filename = old_path.split('/')[2]
+    #         old_path = str(dokument.priponka)
+    #         filename = old_path.split('/')[2]
 
-            new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.oznaka, filename)
+    #         new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.arhiv.oznaka, lokacija_hrambe.oznaka, filename)
 
-            new_path = '/'.join(new_path)
-            dokument.priponka = new_path
-            dokument.save()
+    #         new_path = '/'.join(new_path)
 
-            # izdelamo direktorjih arhivskega mesta
-            mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
-            if not os.path.exists(mapa):
-                os.makedirs(mapa)
+    #         dokument.priponka = new_path
+    #         dokument.save()
 
-            # prenos datoteke v arhivsko mesto
-            os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
+    #         # izdelamo direktorjih arhivskega mesta
+    #         mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
 
-        return HttpResponseRedirect(reverse('moduli:posta:dokument_arhivirano_list'))
+    #         if not os.path.exists(mapa):
+    #             os.makedirs(mapa)
+
+    #         # prenos datoteke v arhivsko mesto
+    #         os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
+
+    #     return HttpResponseRedirect(reverse('moduli:posta:dokument_arhivirano_list'))
 
 
 class DokumentCreateView(TemplateView):
@@ -119,13 +121,13 @@ class DokumentCreateView(TemplateView):
             izvajalec = aktivnost_form.cleaned_data['izvajalec']
             likvidiral = aktivnost_form.cleaned_data['likvidiral']
             vrsta_aktivnosti = aktivnost_form.cleaned_data['vrsta_aktivnosti']
-            datum = aktivnost_form.cleaned_data['datum']
+            datum_aktivnosti = aktivnost_form.cleaned_data['datum_aktivnosti']
 
             aktivnost_create_data = Aktivnost.objects.create_aktivnost(
                 izvajalec=izvajalec,
                 likvidiral=likvidiral,
                 vrsta_aktivnosti=vrsta_aktivnosti,
-                datum=datum,
+                datum_aktivnosti=datum_aktivnosti,
             )
 
             aktivnost = Aktivnost.objects.get(id=aktivnost_create_data.pk)
@@ -145,7 +147,7 @@ class DokumentCreateView(TemplateView):
             naslovnik = dokument_form.cleaned_data['naslovnik']
             oznaka = dokument_form.cleaned_data['oznaka']
             naziv = dokument_form.cleaned_data['naziv']
-            datum = dokument_form.cleaned_data['datum']
+            datum_dokumenta = dokument_form.cleaned_data['datum_dokumenta']
             priponka = dokument_form.cleaned_data['priponka']
 
             Dokument.objects.create_dokument(
@@ -154,7 +156,7 @@ class DokumentCreateView(TemplateView):
                 naslovnik=naslovnik,
                 oznaka=oznaka,
                 naziv=naziv,
-                datum=datum,
+                datum_dokumenta=datum_dokumenta,
                 priponka=priponka,
                 aktivnost=aktivnost,
             )

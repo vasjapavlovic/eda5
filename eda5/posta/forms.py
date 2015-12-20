@@ -2,7 +2,7 @@ from functools import partial
 
 from django import forms
 
-from .models import Aktivnost, Dokument
+from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -16,10 +16,10 @@ class AktivnostCreateForm(forms.ModelForm):
             'vrsta_aktivnosti',
             'izvajalec',
             'likvidiral',
-            'datum',
+            'datum_aktivnosti',
         )
         widgets = {
-            'datum': DateInput(),
+            'datum_aktivnosti': DateInput(),
         }
 
 
@@ -34,9 +34,32 @@ class DokumentCreateForm(forms.ModelForm):
             'naslovnik',
             'oznaka',
             'naziv',
-            'datum',
+            'datum_dokumenta',
             'priponka',
         )
         widgets = {
-            'datum': DateInput(),
+            'datum_dokumenta': DateInput(),
         }
+
+
+class SkupinaDokumentaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = SkupinaDokumenta
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+        )
+
+
+class VrstaDokumentaCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = VrstaDokumenta
+        fields = (
+            'oznaka',
+            'naziv',
+            'zap_st',
+            'skupina',
+        )

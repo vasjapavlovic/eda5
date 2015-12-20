@@ -18,6 +18,11 @@
 'eda5.predaja_lastnine'#########################################################
 'eda5.planiranje'#########################################################
 'eda5.posta'#########################################################
+    # aktivnost
+        ''' Ibira Prejeta Pošta ali Izdana Pošta. Kasneje ni pravilna rešitev.
+        Popraviti je:   nastavitev podjetja v globalnih nastavitvah. Če je pri naslovnik pošte podjetje
+        gre za prejeto pošto. Če je pošiljatelj nastavljeno podjetje gre za izdano pošto '''
+
 'eda5.pomanjkljivosti'#########################################################
 'eda5.predpisi'#########################################################
 'eda5.racunovodstvo'#########################################################

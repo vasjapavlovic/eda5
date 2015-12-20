@@ -8,14 +8,14 @@ class AktivnostManager(models.Manager):
                         izvajalec=None,
                         likvidiral=None,
                         vrsta_aktivnosti=None,
-                        datum=None,
+                        datum_aktivnosti=None,
                         ):
 
         aktivnost_model = self.model(
             izvajalec=izvajalec,
             likvidiral=likvidiral,
             vrsta_aktivnosti=vrsta_aktivnosti,
-            datum=datum,
+            datum_aktivnosti=datum_aktivnosti,
         )
 
         aktivnost_model.save(using=self._db)
@@ -32,7 +32,7 @@ class DokumentManager(models.Manager):
                         naslovnik=None,
                         oznaka=None,
                         naziv=None,
-                        datum=None,
+                        datum_dokumenta=None,
                         priponka=None,
                         ):
 
@@ -43,7 +43,7 @@ class DokumentManager(models.Manager):
             naslovnik=naslovnik,
             oznaka=oznaka,
             naziv=naziv,
-            datum=datum,
+            datum_dokumenta=datum_dokumenta,
             priponka=priponka,
         )
 

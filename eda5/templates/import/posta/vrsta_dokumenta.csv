@@ -1,0 +1,42 @@
+oznaka,naziv,zap_st,skupina
+RAC,Račun,1,RAC
+DBR,Dobropis,3,RAC
+IRA,Interni račun,2,RAC
+CES,Pogodba o odstopu terjatev,6,RAC
+ASG,Pogodba o asignaciji,7,RAC
+KOM,Medsebojna kompenzacija,5,RAC
+IOP,Izpis odprtih postavk IOP,4,RAC
+PRD,Predračun,8,RAC
+PON,Ponudba,9,ID
+PGD,Pogodba,10,ID
+NRC,Naročilnica,11,ID
+DOP,Dopis,12,OST
+JPG,Slikovno gradivo,14,OST
+KL,Kontrolni list,15,ID
+DOV,Dovolilnica,16,OST
+DN,Delovni nalog,17,ID
+ZAP,Zapisnik,18,ID
+POR,Poročilo,19,OST
+DG,Dogovor,20,OST
+SK,Sklep,21,OST
+LS,Seznam,22,OST
+OBR,Obrazec,23,OST
+PD,Potrdilo,24,OST
+POV,Povpraševanje,25,ID
+OC,Ocenjevalni list,26,OST
+OBV,Obvestilo,0,OST
+PVK,Poslovnik vodenja kakovosti,0,SVK
+VB,Vabilo,0,OST
+DP,Proces,0,SVK
+ET,Etikete,0,ET
+PS,Prijava škode,1,ZAV
+POP,Popis,0,OST
+OP,Organizacijski predpis,0,SVK
+N,Neurejeno,0,SVK
+DB,Dobavnica,0,ID
+PRV,Poravnava škode,2,RAC
+PL,Plan,0,ID
+GRD,Gradivo,0,OST
+AVR,Avansni račun,9,RAC
+OPM,Opomin,11,RAC
+ANP,Analiza ponudb,26,ID

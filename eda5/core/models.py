@@ -26,6 +26,14 @@ class IsLikvidiranModel(models.Model):
         abstract = True
 
 
+class ZaporednaStevilka(models.Model):
+
+    zap_st = models.IntegerField(default=0, verbose_name="zaporedna številka")
+
+    class Meta:
+        abstract = True
+
+
 class ObdobjeLeto(models.Model):
     oznaka = models.IntegerField(primary_key=True)
 

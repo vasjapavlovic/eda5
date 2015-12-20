@@ -1,8 +1,14 @@
+# PYTHON ##############################################################
+import os
+
+
 # DJANGO ##############################################################
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
+
 
 # INTERNO ##############################################################
 # Zahtevek Osnova
@@ -25,7 +31,7 @@ from .models import ZahtevekIzvedbaDela
 # UVOŽENO ##############################################################
 # Arhiv
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
-from eda5.arhiv.models import Arhiviranje
+from eda5.arhiv.models import Arhiviranje, ArhivMesto
 
 # Delovni Nalogi
 from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm
@@ -225,7 +231,7 @@ class ZahtevekDetailView(DetailView):
             arhiviral = arhiviranje_form.cleaned_data['arhiviral']
             elektronski = arhiviranje_form.cleaned_data['elektronski']
             fizicni = arhiviranje_form.cleaned_data['fizicni']
-            lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
+            lokacija_hrambe = ArhivMesto.objects.get(oznaka=zahtevek.oznaka)
 
             Arhiviranje.objects.create_arhiviranje(
                 zahtevek=zahtevek,
@@ -235,6 +241,26 @@ class ZahtevekDetailView(DetailView):
                 fizicni=fizicni,
                 lokacija_hrambe=lokacija_hrambe,
             )
+
+            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
+            old_path = str(dokument.priponka)
+            filename = old_path.split('/')[2]
+
+            new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.arhiv.oznaka, lokacija_hrambe.oznaka, filename)
+
+            new_path = '/'.join(new_path)
+
+            dokument.priponka = new_path
+            dokument.save()
+
+            # izdelamo direktorjih arhivskega mesta
+            mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
+
+            if not os.path.exists(mapa):
+                os.makedirs(mapa)
+
+            # prenos datoteke v arhivsko mesto
+            os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
