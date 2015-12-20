@@ -2,12 +2,9 @@ from django.conf.urls import url
 
 from . import views
 
-urlpatterns = [
-    url(r'^$', views.ZahtevekHomeView.as_view(), name="home"),
-]
 
 # zahtevek
-urlpatterns += [
+urlpatterns = [
     url(r'^zahtevek-create/$', views.ZahtevekCreateIzbira.as_view(), name="zahtevek_create"),
     url(r'^zahtevek-seznam/$', views.ZahtevekListView.as_view(), name="zahtevek_list"),
 

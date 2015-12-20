@@ -32,6 +32,8 @@
     #3 ŠkodniDogodki
         # mogoče dodaj pisanje dnevnika reševanja
         # Dodati opis poškodovanih stvari
+    #4 Sestanek
+        # podzahtevkom omogoči dodajanje udeležencev (glej ZahtevekSestanekCreateView)
 
 'eda5.zaznamki'#########################################################
 

@@ -59,7 +59,7 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     class Meta:
         verbose_name = "zahtevek"
         verbose_name_plural = "zahtevki"
-        ordering = ("oznaka",)
+        ordering = ("-oznaka",)
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)
@@ -90,7 +90,6 @@ class ZahtevekSkodniDogodek(models.Model):
     def get_absolute_url(self):
         # return reverse('moduli:zahtevki:zahtevek_list')
         return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
-
 
     # META AND STRING
     class Meta:
@@ -125,7 +124,7 @@ class ZahtevekSestanek(models.Model):
     class Meta:
         verbose_name = "sestanek"
         verbose_name_plural = "sestanki"
-        ordering = ("datum",)
+        ordering = ("-zahtevek__oznaka", )
 
     def __str__(self):
         return "%s" % (self.zahtevek.oznaka)
@@ -152,6 +151,7 @@ class ZahtevekIzvedbaDela(models.Model):
     class Meta:
         verbose_name = "izvedba dela"
         verbose_name_plural = "izvedba del"
+        ordering = ("-zahtevek__oznaka", )
 
     def __str__(self):
         return "%s" % (self.zahtevek.oznaka)

@@ -39,7 +39,6 @@ class ZahtevekCreateForm(forms.ModelForm):
         model = Zahtevek
         fields = (
             'oznaka',
-            'vrsta',
             'naziv',
             'rok_izvedbe',
             'narocilo',

@@ -1,32 +1,42 @@
-# from django.shortcuts import render
-from django.shortcuts import render, render_to_response
+# DJANGO ##############################################################
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, FormView
+from django.shortcuts import render
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
-from .forms import ZahtevekCreateForm, PodzahtevekCreateForm,\
-                   ZahtevekUpdateForm, ZahtevekSkodniDogodekUpdateForm, ZahtevekSestanekUpdateForm,\
-                   ZahtevekIzvedbaDelUpdateForm, ZahtevekIzvedbaDelCreateForm, ZahtevekIzbira
+# INTERNO ##############################################################
+# Zahtevek Osnova
+from .forms import ZahtevekCreateForm, ZahtevekUpdateForm, ZahtevekIzbira
+from .models import Zahtevek
 
-from .forms import ZahtevekSestanekCreateForm
+# Zahtevek Škodni Dogodek
+from .forms import ZahtevekSkodniDogodekUpdateForm
+from .models import ZahtevekSkodniDogodek
+
+# Zahtevek Sestanek
+from .forms import ZahtevekSestanekCreateForm, ZahtevekSestanekUpdateForm
+from .models import ZahtevekSestanek
+
+# Zahtevek Izvedba Del
+from .forms import ZahtevekIzvedbaDelCreateForm, ZahtevekIzvedbaDelUpdateForm
+from .models import ZahtevekIzvedbaDela
 
 
-from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
+# UVOŽENO ##############################################################
+# Arhiv
+from eda5.arhiv.forms import ArhiviranjeZahtevekForm
+from eda5.arhiv.models import Arhiviranje
 
+# Delovni Nalogi
 from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm
 from eda5.delovninalogi.models import Opravilo
 
-from eda5.zaznamki.forms import ZaznamekForm
-from eda5.zaznamki.models import Zaznamek
-
-from eda5.arhiv.forms import ArhiviranjeZahtevekForm
-from eda5.arhiv.models import Arhiv, ArhivMesto, Arhiviranje
-
+# Moduli
 from eda5.moduli.models import Zavihek
 
-
-class ZahtevekHomeView(TemplateView):
-    template_name = "zahtevki/home.html"
+# Zaznamki
+from eda5.zaznamki.forms import ZaznamekForm
+from eda5.zaznamki.models import Zaznamek
 
 
 class ZahtevekListView(ListView):
@@ -318,14 +328,13 @@ class ZahtevekSestanekCreateView(TemplateView):
         if zahtevek_splosno_form.is_valid():
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
-            vrsta = zahtevek_splosno_form.cleaned_data['vrsta']
             rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
             narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
             nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
 
             zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
                 oznaka=oznaka,
-                vrsta=vrsta,
+                vrsta=2,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
                 narocilo=narocilo,
