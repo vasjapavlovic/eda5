@@ -24,8 +24,8 @@
     <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="">
             <b>Uredi</b> Podatke</a></li>
     <li><a> | </a></li>
-    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addOpravilo">
-            <b>Dodaj</b> Opravilo</a></li>
+    <li><a type="button" class="navbar-brand" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}">
+            <b>Dodaj</b> Opravilo</a></li>  
     <li><a> | </a></li>
     <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addDokumentacija">
             <b>Dodaj</b> Dokument</a></li>
@@ -35,9 +35,6 @@
     <li><a> | </a></li>
     <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addPodzahtevek">
             <b>Dodaj</b> Podzahtevek</a></li>
-    <li><a> | </a></li>
-    <li><a type="button" class="navbar-brand" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}">
-            <b>Dodaj</b> Opravilo(NOVO)</a></li>     
 
 {% endblock %}
 <!-- end Navbar-Left podatki -->

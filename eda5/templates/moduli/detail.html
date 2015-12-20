@@ -43,9 +43,12 @@
     <table class="table">
         {% for zavihek in object.zavihek_set.all %}
 
-        <tr>
-            <td><h3><a href="{{ zavihek.urlreference }}" >{{ zavihek.naziv }}</a></h3></td>
-        </tr>
+            <!-- Povezavo prikaži samo v primeru, da ima zavihek vpisan url -->
+            {% if zavihek.url_ref %}
+            <tr>
+                <td><h3><a href="{{ zavihek.urlreference }}" >{{ zavihek.naziv }}</a></h3></td>
+            </tr>
+            {% endif %}
         
         {% endfor %}
     </table><!-- end seznam zavihkov -->

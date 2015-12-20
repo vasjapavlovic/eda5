@@ -15,6 +15,9 @@
     <!-- Zavihki -->
     {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
 
-    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+        <!-- Povezavo prikaži samo v primeru, da ima zavihek vpisan url -->
+        {% if zavihek.url_ref %}
+        <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+        {% endif %}
 
     {% endfor %}<!-- end Zavihki -->

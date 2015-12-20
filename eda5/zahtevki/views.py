@@ -2,11 +2,11 @@
 from django.shortcuts import render, render_to_response
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, FormView
 
 from .forms import ZahtevekCreateForm, PodzahtevekCreateForm,\
                    ZahtevekUpdateForm, ZahtevekSkodniDogodekUpdateForm, ZahtevekSestanekUpdateForm,\
-                   ZahtevekIzvedbaDelUpdateForm, ZahtevekIzvedbaDelaCreateForm, PodzahtevekForm
+                   ZahtevekIzvedbaDelUpdateForm, ZahtevekIzvedbaDelaCreateForm, ZahtevekIzbira
 
 from .forms import ZahtevekSestanekCreateForm
 
@@ -142,7 +142,7 @@ class ZahtevekDetailView(DetailView):
         context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id)
 
         # zahtevek - child
-        context['zahtevek_create_form'] = PodzahtevekForm
+        context['zahtevek_create_form'] = ZahtevekIzbira
         context['zahtevek_child_list'] = Zahtevek.objects.filter(zahtevek_parent=self.object.id)
 
         context['arhiviranje_form'] = ArhiviranjeZahtevekForm
@@ -155,7 +155,7 @@ class ZahtevekDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         opravilo_form = OpraviloCreateForm(request.POST or None)
         zaznamek_form = ZaznamekForm(request.POST or None)
-        zahtevek_create_form = PodzahtevekForm(request.POST or None)
+        zahtevek_create_form = ZahtevekIzbira(request.POST or None)
         arhiviranje_form = ArhiviranjeZahtevekForm(request.POST or None)
 
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
@@ -205,7 +205,7 @@ class ZahtevekDetailView(DetailView):
             if vrsta_zahtevka == '1':
                 return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_sestanek', kwargs={'pk': zahtevek.pk}))
             if vrsta_zahtevka == '2':
-                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_izvedba_del'))
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_izvedba_del', kwargs={'pk': zahtevek.pk}))
 
         # ARHIVIRANJE
 
@@ -265,8 +265,33 @@ class ZahtevekDetailView(DetailView):
             # os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
 
-class ZahtevekCreateIzbira():
-    pass
+class ZahtevekCreateIzbira(TemplateView):
+    model = Zahtevek
+    template_name = "zahtevki/zahtevek/create_izbira.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ZahtevekCreateIzbira, self).get_context_data(*args, **kwargs)
+
+        # zahtevek
+        context['zahtevek_izbira_form'] = ZahtevekIzbira
+
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        zahtevek_izbira_form = ZahtevekIzbira(request.POST or None)
+
+        if zahtevek_izbira_form.is_valid():
+
+            vrsta_zahtevka = zahtevek_izbira_form.cleaned_data['vrsta_zahtevka']
+
+            if vrsta_zahtevka == '1':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_sestanek'))
+            if vrsta_zahtevka == '2':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_izvedba_del'))
 
 
 class ZahtevekSestanekCreateView(TemplateView):
@@ -412,7 +437,7 @@ class PodzahtevekSestanekCreateView(UpdateView):
                 }
             )
 
-        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_list'))
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
 class ZahtevekIzvedbaDelCreateView(TemplateView):
@@ -477,7 +502,7 @@ class ZahtevekIzvedbaDelCreateView(TemplateView):
                 }
             )
 
-        return HttpResponseRedirect(reverse('moduli:home'))
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
 class PodzahtevekIzvedbaDelCreateView(UpdateView):
@@ -547,7 +572,7 @@ class PodzahtevekIzvedbaDelCreateView(UpdateView):
                 }
             )
 
-        return HttpResponseRedirect(reverse('moduli:home'))
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
 class OpraviloCreateView(UpdateView):

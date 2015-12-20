@@ -145,12 +145,11 @@ class ZahtevekIzvedbaDelaCreateForm(forms.ModelForm):
         )
 
 
-class PodzahtevekForm(forms.Form):
+class ZahtevekIzbira(forms.Form):
 
     VRSTE = (
         (1, 'sestanek'),
         (2, 'izvedba_del')
     )
-
 
     vrsta_zahtevka = forms.ChoiceField(choices=VRSTE)

@@ -14,13 +14,10 @@ class Modul(models.Model):
     barva = models.CharField(max_length=500)
     url_ref = models.CharField(max_length=500, blank=True)
 
-    
-
-
     class Meta:
-        verbose_name='modul'
+        verbose_name = 'modul'
         verbose_name_plural = "moduli"
-        ordering = ['naziv',]
+        ordering = ['naziv', ]
 
     def __str__(self):
         return "(%s) %s" % (self.oznaka, self.naziv)

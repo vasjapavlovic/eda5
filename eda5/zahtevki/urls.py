@@ -8,7 +8,9 @@ urlpatterns = [
 
 # zahtevek
 urlpatterns += [
-    url(r'^seznam/$', views.ZahtevekListView.as_view(), name="zahtevek_list"),
+    url(r'^zahtevek-create/$', views.ZahtevekCreateIzbira.as_view(), name="zahtevek_create"),
+    url(r'^zahtevek-seznam/$', views.ZahtevekListView.as_view(), name="zahtevek_list"),
+
     url(r'^(?P<pk>\d+)/detail/$', views.ZahtevekDetailView.as_view(), name="zahtevek_detail"),
     url(r'^(?P<pk>\d+)/main/update/$', views.ZahtevekUpdateView.as_view(), name="zahtevek_update_main"),
 ]
