@@ -98,7 +98,6 @@ class ZahtevekSestanekCreateForm(forms.ModelForm):
             'udelezenci',
         )
         widgets = {
-            "udelezenci": forms.CheckboxSelectMultiple,
             "datum": DateInput(),
         }
 
@@ -113,12 +112,11 @@ class ZahtevekSestanekUpdateForm(forms.ModelForm):
             'udelezenci',
         )
         widgets = {
-            "udelezenci": forms.CheckboxSelectMultiple,
             "datum": DateInput(),
         }
 
 
-class ZahtevekIzvedbaDelaCreateForm(forms.ModelForm):
+class ZahtevekIzvedbaDelCreateForm(forms.ModelForm):
 
     class Meta:
         model = ZahtevekIzvedbaDela
@@ -136,20 +134,11 @@ class ZahtevekIzvedbaDelUpdateForm(forms.ModelForm):
         )
 
 
-class ZahtevekIzvedbaDelaCreateForm(forms.ModelForm):
-
-    class Meta:
-        model = ZahtevekIzvedbaDela
-        fields = (
-            'is_zakonska_obveza',
-        )
-
-
 class ZahtevekIzbira(forms.Form):
 
     VRSTE = (
-        (1, 'sestanek'),
-        (2, 'izvedba_del')
+        (1, 'Sestanek'),
+        (2, 'Izvedba Del')
     )
 
     vrsta_zahtevka = forms.ChoiceField(choices=VRSTE)

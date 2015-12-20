@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 
 from .forms import ZahtevekCreateForm, PodzahtevekCreateForm,\
                    ZahtevekUpdateForm, ZahtevekSkodniDogodekUpdateForm, ZahtevekSestanekUpdateForm,\
-                   ZahtevekIzvedbaDelUpdateForm, ZahtevekIzvedbaDelaCreateForm, ZahtevekIzbira
+                   ZahtevekIzvedbaDelUpdateForm, ZahtevekIzvedbaDelCreateForm, ZahtevekIzbira
 
 from .forms import ZahtevekSestanekCreateForm
 
@@ -311,8 +311,10 @@ class ZahtevekSestanekCreateView(TemplateView):
 
         zahtevek_splosno_form = ZahtevekCreateForm(request.POST or None)
         zahtevek_sestanek_form = ZahtevekSestanekCreateForm(request.POST or None)
+        zahtevek_sestanek_update_form = ZahtevekSestanekUpdateForm(request.POST or None)
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_SESTANEK_CREATE")
 
+        # izdelamo objekt splosni zahtevek
         if zahtevek_splosno_form.is_valid():
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
@@ -337,31 +339,49 @@ class ZahtevekSestanekCreateView(TemplateView):
                 'zahtevek_splosno_form': zahtevek_splosno_form,
                 'zahtevek_sestanek_form': zahtevek_sestanek_form,
                 'modul_zavihek': modul_zavihek,
+                'zahtevek_sestanek_update_form': zahtevek_sestanek_update_form,
                 }
             )
 
+        # izdelamo objekt sestanek
         if zahtevek_sestanek_form.is_valid():
 
             sklicatelj = zahtevek_sestanek_form.cleaned_data['sklicatelj']
-            # udelezenci = zahtevek_sestanek_form.cleaned_data['udelezenci']
             datum = zahtevek_sestanek_form.cleaned_data['datum']
 
-            ZahtevekSestanek.objects.create_zahtevek_sestanek(
+            zahtevek_sestanek_data = ZahtevekSestanek.objects.create_zahtevek_sestanek(
                 zahtevek=zahtevek,
                 sklicatelj=sklicatelj,
-                # udelezenci=udelezenci,
                 datum=datum,
             )
+            zahtevek_sestanek_object = ZahtevekSestanek.objects.get(id=zahtevek_sestanek_data.pk)
 
         else:
             return render(request, self.template_name, {
                 'zahtevek_splosno_form': zahtevek_splosno_form,
                 'zahtevek_sestanek_form': zahtevek_sestanek_form,
                 'modul_zavihek': modul_zavihek,
+                'zahtevek_sestanek_update_form': zahtevek_sestanek_update_form,
                 }
             )
 
-        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_list'))
+        # dodamo udeležence (many-to-many, ki se lahko doda samo po tem ko je objekt že izdelan : sestanek)
+        if zahtevek_sestanek_update_form.is_valid():
+            udelezenci = zahtevek_sestanek_update_form.cleaned_data['udelezenci']
+
+            zahtevek_sestanek_object.udelezenci = udelezenci
+            zahtevek_sestanek_object.save()
+
+        else:
+            return render(request, self.template_name, {
+                'zahtevek_splosno_form': zahtevek_splosno_form,
+                'zahtevek_sestanek_form': zahtevek_sestanek_form,
+                'zahtevek_sestanek_update_form': zahtevek_sestanek_update_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
 class PodzahtevekSestanekCreateView(UpdateView):
@@ -446,7 +466,7 @@ class ZahtevekIzvedbaDelCreateView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekIzvedbaDelCreateView, self).get_context_data(*args, **kwargs)
         context['zahtevek_splosno_form'] = ZahtevekCreateForm
-        context['zahtevek_izvedba_del_form'] = ZahtevekIzvedbaDelaCreateForm
+        context['zahtevek_izvedba_del_form'] = ZahtevekIzvedbaDelCreateForm
 
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_IZVEDBA_DEL_CREATE")
         context['modul_zavihek'] = modul_zavihek
@@ -456,7 +476,7 @@ class ZahtevekIzvedbaDelCreateView(TemplateView):
     def post(self, request, *Args, **kwargs):
 
         zahtevek_splosno_form = ZahtevekCreateForm(request.POST or None)
-        zahtevek_izvedba_del_form = ZahtevekIzvedbaDelaCreateForm(request.POST or None)
+        zahtevek_izvedba_del_form = ZahtevekIzvedbaDelCreateForm(request.POST or None)
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_IZVEDBA_DEL_CREATE")
 
         if zahtevek_splosno_form.is_valid():
@@ -513,7 +533,7 @@ class PodzahtevekIzvedbaDelCreateView(UpdateView):
     def get_context_data(self, *args, **kwargs):
         context = super(PodzahtevekIzvedbaDelCreateView, self).get_context_data(*args, **kwargs)
         context['zahtevek_splosno_form'] = ZahtevekCreateForm
-        context['zahtevek_izvedba_del_form'] = ZahtevekIzvedbaDelaCreateForm
+        context['zahtevek_izvedba_del_form'] = ZahtevekIzvedbaDelCreateForm
 
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_IZVEDBA_DEL_CREATE")
         context['modul_zavihek'] = modul_zavihek
@@ -525,7 +545,7 @@ class PodzahtevekIzvedbaDelCreateView(UpdateView):
         zahtevek_parent = Zahtevek.objects.get(id=self.get_object().id)
 
         zahtevek_splosno_form = ZahtevekCreateForm(request.POST or None)
-        zahtevek_izvedba_del_form = ZahtevekIzvedbaDelaCreateForm(request.POST or None)
+        zahtevek_izvedba_del_form = ZahtevekIzvedbaDelCreateForm(request.POST or None)
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_IZVEDBA_DEL_CREATE")
 
         if zahtevek_splosno_form.is_valid():
