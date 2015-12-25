@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Max
 
 import os
 
@@ -20,24 +21,26 @@ class PostaHomeView(TemplateView):
     template_name = "posta/home.html"
 
 
-class DokumentZaArhiviranjeListView(ListView):
+class DokumentListView(ListView):
     model = Dokument
-    template_name = "posta/dokument/list/za_arhiviranje.html"
+    template_name = "posta/dokument/list/base.html"
 
-    def get_queryset(self):
-        # prikaži samo nearhivirano pošto
-        queryset = self.model.objects.filter(arhiviranje__isnull=True)
-        return queryset
+    def get_context_data(self, *args, **kwargs):
+        context = super(DokumentListView, self).get_context_data(*args, **kwargs)
 
+        # dokumentacija za arhiviranje
+        za_arhiviranje_list = Dokument.objects.filter(arhiviranje__isnull=True)
+        context['za_arhiviranje_list'] = za_arhiviranje_list
 
-class DokumentArhiviranoListView(ListView):
-    model = Dokument
-    template_name = "posta/dokument/list/arhivirano.html"
+        # arhivirana dokumentacija
+        arhivirano_list = Dokument.objects.filter(arhiviranje__isnull=False)
+        context['arhivirano_list'] = arhivirano_list
 
-    def get_queryset(self):
-        # prikaži samo nearhivirano pošto
-        queryset = self.model.objects.filter(arhiviranje__isnull=False)
-        return queryset
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
 class PostaDokumentDetailView(DetailView):
@@ -45,55 +48,14 @@ class PostaDokumentDetailView(DetailView):
     model = Dokument
     template_name = 'posta/dokument/detail/base.html'
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(PostaDokumentDetailView, self).get_context_data(*args, **kwargs)
-    #     # custom context here
-    #     context['arhiviranje_form'] = ArhiviranjeCreateForm
-    #     return context
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostaDokumentDetailView, self).get_context_data(*args, **kwargs)
 
-    # def post(self, request, *args, **kwargs):
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
 
-    #     arhiviranje_form = ArhiviranjeCreateForm(request.POST or None)
-
-    #     if arhiviranje_form.is_valid():
-
-    #         dokument = Dokument.objects.get(id=self.get_object().id)
-    #         arhiviral = arhiviranje_form.cleaned_data['arhiviral']
-    #         lokacija_hrambe = arhiviranje_form.cleaned_data['lokacija_hrambe']
-    #         elektronski = arhiviranje_form.cleaned_data['elektronski']
-    #         fizicni = arhiviranje_form.cleaned_data['fizicni']
-
-    #         Arhiviranje.objects.create_arhiviranje(
-    #             dokument=dokument,
-    #             arhiviral=arhiviral,
-    #             lokacija_hrambe=lokacija_hrambe,
-    #             elektronski=elektronski,
-    #             fizicni=fizicni,
-    #         )
-
-    #         # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
-    #         '''Za račune poskrbimo varnostno kopijo pod Dokumenti/Računovodstvo'''
-
-    #         old_path = str(dokument.priponka)
-    #         filename = old_path.split('/')[2]
-
-    #         new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.arhiv.oznaka, lokacija_hrambe.oznaka, filename)
-
-    #         new_path = '/'.join(new_path)
-
-    #         dokument.priponka = new_path
-    #         dokument.save()
-
-    #         # izdelamo direktorjih arhivskega mesta
-    #         mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
-
-    #         if not os.path.exists(mapa):
-    #             os.makedirs(mapa)
-
-    #         # prenos datoteke v arhivsko mesto
-    #         os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
-
-    #     return HttpResponseRedirect(reverse('moduli:posta:dokument_arhivirano_list'))
+        return context
 
 
 class DokumentCreateView(TemplateView):
@@ -150,10 +112,18 @@ class DokumentCreateView(TemplateView):
             datum_dokumenta = dokument_form.cleaned_data['datum_dokumenta']
             priponka = dokument_form.cleaned_data['priponka']
 
+            # oznaka_baza
+            max_oznaka_baza = Dokument.objects.all().aggregate(Max('oznaka_baza'))['oznaka_baza__max']
+            max_dokument = Dokument.objects.get(oznaka_baza=max_oznaka_baza)
+
+            nova_oznaka_baza = max_dokument.oznaka_baza + 1
+            oznaka_baza = nova_oznaka_baza
+
             Dokument.objects.create_dokument(
                 vrsta_dokumenta=vrsta_dokumenta,
                 avtor=avtor,
                 naslovnik=naslovnik,
+                oznaka_baza=oznaka_baza,
                 oznaka=oznaka,
                 naziv=naziv,
                 datum_dokumenta=datum_dokumenta,
@@ -169,4 +139,4 @@ class DokumentCreateView(TemplateView):
                 }
             )
 
-        return HttpResponseRedirect(reverse('moduli:posta:dokument_za_arhiviranje_list'))
+        return HttpResponseRedirect(reverse('moduli:posta:dokument_list'))

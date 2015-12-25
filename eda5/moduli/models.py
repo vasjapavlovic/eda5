@@ -5,7 +5,6 @@ from django.db import models
 from eda5.core.models import TimeStampedModel
 
 
-
 class Modul(models.Model):
 
     oznaka = models.CharField(max_length=10)
@@ -27,6 +26,7 @@ class Zavihek(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
+    parent = models.ManyToManyField('self', blank=True)
     modul = models.ForeignKey(Modul)
     #   Mandatory
     oznaka = models.CharField(max_length=100)

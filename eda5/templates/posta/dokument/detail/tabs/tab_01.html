@@ -1,0 +1,45 @@
+<!-- TAB_01 Content -->
+
+    <table class="table table-condensed">
+        <tbody>
+
+            <tr>
+                <td><b>Naziv</b></td>
+                <td>
+                    <a href="#" class="ng-binding">{{object.naziv}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Pošiljatelj</td>
+                <td><a href="" class="ng-binding">{{ object.avtor.naziv }}</a></td>
+            </tr>
+            <tr>
+                <td>Naslovnik</td>
+                <td><a href="#" class="ng-binding">{{ object.naslovnik.naziv }}</a></td>
+            </tr>
+            <tr>
+                <td><b>Status</b></td>
+                <!-- arhivirano -->
+                {% if object.arhiviranje.delovninalog %}
+                    <td><a href="{% url 'moduli:zahtevki:delovninalog_detail' object.arhiviranje.delovninalog.pk %}" class="ng-binding">Arhivirano | {{ object.arhiviranje.delovninalog }}</a></td>
+                {% endif %}
+
+                {% if object.arhiviranje.zahtevek %}
+                    <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.arhiviranje.zahtevek.pk %}" class="ng-binding">Arhivirano | {{ object.arhiviranje.zahtevek }}</a></td>
+
+                {% else %}
+                <!-- ne_arhivirano -->
+                <td>Nearhivirano</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Prejeto dne</td>
+                <td>{{ object.aktivnost.created }}</td>
+            </tr>
+            <tr>
+                <td>Arhivirano dne</td>
+                <td>{{ object.arhiviranje.created }}</td>
+            </tr>
+
+        </tbody>
+    </table>

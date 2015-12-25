@@ -203,7 +203,6 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             # VNOS V BAZO
             # ---------------------------------------------------------------------------------------------
 
-
             Delo.objects.create_delo(delavec=delavec,
                                      datum=datum,
                                      vrsta_dela=vrsta_dela,
@@ -239,29 +238,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 lokacija_hrambe=lokacija_hrambe,
             )
 
-            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
-            old_path = str(dokument.priponka)
-            filename = old_path.split('/')[2]
-
-            new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.arhiv.oznaka, lokacija_hrambe.oznaka, filename)
-
-            new_path = '/'.join(new_path)
-
-            dokument.priponka = new_path
-            dokument.save()
-
-            # izdelamo direktorjih arhivskega mesta
-            mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
-
-            if not os.path.exists(mapa):
-                os.makedirs(mapa)
-
-            # prenos datoteke v arhivsko mesto
-            os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
-
             return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
-
-        
 
         if dnevnik_delovninalog_form.is_valid():
 

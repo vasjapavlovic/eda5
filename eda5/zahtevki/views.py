@@ -146,6 +146,8 @@ class ZahtevekDetailView(DetailView):
     model = Zahtevek
     template_name = "zahtevki/zahtevek/detail/base.html"
 
+
+
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekDetailView, self).get_context_data(*args, **kwargs)
 
@@ -242,28 +244,7 @@ class ZahtevekDetailView(DetailView):
                 lokacija_hrambe=lokacija_hrambe,
             )
 
-            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
-            old_path = str(dokument.priponka)
-            filename = old_path.split('/')[2]
-
-            new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.arhiv.oznaka, lokacija_hrambe.oznaka, filename)
-
-            new_path = '/'.join(new_path)
-
-            dokument.priponka = new_path
-            dokument.save()
-
-            # izdelamo direktorjih arhivskega mesta
-            mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
-
-            if not os.path.exists(mapa):
-                os.makedirs(mapa)
-
-            # prenos datoteke v arhivsko mesto
-            os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
-
             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
-
 
         # IF NOT VALID
         return render(request, self.template_name, {
@@ -278,27 +259,6 @@ class ZahtevekDetailView(DetailView):
             'modul_zavihek': modul_zavihek,
             }
         )
-        
-
-            # DATOTEKO PRENESEMO V ARHIVSKO MESTO!
-            # '''Za račune poskrbimo varnostno kopijo pod Dokumenti/Računovodstvo'''
-
-            # old_path = str(dokument.priponka)
-            # filename = old_path.split('/')[2]
-
-            # new_path = ('Dokumentacija/Arhivirano', lokacija_hrambe.oznaka, filename)
-
-            # new_path = '/'.join(new_path)
-            # dokument.priponka = new_path
-            # dokument.save()
-
-            # # izdelamo direktorjih arhivskega mesta
-            # mapa = os.path.dirname(settings.MEDIA_ROOT + "/" + new_path)
-            # if not os.path.exists(mapa):
-            #     os.makedirs(mapa)
-
-            # # prenos datoteke v arhivsko mesto
-            # os.rename(settings.MEDIA_ROOT + "/" + old_path, settings.MEDIA_ROOT + "/" + new_path)
 
 
 class ZahtevekCreateIzbira(TemplateView):

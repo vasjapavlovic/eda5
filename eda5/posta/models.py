@@ -42,11 +42,11 @@ class Dokument(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
     def dokument_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
-        new_filename_raw = filename.split(".")
-        ext = '.' + new_filename_raw[1]
-        parametri_imena = (instance.vrsta_dokumenta.oznaka, instance.oznaka, str(instance.datum_dokumenta), instance.avtor.oznaka)
-        new_filename = "_".join(parametri_imena)
-        return 'Dokumentacija/NE_Arhivirano/{0}'.format(new_filename + ext)
+        old_filename_raw = filename.split(".")
+        ext = '.' + old_filename_raw[1]
+        filename_parameters = ('media', str(instance.oznaka_baza))
+        new_filename = '/'.join(filename_parameters)
+        return '{0}'.format(new_filename + ext)
 
     # ATRIBUTES
     #   Relations
@@ -55,6 +55,7 @@ class Dokument(TimeStampedModel):
     avtor = models.ForeignKey(SkupinaPartnerjev, related_name="avtor")
     naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik")
     #   Mandatory
+    oznaka_baza = models.IntegerField(blank=True, null=True)
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
     naziv = models.CharField(max_length=255, verbose_name="naziv")
     datum_dokumenta = models.DateField()

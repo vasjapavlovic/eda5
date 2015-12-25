@@ -28,7 +28,6 @@ class DokumentCreateForm(forms.ModelForm):
     class Meta:
         model = Dokument
         fields = (
-            # 'aktivnost',
             'vrsta_dokumenta',
             'avtor',
             'naslovnik',

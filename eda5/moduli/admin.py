@@ -18,4 +18,4 @@ class ModulAdmin(admin.ModelAdmin):
 
 @admin.register(Zavihek)
 class ZavihekAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('parent', )

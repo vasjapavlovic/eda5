@@ -21,7 +21,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- Your stuff: Third-party css libraries go here -->
-    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
@@ -217,8 +217,12 @@
                 <!-- Left navbar -->
                 <nav class=" navbar-default hidden-xs" role="navigation">
                     <ul class="nav navbar-nav">
-                        
                         {% block navbar_title %}{% endblock %}
+                        <li class="dropdown">
+                              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Ukazi <span class="caret"></span></a>
+                                <ul role="menu" class="dropdown-menu">
+                        
+                        
                         <!-- <a class="navbar-brand" href=""> </a>-->
 
                         {% block navbar_left %}{% endblock %}
@@ -238,6 +242,8 @@
                             <input type="text" placeholder="Search..." class="form-control">
                         </form>
                         -->
+                            </ul>
+                        </li>
                         
                     </ul>
                     

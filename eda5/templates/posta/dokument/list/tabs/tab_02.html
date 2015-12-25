@@ -1,0 +1,26 @@
+<!-- ARHIVIRANO -->       
+        <div class="panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Arhivirano</div>
+            <div class="panel-body">
+
+                <table class="table">
+
+                    <tr>
+                        <td>oznaka</td>
+                        <td>datum</td>
+                        <td>predmet</td>
+                        <td>priponka</td>
+                    </tr>
+
+                    {% for dokument in arhivirano_list %}
+                    <tr>
+                        <td><b><a href="{% url 'moduli:posta:dokument_detail' dokument.pk %}">{{ dokument.oznaka }}</a></b></td>
+                        <td>{{ dokument.naziv }}</td>
+                        <td>{{ dokument.datum }}</td>
+                        <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>

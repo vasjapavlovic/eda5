@@ -21,3 +21,24 @@
         {% endif %}
 
     {% endfor %}<!-- end Zavihki -->
+
+
+    <!-- LOGIČNE POVEZAVE -->
+    {% for zavihek in modul_zavihek.parent.all %}
+
+
+    <li>
+        <a class="bg-{{ zavihek.modul.barva }}" href="{% url 'moduli:detail' zavihek.modul.pk %}">
+            <i class="ion-home"></i>
+            <span class="nav-label">{{ zavihek.modul.naziv }}</span>
+        </a>
+    </li><!-- end Naziv Modula + Link -->
+
+        {% if zavihek.url_ref %}
+        <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+        {% endif %}
+
+
+    {% endfor %}
+
+
