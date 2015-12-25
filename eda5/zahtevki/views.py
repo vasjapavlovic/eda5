@@ -12,7 +12,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 # INTERNO ##############################################################
 # Zahtevek Osnova
-from .forms import ZahtevekCreateForm, ZahtevekUpdateForm, ZahtevekIzbira
+from .forms import ZahtevekCreateForm, ZahtevekUpdateForm, ZahtevekIzbiraForm
 from .models import Zahtevek
 
 # Zahtevek Škodni Dogodek
@@ -160,7 +160,7 @@ class ZahtevekDetailView(DetailView):
         context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id)
 
         # zahtevek - child
-        context['zahtevek_create_form'] = ZahtevekIzbira
+        context['zahtevek_create_form'] = ZahtevekIzbiraForm
         context['zahtevek_child_list'] = Zahtevek.objects.filter(zahtevek_parent=self.object.id)
 
         context['arhiviranje_form'] = ArhiviranjeZahtevekForm
@@ -261,15 +261,15 @@ class ZahtevekDetailView(DetailView):
         )
 
 
-class ZahtevekCreateIzbira(TemplateView):
+class ZahtevekCreateIzbiraView(TemplateView):
     model = Zahtevek
     template_name = "zahtevki/zahtevek/create_izbira.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ZahtevekCreateIzbira, self).get_context_data(*args, **kwargs)
+        context = super(ZahtevekCreateIzbiraView, self).get_context_data(*args, **kwargs)
 
         # zahtevek
-        context['zahtevek_izbira_form'] = ZahtevekIzbira
+        context['zahtevek_izbira_form'] = ZahtevekIzbiraForm
 
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_CREATE")
         context['modul_zavihek'] = modul_zavihek
@@ -278,7 +278,7 @@ class ZahtevekCreateIzbira(TemplateView):
 
     def post(self, request, *args, **kwargs):
 
-        zahtevek_izbira_form = ZahtevekIzbira(request.POST or None)
+        zahtevek_izbira_form = ZahtevekIzbiraForm(request.POST or None)
 
         if zahtevek_izbira_form.is_valid():
 

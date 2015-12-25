@@ -12,6 +12,8 @@ urlpatterns = [
 
 # NAROCILO
 urlpatterns += [
-    url(r'^dn/(?P<pk>\d+)/detail$', views.NarociloDetailView.as_view(), name="narocilo_detail"),
-    url(r'^narocilo-telefon/$', views.NarociloTelefonCreateView.as_view(), name="narocilo_create_telefon"),
+    url(r'^narocilo-create/$', views.NarociloCreateIzbiraView.as_view(), name="narocilo_create"),
+    url(r'^narocilo-create-telefon/$', views.NarociloTelefonCreateView.as_view(), name="narocilo_create_telefon"),
+    url(r'^seznam/$', views.NarociloListView.as_view(), name="narocilo_list"),
+    url(r'^(?P<pk>\d+)/detail$', views.NarociloDetailView.as_view(), name="narocilo_detail"),
 ]

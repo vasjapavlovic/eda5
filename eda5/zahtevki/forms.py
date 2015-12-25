@@ -133,7 +133,7 @@ class ZahtevekIzvedbaDelUpdateForm(forms.ModelForm):
         )
 
 
-class ZahtevekIzbira(forms.Form):
+class ZahtevekIzbiraForm(forms.Form):
 
     VRSTE = (
         (1, 'Sestanek'),

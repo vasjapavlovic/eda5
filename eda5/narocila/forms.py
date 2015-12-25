@@ -10,13 +10,13 @@ DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
-class NarociloIzbiraForm(forms.Form):
+class NarociloCreateIzbiraForm(forms.Form):
     CHOICES = (
         (1, 'narocilo telefon'),
         (2, 'narocilo pogodba'),
     )
 
-    izbira = forms.ChoiceField(choices=CHOICES)
+    vrsta_narocila = forms.ChoiceField(choices=CHOICES)
 
 
 class NarociloSplosnoCreateForm(forms.ModelForm):

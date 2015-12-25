@@ -35,22 +35,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content %}
-
-    <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Izberi vrsto Naročila</div>
-            <div class="panel-body">
-                {{ narocilo_izbira_create_form|crispy  }} 
-
-            <input type="submit" value="Potrdi">
-            </div>
-        </div>
-
-
-
-    </form>
-
+{% include "narocila/narocilo/list/content.html" %}
+{% include "narocila/narocilo/list/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 

@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
-from django.views.generic import TemplateView, FormView, DetailView
+from django.views.generic import TemplateView, FormView, ListView, DetailView
 
-from . import forms
+from .forms import NarociloCreateIzbiraForm, NarociloSplosnoCreateForm, NarociloTelefonCreateForm
 from .models import NarociloTelefon, NarociloPogodba, Narocilo
 
 from eda5.moduli.models import Zavihek
@@ -14,8 +14,46 @@ class NarocilaHomeView(TemplateView):
     template_name = "narocila/home.html"
 
 
-class NarociloVrstaIzbiraView(FormView):
-    form_class = forms.NarociloIzbiraForm
+class NarociloListView(ListView):
+
+    model = Narocilo
+    template_name = "narocila/narocilo/list/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NarociloListView, self).get_context_data(*args, **kwargs)
+
+        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+
+class NarociloCreateIzbiraView(TemplateView):
+    model = Narocilo
+    template_name = "narocila/narocilo/create_izbira.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NarociloCreateIzbiraView, self).get_context_data(*args, **kwargs)
+
+        # zahtevek
+        context['narocilo_izbira_create_form'] = NarociloCreateIzbiraForm
+
+        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        narocilo_izbira_create_form = NarociloCreateIzbiraForm(request.POST or None)
+
+        if narocilo_izbira_create_form.is_valid():
+
+            vrsta_narocila = narocilo_izbira_create_form.cleaned_data['vrsta_narocila']
+
+            if vrsta_narocila == '1':
+                return HttpResponseRedirect(reverse('moduli:narocila:narocilo_create_telefon'))
 
 
 class NarociloTelefonCreateView(TemplateView):
@@ -23,18 +61,18 @@ class NarociloTelefonCreateView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NarociloTelefonCreateView, self).get_context_data(*args, **kwargs)
-        context['narocilo_splosno_form'] = forms.NarociloSplosnoCreateForm
-        context['narocilo_telefon_form'] = forms.NarociloTelefonCreateForm
+        context['narocilo_splosno_form'] = NarociloSplosnoCreateForm
+        context['narocilo_telefon_form'] = NarociloTelefonCreateForm
 
-        modul_zavihek = Zavihek.objects.get(oznaka="NRC_CREATE_TEL")
+        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_TEL")
         context['modul_zavihek'] = modul_zavihek
 
         return context
 
     def post(self, request, *args, **kwargs):
-        narocilo_splosno_form = forms.NarociloSplosnoCreateForm(request.POST or None)
-        narocilo_telefon_form = forms.NarociloTelefonCreateForm(request.POST or None)
-        modul_zavihek = Zavihek.objects.get(oznaka="NRC_CREATE_TEL")
+        narocilo_splosno_form = NarociloSplosnoCreateForm(request.POST or None)
+        narocilo_telefon_form = NarociloTelefonCreateForm(request.POST or None)
+        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_TEL")
 
         if narocilo_telefon_form.is_valid():
             oseba = narocilo_telefon_form.cleaned_data['oseba']
@@ -103,7 +141,8 @@ class NarociloDetailView(DetailView):
         context = super(NarociloDetailView, self).get_context_data(*args, **kwargs)
 
         # zavihek
-        modul_zavihek = Zavihek.objects.get(oznaka="DN_LIST")
+        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
         return context
+

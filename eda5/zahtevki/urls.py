@@ -5,7 +5,7 @@ from . import views
 
 # zahtevek
 urlpatterns = [
-    url(r'^zahtevek-create/$', views.ZahtevekCreateIzbira.as_view(), name="zahtevek_create"),
+    url(r'^zahtevek-create/$', views.ZahtevekCreateIzbiraView.as_view(), name="zahtevek_create"),
     url(r'^zahtevek-seznam/$', views.ZahtevekListView.as_view(), name="zahtevek_list"),
 
     url(r'^(?P<pk>\d+)/detail/$', views.ZahtevekDetailView.as_view(), name="zahtevek_detail"),

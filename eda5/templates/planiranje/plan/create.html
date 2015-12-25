@@ -39,15 +39,13 @@
     <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Izberi vrsto Naročila</div>
+            <div class="panel-heading">Splosni podatki</div>
             <div class="panel-body">
-                {{ narocilo_izbira_create_form|crispy  }} 
-
-            <input type="submit" value="Potrdi">
+                {{ plan_create_form|crispy  }} 
             </div>
         </div>
 
-
+        <input type="submit" value="Potrdi">
 
     </form>
 
