@@ -1,0 +1,33 @@
+<!-- Planirana Opravila -->
+
+<table class="table table-hover table-condensed">
+    <tr>
+        <th>oznaka</th>
+        <th>naziv</th>
+        <th>perioda</th>
+        <th>izvedeno dne</th>
+        <th>Delovni Nalog</th>
+
+    </tr>
+
+
+
+
+{% for opravilo in opravilo_planirano_zadnje_list %}
+    {% for dn in opravilo.delovninalog_set.all %}
+
+    <tr>
+
+        <td><a href="">{{ dn.opravilo.planirano_opravilo.oznaka }}</a></td>
+        <td>{{ dn.opravilo.planirano_opravilo.naziv }}</td>
+        <td>{{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota }}</td>
+        <td>{{ dn.opravilo.created }}</td>
+        <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
+
+    </tr>
+
+    {% endfor %}   
+{% endfor %}
+
+
+</table>

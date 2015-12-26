@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^katalog/', include("eda5.katalog.urls", namespace="katalog")),
     url(r'^narocila/', include("eda5.narocila.urls", namespace="narocila")),
     url(r'^partnerji/', include("eda5.partnerji.urls", namespace="partnerji")),
+    url(r'^planiranje/', include("eda5.planiranje.urls", namespace="planiranje")),
     url(r'^posta/', include("eda5.posta.urls", namespace="posta")),
     url(r'^pomanjkljivosti/', include("eda5.pomanjkljivosti.urls", namespace="pomanjkljivosti")),
     url(r'^predaja-lastnine/', include("eda5.predaja_lastnine.urls", namespace="predaja_lastnine")),

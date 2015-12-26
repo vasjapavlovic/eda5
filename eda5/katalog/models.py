@@ -178,7 +178,7 @@ class ArtikelPlan(models.Model):
         verbose_name_plural = "Plan Obratovanja in Vzdrževanja"
 
     def __str__(self):
-        return "%s" % (self.naziv)
+        return "%s | %s" % (self.artikel.naziv, self.naziv)
 
 
 class RezervniDel(models.Model):

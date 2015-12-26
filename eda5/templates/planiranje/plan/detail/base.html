@@ -20,6 +20,10 @@
 
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
+
+    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
+    <li><a type="button" href="{% url 'moduli:planiranje:planirano_opravilo_create' object.pk %}"><b>Dodaj</b> Opravilo</a></li>  
+
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -35,20 +39,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content %}
-
-    <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Splosni podatki</div>
-            <div class="panel-body">
-                {{ form|crispy  }} 
-            </div>
-        </div>
-
-        <input type="submit" value="Potrdi">
-
-    </form>
-
+{% include "planiranje/plan/detail/content.html" %}
+{% include "planiranje/plan/detail/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 

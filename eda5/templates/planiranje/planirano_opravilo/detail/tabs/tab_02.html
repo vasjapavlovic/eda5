@@ -1,0 +1,40 @@
+<!-- Planirana Opravila -->
+
+<table class="table table-hover table-condensed">
+    <tr>
+        <th>Element</th>
+        <th>Aktivnost</th>
+        <th>Vrsta</th>
+        <th>Priporočena Perioda</th>
+    </tr>
+
+    {% for planirana_aktivnost in planirana_aktivnost_list %}
+
+    <!-- PLANIRANE AKTIVNOSTI -->
+    {% if planirana_aktivnost.artikel_plan %}
+    <tr>
+        <td><a href="">{{ planirana_aktivnost.element.artikel.naziv }}({{ planirana_aktivnost.element.projektno_mesto.oznaka }})</a></td>
+        <td><a href="">{{ planirana_aktivnost.artikel_plan.naziv }}</a></td>
+        <td>Planirano po Katalogu</td>
+        <td>
+            {{ planirana_aktivnost.artikel_plan.perioda_predpisana_enota_kolicina }} x 
+            {{ planirana_aktivnost.artikel_plan.perioda_predpisana_enota }}
+        </td>
+    {% endif %}
+
+
+    <!-- NEPLANIRANE AKTIVNOSTI -->
+    {% if planirana_aktivnost.naziv_opravila_izven_plana %}
+
+    <tr class="danger">
+        <td><a href="">{{ planirana_aktivnost.element.artikel.naziv }}({{ planirana_aktivnost.element.projektno_mesto.oznaka }})</a></td>
+        <td><a href="">{{ planirana_aktivnost.naziv_opravila_izven_plana }}</a></td>
+        <td>Izredna aktivnost izven Kataloga</td>
+        <td></td>
+    </tr>
+
+    {% endif %}
+    
+{% endfor %}
+
+</table>

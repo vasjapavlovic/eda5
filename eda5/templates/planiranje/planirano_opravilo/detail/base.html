@@ -35,20 +35,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content %}
-
-    <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Splosni podatki</div>
-            <div class="panel-body">
-                {{ form|crispy  }} 
-            </div>
-        </div>
-
-        <input type="submit" value="Potrdi">
-
-    </form>
-
+{% include "planiranje/planirano_opravilo/detail/content.html" %}
+{% include "planiranje/planirano_opravilo/detail/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 

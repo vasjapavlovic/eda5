@@ -1,0 +1,68 @@
+<!-- Sledenje Opravilom -->
+
+<div class="panel-{{ modul_zavihek.modul.barva }}">
+    <div class="panel-heading">Zapadla Opravila</div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>perioda</th>
+                <th>izvedeno dne</th>
+                <th>Delovni Nalog{{ modul_zavihek.modul.barva }}</th>
+
+            </tr>
+
+            {% for opravilo in planirano_opravilo_zapadlo_list %}
+                {% for dn in opravilo.delovninalog_set.all %}
+
+            <tr>
+
+                <td><a href="">{{ dn.opravilo.planirano_opravilo.oznaka }}</a></td>
+                <td>{{ dn.opravilo.planirano_opravilo.naziv }}</td>
+                <td>{{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota }}</td>
+                <td>{{ dn.opravilo.created }}</td>
+                <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
+
+            </tr>
+
+                {% endfor %}   
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+
+
+<div class="panel-{{ modul_zavihek.modul.barva }}">
+    <div class="panel-heading">Nezapadla Opravila</div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>perioda</th>
+                <th>izvedeno dne</th>
+                <th>Delovni Nalog</th>
+
+            </tr>
+
+            {% for opravilo in planirano_opravilo_nezapadlo_list %}
+                {% for dn in opravilo.delovninalog_set.all %}
+
+            <tr>
+
+                <td><a href="">{{ dn.opravilo.planirano_opravilo.oznaka }}</a></td>
+                <td>{{ dn.opravilo.planirano_opravilo.naziv }}</td>
+                <td>{{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota }}</td>
+                <td>{{ dn.opravilo.created }}</td>
+                <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
+
+            </tr>
+
+                {% endfor %}   
+            {% endfor %}
+
+        </table>
+    </div>
+</div>

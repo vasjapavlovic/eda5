@@ -1,9 +1,12 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from eda5.posta.models import Dokument
 from eda5.core.models import TimeStampedModel, IsActiveModel
 from eda5.katalog.models import ArtikelPlan
 from eda5.deli.models import Element
+
+from . import managers
 
 
 class SkupinaPlanov(models.Model):
@@ -42,7 +45,10 @@ class Plan(TimeStampedModel, IsActiveModel):
     opis = models.CharField(max_length=255)
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
+
     # METHODS
+    def get_absolute_url(self):
+        return reverse("moduli:planiranje:plan_detail", kwargs={"pk": self.pk})
 
     # META AND STRING
     class Meta:
@@ -100,9 +106,11 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     perioda_predpisana_enota = models.CharField(max_length=5, choices=ENOTE, verbose_name="enota periode")
     perioda_predpisana_enota_kolicina = models.IntegerField(verbose_name="kolicina enote periode")
     perioda_predpisana_kolicina_na_enoto = models.IntegerField(verbose_name="kolicina na enoto periode")
+    datum_prve_izvedbe = models.DateField(blank=True, null=True)
     #   Optional
     opomba = models.TextField(blank=True)
     # OBJECT MANAGER
+    objects = managers.PlaniranoOpraviloManager()
     # CUSTOM PROPERTIES
     # METHODS
 
@@ -110,6 +118,7 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     class Meta:
         verbose_name = "planirano opravilo"
         verbose_name_plural = "planirana opravila"
+        ordering = ('oznaka', )
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)
@@ -134,11 +143,8 @@ class PlaniranaAktivnost(TimeStampedModel, IsActiveModel):
         verbose_name = "planirana aktivnost"
         verbose_name_plural = "planirane aktivnosti"
 
-
     def __str__(self):
         if self.artikel_plan:
             return "%s" % (self.artikel_plan.naziv)
         else:
             return "%s" % (self.naziv_opravila_izven_plana)
-            
-

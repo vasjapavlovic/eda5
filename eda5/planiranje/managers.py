@@ -1,1 +1,37 @@
 from django.db import models
+
+
+class PlaniranoOpraviloManager(models.Manager):
+
+    use_for_related_fields = True
+
+    def create_planirano_opravilo(
+        self,
+        oznaka=None,
+        naziv=None,
+        namen=None,
+        obseg=None,
+        perioda_predpisana_enota=None,
+        perioda_predpisana_enota_kolicina=None,
+        perioda_predpisana_kolicina_na_enoto=None,
+        datum_prve_izvedbe=None,
+        opomba=None,
+        plan=None,
+    ):
+
+        planirano_opravilo = self.model(
+            oznaka=oznaka,
+            naziv=naziv,
+            namen=namen,
+            obseg=obseg,
+            perioda_predpisana_enota=perioda_predpisana_enota,
+            perioda_predpisana_enota_kolicina=perioda_predpisana_enota_kolicina,
+            perioda_predpisana_kolicina_na_enoto=perioda_predpisana_kolicina_na_enoto,
+            datum_prve_izvedbe=datum_prve_izvedbe,
+            opomba=opomba,
+            plan=plan,
+        )
+
+        planirano_opravilo.save(using=self._db)
+        return planirano_opravilo
+

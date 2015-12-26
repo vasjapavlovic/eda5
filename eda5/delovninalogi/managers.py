@@ -11,6 +11,7 @@ class OpraviloManager(models.Manager):
                         narocilo=None,
                         zahtevek=None,
                         nadzornik=None,
+                        planirano_opravilo=None,
                         ):
         if not zahtevek:
             raise ValueError("Izbran mora biti zahtevek")
@@ -19,14 +20,14 @@ class OpraviloManager(models.Manager):
                               naziv=naziv,
                               rok_izvedbe=rok_izvedbe,
                               narocilo=narocilo,
-                              # element=element,
+                              # element se doda kasnee pod ElementManager in OpraviloCreateView
                               zahtevek=zahtevek,
                               nadzornik=nadzornik,
+                              planirano_opravilo=planirano_opravilo,
                               )
 
         opravilo.save(using=self._db)
         return opravilo
-        
 
 
 class DelovniNalogManager(models.Manager):

@@ -54,7 +54,7 @@ class OpraviloCreateForm(forms.ModelForm):
             'rok_izvedbe',
             'narocilo',
             'nadzornik',
-            
+            'planirano_opravilo',
         )
         widgets = {
             'rok_izvedbe': DateInput(),

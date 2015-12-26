@@ -13,6 +13,7 @@ from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.zahtevki.models import Zahtevek
+from eda5.planiranje.models import PlaniranoOpravilo
 
 
 class Opravilo(TimeStampedModel, IsActiveModel):
@@ -22,6 +23,7 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     zahtevek = models.ForeignKey(Zahtevek)
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
     nadzornik = models.ForeignKey(Oseba)
+    planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
     '''pod naročilo je odzadaj tudi relacija na naročnika in izvajalca'''
     # planirano_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)
     element = models.ManyToManyField(Element)

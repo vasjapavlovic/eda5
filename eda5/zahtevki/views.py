@@ -171,7 +171,7 @@ class ZahtevekDetailView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        opravilo_form = OpraviloCreateForm(request.POST or None)
+        # opravilo_form = OpraviloCreateForm(request.POST or None)
         zaznamek_form = ZaznamekForm(request.POST or None)
         zahtevek_create_form = ZahtevekIzbira(request.POST or None)
         arhiviranje_form = ArhiviranjeZahtevekForm(request.POST or None)
@@ -184,24 +184,24 @@ class ZahtevekDetailView(DetailView):
 
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
 
-        if opravilo_form.is_valid():
-            oznaka = opravilo_form.cleaned_data['oznaka']
-            naziv = opravilo_form.cleaned_data['naziv']
-            rok_izvedbe = opravilo_form.cleaned_data['rok_izvedbe']
-            narocilo = opravilo_form.cleaned_data['narocilo']
-            nadzornik = opravilo_form.cleaned_data['nadzornik']
-            # element = opravilo_form.cleaned_data['element']
+        # if opravilo_form.is_valid():
+        #     oznaka = opravilo_form.cleaned_data['oznaka']
+        #     naziv = opravilo_form.cleaned_data['naziv']
+        #     rok_izvedbe = opravilo_form.cleaned_data['rok_izvedbe']
+        #     narocilo = opravilo_form.cleaned_data['narocilo']
+        #     nadzornik = opravilo_form.cleaned_data['nadzornik']
+        #     # element = opravilo_form.cleaned_data['element']
 
-            Opravilo.objects.create_opravilo(oznaka=oznaka,
-                                             naziv=naziv,
-                                             rok_izvedbe=rok_izvedbe,
-                                             narocilo=narocilo,
-                                             zahtevek=zahtevek,
-                                             nadzornik=nadzornik
-                                             # element=element,
-                                             )
+        #     Opravilo.objects.create_opravilo(oznaka=oznaka,
+        #                                      naziv=naziv,
+        #                                      rok_izvedbe=rok_izvedbe,
+        #                                      narocilo=narocilo,
+        #                                      zahtevek=zahtevek,
+        #                                      nadzornik=nadzornik
+        #                                      # element=element,
+        #                                      )
 
-            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+            # return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
         if zaznamek_form.is_valid():
             tekst = zaznamek_form.cleaned_data['tekst']
@@ -249,7 +249,7 @@ class ZahtevekDetailView(DetailView):
         # IF NOT VALID
         return render(request, self.template_name, {
             'object': zahtevek,
-            'opravilo_form': opravilo_form,
+            # 'opravilo_form': opravilo_form,
             'opravilo_list': opravilo_list,
             'zaznamek_form': zaznamek_form,
             'zaznamek_list': zaznamek_list,
@@ -627,6 +627,7 @@ class OpraviloCreateView(UpdateView):
             rok_izvedbe = opravilo_create_form.cleaned_data['rok_izvedbe']
             narocilo = opravilo_create_form.cleaned_data['narocilo']
             nadzornik = opravilo_create_form.cleaned_data['nadzornik']
+            planirano_opravilo = opravilo_create_form.cleaned_data['planirano_opravilo']
 
             opravilo_data = Opravilo.objects.create_opravilo(
                 oznaka=oznaka,
@@ -634,7 +635,8 @@ class OpraviloCreateView(UpdateView):
                 rok_izvedbe=rok_izvedbe,
                 narocilo=narocilo,
                 zahtevek=zahtevek,
-                nadzornik=nadzornik
+                nadzornik=nadzornik,
+                planirano_opravilo=planirano_opravilo,
             )
 
             opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
