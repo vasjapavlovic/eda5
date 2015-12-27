@@ -19,6 +19,12 @@ from ..models import Plan, PlaniranoOpravilo, PlaniranaAktivnost
 # Moduli
 from eda5.moduli.models import Zavihek
 
+# Katalog
+from eda5.katalog.models import ArtikelPlan
+
+# Predpisi
+from eda5.predpisi.models import Predpis
+
 
 class PlaniranoOpraviloCreateView(UpdateView):
     model = Plan
@@ -95,12 +101,39 @@ class PlaniranoOpraviloDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(PlaniranoOpraviloDetailView, self).get_context_data(*args, **kwargs)
 
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="PLANIRANO_OPRAVILO_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
         # PlaniranaAktivnost
         planirana_aktivnost_list = PlaniranaAktivnost.objects.filter(planirano_opravilo=self.object.id)
         context['planirana_aktivnost_list'] = planirana_aktivnost_list
 
-        # zavihek
-        modul_zavihek = Zavihek.objects.get(oznaka="PLANIRANO_OPRAVILO_DETAIL")
-        context['modul_zavihek'] = modul_zavihek
+        # Predpis
+        # PlaniranoOpravilo --> PlaniranaAktivnost
+        # PlaniranaAktivnost --> artikel_plan 
+        # artikel_plan --> predpis_opravilo
+        # predpis_opravilo --> predpis
+        # predpis_opravilo --> artikel_plan
+
+        # TESTIRANJE
+
+        artikel_plan_list = []
+
+        for planirana_aktivnost in planirana_aktivnost_list:
+            artikel_plan_obj = planirana_aktivnost.artikel_plan
+            artikel_plan_list.append(artikel_plan_obj)
+
+        predpis_opravilo_list = []
+        for artikel_plan in artikel_plan_list:
+            predpis_opravilo_obj = artikel_plan.predpis_opravilo
+            predpis_opravilo_list.append(predpis_opravilo_obj)
+
+        # predpis_list = []
+        # for predpis_opravilo in predpis_opravilo_list:
+        #     predpis_obj = Predpis.objects.get(predpisopravilo=predpis_opravilo)
+        #     predpis_list.append(predpis_obj)
+
+        context['predpis_opravilo_list'] = predpis_opravilo_list
 
         return context

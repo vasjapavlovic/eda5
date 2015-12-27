@@ -13,6 +13,7 @@
                 <ul class="nav nav-tabs profile-tabs">
                     <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
                     <li><a data-toggle="tab" href="#aktivnost"><b>P</b>lanirane Aktivnosti</a></li>
+                    <li><a data-toggle="tab" href="#osnova"><b>O</b>snova</a></li>
                 </ul>
                 <!--end nav-tabs-->
 
@@ -38,6 +39,15 @@
                         <div class="profile-desk">
                             <h1>PLANIRANE AKTIVNOSTI :</h1>
                             {% include "planiranje/planirano_opravilo/detail/tabs/tab_02.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+                    <!--tab******************************** -->
+                    <div id="osnova" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>OSNOVA ZA IZVAJANJE :</h1>
+                            {% include "planiranje/planirano_opravilo/detail/tabs/tab_03.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
