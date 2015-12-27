@@ -113,11 +113,14 @@ class DokumentCreateView(TemplateView):
             priponka = dokument_form.cleaned_data['priponka']
 
             # oznaka_baza
-            max_oznaka_baza = Dokument.objects.all().aggregate(Max('oznaka_baza'))['oznaka_baza__max']
-            max_dokument = Dokument.objects.get(oznaka_baza=max_oznaka_baza)
+            if Dokument.objects.all():  # če so v bazi že vnosi
+                max_oznaka_baza = Dokument.objects.all().aggregate(Max('oznaka_baza'))['oznaka_baza__max']
+                max_dokument = Dokument.objects.get(oznaka_baza=max_oznaka_baza)
 
-            nova_oznaka_baza = max_dokument.oznaka_baza + 1
-            oznaka_baza = nova_oznaka_baza
+                nova_oznaka_baza = max_dokument.oznaka_baza + 1
+                oznaka_baza = nova_oznaka_baza
+            else:  # če ni nobenega vnosa v bazi
+                oznaka_baza = 1
 
             Dokument.objects.create_dokument(
                 vrsta_dokumenta=vrsta_dokumenta,
