@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from decimal import Decimal
 
 from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikvidiranModel
 from eda5.etaznalastnina.models import LastniskaSkupina
@@ -19,7 +20,6 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     )
     # ATRIBUTES
     # ***Relations***
-    dokument = models.ForeignKey(Dokument, blank=True, null=True)
     obdobje_obracuna_leto = models.ForeignKey(ObdobjeLeto)
     obdobje_obracuna_mesec = models.ForeignKey(ObdobjeMesec)
     narocilo = models.ForeignKey(Narocilo, blank=True, null=True)
@@ -38,6 +38,48 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     # OBJECT MANAGER
     objects = RacunManager()
     # CUSTOM PROPERTIES
+    @property
+    def dokument(self):
+        arhiviranje_list = self.arhiviranje_set.all()
+        arhiviranje = arhiviranje_list[0]
+        return arhiviranje.dokument
+
+    @property
+    def vrednost_brez_ddv(self):
+        if self.osnova_0:
+            osnova_0 = self.osnova_0
+        else:
+            osnova_0 = 0
+        if self.osnova_1:
+            osnova_1 = self.osnova_1
+        else:
+            osnova_1 = 0
+        if self.osnova_2:
+            osnova_2 = self.osnova_2
+        else:
+            osnova_2 = 0
+        vrednost_brez_ddv = Decimal(osnova_0) + Decimal(osnova_1) + Decimal(osnova_2)
+        return "%.2f" % (vrednost_brez_ddv)
+
+    @property
+    def vrednost_z_ddv(self):
+        if self.osnova_0:
+            osnova_0 = self.osnova_0
+        else:
+            osnova_0 = 0
+        if self.osnova_1:
+            osnova_1 = self.osnova_1
+        else:
+            osnova_1 = 0
+        if self.osnova_2:
+            osnova_2 = self.osnova_2
+        else:
+            osnova_2 = 0
+        vrednost_z_ddv = Decimal(osnova_0) + Decimal(osnova_1) * (1 + Decimal(0.095)) +\
+                        Decimal(osnova_2) * (1 + Decimal(0.22))
+        return "%.2f" % (vrednost_z_ddv)
+
+
 
     # METHODS
     def get_absolute_url(self):
@@ -49,10 +91,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
         verbose_name_plural = "računi"
 
     def __str__(self):
-        if self.dokument:
-            return "%s" % (self.dokument.oznaka)
-        else:
-            return "%s" % (self.id)
+        return "%s | %s" % (self.dokument.oznaka, self.dokument.naziv)
 
 
 class Strosek(models.Model):
@@ -81,7 +120,7 @@ class Strosek(models.Model):
     racun = models.ForeignKey(Racun)
     vrsta_stroska = models.ForeignKey("VrstaStroska")
     lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True)
-    delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
+    delovni_nalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     obdobje_obracuna_leto = models.ForeignKey(ObdobjeLeto)
     obdobje_obracuna_mesec = models.ForeignKey(ObdobjeMesec)
     # ***Mandatory***
@@ -100,10 +139,30 @@ class Strosek(models.Model):
     # OBJECT MANAGER
 
     # CUSTOM PROPERTIES
-    # @property
-    # def strosek_z_ddv(self):
-    #     strosek_z_ddv = self.vrednost * (1 + self.stopnja_ddv)
-    #     return strosek_z_ddv
+    def stopnja_ddv_output(self):
+        # določimo ddv
+        if self.stopnja_ddv == 0:
+            stopnja_ddv = 0.000
+        if self.stopnja_ddv == 1:
+            stopnja_ddv = 0.095
+        if self.stopnja_ddv == 2:
+            stopnja_ddv = 0.220
+
+        return "{0:.2f}%".format(stopnja_ddv * 100)
+
+    @property
+    def strosek_z_ddv(self):
+        # določimo ddv
+        if self.stopnja_ddv == 0:
+            stopnja_ddv = 0.000
+        if self.stopnja_ddv == 1:
+            stopnja_ddv = 0.095
+        if self.stopnja_ddv == 2:
+            stopnja_ddv = 0.220
+
+        strosek_z_ddv = Decimal(self.osnova) * (1 + Decimal(stopnja_ddv))
+
+        return "%.2f" % (strosek_z_ddv)
 
     # METHODS
 

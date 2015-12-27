@@ -12,6 +12,7 @@ from eda5.katalog.models import ModelArtikla
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
+from eda5.racunovodstvo.models import Racun
 from eda5.zahtevki.models import Zahtevek
 
 ''' POZOR !!! uporabljeni DJANGO-SIGNALS.
@@ -87,6 +88,7 @@ class Arhiviranje(TimeStampedModel):
     element = models.ForeignKey(Element, blank=True, null=True)
     narocilo = models.ForeignKey(Narocilo, blank=True, null=True)
     artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
+    racun = models.ForeignKey(Racun, blank=True, null=True)
 
     arhiviral = models.ForeignKey(Oseba)
     lokacija_hrambe = models.ForeignKey(ArhivMesto, blank=True, null=True, verbose_name="lokacija hrambe")

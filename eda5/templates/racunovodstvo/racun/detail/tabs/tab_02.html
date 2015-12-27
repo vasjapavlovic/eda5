@@ -1,0 +1,49 @@
+<!-- Strosek -->
+
+<table class="table table-striped">
+    <tr>
+        <th>oznaka</th>
+        <th>naziv</th>
+        <th>strosek brez ddv</th>
+        <th>stopnja ddv</th>
+        <th>strosek z ddv</th>
+    </tr>
+
+
+{% for strosek in strosek_list %}
+
+    <tr>
+        <td>{{ strosek.oznaka }}</td>
+        <td>{{ strosek.naziv }}</td>
+        <td>{{ strosek.osnova }}</td>
+        <td>{{ strosek.stopnja_ddv_output }}</td>
+        <td>{{ strosek.strosek_z_ddv }}</td>
+    </tr>
+
+{% endfor %}
+
+    <!-- SKUPAJ V FOOTER-->
+    <tr class="info">
+        <td>SKUPAJ</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Skupaj Vrednost brez DDV</td>
+        <td>{{ strosek_vrednost_brez_ddv }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Skupaj Vrednost z DDV</td>
+        <td>{{ strosek_vrednost_z_dvv }}</td>
+    </tr>
+
+
+</table>

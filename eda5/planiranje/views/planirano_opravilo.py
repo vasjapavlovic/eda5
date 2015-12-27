@@ -120,14 +120,18 @@ class PlaniranoOpraviloDetailView(DetailView):
 
         artikel_plan_list = []
 
+ 
         for planirana_aktivnost in planirana_aktivnost_list:
             artikel_plan_obj = planirana_aktivnost.artikel_plan
             artikel_plan_list.append(artikel_plan_obj)
 
+
         predpis_opravilo_list = []
+
         for artikel_plan in artikel_plan_list:
-            predpis_opravilo_obj = artikel_plan.predpis_opravilo
-            predpis_opravilo_list.append(predpis_opravilo_obj)
+            if artikel_plan:
+                predpis_opravilo_obj = artikel_plan.predpis_opravilo
+                predpis_opravilo_list.append(predpis_opravilo_obj)
 
         # predpis_list = []
         # for predpis_opravilo in predpis_opravilo_list:

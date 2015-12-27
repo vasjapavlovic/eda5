@@ -4,7 +4,6 @@ from django.db import models
 class RacunManager(models.Manager):
     def create_racun(
         self,
-        dokument=None,
         davcna_klasifikacija=None,
         datum_storitve_od=None,
         datum_storitve_do=None,
@@ -15,11 +14,8 @@ class RacunManager(models.Manager):
         osnova_1=None,
         osnova_2=None,
         ):
-        if not dokument:
-            raise ValueError("Izbrati dokument iz pošte")
 
         racun = self.model(
-            dokument=dokument,
             davcna_klasifikacija=davcna_klasifikacija,
             datum_storitve_od=datum_storitve_od,
             datum_storitve_do=datum_storitve_do,
