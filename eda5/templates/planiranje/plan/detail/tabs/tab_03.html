@@ -1,6 +1,6 @@
 <!-- Planirana Opravila -->
 
-<table class="table table-hover table-condensed">
+<table class="table table-striped table-bordered">
     <tr>
         <th>oznaka</th>
         <th>naziv</th>
@@ -13,7 +13,7 @@
 
 
 
-{% for opravilo in opravilo_planirano_zadnje_list %}
+{% for opravilo in opravila_potrjena_planirana %}
     {% for dn in opravilo.delovninalog_set.all %}
 
     <tr>

@@ -9,7 +9,8 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
 
 from .forms import UtilitiUvozCsvForm, PartnerjiUvozCsvForm, DeliUvozCsvForm, RacunovodstvoUvozCsvForm,\
-                   DelovniNalogiUvozCsvForm, EtaznaLastninaUvozCsvForm, KatalogUvozCsvForm, PostaUvozCsvForm
+                   DelovniNalogiUvozCsvForm, EtaznaLastninaUvozCsvForm, KatalogUvozCsvForm, PostaUvozCsvForm,\
+                   PredpisiUvozCsvForm
 
 from eda5.core.forms import ObdobjeLetoCreateForm, ObdobjeMesecCreateForm
 
@@ -37,6 +38,11 @@ from eda5.katalog.models import Proizvajalec ,TipArtikla
 from eda5.posta.forms import SkupinaDokumentaCreateForm, VrstaDokumentaCreateForm
 from eda5.posta.models import SkupinaDokumenta
 
+# Predpisi
+from eda5.predpisi.forms import PredpisSklopCreateForm, PredpisPodsklopCreateForm
+from eda5.predpisi.forms import PredpisOpraviloCreateForm, PredpisCreateForm
+from eda5.predpisi.models import PredpisSklop, PredpisPodsklop, PredpisOpravilo, Predpis
+
 from eda5.users.forms import UserCreateForm
 
 
@@ -55,6 +61,7 @@ class UvozCsv(TemplateView):
         context['etaznalastnina_uvoz_form'] = EtaznaLastninaUvozCsvForm
         context['katalog_uvoz_form'] = KatalogUvozCsvForm
         context['posta_uvoz_form'] = PostaUvozCsvForm
+        context['predpisi_uvoz_form'] = PredpisiUvozCsvForm
 
         return context
 
@@ -67,6 +74,7 @@ class UvozCsv(TemplateView):
         etaznalastnina_uvoz_form = EtaznaLastninaUvozCsvForm(request.POST or None)
         katalog_uvoz_form = KatalogUvozCsvForm(request.POST or None)
         posta_uvoz_form = PostaUvozCsvForm(request.POST or None)
+        predpisi_uvoz_form = PredpisiUvozCsvForm(request.POST or None)
 
 
         def import_core_obdobje_leto():
@@ -870,6 +878,175 @@ class UvozCsv(TemplateView):
             except:
                 import_posta_skupina_dokumenta()
 
+        ###############################################################################################################
+        # PREDPISI ####################################################################################################
+        ###############################################################################################################
+
+        # PredpisSklop
+        def import_predpisi_predpis_sklop():
+
+            filename = os.path.abspath("eda5/templates/import/predpisi/predpis_sklop.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = PredpisSklopCreateForm(row)
+                if form.is_valid():
+                    print(row, "--> valid")
+                    form.save()
+                    records_added += 1
+                else:
+                    print(row, "--> invalid")
+
+            return messages.success(request, "PREDPISI/ SKLOP: Število dodanih vnosov: %s" % (records_added))
+
+        # PredpisPodsklop
+        def import_predpisi_predpis_podsklop():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/predpisi/predpis_podsklop.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # oznako skupine zamenjamo z ID skupine
+                    predpis_sklop_oznaka = row['predpis_sklop']
+                    predpis_sklop = PredpisSklop.objects.get(oznaka=predpis_sklop_oznaka)
+                    row['predpis_sklop'] = predpis_sklop.pk
+                    form = PredpisPodsklopCreateForm(row)
+                    if form.is_valid():
+                        print(row, "--> valid")
+                        form.save()
+                        records_added += 1
+                    else:
+                        print(row, "--> invalid")
+
+                return messages.success(request, "PREDPISI/ SKLOP: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_predpisi_predpis_sklop()
+                import_predpisi_predpis_podsklop()
+
+        # PredpisOpravilo
+        def import_predpisi_predpis_opravilo():
+            
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/predpisi/predpis_opravilo.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # podsklop
+                    predpis_podsklop_oznaka = row['predpis_podsklop']
+                    predpis_podsklop = PredpisPodsklop.objects.get(oznaka=predpis_podsklop_oznaka)
+                    row['predpis_podsklop'] = predpis_podsklop.pk
+
+                    # predpis
+                    row['predpis'] = None
+
+                    form = PredpisOpraviloCreateForm(row)
+
+                    if form.is_valid():
+                        print(row, "--> valid")
+                        form.save()
+                        records_added += 1
+                    else:
+                        print(row, "--> invalid")
+
+                return messages.success(request, "PREDPISI/ OPRAVILO: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_predpisi_predpis_podsklop()
+                import_predpisi_predpis()
+
+        # Predpis
+        def import_predpisi_predpis():
+
+            filename = os.path.abspath("eda5/templates/import/predpisi/predpis.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = PredpisCreateForm(row)
+
+                if form.is_valid():
+                    print(row, "--> valid")
+                    form.save()
+                    records_added += 1
+                else:
+                    print(row, "--> invalid")
+
+            return messages.success(request, "PREDPISI/ PREDPIS: Število dodanih vnosov: %s" % (records_added))
+
+        # Predpis-Opravilo ManyToMany
+        def import_predpisi_opravila_many():
+            
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/predpisi/predpisi_opravila.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+                    print(row)
+
+                    # podsklop
+                    predpis_opravilo_oznaka = row['predpis_opravilo']
+                    predpis_oznaka = row['predpis']
+                    print(predpis_opravilo_oznaka)
+                    print(predpis_oznaka)
+                    predpis_opravilo_obj = PredpisOpravilo.objects.get(oznaka=predpis_opravilo_oznaka)
+                    print(predpis_opravilo_obj)
+
+                    # predpis
+                    
+                    
+                    predpis_obj = Predpis.objects.get(oznaka=predpis_oznaka)
+                    print(predpis_obj)
+
+                    predpis_opravilo_obj.predpis.add(predpis_obj)
+                    
+                    records_added += 1
+                    print(predpis_obj,"-->",predpis_opravilo_obj)
+
+                return messages.success(request, "PREDPISI/ OPRAVILO: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                print("ZARADI NAPAK NE MOREM UVOZITI")
+
+
             # na ekranu prikažem informacijo o številu uvozov
 
         if utiliti_uvoz_form.is_valid():
@@ -938,5 +1115,16 @@ class UvozCsv(TemplateView):
 
             if posta_uvoz_form.cleaned_data['vrsta_dokumenta'] is True:
                 import_posta_vrsta_dokumenta()
+
+        if predpisi_uvoz_form.is_valid():
+
+            if predpisi_uvoz_form.cleaned_data['opravila'] is True:
+                import_predpisi_predpis_opravilo()
+
+            if predpisi_uvoz_form.cleaned_data['predpisi'] is True:
+                import_predpisi_predpis()
+
+            if predpisi_uvoz_form.cleaned_data['relacija_predpisi_opravila'] is True:
+                import_predpisi_opravila_many()
 
         return HttpResponseRedirect(reverse('moduli:import:form'))

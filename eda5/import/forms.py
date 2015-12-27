@@ -34,3 +34,8 @@ class KatalogUvozCsvForm(forms.Form):
 
 class PostaUvozCsvForm(forms.Form):
     vrsta_dokumenta = forms.BooleanField(initial=False, required=False)
+
+class PredpisiUvozCsvForm(forms.Form):
+    opravila = forms.BooleanField(initial=False, required=False)
+    predpisi = forms.BooleanField(initial=False, required=False)
+    relacija_predpisi_opravila = forms.BooleanField(initial=False, required=False)

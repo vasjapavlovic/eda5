@@ -1,15 +1,16 @@
 from django.db import models
 
+from eda5.core.models import ZaporednaStevilka
 
-class PredpisSklop(models.Model):
+
+class PredpisSklop(ZaporednaStevilka):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
     #   Mandatory
-    oznaka = models.CharField(max_length=25)
+    oznaka = models.CharField(max_length=25, unique=True)
     naziv = models.CharField(max_length=255)
     #   Optional
-    zap_st = models.IntegerField(default=0, verbose_name="zaporedna številka")
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
@@ -30,7 +31,7 @@ class PredpisPodsklop(models.Model):
     #   Relations
     predpis_sklop = models.ForeignKey(PredpisSklop, blank=True, null=True)
     #   Mandatory
-    oznaka = models.CharField(max_length=25)
+    oznaka = models.CharField(max_length=25, unique=True)
     naziv = models.CharField(max_length=255)
     #   Optional
     # OBJECT MANAGER
@@ -53,7 +54,7 @@ class PredpisOpravilo(models.Model):
     predpis_podsklop = models.ForeignKey(PredpisPodsklop, blank=True, null=True)
     predpis = models.ManyToManyField("Predpis", blank=True)
     #   Mandatory
-    oznaka = models.CharField(max_length=25)
+    oznaka = models.CharField(max_length=25, unique=True)
     naziv = models.CharField(max_length=255)
     #   Optional
     # OBJECT MANAGER
@@ -74,7 +75,7 @@ class Predpis(models.Model):
     # ATRIBUTES
     #   Relations
     #   Mandatory
-    oznaka = models.CharField(max_length=25)
+    oznaka = models.CharField(max_length=25, unique=True)
     naziv = models.CharField(max_length=255)
     #   Optional
     # OBJECT MANAGER
