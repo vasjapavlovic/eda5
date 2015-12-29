@@ -25,7 +25,7 @@ class Arhiv(models.Model):
     # ATRIBUTES
     #   Relations
     #   Mandatory
-    oznaka = models.CharField(max_length=10, unique=True, verbose_name='oznaka')
+    oznaka = models.CharField(max_length=50, unique=True, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
     #   Optional
     # OBJECT MANAGER
@@ -47,7 +47,7 @@ class ArhivMesto(models.Model):
     #   Relations
     arhiv = models.ForeignKey(Arhiv)
     #   Mandatory
-    oznaka = models.CharField(max_length=10, verbose_name='oznaka')
+    oznaka = models.CharField(max_length=50, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
     #   Optional
     # OBJECT MANAGER

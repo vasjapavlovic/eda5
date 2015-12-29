@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Arhiviranje, ArhivMesto
 
-from eda5.posta.models import Dokument
+from eda5.posta.models import Dokument, VrstaDokumenta, SkupinaDokumenta
 
 
 class ArhiviranjeCreateForm(forms.ModelForm):
@@ -14,6 +14,7 @@ class ArhiviranjeCreateForm(forms.ModelForm):
         # 2. prikazati samo specifično vrsto dokumentov
 
         self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True)
+        self.fields["dokument"].required = True
 
     class Meta:
         model = Arhiviranje
@@ -28,12 +29,39 @@ class ArhiviranjeCreateForm(forms.ModelForm):
 
 class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ArhiviranjeZahtevekForm, self).__init__(*args, **kwargs)
+
+        # 1. prikaži samo dokumente z oznako = "RAC" (računi)
+        skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
+        self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True
+                                                                   ).exclude(
+                                                                   vrsta_dokumenta__skupina=skupina_dokumenta
+                                                                   )
+
     class Meta(ArhiviranjeCreateForm.Meta):
         fields = (
             'dokument',
             'arhiviral',
             'elektronski',
             'fizicni',
+        )
+
+
+class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ArhiviranjeRacunForm, self).__init__(*args, **kwargs)
+
+        # 1. prikaži samo dokumente z oznako = "RAC" (računi)
+        vrsta_dokumenta = VrstaDokumenta.objects.get(oznaka="RAC")
+        self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True,
+                                                                   vrsta_dokumenta=vrsta_dokumenta)
+
+    class Meta(ArhiviranjeCreateForm.Meta):
+        fields = (
+            'dokument',
+            'arhiviral',
         )
 
 

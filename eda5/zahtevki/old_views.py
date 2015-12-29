@@ -173,7 +173,7 @@ class ZahtevekDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         # opravilo_form = OpraviloCreateForm(request.POST or None)
         zaznamek_form = ZaznamekForm(request.POST or None)
-        zahtevek_create_form = ZahtevekIzbira(request.POST or None)
+        zahtevek_create_form = ZahtevekIzbiraForm(request.POST or None)
         arhiviranje_form = ArhiviranjeZahtevekForm(request.POST or None)
 
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
@@ -406,14 +406,13 @@ class PodzahtevekSestanekCreateView(UpdateView):
         if zahtevek_splosno_form.is_valid():
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
-            vrsta = zahtevek_splosno_form.cleaned_data['vrsta']
             rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
             narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
             nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
 
             zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
                 oznaka=oznaka,
-                vrsta=vrsta,
+                vrsta=2,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
                 narocilo=narocilo,
@@ -477,14 +476,13 @@ class ZahtevekIzvedbaDelCreateView(TemplateView):
         if zahtevek_splosno_form.is_valid():
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
-            vrsta = zahtevek_splosno_form.cleaned_data['vrsta']
             rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
             narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
             nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
 
             zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
                 oznaka=oznaka,
-                vrsta=vrsta,
+                vrsta=3,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
                 narocilo=narocilo,
@@ -546,14 +544,13 @@ class PodzahtevekIzvedbaDelCreateView(UpdateView):
         if zahtevek_splosno_form.is_valid():
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
-            vrsta = zahtevek_splosno_form.cleaned_data['vrsta']
             rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
             narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
             nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
 
             zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
                 oznaka=oznaka,
-                vrsta=vrsta,
+                vrsta=3,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
                 narocilo=narocilo,

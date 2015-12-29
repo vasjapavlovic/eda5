@@ -52,7 +52,7 @@ class Dokument(TimeStampedModel):
     #   Relations
     aktivnost = models.OneToOneField(Aktivnost)
     vrsta_dokumenta = models.ForeignKey('VrstaDokumenta', verbose_name="vrsta dokumenta")
-    avtor = models.ForeignKey(SkupinaPartnerjev, related_name="avtor")
+    avtor = models.ForeignKey(SkupinaPartnerjev, related_name="pošiljatelj")
     naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik")
     #   Mandatory
     oznaka_baza = models.IntegerField(blank=True, null=True)

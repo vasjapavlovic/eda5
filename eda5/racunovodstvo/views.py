@@ -15,7 +15,7 @@ from .forms import RacunCreateForm
 
 # UVOŽENO ############################################################
 # Arhiv
-from eda5.arhiv.forms import ArhiviranjeZahtevekForm
+from eda5.arhiv.forms import ArhiviranjeRacunForm
 from eda5.arhiv.models import ArhivMesto, Arhiviranje
 
 # Posta
@@ -40,14 +40,14 @@ class RacunCreateView(TemplateView):
         context['racun_create_form'] = RacunCreateForm
 
         # arhiv
-        context['arhiviranje_create_form'] = ArhiviranjeZahtevekForm
+        context['arhiviranje_create_form'] = ArhiviranjeRacunForm
 
         return context
 
     def post(self, request, *args, **kwargs):
 
         racun_create_form = RacunCreateForm(request.POST or None)
-        arhiviranje_create_form = ArhiviranjeZahtevekForm(request.POST or None)
+        arhiviranje_create_form = ArhiviranjeRacunForm(request.POST or None)
         modul_zavihek = Zavihek.objects.get(oznaka="RACUN_CREATE")
 
         if racun_create_form.is_valid():
@@ -87,9 +87,11 @@ class RacunCreateView(TemplateView):
 
             dokument = arhiviranje_create_form.cleaned_data['dokument']
             arhiviral = arhiviranje_create_form.cleaned_data['arhiviral']
-            elektronski = arhiviranje_create_form.cleaned_data['elektronski']
-            fizicni = arhiviranje_create_form.cleaned_data['fizicni']
             lokacija_hrambe = ArhivMesto.objects.get(oznaka="RAC")
+
+            # Računi se hranijo v elektronski in fizični obliki
+            elektronski = True
+            fizicni = True
 
             Arhiviranje.objects.create_arhiviranje(
                 racun=racun,

@@ -86,7 +86,7 @@ class DelStavbe(models.Model):
     podskupina = models.ForeignKey(Podskupina)
     lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True, verbose_name="lastniška skupina",)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     # ***Optional***
     shema = models.FileField(upload_to=shema_directory_path, blank=True, verbose_name="shema sistema")
@@ -121,7 +121,7 @@ class ProjektnoMesto(models.Model):
     tip_elementa = models.ForeignKey(TipArtikla)
     del_stavbe = models.ForeignKey(DelStavbe)
     #   Mandatory
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
     funkcija = models.CharField(max_length=255)
     #   Optional

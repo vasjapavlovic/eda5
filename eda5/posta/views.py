@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Max
+from django.http import JsonResponse
+from django.core.context_processors import csrf
 
 import os
 
@@ -8,8 +10,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, ListView, TemplateView
 
-from .forms import AktivnostCreateForm, DokumentCreateForm
-from .models import Aktivnost, Dokument
+from .forms import AktivnostCreateForm, DokumentCreateForm, SkupinaDokumentaIzbiraForm
+from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
 
 from eda5.arhiv.forms import ArhiviranjeCreateForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto, Arhiv
@@ -65,6 +67,7 @@ class DokumentCreateView(TemplateView):
         context = super(DokumentCreateView, self).get_context_data(*args, **kwargs)
         context['aktivnost_form'] = AktivnostCreateForm
         context['dokument_form'] = DokumentCreateForm
+        context['skupina_dokumenta_form'] = SkupinaDokumentaIzbiraForm
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_CREATE")
@@ -76,6 +79,7 @@ class DokumentCreateView(TemplateView):
 
         aktivnost_form = AktivnostCreateForm(request.POST or None)
         dokument_form = DokumentCreateForm(request.POST or None, request.FILES)
+        skupina_dokumenta_form = SkupinaDokumentaIzbiraForm(request.POST or None)
         modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_CREATE")
 
         if aktivnost_form.is_valid():
@@ -99,6 +103,7 @@ class DokumentCreateView(TemplateView):
                 'aktivnost_form': aktivnost_form,
                 'dokument_form': dokument_form,
                 'modul_zavihek': modul_zavihek,
+                'skupina_dokumenta_form': skupina_dokumenta_form,
                 }
             )
 
@@ -139,7 +144,21 @@ class DokumentCreateView(TemplateView):
                 'aktivnost_form': aktivnost_form,
                 'dokument_form': dokument_form,
                 'modul_zavihek': modul_zavihek,
+                'skupina_dokumenta_form': skupina_dokumenta_form,
                 }
             )
 
         return HttpResponseRedirect(reverse('moduli:posta:dokument_list'))
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    skupina_dokumenta = request.POST['skupina_dokumenta']
+    context['list_to_display'] = list(VrstaDokumenta.objects.filter(skupina=skupina_dokumenta).values_list('id', flat=True))
+
+    return JsonResponse(context)

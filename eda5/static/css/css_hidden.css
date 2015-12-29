@@ -1,0 +1,13 @@
+/* hide month_hidden control */
+#id_podskupina_hidden, label[for="id_podskupina_hidden"]
+{
+    display: none;
+}
+
+
+#id_vrsta_dokumenta_hidden, label[for="id_vrsta_dokumenta_hidden"]
+{
+    display: none;
+}
+
+vrsta_dokumenta_hidden

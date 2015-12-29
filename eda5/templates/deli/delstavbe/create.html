@@ -36,13 +36,19 @@
 <!-- PAGE CONTENT -->
 {% block content %}
 
-    <form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
-                
+    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+    <form id="del_form" method="POST", action="{% url 'moduli:deli:del_create' %}" enctype="multipart/form-data">{% csrf_token %}
+
+        {{ skupina_izbira_form | crispy }}
         {{ form | crispy }}
 
         <input type="submit" value="Potrdi">
 
+        <div id="reload_controls_view" style="display: none;">{% url 'moduli:deli:reload_controls' %}</div>
+
     </form>
+
 
 {% endblock %}
 <!-- end PAGE CONTENT -->
@@ -51,5 +57,49 @@
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
+
+<script src="{% static 'js/custom_filter.js' %}"></script>
+
+<!-- js related to the application -->
+<script>
+    
+    $('#del_form').on('change', '#id_skupina', function()
+    {
+        reload_controls(this.value);
+    });
+
+    function reload_controls(skupina)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_view").text(),
+            dataType: 'json',
+            data: "skupina="+skupina,
+            success: function(result)
+            {
+                //empty month drop down list
+                $("#id_podskupina").empty()
+
+                //add months with no report
+                $("#id_podskupina").append('<option value="">---------</option>')
+                $.each( result.podskupine_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    podskupina=$("#id_podskupina_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_podskupina').append('<option value="'+value+'">'+podskupina+'</option>')
+
+                });
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->

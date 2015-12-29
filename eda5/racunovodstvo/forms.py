@@ -1,7 +1,11 @@
 from django import forms
+from functools import partial
 
 from .models import Racun, Konto, PodKonto, SkupinaVrsteStroska, VrstaStroska
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec
+
+DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
 class RacunCreateForm(forms.ModelForm):
@@ -20,24 +24,10 @@ class RacunCreateForm(forms.ModelForm):
             "osnova_1",
             "osnova_2",
             )
-
-
-class RacunAddWidget(forms.Form):
-
-    OBDOBJE_LETO = ObdobjeLeto.objects.all()
-    OBDOBJE_MESEC = ObdobjeMesec.objects.all()
-
-    davcna_klasifikacija = forms.CharField()
-    datum_storitve_od = forms.DateField(widget=forms.TextInput(attrs=
-                                {
-                                    'class':'datepicker'
-                                }))
-    datum_storitve_do = forms.DateField(widget=forms.TextInput(attrs=
-                                {
-                                    'class':'datepicker'
-                                }))
-    obdobje_obracuna_leto = forms.ModelChoiceField(queryset=OBDOBJE_LETO)
-    obdobje_obracuna_mesec = forms.ModelChoiceField(queryset=OBDOBJE_MESEC)
+        widgets = {
+            'datum_storitve_od': DateInput(),
+            'datum_storitve_do': DateInput(),
+        }
 
 
 class KontoCreateForm(forms.ModelForm):

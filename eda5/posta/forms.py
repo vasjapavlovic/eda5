@@ -23,6 +23,12 @@ class AktivnostCreateForm(forms.ModelForm):
         }
 
 
+class SkupinaDokumentaIzbiraForm(forms.Form):
+
+    skupina_dokumenta = forms.ModelChoiceField(queryset=SkupinaDokumenta.objects.all())
+    vrsta_dokumenta_hidden = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())
+
+
 class DokumentCreateForm(forms.ModelForm):
 
     class Meta:

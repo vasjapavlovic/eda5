@@ -1,6 +1,15 @@
 from django import forms
+from django.utils.html import conditional_escape, mark_safe
+from django.utils.encoding import smart_text
 
 from .models import Podskupina, Skupina, DelStavbe, ProjektnoMesto, Element, Nastavitev
+from eda5.zahtevki.models import Zahtevek
+
+
+class SkupinaIzbiraForm(forms.Form):
+
+    skupina = forms.ModelChoiceField(queryset=Skupina.objects.all())
+    podskupina_hidden = forms.ModelChoiceField(queryset=Podskupina.objects.all())
 
 
 class DelCreateForm(forms.ModelForm):

@@ -1,9 +1,12 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.core.context_processors import csrf
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from django.db.models import Max
 
-from .forms import DelCreateForm, ProjektnoMestoCreateForm, ElementCreateForm, NastavitevCreateForm
+from .forms import DelCreateForm, ProjektnoMestoCreateForm, ElementCreateForm, NastavitevCreateForm, SkupinaIzbiraForm
 from .models import DelStavbe, Skupina, Element, Podskupina, ProjektnoMesto
 
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
@@ -11,6 +14,54 @@ from eda5.katalog.models import ObratovalniParameter
 from eda5.racunovodstvo.models import Strosek
 
 from eda5.moduli.models import Zavihek
+
+
+class DelCreateView(CreateView):
+
+    model = DelStavbe
+    form_class = DelCreateForm
+    template_name = "deli/delstavbe/create.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelCreateView, self).get_context_data(*args, **kwargs)
+        context['skupina_izbira_form'] = SkupinaIzbiraForm
+
+        modul_zavihek = Zavihek.objects.get(oznaka="DEL_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the year that the user has typed
+    skupina = request.POST['skupina']
+
+    # get months without reports (months to be displayed in the drop down list)
+    context['podskupine_to_display'] = list(Podskupina.objects.filter(skupina=skupina).values_list('id', flat=True))
+    print(context)
+    # return HttpResponse(json.dumps(context), content_type="application/json")
+    return JsonResponse(context)
+    # return JsonResponse(podskupine_to_display)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class DelHomeView(TemplateView):
@@ -122,17 +173,9 @@ class ElementDetailView(DetailView):
         return context
 
 
-class DelCreateView(CreateView):
 
-    model = DelStavbe
-    form_class = DelCreateForm
-    template_name = "deli/delstavbe/create.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(DelCreateView, self).get_context_data(*args, **kwargs)
-        modul_zavihek = Zavihek.objects.get(oznaka="DEL_CREATE")
-        context['modul_zavihek'] = modul_zavihek
-        return context
+
 
 
 class ProjektnoMestoCreateView(CreateView):
