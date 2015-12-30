@@ -10,4 +10,8 @@
     display: none;
 }
 
-vrsta_dokumenta_hidden
+
+#id_oseba_hidden, label[for="id_oseba_hidden"]
+{
+    display: none;
+}

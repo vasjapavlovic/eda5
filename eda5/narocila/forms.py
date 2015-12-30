@@ -5,6 +5,8 @@ from django.utils import timezone
 
 from .models import Narocilo, NarociloTelefon, NarociloPogodba
 
+from eda5.partnerji.models import Oseba
+
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -60,6 +62,9 @@ class NarociloSplosnoCreateForm(forms.ModelForm):
 
 
 class NarociloTelefonCreateForm(forms.ModelForm):
+
+    # zaradi filtriranja "oseba"
+    oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
 
     class Meta:
         model = NarociloTelefon

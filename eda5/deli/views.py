@@ -32,7 +32,6 @@ class DelCreateView(CreateView):
         return context
 
 
-
 # view called with ajax to reload the month drop down list
 def reload_controls_view(request):
 

@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from django.core.context_processors import csrf
 
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 
 from .forms import NarociloCreateIzbiraForm, NarociloSplosnoCreateForm, NarociloTelefonCreateForm
 from .models import NarociloTelefon, NarociloPogodba, Narocilo
+
+from eda5.partnerji.models import SkupinaPartnerjev, Partner
 
 from eda5.moduli.models import Zavihek
 
@@ -127,6 +131,32 @@ class NarociloTelefonCreateView(TemplateView):
             )
 
         return HttpResponseRedirect(reverse('moduli:narocila:home'))
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the year that the user has typed
+    skupina_partnerjev = request.POST['skupina_partnerjev']
+
+    # definiramo objekt
+    skupina_partnerjev = SkupinaPartnerjev.objects.get(id=skupina_partnerjev)
+
+    # izdelamo seznam oseb (id-ji)
+    osebe = []
+    for partner in skupina_partnerjev.partner.all():
+        for oseba in partner.oseba_set.all():
+            # vnesemov seznam, ki ga gradimo
+            osebe.append(oseba.id)
+
+    # osebe to display
+    context['list_to_display'] = osebe
+
+    return JsonResponse(context)
 
 
 class NarociloPogodbaCreateView(TemplateView):
