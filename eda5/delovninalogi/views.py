@@ -310,7 +310,7 @@ class DelovniNalogUpdateVresevanjuView(MessagesActionMixin, UpdateView):
     template_name = "delovninalogi/delovninalog/update_vresevanju.html"
 
     success_msg = "Status Delovnega Naloga je spremenjen na 'ZAKLJUČENO'. Potrjeni delovni nalogi\
-                  iz strani nadzornika bodo obarvani v zeleno."
+                  iz strani nosilca bodo obarvani v zeleno."
 
     def get_context_data(self, *args, **kwargs):
         context = super(DelovniNalogUpdateVresevanjuView, self).get_context_data(*args, **kwargs)

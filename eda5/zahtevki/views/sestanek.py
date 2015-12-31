@@ -2,8 +2,9 @@
 
 
 # DJANGO ##############################################################
+from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, UpdateView
 
@@ -22,6 +23,12 @@ from ..models import ZahtevekSestanek
 
 # Moduli
 from eda5.moduli.models import Zavihek
+
+# Narocila
+from eda5.narocila.models import Narocilo
+
+# Partnerji
+from eda5.partnerji.models import SkupinaPartnerjev
 
 
 class ZahtevekSestanekCreateView(TemplateView):
@@ -192,3 +199,48 @@ class ZahtevekUpdateSestanekView(UpdateView):
     model = ZahtevekSestanek
     form_class = ZahtevekSestanekUpdateForm
     template_name = "zahtevki/zahtevek/update_zahtevek_sestanek.html"
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    narocilo = request.POST['narocilo']
+    narocilo = Narocilo.objects.get(id=narocilo)
+
+    # osebe od izvajalca
+    osebe_izvajalec = []
+    for oseba in narocilo.izvajalec.oseba_set.all():
+        osebe_izvajalec.append(oseba.id)
+
+    # osebe od naročnika
+    osebe_narocnik = []
+    for partner in narocilo.narocnik.partner.all():
+        for oseba in partner.oseba_set.all():
+            osebe_narocnik.append(oseba.id)
+
+    skupine_partnerjev = []
+    # skupine partnerjev od izvajalca
+    partner_davcna_st = narocilo.izvajalec.davcna_st
+    skupina_partnerjev = SkupinaPartnerjev.objects.get(oznaka=partner_davcna_st)
+    skupine_partnerjev.append(skupina_partnerjev.id)
+
+    # skupine partnerjev od izvajalca
+    skupine_partnerjev.append(narocilo.narocnik.id)
+
+    # FILTER NOSILCI ZAHTEVKA
+    context['nosilci_to_display'] = osebe_izvajalec
+
+    # FILTER UDELEŽENCI
+    # osebe naročnika + osebe izvajalca
+    udelezenci = osebe_narocnik + osebe_izvajalec
+    context['udelezenci_to_display'] = udelezenci
+
+    # FILTER SKLICATELJ
+    context['sklicatelj_to_display'] = skupine_partnerjev
+
+    return JsonResponse(context)

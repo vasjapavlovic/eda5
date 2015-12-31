@@ -12,6 +12,18 @@ class SkupinaIzbiraForm(forms.Form):
     podskupina_hidden = forms.ModelChoiceField(queryset=Podskupina.objects.all())
 
 
+class ElementIzbiraForm(forms.Form):
+
+    skupina = forms.ModelChoiceField(queryset=Skupina.objects.all())
+    podskupina = forms.ModelChoiceField(queryset=Podskupina.objects.all())
+    del_stavbe = forms.ModelChoiceField(queryset=DelStavbe.objects.all())
+
+    # za filtriranje
+    podskupina_hidden = forms.ModelChoiceField(queryset=Podskupina.objects.all())
+    del_stavbe_hidden = forms.ModelChoiceField(queryset=DelStavbe.objects.all())
+    element_hidden = forms.ModelChoiceField(queryset=Element.objects.all())
+
+
 class DelCreateForm(forms.ModelForm):
 
     class Meta:

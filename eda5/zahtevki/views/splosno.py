@@ -2,8 +2,9 @@
 
 
 # DJANGO ##############################################################
+from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
@@ -18,6 +19,10 @@ from ..models import Zahtevek
 # Arhiv
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto
+
+# Deli
+from eda5.deli.forms import ElementIzbiraForm
+from eda5.deli.models import Skupina, Podskupina, ProjektnoMesto
 
 # Delovni Nalogi
 from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm
@@ -194,6 +199,7 @@ class OpraviloCreateView(UpdateView):
         # opravilo
         context['opravilo_create_form'] = OpraviloCreateForm
         context['opravilo_element_update_form'] = OpraviloElementUpdateForm
+        context['element_izbira_form'] = ElementIzbiraForm
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
@@ -209,6 +215,7 @@ class OpraviloCreateView(UpdateView):
         # forms
         opravilo_create_form = OpraviloCreateForm(request.POST or None)
         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
+        element_izbira_form = ElementIzbiraForm(request.POST or None)
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
@@ -219,7 +226,7 @@ class OpraviloCreateView(UpdateView):
             naziv = opravilo_create_form.cleaned_data['naziv']
             rok_izvedbe = opravilo_create_form.cleaned_data['rok_izvedbe']
             narocilo = opravilo_create_form.cleaned_data['narocilo']
-            nadzornik = opravilo_create_form.cleaned_data['nadzornik']
+            nosilec = opravilo_create_form.cleaned_data['nosilec']
             planirano_opravilo = opravilo_create_form.cleaned_data['planirano_opravilo']
 
             opravilo_data = Opravilo.objects.create_opravilo(
@@ -228,7 +235,7 @@ class OpraviloCreateView(UpdateView):
                 rok_izvedbe=rok_izvedbe,
                 narocilo=narocilo,
                 zahtevek=zahtevek,
-                nadzornik=nadzornik,
+                nosilec=nosilec,
                 planirano_opravilo=planirano_opravilo,
             )
 
@@ -238,6 +245,7 @@ class OpraviloCreateView(UpdateView):
             return render(request, self.template_name, {
                 'opravilo_create_form': opravilo_create_form,
                 'opravilo_element_update_form': opravilo_element_update_form,
+                'element_izbira_form': element_izbira_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )
@@ -252,8 +260,81 @@ class OpraviloCreateView(UpdateView):
             return render(request, self.template_name, {
                 'opravilo_create_form': opravilo_create_form,
                 'opravilo_element_update_form': opravilo_element_update_form,
+                'element_izbira_form': element_izbira_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_element_podskupina_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    skupina = request.POST['skupina']
+    skupina = Skupina.objects.get(id=skupina)
+
+    # podskupine glede na izbrano skupino
+    podskupina_list = []
+    for podskupina in skupina.podskupina_set.all():
+        podskupina_list.append(podskupina.id)
+
+
+    # OUTPUT FILTER
+    # Podskupine
+    context['podskupine_to_display'] = podskupina_list
+
+    return JsonResponse(context)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_element_del_stavbe_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    podskupina = request.POST['podskupina']
+    podskupina = Podskupina.objects.get(id=podskupina)
+
+    # deli stavbe glede na izbrano podskupino
+    del_stavbe_list = []
+    for del_stavbe in podskupina.delstavbe_set.all():
+        del_stavbe_list.append(del_stavbe.id)
+
+    # OUTPUT FILTER
+
+    # DelStavbe
+    context['del_stavbe_to_display'] = del_stavbe_list
+
+    return JsonResponse(context)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_element_element_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    del_stavbe = request.POST['del_stavbe']
+    projektno_mesto = ProjektnoMesto.objects.get(id=del_stavbe)
+
+    # deli stavbe glede na izbrano podskupino
+    element_list = []
+    for element in projektno_mesto.element_set.all():
+        element_list.append(element.id)
+
+    # OUTPUT FILTER
+
+    # DelStavbe
+    context['element_to_display'] = element_list
+
+    return JsonResponse(context)

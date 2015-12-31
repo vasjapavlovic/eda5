@@ -40,6 +40,8 @@
     #4 Sestanek
         # podzahtevkom omogoči dodajanje udeležencev (glej ZahtevekSestanekCreateView)
 
+    Urediti filtriranje <option> v horizontal filter. Sedaj je uporabljen navaden MultipleSelection
+
 'eda5.zaznamki'#########################################################
 
 

@@ -34,9 +34,12 @@ class OpraviloCreateForm(forms.ModelForm):
         # avtomatsko dodeljena oznaka = ReadOnly
         self.fields['oznaka'].widget.attrs['readonly'] = True
 
-        #querysets
+        # querysets
         self.fields["narocilo"].queryset = Narocilo.objects.all()
-        self.fields["nadzornik"].queryset = Oseba.objects.all()
+        self.fields["nosilec"].queryset = Oseba.objects.all()
+
+        # filtriranje dropdown
+        self.fields['oseba_hidden'].required = False
 
     # post ne more povozit okence ki je readonly
     def clean_oznaka(self):
@@ -46,6 +49,9 @@ class OpraviloCreateForm(forms.ModelForm):
         else:
             return self.cleaned_data['oznaka']
 
+    # zaradi filtriranja "oseba"
+    oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
+
     class Meta:
         model = Opravilo
         fields = (
@@ -53,7 +59,7 @@ class OpraviloCreateForm(forms.ModelForm):
             'naziv',
             'rok_izvedbe',
             'narocilo',
-            'nadzornik',
+            'nosilec',
             'planirano_opravilo',
         )
         widgets = {
@@ -88,7 +94,6 @@ class OpraviloElementUpdateForm(OpraviloUpdateForm):
         fields = (
             'element',
         )
-
 
 
 class DelovniNalogVcakanjuModelForm(forms.ModelForm):

@@ -7,6 +7,9 @@ from .views import splosno, sestanek, izvedba_dela
 urlpatterns = [
     url(r'^zahtevek-create/$', splosno.ZahtevekCreateIzbiraView.as_view(), name="zahtevek_create"),
     url(r'^zahtevek-seznam/$', splosno.ZahtevekListView.as_view(), name="zahtevek_list"),
+    url(r'^reload_controls_element_podskupina.html$', splosno.reload_controls_element_podskupina_view, name='reload_controls_element_podskupina'),
+    url(r'^reload_controls_element_del_stavbe.html$', splosno.reload_controls_element_del_stavbe_view, name='reload_controls_element_del_stavbe'),
+    url(r'^reload_controls_element_element.html$', splosno.reload_controls_element_element_view, name='reload_controls_element_element'),
 
     url(r'^(?P<pk>\d+)/detail/$', splosno.ZahtevekDetailView.as_view(), name="zahtevek_detail"),
     url(r'^(?P<pk>\d+)/main/update/$', splosno.ZahtevekUpdateView.as_view(), name="zahtevek_update_main"),
@@ -20,6 +23,7 @@ urlpatterns = [
 # zahtevek sestanek
 urlpatterns += [
     url(r'^zahtevek-sestanek/$', sestanek.ZahtevekSestanekCreateView.as_view(), name="zahtevek_create_sestanek"),
+    url(r'^reload_controls.html$', sestanek.reload_controls_view, name='reload_controls'),
     url(r'^(?P<pk>\d+)/podzahtevek-sestanek-create/$', sestanek.PodzahtevekSestanekCreateView.as_view(), name="podzahtevek_create_sestanek"),
     url(r'^(?P<pk>\d+)/sestanek/update/$', sestanek.ZahtevekUpdateSestanekView.as_view(), name="zahtevek_update_sestanek"),
 ]

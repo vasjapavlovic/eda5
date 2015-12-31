@@ -22,7 +22,7 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     #   Relations
     zahtevek = models.ForeignKey(Zahtevek)
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
-    nadzornik = models.ForeignKey(Oseba)
+    nosilec = models.ForeignKey(Oseba)
     planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
     '''pod naročilo je odzadaj tudi relacija na naročnika in izvajalca'''
     # planirano_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)

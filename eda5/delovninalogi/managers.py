@@ -10,7 +10,7 @@ class OpraviloManager(models.Manager):
                         rok_izvedbe=None,
                         narocilo=None,
                         zahtevek=None,
-                        nadzornik=None,
+                        nosilec=None,
                         planirano_opravilo=None,
                         ):
         if not zahtevek:
@@ -22,7 +22,7 @@ class OpraviloManager(models.Manager):
                               narocilo=narocilo,
                               # element se doda kasnee pod ElementManager in OpraviloCreateView
                               zahtevek=zahtevek,
-                              nadzornik=nadzornik,
+                              nosilec=nosilec,
                               planirano_opravilo=planirano_opravilo,
                               )
 

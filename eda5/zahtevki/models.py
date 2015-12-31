@@ -7,7 +7,7 @@ from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 from eda5.narocila.models import Narocilo
-from eda5.partnerji.models import Oseba, Partner
+from eda5.partnerji.models import Oseba, Partner, SkupinaPartnerjev
 from eda5.deli.models import Element
 
 
@@ -106,7 +106,7 @@ class ZahtevekSestanek(models.Model):
     # ATRIBUTES
     #   Relations
     zahtevek = models.OneToOneField(Zahtevek)
-    sklicatelj = models.ForeignKey(Partner, null=True, blank=True)
+    sklicatelj = models.ForeignKey(SkupinaPartnerjev, null=True, blank=True)
     udelezenci = models.ManyToManyField(Oseba, blank=True, verbose_name="udeleženci")
     #   Mandatory
     datum = models.DateField(null=True, blank=True)

@@ -1,10 +1,12 @@
 from functools import partial
+from django.template.loader import render_to_string
 
 from django import forms
 from django.utils import timezone
 
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 from eda5.narocila.models import Narocilo
+from eda5.partnerji.models import Oseba, SkupinaPartnerjev
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -24,6 +26,10 @@ class ZahtevekCreateForm(forms.ModelForm):
         self.initial['oznaka'] = nova_oznaka
         self.fields['oznaka'].widget.attrs['readonly'] = True
 
+        # filtriranje dropdown
+        self.fields['oseba_hidden'].required = False
+        self.fields['skupina_partnerjev_hidden'].required = False
+
         # prikažemo samo veljavna naročila
         self.fields['narocilo'].queryset = Narocilo.objects.veljavna()
 
@@ -34,6 +40,10 @@ class ZahtevekCreateForm(forms.ModelForm):
             return instance.oznaka
         else:
             return self.cleaned_data['oznaka']
+
+    # zaradi filtriranja "oseba"
+    oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
+    skupina_partnerjev_hidden = forms.ModelChoiceField(queryset=SkupinaPartnerjev.objects.all())
 
     class Meta:
         model = Zahtevek
