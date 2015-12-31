@@ -27,6 +27,11 @@ urlpatterns += [
     url(r'^opravila/(?P<pk>\d+)/update$', views.OpraviloUpdateView.as_view(), name="opravilo_update"),
 ]
 
+# VZOREC OPRAVILA
+urlpatterns += [
+    url(r'^vzorec-opravila/(?P<pk>\d+)/detail$', views.VzorecOpravilaDetailView.as_view(), name="vzorec_opravila_detail"),
+]
+
 
 # DELO
 urlpatterns += [

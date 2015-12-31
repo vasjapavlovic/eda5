@@ -4,7 +4,7 @@ from django import forms
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
-from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop
+from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop, VzorecOpravila
 
 from eda5.deli.models import Element
 from eda5.narocila.models import Narocilo
@@ -23,9 +23,13 @@ class OpraviloCreateForm(forms.ModelForm):
         super(OpraviloCreateForm, self).__init__(*args, **kwargs)
         # custom initial properties
 
-        leto = timezone.now().date().year
-        zap_st = Opravilo.objects.all().count()
-        zap_st = zap_st + 1
+        try:
+            leto = timezone.now().date().year
+            zap_st = Opravilo.objects.all().count()
+            zap_st = zap_st + 1
+        except:
+            zap_st = 1
+
 
         nova_oznaka = "OPR-%s-%s" % (leto, zap_st)  #
 
@@ -61,6 +65,57 @@ class OpraviloCreateForm(forms.ModelForm):
             'narocilo',
             'nosilec',
             'planirano_opravilo',
+        )
+        widgets = {
+            'rok_izvedbe': DateInput(),
+        }
+
+
+class VzorecOpravilaCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(VzorecOpravilaCreateForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+
+        try:
+            zap_st = VzorecOpravila.objects.all().count()
+            zap_st = zap_st + 1
+        except:
+            zap_st = 1
+
+        nova_oznaka = "OPR-VZOREC-%s" % (zap_st)  #
+
+        self.initial['oznaka'] = nova_oznaka
+
+        # avtomatsko dodeljena oznaka = ReadOnly
+        self.fields['oznaka'].widget.attrs['readonly'] = True
+
+        # querysets
+        self.fields["narocilo"].queryset = Narocilo.objects.all()
+        self.fields["nosilec"].queryset = Oseba.objects.all()
+
+        # filtriranje dropdown
+        self.fields['oseba_hidden'].required = False
+
+    # post ne more povozit okence ki je readonly
+    def clean_oznaka(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.oznaka
+        else:
+            return self.cleaned_data['oznaka']
+
+    # zaradi filtriranja "oseba"
+    oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
+
+    class Meta:
+        model = Opravilo
+        fields = (
+            'oznaka',
+            'naziv',
+            'rok_izvedbe',
+            'narocilo',
+            'nosilec',
         )
         widgets = {
             'rok_izvedbe': DateInput(),
@@ -164,7 +219,6 @@ class DeloForm(forms.Form):
 
     delavec = forms.ModelChoiceField(queryset=DELAVCI)
     vrsta_dela = forms.ModelChoiceField(queryset=VRSTE_DEL)
-
 
 
 class DeloZacetoUpdateModelForm(forms.ModelForm):

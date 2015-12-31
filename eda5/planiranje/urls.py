@@ -14,5 +14,6 @@ urlpatterns = [
 # PlaniranoOpravilo
 urlpatterns += [
     url(r'^planirano-create/(?P<pk>\d+)$', po.PlaniranoOpraviloCreateView.as_view(), name="planirano_opravilo_create"),
+    url(r'^(?P<pk>\d+)/vzorec-opravila-create/$', po.VzorecOpravilaCreateView.as_view(), name="vzorec_opravila_create"),
     url(r'^planirano-opravilo/(?P<pk>\d+)/detail/$', po.PlaniranoOpraviloDetailView.as_view(), name="planirano_opravilo_detail"),
 ]

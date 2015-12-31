@@ -1,13 +1,11 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 from eda5.narocila.models import Narocilo
-from eda5.partnerji.models import Oseba, Partner, SkupinaPartnerjev
+from eda5.partnerji.models import Oseba, SkupinaPartnerjev
 from eda5.deli.models import Element
 
 

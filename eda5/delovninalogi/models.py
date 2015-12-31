@@ -219,3 +219,36 @@ class DeloVrstaSklop(models.Model):
 
     def __str__(self):
         return "%s - %s" % (self.oznaka, self.naziv)
+
+
+class VzorecOpravila(TimeStampedModel, IsActiveModel):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
+    nosilec = models.ForeignKey(Oseba)
+    planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
+    element = models.ManyToManyField(Element)
+    #   Mandatory
+    oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=255)
+    rok_izvedbe = models.DateField(blank=True, null=True)
+    is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno iz strani nadzornika")
+    #   Optional
+
+    # OBJECT MANAGER
+    objects = managers.VzorecOpravilaManager()
+
+    # CUSTOM PROPERTIES
+
+    # METHODS
+    # def get_absolute_url(self):
+    #    return reverse("moduli:delovninalogi:vzorec_opravila_detail", kwargs={'pk': self.pk})
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "vzorec opravila"
+        verbose_name_plural = "vzorci opravil"
+
+    def __str__(self):
+        return "%s - %s" % (self.oznaka, self.naziv)

@@ -25,6 +25,13 @@ from eda5.katalog.models import ArtikelPlan
 # Predpisi
 from eda5.predpisi.models import Predpis
 
+# Deli
+from eda5.deli.forms import ElementIzbiraForm
+
+# Delovni Nalogi
+from eda5.delovninalogi.forms import OpraviloElementUpdateForm, VzorecOpravilaCreateForm
+from eda5.delovninalogi.models import Opravilo, VzorecOpravila
+
 
 class PlaniranoOpraviloCreateView(UpdateView):
     model = Plan
@@ -141,3 +148,84 @@ class PlaniranoOpraviloDetailView(DetailView):
         context['predpis_opravilo_list'] = predpis_opravilo_list
 
         return context
+
+
+class VzorecOpravilaCreateView(UpdateView):
+    model = PlaniranoOpravilo
+    template_name = "delovninalogi/vzorec_opravila/create_from_planirano_opravilo.html"
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VzorecOpravilaCreateView, self).get_context_data(*args, **kwargs)
+
+        # opravilo
+        context['vzorec_opravila_create_form'] = VzorecOpravilaCreateForm
+        context['opravilo_element_update_form'] = OpraviloElementUpdateForm
+        context['element_izbira_form'] = ElementIzbiraForm
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(id="VZOREC_OPRAVILA_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # object
+        planirano_opravilo = PlaniranoOpravilo.objects.get(id=self.get_object().id)
+
+        # forms
+        vzorec_opravila_create_form = VzorecOpravilaCreateForm(request.POST or None)
+        opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
+        element_izbira_form = ElementIzbiraForm(request.POST or None)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="VZOREC_OPRAVILA_CREATE")
+
+        # izdelamo opravilo (!!!elemente opravilu dodamo kasneje)
+        if vzorec_opravila_create_form.is_valid():
+            oznaka = vzorec_opravila_create_form.cleaned_data['oznaka']
+            naziv = vzorec_opravila_create_form.cleaned_data['naziv']
+            rok_izvedbe = vzorec_opravila_create_form.cleaned_data['rok_izvedbe']
+            narocilo = vzorec_opravila_create_form.cleaned_data['narocilo']
+            nosilec = vzorec_opravila_create_form.cleaned_data['nosilec']
+
+            vzorec_opravila_data = VzorecOpravila.objects.create_vzorec_opravila(
+                oznaka=oznaka,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                nosilec=nosilec,
+                planirano_opravilo=planirano_opravilo,
+            )
+
+            vzorec_opravila_object = VzorecOpravila.objects.get(id=vzorec_opravila_data.pk)
+
+        else:
+            return render(request, self.template_name, {
+                'vzorec_opravila_create_form': vzorec_opravila_create_form,
+                'opravilo_element_update_form': opravilo_element_update_form,
+                'element_izbira_form': element_izbira_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        if opravilo_element_update_form.is_valid():
+            element = opravilo_element_update_form.cleaned_data['element']
+
+            vzorec_opravila_object.element = element
+            vzorec_opravila_object.save()
+
+        else:
+            return render(request, self.template_name, {
+                'vzorec_opravila_create_form': vzorec_opravila_create_form,
+                'opravilo_element_update_form': opravilo_element_update_form,
+                'element_izbira_form': element_izbira_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        return HttpResponseRedirect(reverse(
+                    'moduli:planiranje:planirano_opravilo_detail',
+                    kwargs={'pk': planirano_opravilo.pk})
+                    )

@@ -19,9 +19,13 @@ class ZahtevekCreateForm(forms.ModelForm):
         super(ZahtevekCreateForm, self).__init__(*args, **kwargs)
         # custom initial properties
         # OZNAKA - tuki je napisano z namen, ker je form uporabljen na dveh različnih mestih
+        try:
+            zap_st = Zahtevek.objects.all().count()
+            zap_st = zap_st + 1
+        except:
+            zap_st = 1
+
         leto = timezone.now().date().year
-        zap_st = Zahtevek.objects.all().count()
-        zap_st = zap_st + 1
         nova_oznaka = "ZHT-%s-%s" % (leto, zap_st)
         self.initial['oznaka'] = nova_oznaka
         self.fields['oznaka'].widget.attrs['readonly'] = True

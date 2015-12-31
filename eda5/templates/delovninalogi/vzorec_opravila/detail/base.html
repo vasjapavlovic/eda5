@@ -21,9 +21,8 @@
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
 
-    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-    <li><a type="button" href="{% url 'moduli:planiranje:vzorec_opravila_create' object.pk %}">
-        <b>Dodaj</b> Vzorec Opravila</a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="">
+            <b>Uredi</b> Podatke</a></li>
 
 {% endblock %}
 <!-- end Navbar-Left podatki -->
@@ -32,7 +31,13 @@
 
 <!-- PAGE TITLE -->
 {% block content_title %}
-<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+
+
+    <div class="jumbotron p-0 p-t-10">
+        <h3>{{ object.naziv }} ({{ object.oznaka }})</h3>
+        
+    </div><!-- end jumbotron -->
+
 {% endblock %}
 <!-- end PAGE TITLE -->
 
@@ -40,8 +45,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content %}
-{% include "planiranje/planirano_opravilo/detail/content.html" %}
-{% include "planiranje/planirano_opravilo/detail/modal.html" %}
+{% include "delovninalogi/vzorec_opravila/detail/content.html" %}
+{% include "delovninalogi/vzorec_opravila/detail/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 

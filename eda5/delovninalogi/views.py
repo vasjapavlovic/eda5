@@ -16,7 +16,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from .mixins import MessagesActionMixin
 from .forms import OpraviloUpdateForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm,\
                    DelovniNalogVresevanjuModelForm, DeloForm, DeloZacetoUpdateModelForm
-from .models import Opravilo, DelovniNalog, Delo
+from .models import Opravilo, DelovniNalog, Delo, VzorecOpravila
 
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto
@@ -50,6 +50,20 @@ class OpraviloDetailView(DetailView):
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+class VzorecOpravilaDetailView(DetailView):
+    model = VzorecOpravila
+    template_name = "delovninalogi/vzorec_opravila/detail/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VzorecOpravilaDetailView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="VZOREC_OPRAVILA_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
         return context

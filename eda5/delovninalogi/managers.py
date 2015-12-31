@@ -30,6 +30,30 @@ class OpraviloManager(models.Manager):
         return opravilo
 
 
+class VzorecOpravilaManager(models.Manager):
+
+    def create_vzorec_opravila(self,
+                               oznaka=None,
+                               naziv=None,
+                               rok_izvedbe=None,
+                               narocilo=None,
+                               nosilec=None,
+                               planirano_opravilo=None,
+                               ):
+
+        vzorec_opravila = self.model(
+                              oznaka=oznaka,
+                              naziv=naziv,
+                              rok_izvedbe=rok_izvedbe,
+                              narocilo=narocilo,
+                              nosilec=nosilec,
+                              planirano_opravilo=planirano_opravilo,
+                              )
+
+        vzorec_opravila.save(using=self._db)
+        return vzorec_opravila
+
+
 class DelovniNalogManager(models.Manager):
 
     use_for_related_fields = True

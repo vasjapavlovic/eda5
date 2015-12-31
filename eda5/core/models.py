@@ -28,7 +28,7 @@ class IsLikvidiranModel(models.Model):
 
 class ZaporednaStevilka(models.Model):
 
-    zap_st = models.IntegerField(default=0, verbose_name="zaporedna številka")
+    zap_st = models.IntegerField(default=9999, verbose_name="zaporedna številka")
 
     class Meta:
         abstract = True

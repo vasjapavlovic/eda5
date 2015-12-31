@@ -111,7 +111,9 @@ class DelStavbe(models.Model):
         verbose_name_plural = 'deli stavbe'
 
     def __str__(self):
-        return "(%s)%s" % (self.oznaka, self.naziv)
+        return "(%s)%s" % (self.oznaka,
+                           self.naziv
+                           )
 
 
 class ProjektnoMesto(models.Model):
@@ -144,19 +146,13 @@ class ProjektnoMesto(models.Model):
         verbose_name_plural = "projektna mesta"
 
     def __str__(self):
-        return "(%s)%s-%s" % (self.oznaka, self.tip_elementa.naziv, self.naziv)
+        return "(%s)%s-%s" % (self.oznaka,
+                              self.tip_elementa.naziv
+                              )
 
 
 class Element(IsActiveModel):
     # ---------------------------------------------------------------------------------------
-
-    def dokumentacija_directory_path(instance, filename):
-        # file will be uploaded to MEDIA_ROOT/deli/<del_oznaka>/<new_filename>
-        new_filename_raw = filename.split(".")
-        ext = '.' + new_filename_raw[1]
-        new_filename = new_filename_raw[0]
-        return 'deli/{0}/{1}/{2}'.format(instance.projektno_mesto.del_stavbe.oznaka, instance.projektno_mesto.oznaka, new_filename + ext)
-
     # ATRIBUTES
     # ***Relations***
     projektno_mesto = models.ForeignKey(ProjektnoMesto)
@@ -179,7 +175,10 @@ class Element(IsActiveModel):
         verbose_name_plural = 'elementi'
 
     def __str__(self):
-        return "(%s)%s" % (self.projektno_mesto.oznaka, self.tovarniska_st)
+        return "(%s)%s %s" % (self.projektno_mesto.oznaka,
+                              self.projektno_mesto.tip_elementa.naziv,
+                              self.projektno_mesto.naziv
+                              )
 
 
 class Nastavitev(models.Model):
@@ -203,4 +202,7 @@ class Nastavitev(models.Model):
         verbose_name_plural = "nastavitve"
 
     def __str__(self):
-        return "%s | %s | %s" % (self.obratovalni_parameter.oznaka, self.vrednost, self.datum_nastavitve)
+        return "%s | %s | %s" % (self.obratovalni_parameter.oznaka,
+                                 self.vrednost,
+                                 self.datum_nastavitve
+                                 )
