@@ -33,6 +33,10 @@ urlpatterns += [
     url(r'^zahtevek-izvedba-del/$', izvedba_dela.ZahtevekIzvedbaDelCreateView.as_view(), name="zahtevek_create_izvedba_del"),
     url(r'^(?P<pk>\d+)/podzahtevek-izvedba-del-create/$', izvedba_dela.PodzahtevekIzvedbaDelCreateView.as_view(),name="podzahtevek_create_izvedba_del"),
     url(r'^(?P<pk>\d+)/izvedba/update/$', izvedba_dela.ZahtevekUpdateIzvedbaView.as_view(), name="zahtevek_update_izvedba"),
+    # filtriranje
+    url(r'^reload_controls_planiranje_skupina_planov.html$', izvedba_dela.reload_controls_planiranje_skupina_planov_view, name='reload_controls_planiranje_skupina_planov'),
+    url(r'^reload_controls_planiranje_plan.html$', izvedba_dela.reload_controls_planiranje_plan_view, name='reload_controls_planiranje_plan'),
+    url(r'^reload_controls_delovninalogi_planirano_opravilo.html$', izvedba_dela.reload_controls_delovninalogi_planirano_opravilo_view, name='reload_controls_delovninalogi_planirano_opravilo'),
 ]
 
 # opravilo

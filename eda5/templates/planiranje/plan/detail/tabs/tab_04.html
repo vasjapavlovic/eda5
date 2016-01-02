@@ -13,8 +13,8 @@
 
             </tr>
 
-            {% for opravilo in planirano_opravilo_zapadlo_list %}
-                {% for dn in opravilo.delovninalog_set.all %}
+
+            {% for dn in dn_planirano_opravilo_zapadlo_list %}
 
             <tr>
 
@@ -25,8 +25,7 @@
                 <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
 
             </tr>
-
-                {% endfor %}   
+  
             {% endfor %}
 
         </table>
@@ -47,8 +46,8 @@
 
             </tr>
 
-            {% for opravilo in planirano_opravilo_nezapadlo_list %}
-                {% for dn in opravilo.delovninalog_set.all %}
+
+            {% for dn in dn_planirano_opravilo_nezapadlo_list %}
 
             <tr>
 
@@ -59,8 +58,7 @@
                 <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
 
             </tr>
-
-                {% endfor %}   
+  
             {% endfor %}
 
         </table>

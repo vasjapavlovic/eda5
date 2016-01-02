@@ -69,14 +69,23 @@ class PlanDetailView(DetailView):
         # SLDENJE PLANU: ZAPADLA OPRAVILA; OPRAVILA V PLANU; FAZA PLANIRANJA; IZVEDENA OPRAVILA #
         #########################################################################################
 
-        opravila_potrjena = Opravilo.objects.filter(is_potrjen=True)
-        opravila_potrjena_planirana = opravila_potrjena.filter(planirano_opravilo__isnull=False)
+        opravila_vsa = Opravilo.objects.filter(planirano_opravilo__plan=self.object.id)
+        # zaenkrat tudi nepotrjena opravila iz strani nadzornika
+        opravila_potrjena_planirana = opravila_vsa.filter(planirano_opravilo__isnull=False)
         max_opravila_potrjena_planirana = opravila_potrjena_planirana.values(
             "planirano_opravilo").annotate(datum_izvedbe=Max("created"))
 
         # Zadnje izvedena Planirana Opravila
         # ==================================
         context['opravila_potrjena_planirana'] = opravila_potrjena_planirana
+
+        delovni_nalog_zakljucen_list = []
+        for opravilo in opravila_potrjena_planirana:
+            for dn in opravilo.delovninalog_set.filter(status=4):
+                delovni_nalog_zakljucen_list.append(dn)
+
+        context['delovni_nalog_zakljucen_list'] = delovni_nalog_zakljucen_list
+
 
         # Zapadla Planirana Opravila
         # ==========================
@@ -122,6 +131,24 @@ class PlanDetailView(DetailView):
 
         context['planirano_opravilo_zapadlo_list'] = planirano_opravilo_zapadlo_list
         context['planirano_opravilo_nezapadlo_list'] = planirano_opravilo_nezapadlo_list
+
+        dn_planirano_opravilo_zapadlo_list = []
+        for opravilo in planirano_opravilo_zapadlo_list:
+            for dn in opravilo.delovninalog_set.filter(status=4):
+                dn_planirano_opravilo_zapadlo_list.append(dn)
+
+        context['dn_planirano_opravilo_zapadlo_list'] = dn_planirano_opravilo_zapadlo_list
+
+        dn_planirano_opravilo_nezapadlo_list = []
+        for opravilo in planirano_opravilo_nezapadlo_list:
+            for dn in opravilo.delovninalog_set.filter(status=4):
+                dn_planirano_opravilo_nezapadlo_list.append(dn)
+
+        context['dn_planirano_opravilo_nezapadlo_list'] = dn_planirano_opravilo_nezapadlo_list
+
+
+
+
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="PLAN_DETAIL")

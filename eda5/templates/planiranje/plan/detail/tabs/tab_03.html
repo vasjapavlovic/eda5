@@ -13,8 +13,8 @@
 
 
 
-{% for opravilo in opravila_potrjena_planirana %}
-    {% for dn in opravilo.delovninalog_set.all %}
+
+    {% for dn in delovni_nalog_zakljucen_list %}
 
     <tr>
 
@@ -27,7 +27,7 @@
     </tr>
 
     {% endfor %}   
-{% endfor %}
+
 
 
 </table>

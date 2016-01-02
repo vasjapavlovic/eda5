@@ -38,3 +38,27 @@
 {
     display: none;
 }
+
+/* DELOVNINALOGI */
+#id_plan_hidden, label[for="id_plan_hidden"]
+{
+    display: none;
+}
+#id_planirano_opravilo_hidden, label[for="id_planirano_opravilo_hidden"]
+{
+    display: none;
+}
+#id_vzorec_opravila_hidden, label[for="id_vzorec_opravila_hidden"]
+{
+    display: none;
+}
+
+
+
+
+
+
+
+$("#id_plan").attr('disabled', false);
+                $("#id_planirano_opravilo").attr('disabled', false);
+                $("#id_vzorec_opravila").attr('disabled', true);

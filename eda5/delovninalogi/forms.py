@@ -11,6 +11,8 @@ from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 
+from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
+
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
@@ -73,14 +75,23 @@ class OpraviloCreateForm(forms.ModelForm):
 
 class VzorecOpravilaIzbiraForm(forms.Form):
 
-    # def __init__(self, *args, **kwargs):
-    #     super(OpraviloCreateFromVzorecForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(VzorecOpravilaIzbiraForm, self).__init__(*args, **kwargs)
 
-    #     self.initial['naziv'] = kwargs.pop('naziv')
+        # filtriranje dropdown
+        self.fields['plan_hidden'].required = False
+        self.fields['planirano_opravilo_hidden'].required = False
+        self.fields['vzorec_opravila_hidden'].required = False
 
-    # vzorec opravila
-    vzorec_opravila_list = VzorecOpravila.objects.all()
-    vzorec_opravila = forms.ModelChoiceField(queryset=vzorec_opravila_list)
+    skupina_planov = forms.ModelChoiceField(queryset=SkupinaPlanov.objects.all())
+    plan = forms.ModelChoiceField(queryset=Plan.objects.all())
+    planirano_opravilo = forms.ModelChoiceField(queryset=PlaniranoOpravilo.objects.all())
+    vzorec_opravila = forms.ModelChoiceField(queryset=VzorecOpravila.objects.all())
+
+    # za filtriranje
+    plan_hidden = forms.ModelChoiceField(queryset=Plan.objects.all())
+    planirano_opravilo_hidden = forms.ModelChoiceField(queryset=PlaniranoOpravilo.objects.all())
+    vzorec_opravila_hidden = forms.ModelChoiceField(queryset=VzorecOpravila.objects.all())
 
 
 class VzorecOpravilaCreateForm(forms.ModelForm):

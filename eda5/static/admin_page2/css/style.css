@@ -140,7 +140,7 @@ body, html {
 
 /******** 2. Left Panel (aside navigation) ********/
 aside.left-panel {
-  background-color: #1a2942;
+  background-color: rgba(0, 0, 0, 0.7);
   width: 230px;
   position: fixed;
   height: 100%;
@@ -274,7 +274,7 @@ aside:not(.collapsed) .navigation ul li.active ul {
 /******************** 3.Top Header ****************/
     
 header {
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid #ececee;
   padding-top: 4px;
   padding-bottom: 4px;

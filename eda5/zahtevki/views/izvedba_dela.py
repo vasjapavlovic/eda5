@@ -2,8 +2,9 @@
 
 
 # DJANGO ##############################################################
+from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, UpdateView
 from django.utils import timezone
@@ -26,7 +27,10 @@ from eda5.moduli.models import Zavihek
 
 # Delovni Nalogi
 from eda5.delovninalogi.forms import VzorecOpravilaIzbiraForm
-from eda5.delovninalogi.models import Opravilo
+from eda5.delovninalogi.models import Opravilo, VzorecOpravila
+
+# Planiranje
+from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
 
 
 class ZahtevekIzvedbaDelCreateView(TemplateView):
@@ -244,3 +248,74 @@ class OpraviloCreateFromVzorecView(UpdateView):
             )
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_planiranje_skupina_planov_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    skupina_planov = request.POST['skupina_planov']
+    print(skupina_planov)
+    skupina_planov = SkupinaPlanov.objects.get(id=skupina_planov)
+    print(skupina_planov)
+    print(skupina_planov.plan_set.all())
+    # podskupine glede na izbrano skupino
+    plan_list = []
+    for plan in skupina_planov.plan_set.all():
+        plan_list.append(plan.id)
+
+    # OUTPUT FILTER
+    # Podskupine
+    context['plan_to_display'] = plan_list
+    print(plan_list)
+
+    return JsonResponse(context)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_planiranje_plan_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    plan = request.POST['plan']
+    plan = Plan.objects.get(id=plan)
+
+    planirano_opravilo_list = []
+    for planirano_opravilo in plan.planiranoopravilo_set.all():
+        planirano_opravilo_list.append(planirano_opravilo.id)
+
+    # OUTPUT FILTER
+
+    context['planirano_opravilo_to_display'] = planirano_opravilo_list
+
+    return JsonResponse(context)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_delovninalogi_planirano_opravilo_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    planirano_opravilo = request.POST['planirano_opravilo']
+    planirano_opravilo = PlaniranoOpravilo.objects.get(id=planirano_opravilo)
+
+    vzorec_opravila_list = []
+    for vzorec_opravila in planirano_opravilo.vzorecopravila_set.all():
+        vzorec_opravila_list.append(vzorec_opravila.id)
+
+    # OUTPUT FILTER
+
+    # DelStavbe
+    context['vzorec_opravila_to_display'] = vzorec_opravila_list
+
+    return JsonResponse(context)
