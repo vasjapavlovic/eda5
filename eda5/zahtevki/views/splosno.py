@@ -80,6 +80,8 @@ class ZahtevekCreateIzbiraView(TemplateView):
                 return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_sestanek'))
             if vrsta_zahtevka == '2':
                 return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_izvedba_del'))
+            if vrsta_zahtevka == '4':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_predaja_lastnine'))
 
 
 class ZahtevekUpdateView(UpdateView):

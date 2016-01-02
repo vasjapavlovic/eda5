@@ -151,7 +151,8 @@ class ZahtevekIzbiraForm(forms.Form):
 
     VRSTE = (
         (1, 'Sestanek'),
-        (2, 'Izvedba Del')
+        (2, 'Izvedba Del'),
+        (4, 'Predaja Lastnine'),
     )
 
     vrsta_zahtevka = forms.ChoiceField(choices=VRSTE)

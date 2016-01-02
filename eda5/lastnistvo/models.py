@@ -5,18 +5,21 @@ from .managers import *
 from eda5.core.models import TimeStampedModel, IsActiveModel
 from eda5.etaznalastnina.models import LastniskaEnotaElaborat, LastniskaEnotaInterna
 from eda5.partnerji.models import SkupinaPartnerjev
+from eda5.zahtevki.models import Zahtevek
 
 
 class PredajaLastnine(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
+    zahtevek = models.OneToOneField(Zahtevek, blank=True, null=True)
     prodajalec = models.ForeignKey(SkupinaPartnerjev, related_name="prodajalec")
     kupec = models.ForeignKey(SkupinaPartnerjev, related_name="kupec")
     #   Mandatory
     oznaka = models.CharField(max_length=20, unique=True)  # LST-2016-1
     #   Optional
     # OBJECT MANAGER
+    objects = PredajaLastnineManager()
     # CUSTOM PROPERTIES
     # METHODS
 
@@ -46,6 +49,7 @@ class ProdajaLastnine(models.Model):
 
     #   Optional
     # OBJECT MANAGER
+    objects = ProdajaLastnineManager()
     # CUSTOM PROPERTIES
     # METHODS
 
@@ -75,6 +79,7 @@ class NajemLastnine(IsActiveModel):
     datum_veljavnosti = models.DateField(blank=True, null=True)
     #   Optional
     # OBJECT MANAGER
+    objects = NajemLastnineManager()
     # CUSTOM PROPERTIES
     # METHODS
 

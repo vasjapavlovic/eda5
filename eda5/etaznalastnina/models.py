@@ -88,10 +88,6 @@ class LastniskaEnotaInterna(models.Model):
         najem = zadnji_najem
         return najem
 
-
-        
-
-
     # METHODS
 
     # META AND STRING

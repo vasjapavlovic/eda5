@@ -28,6 +28,7 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
         (1, 'Škodni Dogodek'),
         (2, 'Sestanek'),
         (3, 'Izvedba del'),
+        (4, 'Predaja Lastnine')
         # (4, 'Zbor Lastnikov'),
         # (5, 'Reklamacija Nabave'),
         # (6, 'Reklamacija Prodaje'),

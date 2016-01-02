@@ -12,11 +12,17 @@
                 <!--nav-tabs-->              
                 <ul class="nav nav-tabs profile-tabs">
                     <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
+
+                    <!-- samo za Predaja Lastnine -->
+                    {% if object.vrsta == 4 %}
+                    <li><a data-toggle="tab" href="#predaja_lastnine"><b>P</b>redaja Lastnine</a></li>
+                    {% endif %}
+
                     <li><a data-toggle="tab" href="#opravila"><b>O</b>pravila</a></li>
                     <li><a data-toggle="tab" href="#dokumentacija"><b>D</b>okumentacija</a></li>
                     <li><a data-toggle="tab" href="#zaznamki"><b>Z</b>aznamki</a></li>
                     <li><a data-toggle="tab" href="#podzahtevki"><b>P</b>odzahtevki</a></li>
-
+            
                 </ul>
                 <!--end nav-tabs-->
 
@@ -74,6 +80,19 @@
                             {% include "zahtevki/zahtevek/detail/tabs/tab_05.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
+
+
+
+                    <!-- samo za Predaja Lastnine -->
+                    {% if object.vrsta == 4 %}
+                    <!--tab******************************** -->
+                    <div id="predaja_lastnine" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>PREDAJA LASTNINE :</h1>
+                            {% include "zahtevki/zahtevek/detail/tabs/tab_06.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+                    {% endif %}
 
 
 

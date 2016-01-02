@@ -1,0 +1,68 @@
+<!-- Predaja Lastnine -->
+
+
+{% if object.predajalastnine.prodajalastnine_set.all %}
+<!-- PRODAJA -->
+        <div class="panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Prodaja</div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>lastniška enota</th>
+                            <th>prodajalec</th>
+                            <th>kupec</th>
+                            <th>datum predaje</th>
+                        </tr>
+
+                    {% for prodaja_lastnine in object.predajalastnine.prodajalastnine_set.all %}
+
+
+                    <tr>
+                        <td>{{ prodaja_lastnine.lastniska_enota.oznaka }}</td>
+                        <td>{{ object.predajalastnine.prodajalec.naziv }}</td>
+                        <td>{{ object.predajalastnine.kupec.naziv }}</td>
+                        <td>{{ prodaja_lastnine.datum_predaje }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+{% endif %}
+
+
+
+{% if object.predajalastnine.najemlastnine_set.all %}
+<!-- NAJEM -->
+        <div class="panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Najem</div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>lastniška enota</th>
+                            <th>Najemodajalec</th>
+                            <th>Najemojemalec</th>
+                            <th>datum predaje</th>
+                            <th>najem do dne</th>
+                        </tr>
+
+                    {% for najem_lastnine in object.predajalastnine.najemlastnine_set.all %}
+
+
+                    <tr>
+                        <td>{{ najem_lastnine.lastniska_enota.oznaka }}</td>
+                        <td>{{ object.predajalastnine.prodajalec.naziv }}</td>
+                        <td>{{ object.predajalastnine.kupec.naziv }}</td>
+                        <td>{{ najem_lastnine.datum_predaje }}</td>
+                        <td>{{ najem_lastnine.datum_veljavnosti }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+{% endif %}

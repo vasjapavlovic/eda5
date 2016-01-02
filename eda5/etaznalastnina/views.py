@@ -1,16 +1,19 @@
+# DJANGO #####################################
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
-from django.views.generic import ListView
-
+# RELATIVE IMPORTS
 from .models import LastniskaEnotaInterna
 
+# ABSOLUTE IMPORTS
+# Moduli
 from eda5.moduli.models import Zavihek
 
 
 class LastniskaEnotaInternaListTehView(ListView):
 
     model = LastniskaEnotaInterna
-    template_name = "etaznalastnina/lastniska_enota_interna/list_teh.html"
+    template_name = "etaznalastnina/lastniska_enota_interna/list/tehnicna.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(LastniskaEnotaInternaListTehView, self).get_context_data(*args, **kwargs)
@@ -25,7 +28,7 @@ class LastniskaEnotaInternaListTehView(ListView):
 class LastniskaEnotaInternaListLastView(ListView):
 
     model = LastniskaEnotaInterna
-    template_name = "etaznalastnina/lastniska_enota_interna/list_last.html"
+    template_name = "etaznalastnina/lastniska_enota_interna/list/lastniska.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(LastniskaEnotaInternaListLastView, self).get_context_data(*args, **kwargs)
@@ -35,3 +38,9 @@ class LastniskaEnotaInternaListLastView(ListView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+
+class LastniskaEnotaInternaDetailView(DetailView):
+
+    model = LastniskaEnotaInterna
+    template_name = "etaznalastnina/lastniska_enota_interna/detail/base.html"

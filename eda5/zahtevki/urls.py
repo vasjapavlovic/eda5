@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import splosno, sestanek, izvedba_dela
+from .views import splosno, sestanek, izvedba_dela, predaja_lastnine
 
 
 # zahtevek
@@ -43,4 +43,12 @@ urlpatterns += [
 urlpatterns += [
     url(r'^opravilo-create/(?P<pk>\d+)$', splosno.OpraviloCreateView.as_view(), name="opravilo_create"),
     url(r'^opravilo-from-vzorec-create/(?P<pk>\d+)$', izvedba_dela.OpraviloCreateFromVzorecView.as_view(), name="opravilo_from_vzorec_create"),
+]
+
+
+# Predaja Lastnine
+urlpatterns += [
+    url(r'^zahtevek-predaja-lastnine-create/$', predaja_lastnine.ZahtevekPredajaLastnineCreateView.as_view(), name="zahtevek_create_predaja_lastnine"),
+    url(r'^(?P<pk>\d+)/prodaja-lastnine-create/$', predaja_lastnine.ProdajaLastnineCreateView.as_view(), name="prodaja_lastnine_create"),
+    url(r'^(?P<pk>\d+)/najem-lastnine-create/$', predaja_lastnine.NajemLastnineCreateView.as_view(), name="najem_lastnine_create"),
 ]

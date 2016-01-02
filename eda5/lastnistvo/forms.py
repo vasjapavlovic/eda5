@@ -8,7 +8,6 @@ class PredajaLastnineCreateForm(forms.ModelForm):
     class Meta:
         model = PredajaLastnine
         fields = (
-            'oznaka',
             'prodajalec',
             'kupec',
         )
@@ -28,7 +27,7 @@ class ProdajaLastnineCreateForm(forms.ModelForm):
 class NajemLastnineCreateForm(forms.ModelForm):
 
     class Meta:
-        model = ProdajaLastnine
+        model = NajemLastnine
         fields = (
             'lastniska_enota',
             'datum_predaje',
