@@ -146,9 +146,10 @@ class ProjektnoMesto(models.Model):
         verbose_name_plural = "projektna mesta"
 
     def __str__(self):
-        return "(%s)%s-%s" % (self.oznaka,
-                              self.tip_elementa.naziv
-                              )
+        return "(%s)%s" % (
+            self.oznaka,
+            self.tip_elementa.naziv
+            )
 
 
 class Element(IsActiveModel):

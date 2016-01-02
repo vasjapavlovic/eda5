@@ -139,10 +139,16 @@
 
 <!-- ELEMENT PODSKUPINA FILTER -->
 <script>
-    
+    // disable nepotrebne dropdown menuje
+    $("#id_podskupina").attr('disabled', true);
+    $("#id_del_stavbe").attr('disabled', true);
+    $("#id_element").attr('disabled', true);
+
+    // ob spremembi dropdown skupine
     $('#create_form').on('change', '#id_skupina', function()
     {
         reload_controls1(this.value);
+        
     });
 
     function reload_controls1(skupina)
@@ -155,10 +161,15 @@
             data: "skupina="+skupina,
             success: function(result)
             {
-                //empty month drop down list
+                // ponastavimo dropdown menuje
                 $("#id_podskupina").empty()
                 $("#id_del_stavbe").empty()   
-                $("#id_element").empty()              
+                $("#id_element").empty()  
+
+                // disable nepotrebne dropdown menuje
+                $("#id_podskupina").attr('disabled', false);
+                $("#id_del_stavbe").attr('disabled', true);
+                $("#id_element").attr('disabled', true);            
 
                 //PODSKUPINA FILTER
                 $("#id_podskupina").append('<option value="">---------</option>')
@@ -199,9 +210,13 @@
             data: "podskupina="+podskupina,
             success: function(result)
             {
-                //empty month drop down list
+                // ponastavimo dropdown menuje
                 $("#id_del_stavbe").empty()
-                $("#id_element").empty()              
+                $("#id_element").empty()      
+
+                // disable nepotrebne dropdown menuje
+                $("#id_del_stavbe").attr('disabled', false);
+                $("#id_element").attr('disabled', true);          
 
                 //PODSKUPINA FILTER
                 $("#id_del_stavbe").append('<option value="">---------</option>')
@@ -243,8 +258,11 @@
             data: "del_stavbe="+del_stavbe,
             success: function(result)
             {
-                //empty month drop down list
-                $("#id_element").empty()              
+                // ponastavimo dropdown menuje
+                $("#id_element").empty()    
+
+                // disable nepotrebne dropdown menuje
+                $("#id_element").attr('disabled', false);           
 
                 //PODSKUPINA FILTER
                 $("#id_element").append('<option value="">---------</option>')

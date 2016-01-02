@@ -164,7 +164,7 @@ class VzorecOpravilaCreateView(UpdateView):
         context['element_izbira_form'] = ElementIzbiraForm
 
         # zavihek
-        modul_zavihek = Zavihek.objects.get(id="VZOREC_OPRAVILA_CREATE")
+        modul_zavihek = Zavihek.objects.get(oznaka="VZOREC_OPRAVILA_CREATE")
         context['modul_zavihek'] = modul_zavihek
 
         return context

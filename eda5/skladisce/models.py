@@ -60,7 +60,7 @@ class Artikel(TimeStampedModel):
         verbose_name_plural = "artikli"
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "%s(%s)" % (self.naziv, self.oznaka)
 
 
 class TipArtikla(models.Model):
@@ -157,4 +157,7 @@ class Dnevnik(TimeStampedModel):
         verbose_name_plural = "dnevnik"
 
     def __str__(self):
-        return "%s | %s" % (self.artikel, self.likvidiral)
+        if self.dobava:
+            return "%s: %s | %s | %s %s" % ('dobava', self.datum, self.artikel,  self.kom, 'kom')
+        if self.delovninalog:
+            return "%s: %s | %s | %s %s" % ('poraba', self.datum, self.artikel, self.kom, 'kom')

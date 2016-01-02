@@ -15,7 +15,16 @@ class SkladisceHomeView(TemplateView):
 
 class DobavaListView(ListView):
     model = Dobava
-    template_name = "skladisce/dobava/list.html"
+    template_name = "skladisce/dobava/list/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DobavaListView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOBAVA_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
 class DobavaCreateView(CreateView):
@@ -40,6 +49,11 @@ class DobavaDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(DobavaDetailView, self).get_context_data(*args, **kwargs)
         context['dnevnik_dobava_form'] = DnevnikDobavaCreateForm
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOBAVA_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -70,4 +84,13 @@ class DobavaDetailView(DetailView):
 
 class DnevnikListView(ListView):
     model = Dnevnik
-    template_name = "skladisce/dnevnik/list.html"
+    template_name = "skladisce/dnevnik/list/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DnevnikListView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DNEVNIK_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context

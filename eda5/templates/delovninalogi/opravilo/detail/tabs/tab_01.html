@@ -13,12 +13,6 @@
 
 
     <tr>
-        <td><small><b>vrsta</b></small></td>
-        <td>Škodni Dogodek</td>
-    </tr>
-
-
-    <tr>
         <td><small><b>nosilec</b></small></td>
         <td><b>{{ object.nosilec.priimek }} {{ object.nosilec.ime }}</b></td>
     </tr>
@@ -29,6 +23,20 @@
     <tr>
         <td><small><b>naročilnica</b></small></td>
         <td><b><a href="{% url 'moduli:narocila:narocilo_detail' object.narocilo.pk %}">{{ object.narocilo.oznaka }}</a></b></td>
+    </tr>
+
+    <tr>
+        <td><small><b>Elementi</b></small></td>
+        <td><b>
+            {% for element in object.element.all %}
+
+            <li>({{ element.projektno_mesto.oznaka }}) {{ element.projektno_mesto.tip_elementa.naziv }} | {{ element.artikel.naziv }}</li>
+
+            {% endfor %}
+            
+
+
+        </b></td>
     </tr>
 
 

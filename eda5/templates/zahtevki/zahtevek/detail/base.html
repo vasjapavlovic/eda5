@@ -22,7 +22,18 @@
 {% block navbar_left %}
 
     <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}"><b>Dodaj</b> Opravilo</a></li>  
+
+    <!-- Če ima zahtevak relacijo na Planiranje:Plan se lahko dodajajo le Planirana Opravila -->
+    {% if not object.plan_set.all %}
+
+    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}"><b>Dodaj</b> Opravilo</a></li>
+
+    {% else %}
+
+    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_from_vzorec_create' object.pk %}"><b>Dodaj</b> Planirano Opravilo</a></li> 
+
+    {% endif %}
+
     <li><a type="button" data-toggle="modal" data-target="#addDokumentacija"><b>Dodaj</b> Dokument</a></li>
     <li><a type="button" data-toggle="modal" data-target="#addZaznamek"><b>Dodaj</b> Zaznamek</a></li>
     <li><a type="button" data-toggle="modal" data-target="#addPodzahtevek"><b>Dodaj</b> Podzahtevek</a></li>

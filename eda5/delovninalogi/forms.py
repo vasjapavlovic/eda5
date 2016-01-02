@@ -71,6 +71,18 @@ class OpraviloCreateForm(forms.ModelForm):
         }
 
 
+class VzorecOpravilaIzbiraForm(forms.Form):
+
+    # def __init__(self, *args, **kwargs):
+    #     super(OpraviloCreateFromVzorecForm, self).__init__(*args, **kwargs)
+
+    #     self.initial['naziv'] = kwargs.pop('naziv')
+
+    # vzorec opravila
+    vzorec_opravila_list = VzorecOpravila.objects.all()
+    vzorec_opravila = forms.ModelChoiceField(queryset=vzorec_opravila_list)
+
+
 class VzorecOpravilaCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):

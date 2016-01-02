@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Max
+
 from eda5.partnerji.models import SkupinaPartnerjev, Partner, Posta
 
 
@@ -44,6 +46,7 @@ class LastniskaEnotaElaborat(models.Model):
     def id_stevilka(self):
         id_stevilka = int(self.oznaka)
         return id_stevilka
+
     # METHODS
 
     # META AND STRING
@@ -69,6 +72,26 @@ class LastniskaEnotaInterna(models.Model):
     st_oseb = models.DecimalField(max_digits=2, decimal_places=1, blank=True, verbose_name="število oseb")
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
+    @property
+    def prodaja(self):
+        lastniska_enota = LastniskaEnotaInterna.objects.get(id=self.id)
+        prodaje_lastnine = lastniska_enota.elaborat.prodajalastnine_set.all()
+        zadnja_prodaja = prodaje_lastnine.latest('datum_predaje')
+        prodaja = zadnja_prodaja
+        return prodaja
+
+    @property
+    def najem(self):
+        lastniska_enota = LastniskaEnotaInterna.objects.get(id=self.id)
+        najem_lastnine = lastniska_enota.najemlastnine_set.filter(is_active=True)
+        zadnji_najem = najem_lastnine.latest('datum_predaje')  # vrniti bi moralo samo en vnos (zaenkrat pustim še vedno latest)
+        najem = zadnji_najem
+        return najem
+
+
+        
+
+
     # METHODS
 
     # META AND STRING
@@ -111,9 +134,9 @@ class InternaDodatno(models.Model):
     # ATRIBUTES
     #   Relations
     interna = models.OneToOneField(LastniskaEnotaInterna, verbose_name="interna LE")
-    lastnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='lastnik')
-    najemnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='najemnik')
-    placnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='placnik')
+    # lastnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='lastnik')
+    # najemnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='najemnik')
+    # placnik = models.ForeignKey(SkupinaPartnerjev, blank=True, null=True, related_name='placnik')
     uporabno_dovoljenje = models.ForeignKey("UporabnoDovoljenje", blank=True, null=True)
     #   Mandatory
     stanje_prostora = models.CharField(max_length=255, blank=True, null=True)

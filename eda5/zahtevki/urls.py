@@ -38,4 +38,5 @@ urlpatterns += [
 # opravilo
 urlpatterns += [
     url(r'^opravilo-create/(?P<pk>\d+)$', splosno.OpraviloCreateView.as_view(), name="opravilo_create"),
+    url(r'^opravilo-from-vzorec-create/(?P<pk>\d+)$', izvedba_dela.OpraviloCreateFromVzorecView.as_view(), name="opravilo_from_vzorec_create"),
 ]

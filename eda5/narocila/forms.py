@@ -36,6 +36,8 @@ class NarociloSplosnoCreateForm(forms.ModelForm):
         # avtomatsko dodeljena oznaka = ReadOnly
         self.fields['oznaka'].widget.attrs['readonly'] = True
 
+        self.fields['oseba_hidden'].required = False
+
     # post ne more povozit okence ki je readonly
     def clean_oznaka(self):
         instance = getattr(self, 'instance', None)
@@ -43,6 +45,9 @@ class NarociloSplosnoCreateForm(forms.ModelForm):
             return instance.oznaka
         else:
             return self.cleaned_data['oznaka']
+
+    # zaradi filtriranja "oseba"
+    oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
 
     class Meta:
         model = Narocilo
@@ -62,9 +67,6 @@ class NarociloSplosnoCreateForm(forms.ModelForm):
 
 
 class NarociloTelefonCreateForm(forms.ModelForm):
-
-    # zaradi filtriranja "oseba"
-    oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
 
     class Meta:
         model = NarociloTelefon

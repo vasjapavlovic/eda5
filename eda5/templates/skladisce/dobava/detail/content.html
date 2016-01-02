@@ -1,0 +1,51 @@
+
+<div class="row m-t-30">
+    <div class="col-sm-12">
+        <div class="panel panel-default p-0">
+            <div class="panel-body p-0"> 
+
+
+
+                <!--nav-tabs-->              
+                <ul class="nav nav-tabs profile-tabs">
+                    <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
+                    <li><a data-toggle="tab" href="#tab_artikli"><b>A</b>rtikli</a></li>
+                </ul>
+                <!--end nav-tabs-->
+
+
+
+                <!--tab-content-->
+                <div class="tab-content m-0"> 
+
+
+
+                    <!--tab******************************** -->
+                    <div id="podatki" class="tab-pane active">
+                        <div class="profile-desk">
+                            <h1>PODATKI :</h1>
+                            {% include "skladisce/dobava/detail/tabs/tab_01.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="tab_artikli" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>ARTIKLI :</h1>
+                            {% include "skladisce/dobava/detail/tabs/tab_02.html" %}   
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                </div>
+                <!--end tab-content-->
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

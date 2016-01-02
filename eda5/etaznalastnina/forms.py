@@ -61,9 +61,6 @@ class InternaDodatnoCreateForm(forms.ModelForm):
         model = InternaDodatno
         fields = (
             'interna',
-            'lastnik',
-            'najemnik',
-            'placnik',
             'uporabno_dovoljenje',
             'stanje_prostora',
         )

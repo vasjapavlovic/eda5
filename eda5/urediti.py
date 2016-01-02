@@ -6,6 +6,7 @@
 'eda5.delovninalogi'#########################################################
     #1 opravilo_create : uredi, da se da dodajati elemente many-to-many
     #2 vnos delovnega naloga za INTERVENCIJSKA DELA (ročni vpis podatkov, ko je čas)
+    - opravilo from vzorec opravila :  rok izvedbe naj se izdela kot zadnje izdelan + perioda
 
 'eda5.skladisce'#########################################################
 'eda5.etaznalastnina'#########################################################
@@ -14,6 +15,10 @@
 'eda5.lastnistvo'#########################################################
 'eda5.moduli'#########################################################
 'eda5.narocila'#########################################################
+- seznam naročil
+- detail naročila
+- novo naročilo ustno
+- novo naročilo naročilnica/pogodba
 'eda5.partnerji'#########################################################
 'eda5.predaja_lastnine'#########################################################
 'eda5.planiranje'#########################################################
@@ -39,8 +44,11 @@
         # Dodati opis poškodovanih stvari
     #4 Sestanek
         # podzahtevkom omogoči dodajanje udeležencev (glej ZahtevekSestanekCreateView)
+    - zahtevek predaja v posest
+    - zahtevek predaja v najem
 
-    Urediti filtriranje <option> v horizontal filter. Sedaj je uporabljen navaden MultipleSelection
+- Urediti filtriranje <option> v horizontal filter. Sedaj je uporabljen navaden MultipleSelection
+- filtriranje pri izdelavi zahtevek izvedba del
 
 'eda5.zaznamki'#########################################################
 

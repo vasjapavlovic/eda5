@@ -48,7 +48,9 @@
                                 <th>program</th>
                                 <th>opis</th>
                                 <th>lastnik</th>
+                                <th>prejšnji lastnik</th>
                                 <th>najemnik</th>
+                                <th>status najema</th>
                                 <th>plačnik stroškov o.v.</th>
                             </tr>
                         </thead>
@@ -62,9 +64,45 @@
                                 <td>{{ object.elaborat.oznaka }}</td>
                                 <td>{{ object.elaborat.program.naziv }}</td>
                                 <td>{{ object.elaborat.opis }}</td>
-                                <td>{{ object.internadodatno.lastnik.naziv }}</td>
-                                <td>{{ object.internadodatno.najemnik.naziv }}</td>
-                                <td>{{ object.internadodatno.placnik.naziv }}</td>
+
+                                <!-- pod pogojem da najemnik obstaja -->
+                                {% if object.najem.predaja_lastnine.kupec.naziv %}
+
+                                <td>{{ object.prodaja.predaja_lastnine.kupec.naziv }}</td>
+                                
+                                    <!-- če prejšnji lastnik ne obstaja -->
+                                    {% if object.prodaja.predaja_lastnine.prodajalec %}
+                                        <td>{{ object.prodaja.predaja_lastnine.prodajalec.naziv }} | dne {{ object.prodaja.datum_predaje }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                               
+                                        <td>{{ object.najem.predaja_lastnine.kupec.naziv }}</td>
+                                        <td>v najemu od dne {{ object.najem.datum_predaje }}</td>
+                                        <td>{{ object.najem.placnik.naziv }}</td>
+
+                                {% else %}
+                                <td>{{ object.prodaja.predaja_lastnine.kupec.naziv }}</td>
+                                
+
+                                    <!-- če prejšnji lastnik ne obstaja -->
+                                    {% if object.prodaja.predaja_lastnine.prodajalec %}
+                                        <td>{{ object.prodaja.predaja_lastnine.prodajalec.naziv }} | dne {{ object.prodaja.datum_predaje }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ object.prodaja.placnik.naziv }}</td>
+                                    
+
+                                {% endif %}
+
+                                <!-- podatki o prejšnjih lastnikih -->
+                                
+
+
                             </tr>
 
                             {% endfor %}

@@ -241,7 +241,9 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             arhiviral = arhiviranje_form.cleaned_data['arhiviral']
             elektronski = arhiviranje_form.cleaned_data['elektronski']
             fizicni = arhiviranje_form.cleaned_data['fizicni']
+            print(delovninalog.opravilo.zahtevek.oznaka)
             lokacija_hrambe = ArhivMesto.objects.get(oznaka=delovninalog.opravilo.zahtevek.oznaka)
+
 
             Arhiviranje.objects.create_arhiviranje(
                 delovninalog=delovninalog,

@@ -2,94 +2,90 @@ from django.db import models
 
 from .managers import *
 
-from eda5.core.models import IsActiveModel, TimeStampedModel
+from eda5.core.models import TimeStampedModel, IsActiveModel
 from eda5.etaznalastnina.models import LastniskaEnotaElaborat, LastniskaEnotaInterna
 from eda5.partnerji.models import SkupinaPartnerjev
-from eda5.posta.models import Dokument
 
 
-class Prodaja(IsActiveModel, TimeStampedModel):
+class PredajaLastnine(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    kupec = models.ForeignKey(SkupinaPartnerjev)
-    lastniska_enota = models.ManyToManyField(LastniskaEnotaElaborat, verbose_name="lastniška enota")
-    zapisnik_predaje = models.ForeignKey(Dokument, verbose_name="zapisnik predaje v posest")
+    prodajalec = models.ForeignKey(SkupinaPartnerjev, related_name="prodajalec")
+    kupec = models.ForeignKey(SkupinaPartnerjev, related_name="kupec")
     #   Mandatory
-    datum_predaje = models.DateField(verbose_name="datum predaje v posest")
+    oznaka = models.CharField(max_length=20, unique=True)  # LST-2016-1
     #   Optional
-    datum_vpisa = models.DateField(blank=True, null= True, verbose_name="datum vpisa v zemljiško knjigo")
     # OBJECT MANAGER
-
     # CUSTOM PROPERTIES
-    @property
-    def aktiven(self):
-        if self.is_active:
-            status = "Aktiven"
-        else:
-            status = "Neaktiven"
-        return status
-
     # METHODS
 
     # META AND STRING
     class Meta:
-        verbose_name = "prodaja"
-        verbose_name_plural = "prodaja"
+        verbose_name = "predaja lastnine"
+        verbose_name_plural = "predaje lastnine"
 
     def __str__(self):
-        return "%s | %s | %s" % (self.datum_predaje, self.kupec, self.aktiven)
+        return "%s | %s | %s" % (
+            self.oznaka,
+            self.prodajalec.naziv,
+            self.kupec.naziv,
+            )
 
 
-class Najem(IsActiveModel, TimeStampedModel):
+class ProdajaLastnine(models.Model):
     # ---------------------------------------------------------------------------------------
-    dan = 'dan'
-    teden = 'teden'
-    mesec = 'mesec'
-    leto = 'leto'
-
-    ENOTE = (
-             (dan, "Dan"),
-             (teden, "Teden"),
-             (mesec, "Mesec"),
-             (leto, "Leto")
-             )
-
-    PLACNIK = (
-               (1, "lastnik"),
-               (2, "najemnik")
-               )
-
     # ATRIBUTES
     #   Relations
-    najemnik = models.ForeignKey(SkupinaPartnerjev)
-    lastniska_enota = models.ManyToManyField(LastniskaEnotaInterna, verbose_name="lastniška enota")
-    najemna_pogodba = models.ForeignKey(Dokument, verbose_name="najemna pogodba")
+    predaja_lastnine = models.ForeignKey(PredajaLastnine)
+    lastniska_enota = models.ForeignKey(LastniskaEnotaElaborat, blank=True, null=True, verbose_name="LE")
+
     #   Mandatory
-    datum_predaje = models.DateField(verbose_name="datum predaje v najem")
-    trajanje_enota = models.CharField(max_length=5, choices=ENOTE, verbose_name="enota trajanja najema")
-    trajanje_kolicina = models.IntegerField(verbose_name="količina trajanja/enota")
-    placnik_stroskov = models.CharField(max_length=8, choices=PLACNIK, verbose_name="plačnik stroškov")
+    placnik = models.ForeignKey(SkupinaPartnerjev)
+    datum_predaje = models.DateField()
+
     #   Optional
-    
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
-    @property
-    def aktiven(self):
-        if self.is_active:
-            status = "Aktiven"
-        else:
-            status = "Neaktiven"
-        return status
-
     # METHODS
-    
+
     # META AND STRING
     class Meta:
-        verbose_name = "najem"
-        verbose_name_plural = "najem"
+        verbose_name = "prodaja lastnine"
+        verbose_name_plural = "prodaja lastnine"
 
     def __str__(self):
-        return "%s | %s | %s" % (self.datum_predaje, self.najemnik, self.aktiven)
+        return "%s | %s | %s" % (
+            self.predaja_lastnine.oznaka,
+            self.lastniska_enota.oznaka,
+            self.datum_predaje,
+            )
 
 
+class NajemLastnine(IsActiveModel):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    predaja_lastnine = models.ForeignKey(PredajaLastnine)
+    lastniska_enota = models.ForeignKey(LastniskaEnotaInterna, blank=True, null=True, verbose_name="LE")
+
+    #   Mandatory
+    placnik = models.ForeignKey(SkupinaPartnerjev)
+    datum_predaje = models.DateField()
+    datum_veljavnosti = models.DateField(blank=True, null=True)
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "najem lastnine"
+        verbose_name_plural = "najem lastnine"
+
+    def __str__(self):
+        return "%s | %s | %s" % (
+            self.predaja_lastnine.oznaka,
+            self.lastniska_enota.oznaka,
+            self.datum_predaje,
+            )

@@ -5,6 +5,7 @@ from eda5.posta.models import Dokument
 from eda5.core.models import TimeStampedModel, IsActiveModel
 from eda5.katalog.models import ArtikelPlan
 from eda5.deli.models import Element
+from eda5.zahtevki.models import Zahtevek
 
 from . import managers
 
@@ -37,6 +38,7 @@ class Plan(TimeStampedModel, IsActiveModel):
     # ATRIBUTES
     #   Relations
     sklop = models.ForeignKey(SkupinaPlanov)
+    zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)  # plan se izdela iz zahtevka
     #   Mandatory
     oznaka = models.CharField(max_length=25)
     naziv = models.CharField(max_length=255)

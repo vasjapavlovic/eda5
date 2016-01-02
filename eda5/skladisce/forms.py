@@ -15,7 +15,11 @@ class DobavaCreateForm(forms.ModelForm):
         super(DobavaCreateForm, self).__init__(*args, **kwargs)
 
         # avtomatska oznaka
-        st_dobav = Dobava.objects.all().count() + 1
+        try:
+            st_dobav = Dobava.objects.all().count() + 1
+        except:
+            st_dobav = 1
+
         leto = timezone.now().date().year
         nova_oznaka = 'DOB-' + str(leto) + "-" + str(st_dobav)
         self.initial['oznaka'] = nova_oznaka

@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, UpdateView
+from django.utils import timezone
 
 
 # INTERNO ##############################################################
@@ -22,6 +23,10 @@ from ..models import ZahtevekIzvedbaDela
 
 # Moduli
 from eda5.moduli.models import Zavihek
+
+# Delovni Nalogi
+from eda5.delovninalogi.forms import VzorecOpravilaIzbiraForm
+from eda5.delovninalogi.models import Opravilo
 
 
 class ZahtevekIzvedbaDelCreateView(TemplateView):
@@ -161,3 +166,81 @@ class ZahtevekUpdateIzvedbaView(UpdateView):
     model = ZahtevekIzvedbaDela
     form_class = ZahtevekIzvedbaDelUpdateForm
     template_name = "zahtevki/zahtevek/update_zahtevek_izvedba.html"
+
+
+class OpraviloCreateFromVzorecView(UpdateView):
+    model = Zahtevek
+    template_name = "delovninalogi/opravilo/create_from_vzorec_opravila.html"
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(OpraviloCreateFromVzorecView, self).get_context_data(*args, **kwargs)
+
+        # vzorec opravila
+        context['vzorec_opravila_izbira_form'] = VzorecOpravilaIzbiraForm
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_FROM_VZOREC_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # object
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+
+        # forms
+        vzorec_opravila_izbira_form = VzorecOpravilaIzbiraForm(request.POST or None)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_FROM_VZOREC_CREATE")
+
+        # izdelamo opravilo (!!!elemente opravilu dodamo kasneje)
+        if vzorec_opravila_izbira_form.is_valid():
+            vzorec_opravila = vzorec_opravila_izbira_form.cleaned_data['vzorec_opravila']
+
+            # nova oznaka opravila
+            try:
+                leto = timezone.now().date().year
+                zap_st = Opravilo.objects.all().count()
+                zap_st = zap_st + 1
+            except:
+                zap_st = 1
+
+            nova_oznaka = "OPR-%s-%s" % (leto, zap_st)  #
+
+            # iz VzorecOpravila poberemo podatke
+            oznaka = nova_oznaka
+            naziv = vzorec_opravila.naziv
+            rok_izvedbe = timezone.now().date()  # rok izvedbe izhaja iz zadnjega dodanega + perioda
+            narocilo = vzorec_opravila.narocilo
+            nosilec = vzorec_opravila.nosilec
+            planirano_opravilo = vzorec_opravila.planirano_opravilo
+            element_list = vzorec_opravila.element.all()
+            print(element_list)
+
+            opravilo_data = Opravilo.objects.create_opravilo(
+                oznaka=oznaka,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                zahtevek=zahtevek,
+                nosilec=nosilec,
+                planirano_opravilo=planirano_opravilo,
+            )
+
+            opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
+
+            # shranimo še elemente, ki so v ManyToMany relaciji z opravilom
+            opravilo_object.element = element_list
+            opravilo_object.save()
+
+        else:
+            return render(request, self.template_name, {
+                'vzorec_opravila_izbira_form': vzorec_opravila_izbira_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))

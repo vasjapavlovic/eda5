@@ -22,7 +22,7 @@ from eda5.arhiv.models import Arhiviranje, ArhivMesto
 
 # Deli
 from eda5.deli.forms import ElementIzbiraForm
-from eda5.deli.models import Skupina, Podskupina, ProjektnoMesto
+from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto 
 
 # Delovni Nalogi
 from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm
@@ -284,7 +284,6 @@ def reload_controls_element_podskupina_view(request):
     for podskupina in skupina.podskupina_set.all():
         podskupina_list.append(podskupina.id)
 
-
     # OUTPUT FILTER
     # Podskupine
     context['podskupine_to_display'] = podskupina_list
@@ -325,11 +324,14 @@ def reload_controls_element_element_view(request):
     context = {}
     # get the object
     del_stavbe = request.POST['del_stavbe']
-    projektno_mesto = ProjektnoMesto.objects.get(id=del_stavbe)
+    del_stavbe = DelStavbe.objects.get(id=del_stavbe)
+    projektno_mesto_list = ProjektnoMesto.objects.filter(del_stavbe=del_stavbe)
 
     # deli stavbe glede na izbrano podskupino
     element_list = []
-    for element in projektno_mesto.element_set.all():
+    for projektno_mesto in projektno_mesto_list:
+        # obstaja samo en element v projektnem mestu. ostali niso aktivni
+        element = projektno_mesto.element_set.all()[0]
         element_list.append(element.id)
 
     # OUTPUT FILTER

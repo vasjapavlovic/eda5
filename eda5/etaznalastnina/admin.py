@@ -47,9 +47,7 @@ class LastniskaSkupinaAdmin(admin.ModelAdmin):
 
 @admin.register(InternaDodatno)
 class InternaDodatnoAdmin(admin.ModelAdmin):
-
-    search_fields = ('lastnik', 'najemnik', 'placnik')
-    list_display = ('interna', 'lastnik', 'najemnik', 'placnik',)
+    pass
 
 
 @admin.register(UporabnoDovoljenje)

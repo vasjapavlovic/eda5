@@ -25,22 +25,17 @@
     <!-- V ČAKANJU -->
         {% if object.status == 1 %}
         <li><a type="button" class="" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-        <li><a> | </a></li>
-        <li><a align="center" href="{% url 'moduli:delovninalogi:dn_update_vcakanju' object.id %}">Planiraj</a></li>
+        <li><a href="{% url 'moduli:delovninalogi:dn_update_vcakanju' object.id %}">Planiraj</a></li>
         {% endif %}
 
         {% if object.status == 2 %}
         <li><a type="button" class="" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-        <li><a> | </a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addDelo">
             <b>Dodaj</b> Delo</a></li>
-        <li><a> | </a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addMaterial">
                 <b>Dodaj</b> Material</a></li>
-        <li><a> | </a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addDokumentacija">
                 <b>Dodaj</b> Dokument</a></li>
-        <li><a> | </a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addZaznamek">
                 <b>Dodaj</b> Zaznamek</a></li>
         
@@ -49,18 +44,13 @@
         
         {% if object.status == 3 %}
         <li><a type="button" class="" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-        <li><a> | </a></li>
-        <li><a align="center" href="{% url 'moduli:delovninalogi:dn_update_vresevanju' object.id %}">Zaključi</a></li>
-        <li><a> | </a></li>
+        <li><a href="{% url 'moduli:delovninalogi:dn_update_vresevanju' object.id %}">Zaključi</a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addDelo">
             <b>Dodaj</b> Delo</a></li>
-        <li><a> | </a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addMaterial">
                 <b>Dodaj</b> Material</a></li>
-        <li><a> | </a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addDokumentacija">
                 <b>Dodaj</b> Dokument</a></li>
-        <li><a> | </a></li>
         <li><a type="button" class="" data-toggle="modal" data-target="#addZaznamek">
                 <b>Dodaj</b> Zaznamek</a></li>
         
@@ -69,8 +59,7 @@
         <!-- ZAKLJUČENO -->
         {% if object.status == 4 %}
         <li><a type="button" class="" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-        <li><a> | </a></li>
-        <li><a align="center" href="">Natisni Delovni Nalog</a></li>
+        <li><a href="">Natisni Delovni Nalog</a></li>
         {% endif %}
     
 
