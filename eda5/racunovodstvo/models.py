@@ -40,9 +40,11 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     # CUSTOM PROPERTIES
     @property
     def dokument(self):
-        arhiviranje_list = self.arhiviranje_set.all()
-        arhiviranje = arhiviranje_list[0]
-        return arhiviranje.dokument
+        # ''' do dokumenta dostopamo preko modula "Pošta". arhiviranje_list[0] lahko
+        # uporabim ker je 
+        # arhiviranje_list = self.arhiviranje_set.all()
+        # arhiviranje = arhiviranje_list[0]
+        return self.arhiviranje.dokument
 
     @property
     def vrednost_brez_ddv(self):

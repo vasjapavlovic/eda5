@@ -25,6 +25,7 @@ class LastniskaEnotaInternaListTehView(ListView):
         return context
 
 
+
 class LastniskaEnotaInternaListLastView(ListView):
 
     model = LastniskaEnotaInterna

@@ -6,44 +6,57 @@
 {% load url from future %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-5">
-      <h2>{% trans "Sign In" %}</h2>
-      {% get_providers as socialaccount_providers %}
-      {% if socialaccount_providers %}
-      <p>{% blocktrans with site.name as site_name %}Please sign in with one
-      of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-      for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
-      <div class="socialaccount_ballot">
 
-        <ul class="socialaccount_providers">
-          {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-        </ul>
+<div class="wrapper-page animated fadeInDown">
+            <div class="panel panel-color panel-danger">
+                <div class="panel-heading"> 
+                   <h3 class="text-center m-t-10"> Vstopi v <strong>EDA5</strong> </h3>
+                </div> 
 
-        <div class="login-or">{% trans 'or' %}</div>
+                <form class="form-horizontal m-t-40" method="POST" action="{% url 'account_login' %}">{% csrf_token %}
+                                            
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            {{ form.login | as_crispy_field }}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        
+                        <div class="col-xs-12">
+                            {{ form.password | as_crispy_field }}
+                        </div>
+                    </div>
 
-      </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <label class="cr-styled">
+                                <input type="checkbox" checked>
+                                <i class="fa"></i> 
+                                Zapomni si
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group text-right">
+                        <div class="col-xs-12">
+                            <button class="btn btn-danger w-md" type="submit">Log In</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-t-30">
+                        <div class="col-sm-7">
+                            <a href="{% url 'account_reset_password' %}"><i class="fa fa-lock m-r-5"></i> Ste pozabili geslo?</a>
+                        </div>
+                        <div class="col-sm-5 text-right">
+                            <a href="{% url 'account_signup' %}">Create an account</a>
+                        </div>
+                    </div>
+                </form>
 
-      {% include "socialaccount/snippets/login_extra.html" %}
-
-      {% endif %}
-
-      <form class="login" method="POST" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-      </form>
-    </div>
-  </div>
-</div>
+            </div>
+        </div>
 {% endblock %}
 
