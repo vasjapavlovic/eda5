@@ -20,8 +20,8 @@ from eda5.partnerji.models import Partner, Posta, Drzava, SkupinaPartnerjev
 from eda5.deli.forms import SkupinaCreateForm, PodskupinaCreateForm
 from eda5.deli.models import Skupina
 
-from eda5.racunovodstvo.forms import KontoCreateForm, PodkontoCreateForm, SkupinaVrsteStroskaCreateForm,\
-                                     VrstaStroskaCreateForm
+from eda5.racunovodstvo.forms.racun_forms import KontoCreateForm, PodkontoCreateForm
+from eda5.racunovodstvo.forms.vrsta_stroska_forms import SkupinaVrsteStroskaCreateForm, VrstaStroskaCreateForm
 from eda5.racunovodstvo.models import Konto, PodKonto, SkupinaVrsteStroska
 
 from eda5.delovninalogi.forms import DeloVrstaSklopCreateForm, DeloVrstaCreateForm

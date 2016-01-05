@@ -1,8 +1,7 @@
 from django import forms
 from functools import partial
 
-from .models import Racun, Konto, PodKonto, SkupinaVrsteStroska, VrstaStroska
-from eda5.core.models import ObdobjeLeto, ObdobjeMesec
+from ..models import Racun, Konto, PodKonto
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -45,30 +44,6 @@ class PodkontoCreateForm(forms.ModelForm):
 
     class Meta:
         model = PodKonto
-        fields = (
-            'oznaka',
-            'naziv',
-            'zap_st',
-            'skupina',
-        )
-
-
-class SkupinaVrsteStroskaCreateForm(forms.ModelForm):
-
-    class Meta:
-        model = SkupinaVrsteStroska
-        fields = (
-            'oznaka',
-            'naziv',
-            'zap_st',
-            'skupina',
-        )
-
-
-class VrstaStroskaCreateForm(forms.ModelForm):
-
-    class Meta:
-        model = VrstaStroska
         fields = (
             'oznaka',
             'naziv',

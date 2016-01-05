@@ -21,7 +21,8 @@
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
 
-    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li> 
+    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
+    <li><a type="button" href="{% url 'moduli:racunovodstvo:strosek_from_racun_create' object.pk %}"><b>Dodaj</b> Strošek</a></li>
 
 {% endblock %}
 <!-- end Navbar-Left podatki -->

@@ -2,6 +2,7 @@
 
 'eda5.arhiv'#########################################################
     Arhiviranje --> Relacije na račune, zahtevke itd je prenesti v ArhivMesto!
+    Dodati arhiv in osnovna arhivska mesta:  01:Arhiv,   RAC:Računovodstvo
 'eda5.core'#########################################################
 'eda5.deli'#########################################################
 'eda5.delovninalogi'#########################################################

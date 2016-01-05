@@ -9,8 +9,8 @@ from django.shortcuts import render
 
 
 # INTERNO ############################################################
-from .models import Racun, Strosek
-from .forms import RacunCreateForm
+from ..models import Racun, Strosek
+from ..forms.racun_forms import RacunCreateForm
 
 
 # UVOŽENO ############################################################

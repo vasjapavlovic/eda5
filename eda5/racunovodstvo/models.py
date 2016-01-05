@@ -9,7 +9,7 @@ from eda5.delovninalogi.models import DelovniNalog
 from eda5.narocila.models import Narocilo
 
 
-from .managers import RacunManager
+from .managers import RacunManager, StrosekManager
 
 
 class Racun(TimeStampedModel, IsLikvidiranModel):
@@ -37,13 +37,12 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
 
     # OBJECT MANAGER
     objects = RacunManager()
+
     # CUSTOM PROPERTIES
     @property
     def dokument(self):
-        # ''' do dokumenta dostopamo preko modula "Pošta". arhiviranje_list[0] lahko
-        # uporabim ker je 
-        # arhiviranje_list = self.arhiviranje_set.all()
-        # arhiviranje = arhiviranje_list[0]
+        ''' podatke o dokumentu pridobimo iz arhiviranja Prejete ali Izdane Pošte
+        Pošta:Aktivnost:Dokument --> Arhiviranje:ArhivMesto --> Racun:Racunovodstvo'''
         return self.arhiviranje.dokument
 
     @property
@@ -134,11 +133,13 @@ class Strosek(models.Model):
     osnova = models.DecimalField(decimal_places=2, max_digits=7, verbose_name='osnova za ddv')
     # 0.22(22%) in 0.095(9,5%) | 0.000
     stopnja_ddv = models.IntegerField(choices=STOPNJE_DDV, verbose_name="stopnja DDV")
-    delilnik_vrsta = models.CharField(max_length=50, choices=DELILNIK_VRSTA)
-    delilnik_kljuc = models.CharField(max_length=50, choices=DELILNIK_KLJUC)
-    is_strosek_posameznidel = models.BooleanField(verbose_name="strosek na posameznem delu")
+    delilnik_vrsta = models.CharField(blank=True, max_length=50, choices=DELILNIK_VRSTA)
+    delilnik_kljuc = models.CharField(blank=True, max_length=50, choices=DELILNIK_KLJUC)
+    is_strosek_posameznidel = models.NullBooleanField(verbose_name="strosek na posameznem delu")
     # ***Optional***
+
     # OBJECT MANAGER
+    objects = StrosekManager()
 
     # CUSTOM PROPERTIES
     def stopnja_ddv_output(self):
