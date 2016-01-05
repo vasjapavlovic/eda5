@@ -19,7 +19,6 @@ class Partner(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
-    user = models.OneToOneField(User, null=True, blank=True)
     # ***Mandatory***
     kratko_ime = models.CharField(max_length=100)
     naslov = models.CharField(max_length=255)
@@ -68,6 +67,21 @@ class SkupinaPartnerjev(TimeStampedModel):
 
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
+    @property
+    def partner_object(self):
+        ''' če je v skupini partnerjev samo en partner vrne objekt Partner,
+        nasprotno vrne objekt SkupinaPartnerjev'''
+
+        stevilo_partnerjev = self.partner.all().count()
+        if stevilo_partnerjev == 1:
+            partner = self.partner.all()[0]
+
+        else:
+            skupina_partnerjev = SkupinaPartnerjev.objects.get(id=self.id)
+            partner = skupina_partnerjev
+
+        return partner
+
     # METHODS
 
     # META AND STRING
@@ -151,6 +165,8 @@ class Oseba(TimeStampedModel, IsActiveModel):
         ("A", 'pooblaščenec'),
         ("B", 'delavec'),
         )
+
+    user = models.OneToOneField(User, null=True, blank=True)  # za login
 
     priimek = models.CharField(max_length=50)
     ime = models.CharField(max_length=50)

@@ -20,10 +20,6 @@
 
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
-
-    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-    <li><a type="button" href="{% url 'moduli:racunovodstvo:strosek_from_racun_create' object.pk %}"><b>Dodaj</b> Strošek</a></li>
-
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -31,11 +27,13 @@
 
 <!-- PAGE TITLE -->
 {% block content_title %}
+
     <div class="panel panel-{{ modul_zavihek.modul.barva }} p-0">
-            <table class="table">
-                {% include "racunovodstvo/racun/detail/header.html" %}
-            </table>
+        <table class="table">
+            {% include "porocanjeupravnika/user/detail/header.html" %}
+        </table>
     </div>
+
 {% endblock %}
 <!-- end PAGE TITLE -->
 
@@ -43,8 +41,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content %}
-{% include "racunovodstvo/racun/detail/content.html" %}
-{% include "racunovodstvo/racun/detail/modal.html" %}
+    {% include "porocanjeupravnika/user/detail/content.html" %}
+    {% include "porocanjeupravnika/user/detail/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 

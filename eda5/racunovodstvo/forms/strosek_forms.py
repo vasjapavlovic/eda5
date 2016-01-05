@@ -1,5 +1,6 @@
 from django import forms
 from functools import partial
+from django.forms import formset_factory
 
 from ..models import Strosek
 
@@ -68,3 +69,4 @@ class StrosekUpdateForm(forms.ModelForm):
             'datum_storitve_od': DateInput(),
             'datum_storitve_do': DateInput(),
         }
+

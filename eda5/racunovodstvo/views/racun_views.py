@@ -18,6 +18,9 @@ from ..forms.racun_forms import RacunCreateForm
 from eda5.arhiv.forms import ArhiviranjeRacunForm
 from eda5.arhiv.models import ArhivMesto, Arhiviranje
 
+# Partnerji
+from eda5.partnerji.models import Oseba
+
 # Posta
 from eda5.posta.models import Dokument
 
@@ -25,9 +28,11 @@ from eda5.posta.models import Dokument
 from eda5.moduli.models import Zavihek
 
 
+
 class RacunCreateView(TemplateView):
     model = Dokument
     template_name = "racunovodstvo/racun/create.html"
+
 
     def get_context_data(self, *args, **kwargs):
         context = super(RacunCreateView, self).get_context_data(*args, **kwargs)
@@ -51,26 +56,14 @@ class RacunCreateView(TemplateView):
         modul_zavihek = Zavihek.objects.get(oznaka="RACUN_CREATE")
 
         if racun_create_form.is_valid():
+            racunovodsko_leto = racun_create_form.cleaned_data['racunovodsko_leto']
+            oznaka = racun_create_form.cleaned_data['oznaka']
             davcna_klasifikacija = racun_create_form.cleaned_data['davcna_klasifikacija']
-            datum_storitve_od = racun_create_form.cleaned_data['datum_storitve_od']
-            datum_storitve_do = racun_create_form.cleaned_data['datum_storitve_do']
-            obdobje_obracuna_leto = racun_create_form.cleaned_data['obdobje_obracuna_leto']
-            obdobje_obracuna_mesec = racun_create_form.cleaned_data['obdobje_obracuna_mesec']
-            narocilo = racun_create_form.cleaned_data['narocilo']
-            osnova_0 = racun_create_form.cleaned_data['osnova_0']
-            osnova_1 = racun_create_form.cleaned_data['osnova_1']
-            osnova_2 = racun_create_form.cleaned_data['osnova_2']
 
             racun_data = Racun.objects.create_racun(
+                racunovodsko_leto=racunovodsko_leto,
+                oznaka=oznaka,
                 davcna_klasifikacija=davcna_klasifikacija,
-                datum_storitve_od=datum_storitve_od,
-                datum_storitve_do=datum_storitve_do,
-                obdobje_obracuna_leto=obdobje_obracuna_leto,
-                obdobje_obracuna_mesec=obdobje_obracuna_mesec,
-                narocilo=narocilo,
-                osnova_0=osnova_0,
-                osnova_1=osnova_1,
-                osnova_2=osnova_2,
                 )
 
             racun = Racun.objects.get(id=racun_data.pk)
@@ -86,17 +79,21 @@ class RacunCreateView(TemplateView):
         if arhiviranje_create_form.is_valid():
 
             dokument = arhiviranje_create_form.cleaned_data['dokument']
-            arhiviral = arhiviranje_create_form.cleaned_data['arhiviral']
+
             lokacija_hrambe = ArhivMesto.objects.get(oznaka="RAC")
 
             # Računi se hranijo v elektronski in fizični obliki
             elektronski = True
             fizicni = True
 
+            # trenutni logirani uporabnik
+            user = request.user
+            oseba = Oseba.objects.get(user=user)
+
             Arhiviranje.objects.create_arhiviranje(
                 racun=racun,
                 dokument=dokument,
-                arhiviral=arhiviral,
+                arhiviral=oseba,
                 elektronski=elektronski,
                 fizicni=fizicni,
                 lokacija_hrambe=lokacija_hrambe,

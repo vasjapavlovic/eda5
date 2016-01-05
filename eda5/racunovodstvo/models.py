@@ -20,20 +20,10 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     )
     # ATRIBUTES
     # ***Relations***
-    obdobje_obracuna_leto = models.ForeignKey(ObdobjeLeto)
-    obdobje_obracuna_mesec = models.ForeignKey(ObdobjeMesec)
-    narocilo = models.ForeignKey(Narocilo, blank=True, null=True)
+    racunovodsko_leto = models.ForeignKey(ObdobjeLeto)
     # ***Mandatory***
+    oznaka = models.IntegerField()
     davcna_klasifikacija = models.IntegerField(choices=DAVCNA_KLASIFIKACIJA)
-    datum_storitve_od = models.DateField()
-    datum_storitve_do = models.DateField()
-    # ***Optional***
-    osnova_0 = models.DecimalField(decimal_places=2, max_digits=7,
-                                   blank=True, null=True, verbose_name="osnova brez ddv")
-    osnova_1 = models.DecimalField(decimal_places=2, max_digits=7,
-                                   blank=True, null=True, verbose_name="osnova nižja stopnja")
-    osnova_2 = models.DecimalField(decimal_places=2, max_digits=7,
-                                   blank=True, null=True, verbose_name="osnova višja stopnja")
 
     # OBJECT MANAGER
     objects = RacunManager()
@@ -44,42 +34,6 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
         ''' podatke o dokumentu pridobimo iz arhiviranja Prejete ali Izdane Pošte
         Pošta:Aktivnost:Dokument --> Arhiviranje:ArhivMesto --> Racun:Racunovodstvo'''
         return self.arhiviranje.dokument
-
-    @property
-    def vrednost_brez_ddv(self):
-        if self.osnova_0:
-            osnova_0 = self.osnova_0
-        else:
-            osnova_0 = 0
-        if self.osnova_1:
-            osnova_1 = self.osnova_1
-        else:
-            osnova_1 = 0
-        if self.osnova_2:
-            osnova_2 = self.osnova_2
-        else:
-            osnova_2 = 0
-        vrednost_brez_ddv = Decimal(osnova_0) + Decimal(osnova_1) + Decimal(osnova_2)
-        return "%.2f" % (vrednost_brez_ddv)
-
-    @property
-    def vrednost_z_ddv(self):
-        if self.osnova_0:
-            osnova_0 = self.osnova_0
-        else:
-            osnova_0 = 0
-        if self.osnova_1:
-            osnova_1 = self.osnova_1
-        else:
-            osnova_1 = 0
-        if self.osnova_2:
-            osnova_2 = self.osnova_2
-        else:
-            osnova_2 = 0
-        vrednost_z_ddv = Decimal(osnova_0) + Decimal(osnova_1) * (1 + Decimal(0.095)) +\
-                        Decimal(osnova_2) * (1 + Decimal(0.22))
-        return "%.2f" % (vrednost_z_ddv)
-
 
 
     # METHODS

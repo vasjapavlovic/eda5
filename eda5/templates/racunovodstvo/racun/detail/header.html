@@ -1,0 +1,25 @@
+
+
+
+<!-- vrstica 1 -->
+<tr class="success">
+    <td><small>št. dokumenta </small></td>
+    <td><strong><a href="{{ MEDIA_URL }}{{ object.dokument.priponka }}"  target="_blank">{{ object.arhiviranje.dokument.oznaka }}</a></strong></td>
+</tr>
+
+
+<!-- vrstica 2 -->
+<tr>
+    <td><small>Izvajalec</small></td>
+    <td>({{ object.arhiviranje.dokument.avtor.partner_object.davcna_st }}) {{ object.arhiviranje.dokument.avtor.partner_object.kratko_ime }}</td>
+</tr>
+
+
+<!-- vrstica 3 -->
+<tr>
+    <td><small>davčna klasifikacija </small></td>
+    <td><strong>{{ object.get_davcna_klasifikacija_display }}</strong></td>
+</tr>
+
+
+

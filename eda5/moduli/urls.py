@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^planiranje/', include("eda5.planiranje.urls", namespace="planiranje")),
     url(r'^posta/', include("eda5.posta.urls", namespace="posta")),
     url(r'^pomanjkljivosti/', include("eda5.pomanjkljivosti.urls", namespace="pomanjkljivosti")),
+    url(r'^porocanje-upravnika/', include("eda5.porocanjeupravnika.urls", namespace="porocanjeupravnika")),
     url(r'^racunovodstvo/', include("eda5.racunovodstvo.urls", namespace="racunovodstvo")),
     url(r'^razdelilnik/', include("eda5.razdelilnik.urls", namespace="razdelilnik")),
     url(r'^skladisce/', include("eda5.skladisce.urls", namespace="skladisce")),

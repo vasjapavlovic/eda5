@@ -1,27 +1,58 @@
 <!-- Podatki -->
 
-<table class="table table-striped table-bordered">
+
+<table class="table">
+    <tr>
+        <td><small>Računovodska Številka</small></td>
+        <td><b style="color:#0000FF">{{ object.oznaka }}.{{ object.racunovodsko_leto }}</b></td>
+    </tr>
+    <tr>
+        <td><small>Prejeto Dne</small></td>
+        <td>{{ object.dokument.aktivnost.datum_aktivnosti }}</td>
+    </tr>
+
+    <!-- podatki od okumentu -->
+    <tr>
+        <td><small>Številka Dokumenta</small></td>
+        <td>{{ object.dokument.oznaka }}</td>
+    </tr>
 
     <tr>
-        <td><small><b>št.dokumenta</b></small></td>
-        <td><b style="color:#0000FF">{{ object.dokument.oznaka }}</b></td>
+        <td><small>Kraj in Datum Izdaje:</small></td>
+        <td>{{ object.dokument.kraj_izdaje }}, {{ object.dokument.datum_dokumenta }}</td>
     </tr>
+
     <tr>
-        <td><small><b>Davčna Klasifikacija</b></small></td>
-        <td><b style="color:#0000FF">{{ object.dokument.naziv }}</b></td>
+        <td><small>Naziv Izvajalca/Dobavitelja:</small></td>
+        <td>{{ object.dokument.avtor.partner_object.kratko_ime }}</td>
     </tr>
+
+    <tr>
+        <td><small>Naslov:</small></td>
+        <td>{{ object.dokument.avtor.partner_object.naslov }}</td>
+    </tr>
+
+    <tr>
+        <td><small>Pošta:</small></td>
+        <td>{{ object.dokument.avtor.partner_object.posta.postna_stevilka }} 
+        {{ object.dokument.avtor.partner_object.posta.naziv }}</td>
+    </tr>
+
+    <tr>
+        <td><small>Naslov:</small></td>
+        {% if object.dokument.avtor.partner_object.davcni_zavezanec %}
+        <td>SI{{ object.dokument.avtor.partner_object.davcna_st }}</td>
+        {% else %}
+        <td>{{ object.dokument.avtor.partner_object.davcna_st }}</td>
+        {% endif %}
+    </tr>
+
     <tr>
         <td><small><b>priponka</b></small></td>
         <td><b style="color:#0000FF"><a href="{{ MEDIA_URL }}{{ object.dokument.priponka }}" target="_blank">{{ object.dokument.priponka }}</a></b></td>
     </tr>
-    <tr>
-        <td><small><b>Vrednost brez ddv</b></small></td>
-        <td><b style="color:#0000FF">{{ object.vrednost_brez_ddv }}</b></td>
-    </tr>
-    <tr>
-        <td><small><b>Vrednost z ddv</b></small></td>
-        <td><b style="color:#0000FF">{{ object.vrednost_z_ddv }}</b></td>
-    </tr>
+
 
 </table>
+
 

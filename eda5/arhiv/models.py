@@ -46,6 +46,8 @@ class ArhivMesto(models.Model):
     # ATRIBUTES
     #   Relations
     arhiv = models.ForeignKey(Arhiv)
+    zahtevek = models.OneToOneField(Zahtevek, blank=True, null=True)
+    delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
     #   Mandatory
     oznaka = models.CharField(max_length=50, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
@@ -64,7 +66,7 @@ class ArhivMesto(models.Model):
 
         # izdelava Arhivskega Mesta v bazi
         if created:
-            dn = ArhivMesto(oznaka=instance.oznaka, naziv=instance.naziv, arhiv=arhiv)
+            dn = ArhivMesto(oznaka=instance.oznaka, naziv=instance.naziv, zahtevek=instance, arhiv=arhiv)
             dn.save()
 
     # META AND STRING

@@ -16,6 +16,8 @@ from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
 from eda5.arhiv.forms import ArhiviranjeCreateForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto, Arhiv
 
+from eda5.partnerji.models import Oseba
+
 from eda5.moduli.models import Zavihek
 
 
@@ -84,14 +86,15 @@ class DokumentCreateView(TemplateView):
 
         if aktivnost_form.is_valid():
 
-            izvajalec = aktivnost_form.cleaned_data['izvajalec']
-            likvidiral = aktivnost_form.cleaned_data['likvidiral']
             vrsta_aktivnosti = aktivnost_form.cleaned_data['vrsta_aktivnosti']
             datum_aktivnosti = aktivnost_form.cleaned_data['datum_aktivnosti']
 
+            # trenutni logirani uporabnik
+            user = request.user
+            oseba = Oseba.objects.get(user=user)
+
             aktivnost_create_data = Aktivnost.objects.create_aktivnost(
-                izvajalec=izvajalec,
-                likvidiral=likvidiral,
+                izvajalec=oseba,
                 vrsta_aktivnosti=vrsta_aktivnosti,
                 datum_aktivnosti=datum_aktivnosti,
             )

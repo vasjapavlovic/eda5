@@ -6,9 +6,65 @@ from django.views.generic import TemplateView, DetailView, ListView
 from eda5.deli.models import DelStavbe
 from eda5.etaznalastnina.models import LastniskaEnotaInterna, LastniskaSkupina
 from eda5.narocila.models import Narocilo
-from eda5.partnerji.models import Partner
+from eda5.partnerji.models import Partner, Oseba
 from eda5.razdelilnik.models import StrosekLE
 from eda5.users.models import User
+
+from eda5.lastnistvo.models import PredajaLastnine
+
+from eda5.moduli.models import Zavihek
+
+
+
+class PorocanjeUpravnikaDetailView(DetailView):
+    model = User
+    template_name = "porocanjeupravnika/user/detail/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PorocanjeUpravnikaDetailView, self).get_context_data(*args, **kwargs)
+
+        modul_zavihek = Zavihek.objects.get(oznaka="USER_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        # seznam lastniških enot v lasti
+        oseba = Oseba.objects.get(user=self.request.user)
+        partner = oseba.podjetje
+        skupina_partnerjev_list = partner.skupinapartnerjev_set.all()
+
+        lastniska_enota_interna_prodaja_list = []
+        for skupina_partnerjev in skupina_partnerjev_list:
+            try:
+                predaja_lastnine = PredajaLastnine.objects.get(kupec=skupina_partnerjev)
+                for prodaja in predaja_lastnine.prodajalastnine_set.all():
+                    lastniska_enota_elaborat = prodaja.lastniska_enota
+
+                    for lastniska_enota_interna in lastniska_enota_elaborat.lastniskaenotainterna_set.all():
+                        lastniska_enota_interna_prodaja_list.append(lastniska_enota_interna)
+            except:
+                pass
+
+        lastniska_enota_interna_najem_list = []
+        for skupina_partnerjev in skupina_partnerjev_list:
+            try:
+                predaja_lastnine = PredajaLastnine.objects.get(kupec=skupina_partnerjev)
+                for prodaja in predaja_lastnine.najemlastnine_set.all():
+                    lastniska_enota_interna = prodaja.lastniska_enota
+                    lastniska_enota_interna_najem_list.append(lastniska_enota_interna)
+
+            except:
+                pass
+
+
+        context['lastniska_enota_interna_prodaja_list'] = lastniska_enota_interna_prodaja_list
+        context['lastniska_enota_interna_najem_list'] = lastniska_enota_interna_najem_list
+
+
+
+        return context
+
+
+
+
 
 
 class PorocanjeHomeView(TemplateView):

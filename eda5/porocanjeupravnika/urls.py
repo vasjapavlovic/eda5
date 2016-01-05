@@ -4,8 +4,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.PorocanjeHomeView.as_view(), name="home"),
-    url(r'^prejeti-racuni/', include("eda5.porocanjeupravnika.urls_prejetiracuni", namespace="prejetiracuni")),
-    url(r'^lastnina/', include("eda5.porocanjeupravnika.urls_lastnina", namespace="lastnina")),
-    url(r'^narocila/', include("eda5.porocanjeupravnika.urls_narocila", namespace="narocila")),
+    url(r'^(?P<pk>\d+)/user/detail/$', views.PorocanjeUpravnikaDetailView.as_view(), name="user_detail"),
 ]

@@ -18,7 +18,6 @@ class Aktivnost(TimeStampedModel):
     # ATRIBUTES
     #   Relations
     izvajalec = models.ForeignKey(Oseba, related_name="izvajalec", verbose_name="izvajalec poštne storitve")
-    likvidiral = models.ForeignKey(Oseba, related_name="likvidiral", verbose_name="pošto bo likvidiral")
     #   Mandatory
     vrsta_aktivnosti = models.IntegerField(choices=AKTIVNOSTI)
     datum_aktivnosti = models.DateField()
@@ -59,6 +58,7 @@ class Dokument(TimeStampedModel):
     oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
     naziv = models.CharField(max_length=255, verbose_name="naziv")
     datum_dokumenta = models.DateField()
+    kraj_izdaje = models.CharField(max_length=100, blank=True)
     priponka = models.FileField(upload_to=dokument_directory_path, blank=True, null=True)
     #   Optional
 
@@ -76,7 +76,7 @@ class Dokument(TimeStampedModel):
         return reverse("moduli:posta:list_likvidacija")
 
     def __str__(self):
-        return "%s - %s | %s" % (self.datum_dokumenta, self.oznaka, self.naziv)
+        return "(%s) %s | %s" % (self.oznaka, self.naziv, self.datum_dokumenta, )
 
 
 class SkupinaDokumenta(ZaporednaStevilka):

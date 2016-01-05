@@ -138,6 +138,8 @@
                 <nav class="navbar-default hidden-xs" role="navigation">
                     <ul class="nav navbar-nav">
                         {% block navbar_title %}{% endblock %}
+
+                        {% if user.is_staff %}
                         <li class="dropdown">
                               <a data-toggle="dropdown" class="dropdown-toggle" href="#">Ukazi <span class="caret"></span></a>
                                 <ul role="menu" class="dropdown-menu">
@@ -164,6 +166,7 @@
                         -->
                             </ul>
                         </li>
+                        {% endif %}
                         
                     </ul>
                     

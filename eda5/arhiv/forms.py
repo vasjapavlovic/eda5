@@ -3,15 +3,19 @@ from django import forms
 from .models import Arhiviranje, ArhivMesto
 
 from eda5.posta.models import Dokument, VrstaDokumenta, SkupinaDokumenta
+from eda5.partnerji.models import Oseba
+
 
 
 class ArhiviranjeCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
+
         super(ArhiviranjeCreateForm, self).__init__(*args, **kwargs)
 
         # 1. prikaži samo nearhivirane dokumente
         # 2. prikazati samo specifično vrsto dokumentov
+
 
         self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True)
         self.fields["dokument"].required = True
@@ -51,6 +55,7 @@ class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
 class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
 
     def __init__(self, *args, **kwargs):
+
         super(ArhiviranjeRacunForm, self).__init__(*args, **kwargs)
 
         # 1. prikaži samo dokumente z oznako = "RAC" (računi)
@@ -58,10 +63,10 @@ class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
         self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True,
                                                                    vrsta_dokumenta=vrsta_dokumenta)
 
+
     class Meta(ArhiviranjeCreateForm.Meta):
         fields = (
             'dokument',
-            'arhiviral',
         )
 
 
