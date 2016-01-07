@@ -39,13 +39,14 @@ class Aktivnost(TimeStampedModel):
 
 class Dokument(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
+
     def dokument_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
         old_filename_raw = filename.split(".")
-        ext = '.' + old_filename_raw[1]
+        ext = '.' + old_filename_raw[-1]
         filename_parameters = ('media', str(instance.oznaka_baza))
         new_filename = '/'.join(filename_parameters)
-        return '{0}'.format(new_filename + ext)
+        return '{0}'.format(new_filename + ext)  # output=  media/5.pdf
 
     # ATRIBUTES
     #   Relations

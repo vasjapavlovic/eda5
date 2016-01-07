@@ -28,11 +28,9 @@ from eda5.posta.models import Dokument
 from eda5.moduli.models import Zavihek
 
 
-
 class RacunCreateView(TemplateView):
     model = Dokument
     template_name = "racunovodstvo/racun/create.html"
-
 
     def get_context_data(self, *args, **kwargs):
         context = super(RacunCreateView, self).get_context_data(*args, **kwargs)
@@ -117,18 +115,12 @@ class RacunListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(RacunListView, self).get_context_data(*args, **kwargs)
 
-        # SEZNAM NElikvidirani in Likvidirani računi
-        arhiviranje_list = Arhiviranje.objects.all()
-
-        racun_likvidiran_list = []
-        racun_nelikvidiran_list = []
-        for arhiviranje in arhiviranje_list:
-            if arhiviranje.racun:
-                racun_likvidiran_list.append(arhiviranje.racun)
-            else:
-                racun_nelikvidiran_list.append(arhiviranje.racun)
-
+        # seznam nearhiviranih računov
+        racun_nelikvidiran_list = Racun.objects.filter(arhiviranje__isnull=True)
         context['racun_nelikvidiran_list'] = racun_nelikvidiran_list
+
+        # seznam arhiviranih računov
+        racun_likvidiran_list = Racun.objects.filter(arhiviranje__isnull=False)
         context['racun_likvidiran_list'] = racun_likvidiran_list
 
         # zavihek

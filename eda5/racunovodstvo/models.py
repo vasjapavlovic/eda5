@@ -44,6 +44,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     class Meta:
         verbose_name = 'račun'
         verbose_name_plural = "računi"
+        ordering = ('-racunovodsko_leto', "-oznaka")
 
     def __str__(self):
         return "%s | %s" % (self.dokument.oznaka, self.dokument.naziv)

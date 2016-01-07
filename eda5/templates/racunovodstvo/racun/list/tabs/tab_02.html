@@ -2,6 +2,7 @@
 
 <table class="table table-striped table-bordered">
     <tr>
+        <th>rac. st.</th>
         <th>št.dokumenta</th>
         <th>predmet</th>
         <th>pošiljatelj</th>
@@ -16,8 +17,9 @@
     {% if racun %}
 
     <tr>
-
-        <td><a href="{% url 'moduli:racunovodstvo:racun_detail' racun.pk %}">{{ racun.dokument.oznaka }}</a></td>
+        <td><a href="{% url 'moduli:racunovodstvo:racun_detail' racun.pk %}">
+        {{ racun.oznaka }}.{{ racun.racunovodsko_leto }}</a></td>
+        <td>{{ racun.dokument.oznaka }}</td>
         <td>{{ racun.dokument.naziv }}</td>
         <td>{{ racun.dokument.avtor }}</td>
         <td><a href="{{ MEDIA_URL }}{{ racun.dokument.priponka }}" target="_blank">{{ racun.dokument.priponka }}</a></td>
