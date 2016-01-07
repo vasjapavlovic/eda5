@@ -10,8 +10,8 @@ from . import managers
 class Aktivnost(TimeStampedModel):
 
     AKTIVNOSTI = (
-        (1, "prejeta posta"),
-        (2, "izdana pošta"),
+        (1, "Vhodna Pošta"),
+        (2, "Izhodna Pošta"),
         )
 
     # ---------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ class Dokument(TimeStampedModel):
     naziv = models.CharField(max_length=255, verbose_name="naziv")
     datum_dokumenta = models.DateField()
     kraj_izdaje = models.CharField(max_length=100, blank=True)
-    priponka = models.FileField(upload_to=dokument_directory_path, blank=True, null=True)
+    priponka = models.FileField(upload_to=dokument_directory_path)
     #   Optional
 
     # OBJECT MANAGER

@@ -9,19 +9,19 @@
         <th>priponka</th>
     </tr>
 
-{% for arhiviranje in object.arhiviranje_set.all %}
+
 
 
     <tr>
 
-        <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
-        <td>{{ arhiviranje.dokument.oznaka }}</td>
-        <td>{{ arhiviranje.dokument.avtor }}</td>
-        <td>{{ arhiviranje.dokument.naziv }}</td>
+        <td>{{ object.arhiviranje.dokument.datum_dokumenta }}</td>
+        <td>{{ object.arhiviranje.dokument.oznaka }}</td>
+        <td>{{ object.arhiviranje.dokument.avtor }}</td>
+        <td>{{ object.arhiviranje.dokument.naziv }}</td>
         <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
 
     </tr>
 
-{% endfor %}
+
 
 </table>

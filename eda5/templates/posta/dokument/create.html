@@ -41,23 +41,27 @@
     <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
         <h1>Vnos Dokumenta</h1>
 
-        <div class="panel panel-info">
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Podatki o obdelavi</div>
             <div class="panel-body">
                 {{ aktivnost_form | crispy  }} 
             </div>
         </div>
 
-        <div class="panel panel-info">
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Podatki o dokumentu</div>
             <div class="panel-body">
                 {{ skupina_dokumenta_form | crispy  }}
                 {{ dokument_form | crispy  }}
+
             </div>
         </div>
 
+        <div class="panel ">
+            <input class="bg-{{ modul_zavihek.modul.barva }}" type="submit" value="Potrdi Vnos">
 
-        <input type="submit" value="Potrdi">
+            
+        </div>
 
         <div id="reload_controls_view" style="display: none;">{% url 'moduli:posta:reload_controls' %}</div>
 

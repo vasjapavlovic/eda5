@@ -16,7 +16,9 @@ from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
 from eda5.arhiv.forms import ArhiviranjeCreateForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto, Arhiv
 
-from eda5.partnerji.models import Oseba
+from eda5.nastavitve.models import NastavitevPartnerja
+
+from eda5.partnerji.models import Oseba, SkupinaPartnerjev
 
 from eda5.moduli.models import Zavihek
 
@@ -95,7 +97,7 @@ class DokumentCreateView(TemplateView):
 
             aktivnost_create_data = Aktivnost.objects.create_aktivnost(
                 izvajalec=oseba,
-                vrsta_aktivnosti=vrsta_aktivnosti,
+                vrsta_aktivnosti=vrsta_aktivnosti,  # 1=Vhodna Pošta, 2=Izhodna Pošta
                 datum_aktivnosti=datum_aktivnosti,
             )
 
@@ -119,6 +121,26 @@ class DokumentCreateView(TemplateView):
             naziv = dokument_form.cleaned_data['naziv']
             datum_dokumenta = dokument_form.cleaned_data['datum_dokumenta']
             priponka = dokument_form.cleaned_data['priponka']
+
+            '''avtomatska dodelitev Oznake Izhodne Pošte'''
+            # skupina_partnerjev
+            np = NastavitevPartnerja.objects.all()[0]  # samo en vnos v bazi
+            partner_skupina = SkupinaPartnerjev.objects.get(oznaka=np.partner.davcna_st)
+            print(partner_skupina)
+
+            if avtor == partner_skupina:
+
+                try:
+                    if Dokument.objects.filter(avtor=partner_skupina).count() >= 1:
+
+                        zadnji_dokument_partnerja = Dokument.objects.filter(avtor=partner_skupina).latest('oznaka_baza')
+                        nova_st_izhodne_poste = zadnji_dokument_partnerja.oznaka_baza + 1
+                        nova_oznaka_izhodne_poste = "IZH-" + str(nova_st_izhodne_poste)
+                        oznaka = nova_oznaka_izhodne_poste  # končna oznaka
+
+                except:
+                    oznaka = "IZH-1"
+
 
             # oznaka_baza
             try:
