@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, ListView, TemplateView
+from django.utils import timezone
 
 from .forms import AktivnostCreateForm, DokumentCreateForm, SkupinaDokumentaIzbiraForm
 from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
@@ -122,26 +123,63 @@ class DokumentCreateView(TemplateView):
             datum_dokumenta = dokument_form.cleaned_data['datum_dokumenta']
             priponka = dokument_form.cleaned_data['priponka']
 
-            '''avtomatska dodelitev Oznake Izhodne Pošte'''
-            # skupina_partnerjev
-            np = NastavitevPartnerja.objects.all()[0]  # samo en vnos v bazi
-            partner_skupina = SkupinaPartnerjev.objects.get(oznaka=np.partner.davcna_st)
-            print(partner_skupina)
+            '''AVTOMATSKA IZBIRA PARTNERJA GLEDE NA VRSTO AKTIVNOSTI (VHODNA, IZHODNA POŠTA)'''
+            ###################################################################################
+            # pridobimo podatek o nastavljenem partnerju v nastavitvah
+            np = NastavitevPartnerja.objects.all()[0]
+            # ker operiramo s skupinami partnerjev moramo za partnerja pridobiti skupino,
+            # ki ustreza samo nastavljenemu partnerju
+            partner = SkupinaPartnerjev.objects.get(oznaka=np.partner.davcna_st)
 
+            # če je aktivnost 1=Vhodna Pošta --> naslovnik = nastavljeni partner
+            if vrsta_aktivnosti == 1:
+                naslovnik = partner
+
+            # če je aktivnost 2=Izhodna Pošta --> avtor = nastavljeni partner
+            if vrsta_aktivnosti == 2:
+                avtor = partner
+
+            ''' konec avtomatske izbire partnerja glede na vrsto aktivnosti'''
+            # *********************************************************************************
+
+            '''AVTOMATSKO OZNAČEVANJE IZHODNE POŠTE'''
+            #########################################################################################
+            # pridobimo podatek o nastavljenem partnerju v nastavitvah
+            np = NastavitevPartnerja.objects.all()[0]
+            # ker operiramo s skupinami partnerjev moramo za partnerja pridobiti skupino,
+            # ki ustreza samo nastavljenemu partnerju
+            partner_skupina = SkupinaPartnerjev.objects.get(oznaka=np.partner.davcna_st)
+            # leto v oznaki bo glede na datum aktivnosti izhodne pošte
+            leto = datum_aktivnosti.year
+            # v primeru, da je avtor dokumenta nastavljeni partner
             if avtor == partner_skupina:
 
                 try:
-                    if Dokument.objects.filter(avtor=partner_skupina).count() >= 1:
+                    # iščemo vse izdane dokumente nastavljenega partnerja v pripadajočem letu
+                    izdani_dokumenti_partnerja_v_letu = Dokument.objects.filter(
+                        avtor=partner_skupina,
+                        aktivnost__datum_aktivnosti__year=leto,  # v pripadajočem letu
+                        )
 
-                        zadnji_dokument_partnerja = Dokument.objects.filter(avtor=partner_skupina).latest('oznaka_baza')
-                        nova_st_izhodne_poste = zadnji_dokument_partnerja.oznaka_baza + 1
-                        nova_oznaka_izhodne_poste = "IZH-" + str(nova_st_izhodne_poste)
-                        oznaka = nova_oznaka_izhodne_poste  # končna oznaka
+                    # oznaka zadnjega dokumenta
+                    zadnji_izdani_dokumenti_partnerja = izdani_dokumenti_partnerja_v_letu.latest('oznaka_baza')
+                    zd = zadnji_izdani_dokumenti_partnerja.oznaka.split('-')
 
+                    # če so izdani dokumenti v pripadajočem letu že izdani
+                    if izdani_dokumenti_partnerja_v_letu.count() >= 1:
+
+                        zap_st = int(zd[2]) + 1
+                        oznaka = "IZH-" + str(leto) + "-" + str(zap_st)
+
+                # če v pripadajočem letu dokumentov še ni izdanih
                 except:
-                    oznaka = "IZH-1"
+                    oznaka = "IZH-" + str(leto) + "-1"
 
+            '''Konec avtomatskega označevanja izhodne pošte'''
+            # ***************************************************************************************
 
+            '''OZNAČEVANJE DOKUMENTOV NA MEDIA SERVERJU'''
+            #########################################################################################
             # oznaka_baza
             try:
                 object_last = Dokument.objects.all().latest('oznaka_baza')
@@ -149,6 +187,8 @@ class DokumentCreateView(TemplateView):
                 oznaka_baza = nova_oznaka_baza
             except:  # če ni nobenega vnosa v bazi
                 oznaka_baza = 1
+            '''Konec označevanje dokumentov na media serverju'''
+            # ***************************************************************************************
 
             Dokument.objects.create_dokument(
                 vrsta_dokumenta=vrsta_dokumenta,
