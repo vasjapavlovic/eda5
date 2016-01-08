@@ -7,12 +7,18 @@ class RacunManager(models.Manager):
         racunovodsko_leto=None,
         oznaka=None,
         davcna_klasifikacija=None,
+        datum_storitve_od=None,
+        datum_storitve_do=None,
+        valuta=None,
         ):
 
         racun = self.model(
             racunovodsko_leto=racunovodsko_leto,
             oznaka=oznaka,
             davcna_klasifikacija=davcna_klasifikacija,
+            datum_storitve_od=datum_storitve_od,
+            datum_storitve_do=datum_storitve_do,
+            valuta=valuta,
         )
 
         racun.save(using=self._db)

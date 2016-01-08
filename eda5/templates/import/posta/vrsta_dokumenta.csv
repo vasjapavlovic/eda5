@@ -1,7 +1,7 @@
 oznaka,naziv,zap_st,skupina
 RAC,Račun,1,RAC
 DBR,Dobropis,3,RAC
-IRA,Interni račun,2,RAC
+INR,Interni račun,2,RAC
 CES,Pogodba o odstopu terjatev,6,RAC
 ASG,Pogodba o asignaciji,7,RAC
 KOM,Medsebojna kompenzacija,5,RAC

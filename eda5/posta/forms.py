@@ -38,6 +38,7 @@ class DokumentCreateForm(forms.ModelForm):
             'oznaka',
             'naziv',
             'datum_dokumenta',
+            'kraj_izdaje',
             'priponka',
         )
         widgets = {

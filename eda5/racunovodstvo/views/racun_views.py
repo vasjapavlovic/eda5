@@ -18,6 +18,9 @@ from ..forms.racun_forms import RacunCreateForm
 from eda5.arhiv.forms import ArhiviranjeRacunForm
 from eda5.arhiv.models import ArhivMesto, Arhiviranje
 
+# core
+from eda5.core.models import ObdobjeLeto
+
 # Partnerji
 from eda5.partnerji.models import Oseba
 
@@ -54,17 +57,14 @@ class RacunCreateView(TemplateView):
         modul_zavihek = Zavihek.objects.get(oznaka="RACUN_CREATE")
 
         if racun_create_form.is_valid():
-            racunovodsko_leto = racun_create_form.cleaned_data['racunovodsko_leto']
-            oznaka = racun_create_form.cleaned_data['oznaka']
+            # racunovodsko_leto = racun_create_form.cleaned_data['racunovodsko_leto']
+            # oznaka = racun_create_form.cleaned_data['oznaka']
             davcna_klasifikacija = racun_create_form.cleaned_data['davcna_klasifikacija']
+            datum_storitve_od = racun_create_form.cleaned_data['datum_storitve_od']
+            datum_storitve_do = racun_create_form.cleaned_data['datum_storitve_do']
+            valuta = racun_create_form.cleaned_data['valuta']
 
-            racun_data = Racun.objects.create_racun(
-                racunovodsko_leto=racunovodsko_leto,
-                oznaka=oznaka,
-                davcna_klasifikacija=davcna_klasifikacija,
-                )
-
-            racun = Racun.objects.get(id=racun_data.pk)
+            form_racun_is_valid = 1  # pogoj - glej spodaj
 
         else:
             return render(request, self.template_name, {
@@ -88,14 +88,7 @@ class RacunCreateView(TemplateView):
             user = request.user
             oseba = Oseba.objects.get(user=user)
 
-            Arhiviranje.objects.create_arhiviranje(
-                racun=racun,
-                dokument=dokument,
-                arhiviral=oseba,
-                elektronski=elektronski,
-                fizicni=fizicni,
-                lokacija_hrambe=lokacija_hrambe,
-            )
+            form_arhiviranje_is_valid = 1  # pogoj - glej spodaj
 
         else:
             return render(request, self.template_name, {
@@ -103,6 +96,60 @@ class RacunCreateView(TemplateView):
                 'arhiviranje_create_form': arhiviranje_create_form,
                 'modul_zavihek': modul_zavihek,
                 }
+            )
+
+        if form_racun_is_valid == 1 and form_arhiviranje_is_valid == 1:
+
+            '''AVTOMATSKO OZNAČEVANJE RAČUNA'''
+            #########################################################################################
+            # leto računa
+            racunovodsko_leto_oznaka = datum_storitve_od.year
+            racunovodsko_leto = ObdobjeLeto.objects.get(oznaka=racunovodsko_leto_oznaka)
+
+            # za račun = "RAČ"
+            if dokument.vrsta_dokumenta.oznaka == "RAC":
+                try:
+                    zadnji_racun_rac_leta = Racun.objects.filter(
+                        racunovodsko_leto=racunovodsko_leto,
+                        arhiviranje__dokument__vrsta_dokumenta__oznaka="RAC"
+                        ).latest('oznaka')
+                    nova_oznaka = zadnji_racun_rac_leta.oznaka + 1
+                    oznaka = nova_oznaka
+                except:
+                    oznaka = 1
+
+            # za račun = "INR"
+            if dokument.vrsta_dokumenta.oznaka == "INR":
+                try:
+                    zadnji_racun_rac_leta = Racun.objects.filter(
+                        racunovodsko_leto=racunovodsko_leto,
+                        arhiviranje__dokument__vrsta_dokumenta__oznaka="INR"
+                        ).latest('oznaka')
+                    nova_oznaka = zadnji_racun_rac_leta.oznaka + 1
+                    oznaka = nova_oznaka
+                except:
+                    oznaka = 1
+
+            # ***************************************************************************************
+
+            racun_data = Racun.objects.create_racun(
+                racunovodsko_leto=racunovodsko_leto,
+                oznaka=oznaka,
+                davcna_klasifikacija=davcna_klasifikacija,
+                datum_storitve_od=datum_storitve_od,
+                datum_storitve_do=datum_storitve_do,
+                valuta=valuta,
+                )
+
+            racun = Racun.objects.get(id=racun_data.pk)
+
+            Arhiviranje.objects.create_arhiviranje(
+                racun=racun,
+                dokument=dokument,
+                arhiviral=oseba,
+                elektronski=elektronski,
+                fizicni=fizicni,
+                lokacija_hrambe=lokacija_hrambe,
             )
 
         return HttpResponseRedirect(reverse("moduli:racunovodstvo:racun_detail", kwargs={"pk": racun.pk}))
@@ -116,11 +163,13 @@ class RacunListView(ListView):
         context = super(RacunListView, self).get_context_data(*args, **kwargs)
 
         # seznam nearhiviranih računov
-        racun_nelikvidiran_list = Racun.objects.filter(arhiviranje__isnull=True)
+        racun_nelikvidiran_list = Dokument.objects.filter(
+                                                          vrsta_dokumenta__oznaka="RAC",
+                                                          arhiviranje__isnull=True)
         context['racun_nelikvidiran_list'] = racun_nelikvidiran_list
 
         # seznam arhiviranih računov
-        racun_likvidiran_list = Racun.objects.filter(arhiviranje__isnull=False)
+        racun_likvidiran_list = Racun.objects.all()
         context['racun_likvidiran_list'] = racun_likvidiran_list
 
         # zavihek

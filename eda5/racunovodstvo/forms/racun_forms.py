@@ -15,29 +15,16 @@ class RacunCreateForm(forms.ModelForm):
     class Meta:
         model = Racun
         fields = (
-            "racunovodsko_leto",
-            "oznaka",
             "davcna_klasifikacija",
+            "datum_storitve_od",
+            "datum_storitve_do",
+            "valuta",
             )
-
-    def __init__(self, *args, **kwargs):
-        super(RacunCreateForm, self).__init__(*args, **kwargs)
-
-        # avtomatska dodelitev oznake
-        # ---------------------------
-        leto = timezone.now().date().year
-        racunovodsko_leto = ObdobjeLeto.objects.get(oznaka=leto)
-        self.initial['racunovodsko_leto'] = racunovodsko_leto
-
-        try:  # "try" uporabimo ker če ni nobenega vnosa bo vrnjen error
-            racun_zadnji = Racun.objects.filter(racunovodsko_leto=racunovodsko_leto).latest("oznaka")
-            oznaka_zadnja = racun_zadnji.oznaka
-            print(oznaka_zadnja)
-            oznaka_nova = oznaka_zadnja + 1
-            self.initial['oznaka'] = oznaka_nova
-
-        except:
-            self.initial['oznaka'] = 1
+        widgets = {
+            'datum_storitve_od': DateInput(),
+            'datum_storitve_do': DateInput(),
+            'valuta': DateInput(),
+        }
 
 
 class KontoCreateForm(forms.ModelForm):

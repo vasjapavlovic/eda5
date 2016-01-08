@@ -33,6 +33,7 @@ class DokumentManager(models.Manager):
                         naziv=None,
                         datum_dokumenta=None,
                         priponka=None,
+                        kraj_izdaje=None,
                         ):
 
         dokument_model = self.model(
@@ -45,6 +46,7 @@ class DokumentManager(models.Manager):
             naziv=naziv,
             datum_dokumenta=datum_dokumenta,
             priponka=priponka,
+            kraj_izdaje=kraj_izdaje,
         )
 
         dokument_model.save(using=self._db)

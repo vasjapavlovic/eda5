@@ -17,10 +17,10 @@
 
     <tr>
 
-        <td><a href="{% url 'moduli:racunovodstvo:racun_detail' racun.pk %}">{{ racun.dokument.oznaka }}</a></td>
-        <td>{{ racun.dokument.naziv }}</td>
-        <td>{{ racun.dokument.avtor }}</td>
-        <td><a href="{{ MEDIA_URL }}{{ object.dokument.priponka }}" target="_blank">{{ racun.dokument.priponka }}</a></td>
+        <td><a href="{% url 'moduli:racunovodstvo:racun_detail' racun.pk %}">{{ racun.oznaka }}</a></td>
+        <td>{{ racun.naziv }}</td>
+        <td>{{ racun.avtor }}</td>
+        <td><a href="{{ MEDIA_URL }}{{ object.dokument.priponka }}" target="_blank">{{ racun.priponka }}</a></td>
 
     </tr>
     {% endif %}

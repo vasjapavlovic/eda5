@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Q
 
 from .models import Arhiviranje, ArhivMesto
 
@@ -58,10 +59,11 @@ class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
 
         super(ArhiviranjeRacunForm, self).__init__(*args, **kwargs)
 
-        # 1. prikaži samo dokumente z oznako = "RAC" (računi)
-        vrsta_dokumenta = VrstaDokumenta.objects.get(oznaka="RAC")
-        self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True,
-                                                                   vrsta_dokumenta=vrsta_dokumenta)
+        # 1. prikaži samo dokumente z oznako = "RAC" (računi) in INR interni računi
+        self.fields["dokument"].queryset = Dokument.objects.filter(
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="RAC",) |
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="INR",)
+            )
 
 
     class Meta(ArhiviranjeCreateForm.Meta):

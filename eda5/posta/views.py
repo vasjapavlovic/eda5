@@ -113,6 +113,15 @@ class DokumentCreateView(TemplateView):
                 }
             )
 
+        ''' GLEDE NA VRSTO AKTIVNOSTI ---> NI POTREBNO VNAŠATI NASLOVNIKA ALI AVTORJA .required  '''
+        #############################################################################################
+        if vrsta_aktivnosti == 1:
+                dokument_form.fields['naslovnik'].required = False
+
+        if vrsta_aktivnosti == 2:
+                dokument_form.fields['avtor'].required = False
+        # *******************************************************************************************
+
         if dokument_form.is_valid():
 
             vrsta_dokumenta = dokument_form.cleaned_data['vrsta_dokumenta']
@@ -122,6 +131,7 @@ class DokumentCreateView(TemplateView):
             naziv = dokument_form.cleaned_data['naziv']
             datum_dokumenta = dokument_form.cleaned_data['datum_dokumenta']
             priponka = dokument_form.cleaned_data['priponka']
+            kraj_izdaje = dokument_form.cleaned_data['kraj_izdaje']
 
             '''AVTOMATSKA IZBIRA PARTNERJA GLEDE NA VRSTO AKTIVNOSTI (VHODNA, IZHODNA POŠTA)'''
             ###################################################################################
@@ -138,8 +148,6 @@ class DokumentCreateView(TemplateView):
             # če je aktivnost 2=Izhodna Pošta --> avtor = nastavljeni partner
             if vrsta_aktivnosti == 2:
                 avtor = partner
-
-            ''' konec avtomatske izbire partnerja glede na vrsto aktivnosti'''
             # *********************************************************************************
 
             '''AVTOMATSKO OZNAČEVANJE IZHODNE POŠTE'''
@@ -174,8 +182,6 @@ class DokumentCreateView(TemplateView):
                 # če v pripadajočem letu dokumentov še ni izdanih
                 except:
                     oznaka = "IZH-" + str(leto) + "-1"
-
-            '''Konec avtomatskega označevanja izhodne pošte'''
             # ***************************************************************************************
 
             '''OZNAČEVANJE DOKUMENTOV NA MEDIA SERVERJU'''
@@ -200,6 +206,7 @@ class DokumentCreateView(TemplateView):
                 datum_dokumenta=datum_dokumenta,
                 priponka=priponka,
                 aktivnost=aktivnost,
+                kraj_izdaje=kraj_izdaje,
             )
 
         else:

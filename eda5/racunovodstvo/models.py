@@ -24,6 +24,10 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     # ***Mandatory***
     oznaka = models.IntegerField()
     davcna_klasifikacija = models.IntegerField(choices=DAVCNA_KLASIFIKACIJA)
+    valuta = models.DateField(blank=True, null=True)
+    datum_storitve_od = models.DateField(blank=True, null=True)
+    datum_storitve_do = models.DateField(blank=True, null=True)
+
 
     # OBJECT MANAGER
     objects = RacunManager()

@@ -4,6 +4,7 @@
     <tr>
         <th>oznaka</th>
         <th>naziv</th>
+        <th>obdobje obračuna</th>
         <th>strosek brez ddv</th>
         <th>stopnja ddv</th>
         <th>strosek z ddv</th>
@@ -15,6 +16,7 @@
     <tr>
         <td>{{ strosek.oznaka }}</td>
         <td>{{ strosek.naziv }}</td>
+        <td>{{ strosek.datum_storitve_od }}-{{ strosek.datum_storitve_do }}</td>
         <td>{{ strosek.osnova }}</td>
         <td>{{ strosek.stopnja_ddv_output }}</td>
         <td>{{ strosek.strosek_z_ddv }}</td>
@@ -29,8 +31,10 @@
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
     </tr>
     <tr>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -38,6 +42,7 @@
         <td>{{ strosek_vrednost_brez_ddv }}</td>
     </tr>
     <tr>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>

@@ -71,6 +71,22 @@ class StrosekCreateView(UpdateView):
             osnova = strosek_osnova_create_form.cleaned_data['osnova']
             stopnja_ddv = strosek_osnova_create_form.cleaned_data['stopnja_ddv']
 
+            ''' AVTOMATSKA DODELITEV OZNAKE STROŠKA '''
+            #############################################################################
+            oznaka_racuna = racun.dokument.vrsta_dokumenta.oznaka + "." + \
+                            str(racun.oznaka) + "." + \
+                            str(racun.racunovodsko_leto)
+
+            try:
+                stevilo_stroskov = Strosek.objects.filter(racun=racun).count()
+                zap_st_stroska = stevilo_stroskov + 1
+            except:
+                zap_st_stroska = 1
+
+            oznaka_stroska = oznaka_racuna + "-" + str(zap_st_stroska)
+            oznaka = oznaka_stroska
+            # ****************************************************************************
+
             # create strosek
             Strosek.objects.create_strosek(
                 oznaka=oznaka,

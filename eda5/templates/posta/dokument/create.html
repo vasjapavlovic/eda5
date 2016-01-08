@@ -77,6 +77,27 @@
 
 <script src="{% static 'js/custom_filter.js' %}"></script>
 
+
+<!-- akcija glede na izbrano vrsto aktivnosti 
+1=Vhodna Pošta, 2=Izhodna Pošta -->
+<script>
+
+    $('#create_form').on('change', '#id_vrsta_aktivnosti', function()
+        {
+            if (this.value == 1) {
+                document.getElementById('id_avtor').disabled = false;
+                document.getElementById('id_naslovnik').disabled = true;
+            }
+
+            if (this.value == 2) {
+                document.getElementById('id_avtor').disabled = true;
+                document.getElementById('id_naslovnik').disabled = false;
+            }
+        });
+
+</script>
+
+
 <!-- js related to the application -->
 <script>
     

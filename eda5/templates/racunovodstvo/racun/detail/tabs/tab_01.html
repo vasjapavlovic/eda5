@@ -4,11 +4,19 @@
 <table class="table">
     <tr>
         <td><small>Računovodska Številka</small></td>
-        <td><b style="color:#0000FF">{{ object.oznaka }}.{{ object.racunovodsko_leto }}</b></td>
+        <td><b style="color:#0000FF">{{ object.dokument.vrsta_dokumenta.oznaka }}.{{ object.oznaka }}.{{ object.racunovodsko_leto }}</b></td>
     </tr>
     <tr>
         <td><small>Prejeto Dne</small></td>
         <td>{{ object.dokument.aktivnost.datum_aktivnosti }}</td>
+    </tr>
+    <tr>
+        <td><small>Datum opravljene storitve</small></td>
+        <td>{{ object.datum_storitve_od }} - {{ object.datum_storitve_do }}</td>
+    </tr>
+    <tr>
+        <td><small>Valuta:</small></td>
+        <td>{{ object.valuta }}</td>
     </tr>
 
     <!-- podatki od okumentu -->
