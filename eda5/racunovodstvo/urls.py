@@ -13,4 +13,10 @@ urlpatterns = [
 # Strosek
 urlpatterns += [
     url(r'^(?P<pk>\d+)/strosek-from-racun-create/$', strosek_views.StrosekCreateView.as_view(), name="strosek_from_racun_create"),
+
+    # filtriranje
+    # filtriranje
+    url(r'^reload_controls_vrsta_stroska_podkonto_view.html$', strosek_views.reload_controls_vrsta_stroska_podkonto_view, name='reload_controls_vrsta_stroska_podkonto_view'),
+    url(r'^reload_controls_vrsta_stroska_skupinavrstestroska_view.html$', strosek_views.reload_controls_vrsta_stroska_skupinavrstestroska_view, name='reload_controls_vrsta_stroska_skupinavrstestroska_view'),
+    url(r'^reload_controls_vrsta_stroska_view.html$', strosek_views.reload_controls_vrsta_stroska_view, name='reload_controls_vrsta_stroska_view'),
 ]

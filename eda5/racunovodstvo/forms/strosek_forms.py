@@ -14,7 +14,6 @@ class StrosekOsnovaCreateForm(forms.ModelForm):
     class Meta:
         model = Strosek
         fields = (
-            'oznaka',
             'naziv',
             'datum_storitve_od',
             'datum_storitve_do',

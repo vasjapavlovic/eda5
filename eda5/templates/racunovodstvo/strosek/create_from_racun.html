@@ -60,6 +60,10 @@
 
         <input type="submit" value="Potrdi">
 
+        <div id="reload_controls_vrsta_stroska_podkonto_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_podkonto_view' %}</div>
+        <div id="reload_controls_vrsta_stroska_skupinavrstestroska_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_skupinavrstestroska_view' %}</div>
+        <div id="reload_controls_vrsta_stroska_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_view' %}</div>
+
     </form>
 
 {% endblock %}
@@ -69,6 +73,159 @@
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
+
+<!--  Filter Nosilca Zahtevka glede na naročilo -->
+<script src="{% static 'js/custom_filter.js' %}"></script>
+
+
+<!-- ELEMENT PODSKUPINA FILTER -->
+<script>
+    // disable nepotrebne dropdown menuje
+    $("#id_podkonto").attr('disabled', true);
+    $("#id_skupina_vrste_stroska").attr('disabled', true);
+    $("#id_vrsta_stroska").attr('disabled', true);
+
+    // ob spremembi dropdown skupine
+    $('#create_form').on('change', '#id_konto', function()
+    {
+        reload_controls1(this.value);
+        
+    });
+
+    function reload_controls1(konto)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_vrsta_stroska_podkonto_view").text(),
+            dataType: 'json',
+            data: "konto="+konto,
+            success: function(result)
+            {
+                // ponastavimo dropdown menuje
+                $("#id_podkonto").empty()
+                $("#id_skupina_vrste_stroska").empty()   
+                $("#id_vrsta_stroska").empty()  
+
+                // disable nepotrebne dropdown menuje
+                $("#id_podkonto").attr('disabled', false);
+                $("#id_skupina_vrste_stroska").attr('disabled', true);
+                $("#id_vrsta_stroska").attr('disabled', true);            
+
+                //PODSKUPINA FILTER
+                $("#id_podkonto").append('<option value="">---------</option>')
+                $.each( result.podkonto_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    parameter=$("#id_podkonto_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_podkonto').append('<option value="'+value+'">'+parameter+'</option>')
+
+                });
+
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+<!-- ELEMENT DEL STAVBE FILTER -->
+<script>
+    
+    $('#create_form').on('change', '#id_podkonto', function()
+    {
+        reload_controls2(this.value);
+    });
+
+    function reload_controls2(podkonto)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_vrsta_stroska_skupinavrstestroska_view").text(),
+            dataType: 'json',
+            data: "podkonto="+podkonto,
+            success: function(result)
+            {
+                // ponastavimo dropdown menuje
+                $("#id_skupina_vrste_stroska").empty()
+                $("#id_vrsta_stroska").empty()      
+
+                // disable nepotrebne dropdown menuje
+                $("#id_skupina_vrste_stroska").attr('disabled', false);
+                $("#id_vrsta_stroska").attr('disabled', true);          
+
+                //PODSKUPINA FILTER
+                $("#id_skupina_vrste_stroska").append('<option value="">---------</option>')
+                $.each( result.skupinavrstestroska_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    parameter=$("#id_skupina_vrste_stroska_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_skupina_vrste_stroska').append('<option value="'+value+'">'+parameter+'</option>')
+
+                });
+
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+
+<!-- ELEMENT FILTER -->
+<script>
+    
+    $('#create_form').on('change', '#id_skupina_vrste_stroska', function()
+    {
+        reload_controls3(this.value);
+    });
+
+    function reload_controls3(skupinavrstestroska)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_vrsta_stroska_view").text(),
+            dataType: 'json',
+            data: "skupinavrstestroska="+skupinavrstestroska,
+            success: function(result)
+            {
+                // ponastavimo dropdown menuje
+                $("#id_vrsta_stroska").empty()    
+
+                // disable nepotrebne dropdown menuje
+                $("#id_vrsta_stroska").attr('disabled', false);           
+
+                //PODSKUPINA FILTER
+                $("#id_vrsta_stroska").append('<option value="">---------</option>')
+                $.each( result.vrstastroska_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    parameter=$("#id_vrsta_stroska_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_vrsta_stroska').append('<option value="'+value+'">'+parameter+'</option>')
+
+                });
+
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
 {% endblock %}
 
 
