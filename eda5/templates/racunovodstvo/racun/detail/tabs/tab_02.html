@@ -1,6 +1,9 @@
 <!-- Strosek -->
 
-<table class="table table-striped">
+
+<div class="table-responsive">
+<table class="table table-condensed">
+    <thead class="bg-primary">
     <tr>
         <th>oznaka</th>
         <th>naziv</th>
@@ -11,26 +14,28 @@
         <th>stopnja ddv</th>
         <th>strosek z ddv</th>
     </tr>
+    </thead>
 
-
+    <tbody>
 {% for strosek in strosek_list %}
-
+    
     <tr>
-        <td>{{ strosek.oznaka }}</td>
+        <td><b>{{ strosek.oznaka }}</b></td>
         <td>{{ strosek.naziv }}</td>
-        <td>({{ strosek.vrsta_stroska.oznaka }}){{ strosek.vrsta_stroska.naziv }}</td>
+        <td>(<b>{{ strosek.vrsta_stroska.oznaka }}</b>){{ strosek.vrsta_stroska.naziv }}</td>
         <td>{{ strosek.datum_storitve_od }}-{{ strosek.datum_storitve_do }}</td>
-        <td>{{ strosek.obdobje_obracuna_leto.oznaka }}-{{ strosek.obdobje_obracuna_mesec.oznaka }}</td>
+        <td><b>{{ strosek.obdobje_obracuna_leto.oznaka }}-{{ strosek.obdobje_obracuna_mesec.oznaka }}</b></td>
         <td>{{ strosek.osnova }}</td>
         <td>{{ strosek.stopnja_ddv_output }}</td>
         <td>{{ strosek.strosek_z_ddv }}</td>
     </tr>
 
 {% endfor %}
+    <tbody>
 
     <!-- SKUPAJ V FOOTER-->
-    <tr class="info">
-        <td>SKUPAJ</td>
+    <tr class="bg-primary">
+        <td><b>SKUPAJ</b></td>
         <td></td>
         <td></td>
         <td></td>
@@ -61,4 +66,6 @@
     </tr>
 
 
+
 </table>
+</div>
