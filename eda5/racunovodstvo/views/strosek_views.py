@@ -45,9 +45,10 @@ class StrosekCreateView(UpdateView):
 
         # object
         racun = Racun.objects.get(id=self.get_object().id)
+        davcna_klasifikacija = racun.davcna_klasifikacija
         # forms
         strosek_osnova_create_form = StrosekOsnovaCreateForm(request.POST or None)
-        vrsta_stroska_izbira_form = VrstaStroskaIzbiraForm(request.POST or None)
+        vrsta_stroska_izbira_form = VrstaStroskaIzbiraForm(request.POST or None, davcna_klasifikacija=davcna_klasifikacija)
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="STROSEK_CREATE")
