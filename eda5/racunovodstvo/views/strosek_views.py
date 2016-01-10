@@ -78,9 +78,9 @@ class StrosekCreateView(UpdateView):
 
             ''' AVTOMATSKA DODELITEV OZNAKE STROŠKA '''
             #############################################################################
-            oznaka_racuna = racun.dokument.vrsta_dokumenta.oznaka + "." + \
-                            str(racun.oznaka) + "." + \
-                            str(racun.racunovodsko_leto)
+            # oznaka_racuna = racun.dokument.vrsta_dokumenta.oznaka + "." + \
+            #                 str(racun.oznaka) + "." + \
+            #                 str(racun.racunovodsko_leto)
 
             try:
                 stevilo_stroskov = Strosek.objects.filter(racun=racun).count()
@@ -88,8 +88,8 @@ class StrosekCreateView(UpdateView):
             except:
                 zap_st_stroska = 1
 
-            oznaka_stroska = oznaka_racuna + "-" + str(zap_st_stroska)
-            oznaka = oznaka_stroska
+            # oznaka_stroska = oznaka_racuna + "-" + str(zap_st_stroska)
+            oznaka = zap_st_stroska
             # ****************************************************************************
 
             # create strosek

@@ -2,7 +2,7 @@
 
 
 <div class="table-responsive">
-<table class="table table-condensed">
+<table class="table table-condensed table-hover">
     <thead class="bg-primary">
     <tr>
         <th>oznaka</th>
@@ -20,7 +20,7 @@
 {% for strosek in strosek_list %}
     
     <tr>
-        <td><b>{{ strosek.oznaka }}</b></td>
+        <td><b>{{ strosek.racun.dokument.vrsta_dokumenta.oznaka }}.{{ strosek.racun.oznaka }}.{{ strosek.racun.racunovodsko_leto }}-{{ strosek.oznaka }}</b></td>
         <td>{{ strosek.naziv }}</td>
         <td>(<b>{{ strosek.vrsta_stroska.oznaka }}</b>){{ strosek.vrsta_stroska.naziv }}</td>
         <td>{{ strosek.datum_storitve_od }}-{{ strosek.datum_storitve_do }}</td>

@@ -1,10 +1,21 @@
 ##### EDA5 Project #####
 
 'eda5.arhiv'#########################################################
-    Arhiviranje --> Relacije na račune, zahtevke itd je prenesti v ArhivMesto!
-    Dodati arhiv in osnovna arhivska mesta:  01:Arhiv,   RAC:Računovodstvo
+- Arhiviranje --> Relacije na račune, zahtevke itd je prenesti v ArhivMesto!
+- Dodati arhiv in osnovna arhivska mesta:  01:Arhiv,   RAC:Računovodstvo
+- Dodati -->  Arhiviral == current_user
+
 'eda5.core'#########################################################
 'eda5.deli'#########################################################
+
+Prostor 8000:
+- stene_01
+- strop_01
+- tlak_01
+- razsvetljava
+- vtičnice, stikala, termostati
+
+
 'eda5.delovninalogi'#########################################################
     #1 opravilo_create : uredi, da se da dodajati elemente many-to-many
     #2 vnos delovnega naloga za INTERVENCIJSKA DELA (ročni vpis podatkov, ko je čas)
@@ -22,6 +33,7 @@
 - novo naročilo ustno
 - novo naročilo naročilnica/pogodba
 'eda5.partnerji'#########################################################
+- nov partner -->  ne redirecta
 'eda5.predaja_lastnine'#########################################################
 'eda5.planiranje'#########################################################
 'eda5.posta'#########################################################

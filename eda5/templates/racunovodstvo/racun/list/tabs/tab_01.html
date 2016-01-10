@@ -1,16 +1,17 @@
 <!-- NeLikvidirani -->
 
-<table class="table table-striped table-bordered">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead class="bg-primary">
     <tr>
         <th>št.dokumenta</th>
         <th>predmet</th>
         <th>pošiljatelj</th>
         <th>priponka</th>
-
-        
-
     </tr>
+</thead>
 
+<tbody>
 {% for racun in racun_nelikvidiran_list %}
     
     {% if racun %}
@@ -26,5 +27,7 @@
     {% endif %}
     
 {% endfor %}
+</tbody>
 
 </table>
+</div>

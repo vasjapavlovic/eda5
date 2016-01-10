@@ -20,8 +20,8 @@ class SklopKljucev(models.Model):
 
     # META AND STRING
     class Meta:
-        verbose_name = "ključ"
-        verbose_name_plural = "ključi"
+        verbose_name = "sklop ključev"
+        verbose_name_plural = "sklopi ključev"
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)

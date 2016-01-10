@@ -113,6 +113,7 @@ class DokumentCreateView(TemplateView):
                 }
             )
 
+        #############################################################################################
         ''' GLEDE NA VRSTO AKTIVNOSTI ---> NI POTREBNO VNAŠATI NASLOVNIKA ALI AVTORJA .required  '''
         #############################################################################################
         if vrsta_aktivnosti == 1:
@@ -133,6 +134,7 @@ class DokumentCreateView(TemplateView):
             priponka = dokument_form.cleaned_data['priponka']
             kraj_izdaje = dokument_form.cleaned_data['kraj_izdaje']
 
+            ###################################################################################
             '''AVTOMATSKA IZBIRA PARTNERJA GLEDE NA VRSTO AKTIVNOSTI (VHODNA, IZHODNA POŠTA)'''
             ###################################################################################
             # pridobimo podatek o nastavljenem partnerju v nastavitvah
@@ -150,8 +152,9 @@ class DokumentCreateView(TemplateView):
                 avtor = partner
             # *********************************************************************************
 
+            #############################################
             '''AVTOMATSKO OZNAČEVANJE IZHODNE POŠTE'''
-            #########################################################################################
+            #############################################
             # pridobimo podatek o nastavljenem partnerju v nastavitvah
             np = NastavitevPartnerja.objects.all()[0]
             # ker operiramo s skupinami partnerjev moramo za partnerja pridobiti skupino,
@@ -160,7 +163,8 @@ class DokumentCreateView(TemplateView):
             # leto v oznaki bo glede na datum aktivnosti izhodne pošte
             leto = datum_aktivnosti.year
             # v primeru, da je avtor dokumenta nastavljeni partner
-            if avtor == partner_skupina:
+            # if avtor == partner_skupina:
+            if vrsta_aktivnosti == 2:
 
                 try:
                     # iščemo vse izdane dokumente nastavljenega partnerja v pripadajočem letu
@@ -184,8 +188,9 @@ class DokumentCreateView(TemplateView):
                     oznaka = "IZH-" + str(leto) + "-1"
             # ***************************************************************************************
 
+            ################################################
             '''OZNAČEVANJE DOKUMENTOV NA MEDIA SERVERJU'''
-            #########################################################################################
+            ################################################
             # oznaka_baza
             try:
                 object_last = Dokument.objects.all().latest('oznaka_baza')
@@ -193,7 +198,6 @@ class DokumentCreateView(TemplateView):
                 oznaka_baza = nova_oznaka_baza
             except:  # če ni nobenega vnosa v bazi
                 oznaka_baza = 1
-            '''Konec označevanje dokumentov na media serverju'''
             # ***************************************************************************************
 
             Dokument.objects.create_dokument(

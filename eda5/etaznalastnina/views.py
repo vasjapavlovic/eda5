@@ -24,6 +24,10 @@ class LastniskaEnotaInternaListTehView(ListView):
 
         return context
 
+    def get_queryset(self):
+        queryset = super(LastniskaEnotaInternaListTehView, self).get_queryset()
+
+        return queryset.select_related('elaborat', 'internadodatno')
 
 
 class LastniskaEnotaInternaListLastView(ListView):
@@ -39,6 +43,11 @@ class LastniskaEnotaInternaListLastView(ListView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+    def get_queryset(self):
+        queryset = super(LastniskaEnotaInternaListLastView, self).get_queryset()
+
+        return queryset.select_related('elaborat', 'internadodatno')
 
 
 class LastniskaEnotaInternaDetailView(DetailView):

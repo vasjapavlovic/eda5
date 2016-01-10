@@ -100,6 +100,7 @@ class RacunCreateView(TemplateView):
 
         if form_racun_is_valid == 1 and form_arhiviranje_is_valid == 1:
 
+            #########################################################################################
             '''AVTOMATSKO OZNAČEVANJE RAČUNA'''
             #########################################################################################
             # leto računa
