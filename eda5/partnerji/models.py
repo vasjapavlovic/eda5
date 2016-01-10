@@ -35,7 +35,7 @@ class Partner(TimeStampedModel, IsActiveModel):
 
     # METHODS
     def get_absolute_url(self):
-        return reverse("moduli:partnerji:detail", kwargs={"pk": self.pk})
+        return reverse("moduli:partnerji:partner_detail", kwargs={"pk": self.pk})
 
     # META AND STRING
     class Meta:
