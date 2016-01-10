@@ -37,7 +37,7 @@ class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
     def __init__(self, *args, **kwargs):
         super(ArhiviranjeZahtevekForm, self).__init__(*args, **kwargs)
 
-        # 1. prikaži samo dokumente z oznako = "RAC" (računi)
+        # 1. prikaži samo neračunovodske dokumente (skupni_dokumenta not "RAC")
         skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
         self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True
                                                                    ).exclude(
@@ -47,7 +47,6 @@ class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
     class Meta(ArhiviranjeCreateForm.Meta):
         fields = (
             'dokument',
-            'arhiviral',
             'elektronski',
             'fizicni',
         )
@@ -65,7 +64,6 @@ class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
             Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="INR",)
             )
 
-
     class Meta(ArhiviranjeCreateForm.Meta):
         fields = (
             'dokument',
@@ -78,7 +76,6 @@ class ArhiviranjeDelovniNalogForm(ArhiviranjeCreateForm):
         fields = (
             'delovninalog',
             'dokument',
-            'arhiviral',
             'elektronski',
             'fizicni',
         )

@@ -62,7 +62,7 @@ class ArhivMesto(models.Model):
 
         # Arhiv
         '''v končni fazi bo arhiv = objektu '''
-        arhiv = Arhiv.objects.get(id=1)
+        arhiv = Arhiv.objects.get(oznaka="01")
 
         # izdelava Arhivskega Mesta v bazi
         if created:
@@ -83,17 +83,23 @@ class Arhiviranje(TimeStampedModel):
     # ATRIBUTES
     #   Relations
     dokument = models.OneToOneField(Dokument, blank=True, null=True)
-
-    zahtevek = models.OneToOneField(Zahtevek, blank=True, null=True)
-    delovninalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
-    delstavbe = models.OneToOneField(DelStavbe, blank=True, null=True)
-    element = models.OneToOneField(Element, blank=True, null=True)
-    narocilo = models.OneToOneField(Narocilo, blank=True, null=True)
-    artikel = models.OneToOneField(ModelArtikla, blank=True, null=True)
-    racun = models.OneToOneField(Racun, blank=True, null=True)
-
     arhiviral = models.ForeignKey(Oseba)
     lokacija_hrambe = models.ForeignKey(ArhivMesto, blank=True, null=True, verbose_name="lokacija hrambe")
+
+    ######################################################################
+    ''' KJE JE DOKUMENT LIKVIDIRAN IN BO VIDEN '''
+    ######################################################################
+    ''' skupine, ki lahko imajo več priponk '''
+    zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
+    delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
+    delstavbe = models.ForeignKey(DelStavbe, blank=True, null=True)
+    element = models.ForeignKey(Element, blank=True, null=True)
+    narocilo = models.ForeignKey(Narocilo, blank=True, null=True)
+    artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
+    ''' edino račun ima lahko samo eno priponko '''
+    racun = models.OneToOneField(Racun, blank=True, null=True)
+    # ********************************************************************
+
     #   Mandatory
     elektronski = models.BooleanField(default=True, verbose_name="elektronski hramba")
     fizicni = models.BooleanField(default=False, verbose_name="fizični hramba")

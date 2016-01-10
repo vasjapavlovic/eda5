@@ -31,6 +31,9 @@ from eda5.delovninalogi.models import Opravilo
 # Moduli
 from eda5.moduli.models import Zavihek
 
+# Partnerji
+from eda5.partnerji.models import Oseba
+
 # Zaznamki
 from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
@@ -97,6 +100,9 @@ class ZahtevekDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekDetailView, self).get_context_data(*args, **kwargs)
 
+        # arhiv_mesto
+        context['arhiv_mesto'] = ArhivMesto.objects.get(oznaka=self.object.oznaka)
+
         # opravilo
         context['opravilo_form'] = OpraviloCreateForm
         context['opravilo_list'] = Opravilo.objects.filter(zahtevek=self.object.id)
@@ -159,10 +165,14 @@ class ZahtevekDetailView(DetailView):
         if arhiviranje_form.is_valid():
 
             dokument = arhiviranje_form.cleaned_data['dokument']
-            arhiviral = arhiviranje_form.cleaned_data['arhiviral']
             elektronski = arhiviranje_form.cleaned_data['elektronski']
             fizicni = arhiviranje_form.cleaned_data['fizicni']
             lokacija_hrambe = ArhivMesto.objects.get(oznaka=zahtevek.oznaka)
+
+            # arhiviral
+            user = request.user
+            oseba = Oseba.objects.get(user=user)
+            arhiviral = oseba
 
             Arhiviranje.objects.create_arhiviranje(
                 zahtevek=zahtevek,

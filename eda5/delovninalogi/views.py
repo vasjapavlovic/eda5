@@ -20,6 +20,7 @@ from .models import Opravilo, DelovniNalog, Delo, VzorecOpravila
 
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto
+from eda5.partnerji.models import Oseba
 from eda5.skladisce.models import Dnevnik
 from eda5.skladisce.forms import DnevnikDelovniNalogCreateForm
 from eda5.zaznamki.forms import ZaznamekForm
@@ -174,8 +175,6 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
         # VNOS NOVEGA DELA
         # =================================================================================================
-        
-
         if delo_form.is_valid():
 
             # PODATKI ZA VNOS
@@ -238,12 +237,14 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         if arhiviranje_form.is_valid():
 
             dokument = arhiviranje_form.cleaned_data['dokument']
-            arhiviral = arhiviranje_form.cleaned_data['arhiviral']
             elektronski = arhiviranje_form.cleaned_data['elektronski']
             fizicni = arhiviranje_form.cleaned_data['fizicni']
-            print(delovninalog.opravilo.zahtevek.oznaka)
             lokacija_hrambe = ArhivMesto.objects.get(oznaka=delovninalog.opravilo.zahtevek.oznaka)
 
+            # arhiviral
+            user = request.user
+            oseba = Oseba.objects.get(user=user)
+            arhiviral = oseba
 
             Arhiviranje.objects.create_arhiviranje(
                 delovninalog=delovninalog,

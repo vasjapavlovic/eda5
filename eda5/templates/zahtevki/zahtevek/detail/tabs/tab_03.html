@@ -10,17 +10,82 @@
     </tr>
 
 
+<!-- 
+    Pri zahtevkih prikažemo vso dokumentacijo, ki spada pod ta zahtevek
+    Vključene Skupine:
+        - direktno zahtevki
+        - delovni nalogi       
+-->
 
 
-    <tr>
+<!-- direktno zahtevki -->
 
-        <td>{{ object.arhiviranje.dokument.datum_dokumenta }}</td>
-        <td>{{ object.arhiviranje.dokument.oznaka }}</td>
-        <td>{{ object.arhiviranje.dokument.avtor }}</td>
-        <td>{{ object.arhiviranje.dokument.naziv }}</td>
-        <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+{% for arhiviranje in arhiv_mesto.arhiviranje_set.all %}
 
-    </tr>
+    {% if arhiviranje.dokument.priponka %}  <!-- če priponka obstaja -->
+
+
+        {% if not arhiviranje.delovninalog %}  <!-- če je direktno pod zahtevek -->
+        <tr>
+
+            <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+            <td>{{ arhiviranje.dokument.oznaka }}</td>
+            <td>{{ arhiviranje.dokument.avtor }}</td>
+            <td>{{ arhiviranje.dokument.naziv }}</td>
+            <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+
+        </tr>
+
+        {% endif %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+
+
+
+<!-- direktno delovni_nalog -->
+
+{% for opravilo in object.opravilo_set.all %}
+
+    {% for delovninalog in opravilo.delovninalog_set.all %}
+
+
+        <tr class="info">
+            <td>({{ delovninalog.oznaka }}) {{ delovninalog.opravilo.naziv }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+
+            {% for arhiviranje in delovninalog.arhiviranje_set.all %}
+
+                {% if arhiviranje.dokument.priponka %}  <!-- če priponka obstaja -->
+
+                <tr>
+
+                    <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+                    <td>{{ arhiviranje.dokument.oznaka }}</td>
+                    <td>{{ arhiviranje.dokument.avtor }}</td>
+                    <td>{{ arhiviranje.dokument.naziv }}</td>
+                    <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+
+                </tr>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+    {% endfor %}    
+
+{% endfor %}
+
+
 
 
 
