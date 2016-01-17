@@ -80,3 +80,21 @@ class ArhiviranjeDelovniNalogForm(ArhiviranjeCreateForm):
             'fizicni',
         )
         widgets = {'delovninalog': forms.HiddenInput()}
+
+
+class ArhiviranjeNarociloForm(ArhiviranjeCreateForm):
+
+    def __init__(self, *args, **kwargs):
+
+        super(ArhiviranjeNarociloForm, self).__init__(*args, **kwargs)
+
+        # 1. prikaži samo dokumente z oznako = "RAC" (računi) in INR interni računi
+        self.fields["dokument"].queryset = Dokument.objects.filter(
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="PGD",) |
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="NRC",)
+            )
+
+    class Meta(ArhiviranjeCreateForm.Meta):
+        fields = (
+            'dokument',
+        )

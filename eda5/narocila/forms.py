@@ -3,7 +3,7 @@ from functools import partial
 from django import forms
 from django.utils import timezone
 
-from .models import Narocilo, NarociloTelefon, NarociloPogodba
+from .models import Narocilo, NarociloTelefon, NarociloDokument
 
 from eda5.partnerji.models import Oseba
 
@@ -14,8 +14,8 @@ TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 class NarociloCreateIzbiraForm(forms.Form):
     CHOICES = (
-        (1, 'narocilo telefon'),
-        (2, 'narocilo pogodba'),
+        (1, 'naročilo telefon'),
+        (2, 'naročilo dokument'),
     )
 
     vrsta_narocila = forms.ChoiceField(choices=CHOICES)
@@ -83,11 +83,10 @@ class NarociloTelefonCreateForm(forms.ModelForm):
         }
 
 
-class NarociloPogodbaCreateForm(forms.ModelForm):
+class NarociloDokumentCreateForm(forms.ModelForm):
 
     class Meta:
-        model = NarociloPogodba
+        model = NarociloDokument
         fields = [
-            'st_pogodbe',
-            'predmet_pogodbe',
+            'tip_dokumenta',
         ]

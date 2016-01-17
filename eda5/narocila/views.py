@@ -7,9 +7,13 @@ from django.core.context_processors import csrf
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 
 from .forms import NarociloCreateIzbiraForm, NarociloSplosnoCreateForm, NarociloTelefonCreateForm
-from .models import NarociloTelefon, NarociloPogodba, Narocilo
+from .forms import NarociloDokumentCreateForm
+from .models import Narocilo, NarociloTelefon, NarociloDokument
 
-from eda5.partnerji.models import SkupinaPartnerjev, Partner
+from eda5.arhiv.forms import ArhiviranjeNarociloForm
+from eda5.arhiv.models import Arhiviranje, ArhivMesto
+
+from eda5.partnerji.models import SkupinaPartnerjev, Partner, Oseba
 
 from eda5.moduli.models import Zavihek
 
@@ -56,8 +60,13 @@ class NarociloCreateIzbiraView(TemplateView):
 
             vrsta_narocila = narocilo_izbira_create_form.cleaned_data['vrsta_narocila']
 
+            # naročilo telefon
             if vrsta_narocila == '1':
                 return HttpResponseRedirect(reverse('moduli:narocila:narocilo_create_telefon'))
+
+            # naročilo dokument
+            if vrsta_narocila == '2':
+                return HttpResponseRedirect(reverse('moduli:narocila:narocilo_create_dokument'))
 
 
 class NarociloTelefonCreateView(TemplateView):
@@ -159,8 +168,8 @@ def reload_controls_view(request):
     return JsonResponse(context)
 
 
-class NarociloPogodbaCreateView(TemplateView):
-    template_name = "narocila/narocilo/create_pogodba.html"
+# class NarociloPogodbaCreateView(TemplateView):
+#     template_name = "narocila/narocilo/create_pogodba.html"
 
 
 class NarociloDetailView(DetailView):
@@ -176,3 +185,113 @@ class NarociloDetailView(DetailView):
 
         return context
 
+
+class NarociloDokumentCreateView(TemplateView):
+    template_name = "narocila/narocilo/create_dokument.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NarociloDokumentCreateView, self).get_context_data(*args, **kwargs)
+
+        # narocila
+        context['narocilo_splosno_form'] = NarociloSplosnoCreateForm
+        context['narocilo_dokument_form'] = NarociloDokumentCreateForm
+        # arhiv
+        context['arhiviranje_create_form'] = ArhiviranjeNarociloForm
+        # moduli
+        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_DOKUMENT")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        #############
+        ''' SETUP'''
+        #############
+        # narocilo
+        narocilo_splosno_form = NarociloSplosnoCreateForm(request.POST or None)
+        narocilo_dokument_form = NarociloDokumentCreateForm(request.POST or None)
+        # arhiv
+        arhiviranje_create_form = ArhiviranjeNarociloForm(request.POST or None)
+        # moduli
+        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_DOKUMENT")
+
+        #####################################
+        ''' PRIDOBITEV PODATKOV IZ FORMS'''
+        #####################################
+        if narocilo_dokument_form.is_valid():
+            tip_dokumenta = narocilo_dokument_form.cleaned_data['tip_dokumenta']
+            narocilo_dokument_form_is_valid = True
+
+        if narocilo_splosno_form.is_valid():
+            narocnik = narocilo_splosno_form.cleaned_data['narocnik']
+            izvajalec = narocilo_splosno_form.cleaned_data['izvajalec']
+            oznaka = narocilo_splosno_form.cleaned_data['oznaka']
+            predmet = narocilo_splosno_form.cleaned_data['predmet']
+            datum_narocila = narocilo_splosno_form.cleaned_data['datum_narocila']
+            datum_veljavnosti = narocilo_splosno_form.cleaned_data['datum_veljavnosti']
+            vrednost = narocilo_splosno_form.cleaned_data['vrednost']
+            narocilo_splosno_form_is_valid = True
+
+        if arhiviranje_create_form.is_valid():
+            dokument = arhiviranje_create_form.cleaned_data['dokument']
+            lokacija_hrambe = ArhivMesto.objects.get(oznaka="NAR")  # lokacija hrambe = NAROČILA
+            # vrsta hrambe
+            elektronski = True
+            # E-pošta se hrani v elektronski obliki
+            if tip_dokumenta == 1:  # 1 == e-pošta
+                fizicni = False
+            # Pogodbe in naročilnice se hranijo v elektronski in fizični obliki
+            else:
+                fizicni = True
+            # trenutni logirani uporabnik
+            user = request.user
+            oseba = Oseba.objects.get(user=user)
+            # pogoj za vnos podatkov
+            arhiviranje_create_form_is_valid = True
+
+        ################################
+        ''' IZDELAVA VNOSA V BAZI '''
+        ################################
+        if narocilo_splosno_form_is_valid is True and narocilo_dokument_form_is_valid is True and \
+                arhiviranje_create_form_is_valid is True:
+
+            # create narocilo-dokument
+            narocilo_dokument_data = NarociloDokument.objects.create_narocilo_dokument(
+                tip_dokumenta=tip_dokumenta,
+            )
+            narocilo_dokument = NarociloDokument.objects.get(id=narocilo_dokument_data.pk)
+
+            # create narocilo-splosno
+            narocilo_data = Narocilo.objects.create_narocilo(
+                narocilo_dokument=narocilo_dokument,
+                narocnik=narocnik,
+                izvajalec=izvajalec,
+                oznaka=oznaka,
+                predmet=predmet,
+                datum_narocila=datum_narocila,
+                datum_veljavnosti=datum_veljavnosti,
+                vrednost=vrednost,
+            )
+            narocilo = Narocilo.objects.get(id=narocilo_data.pk)
+
+            # create arhiviranje-dokumenta
+            Arhiviranje.objects.create_arhiviranje(
+                narocilo_dokument=narocilo_dokument,
+                dokument=dokument,
+                arhiviral=oseba,
+                elektronski=elektronski,
+                fizicni=fizicni,
+                lokacija_hrambe=lokacija_hrambe,
+            )
+
+            return HttpResponseRedirect(reverse('moduli:narocila:narocilo_detail', kwargs={"pk": narocilo.pk}))
+
+        else:
+            return render(request, self.template_name, {
+                'narocilo_splosno_form': narocilo_splosno_form,
+                'narocilo_dokument_form': narocilo_dokument_form,
+                'arhiviranje_create_form': arhiviranje_create_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )

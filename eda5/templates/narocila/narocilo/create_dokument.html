@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+    <form id="narocilo_create_form" method="POST" action="{% url 'moduli:narocila:narocilo_create_dokument' %}" enctype="multipart/form-data">{% csrf_token %}
+
+
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Splosni podatki</div>
+            <div class="panel-body">
+                {{ narocilo_splosno_form|crispy  }} 
+            </div>
+        </div>
+
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Podatki o naročilu z dokumentom</div>
+            <div class="panel-body">
+                {{ narocilo_dokument_form|crispy  }}
+            </div>
+        </div>
+
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Naročilnica</div>
+            <div class="panel-body">
+                {{ arhiviranje_create_form|crispy  }}
+            </div>
+        </div>
+
+        <input type="submit" value="Potrdi">
+
+        <div id="reload_controls_view">{% url 'moduli:narocila:reload_controls' %}</div>
+
+    </form>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+<script src="{% static 'js/custom_filter.js' %}"></script>
+
+<!-- js related to the application -->
+<script>
+    
+    $('#narocilo_create_form').on('change', '#id_narocnik', function()
+    {
+        reload_controls(this.value);
+    });
+
+    function reload_controls(skupina_partnerjev)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_view").text(),
+            dataType: 'json',
+            data: "skupina_partnerjev="+skupina_partnerjev,
+            success: function(result)
+            {
+                //empty month drop down list
+                $("#id_oseba").empty()
+
+                //add months with no report
+                $("#id_oseba").append('<option value="">---------</option>')
+                $.each( result.list_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    oseba=$("#id_oseba_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_oseba').append('<option value="'+value+'">'+oseba+'</option>')
+
+                });
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

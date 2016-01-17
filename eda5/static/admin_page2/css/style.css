@@ -42,7 +42,7 @@ Last Update: Nov 2015
 /******** 1. General ********/
 body {
   color: #797979;
-  background-color: #edf0f0;
+  background-color: rgba(0, 0, 0, 0);
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 0px !important;
   margin: 0px !important;
@@ -140,7 +140,7 @@ body, html {
 
 /******** 2. Left Panel (aside navigation) ********/
 aside.left-panel {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.9);
   width: 230px;
   position: fixed;
   height: 100%;
@@ -274,6 +274,7 @@ aside:not(.collapsed) .navigation ul li.active ul {
 /******************** 3.Top Header ****************/
     
 header {
+
   background-color: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid #ececee;
   padding-top: 4px;

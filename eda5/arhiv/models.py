@@ -9,7 +9,7 @@ from eda5.core.models import TimeStampedModel
 from eda5.deli.models import DelStavbe, Element
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.katalog.models import ModelArtikla
-from eda5.narocila.models import Narocilo
+from eda5.narocila.models import NarociloDokument
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.racunovodstvo.models import Racun
@@ -87,14 +87,14 @@ class Arhiviranje(TimeStampedModel):
     lokacija_hrambe = models.ForeignKey(ArhivMesto, blank=True, null=True, verbose_name="lokacija hrambe")
 
     ######################################################################
-    ''' KJE JE DOKUMENT LIKVIDIRAN IN BO VIDEN '''
+    ''' LOKACIJA LIKVIDIRANEGA DOKUMENTA '''
     ######################################################################
     ''' skupine, ki lahko imajo več priponk '''
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     delstavbe = models.ForeignKey(DelStavbe, blank=True, null=True)
     element = models.ForeignKey(Element, blank=True, null=True)
-    narocilo = models.ForeignKey(Narocilo, blank=True, null=True)
+    narocilo_dokument = models.ForeignKey(NarociloDokument, blank=True, null=True)
     artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
     ''' edino račun ima lahko samo eno priponko '''
     racun = models.OneToOneField(Racun, blank=True, null=True)

@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from eda5.narocila.models import Narocilo, NarociloPogodba, NarociloTelefon
+from eda5.narocila.models import Narocilo, NarociloDokument, NarociloTelefon
 
 
 admin.site.register(Narocilo)
-admin.site.register(NarociloPogodba)
+admin.site.register(NarociloDokument)
 admin.site.register(NarociloTelefon)
