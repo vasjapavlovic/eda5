@@ -31,9 +31,8 @@ Prostor 8000:
 - seznam naročil
 - detail naročila
 - novo naročilo ustno
-- novo naročilo naročilnica/pogodba
+- urediti filtriranje pri izbiri naročilnice po izbrani vrsti dokumenta (email, naročilnica, pogodba)
 'eda5.partnerji'#########################################################
-- nov partner -->  ne redirecta
 'eda5.predaja_lastnine'#########################################################
 'eda5.planiranje'#########################################################
 'eda5.posta'#########################################################
@@ -45,7 +44,6 @@ Prostor 8000:
 'eda5.pomanjkljivosti'#########################################################
 'eda5.predpisi'#########################################################
 'eda5.racunovodstvo'#########################################################
- racun models -  dodati računovodsko številko (oznako)
 'eda5.razdelilnik'#########################################################
 'eda5.stevci'#########################################################
 'eda5.users'#########################################################

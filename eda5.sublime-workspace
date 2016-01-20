@@ -510,21 +510,29 @@
 	},
 	"file_history":
 	[
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/models.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/models.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/admin.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/views.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/narocila/narocilo/create_dokument.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/urls.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/views/racun_views.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/managers.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/forms.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/urediti.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/forms.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/splosno.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/managers.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/static/admin_page2/css/style.css",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/base.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/lokacije/models.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/urediti.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/posta/views.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/splosno.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/forms.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/delovninalogi/views.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/models.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/delovninalogi/delovninalog/detail/tabs/tab_03.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_03.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/partnerji/models.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/partnerji/partner/detail/tabs/tab_02.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/etaznalastnina/views.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/views/racun_views.py",
 		"/home/pavlovicv/Desktop/django/eda5/config/settings/common.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/etaznalastnina/lastniska_enota_interna/list/lastniska.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/etaznalastnina/models.py",
@@ -629,15 +637,7 @@
 		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/forms.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/managers.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/models.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/zahtevki/zahtevek/create/predaja_lastnine",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/izvedba_dela.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/delovninalogi/forms.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/planiranje/views/plan.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/planiranje/plan/detail/tabs/tab_04.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/planiranje/plan/detail/tabs/tab_03.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/planiranje/models.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/delovninalogi/opravilo/create_from_vzorec_opravila.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/delovninalogi/opravilo/create_from_zahtevek.html"
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/zahtevki/zahtevek/create/predaja_lastnine"
 	],
 	"find":
 	{
@@ -655,6 +655,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"izbira",
 			"nav-label",
 			"eda5",
 			"Detail",
@@ -781,8 +782,7 @@
 			"favicon",
 			"racunovostvo",
 			"taskbuster",
-			"jumbotron",
-			"cover"
+			"jumbotron"
 		],
 		"highlight": true,
 		"in_selection": false,

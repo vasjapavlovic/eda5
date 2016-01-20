@@ -10,14 +10,29 @@
         <td><small><b>predmet</b></small></td>
         <td><b style="color:#0000FF">{{ object.predmet }}</b></td>
     </tr>
+
+    {% if object.narocilo_dokument %}
     <tr>
         <td><small><b>vrsta</b></small></td>
-        {% if narocilo_pogodba %}
-        <td>Pogodbeno Naročilo</td>
-        {% endif %}
-        {% if narocilo_telefon %}
+        <td>Naročilo po Dokumentu</td>
+    </tr>
+    <tr>
+        <td><small><b>Priponka</b></small></td>
+        <td>
+            {% for arhiviranje in object.narocilo_dokument.arhiviranje_set.all %}
+            <a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}" target="_blank"><li>{{ arhiviranje.dokument.priponka }}</li></a>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if object.narocilo_telefon %}
+    <tr>
+        <td><small><b>vrsta</b></small></td>
         <td>Naročilo po Telefonu</td>
-        {% endif %}
+    </tr>
+    {% endif %}
+
     </tr>
     <tr>
         <td><small><b>Naročeno dne</b></small></td>
@@ -29,7 +44,7 @@
     </tr>
     <tr>
         <td><small><b>Naročnik</b></small></td>
-        <td><b><a href="">{{ object.narocnik.naziv }}</a></b></td>
+        <td><b><a href="">{{ object.narocnik.naziv }} ({{ object.narocnik.oznaka }})</a></b></td>
     </tr>
     <tr>
         <td><small><b>Izvajalec</a></b></small></td>

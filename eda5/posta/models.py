@@ -72,6 +72,7 @@ class Dokument(TimeStampedModel):
     class Meta:
         verbose_name = "dokument"
         verbose_name_plural = "dokumenti"
+        unique_together = (('oznaka', 'avtor', 'vrsta_dokumenta', 'datum_dokumenta',),)
 
     def get_absolute_url(self):
         return reverse("moduli:posta:list_likvidacija")
