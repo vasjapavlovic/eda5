@@ -1,0 +1,23 @@
+<!-- PROIZVAJALCI -->
+
+            <div class="table-responsive">
+                <table id="datatable_katalog_proizvajalec_list"  class="table table-condensed table-hover">
+
+                    <thead class="bg-primary">
+                    <tr>
+                        <td>oznaka</td>
+                        <td>naziv</td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for proizvajalec in object_list %}
+                    <tr>
+                        <td><b><a href="">{{ proizvajalec.oznaka }}</a></b></td>
+                        <td>{{ proizvajalec.naziv }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>

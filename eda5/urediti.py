@@ -40,6 +40,8 @@ Prostor 8000:
 'eda5.pomanjkljivosti'#########################################################
 'eda5.predpisi'#########################################################
 'eda5.racunovodstvo'#########################################################
+    class Likvidiranje računov --> samo računovodska dokumentacija "RAC". Popravi, da je vsa racunovodska 
+    dokumentacija v skupini RAC
 'eda5.razdelilnik'#########################################################
 'eda5.stevci'#########################################################
 'eda5.users'#########################################################
@@ -56,6 +58,8 @@ Prostor 8000:
 
 - Urediti filtriranje <option> v horizontal filter. Sedaj je uporabljen navaden MultipleSelection
 - filtriranje pri izdelavi zahtevek izvedba del
+- v najem se predaja samo prosto etažne lastnino - Uredi pri predaja_lastnine
+- uredi PickDate pri dodajanju predaje lastnine
 
 'eda5.zaznamki'#########################################################
 

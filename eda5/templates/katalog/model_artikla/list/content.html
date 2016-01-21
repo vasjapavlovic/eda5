@@ -1,0 +1,25 @@
+<!-- MODELI ARTIKLOV -->
+
+            <div class="table-responsive">
+                <table id="datatable_katalog_model_artikla_list"  class="table table-condensed table-hover">
+
+                    <thead class="bg-primary">
+                    <tr>
+                        <td>oznaka</td>
+                        <td>naziv</td>
+                        <td>tip artikla</td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for model_artikla in object_list %}
+                    <tr>
+                        <td><b><a href="">{{ model_artikla.oznaka }}</a></b></td>
+                        <td>{{ model_artikla.naziv }}</td>
+                        <td>({{ model_artikla.tip_artikla.oznaka }}) {{ model_artikla.tip_artikla.naziv }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
