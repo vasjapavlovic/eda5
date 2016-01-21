@@ -4,8 +4,10 @@ from decimal import Decimal
 # DJANGO #############################################################
 from django.views.generic import TemplateView, ListView, DetailView
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
 
 
 # INTERNO ############################################################
@@ -163,13 +165,16 @@ class RacunListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(RacunListView, self).get_context_data(*args, **kwargs)
 
-        # seznam nearhiviranih računov
+        # seznam nelikvidirane računovodske dokumentacije
         racun_nelikvidiran_list = Dokument.objects.filter(
-                                                          vrsta_dokumenta__oznaka="RAC",
-                                                          arhiviranje__isnull=True)
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="RAC",) |
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="INR",) |
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="PRV",)
+        )
+
         context['racun_nelikvidiran_list'] = racun_nelikvidiran_list
 
-        # seznam arhiviranih računov
+        # seznam arhivirane računovodske dokumentacije
         racun_likvidiran_list = Racun.objects.all()
         context['racun_likvidiran_list'] = racun_likvidiran_list
 

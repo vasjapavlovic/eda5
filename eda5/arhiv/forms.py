@@ -61,7 +61,8 @@ class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
         # 1. prikaži samo dokumente z oznako = "RAC" (računi) in INR interni računi
         self.fields["dokument"].queryset = Dokument.objects.filter(
             Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="RAC",) |
-            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="INR",)
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="INR",) |
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="PRV",)
             )
 
     class Meta(ArhiviranjeCreateForm.Meta):
