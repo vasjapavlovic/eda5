@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
-from eda5.racunovodstvo.models import Strosek, VrstaStroska
+from eda5.racunovodstvo.models import Strosek, VrstaStroska, SkupinaVrsteStroska, PodKonto, Konto
 from eda5.moduli.models import Zavihek
 
 
@@ -22,5 +22,14 @@ class ReportStrosek(TemplateView):
 
         vrsta_stroska_list = VrstaStroska.objects.filter(skupina__skupina__skupina__oznaka="O")
         context['vrsta_stroska_list'] = vrsta_stroska_list
+
+        skupina_vrste_stroska_list = SkupinaVrsteStroska.objects.filter(skupina__skupina__oznaka="O")
+        context['skupina_vrste_stroska_list'] = skupina_vrste_stroska_list
+
+        podkonto = PodKonto.objects.filter(skupina__oznaka="O")
+        context['podkonto_list'] = podkonto
+
+        konto = Konto.objects.exclude(oznaka="E")
+        context['konto_list'] = konto
 
         return context

@@ -148,7 +148,17 @@ class Konto(models.Model):
     # ***Optional***
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # OBJECT MANAGER
+
     # CUSTOM PROPERTIES
+    @property
+    def visina_stroska(self):
+        visina_stroska = 0
+        for podkonto in self.podkonto_set.all():
+            for skupina_vrste_stroska in podkonto.skupinavrstestroska_set.all():
+                for vrsta_stroska in skupina_vrste_stroska.vrstastroska_set.all():
+                    for strosek in vrsta_stroska.strosek_set.all():
+                        visina_stroska += strosek.osnova
+        return visina_stroska
     # METHODS
 
     # META AND STRING
@@ -173,7 +183,16 @@ class PodKonto(models.Model):
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # ***Optional***
     # OBJECT MANAGER
+
     # CUSTOM PROPERTIES
+    @property
+    def visina_stroska(self):
+        visina_stroska = 0
+        for skupina_vrste_stroska in self.skupinavrstestroska_set.all():
+            for vrsta_stroska in skupina_vrste_stroska.vrstastroska_set.all():
+                for strosek in vrsta_stroska.strosek_set.all():
+                    visina_stroska += strosek.osnova
+        return visina_stroska
     # METHODS
 
     # META AND STRING
@@ -197,7 +216,15 @@ class SkupinaVrsteStroska(models.Model):
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # ***Optional***
     # OBJECT MANAGER
+
     # CUSTOM PROPERTIES
+    @property
+    def visina_stroska(self):
+        visina_stroska = 0
+        for vrsta_stroska in self.vrstastroska_set.all():
+            for strosek in vrsta_stroska.strosek_set.all():
+                visina_stroska += strosek.osnova
+        return visina_stroska
     # METHODS
 
     # META AND STRING
@@ -228,7 +255,7 @@ class VrstaStroska(models.Model):
         visina_stroska = 0
         for strosek in self.strosek_set.all():
             visina_stroska += strosek.osnova
-        return str(visina_stroska)
+        return visina_stroska
     # METHODS
 
     # META AND STRING
