@@ -1,8 +1,7 @@
 ##### EDA5 Project #####
 
 'eda5.arhiv'#########################################################
-- Arhiviranje --> Relacije na račune, zahtevke itd je prenesti v ArhivMesto!
-- Dodati arhiv in osnovna arhivska mesta:  01:Arhiv,   RAC:Računovodstvo
+- Dodati arhiv in osnovna arhivska mesta:  01:Arhiv,   RAC:Računovodstvo, NAR:Naročilnice
 - Dodati -->  Arhiviral == current_user
 
 'eda5.core'#########################################################
@@ -37,9 +36,6 @@ Prostor 8000:
 'eda5.planiranje'#########################################################
 'eda5.posta'#########################################################
     # aktivnost
-        ''' Ibira Prejeta Pošta ali Izdana Pošta. Kasneje ni pravilna rešitev.
-        Popraviti je:   nastavitev podjetja v globalnih nastavitvah. Če je pri naslovnik pošte podjetje
-        gre za prejeto pošto. Če je pošiljatelj nastavljeno podjetje gre za izdano pošto '''
 
 'eda5.pomanjkljivosti'#########################################################
 'eda5.predpisi'#########################################################
@@ -57,8 +53,6 @@ Prostor 8000:
         # Dodati opis poškodovanih stvari
     #4 Sestanek
         # podzahtevkom omogoči dodajanje udeležencev (glej ZahtevekSestanekCreateView)
-    - zahtevek predaja v posest
-    - zahtevek predaja v najem
 
 - Urediti filtriranje <option> v horizontal filter. Sedaj je uporabljen navaden MultipleSelection
 - filtriranje pri izdelavi zahtevek izvedba del

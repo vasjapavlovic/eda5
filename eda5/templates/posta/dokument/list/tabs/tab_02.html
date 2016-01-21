@@ -1,17 +1,19 @@
-<!-- ARHIVIRANO -->       
-        <div class="panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Arhivirano</div>
-            <div class="panel-body">
+<!-- ARHIVIRANO -->   
 
-                <table class="table">
 
+            <div class="table-responsive">
+                <table id="datatable_posta_arhivirano" class="table">
+
+                    <thead class="bg-primary">
                     <tr>
                         <td>oznaka</td>
                         <td>datum</td>
                         <td>predmet</td>
                         <td>priponka</td>
                     </tr>
+                    </thead>
 
+                    <tbody>
                     {% for dokument in arhivirano_list %}
                     <tr>
                         <td><b><a href="{% url 'moduli:posta:dokument_detail' dokument.pk %}">{{ dokument.oznaka }}</a></b></td>
@@ -20,7 +22,8 @@
                         <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
                     </tr>
                     {% endfor %}
+                    </tbody>
 
                 </table>
+                </div>
             </div>
-        </div>

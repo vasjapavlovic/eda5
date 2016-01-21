@@ -44,5 +44,20 @@
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
+
+<!-- nelikvidirana pošta -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable_posta_nearhivirano').dataTable();
+        } );
+    </script>
+
+    <!-- likvidirana pošta -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable_posta_arhivirano').dataTable();
+        } );
+    </script>
+
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->

@@ -31,6 +31,8 @@ class RacunAdmin(admin.ModelAdmin):
         StrosekInline,
     ]
 
+    search_fields = ['arhiviranje__dokument__oznaka']
+
 
 @admin.register(Strosek)
 class StrosekAdmin(admin.ModelAdmin):
