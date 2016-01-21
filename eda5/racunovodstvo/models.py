@@ -221,7 +221,14 @@ class VrstaStroska(models.Model):
     zap_st = models.IntegerField(default=0, verbose_name="zaporedna Številka",)
     # ***Optional***
     # OBJECT MANAGER
+
     # CUSTOM PROPERTIES
+    @property
+    def visina_stroska(self):
+        visina_stroska = 0
+        for strosek in self.strosek_set.all():
+            visina_stroska += strosek.osnova
+        return str(visina_stroska)
     # METHODS
 
     # META AND STRING

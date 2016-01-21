@@ -6,6 +6,8 @@
 
 'eda5.core'#########################################################
 'eda5.deli'#########################################################
+    - prikaz obratovalnih parametrov :  Zadnjega dobi po datumu. Potrebno vezati tudi na uro
+    v primeru več sprememb dnevno
 
 Prostor 8000:
 - stene_01
@@ -42,6 +44,8 @@ Prostor 8000:
 'eda5.racunovodstvo'#########################################################
     class Likvidiranje računov --> samo računovodska dokumentacija "RAC". Popravi, da je vsa racunovodska 
     dokumentacija v skupini RAC
+
+    class Urediti avtomatsko dodelitev računovodske številke za vrsto dokuemnta == "PRV - Poravnava"
 'eda5.razdelilnik'#########################################################
 'eda5.stevci'#########################################################
 'eda5.users'#########################################################

@@ -145,7 +145,6 @@ class ProdajaLastnineCreateView(UpdateView):
             datum_predaje = prodaja_lastnine_create_form.cleaned_data['datum_predaje']
             placnik = prodaja_lastnine_create_form.cleaned_data['placnik']
             predaja_lastnine = zahtevek.predajalastnine
-            print(predaja_lastnine)
 
             ProdajaLastnine.objects.create_prodaja_lastnine(
                 lastniska_enota=lastniska_enota,

@@ -8,6 +8,7 @@
                         <td>oznaka</td>
                         <td>naziv</td>
                         <td>tip artikla</td>
+                        <td>proizvajalec</td>
                     </tr>
                     </thead>
 
@@ -17,6 +18,7 @@
                         <td><b><a href="">{{ model_artikla.oznaka }}</a></b></td>
                         <td>{{ model_artikla.naziv }}</td>
                         <td>({{ model_artikla.tip_artikla.oznaka }}) {{ model_artikla.tip_artikla.naziv }}</td>
+                        <td>{{ model_artikla.proizvajalec.naziv }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
