@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^razdelilnik/', include("eda5.razdelilnik.urls", namespace="razdelilnik")),
     url(r'^reports/', include("eda5.reports.urls", namespace="reports")),
     url(r'^skladisce/', include("eda5.skladisce.urls", namespace="skladisce")),
-    url(r'^stevci/', include("eda5.stevci.urls", namespace="stevci")),
+    url(r'^stevcno-stanje/', include("eda5.stevcnostanje.urls", namespace="stevcnostanje")),
     url(r'^zahtevki/', include("eda5.zahtevki.urls", namespace="zahtevki")),
 ]
 

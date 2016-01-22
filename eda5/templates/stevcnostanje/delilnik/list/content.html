@@ -1,0 +1,34 @@
+<!-- Iskalnik -->
+    <div class="col-xs-6 col-md-6" align="right">
+        <form action="" method="GET">
+            <input type="text" name="q" id="search_text" />
+            <input type="checkbox" name="distribucija" id="distribucija">Prikaži samo distribucijo<br>
+            <input type="submit" value="search">
+            <a type="button" class="btn btn-default" href="{% url 'moduli:stevci:delilnik_list' %}" >reset</a>
+        </form>
+    </div>
+
+
+<!-- Seznam Delilnikov -->
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <tr>
+                <th>oznaka</th>
+                <th>meritev</th>
+                <th>stevec</th>
+                <th>upravljavec</th>
+            </tr>
+
+{% for object in object_list %}
+
+            <tr>
+                <td><b><a href="{% url 'moduli:stevci:delilnik_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
+                <td>{{ object.meritev }}</td>
+                <td>{{ object.stevec.naziv }}</td>
+                <td>{{ object.stevec.upravljavec.kratko_ime }}</td>
+            </tr>
+
+{% endfor %}
+
+        </table>
+    </div>

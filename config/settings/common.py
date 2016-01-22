@@ -69,7 +69,7 @@ LOCAL_APPS = (
     'eda5.racunovodstvo',  # likvidacija računov, zapadli računi, plačani računi
     'eda5.razdelilnik',  # razdelilnik
     'eda5.reports',  # poročanje
-    'eda5.stevci',
+    'eda5.stevcnostanje',
     'eda5.users',  # custom users app
     'eda5.zahtevki',  # reševanje zahtevkov naročnikov
     'eda5.zaznamki',  # zaznamki

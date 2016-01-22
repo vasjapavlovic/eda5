@@ -21,7 +21,6 @@ O-PRG-02B,Neplanirani tehnični nadzori in pregledi na podlagi zakonskih določi
 O-TVZ-01A,Tekoča hišniška opravila,1,O-TVZ-01
 O-TVZ-02A,Planirana vzdrževalna dela,1,O-TVZ-02
 O-TVZ-02B,Neplanirana vzdrževalna dela,2,O-TVZ-02
-O-TVZ-02C,Intervencije,3,O-TVZ-02
 O-VAR-01A,Prenos požarnega signala na VNC,1,O-VAR-01
 O-VAR-01B,Izvajanje nalog pooblaščene osebe za varstvo pred požarom,2,O-VAR-01
 O-VAR-02A,Reševanje iz dvigal,1,O-VAR-02

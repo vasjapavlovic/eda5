@@ -1,0 +1,11 @@
+<h2>Dodaj odčitek</h2>
+
+<form action="" method="POST">{% csrf_token %}
+    <div class="modal-body">
+        {{ odcitek_form|crispy  }}   
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+        <button type="submit" class="btn btn-primary">Shrani</button>
+    </div>
+</form>

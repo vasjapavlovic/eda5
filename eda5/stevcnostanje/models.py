@@ -1,7 +1,7 @@
 from django.db import models
 
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec, TimeStampedModel
-from eda5.deli.models import DelStavbe
+from eda5.deli.models import ProjektnoMesto
 from eda5.partnerji.models import Partner, Oseba
 from . import managers
 
@@ -11,7 +11,7 @@ class Stevec(models.Model):
     # ATRIBUTES
     #   Relations
     #   __lokacija
-    del_stavbe = models.ForeignKey(DelStavbe, null=True, blank=True)
+    projektno_mesto = models.ForeignKey(ProjektnoMesto, null=True, blank=True)
     upravljavec = models.ForeignKey(Partner)
     # lokacija stevca !!!!!!
     #   Mandatory

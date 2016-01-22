@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('datum_odcitka', models.DateField()),
                 ('stanje_staro', models.DecimalField(max_digits=15, decimal_places=3)),
                 ('stanje_novo', models.DecimalField(max_digits=15, decimal_places=3)),
-                ('delilnik', models.ForeignKey(to='stevci.Delilnik')),
+                ('delilnik', models.ForeignKey(to='stevcnostanje.Delilnik')),
                 ('obdobje_leto', models.ForeignKey(to='core.ObdobjeLeto')),
                 ('obdobje_mesec', models.ForeignKey(to='core.ObdobjeMesec')),
                 ('odcital', models.ForeignKey(to='partnerji.Oseba', blank=True, null=True, verbose_name='odčital')),
@@ -68,7 +68,7 @@ class Migration(migrations.Migration):
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('v_okvari', models.BooleanField()),
                 ('v_delovanju', models.BooleanField()),
-                ('stevec', models.ForeignKey(to='stevci.Stevec')),
+                ('stevec', models.ForeignKey(to='stevcnostanje.Stevec')),
             ],
             options={
                 'verbose_name_plural': 'status števcev',
@@ -79,6 +79,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='delilnik',
             name='stevec',
-            field=models.ForeignKey(to='stevci.Stevec'),
+            field=models.ForeignKey(to='stevcnostanje.Stevec'),
         ),
     ]

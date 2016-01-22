@@ -10,23 +10,39 @@ from .forms import OdcitekCreateWidget
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec
 from eda5.partnerji.models import Oseba
 
+from eda5.moduli.models import Zavihek
+
 
 class StevciHomeView(TemplateView):
-    template_name = "stevci/home.html"
+    template_name = "stevcnostanje/home.html"
 
 
 class DelilnikListView(DelilnikSearchMixin, ListView):
-    template_name = "stevci/delilnik/list.html"
+    template_name = "stevcnostanje/delilnik/list/base.html"
     model = Delilnik
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelilnikListView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DELILNIK_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
 
 
 class DelilnikDetailView(DetailView):
-    template_name = "stevci/delilnik/detail.html"
+    template_name = "stevcnostanje/delilnik/detail/base.html"
     model = Delilnik
 
     def get_context_data(self, *args, **kwargs):
         context = super(DelilnikDetailView, self).get_context_data(*args, **kwargs)
         context['odcitek_form'] = OdcitekCreateWidget
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DELILNIK_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -60,4 +76,4 @@ class DelilnikDetailView(DetailView):
                 )
 
         # return HttpResponseRedirect('/moduli/stevci/')
-        return HttpResponseRedirect(reverse('moduli:stevci:delilnik_detail', kwargs={'pk': delilnik.pk}))
+        return HttpResponseRedirect(reverse('moduli:stevcnostanje:delilnik_detail', kwargs={'pk': delilnik.pk}))
