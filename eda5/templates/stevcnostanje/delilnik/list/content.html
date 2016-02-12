@@ -4,7 +4,7 @@
             <input type="text" name="q" id="search_text" />
             <input type="checkbox" name="distribucija" id="distribucija">Prikaži samo distribucijo<br>
             <input type="submit" value="search">
-            <a type="button" class="btn btn-default" href="{% url 'moduli:stevci:delilnik_list' %}" >reset</a>
+            <a type="button" class="btn btn-default" href="{% url 'moduli:stevcnostanje:delilnik_list' %}" >reset</a>
         </form>
     </div>
 
@@ -22,7 +22,7 @@
 {% for object in object_list %}
 
             <tr>
-                <td><b><a href="{% url 'moduli:stevci:delilnik_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
+                <td><b><a href="{% url 'moduli:stevcnostanje:delilnik_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
                 <td>{{ object.meritev }}</td>
                 <td>{{ object.stevec.naziv }}</td>
                 <td>{{ object.stevec.upravljavec.kratko_ime }}</td>

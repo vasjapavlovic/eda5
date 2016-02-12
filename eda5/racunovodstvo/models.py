@@ -89,7 +89,7 @@ class Strosek(models.Model):
     datum_storitve_od = models.DateField()
     datum_storitve_do = models.DateField()
     # vrednosti do 99.999,99 EUR (na dve decimalni mesti natančno)
-    osnova = models.DecimalField(decimal_places=2, max_digits=7, verbose_name='osnova za ddv')
+    osnova = models.DecimalField(decimal_places=4, max_digits=9, verbose_name='osnova za ddv')
     # 0.22(22%) in 0.095(9,5%) | 0.000
     stopnja_ddv = models.IntegerField(choices=STOPNJE_DDV, verbose_name="stopnja DDV")
     delilnik_vrsta = models.CharField(blank=True, max_length=50, choices=DELILNIK_VRSTA)

@@ -1,8 +1,15 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.db.models import Q
 
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter, A3
+
+
 from .forms import ReportForm
+
 
 
 from eda5.racunovodstvo.models import Strosek, VrstaStroska, SkupinaVrsteStroska, PodKonto, Konto
@@ -43,3 +50,30 @@ class ReportStrosek(TemplateView):
         context['konto_list'] = konto
 
         return context
+
+
+def create_pdf_view(request):
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+
+    buffer = BytesIO()
+
+    # Create the PDF object, using the BytesIO object as its "file."
+    p = canvas.Canvas(buffer, pagesize=A3)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+
+    p.drawString(100, 100, 'DELOVNI NALOG')
+
+
+    # Close the PDF object cleanly.
+    p.showPage()
+    p.save()
+
+    # Get the value of the BytesIO buffer and write it to the response.
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+    return response
