@@ -487,34 +487,34 @@ margin-top: 0px;
 
 
 .bg-primary{
-    background-color: rgba(59, 192, 195, 0.8);
+    background-color: rgba(59, 192, 195, 0.5);
 }
 .bg-success{
-    background-color: rgba(51, 184, 108, 0.8);
+    background-color: rgba(51, 184, 108, 0.5);
 }
 .bg-info{
-    background-color: rgba(28, 168, 221, 0.8);
+    background-color: rgba(28, 168, 221, 0.5);
 }
 .bg-warning{
-    background-color: rgba(235, 193, 66, 0.8);
+    background-color: rgba(235, 193, 66, 0.5);
 }
 .bg-danger{
-    background-color: rgba(203, 42, 42, 0.8);
+    background-color: rgba(203, 42, 42, 0.5);
 }
 .bg-muted {
     background-color: #d0d0d0;
 }
 .bg-inverse {
-    background-color: rgba(20, 8, 45, 0.8);
+    background-color: rgba(20, 8, 45, 0.5);
 }
 .bg-purple {
-    background-color: rgba(97, 92, 168, 0.8) !important;
+    background-color: rgba(97, 92, 168, 0.5) !important;
 }
 .bg-pink {
-    background-color: rgba(241, 60, 110, 0.8);
+    background-color: rgba(241, 60, 110, 0.5);
 }
 .bg-yellow {
-    background-color: rgba(255, 210, 127, 0.6);
+    background-color: rgba(255, 210, 127, 0.5);
 }
 
 .white-bg{

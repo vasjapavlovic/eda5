@@ -57,6 +57,7 @@ LOCAL_APPS = (
     'eda5.lastnistvo',  # prevzem v last, oddaja v najem
     'eda5.lokacije',  # lokacije elementov stavbe
     'eda5.moduli',  # zbirnik vseh modulov
+    'eda5.nadzornaplosca',  # nadzorna plošča (linki do krmilniku, ....)
     'eda5.narocila',  # naročila partnerjev
     'eda5.nastavitve',  # globalne nastavitve
     'eda5.partnerji',  # podatki o partnerjih
