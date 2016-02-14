@@ -15,6 +15,8 @@ from .forms import ReportForm
 from eda5.racunovodstvo.models import Strosek, VrstaStroska, SkupinaVrsteStroska, PodKonto, Konto
 from eda5.moduli.models import Zavihek
 
+from eda5.delovninalogi.models import Delo, DelovniNalog
+
 
 class ReportStrosek(TemplateView):
     template_name = "reports/strosek/report_1/base.html"
@@ -52,6 +54,41 @@ class ReportStrosek(TemplateView):
         return context
 
 
+class ReportDelavciVDelu(TemplateView):
+    template_name = "reports/delovninalog/delavcivdelu/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ReportDelavciVDelu, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DELAVCI_V_DELU")
+        context['modul_zavihek'] = modul_zavihek
+
+        delavdelu = Delo.objects.filter(time_stop__isnull=True)
+        context['delavdelu'] = delavdelu
+
+        return context
+
+
+class ReportDelovniNalogODnevnik(TemplateView):
+    template_name = "reports/delovninalog/dnevnik/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ReportDelovniNalogODnevnik, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DELOVNI_NALOG_DNEVNIK")
+        context['modul_zavihek'] = modul_zavihek
+
+        delovninalogi = DelovniNalog.objects.filter(status=4)
+        context['delovninalogi'] = delovninalogi
+
+        return context
+
+
+
+
+
 def create_pdf_view(request):
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
@@ -77,3 +114,5 @@ def create_pdf_view(request):
     buffer.close()
     response.write(pdf)
     return response
+
+

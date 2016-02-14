@@ -56,7 +56,7 @@ class Dokument(TimeStampedModel):
     naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik")
     #   Mandatory
     oznaka_baza = models.IntegerField(blank=True, null=True)
-    oznaka = models.CharField(max_length=20, verbose_name='številka dokumenta')
+    oznaka = models.CharField(max_length=50, verbose_name='številka dokumenta')
     naziv = models.CharField(max_length=255, verbose_name="naziv")
     datum_dokumenta = models.DateField()
     kraj_izdaje = models.CharField(max_length=100, blank=True)

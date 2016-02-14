@@ -21,6 +21,7 @@ Prostor 8000:
     #1 opravilo_create : uredi, da se da dodajati elemente many-to-many
     #2 vnos delovnega naloga za INTERVENCIJSKA DELA (ročni vpis podatkov, ko je čas)
     - opravilo from vzorec opravila :  rok izvedbe naj se izdela kot zadnje izdelan + perioda
+    Delo --> dodati opis dela 
 
 'eda5.skladisce'#########################################################
 'eda5.etaznalastnina'#########################################################
@@ -47,6 +48,8 @@ Prostor 8000:
 
     class Urediti avtomatsko dodelitev računovodske številke za vrsto dokuemnta == "PRV - Poravnava"
 'eda5.razdelilnik'#########################################################
+'eda5.reports'#############################3
+1. Trenutno kdo dela in kaj dela in na katerem delu dela
 'eda5.stevci'#########################################################
 'eda5.users'#########################################################
 

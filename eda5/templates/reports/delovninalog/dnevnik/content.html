@@ -1,0 +1,54 @@
+
+<table class="table table-condensed">
+
+
+{% for dn in delovninalogi %}
+<thead class="bg-primary">
+    <tr>
+        <th>Delovni Nalog</th>
+        <th>Naziv opravila</th>
+        <th>Nosilec</th>
+    </tr>
+</thead>
+
+
+
+<tbody class="bg-primary">
+    <tr>
+        <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.pk %}"><b>{{ dn.oznaka }}</b></a></td>
+        <td>{{ dn.opravilo.naziv }}</td>
+        <td>Nosilec: {{ dn.opravilo.nosilec.priimek }} {{ dn.opravilo.nosilec.ime }}</td>
+    </tr>
+
+    <!-- dnevnik opravljenih del za posamezni delovni nalog-->
+    <thead class="bg-info">
+    <tr>
+        <th>Vrsta dela</th>
+        <th>Opis dela</th>
+        <th>Delavec</th>
+        <th>Datum</th>
+        <th>Začetek</th>
+        <th>Konec</th>
+        <th>Trajanje</th>
+    </tr>
+    </thead>
+
+    {% for delo in dn.delo_set.all %}
+    <tbody>
+    <tr>
+        <td><b>({{ delo.vrsta_dela.oznaka }}) </b>{{ delo.vrsta_dela.naziv }}</td>
+        <td>{{ delo.opis }}</td>
+        <td>{{ delo.delavec.priimek }} {{ delo.delavec.ime }}</td>
+        <td>{{ delo.datum }}</td>
+        <td>{{ delo.time_start }}</td>
+        <td>{{ delo.time_stop}}</td>
+        <td>{{ delo.porabljen_cas}}</td>
+    </tr>
+    </tbody>
+    {% endfor %}
+
+</tbody>
+
+
+{% endfor %}
+</table>

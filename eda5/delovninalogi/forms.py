@@ -242,6 +242,7 @@ class DeloForm(forms.Form):
 
     delavec = forms.ModelChoiceField(queryset=DELAVCI)
     vrsta_dela = forms.ModelChoiceField(queryset=VRSTE_DEL)
+    opis = forms.CharField()
 
 
 class DeloZacetoUpdateModelForm(forms.ModelForm):

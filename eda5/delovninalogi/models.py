@@ -138,6 +138,7 @@ class Delo(TimeStampedModel, StatusModel):
     delovninalog = models.ForeignKey(DelovniNalog, verbose_name="delovni nalog")
     vrsta_dela = models.ForeignKey('DeloVrsta', blank=True, null=True)
     #   Mandatory
+    opis = models.TextField(blank=True, null=True)
     #   Optional
     datum = models.DateField(blank=True, null=True)
     '''****spremeni v DurationField*****'''

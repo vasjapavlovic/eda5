@@ -18,3 +18,9 @@ urlpatterns += [
 urlpatterns += [
     url(r'^create_pdf/$', views.create_pdf_view, name="create_pdf_view"),
 ]
+
+# Delovninalog
+urlpatterns += [
+    url(r'^delavci_v_delu/$', views.ReportDelavciVDelu.as_view(), name="delavci_v_delu"),
+    url(r'^dnevnik_izvedenih_del/$', views.ReportDelovniNalogODnevnik.as_view(), name="dnevnik"),
+]
