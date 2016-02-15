@@ -33,4 +33,4 @@ class DelilnikSearchMixin(object):
             return queryset.filter(stevec__is_distribucija=True)
 
         # if filter is not applied
-        return queryset[:15]
+        return queryset

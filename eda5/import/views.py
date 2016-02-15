@@ -10,7 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, T
 
 from .forms import UtilitiUvozCsvForm, PartnerjiUvozCsvForm, DeliUvozCsvForm, RacunovodstvoUvozCsvForm,\
                    DelovniNalogiUvozCsvForm, EtaznaLastninaUvozCsvForm, KatalogUvozCsvForm, PostaUvozCsvForm,\
-                   PredpisiUvozCsvForm
+                   PredpisiUvozCsvForm, StevcnoStanjeUvozCsvForm
 
 from eda5.core.forms import ObdobjeLetoCreateForm, ObdobjeMesecCreateForm
 
@@ -43,6 +43,10 @@ from eda5.predpisi.forms import PredpisSklopCreateForm, PredpisPodsklopCreateFor
 from eda5.predpisi.forms import PredpisOpraviloCreateForm, PredpisCreateForm
 from eda5.predpisi.models import PredpisSklop, PredpisPodsklop, PredpisOpravilo, Predpis
 
+# StevcnoStanje
+from eda5.stevcnostanje.forms import StevecCreateForm, StevecStatusCreateForm, DelilnikCreateForm, OdcitekCreateForm
+from eda5.stevcnostanje.models import Stevec, Delilnik, StevecStatus, Odcitek
+
 from eda5.users.forms import UserCreateForm
 
 
@@ -62,6 +66,7 @@ class UvozCsv(TemplateView):
         context['katalog_uvoz_form'] = KatalogUvozCsvForm
         context['posta_uvoz_form'] = PostaUvozCsvForm
         context['predpisi_uvoz_form'] = PredpisiUvozCsvForm
+        context['stevcno_stanje_uvoz_form'] = StevcnoStanjeUvozCsvForm
 
         return context
 
@@ -75,7 +80,7 @@ class UvozCsv(TemplateView):
         katalog_uvoz_form = KatalogUvozCsvForm(request.POST or None)
         posta_uvoz_form = PostaUvozCsvForm(request.POST or None)
         predpisi_uvoz_form = PredpisiUvozCsvForm(request.POST or None)
-
+        stevcnostanje_uvoz_form = StevcnoStanjeUvozCsvForm(request.POST or None)
 
         def import_core_obdobje_leto():
 
@@ -1047,6 +1052,151 @@ class UvozCsv(TemplateView):
                 print("ZARADI NAPAK NE MOREM UVOZITI")
 
 
+        # StevcnoStanje
+        def import_stevcnostanje_stevec():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/stevcnostanje/stevcnostanje_stevci.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # podsklop
+                    upravljavec_davcna = row['upravljavec']
+                    upravljavec = Partner.objects.get(davcna_st=upravljavec_davcna)
+                    row['upravljavec'] = upravljavec.pk
+
+                    form = StevecCreateForm(row)
+
+                    if form.is_valid():
+                        print(row, "--> valid")
+                        form.save()
+                        records_added += 1
+                    else:
+                        print(row, "--> invalid")
+
+                return messages.success(request, "STEVCNO STANJE/ STEVCI: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_partnerji()
+
+
+        def import_stevcnostanje_stevecstatus():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/stevcnostanje/stevcnostanje_status.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # podsklop
+                    stevec_oznaka = row['stevec']
+                    stevec = Stevec.objects.get(oznaka=stevec_oznaka)
+                    row['stevec'] = stevec.pk
+
+                    form = StevecStatusCreateForm(row)
+
+                    if form.is_valid():
+                        print(row, "--> valid")
+                        form.save()
+                        records_added += 1
+                    else:
+                        print(row, "--> invalid")
+
+                return messages.success(request, "STEVCNO STANJE/ STEVCI STATUS: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_stevcnostanje_stevec()
+
+
+        def import_stevcnostanje_delilnik():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/stevcnostanje/stevcnostanje_delilniki.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # podsklop
+                    stevec_oznaka = row['stevec']
+                    stevec = Stevec.objects.get(oznaka=stevec_oznaka)
+                    row['stevec'] = stevec.pk
+
+                    form = DelilnikCreateForm(row)
+
+                    if form.is_valid():
+                        print(row, "--> valid")
+                        form.save()
+                        records_added += 1
+                    else:
+                        print(row, "--> invalid")
+
+                return messages.success(request, "STEVCNO STANJE/ DELILNIKI: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_stevcnostanje_stevec()
+
+
+        def import_stevcnostanje_odcitek():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/stevcnostanje/stevcnostanje_odcitki.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # podsklop
+                    delilnik_oznaka = row['delilnik']
+                    delilnik = Delilnik.objects.get(oznaka=delilnik_oznaka)
+                    row['delilnik'] = delilnik.pk
+
+                    form = OdcitekCreateForm(row)
+
+                    if form.is_valid():
+                        print(row, "--> valid")
+                        form.save()
+                        records_added += 1
+                    else:
+                        print(row, "--> invalid")
+
+                return messages.success(request, "STEVCNO STANJE/ ODCITKI: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_stevcnostanje_delilnik()
+
+
             # na ekranu prikažem informacijo o številu uvozov
 
         if utiliti_uvoz_form.is_valid():
@@ -1126,5 +1276,19 @@ class UvozCsv(TemplateView):
 
             if predpisi_uvoz_form.cleaned_data['relacija_predpisi_opravila'] is True:
                 import_predpisi_opravila_many()
+
+        if stevcnostanje_uvoz_form.is_valid():
+
+            if stevcnostanje_uvoz_form.cleaned_data['stevci'] is True:
+                import_stevcnostanje_stevec()
+
+            if stevcnostanje_uvoz_form.cleaned_data['stevci_status'] is True:
+                import_stevcnostanje_stevecstatus()
+
+            if stevcnostanje_uvoz_form.cleaned_data['delilniki'] is True:
+                import_stevcnostanje_delilnik()
+
+            if stevcnostanje_uvoz_form.cleaned_data['odcitki'] is True:
+                import_stevcnostanje_odcitek()
 
         return HttpResponseRedirect(reverse('moduli:import:form'))

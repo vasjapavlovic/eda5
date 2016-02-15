@@ -15,7 +15,7 @@ class Stevec(models.Model):
     upravljavec = models.ForeignKey(Partner)
     # lokacija stevca !!!!!!
     #   Mandatory
-    oznaka = models.CharField(max_length=13)
+    oznaka = models.CharField(max_length=13, unique=True)
     naziv = models.CharField(max_length=255)
     is_distribucija = models.BooleanField(verbose_name="distribucijski števec")
     #   Optional
@@ -71,7 +71,7 @@ class Delilnik(models.Model):
     #   Relations
     stevec = models.ForeignKey(Stevec)
     #   Mandatory
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, unique=True)
     meritev = models.IntegerField(choices=MERITEV)
     #   Optional
     # OBJECT MANAGER
@@ -117,6 +117,7 @@ class Odcitek(models.Model):
         verbose_name = "odcitek"
         verbose_name_plural = "odcitki"
         ordering = ("delilnik", "datum_odcitka", )
+        unique_together = ("delilnik", "obdobje_leto", "obdobje_mesec")
 
     def __str__(self):
         return "%s | %s-%s" % (self.delilnik, self.obdobje_leto, self.obdobje_mesec)

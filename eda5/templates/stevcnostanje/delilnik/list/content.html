@@ -11,24 +11,29 @@
 
 <!-- Seznam Delilnikov -->
     <div class="table-condensed table-hover table-bordered">
-        <table class="table">
+        <table id="datatable" class="table">
+            <thead>
             <tr>
                 <th>oznaka</th>
                 <th>meritev</th>
                 <th>stevec</th>
                 <th>upravljavec</th>
             </tr>
+            </thead>
 
+            <tbody>
 {% for object in object_list %}
-
+            
             <tr>
                 <td><b><a href="{% url 'moduli:stevcnostanje:delilnik_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
-                <td>{{ object.meritev }}</td>
+                <td>{{ object.get_meritev_display }}</td>
                 <td>{{ object.stevec.naziv }}</td>
                 <td>{{ object.stevec.upravljavec.kratko_ime }}</td>
             </tr>
+            
 
 {% endfor %}
+        </tbody>
 
         </table>
     </div>

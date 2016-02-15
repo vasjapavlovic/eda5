@@ -39,3 +39,9 @@ class PredpisiUvozCsvForm(forms.Form):
     opravila = forms.BooleanField(initial=False, required=False)
     predpisi = forms.BooleanField(initial=False, required=False)
     relacija_predpisi_opravila = forms.BooleanField(initial=False, required=False)
+
+class StevcnoStanjeUvozCsvForm(forms.Form):
+    stevci = forms.BooleanField(initial=False, required=False)
+    stevci_status = forms.BooleanField(initial=False, required=False)
+    delilniki = forms.BooleanField(initial=False, required=False)
+    odcitki = forms.BooleanField(initial=False, required=False)

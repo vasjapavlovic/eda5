@@ -1,12 +1,23 @@
 {% load crispy_forms_tags %}
-<h2>Dodaj odčitek</h2>
 
-<form action="" method="POST">{% csrf_token %}
-    <div class="modal-body">
-        {{ odcitek_form|crispy  }}   
+<div class="modal fade" id="addOdcitek" tabindex="-1" role="dialog" aria-labelledby="addOdcitek">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nov Odčitek</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ odcitek_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
-        <button type="submit" class="btn btn-primary">Shrani</button>
-    </div>
-</form>
+</div>
