@@ -27,7 +27,7 @@
                             <tr>
 
                             <!-- interna oznaka -->
-                                <td><b><a href="">{{ object.oznaka }}</a></b></td>
+                                <td><b><a href="{% url 'moduli:etaznalastnina:int_detail' object.id %}">{{ object.oznaka }}</a></b></td>
 
                             <!-- oznaka elaborat -->
                                 <td>{{ object.elaborat.oznaka }}</td>

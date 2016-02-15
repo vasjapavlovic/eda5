@@ -60,11 +60,11 @@ class Delilnik(models.Model):
     # ---------------------------------------------------------------------------------------
 
     MERITEV = (
-        (1, "Toplota"),
-        (2, "Hlad"),
-        (3, "Topla voda"),
-        (4, "Hladna voda"),
-        (5, "Elektrika"),
+        (1, "Toplota [MWh]"),
+        (2, "Hlad [MWh]"),
+        (3, "Topla voda [m3]"),
+        (4, "Hladna voda [m3]"),
+        (5, "Elektrika [kWh]"),
         )
 
     # ATRIBUTES
@@ -74,6 +74,7 @@ class Delilnik(models.Model):
     oznaka = models.CharField(max_length=20, unique=True)
     meritev = models.IntegerField(choices=MERITEV)
     #   Optional
+    opis = models.CharField(max_length=255, blank=True, null=True)
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS

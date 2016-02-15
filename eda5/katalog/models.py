@@ -119,7 +119,7 @@ class ModelArtikla(models.Model):
         ordering = ('naziv',)
 
     def __str__(self):
-        return "%s-%s" % (self.proizvajalec.naziv, self.naziv)
+        return "%s-%s-%s" % (self.proizvajalec.naziv, self.naziv, self.tip_artikla.naziv)
 
 
 class KarakteristikaVrednost(models.Model):

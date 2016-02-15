@@ -5,7 +5,7 @@ from .models import Stevec, StevecStatus, Delilnik, Odcitek
 
 @admin.register(Stevec)
 class StevecAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['naziv']
 
 
 @admin.register(StevecStatus)
@@ -15,7 +15,7 @@ class StevecStatusAdmin(admin.ModelAdmin):
 
 @admin.register(Delilnik)
 class DelilnikAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['oznaka']
 
 
 @admin.register(Odcitek)
