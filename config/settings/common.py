@@ -53,6 +53,7 @@ LOCAL_APPS = (
     'eda5.skladisce',   # dobava in prevzem blaga
     'eda5.etaznalastnina',  # elaborat etažne lastnine, interne lastniske enote
     'eda5.katalog',  # katalog artiklov
+    'eda5.kljuci',  # podatki o ključih za dostopanje do prostorov,
     'eda5.import',  # uvoz podatkov v bazo
     'eda5.lastnistvo',  # prevzem v last, oddaja v najem
     'eda5.lokacije',  # lokacije elementov stavbe
@@ -60,8 +61,8 @@ LOCAL_APPS = (
     'eda5.nadzornaplosca',  # nadzorna plošča (linki do krmilniku, ....)
     'eda5.narocila',  # naročila partnerjev
     'eda5.nastavitve',  # globalne nastavitve
+    'eda5.obvestila',  # obveščanje lastnikov
     'eda5.partnerji',  # podatki o partnerjih
-    'eda5.kljuci',  # podatki o ključih za dostopanje do prostorov,
     'eda5.planiranje',  # izdelava planov:  OV, Čiščenje, Ostalo
     'eda5.posta',  # apliakcija za prejeto in oddano pošto
     'eda5.pomanjkljivosti',  # aplikacija za prijavo napak
