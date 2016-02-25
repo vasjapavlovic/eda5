@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^kljuci/', include("eda5.kljuci.urls", namespace="kljuci")),
     url(r'^nadzorna-plosca/', include("eda5.nadzornaplosca.urls", namespace="nadzornaplosca")),
     url(r'^narocila/', include("eda5.narocila.urls", namespace="narocila")),
+    url(r'^obvestila/', include("eda5.obvestila.urls", namespace="obvestila")),
     url(r'^partnerji/', include("eda5.partnerji.urls", namespace="partnerji")),
     url(r'^planiranje/', include("eda5.planiranje.urls", namespace="planiranje")),
     url(r'^posta/', include("eda5.posta.urls", namespace="posta")),

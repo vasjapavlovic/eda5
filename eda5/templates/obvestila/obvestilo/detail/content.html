@@ -1,0 +1,22 @@
+<div class="jumbotron">
+    <h1>{{ object.oznaka }}</h1>
+        <h3>{{ object.naziv }}</h3>
+    <i>Objavil</i> <b>{{ object.oseba.priimek }} {{ object.oseba.ime }}</b> <i>dne</i>  <b>{{ object.created.date }}</b>
+</div>
+
+<i><b>VSEBINA:</b></i>
+<p>
+{{ object.vsebina }}
+</p>
+
+<br>
+<br>
+<i><b>POVEZAVE:</b></i>
+
+{% for object in object.povezava_set.all %}
+
+{% if object.objavljeno %}
+<li><a href="{{ object.urlreference }}">{{ object.naziv }} ({{ object.url_zahtevek }})</a></li>
+{% endif %}
+
+{% endfor %}

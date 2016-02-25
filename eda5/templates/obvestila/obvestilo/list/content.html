@@ -1,0 +1,35 @@
+
+<!-- Obvestila -->
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>oznaka</th>
+                <th>objavljeno dne</th>
+                <th>naziv</th>
+                <th>zapisal</th>
+            </tr>
+            </thead>
+
+            <tbody>
+{% for object in object_list %}
+    {% if object.objavljeno_danes %}
+
+            <tr class="bg-success">
+    {% else %}
+            <tr>
+    {% endif %}
+                <td><b><a href="{% url 'moduli:obvestila:obvestilo_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
+                <td>{{ object.created }}</td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.oseba.priimek }} {{ object.oseba.ime }}</td>
+            </tr>
+
+
+            
+
+{% endfor %}
+        </tbody>
+
+        </table>
+    </div>

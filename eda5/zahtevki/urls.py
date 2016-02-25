@@ -26,6 +26,7 @@ urlpatterns += [
     url(r'^reload_controls.html$', sestanek.reload_controls_view, name='reload_controls'),
     url(r'^(?P<pk>\d+)/podzahtevek-sestanek-create/$', sestanek.PodzahtevekSestanekCreateView.as_view(), name="podzahtevek_create_sestanek"),
     url(r'^(?P<pk>\d+)/sestanek/update/$', sestanek.ZahtevekUpdateSestanekView.as_view(), name="zahtevek_update_sestanek"),
+    
 ]
 
 # zahtevek izvedba del

@@ -25,7 +25,8 @@
     <a class="btn btn-primary" href="{% url 'account_email' %}">E-Mail</a>
     <!-- Your Stuff: Custom user template urls -->
 
-    <a href="{% url 'moduli:porocanjeupravnika:user_detail' object.pk %}">GLAVNI MENI UPORABNIKA</a>
+    <a class="btn btn-primary" href="{% url 'moduli:obvestila:obvestilo_list' %}">OBVESTILA UPRAVNIKA</a>
+    <a class="btn btn-primary" href="{% url 'moduli:porocanjeupravnika:user_detail' object.pk %}">GLAVNI MENI UPORABNIKA</a>
   </div>
 
 </div>
