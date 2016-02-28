@@ -5,6 +5,8 @@ from django import forms
 from django.utils import timezone
 
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
+from .models import ZahtevekAnaliza, ZahtevekPovprasevanje, ZahtevekReklamacija
+
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba, SkupinaPartnerjev
 
@@ -86,6 +88,21 @@ class ZahtevekUpdateForm(ZahtevekCreateForm):
         }
 
 
+class ZahtevekIzbiraForm(forms.Form):
+
+    VRSTE = (
+        (1, 'Škodni Dogodek'),
+        (2, 'Sestanek'),
+        (3, 'Izvedba del'),
+        (4, 'Predaja Lastnine'),
+        (5, 'Analiza Zahtevka'),
+        (6, 'Povpraševanje'),
+        (7, 'Reklamacija'),
+    )
+
+    vrsta_zahtevka = forms.ChoiceField(choices=VRSTE)
+
+
 class ZahtevekSkodniDogodekUpdateForm(forms.ModelForm):
 
     class Meta:
@@ -145,14 +162,3 @@ class ZahtevekIzvedbaDelUpdateForm(forms.ModelForm):
         fields = (
             'is_zakonska_obveza',
         )
-
-
-class ZahtevekIzbiraForm(forms.Form):
-
-    VRSTE = (
-        (1, 'Sestanek'),
-        (2, 'Izvedba Del'),
-        (4, 'Predaja Lastnine'),
-    )
-
-    vrsta_zahtevka = forms.ChoiceField(choices=VRSTE)

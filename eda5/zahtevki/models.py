@@ -28,10 +28,10 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
         (1, 'Škodni Dogodek'),
         (2, 'Sestanek'),
         (3, 'Izvedba del'),
-        (4, 'Predaja Lastnine')
-        # (4, 'Zbor Lastnikov'),
-        # (5, 'Reklamacija Nabave'),
-        # (6, 'Reklamacija Prodaje'),
+        (4, 'Predaja Lastnine'),
+        (5, 'Analiza Zahtevka'),
+        (6, 'Povpraševanje'),
+        (7, 'Reklamacija'),
     )
 
     # ATRIBUTES
@@ -154,3 +154,42 @@ class ZahtevekIzvedbaDela(models.Model):
 
     def __str__(self):
         return "%s" % (self.zahtevek.oznaka)
+
+
+class ZahtevekAnaliza(models.Model):
+    pass
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    #   Mandatory
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+    # META AND STRING
+
+
+class ZahtevekPovprasevanje(models.Model):
+    pass
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    #   Mandatory
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+    # META AND STRING
+
+
+class ZahtevekReklamacija(models.Model):
+    pass
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    #   Mandatory
+    #   Optional
+    # OBJECT MANAGER
+    # CUSTOM PROPERTIES
+    # METHODS
+    # META AND STRING

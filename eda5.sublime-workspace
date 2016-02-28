@@ -514,10 +514,18 @@
 	},
 	"file_history":
 	[
+		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/splosno.py",
+		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/content.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/obvestila/obvestilo/list/content.html",
+		"/home/pavlovicv/Desktop/django/eda5/config/settings/common.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/moduli/urls.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/obvestila/obvestilo/list/base.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/obvestila/forms.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/obvestila/obvestilo/list/js.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/stevcnostanje/forms.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/import/views.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/base.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/content.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/stevcnostanje/viewmixins.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/list/js.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/modal.html",
@@ -530,7 +538,6 @@
 		"/home/pavlovicv/Desktop/django/eda5/eda5/reports/views.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/delovninalog/dnevnik/content.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/js.html",
-		"/home/pavlovicv/Desktop/django/eda5/config/settings/common.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/delovninalog/dnevnik/base.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/delovninalog/delavcivdelu/js.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/delovninalog/delavcivdelu/content.html",
@@ -540,7 +547,6 @@
 		"/home/pavlovicv/Desktop/django/eda5/eda5/delovninalogi/forms.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/deli/models.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/urediti.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/moduli/urls.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/base.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/list/content.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/nadzornaplosca/urls.py",
@@ -617,7 +623,6 @@
 		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/urls.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/managers.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/forms.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/splosno.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/managers.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/lokacije/models.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/posta/views.py",
@@ -636,16 +641,11 @@
 		"/home/pavlovicv/Desktop/velonic_2.1/admin/tables.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/racun/detail/tabs/tab_01.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/urls.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/strosek/create_from_racun.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/forms/strosek_forms.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/urls.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/static/css/css_hidden.css",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/forms/racun_forms.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/posta/managers.py"
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/strosek/create_from_racun.html"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -659,6 +659,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"profile",
 			" }}</",
 			"yello",
 			"yellow",
@@ -785,8 +786,7 @@
 			"ADMIN",
 			"slef",
 			"json",
-			"Dokument",
-			"lastniska_skupina"
+			"Dokument"
 		],
 		"highlight": true,
 		"in_selection": false,

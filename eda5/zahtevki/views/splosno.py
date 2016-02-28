@@ -80,11 +80,19 @@ class ZahtevekCreateIzbiraView(TemplateView):
             vrsta_zahtevka = zahtevek_izbira_form.cleaned_data['vrsta_zahtevka']
 
             if vrsta_zahtevka == '1':
-                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_sestanek'))
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_skodni_dogodek'))
             if vrsta_zahtevka == '2':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_sestanek'))
+            if vrsta_zahtevka == '3':
                 return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_izvedba_del'))
             if vrsta_zahtevka == '4':
                 return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_predaja_lastnine'))
+            if vrsta_zahtevka == '5':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_analiza'))
+            if vrsta_zahtevka == '6':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_povprasevanje'))
+            if vrsta_zahtevka == '7':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_reklamacija'))
 
 
 class ZahtevekUpdateView(UpdateView):
@@ -159,6 +167,28 @@ class ZahtevekDetailView(DetailView):
             if vrsta_zahtevka == '2':
                 return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_izvedba_del',
                                                     kwargs={'pk': zahtevek.pk}))
+            if vrsta_zahtevka == '1':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_skodni_dogodek',
+                                                    kwargs={'pk': zahtevek.pk}))
+            if vrsta_zahtevka == '2':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_sestanek',
+                                                    kwargs={'pk': zahtevek.pk}))
+            if vrsta_zahtevka == '3':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_izvedba_del',
+                                                    kwargs={'pk': zahtevek.pk}))
+            if vrsta_zahtevka == '4':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_predaja_lastnine',
+                                                    kwargs={'pk': zahtevek.pk}))
+            if vrsta_zahtevka == '5':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_analiza',
+                                                    kwargs={'pk': zahtevek.pk}))
+            if vrsta_zahtevka == '6':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_povprasevanje',
+                                                    kwargs={'pk': zahtevek.pk}))
+            if vrsta_zahtevka == '7':
+                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_reklamacija',
+                                                    kwargs={'pk': zahtevek.pk}))
+
 
         # ARHIVIRANJE
 

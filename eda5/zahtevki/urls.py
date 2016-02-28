@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import splosno, sestanek, izvedba_dela, predaja_lastnine
+from .views import splosno, sestanek, izvedba_dela, predaja_lastnine, analiza, povprasevanje, reklamacija
 
 
 # zahtevek
@@ -52,4 +52,28 @@ urlpatterns += [
     url(r'^zahtevek-predaja-lastnine-create/$', predaja_lastnine.ZahtevekPredajaLastnineCreateView.as_view(), name="zahtevek_create_predaja_lastnine"),
     url(r'^(?P<pk>\d+)/prodaja-lastnine-create/$', predaja_lastnine.ProdajaLastnineCreateView.as_view(), name="prodaja_lastnine_create"),
     url(r'^(?P<pk>\d+)/najem-lastnine-create/$', predaja_lastnine.NajemLastnineCreateView.as_view(), name="najem_lastnine_create"),
+]
+
+
+# zahtevek analiza
+urlpatterns += [
+    url(r'^zahtevek-analiza/$', analiza.ZahtevekAnalizaCreateView.as_view(), name="zahtevek_create_analiza"),
+    # url(r'^reload_controls.html$', sestanek.reload_controls_view, name='reload_controls'),
+    url(r'^(?P<pk>\d+)/podzahtevek-analiza-create/$', analiza.PodzahtevekAnalizaCreateView.as_view(), name="podzahtevek_create_analiza"), 
+]
+
+
+# zahtevek povprasevanje
+urlpatterns += [
+    url(r'^zahtevek-povprasevanje/$', povprasevanje.ZahtevekPovprasevanjeCreateView.as_view(), name="zahtevek_create_povprasevanje"),
+    # url(r'^reload_controls.html$', sestanek.reload_controls_view, name='reload_controls'),
+    url(r'^(?P<pk>\d+)/podzahtevek-povprasevanje-create/$', povprasevanje.PodzahtevekPovprasevanjeCreateView.as_view(), name="podzahtevek_create_povprasevanje"), 
+]
+
+
+# zahtevek povprasevanje
+urlpatterns += [
+    url(r'^zahtevek-reklamacija/$', reklamacija.ZahtevekReklamacijaCreateView.as_view(), name="zahtevek_create_reklamacija"),
+    # url(r'^reload_controls.html$', sestanek.reload_controls_view, name='reload_controls'),
+    url(r'^(?P<pk>\d+)/podzahtevek-reklamacija-create/$', reklamacija.PodzahtevekReklamacijaCreateView.as_view(), name="podzahtevek_create_reklamacija"), 
 ]

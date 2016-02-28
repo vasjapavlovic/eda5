@@ -35,8 +35,9 @@
 
 <!-- PAGE CONTENT -->
 {% block content %}
+
     <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
-    <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+    <form id="zahtevek_analiza_create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="panel panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Splosni podatki</div>
@@ -45,12 +46,7 @@
             </div>
         </div>
 
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Posebnosti Izvedbe Del</div>
-            <div class="panel-body">
-                {{ zahtevek_izvedba_del_form|crispy  }}
-            </div>
-        </div>
+        
 
         <input type="submit" value="Potrdi">
 
@@ -60,8 +56,6 @@
 <!-- end PAGE CONTENT -->
 
 
-
-<!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->
