@@ -162,12 +162,6 @@ class ZahtevekDetailView(DetailView):
             vrsta_zahtevka = zahtevek_create_form.cleaned_data['vrsta_zahtevka']
 
             if vrsta_zahtevka == '1':
-                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_sestanek',
-                                                    kwargs={'pk': zahtevek.pk}))
-            if vrsta_zahtevka == '2':
-                return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_izvedba_del',
-                                                    kwargs={'pk': zahtevek.pk}))
-            if vrsta_zahtevka == '1':
                 return HttpResponseRedirect(reverse('moduli:zahtevki:podzahtevek_create_skodni_dogodek',
                                                     kwargs={'pk': zahtevek.pk}))
             if vrsta_zahtevka == '2':
