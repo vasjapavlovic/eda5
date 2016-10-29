@@ -10,7 +10,7 @@ from .managers import OsebaManager, TrrManager
 
 
 ''' POZOR !!! uporabljeni DJANGO-SIGNALS.
-    Avtomatsko se izdelajo 
+    Avtomatsko se izdelajo
         - SkupinaPartnerjev
         - osebe za partnerje kot fizične osebe.'''
 

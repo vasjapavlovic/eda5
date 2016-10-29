@@ -88,6 +88,7 @@ class DelStavbe(models.Model):
     # ***Mandatory***
     oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
+    # dodaj funkcijo dela stavbe (sistema)
     # ***Optional***
     shema = models.FileField(upload_to=shema_directory_path, blank=True, verbose_name="shema sistema")
 

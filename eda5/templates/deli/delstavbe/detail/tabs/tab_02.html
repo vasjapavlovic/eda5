@@ -8,9 +8,9 @@
     {% for projektno_mesto in object.projektna_mesta_all %}
     {% for element in projektno_mesto.elementi_aktivni %}
     <tr>
-        <td><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ projektno_mesto.oznaka }}</a></td>
-        <td>{{ projektno_mesto.tip_elementa.naziv }}-{{ projektno_mesto.naziv }}</td>
-        <td>{{ element.artikel.proizvajalec.naziv }}-{{ element.artikel.naziv }}</td>
+        <td><h1><b style="color:#0000FF"><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ projektno_mesto.oznaka }}</a></b></h1></td>
+        <td><b>{{ projektno_mesto.naziv }}</b><br><i>{{ projektno_mesto.tip_elementa.naziv }}</i></td>
+        <td>{{ element.artikel.naziv }}<br><i>{{ element.artikel.proizvajalec.naziv }}</i></td>
     </tr>
     {% endfor %}
     {% endfor %}

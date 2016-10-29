@@ -1,0 +1,22 @@
+oznaka,naziv,opis,barva,url_ref,zap_st
+OBV,Obvestila Upravnika,"Obvaščanje upravnika glede upravljanja, obratovanja in vzdrževanja stavbe. 
+
+Dogodki, ...",danger,,9999
+PS,Pošta,Prejeta in Izdana pošta,info,,10
+PR,Partnerji,"Seznam partnerjev, Pooblaščene osebe, TR računi",warning,,20
+DEL,Deli Stavbe,"Pregled delov stavbe, elementi v upravljanju, servisna knjiga",primary,moduli:deli:home,110
+PRAZNO2,PRAZNO2,PRAZNO2,PRAZNO2,,101
+PRAZNO3,PRAZNO3,PRAZNO3,PRAZNO3,,102
+PRAZNO1,PRAZNO1,PRAZNO1,PRAZNO1,,40
+PLAN,Planiranje,Izdelava in sledenje planiranim opravilom,pink,,90
+DN,Delovni Nalogi,"Izvedba del, tiskanje delovnih nalogov",danger,moduli:delovninalogi:home,70
+SKL,Skladišče,"Dobava, Poraba materiala",yellow,moduli:skladisce:home,80
+ZHT,Zahtevki,"Reševanje škodnih dogodkov, izvedba del, reklamacije, sestanki",purple,moduli:zahtevki:home,60
+POR,Poročanje Upravnika,Poročanje upravnika Etažnim Lastnikom,danger,,9999
+RAC,Računovodstvo,"Seznam prejetih računov, Evidenca stroškov",info,,30
+NRC,Naročila,"Naročanje, veljavne in zapadle naročilnice, pogodbe, ...",pink,moduli:narocila:home,50
+KTG,Katalog,"Katalog artiklov - tehnični podatki, plan obratovanja in vzdrževanja, grardivo",yellow,,130
+STV,Števčno Stanje,"Podatki o porabi elektrike, vode, toplote, hladu",info,,100
+NP,Nadzorna Plošča,"CNS, Videonadzor, Dostop do ostale opreme",danger,,9999
+RPT,Reports,"Poročila o stroških, itd...",yellow,,9999
+EL,Etažna Lastnina,"Lastniške enote, Lastniki, Najemniki, Plačniki, Status lastnine",primary,,120

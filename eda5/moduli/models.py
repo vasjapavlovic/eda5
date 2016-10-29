@@ -7,7 +7,7 @@ from eda5.core.models import TimeStampedModel, ZaporednaStevilka
 
 class Modul(ZaporednaStevilka):
 
-    oznaka = models.CharField(max_length=10)
+    oznaka = models.CharField(max_length=10, unique=True)
     naziv = models.CharField(max_length=200)
     opis = models.TextField()
     barva = models.CharField(max_length=500)
@@ -29,7 +29,7 @@ class Zavihek(ZaporednaStevilka):
     parent = models.ManyToManyField('self', blank=True)
     modul = models.ForeignKey(Modul)
     #   Mandatory
-    oznaka = models.CharField(max_length=100)
+    oznaka = models.CharField(max_length=100, unique=True)
     naziv = models.CharField(max_length=200)
     url_ref = models.CharField(max_length=500, blank=True)
     #   Optional

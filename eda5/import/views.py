@@ -10,7 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, T
 
 from .forms import UtilitiUvozCsvForm, PartnerjiUvozCsvForm, DeliUvozCsvForm, RacunovodstvoUvozCsvForm,\
                    DelovniNalogiUvozCsvForm, EtaznaLastninaUvozCsvForm, KatalogUvozCsvForm, PostaUvozCsvForm,\
-                   PredpisiUvozCsvForm, StevcnoStanjeUvozCsvForm
+                   PredpisiUvozCsvForm, StevcnoStanjeUvozCsvForm, ModuliUvozCsvForm
 
 from eda5.core.forms import ObdobjeLetoCreateForm, ObdobjeMesecCreateForm
 
@@ -49,6 +49,10 @@ from eda5.stevcnostanje.models import Stevec, Delilnik, StevecStatus, Odcitek
 
 from eda5.users.forms import UserCreateForm
 
+# Moduli
+from eda5.moduli.forms import ModulCreateForm, ZavihekCreateForm
+from eda5.moduli.models import Modul, Zavihek
+
 
 class UvozCsv(TemplateView):
     template_name = "import/form.html"
@@ -67,6 +71,7 @@ class UvozCsv(TemplateView):
         context['posta_uvoz_form'] = PostaUvozCsvForm
         context['predpisi_uvoz_form'] = PredpisiUvozCsvForm
         context['stevcno_stanje_uvoz_form'] = StevcnoStanjeUvozCsvForm
+        context['moduli_uvoz_form'] = ModuliUvozCsvForm
 
         return context
 
@@ -81,6 +86,7 @@ class UvozCsv(TemplateView):
         posta_uvoz_form = PostaUvozCsvForm(request.POST or None)
         predpisi_uvoz_form = PredpisiUvozCsvForm(request.POST or None)
         stevcnostanje_uvoz_form = StevcnoStanjeUvozCsvForm(request.POST or None)
+        moduli_uvoz_form = ModuliUvozCsvForm(request.POST or None)
 
         def import_core_obdobje_leto():
 
@@ -171,6 +177,66 @@ class UvozCsv(TemplateView):
                     records_added += 1
 
             return messages.success(request, "DRŽAVE: Število dodanih vnosov: %s" % (records_added))
+
+        ###############################################################################################################
+        # moduli ####################################################################################################
+        ###############################################################################################################
+
+        # Modul
+        def import_moduli():
+
+            filename = os.path.abspath("eda5/templates/import/moduli/moduli.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+
+            rows = io.StringIO(vsebina)
+            records_added = 0
+
+            seznam = csv.DictReader(rows, delimiter=",")
+
+            for row in seznam:
+                form = ModulCreateForm(row)
+                if form.is_valid():
+                    print(row, "--> valid")
+                    form.save()
+                    records_added += 1
+                else:
+                    print(row, "--> invalid")
+
+            return messages.success(request, "MODULI / MODUL: Število dodanih vnosov: %s" % (records_added))
+
+        def import_moduli_zavihki():
+
+            # uvozim datoteko .csv s podatki
+            filename = os.path.abspath("eda5/templates/import/moduli/zavihki.csv")
+            with open(filename, 'r') as file:
+                vsebina = file.read()
+            # parameter števila novih vnosov nastavim = 0
+            records_added = 0
+            # izdelam seznam podatkov
+            rows = io.StringIO(vsebina)
+            seznam = csv.DictReader(rows, delimiter=",")
+            # iteriramo skozi seznam in vsakega poskušam dodati preko obrazca v bazo
+            try:
+
+                for row in seznam:
+
+                    # oznako skupine zamenjamo z ID skupine
+                    modul_oznaka = row['modul']
+                    modul = Modul.objects.get(oznaka=modul_oznaka)
+                    row['modul'] = modul.pk
+                    form = ZavihekCreateForm(row)
+                    if form.is_valid():
+                        print(row, "--> valid")
+                        form.save()
+                        records_added += 1
+                    else:
+                        print(row, "--> invalid")
+
+                return messages.success(request, "ZAVIHKI: Število dodanih vnosov: %s" % (records_added))
+
+            except:
+                import_moduli()
 
         def import_poste():
             filename = os.path.abspath("eda5/templates/import/partnerji/poste_slovenije.csv")
@@ -947,7 +1013,7 @@ class UvozCsv(TemplateView):
 
         # PredpisOpravilo
         def import_predpisi_predpis_opravilo():
-            
+
             # uvozim datoteko .csv s podatki
             filename = os.path.abspath("eda5/templates/import/predpisi/predpis_opravilo.csv")
             with open(filename, 'r') as file:
@@ -1011,7 +1077,7 @@ class UvozCsv(TemplateView):
 
         # Predpis-Opravilo ManyToMany
         def import_predpisi_opravila_many():
-            
+
             # uvozim datoteko .csv s podatki
             filename = os.path.abspath("eda5/templates/import/predpisi/predpisi_opravila.csv")
             with open(filename, 'r') as file:
@@ -1036,13 +1102,13 @@ class UvozCsv(TemplateView):
                     print(predpis_opravilo_obj)
 
                     # predpis
-                    
-                    
+
+
                     predpis_obj = Predpis.objects.get(oznaka=predpis_oznaka)
                     print(predpis_obj)
 
                     predpis_opravilo_obj.predpis.add(predpis_obj)
-                    
+
                     records_added += 1
                     print(predpis_obj,"-->",predpis_opravilo_obj)
 
@@ -1290,5 +1356,12 @@ class UvozCsv(TemplateView):
 
             if stevcnostanje_uvoz_form.cleaned_data['odcitki'] is True:
                 import_stevcnostanje_odcitek()
+
+        if moduli_uvoz_form.is_valid():
+
+            if moduli_uvoz_form.cleaned_data['moduli'] is True:
+                import_moduli()
+                import_moduli_zavihki()
+
 
         return HttpResponseRedirect(reverse('moduli:import:form'))

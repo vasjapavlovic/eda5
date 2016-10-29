@@ -3,7 +3,7 @@
         <th>oznaka</th>
         <th>predmet</th>
         <th>rok izvedbe</th>
-        <th>vrsta</th>
+
         </tr>
 
 {% for podzahtevek in zahtevek_child_list %}
@@ -11,12 +11,12 @@
     {% if podzahtevek.is_active %}
     <tr>
     {% else %}
-    
+
     <tr class="success">
     {% endif %}
 
         <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' podzahtevek.pk %}">{{ podzahtevek.oznaka }}</a></td>
-        <td>{{ podzahtevek.predmet }}</td>
+        <td>{{ podzahtevek.naziv }}</td>
         <td>{{ podzahtevek.rok_izvedbe }}</td>
     </tr>
 {% endfor %}

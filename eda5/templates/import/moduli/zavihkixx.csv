@@ -1,0 +1,71 @@
+oznaka,naziv,url_ref,modul,zap_st
+DOKUMENT_LIST,Seznam Pošte,moduli:posta:dokument_list,9,9999
+PR_LIST,Seznam Partnerjev,moduli:partnerji:partner_list,6,9999
+DN_LIST,Seznam Delovnih Nalogov,moduli:delovninalogi:dn_list,5,9999
+INT_LIST_LAST,Seznam Internih Lastniških Enot - Lastniška,moduli:etaznalastnina:int_list_last,7,9999
+INT_LIST_TEH,Seznam Internih Lastniških Enot - Tehnična,moduli:etaznalastnina:int_list_teh,7,9999
+DEL_LIST,Seznam Delov,moduli:deli:del_list,3,9999
+DEL_DETAIL,Podrobnosti Dela,,3,9999
+ZAHTEVEK_LIST,Seznam Zahtevkov,moduli:zahtevki:zahtevek_list,2,9999
+DN_DETAIL,Podrobnosti Delovnega Naloga,,5,9999
+PROJEKTNO_MESTO_CREATE,Novo Projektno Mesto,moduli:deli:projektno_mesto_create,3,9999
+ELEMENT_DETAIL,Podrobnosti Elementa,,3,9999
+OPRAVILO_DETAIL,Podrobnosti Opravila,,5,9999
+DOBAVA_CREATE,Dobava : Dodaj,moduli:skladisce:dobava_create,4,9999
+DOBAVA_LIST,Dobava : Seznam,moduli:skladisce:dobava_list,4,9999
+DOBAVA_DETAIL,Dobava : Podrobnosti,,4,9999
+ARTIKEL_CREATE,Artikel : Dodaj,moduli:skladisce:artikel_create,4,9999
+OPRAVILO_CREATE,Novo Opravilo,,2,9999
+PODZAHTEVEK_SESTANEK_CREATE,Nov Podzahtevek,,2,9999
+DOKUMENT_CREATE,Dodaj Pošto,moduli:posta:dokument_create,9,9999
+DOKUMENT_DETAIL,Podrobnosti Dokumenta,,9,9999
+PR_CREATE,Nov Partner,moduli:partnerji:partner_create,6,9999
+PR_DETAIL,Podrobnosti Partnerja,,6,9999
+ZAHTEVEK_DETAIL,Podrobnosti Zahtevka,,2,9999
+NAROCILO_CREATE,Novo Naročilo,moduli:narocila:narocilo_create,1,9999
+ZAHTEVEK_IZVEDBA_DEL_CREATE,Nova Izvedba Del,,2,9999
+ZAHTEVEK_SESTANEK_CREATE,Nov Sestanek,,2,9999
+NAROCILO_CREATE_TEL,Novo Naročilo Telefon,,1,9999
+ZAHTEVEK_CREATE,Nov Zahtevek,moduli:zahtevki:zahtevek_create,2,9999
+NAROCILO_LIST,Seznam Naročil,moduli:narocila:narocilo_list,1,9999
+NAROCILO_DETAIL,Podrobnosti Naročila,,1,9999
+PLAN_CREATE,Nov Plan,moduli:planiranje:plan_create,11,9999
+PLAN_DETAIL,Podrobnosti Plana,,11,9999
+PLAN_LIST,Seznam Planov,moduli:planiranje:plan_list,11,9999
+PLANIRANO_OPRAVILO_DETAIL,Podrobnosti Planiranega Opravila,,11,9999
+PLANIRANO_OPRAVILO_CREATE,Novo Planirano Opraivlo,,11,9999
+RACUN_LIST,Seznam Računov,moduli:racunovodstvo:racun_list,12,9999
+RACUN_DETAIL,Podrobnosti Računa,,12,9999
+STROSEK_CREATE,Dodaj Strošek,,12,9999
+STROSEK_DETAIL,Podrobnosti Stroška,,12,9999
+VZOREC_OPRAVILA_CREATE,Nov Vzorec Opravila,,11,9999
+VZOREC_OPRAVILA_DETAIL,Podrobnosti Vzorca Opravila,,5,9999
+OPRAVILO_FROM_VZOREC_CREATE,Novo Planirano Opravilo,,2,9999
+ARTIKEL_LIST,Artikel : Seznam,moduli:skladisce:artikel_list,4,9999
+DNEVNIK_LIST,Dnevnik,moduli:skladisce:dnevnik_list,4,9999
+ZAHTEVEK_PREDAJA_LASTNINE_CREATE,Nova Predaja Lastnine,,2,9999
+PRODAJA_LASTNINE_CREATE,Prodaja Lastnine,,2,9999
+NAJEM_LASTNINE_CREATE,Najem Lastnine,,2,9999
+OBVESTILO_DETAIL,Podrobnosti Obvestila,,19,9999
+OBVESTILO_LIST,Seznam Obvestil,moduli:obvestila:obvestilo_list,19,9999
+DEL_CREATE,Nov Del,moduli:deli:del_create,3,9999
+ZAHTEVEK_ANALIZA_CREATE,Nova Analiza Problema ali Predloga,,2,9999
+PODZAHTEVEK_ANALIZA_CREATE,Nova Analiza Problema ali Predloga,,2,9999
+ZAHTEVEK_POVPRASEVANJE_CREATE,Novo Povpraševanje,,2,9999
+PODZAHTEVEK_POVPRASEVANJE_CREATE,Novo Povprasevanje,,2,9999
+RACUN_CREATE,Nov Račun,moduli:racunovodstvo:racun_create,12,9999
+USER_DETAIL,Podrobnosti Uporabnika,,16,9999
+NAROCILO_CREATE_DOKUMENT,Novo Naročilo Dokument,,1,9999
+PROIZVAJALEC_LIST,Proizvajalci,moduli:katalog:proizvajalec_list,8,9999
+TIP_ARTIKLA_LIST,Tipi Artiklov,moduli:katalog:tip_artikla_list,8,9999
+MODEL_ARTIKLA_LIST,Modeli Artiklov,moduli:katalog:model_artikla_list,8,9999
+REPORT_STROSEK,Poročilo o stroških,moduli:reports:report_strosek,17,9999
+DELILNIK_DETAIL,Podrobnosti Delilnika,,10,9999
+DELILNIK_LIST,Seznam Delilnikov,moduli:stevcnostanje:delilnik_list,10,9999
+CREATE_PDF,Nov PDF,moduli:reports:create_pdf_view,17,9999
+NADZORNI_SISTEM_LIST,Seznam Nadzornih Sistemov,moduli:nadzornaplosca:nadzorni_sistem_list,18,9999
+DELAVCI_V_DELU,Delavci v delu,moduli:reports:delavci_v_delu,17,9999
+DELOVNI_NALOG_DNEVNIK,Dnevnik Izvedenih Del,moduli:reports:dnevnik,17,9999
+INT_DETAIL,Podrobnosti lastnine,,7,9999
+ZAHTEVEK_REKLAMACIJA_CREATE,Nova Reklamacija,,2,9999
+PODZAHTEVEK_REKLAMACIJA_CREATE,Nova Reklamacija,,2,9999

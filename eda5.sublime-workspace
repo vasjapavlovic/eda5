@@ -461,6 +461,9 @@
 			]
 		]
 	},
+	"buffers":
+	[
+	],
 	"build_system": "",
 	"build_system_choices":
 	[
@@ -512,8 +515,13 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/home/pavlovicv/djangoprj/eda5"
+	],
 	"file_history":
 	[
+		"/home/pavlovicv/djangoprj/eda5/eda5/posta/models.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/splosno.py",
 		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/content.html",
@@ -640,12 +648,11 @@
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/racun/list/content.html",
 		"/home/pavlovicv/Desktop/velonic_2.1/admin/tables.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/racun/detail/tabs/tab_01.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/urls.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/strosek/create_from_racun.html"
+		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/urls.py"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 33.0
 	},
 	"find_in_files":
 	{
@@ -827,9 +834,17 @@
 		"whole_word": false,
 		"wrap": true
 	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
 	"incremental_find":
 	{
-		"height": 32.0
+		"height": 33.0
 	},
 	"input":
 	{
@@ -863,9 +878,10 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
+	"project": "eda5.sublime-project",
 	"replace":
 	{
-		"height": 60.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -895,6 +911,7 @@
 		],
 		"width": 0.0
 	},
+	"selected_group": 0,
 	"settings":
 	{
 	},

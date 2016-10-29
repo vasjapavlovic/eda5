@@ -20,7 +20,7 @@ class ZahtevekCreateForm(forms.ModelForm):
 
         super(ZahtevekCreateForm, self).__init__(*args, **kwargs)
         # custom initial properties
-        # OZNAKA - tuki je napisano z namen, ker je form uporabljen na dveh različnih mestih
+        # OZNAKA - tuki je napisano z namenom, ker je form uporabljen na dveh različnih mestih
         try:
             zap_st = Zahtevek.objects.all().count()
             zap_st = zap_st + 1

@@ -74,6 +74,15 @@ class Dokument(TimeStampedModel):
         verbose_name_plural = "dokumenti"
         unique_together = (('oznaka', 'avtor', 'vrsta_dokumenta', 'datum_dokumenta',),)
 
+    def get_year_date(self):
+        return self.datum_dokumenta.year
+
+    def get_month_date(self):
+        return self.datum_dokumenta.month
+
+    def get_day_date(self):
+        return self.datum_dokumenta.day
+
     def get_absolute_url(self):
         return reverse("moduli:posta:list_likvidacija")
 

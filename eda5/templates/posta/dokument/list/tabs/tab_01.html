@@ -5,8 +5,11 @@
 
                     <thead class="bg-primary">
                     <tr>
-                        <td>oznaka</td>
                         <td>datum</td>
+                        <td>oznaka</td>
+                        <td>vrsta dokumenta</td>
+                        <td>pošiljatelj</td>
+                        <td>naslovnik</td>
                         <td>predmet</td>
                         <td>priponka</td>
                     </tr>
@@ -15,9 +18,12 @@
                     <tbody>
                     {% for dokument in za_arhiviranje_list %}
                     <tr>
+                        <td>{{ dokument.get_year_date }}{{ dokument.get_month_date }}{{ dokument.get_day_date }}</td>
                         <td><b><a href="{% url 'moduli:posta:dokument_detail' dokument.pk %}">{{ dokument.oznaka }}</a></b></td>
+                        <td>{{ dokument.vrsta_dokumenta.naziv }} ({{ dokument.vrsta_dokumenta.oznaka }})</td>
+                        <td>{{ dokument.avtor.naziv }}</td>
+                        <td>{{ dokument.naslovnik.naziv }}</td>
                         <td>{{ dokument.naziv }}</td>
-                        <td>{{ dokument.datum }}</td>
                         <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
                     </tr>
                     {% endfor %}

@@ -45,3 +45,6 @@ class StevcnoStanjeUvozCsvForm(forms.Form):
     stevci_status = forms.BooleanField(initial=False, required=False)
     delilniki = forms.BooleanField(initial=False, required=False)
     odcitki = forms.BooleanField(initial=False, required=False)
+
+class ModuliUvozCsvForm(forms.Form):
+    moduli = forms.BooleanField(initial=False, required=False)
