@@ -63,6 +63,7 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)
 
+  
 
 class ZahtevekSkodniDogodek(models.Model):
     # ---------------------------------------------------------------------------------------

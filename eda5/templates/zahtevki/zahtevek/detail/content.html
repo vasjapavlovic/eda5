@@ -12,16 +12,15 @@
                 <!--nav-tabs-->              
                 <ul class="nav nav-tabs profile-tabs">
                     <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
-
-                    <!-- samo za Predaja Lastnine -->
-                    {% if object.vrsta == 4 %}
-                    <li><a data-toggle="tab" href="#predaja_lastnine"><b>P</b>redaja Lastnine</a></li>
-                    {% endif %}
-
                     <li><a data-toggle="tab" href="#opravila"><b>O</b>pravila</a></li>
                     <li><a data-toggle="tab" href="#dokumentacija"><b>D</b>okumentacija</a></li>
                     <li><a data-toggle="tab" href="#zaznamki"><b>Z</b>aznamki</a></li>
                     <li><a data-toggle="tab" href="#podzahtevki"><b>P</b>odzahtevki</a></li>
+
+                    <li><a data-toggle="tab" href="#predaja_lastnine"><b>P</b>redaja Lastnine</a></li>
+
+                    <li><a data-toggle="tab" href="#dogodki"><b>D</b>ogodki</a></li>
+
             
                 </ul>
                 <!--end nav-tabs-->
@@ -83,8 +82,6 @@
 
 
 
-                    <!-- samo za Predaja Lastnine -->
-                    {% if object.vrsta == 4 %}
                     <!--tab******************************** -->
                     <div id="predaja_lastnine" class="tab-pane">
                         <div class="profile-desk">
@@ -92,8 +89,14 @@
                             {% include "zahtevki/zahtevek/detail/tabs/tab_06.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
-                    {% endif %}
 
+                    <!--tab******************************** -->
+                    <div id="dogodki" class="tab-pane">
+                        <div class="profile-desk">
+                            <h1>DOGODKI :</h1>
+                            {% include "zahtevki/zahtevek/detail/tabs/tab_07.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
 
 
                 </div>

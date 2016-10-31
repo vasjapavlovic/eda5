@@ -21,31 +21,67 @@
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
 
+    <!-- SPLOŠNI UKAZI ZAHTEVKOV -->
     <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
+    <!-- Opravilo -->
+    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}">
+        <b>Dodaj</b> Opravilo</a>
+    </li>
+    <!-- Dokument -->
+    <li>
+        <a type="button" data-toggle="modal" data-target="#addDokumentacija">
+        <b>Dodaj</b> Dokument</a>
+    </li>
+    <!-- Zaznamek -->
+    <li>
+        <a type="button" data-toggle="modal" data-target="#addZaznamek">
+        <b>Dodaj</b> Zaznamek</a>
+    </li>
+    <!-- Podzahtevek -->
+    <li>
+        <a type="button" data-toggle="modal" data-target="#addPodzahtevek">
+        <b>Dodaj</b> Podzahtevek</a>
+    </li>
+
+
+    
+    <!-- DOGODEK -->
+    <li>----------------------------------</li>
+    <li>
+        <a type="button" data-toggle="modal" data-target="#addDogodek">
+        <b>Registriraj</b> Dogodek</a>
+    </li>
+
+
+    <!-- IZVAJANJE PLANA -->
+    <li>----------------------------------</li>
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:opravilo_from_vzorec_create' object.pk %}">
+        <b>Dodaj</b> Planirano Opravilo</a>
+    </li> 
+
+
+
+    <!-- LASTNINA -->
+    <li>----------------------------------</li>
+    <!-- Če je zahtevek Predaja Lastnine == 4
+     if object.vrsta == 4  -->
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_create' object.pk %}">
+        <b>Dodaj</b> Prodajo LE</a>
+    </li>
+
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_create' object.pk %}">
+        <b>Dodaj</b> Najem LE</a>
+    </li> 
+    <!-- endif  -->
 
 
 
 
-    <!-- Če ima zahtevak relacijo na Planiranje:Plan se lahko dodajajo le Planirana Opravila -->
-    {% if not object.plan_set.all %}
-    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}"><b>Dodaj</b> Opravilo</a></li>
-    {% else %}
-    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_from_vzorec_create' object.pk %}"><b>Dodaj</b> Planirano Opravilo</a></li> 
-    {% endif %}
-
-
-    <!-- Če je zahtevek Predaja Lastnine == 4 -->
-    {% if object.vrsta == 4 %}
-    <li><a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_create' object.pk %}"><b>Dodaj</b> Prodajo LE</a></li>
-    <li><a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_create' object.pk %}"><b>Dodaj</b> Najem LE</a></li> 
-    {% endif %}
-
-
-
-
-    <li><a type="button" data-toggle="modal" data-target="#addDokumentacija"><b>Dodaj</b> Dokument</a></li>
-    <li><a type="button" data-toggle="modal" data-target="#addZaznamek"><b>Dodaj</b> Zaznamek</a></li>
-    <li><a type="button" data-toggle="modal" data-target="#addPodzahtevek"><b>Dodaj</b> Podzahtevek</a></li>
+    
+    
 
 {% endblock %}
 <!-- end Navbar-Left podatki -->
