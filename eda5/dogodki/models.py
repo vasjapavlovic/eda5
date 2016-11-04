@@ -1,8 +1,11 @@
 from django.db import models
+from django.core.urlresolvers import reverse
+
+from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 
 from eda5.zahtevki.models import Zahtevek
 
-class Dogodek(models.Model):
+class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
 # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -10,10 +13,25 @@ class Dogodek(models.Model):
     #   Mandatory
     datum_dogodka = models.DateField(verbose_name="datum dogodka")
     opis_dogodka = models.TextField(verbose_name="opis dogodka")
+    
+    # škoda? poškodovane stvari
+    # potrebna prijava policiji? vandalizem, vlomi, ...
+    is_potrebna_prijava_policiji = models.NullBooleanField(verbose_name="potrebna prijava policiji?")
+    is_nastala_skoda = models.NullBooleanField(verbose_name="Je nastala škoda?")
+    povzrocitelj = models.CharField(max_length=255, blank=True, verbose_name="povzročitelj (opisno)")
     #   Optional
+    cas_dogodka = models.TimeField(blank=True, null=True, verbose_name="okvirni čas dogodka")
+    #       oblika: 99999.99
+    predvidena_visina_skode = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True,
+                                                  verbose_name="predvidena višina škode")
+    
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
+    def get_absolute_url(self):
+        # redirecta na zahtevek pod katerim je dogodek registriran
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
+
     # META AND STRING  
     class Meta:
     	verbose_name="dogodek"

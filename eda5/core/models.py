@@ -55,6 +55,7 @@ class StatusModel(models.Model):
     vPlanu = 2
     vResevanju = 3
     zakljuceno = 4
+    preklicano =5
 
     STATUS = (
         (draft, 'draft'),
@@ -62,7 +63,8 @@ class StatusModel(models.Model):
         (vPlanu, 'v planu'),
         (vResevanju, 'v reševanju'),
         (zakljuceno, 'zaključeno'),
-        )
+        (preklicano, 'preklicano'),
+    )
 
     status = models.IntegerField(default=0, choices=STATUS)
 

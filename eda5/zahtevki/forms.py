@@ -79,13 +79,16 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
         )
 
 
-class ZahtevekUpdateForm(ZahtevekCreateForm):
+class ZahtevekUpdateForm(forms.ModelForm):
 
-    class Meta(ZahtevekCreateForm.Meta):
-        widgets = {
-            'vrsta': forms.HiddenInput(),
-            'narocilo': forms.HiddenInput(),
-        }
+    class Meta:
+        model = Zahtevek
+        fields = (
+            'naziv',
+            'rok_izvedbe',
+            'narocilo',
+            'nosilec',
+        )
 
 
 class ZahtevekIzbiraForm(forms.Form):

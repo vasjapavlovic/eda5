@@ -28,6 +28,11 @@ from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto
 from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm
 from eda5.delovninalogi.models import Opravilo
 
+# Dogodki
+from eda5.dogodki.forms import DogodekCreateForm
+from eda5.dogodki.forms import DogodekUpdateForm
+from eda5.dogodki.models import Dogodek
+
 # Moduli
 from eda5.moduli.models import Zavihek
 
@@ -101,6 +106,12 @@ class ZahtevekUpdateView(UpdateView):
     template_name = "zahtevki/zahtevek/update_zahtevek_main.html"
 
 
+class DogodekUpdateView(UpdateView):
+    model = Dogodek
+    form_class = DogodekUpdateForm
+    template_name = "dogodki/dogodek/update_dogodek.html"
+
+
 class ZahtevekDetailView(DetailView):
     model = Zahtevek
     template_name = "zahtevki/zahtevek/detail/base.html"
@@ -110,6 +121,9 @@ class ZahtevekDetailView(DetailView):
 
         # arhiv_mesto
         context['arhiv_mesto'] = ArhivMesto.objects.get(oznaka=self.object.oznaka)
+
+        # dogodek
+        context['dogodek_create_form'] = DogodekCreateForm
 
         # opravilo
         context['opravilo_form'] = OpraviloCreateForm
@@ -132,9 +146,11 @@ class ZahtevekDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         # opravilo_form = OpraviloCreateForm(request.POST or None)
+        arhiviranje_form = ArhiviranjeZahtevekForm(request.POST or None)
+        dogodek_create_form = DogodekCreateForm(request.POST or None)
         zaznamek_form = ZaznamekForm(request.POST or None)
         zahtevek_create_form = ZahtevekIzbiraForm(request.POST or None)
-        arhiviranje_form = ArhiviranjeZahtevekForm(request.POST or None)
+
 
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 

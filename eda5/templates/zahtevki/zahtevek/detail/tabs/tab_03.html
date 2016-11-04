@@ -1,94 +1,103 @@
 <!-- Dokumentacija -->
 
-<table class="table table-hover table-condensed">
-    <tr>
-        <th>datum</th>
-        <th>vrsta dokumenta</th>
-        <th>oznaka</th>
-        <th>izdal</th>
-        <th>opis</th>
-        <th>priponka</th>
-    </tr>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    <table class="table table-hover table-condensed table-bordered table-inverse">
+                        <thead>
+                        <tr>
+                            <th>datum</th>
+                            <th>vrsta dokumenta</th>
+                            <th>oznaka</th>
+                            <th>izdal</th>
+                            <th>opis</th>
+                            <th>priponka</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
 
-<!--
-    Pri zahtevkih prikažemo vso dokumentacijo, ki spada pod ta zahtevek
-    Vključene Skupine:
-        - direktno zahtevki
-        - delovni nalogi
--->
+                    <!--
+                        Pri zahtevkih prikažemo vso dokumentacijo, ki spada pod ta zahtevek
+                        Vključene Skupine:
+                            - direktno zahtevki
+                            - delovni nalogi
+                    -->
 
 
-<!-- direktno zahtevki -->
+                    <!-- direktno zahtevki -->
 
-{% for arhiviranje in arhiv_mesto.arhiviranje_set.all %}
+                    {% for arhiviranje in arhiv_mesto.arhiviranje_set.all %}
 
-    {% if arhiviranje.dokument.priponka %}  <!-- če priponka obstaja -->
-
-
-        {% if not arhiviranje.delovninalog %}  <!-- če je direktno pod zahtevek -->
-        <tr>
-
-            <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
-            <td><b style="color:#0000FF">({{ arhiviranje.dokument.vrsta_dokumenta.oznaka }}) {{ arhiviranje.dokument.vrsta_dokumenta.naziv }}</b></td>
-            <td>{{ arhiviranje.dokument.oznaka }}</td>
-            <td>{{ arhiviranje.dokument.avtor }}</td>
-            <td>{{ arhiviranje.dokument.naziv }}</td>
-            <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
-
-        </tr>
-
-        {% endif %}
-
-    {% endif %}
-
-{% endfor %}
+                        {% if arhiviranje.dokument.priponka %}  <!-- če priponka obstaja -->
 
 
+                            {% if not arhiviranje.delovninalog %}  <!-- če je direktno pod zahtevek -->
+                            {% if not arhiviranje.dogodek %}  <!-- če je direktno pod dogodek -->
 
+                            <tr>
+                                <td>{{ arhiviranje.dokument.naziv }}</td>
+                                <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+                                <td><b style="color:#0000FF">({{ arhiviranje.dokument.vrsta_dokumenta.oznaka }}) {{ arhiviranje.dokument.vrsta_dokumenta.naziv }}</b></td>
+                                <td>{{ arhiviranje.dokument.oznaka }}</td>
+                                <td>{{ arhiviranje.dokument.avtor }}</td>
+                                <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+                            </tr>
 
+                            {% endif %}
+                            {% endif %}
 
-<!-- direktno delovni_nalog -->
+                        {% endif %}
 
-{% for opravilo in object.opravilo_set.all %}
-
-    {% for delovninalog in opravilo.delovninalog_set.all %}
-
-
-        <tr class="info">
-            <td>({{ delovninalog.oznaka }}) {{ delovninalog.opravilo.naziv }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-
-
-            {% for arhiviranje in delovninalog.arhiviranje_set.all %}
-
-                {% if arhiviranje.dokument.priponka %}  <!-- če priponka obstaja -->
-
-                <tr>
-
-                    <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
-                    <td>{{ arhiviranje.dokument.oznaka }}</td>
-                    <td>{{ arhiviranje.dokument.avtor }}</td>
-                    <td>{{ arhiviranje.dokument.naziv }}</td>
-                    <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
-
-                </tr>
-
-                {% endif %}
-
-            {% endfor %}
-
-
-    {% endfor %}
-
-{% endfor %}
+                    {% endfor %}
 
 
 
 
 
-</table>
+                    <!-- direktno delovni_nalog -->
+                    {% for opravilo in object.opravilo_set.all %}
+                        {% for delovninalog in opravilo.delovninalog_set.all %}
+                            <tr class="warning">
+                                <td colspan="6"><b>Dokumentacija v zvezi z delom: ({{ delovninalog.oznaka }}) {{ delovninalog.opravilo.naziv }}</b></td>
+                            </tr>
+                                {% for arhiviranje in delovninalog.arhiviranje_set.all %}
+                                    {% if arhiviranje.dokument.priponka %}  <!-- če priponka obstaja -->
+                                    <tr>
+                                        <td>{{ arhiviranje.dokument.naziv }}</td>
+                                        <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+                                        <td><b style="color:#0000FF">({{ arhiviranje.dokument.vrsta_dokumenta.oznaka }}) {{ arhiviranje.dokument.vrsta_dokumenta.naziv }}</b></td>
+                                        <td>{{ arhiviranje.dokument.oznaka }}</td>
+                                        <td>{{ arhiviranje.dokument.avtor }}</td>
+                                        <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+
+                    <!-- direktno dogodek -->
+
+                            <tr class="warning">
+                                <td colspan="6"><b>Dokumentacija v zvezi z dogodkom: ({{ object.dogodek.datum_dogodka }}) {{ object.dogodek.opis_dogodka }}</b></td>
+                            </tr>
+                                {% for arhiviranje in object.dogodek.arhiviranje_set.all %}
+                                    {% if arhiviranje.dokument.priponka %}  <!-- če priponka obstaja -->
+                                    <tr>
+                                        <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+                                        <td><b style="color:#0000FF">({{ arhiviranje.dokument.vrsta_dokumenta.oznaka }}) {{ arhiviranje.dokument.vrsta_dokumenta.naziv }}</b></td>
+                                        <td>{{ arhiviranje.dokument.oznaka }}</td>
+                                        <td>{{ arhiviranje.dokument.avtor }}</td>
+                                        <td>{{ arhiviranje.dokument.naziv }}</td>
+                                        <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+
+
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>

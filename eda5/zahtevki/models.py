@@ -13,7 +13,7 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     # STATUS
     draft = 0
-    # vCakanju = 1d
+    # vCakanju = 1
     # vPlanu = 2
     vResevanju = 3
     zakljuceno = 4
@@ -58,7 +58,7 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     class Meta:
         verbose_name = "zahtevek"
         verbose_name_plural = "zahtevki"
-        ordering = ("-id",)
+        ordering = ("-pk",)
 
     def __str__(self):
         return "%s | %s" % (self.oznaka, self.naziv)

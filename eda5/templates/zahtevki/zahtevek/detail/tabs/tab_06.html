@@ -1,7 +1,7 @@
 <!-- Predaja Lastnine -->
 
 
-{% if object.predajalastnine.prodajalastnine_set.all %}
+
 <!-- PRODAJA -->
         <div class="panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Prodaja</div>
@@ -13,7 +13,7 @@
                             <th>kupec</th>
                             <th>datum predaje</th>
                         </tr>
-
+                    {% if object.predajalastnine.prodajalastnine_set.all %}
                     {% for prodaja_lastnine in object.predajalastnine.prodajalastnine_set.all %}
 
 
@@ -26,15 +26,16 @@
                     </tr>
 
                     {% endfor %}
+                    {% endif %}
 
                 </table>
             </div>
         </div>
-{% endif %}
 
 
 
-{% if object.predajalastnine.najemlastnine_set.all %}
+
+
 <!-- NAJEM -->
         <div class="panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Najem</div>
@@ -47,7 +48,7 @@
                             <th>datum predaje</th>
                             <th>najem do dne</th>
                         </tr>
-
+                    {% if object.predajalastnine.najemlastnine_set.all %}
                     {% for najem_lastnine in object.predajalastnine.najemlastnine_set.all %}
 
 
@@ -61,8 +62,8 @@
                     </tr>
 
                     {% endfor %}
+                    {% endif %}
 
                 </table>
             </div>
         </div>
-{% endif %}

@@ -22,7 +22,7 @@
 {% block navbar_left %}
 
     <!-- SPLOŠNI UKAZI ZAHTEVKOV -->
-    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
+    <li><a type="button" href="{% url 'moduli:zahtevki:zahtevek_update_main' object.pk %}"><b>Uredi</b> Podatke</a></li>
     <!-- Opravilo -->
     <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}">
         <b>Dodaj</b> Opravilo</a>
@@ -50,6 +50,10 @@
     <li>
         <a type="button" data-toggle="modal" data-target="#addDogodek">
         <b>Registriraj</b> Dogodek</a>
+    </li>
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:dogodek_update_main' object.dogodek.pk %}">
+        <b>Uredi</b> Dogodek</a>
     </li>
 
 
@@ -112,5 +116,12 @@
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->

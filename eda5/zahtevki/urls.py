@@ -13,6 +13,7 @@ urlpatterns = [
 
     url(r'^(?P<pk>\d+)/detail/$', splosno.ZahtevekDetailView.as_view(), name="zahtevek_detail"),
     url(r'^(?P<pk>\d+)/main/update/$', splosno.ZahtevekUpdateView.as_view(), name="zahtevek_update_main"),
+    url(r'^(?P<pk>\d+)/dogodek/update/$', splosno.DogodekUpdateView.as_view(), name="dogodek_update_main"),
 ]
 
 # zahtevek škodni dogodek
@@ -59,7 +60,7 @@ urlpatterns += [
 urlpatterns += [
     url(r'^zahtevek-analiza/$', analiza.ZahtevekAnalizaCreateView.as_view(), name="zahtevek_create_analiza"),
     # url(r'^reload_controls.html$', sestanek.reload_controls_view, name='reload_controls'),
-    url(r'^(?P<pk>\d+)/podzahtevek-analiza-create/$', analiza.PodzahtevekAnalizaCreateView.as_view(), name="podzahtevek_create_analiza"), 
+    url(r'^(?P<pk>\d+)/podzahtevek-analiza-create/$', analiza.PodzahtevekAnalizaCreateView.as_view(), name="podzahtevek_create_analiza"),
 ]
 
 

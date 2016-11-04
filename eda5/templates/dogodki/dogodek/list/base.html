@@ -4,7 +4,7 @@
 
 <!-- SideBar podatki -->
 {% block sidebar %}
-
+    {% include "moduli/detail_sidebar.html" %}
 {% endblock %}
 <!-- end SideBar podatki -->
 
@@ -12,7 +12,7 @@
 
 <!-- Navbar Title -->
 {% block navbar_title %}
-
+    {% include "moduli/detail_navbar_title.html" %}
 {% endblock %}
 <!-- end Navbar Title -->
 
@@ -20,7 +20,6 @@
 
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
-
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -28,12 +27,7 @@
 
 <!-- PAGE TITLE -->
 {% block content_title %}
-
-
-    <div class="jumbotron">
-        {{ object.naziv }} ({{object.oznaka}})
-    </div><!-- end jumbotron -->
-
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
 {% endblock %}
 <!-- end PAGE TITLE -->
 
@@ -41,13 +35,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content %}
-<form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
-                <h1>Podatki Zahtevka</h1>
-                
-                {{ form | crispy }}
-
-                <input type="submit" value="Potrdi">
-</form>
+{% include "dogodki/dogodek/list/content.html" %}
+{% include "dogodki/dogodek/list/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 
@@ -59,6 +48,12 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#datatable').dataTable();
+        } );
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable2').dataTable();
         } );
     </script>
 
