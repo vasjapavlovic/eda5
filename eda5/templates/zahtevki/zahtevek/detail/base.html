@@ -51,10 +51,12 @@
         <a type="button" data-toggle="modal" data-target="#addDogodek">
         <b>Registriraj</b> Dogodek</a>
     </li>
+    {% if object.dogodek %}
     <li>
         <a type="button" href="{% url 'moduli:zahtevki:dogodek_update_main' object.dogodek.pk %}">
         <b>Uredi</b> Dogodek</a>
     </li>
+    {% endif %}
 
 
     <!-- IZVAJANJE PLANA -->
