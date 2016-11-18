@@ -85,6 +85,7 @@ class ZahtevekUpdateForm(forms.ModelForm):
         model = Zahtevek
         fields = (
             'naziv',
+            'vrsta',
             'rok_izvedbe',
             'narocilo',
             'nosilec',

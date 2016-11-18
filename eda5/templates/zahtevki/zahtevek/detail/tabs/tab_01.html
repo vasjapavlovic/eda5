@@ -30,20 +30,20 @@
             
             <td>
                 {% if object.zahtevek_parent.zahtevek_parent.zahtevek_parent %}
-                    <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.zahtevek_parent.pk %}">{{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.oznaka }}</a> {{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.naziv }}</b>
+                    <b style="color:#0000FF"> <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.naziv }}</b>
                 {% endif %}
 
                     {% if object.zahtevek_parent.zahtevek_parent %}
                     <ul><li>
                         
-                        <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.pk %}">{{ object.zahtevek_parent.zahtevek_parent.oznaka }}</a> {{ object.zahtevek_parent.zahtevek_parent.naziv }}</b>
+                        <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.naziv }}</b>
                         </li>
                     {% endif %}
 
                             {% if object.zahtevek_parent %}
                             <ul><li>
                             
-                            <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.pk %}">{{ object.zahtevek_parent.oznaka }}</a> {{ object.zahtevek_parent.naziv }}</b>
+                            <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.pk %}">({{ object.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.naziv }}</b>
                             </li></ul>
                             {% endif %}
 
@@ -52,6 +52,7 @@
             </td>
         </tr>
         
+        {% if object.zahtevek_set.all %}
         <tr>
             <td><small><b>Pod-Zahtevki</b></small></td>
             <td>
@@ -97,6 +98,7 @@
             {% endif %}
             </td>
         </tr>
+        {% endif %}
 
 
     </table>
