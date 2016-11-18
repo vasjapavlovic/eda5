@@ -99,7 +99,9 @@
 
 
     <div class="jumbotron">
-        {{ object.naziv }} ({{object.oznaka}})
+        {{ object.naziv }} ({{object.oznaka}})<br>
+        {{ object.get_vrsta_display }}
+
     </div><!-- end jumbotron -->
 
 {% endblock %}
