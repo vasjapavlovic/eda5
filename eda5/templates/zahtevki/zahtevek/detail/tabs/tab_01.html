@@ -22,6 +22,10 @@
                 </a></b>
             </td>
         </tr>
+        <tr>
+            <td><small><b>status</b></small></td>
+            <td><b style="color:#0000FF">{{ object.get_status_display }}</b></td>
+        </tr>
         <!--Drevesna struktura zahtevkov-->
         <tr>
             <td colspan="2" class="warning"><small><b>Drevesna Struktura</b></small></td>
@@ -34,20 +38,20 @@
             
             <td>
                 {% if object.zahtevek_parent.zahtevek_parent.zahtevek_parent %}
-                    <b style="color:#0000FF"> <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.naziv }}</b>
+                    <b style="color:#0000FF"> <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.naziv }}|{{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.get_status_display }}</b>
                 {% endif %}
 
                     {% if object.zahtevek_parent.zahtevek_parent %}
                     <ul><li>
                         
-                        <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.naziv }}</b>
+                        <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.naziv }}|{{ object.zahtevek_parent.zahtevek_parent.get_status_display }}</b>
                         </li>
                     {% endif %}
 
                             {% if object.zahtevek_parent %}
                             <ul><li>
                             
-                            <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.pk %}">({{ object.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.naziv }}</b>
+                            <b style="color:#0000FF"><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.pk %}">({{ object.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.naziv }}|{{ object.zahtevek_parent.get_status_display }}</b>
                             </li></ul>
                             {% endif %}
 

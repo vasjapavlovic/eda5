@@ -97,9 +97,8 @@
 <!-- PAGE TITLE -->
 {% block content_title %}
 
-
-    <div class="jumbotron">
-        <b>({{ object.oznaka }}|{{ object.get_vrsta_display }})</b><br>
+    <div style="background:{{ modul_zavihek.modul.barva }}; opacity:0.5; !important" class="jumbotron">
+        <b>({{ object.oznaka }}|{{ object.get_vrsta_display }}|{{ object.get_status_display }})</b><br>
         {{object.naziv}}
 
     </div><!-- end jumbotron -->

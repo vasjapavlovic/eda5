@@ -89,6 +89,7 @@ class ZahtevekUpdateForm(forms.ModelForm):
             'rok_izvedbe',
             'narocilo',
             'nosilec',
+            'status',
         )
 
 
