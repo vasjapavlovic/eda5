@@ -1,48 +1,27 @@
 
 
-    <div class="panel-group" id="accordionA" role="tablist" aria-multiselectable="true">
-        {% for  skupina in object_list %}
+<table class="table table-condensed table-bordered">
 
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="heading{{ forloop.counter }}">
-                <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
-                <b>{{ skupina.oznaka }} {{ skupina.naziv }}</b>
-                </a>
-                </h4>
-            </div>
-            <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ forloop.counter }}">
-                <div class="list-group"> <!--div class="panel-body"-->
 
-                    <!--ZAČETEK - Urinjen Panel Group-->
-                    <div class="panel-group" id="accordionB" role="tablist" aria-multiselectable="true">
+{% for skupina in object_list %}
+    <tr>
+        <td colspan="3" class="danger"><b>({{ skupina.oznaka }}) {{ skupina.naziv }}</b></td>
+        
+            {% for podskupina in skupina.sorted_podskupinadelov_set %}
+            <tr>
+                <td></td>
+                <td colspan="2"  class="warning"><b>({{ podskupina.oznaka }}) {{ podskupina.naziv }}</b></td>
 
-                        {% for  podskupina in skupina.sorted_podskupinadelov_set %}
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingB{{ forloop.counter }}">
-                                <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseB{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseB{{ forloop.counter }}">
-                                    <b><small>{{ podskupina.oznaka }} {{ podskupina.naziv }}</small></b>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseB{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingB{{ forloop.counter }}">
-                                <div class="panel-group">
-
-                                {% for  del in podskupina.sorted_delstavbe_set %}
-                                    <ul class="panel panel-default"><span class="glyphicon glyphicon-chevron-right text-primary"></span><a href="{% url 'moduli:deli:del_detail' del.id %}"> (<b>{{ del.oznaka }}</b>) {{ del.naziv }}</a></ul>
-                                {% endfor %}
-
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-
-                    </div>
-                    <!--KONEC - Urinjen Panel Group-->
-
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+                    {% for del in podskupina.sorted_delstavbe_set %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><b><a href="{% url 'moduli:deli:del_detail' del.pk %}">({{ del.oznaka }})</a> {{ del.naziv }}</b></td>
+                    </tr>
+                    {% endfor %}
+            </tr>
+            {% endfor %}
+        
+    </tr>
+{% endfor %}
+</table>
