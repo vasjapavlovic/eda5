@@ -1,1 +1,15 @@
 <!-- Delovni Nalogi -->
+<table class="table table-condensed table-bordered">
+
+<tr>
+	{% if object.delovninalog_set.all %}
+	{% for object in object.delovninalog_set.all %}
+
+		<td><a href="{% url 'moduli:delovninalogi:dn_detail' object.pk %}">({{ object.oznaka }})</a> {{ object.naziv }}</td>
+
+	{% endfor %}
+	{% endif %}
+</tr>
+
+
+</table>

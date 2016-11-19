@@ -83,6 +83,10 @@ class VzorecOpravilaIzbiraForm(forms.Form):
         self.fields['planirano_opravilo_hidden'].required = False
         self.fields['vzorec_opravila_hidden'].required = False
 
+        self.fields['skupina_planov'].required = False
+        self.fields['plan'].required = False
+        self.fields['planirano_opravilo'].required = False
+
     skupina_planov = forms.ModelChoiceField(queryset=SkupinaPlanov.objects.all())
     plan = forms.ModelChoiceField(queryset=Plan.objects.all())
     planirano_opravilo = forms.ModelChoiceField(queryset=PlaniranoOpravilo.objects.all())

@@ -90,6 +90,7 @@ class DelStavbe(models.Model):
     naziv = models.CharField(max_length=255)
     # dodaj funkcijo dela stavbe (sistema)
     # ***Optional***
+    funkcija = models.CharField(max_length=255, blank=True, null=True, verbose_name="funkcija sistema")
     shema = models.FileField(upload_to=shema_directory_path, blank=True, verbose_name="shema sistema")
 
     # OBJECT MANAGER
@@ -126,8 +127,8 @@ class ProjektnoMesto(models.Model):
     #   Mandatory
     oznaka = models.CharField(max_length=20, unique=True)
     naziv = models.CharField(max_length=255)
-    funkcija = models.CharField(max_length=255)
     #   Optional
+    funkcija = models.CharField(max_length=255, blank=True, null=True, verbose_name="funkcija elementa")
     # OBJECT MANAGER
 
     # CUSTOM PROPERTIES
