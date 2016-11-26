@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SklopKljucev, Kljuc, PredajaKljucev
+from .models import SklopKljucev, Kljuc, PredajaKljuca
 
 
 @admin.register(SklopKljucev)
@@ -13,6 +13,6 @@ class KljucAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(PredajaKljucev)
-class PredajaKljucevAdmin(admin.ModelAdmin):
+@admin.register(PredajaKljuca)
+class PredajaKljucaAdmin(admin.ModelAdmin):
     pass

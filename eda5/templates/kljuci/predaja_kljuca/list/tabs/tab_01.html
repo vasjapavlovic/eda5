@@ -1,0 +1,46 @@
+<!-- TAB_01 Content -->
+<!--
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Oznaka</th>
+                <th>Vrsta</th>
+                <th>Predmet</th>
+            </tr>
+
+            {% for object in zahtevki_vresevanju_list %}
+            <tr>
+                <td><b><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
+                <td><b>{{ object.get_vrsta_display }}</b></td>
+                <td>{{ object.naziv }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+-->
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Oznaka</th>
+                                <th>datum predaje</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            {% for object in object_list %}
+                            <tr>
+                                <td>{{ object.id }}</td>
+                                <td><b><a href="">{{ object.oznaka }}</a></b></td>
+                                <td><b>{{ object.datum_predaje_kljuca }}</b></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>

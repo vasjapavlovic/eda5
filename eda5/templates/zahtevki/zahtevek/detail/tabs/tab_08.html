@@ -1,0 +1,25 @@
+<!-- Dogodki -->
+
+
+        <div class="panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Predaja ključev</div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>oznaka</th>
+                        <th>datum predaje</th>
+                        <th>kolicina</th>
+                    </tr>
+                    <tr>
+                    {% for object in predaja_kljuca_list %}
+
+                        <td>{{ object.kljuc.oznaka }}</td>
+                        <td>{{ object.datum_predaje }}</td>
+                        <td>{{ object.kolicina }}</td>
+
+                    {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+

@@ -1,5 +1,7 @@
 from django.db import models
 
+from .managers import *
+
 
 from eda5.deli.models import Element
 from eda5.lastnistvo.models import PredajaLastnine
@@ -9,7 +11,7 @@ class SklopKljucev(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    element = models.ForeignKey(Element, blank=True, null=True)  # relacija na kaj odpira. Projektno mesto?
+    # element = models.ForeignKey(Element, blank=True, null=True)  # relacija na kaj odpira. Projektno mesto?
     #   Mandatory
     oznaka = models.CharField(max_length=50, unique=True)
     naziv = models.CharField(max_length=255)
@@ -60,21 +62,25 @@ class Kljuc(models.Model):
         return "%s | %s" % (self.oznaka, self.get_vrsta_kljuca_display())
 
 
-class PredajaKljucev(models.Model):
+class PredajaKljuca(models.Model):
 
-    ''' Predaja Ključev je ločena Ker se pričakuje Zapisnik o predaji, ki ni odvisen od
-    Predaje Lastnine '''
+
+    # Predaja Ključev je ločena Ker se pričakuje Zapisnik o predaji, ki ni odvisen od
+       # Predaje Lastnine
+    # predaja ključev je vezana na predajo_lastnine
+
 
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    kljuc = models.ManyToManyField(Kljuc)
+    kljuc = models.ForeignKey(Kljuc, verbose_name="ključ")
     predaja_lastnine = models.ForeignKey(PredajaLastnine, blank=True, null=True)
     #   Mandatory
-    oznaka = models.CharField(max_length=20)
-    datum_predaje_kljuca = models.DateField()
+    datum_predaje = models.DateField()
+    kolicina = models.IntegerField(verbose_name="količina")
     #   Optional
     # OBJECT MANAGER
+    objects = PredajaKljucaManager()
     # CUSTOM PROPERTIES
     # METHODS
 
@@ -84,4 +90,4 @@ class PredajaKljucev(models.Model):
         verbose_name_plural = "predaje kljucev"
 
     def __str__(self):
-        return "%s | %s" % (self.kljuc.oznaka, self.datum_predaje_kljuca)
+        return "%s | %s" % (self.kljuc.oznaka, self.datum_predaje)

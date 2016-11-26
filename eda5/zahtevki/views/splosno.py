@@ -33,6 +33,10 @@ from eda5.dogodki.forms import DogodekCreateForm
 from eda5.dogodki.forms import DogodekUpdateForm
 from eda5.dogodki.models import Dogodek
 
+# Kljuci
+from eda5.kljuci.models import PredajaKljuca
+from eda5.kljuci.forms import PredajaKljucaCreateForm
+
 # Moduli
 from eda5.moduli.models import Zavihek
 
@@ -124,6 +128,11 @@ class ZahtevekDetailView(DetailView):
 
         # dogodek
         context['dogodek_create_form'] = DogodekCreateForm
+
+        # kljuci
+        context['predajakljuca_create_form'] = PredajaKljucaCreateForm
+        context['predaja_kljuca_list'] = PredajaKljuca.objects.filter(
+            predaja_lastnine=self.object.predajalastnine.id)
 
         # opravilo
         context['opravilo_form'] = OpraviloCreateForm
