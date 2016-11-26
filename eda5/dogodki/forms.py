@@ -2,6 +2,7 @@ from django import forms
 from functools import partial
 
 from .models import Dogodek
+from eda5.posta.models import Dokument
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -28,6 +29,7 @@ class DogodekCreateForm(forms.ModelForm):
 
 class DogodekUpdateForm(forms.ModelForm):
 
+
 	class Meta:
 		model = Dogodek
 		fields = (
@@ -38,6 +40,9 @@ class DogodekUpdateForm(forms.ModelForm):
 			'povzrocitelj',
 			'predvidena_visina_skode',
 			'is_nastala_skoda',
+			'prijava_skode',
+			'prijava_policiji',
+			'poravnava_skode',
 		)
 		widgets = {
             'datum_dogodka': DateInput(),

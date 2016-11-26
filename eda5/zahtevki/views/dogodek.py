@@ -107,3 +107,5 @@ class DogodekCreateView(UpdateView):
             )
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+

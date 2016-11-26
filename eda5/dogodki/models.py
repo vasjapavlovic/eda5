@@ -5,6 +5,8 @@ from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 
+from eda5.posta.models import Dokument
+
 from eda5.zahtevki.models import Zahtevek
 
 class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
@@ -15,18 +17,16 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
     #   Mandatory
     datum_dogodka = models.DateField(verbose_name="datum dogodka")
     opis_dogodka = models.TextField(verbose_name="opis dogodka")
-    
-    # škoda? poškodovane stvari
-    # potrebna prijava policiji? vandalizem, vlomi, ...
     is_potrebna_prijava_policiji = models.NullBooleanField(verbose_name="potrebna prijava policiji?")
     is_nastala_skoda = models.NullBooleanField(verbose_name="Je nastala škoda?")
     povzrocitelj = models.CharField(max_length=255, blank=True, verbose_name="povzročitelj (opisno)")
     #   Optional
     cas_dogodka = models.TimeField(blank=True, null=True, verbose_name="okvirni čas dogodka")
-    #       oblika: 99999.99
-    predvidena_visina_skode = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True,
-                                                  verbose_name="predvidena višina škode")
-    
+    predvidena_visina_skode = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True, verbose_name="predvidena višina škode")
+    prijava_skode = models.OneToOneField(Dokument, blank=True, null=True, related_name="prijava_skode")
+    prijava_policiji = models.OneToOneField(Dokument, blank=True, null=True, related_name="prijava_policiji")
+    poravnava_skode = models.OneToOneField(Dokument, blank=True, null=True, related_name="poravnava_skode")
     # OBJECT MANAGER
     objects = managers.DogodekManager()
     # CUSTOM PROPERTIES

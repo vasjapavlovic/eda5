@@ -25,7 +25,19 @@
                         <td>Je povzročena škoda?</td>
                         <td>{{ object.dogodek.is_natala_skoda }}</td>
                     </tr>
+                        <td>Prijava Škode</td>
+                        <td><a href="{{ MEDIA_URL }}{{ object.dogodek.prijava_skode.priponka }}">{{  object.dogodek.prijava_skode }}</a></td>
+                    </tr>
+                    </tr>
+                        <td>Prijava policiji</td>
+                        <td><a href="{{ MEDIA_URL }}{{ object.dogodek.prijava_policiji.priponka }}">{{  object.dogodek.prijava_policiji }}</a></td>
+                    </tr>
+                    </tr>
+                        <td>Poravnava škode</td>
+                        <td><a href="{{ MEDIA_URL }}{{ object.dogodek.poravnava_skode.priponka }}">{{  object.dogodek.poravnava_skode }}</a></td>
+                    </tr>
                 </table>
             </div>
         </div>
 
+<a href="{{ MEDIA_URL }}{{ dokument.priponka }}">
