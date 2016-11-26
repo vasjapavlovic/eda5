@@ -69,7 +69,11 @@ class PredajaKljuca(models.Model):
        # Predaje Lastnine
     # predaja ključev je vezana na predajo_lastnine
 
+    VRSTA_PREDAJE = (
+        (1, "predaja"),
+        (2, "vračilo"),
 
+    )
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -77,7 +81,7 @@ class PredajaKljuca(models.Model):
     predaja_lastnine = models.ForeignKey(PredajaLastnine, blank=True, null=True)
     #   Mandatory
     datum_predaje = models.DateField()
-    kolicina = models.IntegerField(verbose_name="količina")
+    vrsta_predaje = models.IntegerField(choices=VRSTA_PREDAJE)
     #   Optional
     # OBJECT MANAGER
     objects = PredajaKljucaManager()

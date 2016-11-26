@@ -1,6 +1,11 @@
+from functools import partial
+
 from django import forms
 
 from .models import PredajaLastnine, ProdajaLastnine, NajemLastnine
+
+DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
 class PredajaLastnineCreateForm(forms.ModelForm):
@@ -22,6 +27,9 @@ class ProdajaLastnineCreateForm(forms.ModelForm):
             'datum_predaje',
             'placnik',
         )
+        widgets = {
+            'datum_predaje': DateInput(),
+        }
 
 
 class NajemLastnineCreateForm(forms.ModelForm):
@@ -34,3 +42,7 @@ class NajemLastnineCreateForm(forms.ModelForm):
             'placnik',
             'datum_veljavnosti',
         )
+        widgets = {
+            'datum_predaje': DateInput(),
+            'datum_veljavnosti': DateInput(),
+        }

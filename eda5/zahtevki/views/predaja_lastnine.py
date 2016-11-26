@@ -21,6 +21,10 @@ from ..models import Zahtevek
 
 # UVOŽENO ##############################################################
 
+# Ključi
+from eda5.kljuci.forms import PredajaKljucaCreateForm
+from eda5.kljuci.models import PredajaKljuca
+
 # Moduli
 from eda5.moduli.models import Zavihek
 
@@ -207,6 +211,55 @@ class NajemLastnineCreateView(UpdateView):
         else:
             return render(request, self.template_name, {
                 'najem_lastnine_create_form': najem_lastnine_create_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
+class PredajaKljucaCreateView(UpdateView):
+    model = Zahtevek
+    template_name = "kljuci/predaja_kljuca/create_from_zahtevek.html"
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PredajaKljucaCreateView, self).get_context_data(*args, **kwargs)
+
+        # opravilo
+        context['predaja_kljuca_create_form'] = PredajaKljucaCreateForm
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="PREDAJA_KLJUCA_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # object
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+        # forms
+        predaja_kljuca_create_form = PredajaKljucaCreateForm(request.POST or None)
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="PREDAJA_KLJUCA_CREATE")
+
+        # izdelamo predajo
+        if predaja_kljuca_create_form.is_valid():
+            kljuc = predaja_kljuca_create_form.cleaned_data['kljuc']
+            datum_predaje = predaja_kljuca_create_form.cleaned_data['datum_predaje']
+            kolicina = predaja_kljuca_create_form.cleaned_data['kolicina']
+            predaja_lastnine = zahtevek.predajalastnine
+
+            PredajaKljuca.objects.create_predaja_kljuca(
+                kljuc=kljuc,
+                datum_predaje=datum_predaje,
+                kolicina=kolicina,
+                predaja_lastnine=predaja_lastnine
+            )
+
+        else:
+            return render(request, self.template_name, {
+                'predaja_kljuca_create_form': predaja_kljuca_create_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )

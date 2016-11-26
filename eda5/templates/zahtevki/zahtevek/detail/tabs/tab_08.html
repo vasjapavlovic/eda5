@@ -8,17 +8,23 @@
                     <tr>
                         <th>oznaka</th>
                         <th>datum predaje</th>
-                        <th>kolicina</th>
+                        <th>vrsta predaje</th>
+
                     </tr>
-                    <tr>
+
                     {% for object in predaja_kljuca_list %}
 
-                        <td>{{ object.kljuc.oznaka }}</td>
+                    {% if object.vrsta_predaje == 1 %}
+                    <tr class="danger">
+                    {% else %}
+                    <tr class="success">
+                    {% endif %}
+                        <td><b>{{ object.kljuc.oznaka }}</b></td>
                         <td>{{ object.datum_predaje }}</td>
-                        <td>{{ object.kolicina }}</td>
-
-                    {% endfor %}
+                        <td>{{ object.get_vrsta_predaje_display }}</td>
                     </tr>
+                    {% endfor %}
+                    
                 </table>
             </div>
         </div>

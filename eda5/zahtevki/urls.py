@@ -53,6 +53,7 @@ urlpatterns += [
     url(r'^zahtevek-predaja-lastnine-create/$', predaja_lastnine.ZahtevekPredajaLastnineCreateView.as_view(), name="zahtevek_create_predaja_lastnine"),
     url(r'^(?P<pk>\d+)/prodaja-lastnine-create/$', predaja_lastnine.ProdajaLastnineCreateView.as_view(), name="prodaja_lastnine_create"),
     url(r'^(?P<pk>\d+)/najem-lastnine-create/$', predaja_lastnine.NajemLastnineCreateView.as_view(), name="najem_lastnine_create"),
+    url(r'^(?P<pk>\d+)/predaja-kljuca-create/$', predaja_lastnine.PredajaKljucaCreateView.as_view(), name="predaja_kljuca_create"),
 ]
 
 
