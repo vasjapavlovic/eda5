@@ -6,12 +6,24 @@
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
                     <tr>
-                        <th>datum</th>
-                        <th>opis</th>
+                        <td>datum</td>
+                        <td>{{ object.dogodek.datum_dogodka }}</td>
                     </tr>
                     <tr>
-                        <td>{{ object.dogodek.datum_dogodka }}</td>
+                        <td>cas</td>
+                        <td>{{ object.dogodek.cas_dogodka }}</td>
+                    </tr>
+                    <tr>
+                        <td>opis</td>
                         <td>{{ object.dogodek.opis_dogodka }}</td>
+                    </tr>
+                    <tr>
+                        <td>Potrebna prijava policiji?</td>
+                        <td>{{ object.dogodek.is_potrebna_prijava_policiji }}</td>
+                    </tr>
+                    <tr>
+                        <td>Je povzročena škoda?</td>
+                        <td>{{ object.dogodek.is_natala_skoda }}</td>
                     </tr>
                 </table>
             </div>

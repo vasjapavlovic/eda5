@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import splosno, sestanek, izvedba_dela, predaja_lastnine, analiza, povprasevanje, reklamacija
+from .views import splosno, sestanek, izvedba_dela, predaja_lastnine, analiza, povprasevanje, reklamacija, dogodek
 
 
 # zahtevek
@@ -17,9 +17,9 @@ urlpatterns = [
 ]
 
 # zahtevek škodni dogodek
-# urlpatterns += [
-#     url(r'^(?P<pk>\d+)/skodni/update/$', skodni_dogodek.ZahtevekUpdateSkodniView.as_view(), name="zahtevek_update_skodni"),
-# ]
+urlpatterns += [
+    url(r'^(?P<pk>\d+)/dogodek/create/$', dogodek.DogodekCreateView.as_view(), name="zahtevek_create_dogodek"),
+]
 
 # zahtevek sestanek
 urlpatterns += [

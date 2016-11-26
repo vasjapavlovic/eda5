@@ -16,9 +16,10 @@ class DogodekCreateForm(forms.ModelForm):
 			'opis_dogodka',
 			'cas_dogodka',
 			'is_potrebna_prijava_policiji',
-			'povzrocitelj',
-			'predvidena_visina_skode',
 			'is_nastala_skoda',
+			'povzrocitelj',
+
+
 		)
 		widgets = {
             'datum_dogodka': DateInput(),

@@ -47,14 +47,16 @@
     
     <!-- DOGODEK -->
     <li>----------------------------------</li>
-    <li>
-        <a type="button" data-toggle="modal" data-target="#addDogodek">
-        <b>Registriraj</b> Dogodek</a>
-    </li>
+
     {% if object.dogodek %}
     <li>
         <a type="button" href="{% url 'moduli:zahtevki:dogodek_update_main' object.dogodek.pk %}">
         <b>Uredi</b> Dogodek</a>
+    </li>
+    {% else %}
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:zahtevek_create_dogodek' object.pk %}">
+        <b>Registriraj</b> Dogodek</a>
     </li>
     {% endif %}
 

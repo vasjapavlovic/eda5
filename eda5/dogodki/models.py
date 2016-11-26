@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from . import managers
+
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 
 from eda5.zahtevki.models import Zahtevek
@@ -26,6 +28,7 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
                                                   verbose_name="predvidena višina škode")
     
     # OBJECT MANAGER
+    objects = managers.DogodekManager()
     # CUSTOM PROPERTIES
     # METHODS
     def get_absolute_url(self):
