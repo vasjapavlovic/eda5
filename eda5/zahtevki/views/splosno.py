@@ -132,7 +132,7 @@ class ZahtevekDetailView(DetailView):
         # kljuci
         context['predajakljuca_create_form'] = PredajaKljucaCreateForm
         context['predaja_kljuca_list'] = PredajaKljuca.objects.filter(
-            predaja_lastnine=self.object.predajalastnine.id)
+                zahtevek=self.object.id)
 
         # opravilo
         context['opravilo_form'] = OpraviloCreateForm

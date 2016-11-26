@@ -246,18 +246,23 @@ class PredajaKljucaCreateView(UpdateView):
         # izdelamo predajo
         if predaja_kljuca_create_form.is_valid():
             kljuc = predaja_kljuca_create_form.cleaned_data['kljuc']
+            print(kljuc)
             datum_predaje = predaja_kljuca_create_form.cleaned_data['datum_predaje']
-            kolicina = predaja_kljuca_create_form.cleaned_data['kolicina']
-            predaja_lastnine = zahtevek.predajalastnine
+            print(datum_predaje)
+            vrsta_predaje = predaja_kljuca_create_form.cleaned_data['vrsta_predaje']
+            print(vrsta_predaje)
+            print("NE DELA")
 
             PredajaKljuca.objects.create_predaja_kljuca(
                 kljuc=kljuc,
                 datum_predaje=datum_predaje,
-                kolicina=kolicina,
-                predaja_lastnine=predaja_lastnine
+                vrsta_predaje=vrsta_predaje,
+                zahtevek=zahtevek
             )
 
         else:
+
+            print("NE DELA")
             return render(request, self.template_name, {
                 'predaja_kljuca_create_form': predaja_kljuca_create_form,
                 'modul_zavihek': modul_zavihek,

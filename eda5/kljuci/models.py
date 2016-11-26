@@ -4,7 +4,7 @@ from .managers import *
 
 
 from eda5.deli.models import Element
-from eda5.lastnistvo.models import PredajaLastnine
+from eda5.zahtevki.models import Zahtevek
 
 
 class SklopKljucev(models.Model):
@@ -78,7 +78,7 @@ class PredajaKljuca(models.Model):
     # ATRIBUTES
     #   Relations
     kljuc = models.ForeignKey(Kljuc, verbose_name="ključ")
-    predaja_lastnine = models.ForeignKey(PredajaLastnine, blank=True, null=True)
+    zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
     #   Mandatory
     datum_predaje = models.DateField()
     vrsta_predaje = models.IntegerField(choices=VRSTA_PREDAJE)
