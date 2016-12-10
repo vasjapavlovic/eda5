@@ -16,17 +16,8 @@
         <td>{{ dn.opravilo.naziv }}({{ dn.opravilo.oznaka }})</td>
         <td>{{ dn.datum_stop }}</td>
         <td>
-            {% for strosek in dn.strosek_set.all %}
-            
-            <table>
 
-                <tr>
-                    <td>{{ strosek.vrsta_stroska.naziv }} ({{ strosek.vrsta_stroska.oznaka }})</td>
-                    <td>vrednost</td>
-                </tr>
-                {% endfor %}
 
-            </table>
 
             
         </td>

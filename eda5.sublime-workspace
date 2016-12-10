@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Dogodek",
+				"DogodekManager"
+			],
+			[
 				"PredajaKl",
 				"PredajaKljuca"
 			],
@@ -21,7 +25,7 @@
 			],
 			[
 				"Report",
-				"ReportDelavciVDelu	class"
+				"ReportDelavciVDelu\tclass"
 			],
 			[
 				"rok",
@@ -29,19 +33,19 @@
 			],
 			[
 				"Nasta",
-				"NastavitevCreateForm	class"
+				"NastavitevCreateForm\tclass"
 			],
 			[
 				"Proje",
-				"ProjektnoMestoCreateForm	class"
+				"ProjektnoMestoCreateForm\tclass"
 			],
 			[
 				"modul",
-				"modul_zavihek	statement"
+				"modul_zavihek\tstatement"
 			],
 			[
 				"get_",
-				"get_context_data	function"
+				"get_context_data\tfunction"
 			],
 			[
 				"end",
@@ -53,11 +57,11 @@
 			],
 			[
 				"Skupina",
-				"SkupinaVrsteStroskaCreateForm	class"
+				"SkupinaVrsteStroskaCreateForm\tclass"
 			],
 			[
 				"za",
-				"zap_st	statement"
+				"zap_st\tstatement"
 			],
 			[
 				"st_",
@@ -65,15 +69,15 @@
 			],
 			[
 				"strosek",
-				"strosek_list	statement"
+				"strosek_list\tstatement"
 			],
 			[
 				"zahtevek_ses",
-				"zahtevek_sestanek_form	statement"
+				"zahtevek_sestanek_form\tstatement"
 			],
 			[
 				"Date",
-				"DateInput	class"
+				"DateInput\tclass"
 			],
 			[
 				"naro",
@@ -89,11 +93,11 @@
 			],
 			[
 				"narocilo",
-				"narocilo_splosno_form	statement"
+				"narocilo_splosno_form\tstatement"
 			],
 			[
 				"telefo",
-				"telefonsko_sporocilo	statement"
+				"telefonsko_sporocilo\tstatement"
 			],
 			[
 				"narocilo_",
@@ -101,15 +105,15 @@
 			],
 			[
 				"NarociloTelefon",
-				"NarociloTelefonCreateForm	class"
+				"NarociloTelefonCreateForm\tclass"
 			],
 			[
 				"Naroc",
-				"NarociloManager	class"
+				"NarociloManager\tclass"
 			],
 			[
 				"nastaiv",
-				"nastavitev_max	statement"
+				"nastavitev_max\tstatement"
 			],
 			[
 				"verbos",
@@ -129,35 +133,35 @@
 			],
 			[
 				"Predaja",
-				"PredajaLastnine	class"
+				"PredajaLastnine\tclass"
 			],
 			[
 				"lastni",
-				"lastniska_enota_interna	statement"
+				"lastniska_enota_interna\tstatement"
 			],
 			[
 				"Partner",
-				"PartnerCreateForm	class"
+				"PartnerCreateForm\tclass"
 			],
 			[
 				"Model",
-				"ModelArtikla	class"
+				"ModelArtikla\tclass"
 			],
 			[
 				"Delo",
-				"DelovniNalog	class"
+				"DelovniNalog\tclass"
 			],
 			[
 				"create",
-				"create_dokument	function"
+				"create_dokument\tfunction"
 			],
 			[
 				"dok",
-				"dokument_form	statement"
+				"dokument_form\tstatement"
 			],
 			[
 				"Doku",
-				"DokumentCreateForm	class"
+				"DokumentCreateForm\tclass"
 			],
 			[
 				"dokument",
@@ -165,15 +169,15 @@
 			],
 			[
 				"Akt",
-				"AktivnostManager	class"
+				"AktivnostManager\tclass"
 			],
 			[
 				"form",
-				"form_valid	function"
+				"form_valid\tfunction"
 			],
 			[
 				"delovni",
-				"delovnianlog_id	statement"
+				"delovnianlog_id\tstatement"
 			],
 			[
 				"ZAhte",
@@ -189,11 +193,11 @@
 			],
 			[
 				"Naro",
-				"NarociloTelefon	class"
+				"NarociloTelefon\tclass"
 			],
 			[
 				"Lastniska",
-				"LastniskaSkupinaAdmin	class"
+				"LastniskaSkupinaAdmin\tclass"
 			],
 			[
 				"D",
@@ -201,7 +205,7 @@
 			],
 			[
 				"Obdo",
-				"ObdobjeMesec	class"
+				"ObdobjeMesec\tclass"
 			],
 			[
 				"Obdob",
@@ -221,7 +225,7 @@
 			],
 			[
 				"Ose",
-				"OsebaCreateView	class"
+				"OsebaCreateView\tclass"
 			],
 			[
 				"Oseb",
@@ -229,23 +233,23 @@
 			],
 			[
 				"Oseba",
-				"OsebaCreateForm	class"
+				"OsebaCreateForm\tclass"
 			],
 			[
 				"Par",
-				"PartnerListView	class"
+				"PartnerListView\tclass"
 			],
 			[
 				"pa",
-				"PartnerUpdateForm	class"
+				"PartnerUpdateForm\tclass"
 			],
 			[
 				"PAr",
-				"PartnerUpdateView	class"
+				"PartnerUpdateView\tclass"
 			],
 			[
 				"Modul",
-				"ModulListView	class"
+				"ModulListView\tclass"
 			],
 			[
 				"extra",
@@ -253,11 +257,11 @@
 			],
 			[
 				"AWS_S",
-				"AWS_STORAGE_BUCKET_NAME	statement"
+				"AWS_STORAGE_BUCKET_NAME\tstatement"
 			],
 			[
 				"SE",
-				"SECRET_KEY	statement"
+				"SECRET_KEY\tstatement"
 			],
 			[
 				"loca",
@@ -273,35 +277,35 @@
 			],
 			[
 				"secret",
-				"secret_key	statement"
+				"secret_key\tstatement"
 			],
 			[
 				"ZahtevekF",
-				"ZahtevekFuncView	function"
+				"ZahtevekFuncView\tfunction"
 			],
 			[
 				"Zahtevek",
-				"ZahtevekForm	class"
+				"ZahtevekForm\tclass"
 			],
 			[
 				"zahtevek_",
-				"zahtevek_instance	statement"
+				"zahtevek_instance\tstatement"
 			],
 			[
 				"get",
-				"get_object_or_404	function"
+				"get_object_or_404\tfunction"
 			],
 			[
 				"prijava",
-				"prijavaNapak	module"
+				"prijavaNapak\tmodule"
 			],
 			[
 				"verbose",
-				"verbose_name	param"
+				"verbose_name\tparam"
 			],
 			[
 				"Delovni",
-				"DelovniNalogDetailView	class"
+				"DelovniNalogDetailView\tclass"
 			],
 			[
 				"kratko",
@@ -313,27 +317,27 @@
 			],
 			[
 				"Dok",
-				"DokumentAdmin	class"
+				"DokumentAdmin\tclass"
 			],
 			[
 				"Vrs",
-				"VrstaDokumentaAdmin	class"
+				"VrstaDokumentaAdmin\tclass"
 			],
 			[
 				"Sku",
-				"SkupinaDokumentovAdmin	class"
+				"SkupinaDokumentovAdmin\tclass"
 			],
 			[
 				"v",
-				"VrstaDokumenta	class"
+				"VrstaDokumenta\tclass"
 			],
 			[
 				"auto",
-				"auto_now_add	param"
+				"auto_now_add\tparam"
 			],
 			[
 				"proper",
-				"property	class"
+				"property\tclass"
 			],
 			[
 				"max",
@@ -341,39 +345,39 @@
 			],
 			[
 				"Element",
-				"ElementDetailView	class"
+				"ElementDetailView\tclass"
 			],
 			[
 				"first",
-				"first_item	statement"
+				"first_item\tstatement"
 			],
 			[
 				"Dnevn",
-				"DnevnikInline	class"
+				"DnevnikInline\tclass"
 			],
 			[
 				"Zazna",
-				"ZaznamekInline	class"
+				"ZaznamekInline\tclass"
 			],
 			[
 				"date",
-				"datetime	class"
+				"datetime\tclass"
 			],
 			[
 				"time",
-				"timezone	module"
+				"timezone\tmodule"
 			],
 			[
 				"da",
-				"datetime	class"
+				"datetime\tclass"
 			],
 			[
 				"sta",
-				"staticfiles	module"
+				"staticfiles\tmodule"
 			],
 			[
 				"re",
-				"reverse	function"
+				"reverse\tfunction"
 			],
 			[
 				"STATIC",
@@ -381,51 +385,51 @@
 			],
 			[
 				"find_ele",
-				"find_element_by_id	function"
+				"find_element_by_id\tfunction"
 			],
 			[
 				"find",
-				"find_element_by_tag_name	function"
+				"find_element_by_tag_name\tfunction"
 			],
 			[
 				"co",
-				"common	module"
+				"common\tmodule"
 			],
 			[
 				"Http",
-				"HttpRequest	class"
+				"HttpRequest\tclass"
 			],
 			[
 				"home",
-				"home_page	statement"
+				"home_page\tstatement"
 			],
 			[
 				"conte",
-				"content_file_name	function"
+				"content_file_name\tfunction"
 			],
 			[
 				"Nar",
-				"NarocilaCommentsInLine	class"
+				"NarocilaCommentsInLine\tclass"
 			],
 			[
 				"Na",
-				"NarocilaComments	class"
+				"NarocilaComments\tclass"
 			],
 			[
 				"next",
-				"next_number	statement"
+				"next_number\tstatement"
 			],
 			[
 				"ne",
-				"next_number_method	function"
+				"next_number_method\tfunction"
 			],
 			[
 				"next_n",
-				"next_number_method	function"
+				"next_number_method\tfunction"
 			],
 			[
 				"nex",
-				"next_number_method	function"
+				"next_number_method\tfunction"
 			],
 			[
 				"next_",
@@ -433,15 +437,15 @@
 			],
 			[
 				"Re",
-				"RegistriraneNapakeAdmin	class"
+				"RegistriraneNapakeAdmin\tclass"
 			],
 			[
 				"Odprav",
-				"OdpravljeneNapakeAdmin	class"
+				"OdpravljeneNapakeAdmin\tclass"
 			],
 			[
 				"Napa",
-				"NapakeZaOdpravitiAdmin	class"
+				"NapakeZaOdpravitiAdmin\tclass"
 			],
 			[
 				"Registri",
@@ -449,7 +453,7 @@
 			],
 			[
 				"Prijava",
-				"PrijavaNapakAdmin	class"
+				"PrijavaNapakAdmin\tclass"
 			],
 			[
 				"op",
@@ -461,15 +465,15 @@
 			],
 			[
 				"user",
-				"userIdx	statement"
+				"userIdx\tstatement"
 			],
 			[
 				"se",
-				"seznamRegistriranihUporanbikov	statement"
+				"seznamRegistriranihUporanbikov\tstatement"
 			],
 			[
 				"id",
-				"idNaprave	statement"
+				"idNaprave\tstatement"
 			],
 			[
 				"from",
@@ -480,82 +484,29 @@
 	"buffers":
 	[
 		{
-			"file": "eda5/zahtevki/views/splosno.py",
+			"file": "eda5/dogodki/forms.py",
 			"settings":
 			{
-				"buffer_size": 14953,
+				"buffer_size": 1009,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "eda5/zahtevki/views/predaja_lastnine.py",
+			"file": "eda5/zahtevki/views/dogodek.py",
 			"settings":
 			{
-				"buffer_size": 10025,
+				"buffer_size": 3895,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_08.html",
+			"file": "eda5/dogodki/models.py",
 			"settings":
 			{
-				"buffer_size": 1029,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 234,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "eda5/zahtevki/urls.py",
-			"settings":
-			{
-				"buffer_size": 4883,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "eda5/templates/kljuci/predaja_kljuca/create_from_zahtevek.html",
-			"settings":
-			{
-				"buffer_size": 8050,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "eda5/kljuci/managers.py",
-			"settings":
-			{
-				"buffer_size": 520,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "eda5/kljuci/forms.py",
-			"settings":
-			{
-				"buffer_size": 437,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "eda5/templates/zahtevki/zahtevek/detail/modal.html",
-			"settings":
-			{
-				"buffer_size": 6070,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "eda5/templates/zahtevki/zahtevek/detail/base.html",
-			"settings":
-			{
-				"buffer_size": 3313,
+				"buffer_size": 3226,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -568,9 +519,13 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "",
+		"last_filter": "package",
 		"selected_items":
 		[
+			[
+				"package",
+				"Package Control: Install Package"
+			],
 			[
 				"package ",
 				"Package Control: Enable Package"
@@ -592,13 +547,14 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 593.0
+		"width": 449.0
 	},
 	"console":
 	{
 		"height": 139.0,
 		"history":
 		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
 			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
 		]
 	},
@@ -614,73 +570,80 @@
 	"expanded_folders":
 	[
 		"/home/pavlovicv/djangoprj/eda5",
+		"/home/pavlovicv/djangoprj/eda5/config",
+		"/home/pavlovicv/djangoprj/eda5/config/settings",
 		"/home/pavlovicv/djangoprj/eda5/eda5",
+		"/home/pavlovicv/djangoprj/eda5/eda5/arhiv",
+		"/home/pavlovicv/djangoprj/eda5/eda5/core",
+		"/home/pavlovicv/djangoprj/eda5/eda5/deli",
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki",
 		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/kljuci",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/kljuci/predaja_kljuca",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs",
+		"/home/pavlovicv/djangoprj/eda5/eda5/lastnistvo",
+		"/home/pavlovicv/djangoprj/eda5/eda5/moduli",
+		"/home/pavlovicv/djangoprj/eda5/eda5/narocila",
+		"/home/pavlovicv/djangoprj/eda5/eda5/posta",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views"
 	],
 	"file_history":
 	[
-		"/home/pavlovicv/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
-		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/models.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/views.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/lastnistvo/forms.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/forms.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_02.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_07.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_08.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views/splosno.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views/predaja_lastnine.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views/dogodek.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/dogodki/dogodek/create_from_zahtevek.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/base.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/content.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/models.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/forms.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/managers.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/urls.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/forms.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/models.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/managers.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/core/models.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/kljuci/predaja_kljuca/create_from_zahtevek.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/modal.html",
+		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/pavlovicv/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/views.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/lastnistvo/forms.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/urls.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/admin.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci/managers.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/moduli/urls.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/content.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/deli/element/detail/tabs/tab_04.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/deli/delstavbe/list/content.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_01.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/deli/models.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/kljuci/predaja_kljucev/list/tabs/tab_01.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/kljuci/predaja_kljucev/list/tabs/tab_02.html",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/base.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/delovninalogi/urls.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/kljuci/predaja_kljucev/list/content.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/kljuci/predaja_kljucev/list/base.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/forms.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/core/models.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/models.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/delovninalogi/forms.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/delovninalogi/opravilo/create_from_vzorec_opravila.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/delovninalogi/delovninalog/detail/tabs/tab_01.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/delovninalogi/opravilo/detail/tabs/tab_02.html",
-		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/models.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/base.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/list/tabs/tab_01.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/list/tabs/tab_02.html",
-		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/managers.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/forms.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_06.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/arhiv/models.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_03.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_04.html",
 		"/home/pavlovicv/djangoprj/eda5/staticfiles/timepicker2/timepicker.js",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/modal.html",
 		"/home/pavlovicv/djangoprj/eda5/config/settings/common.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/etaznalastnina/forms.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/admin.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/admin.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_07.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/planiranje/models.py",
-		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views/predaja_lastnine.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/managers.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/posta/models.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/splosno.py",
-		"/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/content.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/obvestila/obvestilo/list/content.html",
 		"/home/pavlovicv/Desktop/django/eda5/config/settings/common.py",
@@ -751,15 +714,11 @@
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/modal.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/report_1.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/js.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/base.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/katalog/models.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/model_artikla/list/content.html",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/predaja_lastnine.py",
-		"/home/pavlovicv/Desktop/django/eda5/eda5/lastnistvo/admin.py"
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/base.html"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -773,6 +732,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"veljavna",
+			"zavihe",
+			"dogodek_create",
+			"predaja_lastnine",
 			"kolici",
 			"datum_predajekoli",
 			"DateInput",
@@ -896,11 +859,7 @@
 			"program",
 			"config",
 			"ssl",
-			"export",
-			"static",
-			"DATABASE",
-			"simple",
-			"simple server"
+			"export"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -944,305 +903,95 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "eda5/zahtevki/views/splosno.py",
+					"file": "eda5/dogodki/forms.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14953,
+						"buffer_size": 1009,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								625,
+								625
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1737.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "eda5/zahtevki/views/predaja_lastnine.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10025,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								887,
-								887
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 66.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_08.html",
+					"buffer": 1,
+					"file": "eda5/zahtevki/views/dogodek.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1029,
+						"buffer_size": 3895,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								387,
-								387
+								3895,
+								3895
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2170.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "/home/pavlovicv/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+					"buffer": 2,
+					"file": "eda5/dogodki/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 234,
+						"buffer_size": 3226,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								231,
-								231
+								997,
+								997
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 66.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "eda5/zahtevki/urls.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4883,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3550,
-								3550
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "eda5/templates/kljuci/predaja_kljuca/create_from_zahtevek.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8050,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1036,
-								1036
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 298.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "eda5/kljuci/managers.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 520,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "eda5/kljuci/forms.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 437,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "eda5/templates/zahtevki/zahtevek/detail/modal.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6070,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5718,
-								5718
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2125.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "eda5/templates/zahtevki/zahtevek/detail/base.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3313,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2418,
-								2418
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 427.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1250,7 +999,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 32.0
+		"height": 38.0
 	},
 	"input":
 	{
@@ -1287,7 +1036,7 @@
 	"project": "eda5.sublime-project",
 	"replace":
 	{
-		"height": 60.0
+		"height": 70.0
 	},
 	"save_all_on_build": true,
 	"select_file":

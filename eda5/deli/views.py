@@ -141,11 +141,17 @@ class ElementDetailView(DetailView):
         context = super(ElementDetailView, self).get_context_data(*args, **kwargs)
 
         # seznam delovnih nalogov (za servisno knjigo)
-        opravila = Opravilo.objects.filter(element=self.object.id)
         delovninalog_list = []
+        # seznam opravil kjer je vsebovan element
+        opravila = Opravilo.objects.filter(element=self.object.id)
+        # iteriramo skozi seznam opravil, da pridobimo posamezne sezname delovnih nalogov
         for opravilo in opravila:
-            delovninalog_list = DelovniNalog.objects.filter(opravilo=opravilo)
-            list(delovninalog_list)
+            delovninalog_list_x = DelovniNalog.objects.filter(opravilo=opravilo)
+        # iteriramo skozi seznam delovnih nalogov in dodamo v seznam
+            for dn in delovninalog_list_x:
+                delovninalog_list.append(dn)
+            # list(delovninalog_list)
+
         context['delovninalog_list'] = delovninalog_list
 
         # seznam nastavitev (za obratovanje)
