@@ -33,6 +33,8 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     # ***Optional***
     je_reprezentanca = models.BooleanField(default=False)
     reprezentanca_opis = models.CharField(max_length=255, blank=True, null=True)
+    zavrnjen = models.BooleanField(default=False)
+    # zavrnjen_obrazlozitev_dokument
 
     # OBJECT MANAGER
     objects = RacunManager()
