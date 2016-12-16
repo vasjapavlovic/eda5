@@ -31,6 +31,8 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     datum_storitve_do = models.DateField(blank=True, null=True)
 
     # ***Optional***
+    je_reprezentanca = models.BooleanField(default=False)
+    reprezentanca_opis = models.CharField(max_length=255, blank=True, null=True)
 
     # OBJECT MANAGER
     objects = RacunManager()
