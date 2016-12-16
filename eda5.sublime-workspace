@@ -4,6 +4,7 @@
 		"selected_items":
 		[
 			[
+<<<<<<< HEAD
 				"Dogodek",
 				"DogodekManager"
 			],
@@ -20,6 +21,8 @@
 				"PredajaKljucaCreateForm"
 			],
 			[
+=======
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 				"Dogo",
 				"DogodekCreateForm"
 			],
@@ -484,20 +487,149 @@
 	"buffers":
 	[
 		{
+<<<<<<< HEAD
 			"file": "eda5/dogodki/forms.py",
 			"settings":
 			{
 				"buffer_size": 1009,
 				"encoding": "UTF-8",
+=======
+			"file": "eda5/dogodki/models.py",
+			"settings":
+			{
+				"buffer_size": 3226,
 				"line_ending": "Unix"
 			}
 		},
 		{
+			"file": "eda5/templates/base.html",
+			"settings":
+			{
+				"buffer_size": 11136,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/zahtevki/models.py",
+			"settings":
+			{
+				"buffer_size": 6063,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/templates/zahtevki/zahtevek/list/tabs/tab_01.html",
+			"settings":
+			{
+				"buffer_size": 1782,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/templates/zahtevki/zahtevek/list/tabs/tab_02.html",
+			"settings":
+			{
+				"buffer_size": 1765,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/templates/zahtevki/zahtevek/detail/base.html",
+			"settings":
+			{
+				"buffer_size": 3353,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/core/models.py",
+			"settings":
+			{
+				"buffer_size": 1488,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/dogodki/managers.py",
+			"settings":
+			{
+				"buffer_size": 736,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/dogodki/forms.py",
+			"settings":
+			{
+				"buffer_size": 1009,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_06.html",
+			"settings":
+			{
+				"buffer_size": 2439,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/arhiv/models.py",
+			"settings":
+			{
+				"buffer_size": 4385,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_03.html",
+			"settings":
+			{
+				"buffer_size": 5139,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_04.html",
+			"settings":
+			{
+				"buffer_size": 969,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_02.html",
+			"settings":
+			{
+				"buffer_size": 738,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/*****************************************************************************\n *  FILE:  anytime.js - The Any+Time(TM) JavaScript Library (source)\n *\n *  VERSION: 5.1.2\n *\n *  Copyright 2008-2015 Andrew M. Andrews III (www.AMA3.com). Some Rights\n *  Reserved. This work licensed under the Creative Commons Attribution-\n *  Noncommercial-Share Alike 3.0 Unported License except in jurisdicitons\n *  for which the license has been ported by Creative Commons International,\n *  where the work is licensed under the applicable ported license instead.\n *  For a copy of the unported license, visit\n *  http://creativecommons.org/licenses/by-nc-sa/3.0/\n *  or send a letter to Creative Commons, 171 Second Street, Suite 300,\n *  San Francisco, California, 94105, USA.  For ported versions of the\n *  license, visit http://creativecommons.org/international/\n *\n *  Alternative licensing arrangements may be made by contacting the\n *  author at http://www.AMA3.com/\n *\n *  The Any+Time(TM) JavaScript Library provides the following ECMAScript\n *  functionality:\n *\n *    AnyTime.Converter\n *      Converts Dates to/from Strings, allowing a wide range of formats\n *      closely matching those provided by the MySQL DATE_FORMAT() function,\n *      with some noteworthy enhancements.\n *\n *    AnyTime.pad()\n *      Pads a value with a specific number of leading zeroes.\n *\n *    AnyTime.noPicker()\n *      Destroys a calendar widget previously added by AnyTime.picker().\n *      Can also be invoked via jQuery using $(selector).AnyTime_noPicker()\n *\n *    AnyTime.picker()\n *      Attaches a calendar widget to a text field for selecting date/time\n *      values with fewer mouse movements than most similar pickers.  Any\n *      format supported by AnyTime.Converter can be used for the text field.\n *      If JavaScript is disabled, the text field remains editable without\n *      any of the picker features.\n *      Can also be invoked via jQuery using $(selector).AnyTime_picker()\n *\n *  IMPORTANT NOTICE:  This code depends upon the jQuery JavaScript Library\n *  (www.jquery.com); tested with version 1.11.0.\n *\n *  The Any+Time(TM) code and styles in anytime.css have been tested (but not\n *  extensively) on the following Windows platforms:\n *    IE 8 (XP)\n *    IE 11 (8.1)\n *    Firefox 26\n *    Chrome 31\n *\n *  Any+Time is a trademark of Andrew M. Andrews III.\n *  Thanks to Chu for help with a setMonth() issue!\n ****************************************************************************/\n\nvar AnyTime =\n{\n    version: '5.1.2',\n\n  	//=========================================================================\n  	//  AnyTime.pad() pads a value with a specified number of zeroes and\n    //  returns a string containing the padded value.\n  	//=========================================================================\n\n  	pad: function( val, len )\n  	{\n  		var str = String(Math.abs(val));\n  		while ( str.length < len )\n  		str = '0'+str;\n  		if ( val < 0 )\n  		str = '-'+str;\n  		return str;\n  	}\n};\n\n(function($)\n{\n	// private members\n\n	var __daysIn = [ 31,28,31,30,31,30,31,31,30,31,30,31 ];\n	var __initialized = false;\n  var __pickers = [];\n\n  	//  Add methods to jQuery to create and destroy pickers using\n  	//  the typical jQuery approach.\n\n  	$.fn.AnyTime_picker = function( options )\n  	{\n  		return this.each( function(i) { AnyTime.picker( this.id, options ); } );\n  	}\n\n  	$.fn.AnyTime_noPicker = function()\n  	{\n  		return this.each( function(i) { AnyTime.noPicker( this.id ); } );\n  	}\n\n  	//  Add methods to jQuery to change the current, earliest and latest times\n  	//  using the typical jQuery approach.\n\n  	$.fn.AnyTime_setCurrent = function( newTime )\n    {\n  		return this.each( function(i) { AnyTime.setCurrent( this.id, newTime ); } );\n    }\n\n  	$.fn.AnyTime_setEarliest = function( newTime )\n    {\n  		return this.each( function(i) { AnyTime.setEarliest( this.id, newTime ); } );\n    }\n\n  	$.fn.AnyTime_setLatest = function( newTime )\n    {\n  		return this.each( function(i) { AnyTime.setLatest( this.id, newTime ); } );\n    }\n\n  	// 	Add a method to jQuery to change the classes of an element to\n  	//  indicate whether it's value is current (used by AnyTime.picker),\n  	//  and another to trigger the click handler for the currently-\n  	//  selected button under an element.\n\n  	$.fn.AnyTime_current = function(isCurrent,isLegal)\n	{\n	    if ( isCurrent )\n	    {\n		  this.removeClass('AnyTime-out-btn ui-state-default ui-state-disabled ui-state-highlight');\n	      this.addClass('AnyTime-cur-btn ui-state-default ui-state-highlight');\n	    }\n	    else\n	    {\n	      this.removeClass('AnyTime-cur-btn ui-state-highlight');\n	      if ( ! isLegal )\n	    	  this.addClass('AnyTime-out-btn ui-state-disabled');\n	      else\n	    	  this.removeClass('AnyTime-out-btn ui-state-disabled');\n	    }\n	};\n\n	$.fn.AnyTime_clickCurrent = function()\n	{\n		this.find('.AnyTime-cur-btn').triggerHandler('click');\n	}\n\n  	$(document).ready(\n  		function()\n		{\n			//  Move popup windows to the end of the page.  This allows them to\n			//  overcome XHTML restrictions on <table> placement enforced by MSIE.\n\n			for ( var id in __pickers )\n        if ( ! Array.prototype[id] ) // prototype.js compatibility issue\n			    __pickers[id].onReady();\n\n			__initialized = true;\n\n		} ); // document.ready\n\n//=============================================================================\n//  AnyTime.Converter\n//\n//  This object converts between Date objects and Strings.\n//\n//  To use AnyTime.Converter, simply create an instance for a format string,\n//  and then (repeatedly) invoke the format() and/or parse() methods to\n//  perform the conversions.  For example:\n//\n//    var converter = new AnyTime.Converter({format:'%Y-%m-%d'})\n//    var datetime = converter.parse('1967-07-30') // July 30, 1967 @ 00:00\n//    alert( converter.format(datetime) ); // outputs: 1967-07-30\n//\n//  Constructor parameter:\n//\n//  options - an object of optional parameters that override default behaviors.\n//    The supported options are:\n//\n//    baseYear - the number to add to two-digit years if the %y format\n//      specifier is used.  By default, AnyTime.Converter follows the\n//      MySQL assumption that two-digit years are in the range 1970 to 2069\n//      (see http://dev.mysql.com/doc/refman/5.1/en/y2k-issues.html).\n//      The most common alternatives for baseYear are 1900 and 2000.\n//\n//    dayAbbreviations - an array of seven strings, indexed 0-6, to be used\n//      as ABBREVIATED day names.  If not specified, the following are used:\n//      ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']\n//      Note that if the firstDOW option is passed to AnyTime.picker() (see\n//      AnyTime.picker()), this array should nonetheless begin with the\n//      desired abbreviation for Sunday.\n//\n//    dayNames - an array of seven strings, indexed 0-6, to be used as\n//      day names.  If not specified, the following are used: ['Sunday',\n//        'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']\n//      Note that if the firstDOW option is passed to AnyTime.picker() (see\n//      AnyTime.picker()), this array should nonetheless begin with the\n//      desired name for Sunday.\n//\n//    eraAbbreviations - an array of two strings, indexed 0-1, to be used\n//      as ABBREVIATED era names.  Item #0 is the abbreviation for \"Before\n//      Common Era\" (years before 0001, sometimes represented as negative\n//      years or \"B.C\"), while item #1 is the abbreviation for \"Common Era\"\n//      (years from 0001 to present, usually represented as unsigned years\n//      or years \"A.D.\").  If not specified, the following are used:\n//      ['BCE','CE']\n//\n//    format - a string specifying the pattern of strings involved in the\n//      conversion.  The parse() method can take a string in this format and\n//      convert it to a Date, and the format() method can take a Date object\n//      and convert it to a string matching the format.\n//\n//      Fields in the format string must match those for the DATE_FORMAT()\n//      function in MySQL, as defined here:\n//      http://tinyurl.com/bwd45#function_date-format\n//\n//      IMPORTANT:  Some MySQL specifiers are not supported (especially\n//      those involving day-of-the-year, week-of-the-year) or approximated.\n//      See the code for exact behavior.\n//\n//      In addition to the MySQL format specifiers, the following custom\n//      specifiers are also supported:\n//\n//        %B - If the year is before 0001, then the \"Before Common Era\"\n//          abbreviation (usually BCE or the obsolete BC) will go here.\n//\n//        %C - If the year is 0001 or later, then the \"Common Era\"\n//          abbreviation (usually CE or the obsolete AD) will go here.\n//\n//        %E - If the year is before 0001, then the \"Before Common Era\"\n//          abbreviation (usually BCE or the obsolete BC) will go here.\n//          Otherwise, the \"Common Era\" abbreviation (usually CE or the\n//          obsolete AD) will go here.\n//\n//        %Z - The current four-digit year, without any sign.  This is\n//          commonly used with years that might be before (or after) 0001,\n//          when the %E (or %B and %C) specifier is used instead of a sign.\n//          For example, 45 BCE is represented \"0045\".  By comparison, in\n//          the \"%Y\" format, 45 BCE is represented \"-0045\".\n//\n//        %z - The current year, without any sign, using only the necessary\n//          number of digits.  This if the year is commonly used with years\n//          that might be before (or after) 0001, when the %E (or %B and %C)\n//          specifier is used instead of a sign.  For example, the year\n//          45 BCE is represented as \"45\", and the year 312 CE as \"312\".\n//\n//        %# - the timezone offset, with a sign, in minutes.\n//\n//        %+ - the timezone offset, with a sign, in hours and minutes, in\n//          four-digit, 24-hour format with no delimiter (for example, +0530).\n//          To remember the difference between %+ and %-, it might be helpful\n//          to remember that %+ might have more characters than %-.\n//\n//        %: - the timezone offset, with a sign, in hours and minutes, in\n//          four-digit, 24-hour format with a colon delimiter (for example,\n//          +05:30).  This is similar to the %z format used by Java.\n//          To remember the difference between %: and %;, it might be helpful\n//          to remember that a colon (:) has a period (.) on the bottom and\n//          a semicolon (;) has a comma (,), and in English sentence structure,\n//          a period represents a more significant stop than a comma, and\n//          %: might be a longer string than %; (I know it's a stretch, but\n//          it's easier than looking it up every time)!\n//\n//        %- - the timezone offset, with a sign, in hours and minutes, in\n//          three-or-four-digit, 24-hour format with no delimiter (for\n//          example, +530).\n//\n//        %; - the timezone offset, with a sign, in hours and minutes, in\n//          three-or-four-digit, 24-hour format with a colon delimiter\n//          (for example, +5:30).\n//\n//        %@ - the timezone offset label.  By default, this will be the\n//          string \"UTC\" followed by the offset, with a sign, in hours and\n//          minutes, in four-digit, 24-hour format with a colon delimiter\n//          (for example, UTC+05:30).  However, if Any+Time(TM) has been\n//          extended with a member named utcLabel (for example, by the\n//          anytimetz.js file), then it is assumed to be an array of arrays,\n//          where the primary array is indexed by time zone offsets, and\n//          each sub-array contains a potential label for that offset.\n//          When parsing with %@, the array is scanned for matches to the\n//          input string, and if a match is found, the corresponding UTC\n//          offset is used.  When formatting, the array is scanned for a\n//          matching offset, and if one is found, the first member of the\n//          sub-array is used for output (unless overridden with\n//          utcFormatOffsetSubIndex or setUtcFormatOffsetSubIndex()).\n//          If the array does not exist, or does not contain a sub-array\n//          for the offset, then the default format is used.\n//\n//    monthAbbreviations - an array of twelve strings, indexed 0-6, to be\n//      used as ABBREVIATED month names.  If not specified, the following\n//      are used: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep',\n//        'Oct','Nov','Dec']\n//\n//    monthNames - an array of twelve strings, indexed 0-6, to be used as\n//      month names.  If not specified, the following are used:\n//      ['January','February','March','April','May','June','July',\n//        'August','September','October','November','December']\n//\n//    utcFormatOffsetAlleged - the offset from UTC, in minutes, to claim that\n//      a Date object represents during formatting, even though it is formatted\n//      using local time. Unlike utcFormatOffsetImposed, which actually\n//      converts the Date object to the specified different time zone, this\n//      option merely reports the alleged offset when a timezone specifier\n//      (%#, %+, %-, %:, %; %@) is encountered in the format string.\n//      This primarily exists so AnyTime.picker can edit the time as specified\n//      (without conversion to local time) and then convert the edited time to\n//      a different time zone (as selected using the picker).  Any initial\n//      value specified here can be changed by setUtcFormatOffsetAlleged().\n//      If a format offset is alleged, one cannot also be imposed (the imposed\n//      offset is ignored).\n//\n//    utcFormatOffsetImposed - the offset from UTC, in minutes, to specify when\n//      formatting a Date object.  By default, a Date is always formatted\n//      using the local time zone.\n//\n//    utcFormatOffsetSubIndex - when extending AnyTime with a utcLabel array\n//      (for example, by the anytimetz.js file), the specified sub-index is\n//      used to choose the Time Zone label for the UTC offset when formatting\n//      a Date object.  This primarily exists so AnyTime.picker can specify\n//      the label selected using the picker.  Any initial value specified here\n//      can be changed by setUtcFormatOffsetSubIndex().\n//\n//    utcParseOffsetAssumed - the offset from UTC, in minutes, to assume when\n//      parsing a String object.  By default, a Date is always parsed using the\n//      local time zone, unless the format string includes a timezone\n//      specifier (%#, %+, %-, %:, %; or %@), in which case the timezone\n//      specified in the string is used. The Date object created by parsing\n//      always represents local time regardless of the input time zone.\n//\n//    utcParseOffsetCapture - if true, any parsed string is always treated as\n//      though it represents local time, and any offset specified by the string\n//      (or utcParseOffsetAssume) is captured for return by the\n//      getUtcParseOffsetCaptured() method.  If the %@ format specifier is\n//      used, the sub-index of any matched label is also captured for return\n//      by the getUtcParseOffsetSubIndex() method.  This primarily exists so\n//      AnyTime.picker can edit the time as specified (without conversion to\n//      local time) and then convert the edited time to a different time zone\n//      (as selected using the picker).\n//=============================================================================\n\nAnyTime.Converter = function(options)\n{\n  	// private members\n\n  	var _flen = 0;\n	var _longDay = 9;\n	var _longMon = 9;\n	var _shortDay = 6;\n	var _shortMon = 3;\n	var _offAl = Number.MIN_VALUE; // format time zone offset alleged\n	var _offCap = Number.MIN_VALUE; // parsed time zone offset captured\n	var _offF = Number.MIN_VALUE; // format time zone offset imposed\n	var _offFSI = (-1); // format time zone label subindex\n	var _offP = Number.MIN_VALUE; // parsed time zone offset assumed\n	var _offPSI = (-1);        // parsed time zone label subindex captured\n	var _captureOffset = false;\n\n	// public members\n\n	this.fmt = '%Y-%m-%d %T';\n	this.dAbbr = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];\n	this.dNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];\n	this.eAbbr = ['BCE','CE'];\n	this.mAbbr = [ 'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec' ];\n	this.mNames = [ 'January','February','March','April','May','June','July','August','September','October','November','December' ];\n	this.baseYear = null;\n\n	//-------------------------------------------------------------------------\n	//  AnyTime.Converter.dAt() returns true if the character in str at pos\n	//  is a digit.\n	//-------------------------------------------------------------------------\n\n	this.dAt = function( str, pos )\n	{\n	    return ( (str.charCodeAt(pos)>='0'.charCodeAt(0)) &&\n	            (str.charCodeAt(pos)<='9'.charCodeAt(0)) );\n	};\n\n	//-------------------------------------------------------------------------\n	//  AnyTime.Converter.format() returns a String containing the value\n	//  of a specified Date object, using the format string passed to\n	//  AnyTime.Converter().\n	//\n	//  Method parameter:\n	//\n	//    date - the Date object to be converted\n	//-------------------------------------------------------------------------\n\n	this.format = function( date )\n	{\n		var d = new Date(date.getTime());\n		if ( ( _offAl == Number.MIN_VALUE ) && ( _offF != Number.MIN_VALUE ) )\n		  d.setTime( ( d.getTime() + (d.getTimezoneOffset()*60000) ) + (_offF*60000) );\n\n	    var t;\n	    var str = '';\n	    for ( var f = 0 ; f < _flen ; f++ )\n	    {\n	      if ( this.fmt.charAt(f) != '%' )\n	        str += this.fmt.charAt(f);\n	      else\n	      {\n	    	var ch = this.fmt.charAt(f+1)\n	        switch ( ch )\n	        {\n	          case 'a': // Abbreviated weekday name (Sun..Sat)\n	            str += this.dAbbr[ d.getDay() ];\n	            break;\n	          case 'B': // BCE string (eAbbr[0], usually BCE or BC, only if appropriate) (NON-MYSQL)\n	            if ( d.getFullYear() < 0 )\n	              str += this.eAbbr[0];\n	            break;\n	          case 'b': // Abbreviated month name (Jan..Dec)\n	            str += this.mAbbr[ d.getMonth() ];\n	            break;\n	          case 'C': // CE string (eAbbr[1], usually CE or AD, only if appropriate) (NON-MYSQL)\n	            if ( d.getFullYear() > 0 )\n	              str += this.eAbbr[1];\n	            break;\n	          case 'c': // Month, numeric (0..12)\n	            str += d.getMonth()+1;\n	            break;\n	          case 'd': // Day of the month, numeric (00..31)\n	            t = d.getDate();\n	            if ( t < 10 ) str += '0';\n	            str += String(t);\n	            break;\n	          case 'D': // Day of the month with English suffix (0th, 1st,...)\n	            t = String(d.getDate());\n	            str += t;\n	            if ( ( t.length == 2 ) && ( t.charAt(0) == '1' ) )\n	              str += 'th';\n	            else\n	            {\n	              switch ( t.charAt( t.length-1 ) )\n	              {\n	                case '1': str += 'st'; break;\n	                case '2': str += 'nd'; break;\n	                case '3': str += 'rd'; break;\n	                default: str += 'th'; break;\n	              }\n	            }\n	            break;\n	          case 'E': // era string (from eAbbr[], BCE, CE, BC or AD) (NON-MYSQL)\n	            str += this.eAbbr[ (d.getFullYear()<0) ? 0 : 1 ];\n	            break;\n	          case 'e': // Day of the month, numeric (0..31)\n	            str += d.getDate();\n	            break;\n	          case 'H': // Hour (00..23)\n	            t = d.getHours();\n	            if ( t < 10 ) str += '0';\n	            str += String(t);\n	            break;\n	          case 'h': // Hour (01..12)\n	          case 'I': // Hour (01..12)\n	            t = d.getHours() % 12;\n	            if ( t == 0 )\n	              str += '12';\n	            else\n	            {\n	              if ( t < 10 ) str += '0';\n	              str += String(t);\n	            }\n	            break;\n	          case 'i': // Minutes, numeric (00..59)\n	            t = d.getMinutes();\n	            if ( t < 10 ) str += '0';\n	            str += String(t);\n	            break;\n	          case 'k': // Hour (0..23)\n	            str += d.getHours();\n	            break;\n	          case 'l': // Hour (1..12)\n	            t = d.getHours() % 12;\n	            if ( t == 0 )\n	              str += '12';\n	            else\n	              str += String(t);\n	            break;\n	          case 'M': // Month name (January..December)\n	            str += this.mNames[ d.getMonth() ];\n	            break;\n	          case 'm': // Month, numeric (00..12)\n	            t = d.getMonth() + 1;\n	            if ( t < 10 ) str += '0';\n	            str += String(t);\n	            break;\n	          case 'p': // AM or PM\n	            str += ( ( d.getHours() < 12 ) ? 'AM' : 'PM' );\n	            break;\n	          case 'r': // Time, 12-hour (hh:mm:ss followed by AM or PM)\n	            t = d.getHours() % 12;\n	            if ( t == 0 )\n	              str += '12:';\n	            else\n	            {\n	              if ( t < 10 ) str += '0';\n	              str += String(t) + ':';\n	            }\n	            t = d.getMinutes();\n	            if ( t < 10 ) str += '0';\n	            str += String(t) + ':';\n	            t = d.getSeconds();\n	            if ( t < 10 ) str += '0';\n	            str += String(t);\n	            str += ( ( d.getHours() < 12 ) ? 'AM' : 'PM' );\n	            break;\n	          case 'S': // Seconds (00..59)\n	          case 's': // Seconds (00..59)\n	            t = d.getSeconds();\n	            if ( t < 10 ) str += '0';\n	            str += String(t);\n	            break;\n	          case 'T': // Time, 24-hour (hh:mm:ss)\n	            t = d.getHours();\n	            if ( t < 10 ) str += '0';\n	            str += String(t) + ':';\n	            t = d.getMinutes();\n	            if ( t < 10 ) str += '0';\n	            str += String(t) + ':';\n	            t = d.getSeconds();\n	            if ( t < 10 ) str += '0';\n	            str += String(t);\n	            break;\n	          case 'W': // Weekday name (Sunday..Saturday)\n	            str += this.dNames[ d.getDay() ];\n	            break;\n	          case 'w': // Day of the week (0=Sunday..6=Saturday)\n	            str += d.getDay();\n	            break;\n	          case 'Y': // Year, numeric, four digits (negative if before 0001)\n	            str += AnyTime.pad(d.getFullYear(),4);\n	            break;\n	          case 'y': // Year, numeric (two digits, negative if before 0001)\n	            t = d.getFullYear() % 100;\n	            str += AnyTime.pad(t,2);\n	            break;\n	          case 'Z': // Year, numeric, four digits, unsigned (NON-MYSQL)\n	            str += AnyTime.pad(Math.abs(d.getFullYear()),4);\n	            break;\n	          case 'z': // Year, numeric, variable length, unsigned (NON-MYSQL)\n	            str += Math.abs(d.getFullYear());\n	            break;\n	          case '%': // A literal '%' character\n	            str += '%';\n	            break;\n	          case '#': // signed timezone offset in minutes\n	        	t = ( _offAl != Number.MIN_VALUE ) ? _offAl :\n	        		( _offF == Number.MIN_VALUE ) ? (0-d.getTimezoneOffset()) : _offF;\n	        	if ( t >= 0 )\n	        		str += '+';\n	        	str += t;\n	        	break;\n	          case '@': // timezone offset label\n		        t = ( _offAl != Number.MIN_VALUE ) ? _offAl :\n		        	( _offF == Number.MIN_VALUE ) ? (0-d.getTimezoneOffset()) : _offF;\n		        if ( AnyTime.utcLabel && AnyTime.utcLabel[t] )\n		        {\n		          if ( ( _offFSI > 0 ) && ( _offFSI < AnyTime.utcLabel[t].length ) )\n		            str += AnyTime.utcLabel[t][_offFSI];\n		          else\n		            str += AnyTime.utcLabel[t][0];\n		          break;\n		        }\n		        str += 'UTC';\n		        ch = ':'; // drop through for offset formatting\n	          case '+': // signed, 4-digit timezone offset in hours and minutes\n	          case '-': // signed, 3-or-4-digit timezone offset in hours and minutes\n	          case ':': // signed 4-digit timezone offset with colon delimiter\n	          case ';': // signed 3-or-4-digit timezone offset with colon delimiter\n		        t = ( _offAl != Number.MIN_VALUE ) ? _offAl :\n		        		( _offF == Number.MIN_VALUE ) ? (0-d.getTimezoneOffset()) : _offF;\n		        if ( t < 0 )\n		          str += '-';\n		        else\n		          str += '+';\n		        t = Math.abs(t);\n		        str += ((ch=='+')||(ch==':')) ? AnyTime.pad(Math.floor(t/60),2) : Math.floor(t/60);\n		        if ( (ch==':') || (ch==';') )\n		          str += ':';\n		        str += AnyTime.pad(t%60,2);\n		        break;\n	          case 'f': // Microseconds (000000..999999)\n	          case 'j': // Day of year (001..366)\n	          case 'U': // Week (00..53), where Sunday is the first day of the week\n	          case 'u': // Week (00..53), where Monday is the first day of the week\n	          case 'V': // Week (01..53), where Sunday is the first day of the week; used with %X\n	          case 'v': // Week (01..53), where Monday is the first day of the week; used with %x\n	          case 'X': // Year for the week where Sunday is the first day of the week, numeric, four digits; used with %V\n	          case 'x': // Year for the week, where Monday is the first day of the week, numeric, four digits; used with %v\n	            throw '%'+ch+' not implemented by AnyTime.Converter';\n	          default: // for any character not listed above\n	            str += this.fmt.substr(f,2);\n	        } // switch ( this.fmt.charAt(f+1) )\n	        f++;\n	      } // else\n	    } // for ( var f = 0 ; f < _flen ; f++ )\n	    return str;\n\n	}; // AnyTime.Converter.format()\n\n	//-------------------------------------------------------------------------\n	//  AnyTime.Converter.getUtcParseOffsetCaptured() returns the UTC offset\n	//  last captured by a parsed string (or assumed by utcParseOffsetAssumed).\n	//  It returns Number.MIN_VALUE if this object was not constructed with\n	//  the utcParseOffsetCapture option set to true, or if an offset was not\n	//  specified by the last parsed string or utcParseOffsetAssumed.\n	//-------------------------------------------------------------------------\n\n	this.getUtcParseOffsetCaptured = function()\n	{\n	    return _offCap;\n	};\n\n	//-------------------------------------------------------------------------\n	//  AnyTime.Converter.getUtcParseOffsetCaptured() returns the UTC offset\n	//  last captured by a parsed string (or assumed by utcParseOffsetAssumed).\n	//  It returns Number.MIN_VALUE if this object was not constructed with\n	//  the utcParseOffsetCapture option set to true, or if an offset was not\n	//  specified by the last parsed string or utcParseOffsetAssumed.\n	//-------------------------------------------------------------------------\n\n	this.getUtcParseOffsetSubIndex = function()\n	{\n	    return _offPSI;\n	};\n\n	//-------------------------------------------------------------------------\n	//  AnyTime.Converter.parse() returns a Date initialized from a specified\n	//  string, using the format passed to AnyTime.Converter().\n	//\n	//  Method parameter:\n	//\n	//    str - the String object to be converted\n	//-------------------------------------------------------------------------\n\n	this.parse = function( str )\n	{\n		_offCap = _offP;\n		_offPSI = (-1);\n	    var era = 1;\n      var time = new Date(4,0,1,0,0,0,0);//4=leap year bug\n	    var slen = str.length;\n	    var s = 0;\n	    var tzSign = 1, tzOff = _offP;\n	    var i, matched, sub, sublen, temp;\n	    for ( var f = 0 ; f < _flen ; f++ )\n	    {\n	      if ( this.fmt.charAt(f) == '%' )\n	      {\n			var ch = this.fmt.charAt(f+1);\n	        switch ( ch )\n	        {\n	          case 'a': // Abbreviated weekday name (Sun..Sat)\n	            matched = false;\n	            for ( sublen = 0 ; s + sublen < slen ; sublen++ )\n	            {\n	              sub = str.substr(s,sublen);\n	              for ( i = 0 ; i < 12 ; i++ )\n	                if ( this.dAbbr[i] == sub )\n	                {\n	                  matched = true;\n	                  s += sublen;\n	                  break;\n	                }\n	              if ( matched )\n	                break;\n	            } // for ( sublen ... )\n	            if ( ! matched )\n	              throw 'unknown weekday: '+str.substr(s);\n	            break;\n	          case 'B': // BCE string (eAbbr[0]), only if needed. (NON-MYSQL)\n	            sublen = this.eAbbr[0].length;\n	            if ( ( s + sublen <= slen ) && ( str.substr(s,sublen) == this.eAbbr[0] ) )\n	            {\n	              era = (-1);\n	              s += sublen;\n	            }\n	            break;\n	          case 'b': // Abbreviated month name (Jan..Dec)\n	            matched = false;\n	            for ( sublen = 0 ; s + sublen < slen ; sublen++ )\n	            {\n	              sub = str.substr(s,sublen);\n	              for ( i = 0 ; i < 12 ; i++ )\n	                if ( this.mAbbr[i] == sub )\n	                {\n	                  time.setMonth( i );\n	                  matched = true;\n	                  s += sublen;\n	                  break;\n	                }\n	              if ( matched )\n	                break;\n	            } // for ( sublen ... )\n	            if ( ! matched )\n	              throw 'unknown month: '+str.substr(s);\n	            break;\n	          case 'C': // CE string (eAbbr[1]), only if needed. (NON-MYSQL)\n	            sublen = this.eAbbr[1].length;\n	            if ( ( s + sublen <= slen ) && ( str.substr(s,sublen) == this.eAbbr[1] ) )\n	              s += sublen; // note: CE is the default era\n	            break;\n	          case 'c': // Month, numeric (0..12)\n	            if ( ( s+1 < slen ) && this.dAt(str,s+1) )\n	            {\n	              time.setMonth( (Number(str.substr(s,2))-1)%12 );\n	              s += 2;\n	            }\n	            else\n	            {\n	              time.setMonth( (Number(str.substr(s,1))-1)%12 );\n	              s++;\n	            }\n	            break;\n	          case 'D': // Day of the month with English suffix (0th,1st,...)\n	            if ( ( s+1 < slen ) && this.dAt(str,s+1) )\n	            {\n	              time.setDate( Number(str.substr(s,2)) );\n	              s += 4;\n	            }\n	            else\n	            {\n	              time.setDate( Number(str.substr(s,1)) );\n	              s += 3;\n	            }\n	            break;\n	          case 'd': // Day of the month, numeric (00..31)\n	            time.setDate( Number(str.substr(s,2)) );\n	            s += 2;\n	            break;\n	          case 'E': // era string (from eAbbr[]) (NON-MYSQL)\n	            sublen = this.eAbbr[0].length;\n	            if ( ( s + sublen <= slen ) && ( str.substr(s,sublen) == this.eAbbr[0] ) )\n	            {\n	              era = (-1);\n	              s += sublen;\n	            }\n	            else if ( ( s + ( sublen = this.eAbbr[1].length ) <= slen ) && ( str.substr(s,sublen) == this.eAbbr[1] ) )\n	              s += sublen; // note: CE is the default era\n	            else\n	              throw 'unknown era: '+str.substr(s);\n	            break;\n	          case 'e': // Day of the month, numeric (0..31)\n	            if ( ( s+1 < slen ) && this.dAt(str,s+1) )\n	            {\n	              time.setDate( Number(str.substr(s,2)) );\n	              s += 2;\n	            }\n	            else\n	            {\n	              time.setDate( Number(str.substr(s,1)) );\n	              s++;\n	            }\n	            break;\n	          case 'f': // Microseconds (000000..999999)\n	            s += 6; // SKIPPED!\n	            break;\n	          case 'H': // Hour (00..23)\n	            time.setHours( Number(str.substr(s,2)) );\n	            s += 2;\n	            break;\n	          case 'h': // Hour (01..12)\n	          case 'I': // Hour (01..12)\n	            time.setHours( Number(str.substr(s,2)) );\n	            s += 2;\n	            break;\n	          case 'i': // Minutes, numeric (00..59)\n	            time.setMinutes( Number(str.substr(s,2)) );\n	            s += 2;\n	            break;\n	          case 'k': // Hour (0..23)\n	            if ( ( s+1 < slen ) && this.dAt(str,s+1) )\n	            {\n	              time.setHours( Number(str.substr(s,2)) );\n	              s += 2;\n	            }\n	            else\n	            {\n	              time.setHours( Number(str.substr(s,1)) );\n	              s++;\n	            }\n	            break;\n	          case 'l': // Hour (1..12)\n	            if ( ( s+1 < slen ) && this.dAt(str,s+1) )\n	            {\n	              time.setHours( Number(str.substr(s,2)) );\n	              s += 2;\n	            }\n	            else\n	            {\n	              time.setHours( Number(str.substr(s,1)) );\n	              s++;\n	            }\n	            break;\n	          case 'M': // Month name (January..December)\n	            matched = false;\n	            for (sublen=_shortMon ; s + sublen <= slen ; sublen++ )\n	            {\n	              if ( sublen > _longMon )\n	                break;\n	              sub = str.substr(s,sublen);\n	              for ( i = 0 ; i < 12 ; i++ )\n	              {\n	                if ( this.mNames[i] == sub )\n	                {\n	                  time.setMonth( i );\n	                  matched = true;\n	                  s += sublen;\n	                  break;\n	                }\n	              }\n	              if ( matched )\n	                break;\n	            }\n	            break;\n	          case 'm': // Month, numeric (00..12)\n	            time.setMonth( (Number(str.substr(s,2))-1)%12 );\n	            s += 2;\n	            break;\n	          case 'p': // AM or PM\n              if ( time.getHours() == 12 )\n              {\n	              if ( str.charAt(s) == 'A' )\n	                time.setHours(0);\n              }\n              else if ( str.charAt(s) == 'P' )\n	              time.setHours( time.getHours() + 12 );\n	            s += 2;\n	            break;\n	          case 'r': // Time, 12-hour (hh:mm:ss followed by AM or PM)\n	            time.setHours(Number(str.substr(s,2)));\n	            time.setMinutes(Number(str.substr(s+3,2)));\n	            time.setSeconds(Number(str.substr(s+6,2)));\n              if ( time.getHours() == 12 )\n              {\n	              if ( str.charAt(s+8) == 'A' )\n	                time.setHours(0);\n              }\n              else if ( str.charAt(s+8) == 'P' )\n	              time.setHours( time.getHours() + 12 );\n	            s += 10;\n	            break;\n	          case 'S': // Seconds (00..59)\n	          case 's': // Seconds (00..59)\n	            time.setSeconds(Number(str.substr(s,2)));\n	            s += 2;\n	            break;\n	          case 'T': // Time, 24-hour (hh:mm:ss)\n	            time.setHours(Number(str.substr(s,2)));\n	            time.setMinutes(Number(str.substr(s+3,2)));\n	            time.setSeconds(Number(str.substr(s+6,2)));\n	            s += 8;\n	            break;\n	          case 'W': // Weekday name (Sunday..Saturday)\n	            matched = false;\n	            for (sublen=_shortDay ; s + sublen <= slen ; sublen++ )\n	            {\n	              if ( sublen > _longDay )\n	                break;\n	              sub = str.substr(s,sublen);\n	              for ( i = 0 ; i < 7 ; i++ )\n	              {\n	                if ( this.dNames[i] == sub )\n	                {\n	                  matched = true;\n	                  s += sublen;\n	                  break;\n	                }\n	              }\n	              if ( matched )\n	                break;\n	            }\n	            break;\n            case 'w': // Day of the week (0=Sunday..6=Saturday) (ignored)\n              s += 1;\n              break;\n	          case 'Y': // Year, numeric, four digits, negative if before 0001\n	            i = 4;\n	            if ( str.substr(s,1) == '-' )\n	              i++;\n	            time.setFullYear(Number(str.substr(s,i)));\n	            s += i;\n	            break;\n	          case 'y': // Year, numeric (two digits), negative before baseYear\n	            i = 2;\n	            if ( str.substr(s,1) == '-' )\n	              i++;\n	            temp = Number(str.substr(s,i));\n	            if ( typeof(this.baseYear) == 'number' )\n	            	temp += this.baseYear;\n	            else if ( temp < 70 )\n	            	temp += 2000;\n	            else\n	            	temp += 1900;\n	            time.setFullYear(temp);\n	            s += i;\n	            break;\n	          case 'Z': // Year, numeric, four digits, unsigned (NON-MYSQL)\n	            time.setFullYear(Number(str.substr(s,4)));\n	            s += 4;\n	            break;\n	          case 'z': // Year, numeric, variable length, unsigned (NON-MYSQL)\n	            i = 0;\n	            while ( ( s < slen ) && this.dAt(str,s) )\n	              i = ( i * 10 ) + Number(str.charAt(s++));\n	            time.setFullYear(i);\n	            break;\n	          case '#': // signed timezone offset in minutes.\n	            if ( str.charAt(s++) == '-' )\n	            	tzSign = (-1);\n	            for ( tzOff = 0 ; ( s < slen ) && (String(i=Number(str.charAt(s)))==str.charAt(s)) ; s++ )\n	            	tzOff = ( tzOff * 10 ) + i;\n	            tzOff *= tzSign;\n	            break;\n	          case '@': // timezone label\n	        	_offPSI = (-1);\n	        	if ( AnyTime.utcLabel )\n	        	{\n		            matched = false;\n		            for ( tzOff in AnyTime.utcLabel )\n                  if ( ! Array.prototype[tzOff] ) // prototype.js compatibility issue\n		              {\n		            	  for ( i = 0 ; i < AnyTime.utcLabel[tzOff].length ; i++ )\n  		            	{\n	  	            		sub = AnyTime.utcLabel[tzOff][i];\n		              		sublen = sub.length;\n		              		if ( ( s+sublen <= slen ) && ( str.substr(s,sublen) == sub ) )\n		              		{\n                        s+=sublen;\n		              			matched = true;\n		              			break;\n		              		}\n		              	}\n	            		  if ( matched )\n	            			  break;\n		              }\n		            if ( matched )\n		            {\n		            	_offPSI = i;\n		            	tzOff = Number(tzOff);\n		            	break; // case\n		            }\n	        	}\n	        	if ( ( s+9 < slen ) || ( str.substr(s,3) != \"UTC\" ) )\n                    throw 'unknown time zone: '+str.substr(s);\n	        	s += 3;\n	            ch = ':'; // drop through for offset parsing\n	          case '-': // signed, 3-or-4-digit timezone offset in hours and minutes\n	          case '+': // signed, 4-digit timezone offset in hours and minutes\n	          case ':': // signed 4-digit timezone offset with colon delimiter\n	          case ';': // signed 3-or-4-digit timezone offset with colon delimiter\n	            if ( str.charAt(s++) == '-' )\n	            	tzSign = (-1);\n	            tzOff = Number(str.charAt(s));\n	            if ( (ch=='+')||(ch==':')||((s+3<slen)&&(String(Number(str.charAt(s+3)))!==str.charAt(s+3))) )\n	            	tzOff = (tzOff*10) + Number(str.charAt(++s));\n                tzOff *= 60;\n	        	if ( (ch==':') || (ch==';') )\n	        		s++; // skip \":\" (assumed)\n	        	tzOff = ( tzOff + Number(str.substr(++s,2)) ) * tzSign;\n	        	s += 2;\n		        break;\n	          case 'j': // Day of year (001..366)\n	          case 'U': // Week (00..53), where Sunday is the first day of the week\n	          case 'u': // Week (00..53), where Monday is the first day of the week\n	          case 'V': // Week (01..53), where Sunday is the first day of the week; used with %X\n	          case 'v': // Week (01..53), where Monday is the first day of the week; used with %x\n	          case 'X': // Year for the week where Sunday is the first day of the week, numeric, four digits; used with %V\n	          case 'x': // Year for the week, where Monday is the first day of the week, numeric, four digits; used with %v\n	            throw '%'+this.fmt.charAt(f+1)+' not implemented by AnyTime.Converter';\n	          case '%': // A literal '%' character\n	          default: // for any character not listed above\n		        throw '%'+this.fmt.charAt(f+1)+' reserved for future use';\n	            break;\n	        }\n	        f++;\n	      } // if ( this.fmt.charAt(f) == '%' )\n	      else if ( this.fmt.charAt(f) != str.charAt(s) )\n	        throw str + ' is not in \"' + this.fmt + '\" format';\n	      else\n	        s++;\n	    } // for ( var f ... )\n	    if ( era < 0 )\n	      time.setFullYear( 0 - time.getFullYear() );\n		if ( tzOff != Number.MIN_VALUE )\n		{\n	       if ( _captureOffset )\n	    	 _offCap = tzOff;\n	       else\n	    	 time.setTime( ( time.getTime() - (tzOff*60000) ) - (time.getTimezoneOffset()*60000) );\n		}\n\n	    return time;\n\n	}; // AnyTime.Converter.parse()\n\n	//-------------------------------------------------------------------------\n	//  AnyTime.Converter.setUtcFormatOffsetAlleged()  sets the offset from\n    //  UTC, in minutes, to claim that a Date object represents during\n	//  formatting, even though it is formatted using local time.  This merely\n	//  reports the alleged offset when a timezone specifier (%#, %+, %-, %:,\n	//  %; or %@) is encountered in the format string--it does not otherwise\n	//  affect the date/time value.  This primarily exists so AnyTime.picker\n	//  can edit the time as specified (without conversion to local time) and\n	//  then convert the edited time to a different time zone (as selected\n	//  using the picker).  This method returns the previous value, if any,\n	//  set by the utcFormatOffsetAlleged option, or a previous call to\n	//  setUtcFormatOffsetAlleged(), or Number.MIN_VALUE if no offset was\n	//  previously-alleged.  Call this method with Number.MIN_VALUE to cancel\n	//  any prior value.  Note that if a format offset is alleged, any offset\n	//  specified by option utcFormatOffsetImposed is ignored.\n	//-------------------------------------------------------------------------\n\n	this.setUtcFormatOffsetAlleged = function( offset )\n	{\n		var prev = _offAl;\n	    _offAl = offset;\n	    return prev;\n	};\n\n	//-------------------------------------------------------------------------\n	//  AnyTime.Converter.setUtcFormatOffsetSubIndex() sets the sub-index\n	//  to choose from the AnyTime.utcLabel array of arrays when formatting\n	//  a Date using the %@ specifier.  For more information, see option\n	//  AnyTime.Converter.utcFormatOffsetSubIndex.  This primarily exists so\n	//  AnyTime.picker can specify the Time Zone label selected using the\n	//  picker).  This method returns the previous value, if any, set by the\n	//  utcFormatOffsetSubIndex option, or a previous call to\n	//  setUtcFormatOffsetAlleged(), or (-1) if no sub-index was previously-\n	//  chosen.  Call this method with (-1) to cancel any prior value.\n	//-------------------------------------------------------------------------\n\n	this.setUtcFormatOffsetSubIndex = function( subIndex )\n	{\n		var prev = _offFSI;\n	    _offFSI = subIndex;\n	    return prev;\n	};\n\n	//-------------------------------------------------------------------------\n	//	AnyTime.Converter construction code:\n	//-------------------------------------------------------------------------\n\n	(function(_this)\n	{\n      var i, len;\n\n		options = jQuery.extend(true,{},options||{});\n\n	  	if ( options.baseYear )\n			_this.baseYear = Number(options.baseYear);\n\n	  	if ( options.format )\n			_this.fmt = options.format;\n\n	  	_flen = _this.fmt.length;\n\n	  	if ( options.dayAbbreviations )\n	  		_this.dAbbr = $.makeArray( options.dayAbbreviations );\n\n	  	if ( options.dayNames )\n	  	{\n	  		_this.dNames = $.makeArray( options.dayNames );\n	  		_longDay = 1;\n	  		_shortDay = 1000;\n	  		for ( i = 0 ; i < 7 ; i++ )\n	  		{\n          len = _this.dNames[i].length;\n				if ( len > _longDay )\n					_longDay = len;\n				if ( len < _shortDay )\n					_shortDay = len;\n	  		}\n	  	}\n\n	  	if ( options.eraAbbreviations )\n	  		_this.eAbbr = $.makeArray(options.eraAbbreviations);\n\n	  	if ( options.monthAbbreviations )\n	  		_this.mAbbr = $.makeArray(options.monthAbbreviations);\n\n	  	if ( options.monthNames )\n	  	{\n	  		_this.mNames = $.makeArray( options.monthNames );\n	  		_longMon = 1;\n	  		_shortMon = 1000;\n	  		for ( i = 0 ; i < 12 ; i++ )\n	  		{\n	  			len = _this.mNames[i].length;\n	  			if ( len > _longMon )\n					_longMon = len;\n	  			if ( len < _shortMon )\n	  				_shortMon = len;\n	  		}\n	  	}\n\n	  	if ( typeof options.utcFormatOffsetImposed != \"undefined\" )\n	  		_offF = options.utcFormatOffsetImposed;\n\n	  	if ( typeof options.utcParseOffsetAssumed != \"undefined\" )\n	  		_offP = options.utcParseOffsetAssumed;\n\n	  	if ( options.utcParseOffsetCapture )\n	  		_captureOffset = true;\n\n	})(this); // AnyTime.Converter construction\n\n}; // AnyTime.Converter =\n\n//=============================================================================\n//  AnyTime.noPicker()\n//\n//  Removes the date/time entry picker attached to a specified text field.\n//=============================================================================\n\nAnyTime.noPicker = function( id )\n{\n	if ( __pickers[id] )\n	{\n		__pickers[id].cleanup();\n		delete __pickers[id];\n	}\n};\n\n//=============================================================================\n//  AnyTime.picker()\n//\n//  Creates a date/time entry picker attached to a specified text field.\n//  Instead of entering a date and/or time into the text field, the user\n//  selects legal combinations using the picker, and the field is auto-\n//  matically populated.  The picker can be incorporated into the page\n//	\"inline\", or used as a \"popup\" that appears when the text field is\n//  clicked and disappears when the picker is dismissed. Ajax can be used\n//  to send the selected value to a server to approve or veto it.\n//\n//  To create a picker, simply include the necessary files in an HTML page\n//  and call the function for each date/time input field.  The following\n//  example creates a popup picker for field \"foo\" using the default\n//  format, and a second date-only (no time) inline (always-visible)\n//  Ajax-enabled picker for field \"bar\":\n//\n//    <link rel=\"stylesheet\" type=\"text/css\" href=\"anytime.css\" />\n//    <script type=\"text/javascript\" src=\"jquery.js\"></script>\n//    <script type=\"text/javascript\" src=\"anytime.js\"></script>\n//    <input type=\"text\" id=\"foo\" tabindex=\"1\" value=\"1967-07-30 23:45\" />\n//    <input type=\"text\" id=\"bar\" tabindex=\"2\" value=\"01/06/90\" />\n//    <script type=\"text/javascript\">\n//      AnyTime.picker( \"foo\" );\n//      AnyTime.picker( \"bar\", { placement:\"inline\", format: \"%m/%d/%y\",\n//								ajaxOptions { url: \"/some/server/page/\" } } );\n//    </script>\n//\n//  The appearance of the picker can be extensively modified using CSS styles.\n//  A default appearance can be achieved by the \"anytime.css\" stylesheet that\n//  accompanies this script.\n//\n//  Method parameters:\n//\n//  id - the \"id\" attribute of the textfield to associate with the\n//    AnyTime.picker object.  The AnyTime.picker will attach itself\n//    to the textfield and manage its value.\n//\n//  options - an object (associative array) of optional parameters that\n//    override default behaviors.  The supported options are:\n//\n//    ajaxOptions - options passed to jQuery's $.ajax() method whenever\n//      the user dismisses a popup picker or selects a value in an inline\n//      picker.  The input's name (or ID) and value are passed to the\n//      server (appended to ajaxOptions.data, if present), and the\n//      \"success\" handler sets the input's value to the responseText.\n//      Therefore, the text returned by the server must be valid for the\n//      input'sdate/time format, and the server can approve or veto the\n//      value chosen by the user. For more information, see:\n//      http://docs.jquery.com/Ajax.\n//      If ajaxOptions.success is specified, it is used instead of the\n//      default \"success\" behavior.\n//\n//    askEra - if true, buttons to select the era are shown on the year\n//        selector popup, even if format specifier does not include the\n//        era.  If false, buttons to select the era are NOT shown, even\n//        if the format specifier includes ther era.  Normally, era buttons\n//        are only shown if the format string specifies the era.\n//\n//    askSecond - if false, buttons for number-of-seconds are not shown\n//        even if the format includes seconds.  Normally, the buttons\n//        are shown if the format string includes seconds.\n//\n//    earliest - String or Date object representing the earliest date/time\n//        that a user can select.  For best results if the field is only\n//        used to specify a date, be sure to set the time to 00:00:00.\n//        If a String is used, it will be parsed according to the picker's\n//        format (see AnyTime.Converter.format()).\n//\n//    firstDOW - a value from 0 (Sunday) to 6 (Saturday) stating which\n//      day should appear at the beginning of the week.  The default is 0\n//      (Sunday).  The most common substitution is 1 (Monday).  Note that\n//      if custom arrays are specified for AnyTime.Converter's dayAbbreviations\n//      and/or dayNames options, they should nonetheless begin with the\n//      value for Sunday.\n//\n//    hideInput - if true, the <input> is \"hidden\" (the picker appears in\n//      its place). This actually sets the border, height, margin, padding\n//      and width of the field as small as possivle, so it can still get focus.\n//      If you try to hide the field using traditional techniques (such as\n//      setting \"display:none\"), the picker will not behave correctly.\n//\n//    labelDayOfMonth - the label for the day-of-month \"buttons\".\n//      Can be any HTML!  If not specified, \"Day of Month\" is assumed.\n//\n//    labelDismiss - the label for the dismiss \"button\" (if placement is\n//      \"popup\"). Can be any HTML!  If not specified, \"X\" is assumed.\n//\n//    labelHour - the label for the hour \"buttons\".\n//      Can be any HTML!  If not specified, \"Hour\" is assumed.\n//\n//    labelMinute - the label for the minute \"buttons\".\n//      Can be any HTML!  If not specified, \"Minute\" is assumed.\n//\n//    labelMonth - the label for the month \"buttons\".\n//      Can be any HTML!  If not specified, \"Month\" is assumed.\n//\n//    labelTimeZone - the label for the UTC offset (timezone) \"buttons\".\n//      Can be any HTML!  If not specified, \"Time Zone\" is assumed.\n//\n//    labelSecond - the label for the second \"buttons\".\n//      Can be any HTML!  If not specified, \"Second\" is assumed.\n//      This option is ignored if askSecond is false!\n//\n//    labelTitle - the label for the \"title bar\".  Can be any HTML!\n//      If not specified, then whichever of the following is most\n//      appropriate is used:  \"Select a Date and Time\", \"Select a Date\"\n//      or \"Select a Time\", or no label if only one field is present.\n//\n//    labelYear - the label for the year \"buttons\".\n//      Can be any HTML!  If not specified, \"Year\" is assumed.\n//\n//    latest - String or Date object representing the latest date/time\n//        that a user can select.  For best results if the field is only\n//        used to specify a date, be sure to set the time to 23:59:59.\n//        If a String is used, it will be parsed according to the picker's\n//        format (see AnyTime.Converter.format()).\n//\n//    placement - One of the following strings:\n//\n//      \"popup\" = the picker appears above its <input> when the input\n//        receives focus, and disappears when it is dismissed.  This is\n//        the default behavior.\n//\n//      \"inline\" = the picker is placed immediately after the <input>\n//        and remains visible at all times.  When choosing this placement,\n//        it is best to make the <input> invisible and use only the\n//        picker to select dates.  The <input> value can still be used\n//        during form submission as it will always reflect the current\n//        picker state.\n//\n//        WARNING: when using \"inline\" and XHTML and including a day-of-\n//        the-month format field, the input may only appear where a <table>\n//        element is permitted (for example, NOT within a <p> element).\n//        This is because the picker uses a <table> element to arrange\n//        the day-of-the-month (calendar) buttons.  Failure to follow this\n//        advice may result in an \"unknown error\" in Internet Explorer.\n//\n//    The following additional options may be specified; see documentation\n//    for AnyTime.Converter (above) for information about these options:\n//\n//      baseYear\n//      dayAbbreviations\n//      dayNames\n//      eraAbbreviations\n//      format\n//      monthAbbreviations\n//      monthNames\n//\n//  Other behavior, such as how to format the values on the display\n//  and which \"buttons\" to include, is inferred from the format string.\n//=============================================================================\n\nAnyTime.picker = function( id, options )\n{\n	//  Create a new private object instance to manage the picker,\n	//  if one does not already exist.\n\n    if ( __pickers[id] )\n    	throw 'Cannot create another AnyTime.picker for \"'+id+'\"';\n\n	var _this = null;\n\n	__pickers[id] =\n	{\n		//  private members\n\n		twelveHr: false,\n		ajaxOpts: null,		// options for AJAX requests\n		denyTab: true,      // set to true to stop Opera from tabbing away\n		askEra: false,		// prompt the user for the era in yDiv?\n		cloak: null,		// cloak div\n		conv: null,			// AnyTime.Converter\n		div: null,			// picker div\n	  	dB: null,			// body div\n	  	dD: null,			// date div\n	  	dY: null,			// years div\n	  	dMo: null,			// months div\n	  	dDoM: null,			// date-of-month table\n	  	hDoM: null,			// date-of-month heading\n	  	hMo: null,			// month heading\n	  	hTitle: null,		// title heading\n	  	hY: null,			// year heading\n	  	dT: null,			// time div\n	  	dH: null,			// hours div\n	  	dM: null,			// minutes div\n	  	dS: null,			// seconds div\n	  	dO: null,           // offset (time zone) div\n		earliest: null,		// earliest selectable date/time\n		fBtn: null,			// button with current focus\n		fDOW: 0,			// index to use as first day-of-week\n	    hBlur: null,        // input handler\n	    hClick: null,       // input handler\n	    hFocus: null,       // input handler\n	    hKeydown: null,     // input handler\n	    hKeypress: null,    // input handler\n	    hResize: null,      // event handler\n		id: null,			// picker ID\n		inp: null,			// input text field\n		latest: null,		// latest selectable date/time\n		lastAjax: null,		// last value submitted using AJAX\n		lostFocus: false,	// when focus is lost, must redraw\n		lX: 'X',			// label for dismiss button\n		lY: 'Year',			// label for year\n		lO: 'Time Zone',    // label for UTC offset (time zone)\n		oBody: null,        // UTC offset selector popup\n		oConv: null,        // AnyTime.Converter for offset display\n		oCur: null,         // current-UTC-offset button\n		oDiv: null,			// UTC offset selector popup\n		oLab: null,			// UTC offset label\n		oList: null,       // UTC offset container\n		oSel: null,         // select (plus/minus) UTC-offset button\n		offMin: Number.MIN_VALUE, // current UTC offset in minutes\n		offSI: -1,          // current UTC label sub-index (if any)\n		offStr: \"\",         // current UTC offset (time zone) string\n		pop: true,			// picker is a popup?\n		ro: false,      // was input readonly before picker initialized?\n		time: null,			// current date/time\n		url: null,			// URL to submit value using AJAX\n		yAhead: null,		// years-ahead button\n		y0XXX: null,		// millenium-digit-zero button (for focus)\n		yCur: null,			// current-year button\n		yDiv: null,			// year selector popup\n		yLab: null,			// year label\n		yNext: null,		// next-year button\n		yPast: null,		// years-past button\n		yPrior: null,		// prior-year button\n\n		//---------------------------------------------------------------------\n		//  .initialize() initializes the picker instance.\n		//---------------------------------------------------------------------\n\n		initialize: function( id )\n		{\n			_this = this;\n\n      this.id = 'AnyTime--'+id.replace(/[^-_.A-Za-z0-9]/g,'--AnyTime--');\n\n			options = jQuery.extend(true,{},options||{});\n		  	options.utcParseOffsetCapture = true;\n		  	this.conv = new AnyTime.Converter(options);\n\n		  	if ( options.placement )\n		  	{\n		  		if ( options.placement == 'inline' )\n		  			this.pop = false;\n		  		else if ( options.placement != 'popup' )\n		  			throw 'unknown placement: ' + options.placement;\n		  	}\n\n		  	if ( options.ajaxOptions )\n		  	{\n		  		this.ajaxOpts = jQuery.extend( {}, options.ajaxOptions );\n		        if ( ! this.ajaxOpts.success )\n		        	this.ajaxOpts.success = function(data,status) { _this.updVal(data); };\n		  	}\n\n		  	if ( options.earliest )\n          this.earliest = this.makeDate( options.earliest );\n\n		  	if ( options.firstDOW )\n		  	{\n		  		if ( ( options.firstDOW < 0 ) || ( options.firstDOW > 6 ) )\n		  			throw 'illegal firstDOW: ' + options.firstDOW;\n		  		this.fDOW = options.firstDOW;\n		  	}\n\n		  	if ( options.latest )\n		  		this.latest = this.makeDate( options.latest );\n\n		  	this.lX = options.labelDismiss || 'X';\n		  	this.lY = options.labelYear || 'Year';\n		  	this.lO = options.labelTimeZone || 'Time Zone';\n\n		  	//  Infer what we can about what to display from the format.\n\n		  	var i;\n		  	var t;\n		  	var lab;\n		  	var shownFields = 0;\n		  	var format = this.conv.fmt;\n\n		  	if ( typeof options.askEra != 'undefined' )\n		  		this.askEra = options.askEra;\n		  	else\n		  		this.askEra = (format.indexOf('%B')>=0) || (format.indexOf('%C')>=0) || (format.indexOf('%E')>=0);\n		  	var askYear = (format.indexOf('%Y')>=0) || (format.indexOf('%y')>=0) || (format.indexOf('%Z')>=0) || (format.indexOf('%z')>=0);\n		  	var askMonth = (format.indexOf('%b')>=0) || (format.indexOf('%c')>=0) || (format.indexOf('%M')>=0) || (format.indexOf('%m')>=0);\n		  	var askDoM = (format.indexOf('%D')>=0) || (format.indexOf('%d')>=0) || (format.indexOf('%e')>=0);\n		  	var askDate = askYear || askMonth || askDoM;\n		  	this.twelveHr = (format.indexOf('%h')>=0) || (format.indexOf('%I')>=0) || (format.indexOf('%l')>=0) || (format.indexOf('%r')>=0);\n		  	var askHour = this.twelveHr || (format.indexOf('%H')>=0) || (format.indexOf('%k')>=0) || (format.indexOf('%T')>=0);\n		  	var askMinute = (format.indexOf('%i')>=0) || (format.indexOf('%r')>=0) || (format.indexOf('%T')>=0);\n		  	var askSec = ( (format.indexOf('%r')>=0) || (format.indexOf('%S')>=0) || (format.indexOf('%s')>=0) || (format.indexOf('%T')>=0) );\n		  	if ( askSec && ( typeof options.askSecond != 'undefined' ) )\n		  		askSec = options.askSecond;\n		  	var askOff = ( (format.indexOf('%#')>=0) || (format.indexOf('%+')>=0) || (format.indexOf('%-')>=0) || (format.indexOf('%:')>=0) || (format.indexOf('%;')>=0) || (format.indexOf('%<')>=0) || (format.indexOf('%>')>=0) || (format.indexOf('%@')>=0) );\n		  	var askTime = askHour || askMinute || askSec || askOff;\n\n		  	if ( askOff )\n			  	this.oConv = new AnyTime.Converter( { format: options.formatUtcOffset ||\n			  		format.match(/\\S*%[-+:;<>#@]\\S*/g).join(' ') } );\n\n		  	//  Create the picker HTML and add it to the page.\n		  	//  Popup pickers will be moved to the end of the body\n		  	//  once the entire page has loaded.\n\n        this.inp = $(document.getElementById(id)); // avoids ID-vs-pseudo-selector probs like id=\"foo:bar\"\n        this.ro = this.inp.prop('readonly');\n        this.inp.prop('readonly',true);\n		  	this.div = $( '<div class=\"AnyTime-win AnyTime-pkr ui-widget ui-widget-content ui-corner-all\" id=\"' + this.id + '\" aria-live=\"off\"></div>' );\n		    this.inp.after(this.div);\n		  	this.hTitle = $( '<h5 class=\"AnyTime-hdr ui-widget-header ui-corner-top\"/>' );\n		  	this.div.append( this.hTitle );\n		  	this.dB = $( '<div class=\"AnyTime-body\"></div>' );\n		  	this.div.append( this.dB );\n\n		  	if ( options.hideInput )\n		        this.inp.css({border:0,height:'1px',margin:0,padding:0,width:'1px'});\n\n		  	//  Add dismiss box to title (if popup)\n\n		  	t = null;\n		  	var xDiv = null;\n		  	if ( this.pop )\n		  	{\n		  		xDiv = $( '<div class=\"AnyTime-x-btn ui-state-default\">'+this.lX+'</div>' );\n		  		this.hTitle.append( xDiv );\n		  		xDiv.click(function(e){_this.dismiss(e);});\n		  	}\n\n		  	//  date (calendar) portion\n\n		  	lab = '';\n		  	if ( askDate )\n		  	{\n          this.dD = $( '<div class=\"AnyTime-date\"></div>' );\n          this.dB.append( this.dD );\n\n		      if ( askYear )\n		      {\n		    	  this.yLab = $('<h6 class=\"AnyTime-lbl AnyTime-lbl-yr\">' + this.lY + '</h6>');\n		    	  this.dD.append( this.yLab );\n\n		          this.dY = $( '<ul class=\"AnyTime-yrs ui-helper-reset\" />' );\n		          this.dD.append( this.dY );\n\n		          this.yPast = this.btn(this.dY,'&lt;',this.newYear,['yrs-past'],'- '+this.lY);\n		          this.yPrior = this.btn(this.dY,'1',this.newYear,['yr-prior'],'-1 '+this.lY);\n		          this.yCur = this.btn(this.dY,'2',this.newYear,['yr-cur'],this.lY);\n		          this.yCur.removeClass('ui-state-default');\n		          this.yCur.addClass('AnyTime-cur-btn ui-state-default ui-state-highlight');\n\n		          this.yNext = this.btn(this.dY,'3',this.newYear,['yr-next'],'+1 '+this.lY);\n		          this.yAhead = this.btn(this.dY,'&gt;',this.newYear,['yrs-ahead'],'+ '+this.lY);\n\n		          shownFields++;\n\n		      } // if ( askYear )\n\n		      if ( askMonth )\n		      {\n		    	  lab = options.labelMonth || 'Month';\n		    	  this.hMo = $( '<h6 class=\"AnyTime-lbl AnyTime-lbl-month\">' + lab + '</h6>' );\n		    	  this.dD.append( this.hMo );\n		    	  this.dMo = $('<ul class=\"AnyTime-mons\" />');\n		    	  this.dD.append(this.dMo);\n		    	  for ( i = 0 ; i < 12 ; i++ )\n		    	  {\n		    		  var mBtn = this.btn( this.dMo, this.conv.mAbbr[i],\n			    			function( event )\n			    			{\n			    				var elem = $(event.target);\n			    			    if ( elem.hasClass(\"AnyTime-out-btn\") )\n			    			    	return;\n			    				var mo = event.target.AnyTime_month;\n			    				var t = new Date(this.time.getTime());\n			    				if ( t.getDate() > __daysIn[mo] )\n			    					t.setDate(__daysIn[mo])\n			    				t.setMonth(mo);\n			    				this.set(t);\n			    			    this.upd(elem);\n			    			},\n			    			['mon','mon'+String(i+1)], lab+' '+this.conv.mNames[i] );\n		    		  mBtn[0].AnyTime_month = i;\n		    	  }\n		    	  shownFields++;\n		      }\n\n		      if ( askDoM )\n		      {\n		    	lab = options.labelDayOfMonth || 'Day of Month';\n		        this.hDoM = $('<h6 class=\"AnyTime-lbl AnyTime-lbl-dom\">' + lab + '</h6>' );\n		      	this.dD.append( this.hDoM );\n		        this.dDoM =  $( '<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"AnyTime-dom-table\"/>' );\n		        this.dD.append( this.dDoM );\n		        t = $( '<thead class=\"AnyTime-dom-head\"/>' );\n		        this.dDoM.append(t);\n		        var tr = $( '<tr class=\"AnyTime-dow\"/>' );\n		        t.append(tr);\n		        for ( i = 0 ; i < 7 ; i++ )\n		          tr.append( '<th class=\"AnyTime-dow AnyTime-dow'+String(i+1)+'\">'+this.conv.dAbbr[(this.fDOW+i)%7]+'</th>' );\n\n		        var tbody = $( '<tbody class=\"AnyTime-dom-body\" />' );\n		        this.dDoM.append(tbody);\n		        for ( var r = 0 ; r < 6 ; r++ )\n		        {\n		          tr = $( '<tr class=\"AnyTime-wk AnyTime-wk'+String(r+1)+'\"/>' );\n		          tbody.append(tr);\n		          for ( i = 0 ; i < 7 ; i++ )\n		        	  this.btn( tr, 'x',\n		        		function( event )\n		        		{\n		        			var elem = $(event.target);\n		        		    if ( elem.hasClass(\"AnyTime-out-btn\") )\n		        		    	return;\n		        			var dom = Number(elem.html());\n		        			if ( dom )\n		        			{\n		        				var t = new Date(this.time.getTime());\n		        				t.setDate(dom);\n		        				this.set(t);\n		        				this.upd(elem);\n		        			}\n		        		},\n		        		['dom'], lab );\n		        }\n		        shownFields++;\n\n		      } // if ( askDoM )\n\n		    } // if ( askDate )\n\n		    //  time portion\n\n		    if ( askTime )\n		    {\n          var tensDiv, onesDiv;\n\n		      this.dT = $('<div class=\"AnyTime-time\"></div>');\n		      this.dB.append(this.dT);\n\n		      if ( askHour )\n		      {\n		        this.dH = $('<div class=\"AnyTime-hrs\"></div>');\n		        this.dT.append(this.dH);\n\n		        lab = options.labelHour || 'Hour';\n		        this.dH.append( $('<h6 class=\"AnyTime-lbl AnyTime-lbl-hr\">'+lab+'</h6>') );\n		        var amDiv = $('<ul class=\"AnyTime-hrs-am\"/>');\n		        this.dH.append( amDiv );\n		        var pmDiv = $('<ul class=\"AnyTime-hrs-pm\"/>');\n		        this.dH.append( pmDiv );\n\n		        for ( i = 0 ; i < 12 ; i++ )\n		        {\n		          if ( this.twelveHr )\n		          {\n		            if ( i == 0 )\n		              t = '12am';\n		            else\n		              t = String(i)+'am';\n		          }\n		          else\n		            t = AnyTime.pad(i,2);\n\n		          this.btn( amDiv, t, this.newHour,['hr','hr'+String(i)],lab+' '+t);\n\n		          if ( this.twelveHr )\n		          {\n		            if ( i == 0 )\n		              t = '12pm';\n		            else\n		              t = String(i)+'pm';\n		          }\n		          else\n		            t = i+12;\n\n		          this.btn( pmDiv, t, this.newHour,['hr','hr'+String(i+12)],lab+' '+t);\n		        }\n\n				shownFields++;\n\n		      } // if ( askHour )\n\n		      if ( askMinute )\n		      {\n		        this.dM = $('<div class=\"AnyTime-mins\"></div>');\n		        this.dT.append(this.dM);\n\n		        lab = options.labelMinute || 'Minute';\n		        this.dM.append( $('<h6 class=\"AnyTime-lbl AnyTime-lbl-min\">'+lab+'</h6>') );\n            tensDiv = $('<ul class=\"AnyTime-mins-tens\"/>');\n		        this.dM.append(tensDiv);\n\n		        for ( i = 0 ; i < 6 ; i++ )\n		          this.btn( tensDiv, i,\n		        		  function( event )\n		        		  {\n		        		      var elem = $(event.target);\n		        			  if ( elem.hasClass(\"AnyTime-out-btn\") )\n		        			    	return;\n		        		      var t = new Date(this.time.getTime());\n		        		      t.setMinutes( (Number(elem.text())*10) + (this.time.getMinutes()%10) );\n		        		      this.set(t);\n		        		      this.upd(elem);\n		        		  },\n		        		  ['min-ten','min'+i+'0'], lab+' '+i+'0' );\n		        for ( ; i < 12 ; i++ )\n			          this.btn( tensDiv, '&#160;', $.noop, ['min-ten','min'+i+'0'], lab+' '+i+'0' ).addClass('AnyTime-min-ten-btn-empty ui-state-default ui-state-disabled');\n\n            onesDiv = $('<ul class=\"AnyTime-mins-ones\"/>');\n		        this.dM.append(onesDiv);\n		        for ( i = 0 ; i < 10 ; i++ )\n		          this.btn( onesDiv, i,\n		    		  function( event )\n		    		  {\n		    		      var elem = $(event.target);\n		    			  if ( elem.hasClass(\"AnyTime-out-btn\") )\n		    			    	return;\n		    		      var t = new Date(this.time.getTime());\n		    		      t.setMinutes( (Math.floor(this.time.getMinutes()/10)*10)+Number(elem.text()) );\n		    		      this.set(t);\n		    		      this.upd(elem);\n		    		  },\n		    		  ['min-one','min'+i], lab+' '+i );\n		        for ( ; i < 12 ; i++ )\n			          this.btn( onesDiv, '&#160;', $.noop, ['min-one','min'+i+'0'], lab+' '+i ).addClass('AnyTime-min-one-btn-empty ui-state-default ui-state-disabled');\n\n				shownFields++;\n\n		      } // if ( askMinute )\n\n		      if ( askSec )\n		      {\n		        this.dS = $('<div class=\"AnyTime-secs\"></div>');\n		        this.dT.append(this.dS);\n		        lab = options.labelSecond || 'Second';\n		        this.dS.append( $('<h6 class=\"AnyTime-lbl AnyTime-lbl-sec\">'+lab+'</h6>') );\n            tensDiv = $('<ul class=\"AnyTime-secs-tens\"/>');\n		        this.dS.append(tensDiv);\n\n		        for ( i = 0 ; i < 6 ; i++ )\n		          this.btn( tensDiv, i,\n		    		  function( event )\n		    		  {\n		    		      var elem = $(event.target);\n		    			  if ( elem.hasClass(\"AnyTime-out-btn\") )\n		    			    	return;\n		    		      var t = new Date(this.time.getTime());\n		    		      t.setSeconds( (Number(elem.text())*10) + (this.time.getSeconds()%10) );\n		    		      this.set(t);\n		    		      this.upd(elem);\n		    		  },\n		    		  ['sec-ten','sec'+i+'0'], lab+' '+i+'0' );\n		        for ( ; i < 12 ; i++ )\n			          this.btn( tensDiv, '&#160;', $.noop, ['sec-ten','sec'+i+'0'], lab+' '+i+'0' ).addClass('AnyTime-sec-ten-btn-empty ui-state-default ui-state-disabled');\n\n            onesDiv = $('<ul class=\"AnyTime-secs-ones\"/>');\n		        this.dS.append(onesDiv);\n		        for ( i = 0 ; i < 10 ; i++ )\n		          this.btn( onesDiv, i,\n		    		  function( event )\n		    		  {\n		    		      var elem = $(event.target);\n		    			  if ( elem.hasClass(\"AnyTime-out-btn\") )\n		    			    	return;\n		    		      var t = new Date(this.time.getTime());\n		    		      t.setSeconds( (Math.floor(this.time.getSeconds()/10)*10) + Number(elem.text()) );\n		    		      this.set(t);\n		    		      this.upd(elem);\n		    		  },\n		    		  ['sec-one','sec'+i], lab+' '+i );\n		        for ( ; i < 12 ; i++ )\n			          this.btn( onesDiv, '&#160;', $.noop, ['sec-one','sec'+i+'0'], lab+' '+i ).addClass('AnyTime-sec-one-btn-empty ui-state-default ui-state-disabled');\n\n				shownFields++;\n\n		      } // if ( askSec )\n\n		      if ( askOff )\n		      {\n		    	this.dO = $('<div class=\"AnyTime-offs\" ></div>');\n          this.dT.append('<br />');\n          this.dT.append(this.dO);\n\n		    	this.oList = $('<ul class=\"AnyTime-off-list ui-helper-reset\" />');\n          this.dO.append(this.oList);\n\n          this.oCur = this.btn(this.oList,'',this.newOffset,['off','off-cur'],lab);\n          this.oCur.removeClass('ui-state-default');\n          this.oCur.addClass('AnyTime-cur-btn ui-state-default ui-state-highlight');\n\n			  	this.oSel = this.btn(this.oList,'&#177;',this.newOffset,['off','off-select'],'+/- '+this.lO);\n\n			  	this.oMinW = this.dO.outerWidth(true);\n		    	this.oLab = $('<h6 class=\"AnyTime-lbl AnyTime-lbl-off\">' + this.lO + '</h6>');\n		    	this.dO.prepend( this.oLab );\n\n				shownFields++;\n		      }\n\n		    } // if ( askTime )\n\n		    //  Set the title.  If a title option has been specified, use it.\n		    //  Otherwise, determine a worthy title based on which (and how many)\n		    //  format fields have been specified.\n\n		    if ( options.labelTitle )\n		      this.hTitle.append( options.labelTitle );\n		    else if ( shownFields > 1 )\n		      this.hTitle.append( 'Select a '+(askDate?(askTime?'Date and Time':'Date'):'Time') );\n		    else\n		      this.hTitle.append( 'Select' );\n\n\n		    //  Initialize the picker's date/time value.\n\n		    try\n		    {\n		      this.time = this.conv.parse(this.inp.val());\n		      this.offMin = this.conv.getUtcParseOffsetCaptured();\n		      this.offSI = this.conv.getUtcParseOffsetSubIndex();\n		      if ( 'init' in options ) // override\n            this.time = this.makeDate( options.init);\n		    }\n		    catch ( e )\n		    {\n		      this.time = new Date();\n		    }\n		    this.lastAjax = this.time;\n\n\n		    //  If this is a popup picker, hide it until needed.\n\n		    if ( this.pop )\n		    {\n		      this.div.hide();\n		      this.div.css('position','absolute');\n		    }\n\n		    //  Setup event listeners for the input and resize listeners for\n		    //  the picker.  Add the picker to the instances list (which is used\n		    //  to hide pickers if the user clicks off of them).\n\n		    this.inp.blur( this.hBlur =\n		    	function(e)\n		    	{\n		    		_this.inpBlur(e);\n		    	} );\n\n		    this.inp.click( this.hClick =\n		    	function(e)\n		    	{\n	    			_this.showPkr(e);\n		    	} );\n\n		    this.inp.focus( this.hFocus =\n		    	function(e)\n		    	{\n		    		if ( _this.lostFocus )\n		    			_this.showPkr(e);\n		    		_this.lostFocus = false;\n		    	} );\n\n		    this.inp.keydown( this.hKeydown =\n		    	function(e)\n		    	{\n		    		_this.key(e);\n		    	} );\n\n		    this.inp.keypress( this.hKeypress =\n          function(e)\n          {\n//			    if ( $.browser.opera && _this.denyTab )\n//			    	e.preventDefault();\n          } );\n\n		    this.div.click(\n          function(e)\n          {\n            _this.lostFocus = false;\n            _this.inp.focus();\n          } );\n\n		    $(window).resize( this.hResize =\n		    	function(e)\n		    	{\n		    		_this.pos(e);\n		    	} );\n\n		    if ( __initialized )\n		    	this.onReady();\n\n		}, // initialize()\n\n\n		//---------------------------------------------------------------------\n		//  .ajax() notifies the server of a value change using Ajax.\n		//---------------------------------------------------------------------\n\n		ajax: function()\n		{\n		    if ( this.ajaxOpts && ( this.time.getTime() != this.lastAjax.getTime() ) )\n		    {\n		      try\n		      {\n		    	var opts = jQuery.extend( {}, this.ajaxOpts );\n		        if ( typeof opts.data == 'object' )\n		        	opts.data[this.inp[0].name||this.inp[0].id] = this.inp.val();\n		        else\n		        {\n		        	var opt = (this.inp[0].name||this.inp[0].id) + '=' + encodeURI(this.inp.val());\n		        	if ( opts.data )\n		        		opts.data += '&' + opt;\n		        	else\n		        		opts.data = opt;\n		        }\n		        $.ajax( opts );\n		        this.lastAjax = this.time;\n		      }\n		      catch( e )\n		      {\n		      }\n		    }\n		    return;\n\n		}, // .ajax()\n\n		//---------------------------------------------------------------------\n		//  .askOffset() is called by this.newOffset() when the UTC offset or\n		//  +- selection button is clicked.\n		//---------------------------------------------------------------------\n\n		askOffset: function( event )\n		{\n		    if ( ! this.oDiv )\n		    {\n		      this.makeCloak();\n\n		      this.oDiv = $('<div class=\"AnyTime-win AnyTime-off-selector ui-widget ui-widget-content ui-corner-all\"></div>');\n		      this.div.append(this.oDiv);\n\n		      // the order here (HDR,BODY,XDIV,TITLE) is important for width calcluation:\n		      var title = $('<h5 class=\"AnyTime-hdr AnyTime-hdr-off-selector ui-widget-header ui-corner-top\" />');\n		      this.oDiv.append( title );\n		      this.oBody = $('<div class=\"AnyTime-body AnyTime-body-off-selector\"></div>');\n		      this.oDiv.append( this.oBody );\n\n		      var xDiv = $('<div class=\"AnyTime-x-btn ui-state-default\">'+this.lX+'</div>');\n		      title.append(xDiv);\n		      xDiv.click(function(e){_this.dismissODiv(e);});\n		      title.append( this.lO );\n\n		      var cont = $('<ul class=\"AnyTime-off-off\" />' );\n		      var last = null;\n		      this.oBody.append(cont);\n		      var useSubIndex = (this.oConv.fmt.indexOf('%@')>=0);\n		      if ( AnyTime.utcLabel )\n			      for ( var o = -720 ; o <= 840 ; o++ )\n			    	  if ( AnyTime.utcLabel[o] )\n			    	  {\n				        this.oConv.setUtcFormatOffsetAlleged(o);\n				        for ( var i = 0; i < AnyTime.utcLabel[o].length; i++ )\n				        {\n				          this.oConv.setUtcFormatOffsetSubIndex(i);\n				          last = this.btn( cont, this.oConv.format(this.time), this.newOPos, ['off-off'], o );\n				          last[0].AnyTime_offMin = o;\n				          last[0].AnyTime_offSI = i;\n				          if ( ! useSubIndex )\n				        	  break; // for\n				        }\n			    	  }\n\n		      if ( last )\n		    	  last.addClass('AnyTime-off-off-last-btn');\n\n          if ( this.oDiv.outerHeight(true) > this.div.height() )\n          {\n            var oldW = this.oBody.width();\n            this.oBody.css('height','0');\n            this.oBody.css({\n              height:\n                String(this.div.height()-\n                  (this.oDiv.outerHeight(true)+this.oBody.outerHeight(false)))+'px',\n              width: String(oldW+20)+'px' }); // wider for scroll bar\n          }\n          if ( this.oDiv.outerWidth(true) > this.div.width() )\n          {\n            this.oBody.css('width','0');\n            this.oBody.css('width',\n                  String(this.div.width()-\n                    (this.oDiv.outerWidth(true)+this.oBody.outerWidth(false)))+'px');\n          }\n\n		    } // if ( ! this.oDiv )\n		    else\n		    {\n		      this.cloak.show();\n		      this.oDiv.show();\n		    }\n		    this.pos(event);\n		    this.updODiv(null);\n\n		    var f = this.oDiv.find('.AnyTime-off-off-btn.AnyTime-cur-btn:first');\n		    if ( ! f.length )\n		    	f = this.oDiv.find('.AnyTime-off-off-btn:first');\n		    this.setFocus( f );\n\n		}, // .askOffset()\n\n		//---------------------------------------------------------------------\n		//  .askYear() is called by this.newYear() when the yPast or yAhead\n		//  button is clicked.\n		//---------------------------------------------------------------------\n\n		askYear: function( event )\n		{\n		    if ( ! this.yDiv )\n		    {\n		      this.makeCloak();\n\n		      this.yDiv = $('<div class=\"AnyTime-win AnyTime-yr-selector ui-widget ui-widget-content ui-corner-all\"></div>');\n		      this.div.append(this.yDiv);\n\n		      var title = $('<h5 class=\"AnyTime-hdr AnyTime-hdr-yr-selector ui-widget-header ui-corner-top\" />');\n		      this.yDiv.append( title );\n\n		      var xDiv = $('<div class=\"AnyTime-x-btn ui-state-default\">'+this.lX+'</div>');\n		      title.append(xDiv);\n		      xDiv.click(function(e){_this.dismissYDiv(e);});\n\n		      title.append( this.lY );\n\n		      var yBody = $('<div class=\"AnyTime-body AnyTime-body-yr-selector\" ></div>');\n		      this.yDiv.append( yBody );\n\n		      cont = $('<ul class=\"AnyTime-yr-mil\" />' );\n		      yBody.append(cont);\n		      this.y0XXX = this.btn( cont, 0, this.newYPos,['mil','mil0'],this.lY+' '+0+'000');\n		      for ( i = 1; i < 10 ; i++ )\n		        this.btn( cont, i, this.newYPos,['mil','mil'+i],this.lY+' '+i+'000');\n\n  			  cont = $('<ul class=\"AnyTime-yr-cent\" />' );\n		      yBody.append(cont);\n		      for ( i = 0 ; i < 10 ; i++ )\n		        this.btn( cont, i, this.newYPos,['cent','cent'+i],this.lY+' '+i+'00');\n\n		      cont = $('<ul class=\"AnyTime-yr-dec\" />');\n		      yBody.append(cont);\n		      for ( i = 0 ; i < 10 ; i++ )\n		        this.btn( cont, i, this.newYPos,['dec','dec'+i],this.lY+' '+i+'0');\n\n		      cont = $('<ul class=\"AnyTime-yr-yr\" />');\n		      yBody.append(cont);\n		      for ( i = 0 ; i < 10 ; i++ )\n		        this.btn( cont, i, this.newYPos,['yr','yr'+i],this.lY+' '+i );\n\n		      if ( this.askEra )\n		      {\n		        cont = $('<ul class=\"AnyTime-yr-era\" />' );\n		        yBody.append(cont);\n\n		        this.btn( cont, this.conv.eAbbr[0],\n		        		function( event )\n		        		{\n	  		      			var t = new Date(this.time.getTime());\n		        			var year = t.getFullYear();\n		        		    if ( year > 0 )\n								t.setFullYear(0-year);\n							this.set(t);\n							this.updYDiv($(event.target));\n		        		},\n		        		['era','bce'], this.conv.eAbbr[0] );\n\n		        this.btn( cont, this.conv.eAbbr[1],\n		        		function( event )\n		        		{\n			      			var t = new Date(this.time.getTime());\n		        			var year = t.getFullYear();\n		        		    if ( year < 0 )\n								t.setFullYear(0-year);\n							this.set(t);\n							this.updYDiv($(event.target));\n		        		},\n		        		['era','ce'], this.conv.eAbbr[1] );\n\n		      } // if ( this.askEra )\n		    } // if ( ! this.yDiv )\n		    else\n		    {\n		      this.cloak.show();\n		      this.yDiv.show();\n		    }\n		    this.pos(event);\n		    this.updYDiv(null);\n		    this.setFocus( this.yDiv.find('.AnyTime-yr-btn.AnyTime-cur-btn:first') );\n\n		}, // .askYear()\n\n		//---------------------------------------------------------------------\n		//  .inpBlur() is called when a picker's input loses focus to dismiss\n		//  the popup.  A 1/3 second delay is necessary to restore focus if\n		//	the div is clicked (shorter delays don't always work!)  To prevent\n		//  problems cause by scrollbar focus (except in FF), focus is\n		//  force-restored if the offset div is visible.\n		//---------------------------------------------------------------------\n\n		inpBlur: function(event)\n		{\n			if ( this.oDiv && this.oDiv.is(\":visible\") )\n			{\n				_this.inp.focus();\n				return;\n			}\n			this.lostFocus = true;\n		    setTimeout(\n		    	function()\n		    	{\n		    		if ( _this.lostFocus )\n		    		{\n		    			_this.div.find('.AnyTime-focus-btn').removeClass('AnyTime-focus-btn ui-state-focus');\n		    			if ( _this.pop )\n		    				_this.dismiss(event);\n		    			else\n		    				_this.ajax();\n		    		}\n		    	}, 334 );\n		},\n\n		//---------------------------------------------------------------------\n		//  .btn() is called by AnyTime.picker() to create a <div> element\n		//  containing an <a> element.  The elements are given appropriate\n		//  classes based on the specified \"classes\" (an array of strings).\n		//	The specified \"text\" and \"title\" are used for the <a> element.\n		//	The \"handler\" is bound to click events for the <div>, which will\n		//	catch bubbling clicks from the <a> as well.  The button is\n		//	appended to the specified parent (jQuery), and the <div> jQuery\n		//	is returned.\n		//---------------------------------------------------------------------\n\n		btn: function( parent, text, handler, classes, title )\n		{\n			var tagName = ( (parent[0].nodeName.toLowerCase()=='ul')?'li':'td');\n			var div$ = '<' + tagName +\n			  				' class=\"AnyTime-btn';\n			for ( var i = 0 ; i < classes.length ; i++ )\n				div$ += ' AnyTime-' + classes[i] + '-btn';\n			var div = $( div$ + ' ui-state-default\">' + text + '</' + tagName + '>' );\n			parent.append(div);\n			div.AnyTime_title = title;\n\n			div.click(\n			    function(e)\n			  	{\n			      // bind the handler to the picker so \"this\" is correct\n				  _this.tempFunc = handler;\n				  _this.tempFunc(e);\n			  	});\n			div.dblclick(\n				function(e)\n				{\n					var elem = $(this);\n					if ( elem.is('.AnyTime-off-off-btn') )\n						_this.dismissODiv(e);\n					else if ( elem.is('.AnyTime-mil-btn') || elem.is('.AnyTime-cent-btn') || elem.is('.AnyTime-dec-btn') || elem.is('.AnyTime-yr-btn') || elem.is('.AnyTime-era-btn') )\n						_this.dismissYDiv(e);\n					else if ( _this.pop )\n						_this.dismiss(e);\n				});\n		    return div;\n\n		}, // .btn()\n\n		//---------------------------------------------------------------------\n		//  .cleanup() destroys the DOM events and elements associated with\n		//  the picker so it can be deleted.\n		//---------------------------------------------------------------------\n\n		cleanup: function(event)\n		{\n			this.\n			  inp.\n			    prop('readonly',this.ro).\n			    off('blur',this.hBlur).\n		      off('click',this.hClick).\n		      off('focus',this.hFocus).\n		      off('keydown',this.hKeydown).\n		      off('keypress',this.hKeypress);\n      $(window).off('resize',this.hResize);\n			this.div.remove();\n		},\n\n		//---------------------------------------------------------------------\n		//  .dismiss() dismisses a popup picker.\n		//---------------------------------------------------------------------\n\n		dismiss: function(event)\n		{\n			this.ajax();\n			if ( this.yDiv )\n				this.dismissYDiv();\n			if ( this.oDiv )\n				this.dismissODiv();\n			this.div.hide();\n			this.lostFocus = true;\n		},\n\n		//---------------------------------------------------------------------\n		//  .dismissODiv() dismisses the UTC offset selector popover.\n		//---------------------------------------------------------------------\n\n		dismissODiv: function(event)\n		{\n		    this.oDiv.hide();\n		    this.cloak.hide();\n			this.setFocus(this.oCur);\n		},\n\n		//---------------------------------------------------------------------\n		//  .dismissYDiv() dismisses the date selector popover.\n		//---------------------------------------------------------------------\n\n		dismissYDiv: function(event)\n		{\n		    this.yDiv.hide();\n		    this.cloak.hide();\n			this.setFocus(this.yCur);\n		},\n\n		//---------------------------------------------------------------------\n		//  .setFocus() makes a specified psuedo-button appear to get focus.\n		//---------------------------------------------------------------------\n\n		setFocus: function(btn)\n		{\n			if ( ! btn.hasClass('AnyTime-focus-btn') )\n			{\n				this.div.find('.AnyTime-focus-btn').removeClass('AnyTime-focus-btn ui-state-focus');\n				this.fBtn = btn;\n				btn.removeClass('ui-state-default ui-state-highlight');\n				btn.addClass('AnyTime-focus-btn ui-state-default ui-state-highlight ui-state-focus');\n			}\n			if ( btn.hasClass('AnyTime-off-off-btn') )\n			{\n				var oBT = this.oBody.offset().top;\n				var btnT = btn.offset().top;\n				var btnH = btn.outerHeight(true);\n				if ( btnT - btnH < oBT ) // move a page up\n					this.oBody.scrollTop( btnT + this.oBody.scrollTop() - ( this.oBody.innerHeight() + oBT ) + ( btnH * 2 ) );\n				else if ( btnT + btnH > oBT + this.oBody.innerHeight() ) // move a page down\n					this.oBody.scrollTop( ( btnT + this.oBody.scrollTop() ) - ( oBT + btnH ) );\n			}\n		},\n\n		//---------------------------------------------------------------------\n		//  .key() is invoked when a user presses a key while the picker's\n		//	input has focus.  A psuedo-button is considered \"in focus\" and an\n		//	appropriate action is performed according to the WAI-ARIA Authoring\n		//	Practices 1.0 for datepicker from\n		//  www.w3.org/TR/2009/WD-wai-aria-practices-20091215/#datepicker:\n		//\n		//  * LeftArrow moves focus left, continued to previous week.\n		//  * RightArrow moves focus right, continued to next week.\n		//  * UpArrow moves focus to the same weekday in the previous week.\n		//  * DownArrow moves focus to same weekday in the next week.\n		//  * PageUp moves focus to same day in the previous month.\n		//  * PageDown moves focus to same day in the next month.\n		//  * Shift+Page Up moves focus to same day in the previous year.\n		//  * Shift+Page Down moves focus to same day in the next year.\n		//  * Home moves focus to the first day of the month.\n		//  * End moves focus to the last day of the month.\n		//  * Ctrl+Home moves focus to the first day of the year.\n		//  * Ctrl+End moves focus to the last day of the year.\n		//  * Esc closes a DatePicker that is opened as a Popup.\n		//\n		//  The following actions (for multiple-date selection) are NOT\n		//	supported:\n		//  * Shift+Arrow performs continous selection.\n		//  * Ctrl+Space multiple selection of certain days.\n		//\n		//  The authoring practices do not specify behavior for a time picker,\n		//  or for month-and-year pickers that do not have a day-of-the-month,\n		//  but AnyTime.picker uses the following behavior to be as consistent\n		//  as possible with the defined datepicker functionality:\n		//  * LeftArrow moves focus left or up to previous value or field.\n		//  * RightArrow moves focus right or down to next value or field.\n		//  * UpArrow moves focus up or left to previous value or field.\n		//  * DownArrow moves focus down or right to next value or field\n		//  * PageUp moves focus to the current value in the previous units\n		//    (for example, from ten-minutes to hours or one-minutes to\n		//	  ten-minutes or months to years).\n		//  * PageDown moves focus to the current value in the next units\n		//    (for example, from hours to ten-minutes or ten-minutes to\n		//    one-minutes or years to months).\n		//  * Home moves the focus to the first unit button.\n		//  * End moves the focus to the last unit button.\n		//\n		//  In addition, Tab and Shift+Tab move between units (including to/\n		//	from the Day-of-Month table) and also in/out of the picker.\n		//\n		//  Because AnyTime.picker sets a value as soon as the button receives\n		//  focus, SPACE and ENTER are not needed (the WAI-ARIA guidelines use\n		//  them to select a value.\n		//---------------------------------------------------------------------\n\n		key: function(event)\n		{\n      var mo;\n			var t = null;\n      var _this = this;\n			var elem = this.div.find('.AnyTime-focus-btn');\n		    var key = event.keyCode || event.which;\n		    this.denyTab = true;\n\n		    if ( key == 16 ) // Shift\n		    {\n		    }\n		    else if ( ( key == 10 ) || ( key == 13 ) || ( key == 27 ) ) // Enter & Esc\n		    {\n		      if ( this.oDiv && this.oDiv.is(':visible') )\n		        this.dismissODiv(event);\n		      else if ( this.yDiv && this.yDiv.is(':visible') )\n			    this.dismissYDiv(event);\n		      else if ( this.pop )\n			    this.dismiss(event);\n		    }\n		    else if ( ( key == 33 ) || ( ( key == 9 ) && event.shiftKey ) ) // PageUp & Shift+Tab\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-off-off-btn') )\n				{\n		    		if ( key == 9 )\n				        this.dismissODiv(event);\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-mil-btn') )\n				{\n		    		if ( key == 9 )\n				        this.dismissYDiv(event);\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-cent-btn') )\n					this.yDiv.find('.AnyTime-mil-btn.AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-dec-btn') )\n					this.yDiv.find('.AnyTime-cent-btn.AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-yr-btn') )\n					this.yDiv.find('.AnyTime-dec-btn.AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-era-btn') )\n					this.yDiv.find('.AnyTime-yr-btn.AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.parents('.AnyTime-yrs').length )\n				{\n					if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-mon-btn') )\n				{\n					if ( this.dY )\n						this.yCur.triggerHandler('click');\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n		    	{\n		    		if ( ( key == 9 ) && event.shiftKey ) // Shift+Tab\n					{\n						this.denyTab = false;\n						return;\n					}\n		    		else // PageUp\n		    		{\n			    		t = new Date(this.time.getTime());\n				    	if ( event.shiftKey )\n				    		t.setFullYear(t.getFullYear()-1);\n				    	else\n				    	{\n				    		mo = t.getMonth()-1;\n		    				if ( t.getDate() > __daysIn[mo] )\n		    					t.setDate(__daysIn[mo])\n			    			t.setMonth(mo);\n				    	}\n			    		this.keyDateChange(t);\n		    		}\n		    	}\n		    	else if ( this.fBtn.hasClass('AnyTime-hr-btn') )\n				{\n		    		t = this.dDoM || this.dMo;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( this.dY )\n						this.yCur.triggerHandler('click');\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-min-ten-btn') )\n				{\n		    		t = this.dH || this.dDoM || this.dMo;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( this.dY )\n						this.yCur.triggerHandler('click');\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-min-one-btn') )\n					this.dM.AnyTime_clickCurrent();\n		    	else if ( this.fBtn.hasClass('AnyTime-sec-ten-btn') )\n				{\n		    		if ( this.dM )\n		    			t = this.dM.find('.AnyTime-mins-ones');\n		    		else\n		    			t = this.dH || this.dDoM || this.dMo;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( this.dY )\n						this.yCur.triggerHandler('click');\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-sec-one-btn') )\n					this.dS.AnyTime_clickCurrent();\n		    	else if ( this.fBtn.hasClass('AnyTime-off-btn') )\n				{\n		    		if ( this.dS )\n		    			t = this.dS.find('.AnyTime-secs-ones');\n		    		else if ( this.dM )\n		    			t = this.dM.find('.AnyTime-mins-ones');\n		    		else\n		    			t = this.dH || this.dDoM || this.dMo;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( this.dY )\n						this.yCur.triggerHandler('click');\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n			}\n		    else if ( ( key == 34 ) || ( key == 9 ) ) // PageDown or Tab\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-mil-btn') )\n					this.yDiv.find('.AnyTime-cent-btn.AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-cent-btn') )\n					this.yDiv.find('.AnyTime-dec-btn.AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-dec-btn') )\n					this.yDiv.find('.AnyTime-yr-btn.AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-yr-btn') )\n		    	{\n		    		t = this.yDiv.find('.AnyTime-era-btn.AnyTime-cur-btn');\n					if ( t.length )\n						t.triggerHandler('click');\n					else if ( key == 9 )\n						this.dismissYDiv(event);\n		    	}\n		    	else if ( this.fBtn.hasClass('AnyTime-era-btn') )\n		    	{\n		    		if ( key == 9 )\n		    			this.dismissYDiv(event);\n		    	}\n		    	else if ( this.fBtn.hasClass('AnyTime-off-off-btn') )\n		    	{\n		    		if ( key == 9 )\n		    			this.dismissODiv(event);\n		    	}\n		    	else if ( this.fBtn.parents('.AnyTime-yrs').length )\n				{\n		    		t = this.dDoM || this.dMo || this.dH || this.dM || this.dS || this.dO;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-mon-btn') )\n				{\n		    		t = this.dDoM || this.dH || this.dM || this.dS || this.dO;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n		    	{\n		    		if ( key == 9 ) // Tab\n		    		{\n		        		t = this.dH || this.dM || this.dS || this.dO;\n		    			if ( t )\n							t.AnyTime_clickCurrent();\n		    			else\n						{\n							this.denyTab = false;\n							return;\n						}\n		    		}\n		    		else // PageDown\n		    		{\n			    		t = new Date(this.time.getTime());\n				    	if ( event.shiftKey )\n				    		t.setFullYear(t.getFullYear()+1);\n				    	else\n				    	{\n				    		mo = t.getMonth()+1;\n		    				if ( t.getDate() > __daysIn[mo] )\n		    					t.setDate(__daysIn[mo])\n			    			t.setMonth(mo);\n				    	}\n			    		this.keyDateChange(t);\n		    		}\n		    	}\n		    	else if ( this.fBtn.hasClass('AnyTime-hr-btn') )\n				{\n		    		t = this.dM || this.dS || this.dO;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-min-ten-btn') )\n		    		this.dM.find('.AnyTime-mins-ones .AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-min-one-btn') )\n				{\n					t = this.dS || this.dO;\n					if ( t )\n						t.AnyTime_clickCurrent();\n					else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-sec-ten-btn') )\n		    		this.dS.find('.AnyTime-secs-ones .AnyTime-cur-btn').triggerHandler('click');\n		    	else if ( this.fBtn.hasClass('AnyTime-sec-one-btn') )\n				{\n		    		if ( this.dO )\n						this.dO.AnyTime_clickCurrent();\n		    		else if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n		    	else if ( this.fBtn.hasClass('AnyTime-off-btn') )\n				{\n		    		if ( key == 9 )\n					{\n						this.denyTab = false;\n						return;\n					}\n				}\n			}\n		    else if ( key == 35 ) // END\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-mil-btn') || this.fBtn.hasClass('AnyTime-cent-btn') ||\n				    this.fBtn.hasClass('AnyTime-dec-btn') || this.fBtn.hasClass('AnyTime-yr-btn') ||\n				    this.fBtn.hasClass('AnyTime-era-btn') )\n		    	{\n		    		t = this.yDiv.find('.AnyTime-ce-btn');\n		    		if ( ! t.length )\n		    			t = this.yDiv.find('.AnyTime-yr9-btn');\n		    		t.triggerHandler('click');\n		    	}\n		    	else if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n		    	{\n		    		t = new Date(this.time.getTime());\n					t.setDate(1);\n		    		t.setMonth(t.getMonth()+1);\n					t.setDate(t.getDate()-1);\n			    	if ( event.ctrlKey )\n			    		t.setMonth(11);\n		    		this.keyDateChange(t);\n		    	}\n		    	else if ( this.dS )\n					this.dS.find('.AnyTime-sec9-btn').triggerHandler('click');\n		    	else if ( this.dM )\n					this.dM.find('.AnyTime-min9-btn').triggerHandler('click');\n				else if ( this.dH )\n					this.dH.find('.AnyTime-hr23-btn').triggerHandler('click');\n				else if ( this.dDoM )\n					this.dDoM.find('.AnyTime-dom-btn-filled:last').triggerHandler('click');\n				else if ( this.dMo )\n					this.dMo.find('.AnyTime-mon12-btn').triggerHandler('click');\n				else if ( this.dY )\n					this.yAhead.triggerHandler('click');\n		    }\n		    else if ( key == 36 ) // HOME\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-mil-btn') || this.fBtn.hasClass('AnyTime-cent-btn') ||\n				    this.fBtn.hasClass('AnyTime-dec-btn') || this.fBtn.hasClass('AnyTime-yr-btn') ||\n				    this.fBtn.hasClass('AnyTime-era-btn') )\n				{\n		    		this.yDiv.find('.AnyTime-mil0-btn').triggerHandler('click');\n		    	}\n			    else if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n		    	{\n		    		t = new Date(this.time.getTime());\n					t.setDate(1);\n			    	if ( event.ctrlKey )\n			    		t.setMonth(0);\n		    		this.keyDateChange(t);\n		    	}\n				else if ( this.dY )\n					this.yCur.triggerHandler('click');\n				else if ( this.dMo )\n					this.dMo.find('.AnyTime-mon1-btn').triggerHandler('click');\n				else if ( this.dDoM )\n					this.dDoM.find('.AnyTime-dom-btn-filled:first').triggerHandler('click');\n				else if ( this.dH )\n					this.dH.find('.AnyTime-hr0-btn').triggerHandler('click');\n		    	else if ( this.dM )\n					this.dM.find('.AnyTime-min00-btn').triggerHandler('click');\n		    	else if ( this.dS )\n					this.dS.find('.AnyTime-sec00-btn').triggerHandler('click');\n		    }\n		    else if ( key == 37 ) // left arrow\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n          {\n			      t = new Date(this.time.getTime());\n            t.setDate(t.getDate()-1);\n		    		this.keyDateChange(t);\n          }\n		    	else\n		    		this.keyBack();\n		    }\n		    else if ( key == 38 ) // up arrow\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n          {\n			      t = new Date(this.time.getTime());\n            t.setDate(t.getDate()-7);\n		    		this.keyDateChange(t);\n          }\n		    	else\n		    		this.keyBack();\n		    }\n		    else if ( key == 39 ) // right arrow\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n          {\n			      t = new Date(this.time.getTime());\n            t.setDate(t.getDate()+1);\n		    		this.keyDateChange(t);\n          }\n		    	else\n		    		this.keyAhead();\n		    }\n		    else if ( key == 40 ) // down arrow\n		    {\n		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n         {\n			      t = new Date(this.time.getTime());\n            t.setDate(t.getDate()+7);\n		    		this.keyDateChange(t);\n          }\n		    	else\n		    		this.keyAhead();\n		    }\n		    else if ( ( ( key == 86 ) || ( key == 118 ) ) && event.ctrlKey )\n		    {\n		    	this.updVal('');\n		    	setTimeout( function() { _this.showPkr(null); }, 100 );\n		    	return;\n		    }\n		    else\n    			this.showPkr(null);\n\n		    event.preventDefault();\n\n		}, // .key()\n\n		//---------------------------------------------------------------------\n		//  .keyAhead() is called by #key when a user presses the right or\n		//	down arrow.  It moves to the next appropriate button.\n		//---------------------------------------------------------------------\n\n		keyAhead: function()\n		{\n		   	if ( this.fBtn.hasClass('AnyTime-mil9-btn') )\n		   		this.yDiv.find('.AnyTime-cent0-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-cent9-btn') )\n		   		this.yDiv.find('.AnyTime-dec0-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-dec9-btn') )\n		   		this.yDiv.find('.AnyTime-yr0-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-yr9-btn') )\n		   		this.yDiv.find('.AnyTime-bce-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-sec9-btn') )\n		   		{}\n		   	else if ( this.fBtn.hasClass('AnyTime-sec50-btn') )\n		   		this.dS.find('.AnyTime-sec0-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-min9-btn') )\n		   	{\n		   		if ( this.dS )\n		   			this.dS.find('.AnyTime-sec00-btn').triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-min50-btn') )\n		   		this.dM.find('.AnyTime-min0-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-hr23-btn') )\n		   	{\n		   		if ( this.dM )\n		   			this.dM.find('.AnyTime-min00-btn').triggerHandler('click');\n		   		else if ( this.dS )\n		   			this.dS.find('.AnyTime-sec00-btn').triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-hr11-btn') )\n				this.dH.find('.AnyTime-hr12-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-mon12-btn') )\n		   	{\n		   		if ( this.dDoM )\n		   			this.dDoM.AnyTime_clickCurrent();\n		   		else if ( this.dH )\n		   			this.dH.find('.AnyTime-hr0-btn').triggerHandler('click');\n		   		else if ( this.dM )\n		   			this.dM.find('.AnyTime-min00-btn').triggerHandler('click');\n		   		else if ( this.dS )\n		   			this.dS.find('.AnyTime-sec00-btn').triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-yrs-ahead-btn') )\n		   	{\n		   		if ( this.dMo )\n		   			this.dMo.find('.AnyTime-mon1-btn').triggerHandler('click');\n		   		else if ( this.dH )\n		   			this.dH.find('.AnyTime-hr0-btn').triggerHandler('click');\n		   		else if ( this.dM )\n		   			this.dM.find('.AnyTime-min00-btn').triggerHandler('click');\n		   		else if ( this.dS )\n		   			this.dS.find('.AnyTime-sec00-btn').triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-yr-cur-btn') )\n		        this.yNext.triggerHandler('click');\n		   	else\n				 this.fBtn.next().triggerHandler('click');\n\n		}, // .keyAhead()\n\n\n		//---------------------------------------------------------------------\n		//  .keyBack() is called by #key when a user presses the left or\n		//	up arrow. It moves to the previous appropriate button.\n		//---------------------------------------------------------------------\n\n		keyBack: function()\n		{\n		   	if ( this.fBtn.hasClass('AnyTime-cent0-btn') )\n		   		this.yDiv.find('.AnyTime-mil9-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-dec0-btn') )\n		   		this.yDiv.find('.AnyTime-cent9-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-yr0-btn') )\n		   		this.yDiv.find('.AnyTime-dec9-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-bce-btn') )\n			   		this.yDiv.find('.AnyTime-yr9-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-yr-cur-btn') )\n		        this.yPrior.triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-mon1-btn') )\n		   	{\n		   		if ( this.dY )\n		   			this.yCur.triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-hr0-btn') )\n		   	{\n		   		if ( this.dDoM )\n		   			this.dDoM.AnyTime_clickCurrent();\n		   		else if ( this.dMo )\n		   			this.dMo.find('.AnyTime-mon12-btn').triggerHandler('click');\n		   		else if ( this.dY )\n		   			this.yNext.triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-hr12-btn') )\n		   		 this.dH.find('.AnyTime-hr11-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-min00-btn') )\n		   	{\n		   		if ( this.dH )\n		   			this.dH.find('.AnyTime-hr23-btn').triggerHandler('click');\n		   		else if ( this.dDoM )\n		   			this.dDoM.AnyTime_clickCurrent();\n		   		else if ( this.dMo )\n		   			this.dMo.find('.AnyTime-mon12-btn').triggerHandler('click');\n		   		else if ( this.dY )\n		   			this.yNext.triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-min0-btn') )\n		   		 this.dM.find('.AnyTime-min50-btn').triggerHandler('click');\n		   	else if ( this.fBtn.hasClass('AnyTime-sec00-btn') )\n		   	{\n		   		if ( this.dM )\n		   			this.dM.find('.AnyTime-min9-btn').triggerHandler('click');\n		   		else if ( this.dH )\n		   			this.dH.find('.AnyTime-hr23-btn').triggerHandler('click');\n		   		else if ( this.dDoM )\n		   			this.dDoM.AnyTime_clickCurrent();\n		   		else if ( this.dMo )\n		   			this.dMo.find('.AnyTime-mon12-btn').triggerHandler('click');\n		   		else if ( this.dY )\n		   			this.yNext.triggerHandler('click');\n		   	}\n		   	else if ( this.fBtn.hasClass('AnyTime-sec0-btn') )\n		   		 this.dS.find('.AnyTime-sec50-btn').triggerHandler('click');\n		   	else\n				 this.fBtn.prev().triggerHandler('click');\n\n		}, // .keyBack()\n\n		//---------------------------------------------------------------------\n		//  .keyDateChange() is called by #key when an direction key\n		//	(arrows/page/etc) is pressed while the Day-of-Month calendar has\n		//	focus. The current day is adjusted accordingly.\n		//---------------------------------------------------------------------\n\n		keyDateChange: function( newDate )\n		{\n			if ( this.fBtn.hasClass('AnyTime-dom-btn') )\n			{\n				this.set(newDate);\n				this.upd(null);\n				this.setFocus( this.dDoM.find('.AnyTime-cur-btn') );\n			}\n		},\n\n		//---------------------------------------------------------------------\n		//  .makeCloak() is called by .askOffset() and .askYear() to create\n		//  a cloak div.\n		//---------------------------------------------------------------------\n\n		makeCloak: function()\n		{\n			if ( ! this.cloak )\n			{\n		      this.cloak = $('<div class=\"AnyTime-cloak\"></div>');\n		      this.div.append( this.cloak );\n		      this.cloak.click(\n		        function(e)\n		        {\n		        	if ( _this.oDiv && _this.oDiv.is(\":visible\") )\n		        		_this.dismissODiv(e);\n		        	else\n		        		_this.dismissYDiv(e);\n		        });\n		    }\n			else\n		      this.cloak.show();\n		},\n\n		//---------------------------------------------------------------------\n		//  makeDate() returns a Date object for the parameter as follows.\n    //  Strings are parsed using the converter and numbers are assumed\n    //  to be milliseconds.\n		//---------------------------------------------------------------------\n\n		makeDate: function(time)\n    {\n      if ( typeof time == 'number' )\n        time = new Date(time);\n      else if ( typeof time == 'string' )\n        time = this.conv.parse( time );\n      if ( 'getTime' in time )\n        return time;\n      throw 'cannot make a Date from ' + time;\n    },\n\n		//---------------------------------------------------------------------\n		//  .newHour() is called when a user clicks an hour value.\n		//  It changes the date and updates the text field.\n		//---------------------------------------------------------------------\n\n		newHour: function( event )\n		{\n		    var h;\n		    var t;\n		    var elem = $(event.target);\n		    if ( elem.hasClass(\"AnyTime-out-btn\") )\n		    	return;\n		    if ( ! this.twelveHr )\n		      h = Number(elem.text());\n		    else\n		    {\n		      var str = elem.text();\n		      t = str.indexOf('a');\n		      if ( t < 0 )\n		      {\n		        t = Number(str.substr(0,str.indexOf('p')));\n		        h = ( (t==12) ? 12 : (t+12) );\n		      }\n		      else\n		      {\n		        t = Number(str.substr(0,t));\n		        h = ( (t==12) ? 0 : t );\n		      }\n		    }\n		    t = new Date(this.time.getTime());\n		    t.setHours(h);\n		    this.set(t);\n		    this.upd(elem);\n\n		}, // .newHour()\n\n		//---------------------------------------------------------------------\n		//  .newOffset() is called when a user clicks the UTC offset (timezone)\n		//  (or +/- button) to shift the year.  It changes the date and updates\n		//  the text field.\n		//---------------------------------------------------------------------\n\n		newOffset: function( event )\n		{\n		    if ( event.target == this.oSel[0] )\n			    this.askOffset(event);\n		    else\n		    {\n		      this.upd(this.oCur);\n		    }\n		},\n\n		//---------------------------------------------------------------------\n		//  .newOPos() is called internally whenever a user clicks an offset\n		//  selection value.  It changes the date and updates the text field.\n		//---------------------------------------------------------------------\n\n		newOPos: function( event )\n		{\n		    var elem = $(event.target);\n            this.offMin = elem[0].AnyTime_offMin;\n            this.offSI = elem[0].AnyTime_offSI;\n		    var t = new Date(this.time.getTime());\n		    this.set(t);\n		    this.updODiv(elem);\n\n		}, // .newOPos()\n\n		//---------------------------------------------------------------------\n		//  .newYear() is called when a user clicks a year (or one of the\n		//	\"arrows\") to shift the year.  It changes the date and updates the\n		//	text field.\n		//---------------------------------------------------------------------\n\n		newYear: function( event )\n		{\n		    var elem = $(event.target);\n		    if ( elem.hasClass(\"AnyTime-out-btn\") )\n		    	return;\n		    var txt = elem.text();\n		    if ( ( txt == '<' ) || ( txt == '&lt;' ) )\n		      this.askYear(event);\n		    else if ( ( txt == '>' ) || ( txt == '&gt;' ) )\n		      this.askYear(event);\n		    else\n		    {\n		      var t = new Date(this.time.getTime());\n		      t.setFullYear(Number(txt));\n		      this.set(t);\n		      this.upd(this.yCur);\n		    }\n		},\n\n		//---------------------------------------------------------------------\n		//  .newYPos() is called internally whenever a user clicks a year\n		//  selection value.  It changes the date and updates the text field.\n		//---------------------------------------------------------------------\n\n		newYPos: function( event )\n		{\n		    var elem = $(event.target);\n		    if ( elem.hasClass(\"AnyTime-out-btn\") )\n		    	return;\n\n		    var era = 1;\n		    var year = this.time.getFullYear();\n		    if ( year < 0 )\n		    {\n		      era = (-1);\n		      year = 0 - year;\n		    }\n		    year = AnyTime.pad( year, 4 );\n		    if ( elem.hasClass('AnyTime-mil-btn') )\n		      year = elem.html() + year.substring(1,4);\n		    else if ( elem.hasClass('AnyTime-cent-btn') )\n		      year = year.substring(0,1) + elem.html() + year.substring(2,4);\n		    else if ( elem.hasClass('AnyTime-dec-btn') )\n		      year = year.substring(0,2) + elem.html() + year.substring(3,4);\n		    else\n		      year = year.substring(0,3) + elem.html();\n		    if ( year == '0000' )\n		      year = 1;\n		    var t = new Date(this.time.getTime());\n		    t.setFullYear( era * year );\n		    this.set(t);\n		    this.updYDiv(elem);\n\n		}, // .newYPos()\n\n		//---------------------------------------------------------------------\n		//  .onReady() initializes the picker after the page has loaded.\n		//---------------------------------------------------------------------\n\n		onReady: function()\n		{\n			this.lostFocus = true;\n			if ( ! this.pop )\n				this.upd(null);\n			else\n			{\n				if ( this.div.parent() != document.body )\n					this.div.appendTo( document.body );\n			}\n		},\n\n		//---------------------------------------------------------------------\n		//  .pos() positions the picker, such as when it is displayed or\n		//	when the window is resized.\n		//---------------------------------------------------------------------\n\n		pos: function(event) // note: event is ignored but this is a handler\n		{\n		    if ( this.pop )\n		    {\n		      var off = this.inp.offset();\n		      var bodyWidth = $(document.body).outerWidth(true);\n		      var pickerWidth = this.div.outerWidth(true);\n		      var left = off.left;\n		      if ( left + pickerWidth > bodyWidth - 20 )\n		        left = bodyWidth - ( pickerWidth + 20 );\n		      var top = off.top - this.div.outerHeight(true);\n		      if ( top < 0 )\n		        top = off.top + this.inp.outerHeight(true);\n		      this.div.css( { top: String(top)+'px', left: String(left<0?0:left)+'px' } );\n		    }\n\n		    var wOff = this.div.offset();\n\n		    if ( this.oDiv && this.oDiv.is(\":visible\") )\n		    {\n		      var oOff = this.oLab.offset();\n		      if ( this.div.css('position') == 'absolute' )\n		      {\n		    	  oOff.top -= wOff.top;\n		          oOff.left = oOff.left - wOff.left;\n		    	  wOff = { top: 0, left: 0 };\n		      }\n		      var oW = this.oDiv.outerWidth(true);\n		      var wW = this.div.outerWidth(true);\n		      if ( oOff.left + oW > wOff.left + wW )\n		      {\n		    	  oOff.left = (wOff.left+wW)-oW;\n		    	  if ( oOff.left < 2 )\n		    		  oOff.left = 2;\n		      }\n\n		      var oH = this.oDiv.outerHeight(true);\n		      var wH = this.div.outerHeight(true);\n		      oOff.top += this.oLab.outerHeight(true);\n		      if ( oOff.top + oH > wOff.top + wH )\n		    	  oOff.top = oOff.top - oH;\n		      if ( oOff.top < wOff.top )\n		    	  oOff.top = wOff.top;\n\n		      this.oDiv.css( { top: oOff.top+'px', left: oOff.left+'px' } ) ;\n		    }\n\n		    else if ( this.yDiv && this.yDiv.is(\":visible\") )\n		    {\n		      var yOff = this.yLab.offset();\n		      if ( this.div.css('position') == 'absolute' )\n		      {\n		    	  yOff.top -= wOff.top;\n		          yOff.left = yOff.left - wOff.left;\n		    	  wOff = { top: 0, left: 0 };\n		      }\n		      yOff.left += ( (this.yLab.outerWidth(true)-this.yDiv.outerWidth(true)) / 2 );\n		      this.yDiv.css( { top: yOff.top+'px', left: yOff.left+'px' } ) ;\n		    }\n\n		    if ( this.cloak )\n			  this.cloak.css( {\n		      	top: wOff.top+'px',\n		      	left: wOff.left+'px',\n		      	height: String(this.div.outerHeight(true)-2)+'px',\n		    	width: String(this.div.outerWidth(true)-2)+'px'\n		    	} );\n\n		}, // .pos()\n\n		//---------------------------------------------------------------------\n		//  .set() changes the current time.  It returns true if the new\n		//	time is within the allowed range (if any).\n		//---------------------------------------------------------------------\n\n		set: function(newTime)\n		{\n		    var t = newTime.getTime();\n		    if ( this.earliest && ( t < this.earliest.getTime() ) )\n		      this.time = new Date(this.earliest.getTime());\n		    else if ( this.latest && ( t > this.latest.getTime() ) )\n		      this.time = new Date(this.latest.getTime());\n		    else\n		      this.time = newTime;\n		},\n\n		//---------------------------------------------------------------------\n		//  .setCurrent() changes the current time.\n		//---------------------------------------------------------------------\n\n		setCurrent: function(newTime)\n		{\n        this.set(this.makeDate(newTime));\n        this.upd(null);\n		},\n\n		//---------------------------------------------------------------------\n		//  .setEarliest() changes the earliest time.\n		//---------------------------------------------------------------------\n\n		setEarliest: function(newTime)\n		{\n        this.earliest = this.makeDate( newTime );\n        this.set(this.time);\n        this.upd(null);\n		},\n\n		//---------------------------------------------------------------------\n		//  .setLatest() changes the latest time.\n		//---------------------------------------------------------------------\n\n		setLatest: function(newTime)\n		{\n        this.latest = this.makeDate( newTime );\n        this.set(this.time);\n        this.upd(null);\n		},\n\n		//---------------------------------------------------------------------\n		//  .showPkr() displays the picker and sets the focus psuedo-\n		//	element. The current value in the input field is used to initialize\n		//	the picker.\n		//---------------------------------------------------------------------\n\n		showPkr: function(event)\n		{\n			try\n		    {\n		      this.time = this.conv.parse(this.inp.val());\n		      this.offMin = this.conv.getUtcParseOffsetCaptured();\n		      this.offSI = this.conv.getUtcParseOffsetSubIndex();\n		    }\n		    catch ( e )\n		    {\n		      this.time = new Date();\n		    }\n		    this.set(this.time);\n		    this.upd(null);\n\n		    fBtn = null;\n		    var cb = '.AnyTime-cur-btn:first';\n		    if ( this.dDoM )\n		    	fBtn = this.dDoM.find(cb);\n			else if ( this.yCur )\n				fBtn = this.yCur;\n			else if ( this.dMo )\n				fBtn = this.dMo.find(cb);\n			else if ( this.dH )\n				fBtn = this.dH.find(cb);\n			else if ( this.dM )\n				fBtn = this.dM.find(cb);\n			else if ( this.dS )\n				fBtn = this.dS.find(cb);\n\n      this.setFocus(fBtn);\n      this.pos(event);\n\n		}, // .showPkr()\n\n		//---------------------------------------------------------------------\n		//  .upd() updates the picker's appearance.  It is called after\n		//	most events to make the picker reflect the currently-selected\n		//	values. fBtn is the psuedo-button to be given focus.\n		//---------------------------------------------------------------------\n\n		upd: function(fBtn)\n		{\n		    var cmpLo = new Date(this.time.getTime());\n		    cmpLo.setMonth(0,1);\n		    cmpLo.setHours(0,0,0,0);\n		    var cmpHi = new Date(this.time.getTime());\n		    cmpHi.setMonth(11,31);\n		    cmpHi.setHours(23,59,59,999);\n        var earliestTime = this.earliest && this.earliest.getTime();\n        var latestTime = this.latest && this.latest.getTime();\n\n		    //  Update year.\n\n		    var current = this.time.getFullYear();\n		    if ( this.earliest && this.yPast )\n		    {\n				  cmpHi.setFullYear(current-2);\n			      if ( cmpHi.getTime() < this.earliestTime )\n              this.yPast.addClass('AnyTime-out-btn ui-state-disabled');\n            else\n              this.yPast.removeClass('AnyTime-out-btn ui-state-disabled');\n          }\n          if ( this.yPrior )\n          {\n		      this.yPrior.text(AnyTime.pad((current==1)?(-1):(current-1),4));\n		      if ( this.earliest )\n		      {\n				  cmpHi.setFullYear(current-1);\n			      if ( cmpHi.getTime() < this.earliestTime )\n			    	  this.yPrior.addClass('AnyTime-out-btn ui-state-disabled');\n			      else\n			    	  this.yPrior.removeClass('AnyTime-out-btn ui-state-disabled');\n		      }\n		    }\n		    if ( this.yCur )\n		      this.yCur.text(AnyTime.pad(current,4));\n		    if ( this.yNext )\n		    {\n		      this.yNext.text(AnyTime.pad((current==-1)?1:(current+1),4));\n		      if ( this.latest )\n		      {\n			      cmpLo.setFullYear(current+1);\n			      if ( cmpLo.getTime() > this.latestTime )\n			    	  this.yNext.addClass('AnyTime-out-btn ui-state-disabled');\n			      else\n			    	  this.yNext.removeClass('AnyTime-out-btn ui-state-disabled');\n		      }\n		    }\n		    if ( this.latest && this.yAhead )\n		    {\n				  cmpLo.setFullYear(current+2);\n			      if ( cmpLo.getTime() > this.latestTime )\n			    	  this.yAhead.addClass('AnyTime-out-btn ui-state-disabled');\n			      else\n			    	  this.yAhead.removeClass('AnyTime-out-btn ui-state-disabled');\n		    }\n\n		    //  Update month.\n\n		    cmpLo.setFullYear( this.time.getFullYear() );\n		    cmpHi.setFullYear( this.time.getFullYear() );\n		    var i = 0;\n		    current = this.time.getMonth();\n		    $('#'+this.id+' .AnyTime-mon-btn').each(\n		      function()\n		      {\n		    	cmpLo.setMonth(i);\n				cmpHi.setDate(1);\n		    	cmpHi.setMonth(i+1);\n				cmpHi.setDate(0);\n		        $(this).AnyTime_current( i == current,\n		        		((!_this.earliest)||(cmpHi.getTime()>=earliestTime)) &&\n		        		((!_this.latest)||(cmpLo.getTime()<=latestTime)) );\n		        i++;\n		      } );\n\n		    //  Update days.\n\n		    cmpLo.setFullYear( this.time.getFullYear() );\n		    cmpHi.setFullYear( this.time.getFullYear() );\n		    cmpLo.setMonth( this.time.getMonth() );\n		    cmpHi.setMonth( this.time.getMonth(), 1 );\n		    current = this.time.getDate();\n		    var currentMonth = this.time.getMonth();\n		    var lastLoDate = -1;\n		    var dow1 = cmpLo.getDay();\n		    if ( this.fDOW > dow1 )\n		      dow1 += 7;\n		    var wom = 0, dow=0;\n		    $('#'+this.id+' .AnyTime-wk').each(\n		      function()\n		      {\n		        dow = _this.fDOW;\n		        $(this).children().each(\n		          function()\n		          {\n		        	  if ( dow - _this.fDOW < 7 )\n		        	  {\n		        		  var td = $(this);\n				          if ( ((wom==0)&&(dow<dow1)) || (cmpLo.getMonth()!=currentMonth) )\n				          {\n				            td.html('&#160;');\n				            td.removeClass('AnyTime-dom-btn-filled AnyTime-cur-btn ui-state-default ui-state-highlight');\n				            td.addClass('AnyTime-dom-btn-empty');\n				            if ( wom ) // not first week\n				            {\n				            	if ( ( cmpLo.getDate() == 1 ) && ( dow != 0 ) )\n				            		td.addClass('AnyTime-dom-btn-empty-after-filled');\n				            	else\n				            		td.removeClass('AnyTime-dom-btn-empty-after-filled');\n				            	if ( cmpLo.getDate() <= 7 )\n				            		td.addClass('AnyTime-dom-btn-empty-below-filled');\n				            	else\n				            		td.removeClass('AnyTime-dom-btn-empty-below-filled');\n				                cmpLo.setDate(cmpLo.getDate()+1);\n				                cmpHi.setDate(cmpHi.getDate()+1);\n				            }\n				            else // first week\n				            {\n				            	td.addClass('AnyTime-dom-btn-empty-above-filled');\n				            	if ( dow == dow1 - 1 )\n				            		td.addClass('AnyTime-dom-btn-empty-before-filled');\n				            	else\n				            		td.removeClass('AnyTime-dom-btn-empty-before-filled');\n				            }\n				            td.addClass('ui-state-default ui-state-disabled');\n				          }\n				          else\n				          {\n				            // Brazil daylight savings time sometimes results in\n				            // midnight being the same day twice. This skips the\n				            //  second one.\n                    if ( ( i = cmpLo.getDate() ) == lastLoDate )\n                      cmpLo.setDate( ++i );\n                    lastLoDate = i;\n\n				            td.text(i);\n				            td.removeClass('AnyTime-dom-btn-empty AnyTime-dom-btn-empty-above-filled AnyTime-dom-btn-empty-before-filled '+\n				            				'AnyTime-dom-btn-empty-after-filled AnyTime-dom-btn-empty-below-filled ' +\n				            				'ui-state-default ui-state-disabled');\n				            td.addClass('AnyTime-dom-btn-filled ui-state-default');\n				            td.AnyTime_current( i == current,\n					        		((!_this.earliest)||(cmpHi.getTime()>=earliestTime)) &&\n					        		((!_this.latest)||(cmpLo.getTime()<=latestTime)) );\n				            cmpLo.setDate(i+1);\n				            cmpHi.setDate(i+1);\n				          }\n		        	  }\n		              dow++;\n		          } );\n		          wom++;\n		      } );\n\n		    //  Update hour.\n\n		    cmpLo.setFullYear( this.time.getFullYear() );\n		    cmpHi.setFullYear( this.time.getFullYear() );\n		    cmpLo.setMonth( this.time.getMonth(), this.time.getDate() );\n		    cmpHi.setMonth( this.time.getMonth(), this.time.getDate() );\n		    var not12 = ! this.twelveHr;\n        var hr = this.time.getHours();\n		    $('#'+this.id+' .AnyTime-hr-btn').each(\n		      function()\n		      {\n            var html = this.innerHTML;\n            var i;\n            if ( not12 )\n              i = Number(html);\n            else\n            {\n              i = Number(html.substring(0,html.length-2) );\n              if ( html.charAt(html.length-2) == 'a' )\n              {\n                if ( i == 12 )\n                  i = 0;\n              }\n              else if ( i < 12 )\n                i += 12;\n            }\n                cmpLo.setHours(i);\n                cmpHi.setHours(i);\n            $(this).AnyTime_current( hr == i,\n		        	((!_this.earliest)||(cmpHi.getTime()>=earliestTime)) &&\n		        		((!_this.latest)||(cmpLo.getTime()<=latestTime)) );\n            if ( i < 23 )\n		          cmpLo.setHours( cmpLo.getHours()+1 );\n		      } );\n\n		    //  Update minute.\n\n        cmpLo.setHours( this.time.getHours() );\n        cmpHi.setHours( this.time.getHours(), 9 );\n		    var units = this.time.getMinutes();\n		    var tens = String(Math.floor(units/10));\n		    var ones = String(units % 10);\n		    $('#'+this.id+' .AnyTime-min-ten-btn:not(.AnyTime-min-ten-btn-empty)').each(\n		      function()\n		      {\n		        $(this).AnyTime_current( this.innerHTML == tens,\n		        		((!_this.earliest)||(cmpHi.getTime()>=earliestTime)) &&\n		        		((!_this.latest)||(cmpLo.getTime()<=latestTime)) );\n            if ( cmpLo.getMinutes() < 50 )\n            {\n		        cmpLo.setMinutes( cmpLo.getMinutes()+10 );\n		        cmpHi.setMinutes( cmpHi.getMinutes()+10 );\n            }\n		      } );\n		    cmpLo.setMinutes( Math.floor(this.time.getMinutes()/10)*10 );\n		    cmpHi.setMinutes( Math.floor(this.time.getMinutes()/10)*10 );\n		    $('#'+this.id+' .AnyTime-min-one-btn:not(.AnyTime-min-one-btn-empty)').each(\n		      function()\n		      {\n		        $(this).AnyTime_current( this.innerHTML == ones,\n		        		((!_this.earliest)||(cmpHi.getTime()>=earliestTime)) &&\n		        		((!_this.latest)||(cmpLo.getTime()<=latestTime)) );\n		        cmpLo.setMinutes( cmpLo.getMinutes()+1 );\n		        cmpHi.setMinutes( cmpHi.getMinutes()+1 );\n		      } );\n\n		    //  Update second.\n\n		    cmpLo.setMinutes( this.time.getMinutes() );\n		    cmpHi.setMinutes( this.time.getMinutes(), 9 );\n		    units = this.time.getSeconds();\n		    tens = String(Math.floor(units/10));\n		    ones = String(units % 10);\n		    $('#'+this.id+' .AnyTime-sec-ten-btn:not(.AnyTime-sec-ten-btn-empty)').each(\n		      function()\n		      {\n		        $(this).AnyTime_current( this.innerHTML == tens,\n		        		((!_this.earliest)||(cmpHi.getTime()>=earliestTime)) &&\n		        		((!_this.latest)||(cmpLo.getTime()<=latestTime)) );\n            if ( cmpLo.getSeconds() < 50 )\n            {\n		        cmpLo.setSeconds( cmpLo.getSeconds()+10 );\n		        cmpHi.setSeconds( cmpHi.getSeconds()+10 );\n            }\n		      } );\n		    cmpLo.setSeconds( Math.floor(this.time.getSeconds()/10)*10 );\n		    cmpHi.setSeconds( Math.floor(this.time.getSeconds()/10)*10 );\n		    $('#'+this.id+' .AnyTime-sec-one-btn:not(.AnyTime-sec-one-btn-empty)').each(\n		      function()\n		      {\n		        $(this).AnyTime_current( this.innerHTML == ones,\n		        		((!_this.earliest)||(cmpHi.getTime()>=earliestTime)) &&\n		        		((!_this.latest)||(cmpLo.getTime()<=latestTime)) );\n		        cmpLo.setSeconds( cmpLo.getSeconds()+1 );\n		        cmpHi.setSeconds( cmpHi.getSeconds()+1 );\n		      } );\n\n		    //  Update offset (time zone).\n\n		    if ( this.oConv )\n		    {\n			    this.oConv.setUtcFormatOffsetAlleged(this.offMin);\n			    this.oConv.setUtcFormatOffsetSubIndex(this.offSI);\n			    var tzs = this.oConv.format(this.time);\n			    this.oCur.html( tzs );\n		    }\n\n		    //	Set the focus element, then size the picker according to its\n		    //	components, show the changes, and invoke Ajax if desired.\n\n		    if ( fBtn )\n		    	this.setFocus(fBtn);\n\n            this.conv.setUtcFormatOffsetAlleged(this.offMin);\n		    this.conv.setUtcFormatOffsetSubIndex(this.offSI);\n		    this.updVal(this.conv.format(this.time));\n		    this.div.show();\n\n        if ( this.dO ) // fit offset button\n        {\n          this.oCur.css('width','0');\n          var curW = this.dT.width()-this.oMinW;\n          if ( curW < 40 )\n            curW = 40;\n          this.oCur.css('width',String(curW)+'px');\n        }\n\n		    if ( ! this.pop )\n		      this.ajax();\n\n		}, // .upd()\n\n		//---------------------------------------------------------------------\n		//  .updODiv() updates the UTC offset selector's appearance.  It is\n		//	called after most events to make the picker reflect the currently-\n		//	selected values. fBtn is the psuedo-button to be given focus.\n		//---------------------------------------------------------------------\n\n		updODiv: function(fBtn)\n		{\n            var cur, matched = false, def = null;\n		    this.oDiv.find('.AnyTime-off-off-btn').each(\n		      function()\n		      {\n		    	  if ( this.AnyTime_offMin == _this.offMin )\n		    	  {\n		    		  if ( this.AnyTime_offSI == _this.offSI )\n		    			  $(this).AnyTime_current(matched=true,true);\n		    		  else\n		    	      {\n		    			  $(this).AnyTime_current(false,true);\n		    			  if ( def == null )\n			    			  def = $(this);\n		    	      }\n		    	  }\n		    	  else\n	    			  $(this).AnyTime_current(false,true);\n		      } );\n		    if ( ( ! matched ) && ( def != null ) )\n		    	def.AnyTime_current(true,true);\n\n		    //  Show change\n\n            this.conv.setUtcFormatOffsetAlleged(this.offMin);\n            this.conv.setUtcFormatOffsetSubIndex(this.offSI);\n		    this.updVal(this.conv.format(this.time));\n		    this.upd(fBtn);\n\n		}, // .updODiv()\n\n		//---------------------------------------------------------------------\n		//  .updYDiv() updates the year selector's appearance.  It is\n		//	called after most events to make the picker reflect the currently-\n		//	selected values. fBtn is the psuedo-button to be given focus.\n		//---------------------------------------------------------------------\n\n		updYDiv: function(fBtn)\n		{\n		    var i, legal;\n			var era = 1;\n		    var yearValue = this.time.getFullYear();\n		    if ( yearValue < 0 )\n		    {\n		      era = (-1);\n		      yearValue = 0 - yearValue;\n		    }\n		    yearValue = AnyTime.pad( yearValue, 4 );\n		    var eY = _this.earliest && _this.earliest.getFullYear();\n		    var lY = _this.latest && _this.latest.getFullYear();\n\n		    i = 0;\n		    this.yDiv.find('.AnyTime-mil-btn').each(\n		      function()\n		      {\n		    	legal = ( ((!_this.earliest)||(era*(i+(era<0?0:999))>=eY)) && ((!_this.latest)||(era*(i+(era>0?0:999))<=lY)) );\n		        $(this).AnyTime_current( this.innerHTML == yearValue.substring(0,1), legal );\n		        i += 1000;\n		      } );\n\n		    i = (Math.floor(yearValue/1000)*1000);\n		    this.yDiv.find('.AnyTime-cent-btn').each(\n		      function()\n		      {\n			    	legal = ( ((!_this.earliest)||(era*(i+(era<0?0:99))>=eY)) && ((!_this.latest)||(era*(i+(era>0?0:99))<=lY)) );\n		        $(this).AnyTime_current( this.innerHTML == yearValue.substring(1,2), legal );\n		        i += 100;\n		      } );\n\n		    i = (Math.floor(yearValue/100)*100);\n		    this.yDiv.find('.AnyTime-dec-btn').each(\n		      function()\n		      {\n			    	legal = ( ((!_this.earliest)||(era*(i+(era<0?0:9))>=eY)) && ((!_this.latest)||(era*(i+(era>0?0:9))<=lY)) );\n		        $(this).AnyTime_current( this.innerHTML == yearValue.substring(2,3), legal );\n		        i += 10;\n		      } );\n\n		    i = (Math.floor(yearValue/10)*10);\n		    this.yDiv.find('.AnyTime-yr-btn').each(\n		      function()\n		      {\n			    legal = ( ((!_this.earliest)||(era*i>=eY)) && ((!_this.latest)||(era*i<=lY)) );\n		        $(this).AnyTime_current( this.innerHTML == yearValue.substring(3), legal );\n		        i += 1;\n	          } );\n\n		    this.yDiv.find('.AnyTime-bce-btn').each(\n		      function()\n		      {\n		    	  $(this).AnyTime_current( era < 0, (!_this.earliest) || ( _this.earliest.getFullYear() < 0 ) );\n		      } );\n		    this.yDiv.find('.AnyTime-ce-btn').each(\n		      function()\n		      {\n		    	$(this).AnyTime_current( era > 0, (!_this.latest) || ( _this.latest.getFullYear() > 0 ) );\n		      } );\n\n		    //  Show change\n\n            this.conv.setUtcFormatOffsetAlleged(this.offMin);\n            this.conv.setUtcFormatOffsetSubIndex(this.offSI);\n		    this.updVal(this.conv.format(this.time));\n		    this.upd(fBtn);\n\n		}, // .updYDiv()\n\n		//---------------------------------------------------------------------\n		//  .updVal() updates the input value, but only if it's different\n		//	than the previous value. It also triggers a change() event if\n		//	the value is updated.\n		//---------------------------------------------------------------------\n\n		updVal: function(val)\n		{\n		    if ( this.inp.val() != val ) {\n		      this.inp.val(val);\n		      this.inp.change();\n          }\n    }\n\n	}; // __pickers[id] = ...\n	__pickers[id].initialize(id);\n\n} // AnyTime.picker =\n\n//=============================================================================\n//  AnyTime.setCurrent()\n//\n//  Updates the current date/time for the picker attached to a specified\n//  text field.  This also sets the value of the text field.\n//=============================================================================\n\nAnyTime.setCurrent = function( id, newTime )\n{\n  __pickers[id].setCurrent(newTime)\n};\n\n\n//=============================================================================\n//  AnyTime.setEarliest()\n//\n//  Updates the earliest date/time for the picker attached to a specified\n//  text field.\n//=============================================================================\n\nAnyTime.setEarliest = function( id, newTime )\n{\n  __pickers[id].setEarliest(newTime)\n};\n\n\n//=============================================================================\n//  AnyTime.setLatest()\n//\n//  Updates the latest date/time for the picker attached to a specified\n//  text field.\n//=============================================================================\n\nAnyTime.setLatest = function( id, newTime )\n{\n  __pickers[id].setLatest(newTime)\n};\n\n\n})(jQuery); // function($)...\n\n\n//\n//  END OF FILE\n//",
+			"file": "staticfiles/timepicker2/timepicker.js",
+			"file_size": 131029,
+			"file_write_time": 131198029584372018,
+			"settings":
+			{
+				"buffer_size": 131029,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
+				"line_ending": "Unix"
+			}
+		},
+		{
+<<<<<<< HEAD
 			"file": "eda5/zahtevki/views/dogodek.py",
 			"settings":
 			{
 				"buffer_size": 3895,
 				"encoding": "UTF-8",
+=======
+			"file": "eda5/zahtevki/forms.py",
+			"settings":
+			{
+				"buffer_size": 4356,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 				"line_ending": "Unix"
 			}
 		},
@@ -505,8 +637,20 @@
 			"file": "eda5/dogodki/models.py",
 			"settings":
 			{
+<<<<<<< HEAD
 				"buffer_size": 3226,
 				"encoding": "UTF-8",
+=======
+				"buffer_size": 6069,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "eda5/zahtevki/views/splosno.py",
+			"settings":
+			{
+				"buffer_size": 14933,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 				"line_ending": "Unix"
 			}
 		}
@@ -575,6 +719,7 @@
 		"/home/pavlovicv/djangoprj/eda5/eda5",
 		"/home/pavlovicv/djangoprj/eda5/eda5/arhiv",
 		"/home/pavlovicv/djangoprj/eda5/eda5/core",
+<<<<<<< HEAD
 		"/home/pavlovicv/djangoprj/eda5/eda5/deli",
 		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki",
 		"/home/pavlovicv/djangoprj/eda5/eda5/kljuci",
@@ -582,11 +727,34 @@
 		"/home/pavlovicv/djangoprj/eda5/eda5/moduli",
 		"/home/pavlovicv/djangoprj/eda5/eda5/narocila",
 		"/home/pavlovicv/djangoprj/eda5/eda5/posta",
+=======
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki",
+		"/home/pavlovicv/djangoprj/eda5/eda5/etaznalastnina",
+		"/home/pavlovicv/djangoprj/eda5/eda5/lastnistvo",
+		"/home/pavlovicv/djangoprj/eda5/eda5/moduli",
+		"/home/pavlovicv/djangoprj/eda5/eda5/racunovodstvo",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/moduli",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/planiranje",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/racunovodstvo",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/racunovodstvo/racun",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/header",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/list",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/list/tabs",
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki",
-		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views"
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zaznamki",
+		"/home/pavlovicv/djangoprj/eda5/staticfiles",
+		"/home/pavlovicv/djangoprj/eda5/staticfiles/timepicker"
 	],
 	"file_history":
 	[
+<<<<<<< HEAD
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_02.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_07.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_08.html",
@@ -641,7 +809,27 @@
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/admin.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/admin.py",
 		"/home/pavlovicv/djangoprj/eda5/eda5/planiranje/models.py",
+=======
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/models.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/models.py",
+		"/home/pavlovicv/djangoprj/eda5/config/settings/common.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views/splosno.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/managers.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/forms.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/etaznalastnina/forms.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/admin.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/dogodki/admin.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/base.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/modal.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/content.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_07.html",
+		"/home/pavlovicv/djangoprj/eda5/eda5/planiranje/models.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/forms.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/lastnistvo/forms.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/views/predaja_lastnine.py",
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 		"/home/pavlovicv/djangoprj/eda5/eda5/zahtevki/managers.py",
+		"/home/pavlovicv/djangoprj/eda5/eda5/templates/zahtevki/zahtevek/detail/tabs/tab_06.html",
 		"/home/pavlovicv/djangoprj/eda5/eda5/posta/models.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/splosno.py",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/stevcnostanje/delilnik/detail/content.html",
@@ -714,7 +902,46 @@
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/modal.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/report_1.html",
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/js.html",
+<<<<<<< HEAD
 		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/base.html"
+=======
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/reports/strosek/base.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/katalog/models.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/model_artikla/list/content.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/zahtevki/views/predaja_lastnine.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/lastnistvo/admin.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/model_artikla/list/base.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/posta/dokument/list/content.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/tip_artikla/list/content.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/proizvajalec/list/content.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/tip_artikla/list/base.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/model_artikla/list/js.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/tip_artikla/list/js.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/proizvajalec/list/base.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/model_artikla/list/modal.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/katalog/urls.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/katalog/proizvajalec/list/js.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/katalog/views.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/forms.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/views/racun_views.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/posta/admin.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/racunovodstvo/admin.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/racun/list/tabs/tab_02.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/racun/list/tabs/tab_01.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/posta/dokument/list/base.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/etaznalastnina/lastniska_enota_interna/list/lastniska.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/racunovodstvo/racun/list/base.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/posta/dokument/list/tabs/tab_01.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/posta/dokument/list/tabs/tab_02.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/narocila/narocilo/detail/tabs/tab_01.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/models.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/models.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/admin.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/views.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/templates/narocila/narocilo/create_dokument.html",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/narocila/urls.py",
+		"/home/pavlovicv/Desktop/django/eda5/eda5/arhiv/managers.py"
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 	],
 	"find":
 	{
@@ -732,12 +959,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+<<<<<<< HEAD
 			"veljavna",
 			"zavihe",
 			"dogodek_create",
 			"predaja_lastnine",
 			"kolici",
 			"datum_predajekoli",
+=======
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 			"DateInput",
 			"date",
 			"predajalastnine",
@@ -859,7 +1089,17 @@
 			"program",
 			"config",
 			"ssl",
+<<<<<<< HEAD
 			"export"
+=======
+			"export",
+			"static",
+			"DATABASE",
+			"simple",
+			"simple server",
+			"DATABASE",
+			"ADMIN"
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -903,16 +1143,28 @@
 	"groups":
 	[
 		{
+<<<<<<< HEAD
 			"selected": 1,
+=======
+			"selected": 12,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 			"sheets":
 			[
 				{
 					"buffer": 0,
+<<<<<<< HEAD
 					"file": "eda5/dogodki/forms.py",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 1009,
+=======
+					"file": "eda5/dogodki/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3226,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 						"regions":
 						{
 						},
@@ -928,71 +1180,572 @@
 							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 66.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+=======
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+<<<<<<< HEAD
 					"file": "eda5/zahtevki/views/dogodek.py",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 3895,
+=======
+					"file": "eda5/templates/base.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11136,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								3895,
 								3895
+=======
+								7689,
+								7689
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 							]
 						],
 						"settings":
 						{
+<<<<<<< HEAD
 							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+=======
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 2170.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+=======
+						"translation.y": 5038.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+<<<<<<< HEAD
+					"file": "eda5/dogodki/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3226,
+=======
+					"file": "eda5/zahtevki/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6063,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+<<<<<<< HEAD
+								997,
+								997
+=======
+								1499,
+								1499
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
+							]
+						],
+						"settings":
+						{
+<<<<<<< HEAD
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+=======
+							"syntax": "Packages/Python/Python.sublime-syntax",
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+<<<<<<< HEAD
+						"translation.y": 66.0,
+=======
+						"translation.y": 864.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "eda5/templates/zahtevki/zahtevek/list/tabs/tab_01.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1782,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								586,
+								586
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 264.0,
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+<<<<<<< HEAD
+=======
+				},
+				{
+					"buffer": 4,
+					"file": "eda5/templates/zahtevki/zahtevek/list/tabs/tab_02.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1765,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								568,
+								568
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "eda5/templates/zahtevki/zahtevek/detail/base.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3353,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2253.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "eda5/core/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1488,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1291,
+								1291
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 864.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "eda5/dogodki/managers.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 736,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "eda5/dogodki/forms.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1009,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_06.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2439,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2378,
+								2378
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "eda5/arhiv/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4385,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3626,
+								3626
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1944.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_03.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5139,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2478,
+								2478
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 432.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_04.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 969,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								362,
+								362
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "eda5/dogodki/models.py",
-					"semi_transient": false,
+					"buffer": 13,
+					"file": "eda5/templates/zahtevki/zahtevek/detail/tabs/tab_02.html",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 3226,
+						"buffer_size": 738,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								997,
-								997
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 66.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "staticfiles/timepicker2/timepicker.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 131029,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5898,
+								5898
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 45090.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "eda5/zahtevki/forms.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4356,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1080.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "eda5/templates/zahtevki/zahtevek/detail/modal.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6069,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2400.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "eda5/zahtevki/views/splosno.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14933,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 4152.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+>>>>>>> 86aa82045f11d2f9e2c9e00d64cbd626cb190b49
 				}
 			]
 		}
@@ -1074,7 +1827,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 337.0,
+	"side_bar_width": 355.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
