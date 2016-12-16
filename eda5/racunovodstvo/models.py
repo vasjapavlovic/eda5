@@ -34,6 +34,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     je_reprezentanca = models.BooleanField(default=False)
     reprezentanca_opis = models.CharField(max_length=255, blank=True, null=True)
     zavrnjen = models.BooleanField(default=False)
+    zavrnjen_datum = models.DateField(blank=True, null=True)
     zavrnjen_obrazlozitev_text = models.TextField(blank=True, null=True)
     # zavrnjen_obrazlozitev_dokument
 
