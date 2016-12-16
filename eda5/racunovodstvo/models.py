@@ -4,6 +4,7 @@ from decimal import Decimal
 
 from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikvidiranModel
 from eda5.etaznalastnina.models import LastniskaSkupina
+from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.narocila.models import Narocilo
@@ -21,6 +22,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     # ATRIBUTES
     # ***Relations***
     racunovodsko_leto = models.ForeignKey(ObdobjeLeto)
+    povracilo_stroskov_zaposlenemu = models.ForeignKey(Oseba, blank=True, null=True)
     # ***Mandatory***
     oznaka = models.IntegerField()
     davcna_klasifikacija = models.IntegerField(choices=DAVCNA_KLASIFIKACIJA)
@@ -28,6 +30,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     datum_storitve_od = models.DateField(blank=True, null=True)
     datum_storitve_do = models.DateField(blank=True, null=True)
 
+    # ***Optional***
 
     # OBJECT MANAGER
     objects = RacunManager()
