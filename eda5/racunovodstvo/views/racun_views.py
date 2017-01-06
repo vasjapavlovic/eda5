@@ -145,6 +145,18 @@ class RacunCreateView(TemplateView):
                 except:
                     oznaka = 1
 
+            # za račun = "AVR"
+            if dokument.vrsta_dokumenta.oznaka == "AVR":
+                try:
+                    zadnji_racun_rac_leta = Racun.objects.filter(
+                        racunovodsko_leto=racunovodsko_leto,
+                        arhiviranje__dokument__vrsta_dokumenta__oznaka="AVR"
+                        ).latest('oznaka')
+                    nova_oznaka = zadnji_racun_rac_leta.oznaka + 1
+                    oznaka = nova_oznaka
+                except:
+                    oznaka = 1
+
             # ***************************************************************************************
 
             racun_data = Racun.objects.create_racun(
