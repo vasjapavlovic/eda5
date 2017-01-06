@@ -63,7 +63,8 @@ class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
             Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="RAC",) |
             Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="INR",) |
             Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="PRV",) |
-            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="DBR",)
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="DBR",) |
+            Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="AVR",)
             )
 
     class Meta(ArhiviranjeCreateForm.Meta):
