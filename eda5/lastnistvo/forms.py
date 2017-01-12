@@ -74,11 +74,18 @@ class NajemLastnineVraciloForm(forms.ModelForm):
     class Meta:
         model = NajemLastnine
         fields = (
+            'lastniska_enota',
+            'placnik',
+            'predaja_datum',
+            'veljavnost_datum',
+            'veljavnost_trajanje_opisno',
             'najemna_pogodba',
             'vracilo_datum',
             'vracilo_zapisnik',
             'vracilo_posebnosti',
         )
         widgets = {
+            'predaja_datum': DateInput(),
+            'veljavnost_datum': DateInput(),
             'vracilo_datum': DateInput(),
         }
