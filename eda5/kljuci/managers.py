@@ -6,14 +6,14 @@ class PredajaKljucaManager(models.Manager):
     def create_predaja_kljuca(
         self,
         kljuc=None,
-        datum_predaje=None,
+        predaja_datum=None,
         vrsta_predaje=None,
         zahtevek=None,
         ):
 
         predaja_kljuca = self.model(
             kljuc=kljuc,
-            datum_predaje=datum_predaje,
+            predaja_datum=predaja_datum,
             vrsta_predaje=vrsta_predaje,
             zahtevek=zahtevek,
             )

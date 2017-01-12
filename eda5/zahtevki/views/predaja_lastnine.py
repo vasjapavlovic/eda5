@@ -152,7 +152,7 @@ class ProdajaLastnineCreateView(UpdateView):
 
             ProdajaLastnine.objects.create_prodaja_lastnine(
                 lastniska_enota=lastniska_enota,
-                predaja_datum=datum_predaje,
+                datum_predaje=datum_predaje,
                 placnik=placnik,
                 predaja_lastnine=predaja_lastnine
             )
@@ -195,16 +195,16 @@ class NajemLastnineCreateView(UpdateView):
         # izdelamo opravilo (!!!elemente opravilu dodamo kasneje)
         if najem_lastnine_create_form.is_valid():
             lastniska_enota = najem_lastnine_create_form.cleaned_data['lastniska_enota']
-            datum_predaje = najem_lastnine_create_form.cleaned_data['datum_predaje']
+            predaja_datum = najem_lastnine_create_form.cleaned_data['predaja_datum']
             placnik = najem_lastnine_create_form.cleaned_data['placnik']
-            datum_veljavnosti = najem_lastnine_create_form.cleaned_data['datum_veljavnosti']
+            veljavnost_datum = najem_lastnine_create_form.cleaned_data['veljavnost_datum']
             predaja_lastnine = zahtevek.predajalastnine
 
             NajemLastnine.objects.create_najem_lastnine(
                 lastniska_enota=lastniska_enota,
-                datum_predaje=datum_predaje,
+                predaja_datum=predaja_datum,
                 placnik=placnik,
-                datum_veljavnosti=datum_veljavnosti,
+                veljavnost_datum=veljavnost_datum,
                 predaja_lastnine=predaja_lastnine
             )
 
@@ -252,13 +252,13 @@ class PredajaKljucaCreateView(UpdateView):
         # izdelamo predajo
         if predaja_kljuca_create_form.is_valid():
             kljuc = predaja_kljuca_create_form.cleaned_data['kljuc']
-            datum_predaje = predaja_kljuca_create_form.cleaned_data['datum_predaje']
+            predaja_datum = predaja_kljuca_create_form.cleaned_data['predaja_datum']
             vrsta_predaje = predaja_kljuca_create_form.cleaned_data['vrsta_predaje']
 
 
             PredajaKljuca.objects.create_predaja_kljuca(
                 kljuc=kljuc,
-                datum_predaje=datum_predaje,
+                predaja_datum=predaja_datum,
                 vrsta_predaje=vrsta_predaje,
                 zahtevek=zahtevek
             )

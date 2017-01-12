@@ -49,16 +49,16 @@ class NajemLastnineManager(models.Manager):
         self,
         lastniska_enota=None,
         placnik=None,
-        datum_predaje=None,
-        datum_veljavnosti=None,
+        predaja_datum=None,
+        veljavnost_datum=None,
         predaja_lastnine=None,
         ):
 
         najem_lastnine = self.model(
             lastniska_enota=lastniska_enota,
             placnik=placnik,
-            datum_predaje=datum_predaje,
-            datum_veljavnosti=datum_veljavnosti,
+            predaja_datum=predaja_datum,
+            veljavnost_datum=veljavnost_datum,
             predaja_lastnine=predaja_lastnine,
             )
 
