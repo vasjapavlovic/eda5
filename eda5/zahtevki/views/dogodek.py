@@ -76,7 +76,7 @@ class DogodekCreateView(UpdateView):
         # forms
         dogodek_create_form = DogodekCreateForm(request.POST or None)
         # zavihek
-        modul_zavihek = Zavihek.objects.get(oznaka="PREDAJA_KLJUCA_CREATE")
+        modul_zavihek = Zavihek.objects.get(oznaka="DOGODEK_CREATE")
 
         # izdelamo predajo
         if dogodek_create_form.is_valid():

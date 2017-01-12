@@ -8,20 +8,28 @@
                     <tr>
                         <th>oznaka</th>
                         <th>datum predaje</th>
-                        <th>vrsta predaje</th>
+                        <th>zapisnik o predaji</th>
+                        <th>datum vračila</th>
+                        <th>zapisnik o vračilu</th>
+                        <th>posebnosti vračila</th>
+                        <th>Command</th>
 
                     </tr>
 
                     {% for object in predaja_kljuca_list %}
 
-                    {% if object.vrsta_predaje == 1 %}
+                    {% if not object.vracilo_datum %}
                     <tr class="danger">
                     {% else %}
                     <tr class="success">
                     {% endif %}
                         <td><b>{{ object.kljuc.oznaka }}</b></td>
-                        <td>{{ object.datum_predaje }}</td>
-                        <td>{{ object.get_vrsta_predaje_display }}</td>
+                        <td>{{ object.predaja_datum }}</td>
+                        <td><a href="{{ MEDIA_URL }}{{ object.predaja_zapisnik.dokument.priponka }}">{{ object.predaja_zapisnik.dokument.oznaka }}</a></td>
+                        <td>{{ object.vracilo_datum }}</td>
+                        <td><a href="{{ MEDIA_URL }}{{ object.vracilo_zapisnik.dokument.priponka }}">{{ object.vracilo_zapisnik.dokument.oznaka }}</a></td>
+                        <td>{{ object.vracilo_posebnosti }}</td>
+                        <td><a type="button" href="{% url 'moduli:zahtevki:vracilo_kljuca_create' object.pk %}">Klikni za vračilo</a></td>
                     </tr>
                     {% endfor %}
                     

@@ -22,7 +22,7 @@ from ..models import Zahtevek
 # UVOŽENO ##############################################################
 
 # Ključi
-from eda5.kljuci.forms import PredajaKljucaCreateForm
+from eda5.kljuci.forms import PredajaKljucaCreateForm, PredajaKljucaVraciloForm
 from eda5.kljuci.models import PredajaKljuca
 
 # Moduli
@@ -35,7 +35,7 @@ from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import SkupinaPartnerjev
 
 # Lastnistvo
-from eda5.lastnistvo.forms import PredajaLastnineCreateForm, ProdajaLastnineCreateForm, NajemLastnineCreateForm
+from eda5.lastnistvo.forms import PredajaLastnineCreateForm, ProdajaLastnineCreateForm, NajemLastnineCreateForm,NajemLastnineVraciloForm
 from eda5.lastnistvo.models import PredajaLastnine, ProdajaLastnine, NajemLastnine
 
 
@@ -218,6 +218,12 @@ class NajemLastnineCreateView(UpdateView):
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
+class NajemLastnineVraciloView(UpdateView):
+    model = NajemLastnine
+    form_class = NajemLastnineVraciloForm
+    template_name = "lastnistvo/najem_lastnine/update_from_zahtevek.html"
+
+
 class PredajaKljucaCreateView(UpdateView):
     model = Zahtevek
     template_name = "kljuci/predaja_kljuca/create_from_zahtevek.html"
@@ -266,3 +272,9 @@ class PredajaKljucaCreateView(UpdateView):
             )
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
+class VraciloKljucaUpdateView(UpdateView):
+    model = PredajaKljuca
+    form_class = PredajaKljucaVraciloForm
+    template_name = "kljuci/predaja_kljuca/update_from_zahtevek.html"

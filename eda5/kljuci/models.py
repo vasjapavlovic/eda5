@@ -1,8 +1,10 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from .managers import *
 
-
+from eda5.arhiv.models import Arhiviranje
+from eda5.core.models import TimeStampedModel
 from eda5.deli.models import Element
 from eda5.zahtevki.models import Zahtevek
 
@@ -72,7 +74,6 @@ class PredajaKljuca(models.Model):
     VRSTA_PREDAJE = (
         (1, "predaja"),
         (2, "vračilo"),
-
     )
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
@@ -80,13 +81,23 @@ class PredajaKljuca(models.Model):
     kljuc = models.ForeignKey(Kljuc, verbose_name="ključ")
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
     #   Mandatory
-    datum_predaje = models.DateField()
     vrsta_predaje = models.IntegerField(choices=VRSTA_PREDAJE)
+    predaja_datum = models.DateField()
+    predaja_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name='predaja_zapisnik',)
+
+
+    vracilo_datum = models.DateField(blank=True, null=True)
+    vracilo_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name='vracilo_zapisnik',)
+    vracilo_posebnosti = models.CharField(max_length=255, blank=True, null=True)
+
     #   Optional
     # OBJECT MANAGER
     objects = PredajaKljucaManager()
     # CUSTOM PROPERTIES
     # METHODS
+    def get_absolute_url(self):
+        # return reverse('moduli:zahtevki:zahtevek_list')
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
 
     # META AND STRING
     class Meta:

@@ -1,7 +1,9 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from .managers import *
 
+from eda5.arhiv.models import Arhiviranje
 from eda5.core.models import TimeStampedModel, IsActiveModel
 from eda5.etaznalastnina.models import LastniskaEnotaElaborat, LastniskaEnotaInterna
 from eda5.partnerji.models import SkupinaPartnerjev
@@ -74,14 +76,22 @@ class NajemLastnine(IsActiveModel):
     lastniska_enota = models.ForeignKey(LastniskaEnotaInterna, blank=True, null=True, verbose_name="LE")
 
     #   Mandatory
+    najemna_pogodba = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="najemna_pogodba")
     placnik = models.ForeignKey(SkupinaPartnerjev)
-    datum_predaje = models.DateField()
-    datum_veljavnosti = models.DateField(blank=True, null=True)
+    predaja_datum = models.DateField()
+    veljavnost_datum = models.DateField(blank=True, null=True)
+    veljavnost_trajanje_opisno = models.CharField(max_length=255, blank=True, null=True, verbose_name="trajanje pogodbe - opisno")
+    vracilo_datum = models.DateField(blank=True, null=True)
+    vracilo_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="izrocitev_lastnine")
+    vracilo_posebnosti = models.CharField(max_length=255, blank=True, null=True)
     #   Optional
     # OBJECT MANAGER
     objects = NajemLastnineManager()
     # CUSTOM PROPERTIES
     # METHODS
+    def get_absolute_url(self):
+        return reverse("moduli:zahtevki:zahtevek_detail", kwargs={'pk': self.predaja_lastnine.zahtevek.pk})
+
 
     # META AND STRING
     class Meta:

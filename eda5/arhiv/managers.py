@@ -3,6 +3,7 @@ from django.db import models
 
 class ArhiviranjeManager(models.Manager):
 
+
     def create_arhiviranje(
                 self,
                 dokument=None,

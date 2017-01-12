@@ -29,6 +29,8 @@ class Partner(TimeStampedModel, IsActiveModel):
     davcna_st = models.CharField(max_length=15, unique=True, blank=True)
     maticna_st = models.CharField(max_length=15, blank=True)
     dolgo_ime = models.CharField(max_length=255, blank=True)
+    is_skupina_partnerjev = models.NullBooleanField(default=False, verbose_name='Skupina partnerjev?')
+    opis_skupine_partnerjev = models.CharField(max_length=255, blank=True, null=True, verbose_name='opis skupine partnerjev')
 
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
