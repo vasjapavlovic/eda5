@@ -152,7 +152,7 @@ class ProdajaLastnineCreateView(UpdateView):
 
             ProdajaLastnine.objects.create_prodaja_lastnine(
                 lastniska_enota=lastniska_enota,
-                datum_predaje=datum_predaje,
+                predaja_datum=datum_predaje,
                 placnik=placnik,
                 predaja_lastnine=predaja_lastnine
             )
