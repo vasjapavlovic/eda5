@@ -50,7 +50,7 @@
                             <th>Najemna pogodba</th>
                             <th>Vračilo Datum</th>
                             <th>Vračilo Posebnosti</th>
-                            <th>Dodaj vračilo</th>
+                            <th>Command</th>
 
                         </tr>
                     {% if object.predajalastnine.najemlastnine_set.all %}
@@ -70,7 +70,7 @@
                         <td><a href="{{ MEDIA_URL }}{{ najem_lastnine.najemna_pogodba.dokument.priponka }}">{{ najem_lastnine.najemna_pogodba.dokument.oznaka }}</a></td>
                         <td>{{ najem_lastnine.vracilo_datum }}</td>
                         <td>{{ najem_lastnine.vracilo_posebnosti }}</td>
-                        <td><a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_vracilo' najem_lastnine.pk %}">Zaključi najem</a></td>
+                        <td><a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_vracilo' najem_lastnine.pk %}">Dopolni podatke</a></td>
 
                     </tr>
                     
