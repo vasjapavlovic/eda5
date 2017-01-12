@@ -30,5 +30,13 @@
                     {{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}, {{ object.posta.drzava.naziv }}
                 </a></td>
             </tr>
+            <tr>
+                <td>Telefonska številka</td>
+                <td>{{ object.kontakt_tel }}</td>
+            </tr>
+            <tr>
+                <td>E-Pošta</td>
+                <td>{{ object.kontakt_email }}</td>
+            </tr>
         </tbody>
     </table>

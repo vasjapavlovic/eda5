@@ -36,6 +36,12 @@ class PartnerUpdateView(UpdateView):
     form_class = PartnerUpdateForm
 
 
+class PartnerUpdateKompletView(UpdateView):
+    model = Partner
+    form_class = PartnerUpdateForm
+    template_name = "partnerji/partner_update_komplet.html"
+
+
 class PartnerListView(PartnerSearchMixin, ListView):
     model = Partner
     template_name = "partnerji/partner/list.html"

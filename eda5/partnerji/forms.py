@@ -16,6 +16,8 @@ class PartnerCreateForm(forms.ModelForm):
             "kratko_ime",
             "naslov",
             "posta",
+            "kontakt_tel",
+            "kontakt_email",
             )
 
 
