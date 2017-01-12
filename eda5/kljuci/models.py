@@ -105,4 +105,4 @@ class PredajaKljuca(models.Model):
         verbose_name_plural = "predaje kljucev"
 
     def __str__(self):
-        return "%s | %s" % (self.kljuc.oznaka, self.datum_predaje)
+        return "%s | %s" % (self.kljuc.oznaka, self.predaja_datum)

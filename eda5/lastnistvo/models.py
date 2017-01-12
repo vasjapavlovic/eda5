@@ -102,5 +102,5 @@ class NajemLastnine(IsActiveModel):
         return "%s | %s | %s" % (
             self.predaja_lastnine.oznaka,
             self.lastniska_enota.oznaka,
-            self.datum_predaje,
+            self.predaja_datum,
             )
