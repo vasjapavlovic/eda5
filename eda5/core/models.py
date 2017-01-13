@@ -71,3 +71,9 @@ class StatusModel(models.Model):
     class Meta:
         abstract = True
 
+
+class Opombe(models.Model):
+    opombe = models.TextField(null=True, blank=True)
+
+    class Meta:
+        abstract = True

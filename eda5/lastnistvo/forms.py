@@ -83,6 +83,7 @@ class NajemLastnineVraciloForm(forms.ModelForm):
             'vracilo_datum',
             'vracilo_zapisnik',
             'vracilo_posebnosti',
+            'opombe',
         )
         widgets = {
             'predaja_datum': DateInput(),
