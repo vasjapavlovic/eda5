@@ -55,6 +55,8 @@ class ProdajaLastnine(Opombe):
     objects = ProdajaLastnineManager()
     # CUSTOM PROPERTIES
     # METHODS
+    def get_absolute_url(self):
+        return reverse("moduli:zahtevki:zahtevek:detail", kwargs={'pk': self.predaja_lastnine.zahtevek.pk})
 
     # META AND STRING
     class Meta:
