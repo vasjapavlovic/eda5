@@ -35,8 +35,17 @@ from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import SkupinaPartnerjev
 
 # Lastnistvo
-from eda5.lastnistvo.forms import PredajaLastnineCreateForm, ProdajaLastnineCreateForm, NajemLastnineCreateForm,NajemLastnineVraciloForm
-from eda5.lastnistvo.models import PredajaLastnine, ProdajaLastnine, NajemLastnine
+from eda5.lastnistvo.forms import \
+    PredajaLastnineCreateForm,\
+    ProdajaLastnineCreateForm,\
+    ProdajaLastnineUpdateForm,\
+    NajemLastnineCreateForm,\
+    NajemLastnineVraciloForm
+    
+from eda5.lastnistvo.models import \
+    PredajaLastnine,\
+    ProdajaLastnine,\
+    NajemLastnine
 
 
 class ZahtevekPredajaLastnineCreateView(TemplateView):
@@ -216,6 +225,12 @@ class NajemLastnineCreateView(UpdateView):
             )
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
+class ProdajaLastnineUpdateView(UpdateView):
+    model = ProdajaLastnine
+    form_class = ProdajaLastnineUpdateForm
+    template_name = "lastnistvo/prodaja_lastnine/update_from_zahtevek.html"
 
 
 class NajemLastnineVraciloView(UpdateView):

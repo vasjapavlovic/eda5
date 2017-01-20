@@ -34,6 +34,27 @@ class ProdajaLastnineCreateForm(forms.ModelForm):
             'datum_predaje': DateInput(),
         }
 
+class ProdajaLastnineUpdateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ProdajaLastnineUpdateForm, self).__init__(*args, **kwargs)
+
+        self.fields['zapisnik_izrocitev'].queryset = Arhiviranje.objects.filter(
+            Q(zahtevek=self.instance.predaja_lastnine.zahtevek) &
+            Q(dokument__vrsta_dokumenta__oznaka="ZAP")
+        )
+
+    class Meta:
+        model = ProdajaLastnine
+        fields = (
+            'lastniska_enota',
+            'datum_predaje',
+            'placnik',
+            'zapisnik_izrocitev',
+        )
+        widgets = {
+            'datum_predaje': DateInput(),
+        }
 
 class NajemLastnineCreateForm(forms.ModelForm):
 
@@ -66,6 +87,11 @@ class NajemLastnineVraciloForm(forms.ModelForm):
             Q(dokument__vrsta_dokumenta__oznaka="PGD")
         )
 
+        self.fields['zapisnik_izrocitev'].queryset = Arhiviranje.objects.filter(
+            Q(zahtevek=self.instance.predaja_lastnine.zahtevek) &
+            Q(dokument__vrsta_dokumenta__oznaka="ZAP")
+        )
+        
         self.fields['vracilo_zapisnik'].queryset = Arhiviranje.objects.filter(
             Q(zahtevek=self.instance.predaja_lastnine.zahtevek) &
             Q(dokument__vrsta_dokumenta__oznaka="ZAP")
@@ -80,6 +106,7 @@ class NajemLastnineVraciloForm(forms.ModelForm):
             'veljavnost_datum',
             'veljavnost_trajanje_opisno',
             'najemna_pogodba',
+            'zapisnik_izrocitev',
             'vracilo_datum',
             'vracilo_zapisnik',
             'vracilo_posebnosti',

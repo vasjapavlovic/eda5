@@ -48,6 +48,7 @@ class ProdajaLastnine(Opombe):
     #   Mandatory
     placnik = models.ForeignKey(SkupinaPartnerjev)
     datum_predaje = models.DateField()
+    zapisnik_izrocitev = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="prodaja_izrocitev_zapisnik")
 
     #   Optional
     # OBJECT MANAGER
@@ -81,8 +82,9 @@ class NajemLastnine(Opombe):
     predaja_datum = models.DateField()
     veljavnost_datum = models.DateField(blank=True, null=True)
     veljavnost_trajanje_opisno = models.CharField(max_length=255, blank=True, null=True, verbose_name="trajanje pogodbe - opisno")
+    zapisnik_izrocitev = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="najem_izrocitev_zapisnik")
     vracilo_datum = models.DateField(blank=True, null=True)
-    vracilo_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="izrocitev_lastnine")
+    vracilo_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="najem_vracilo_zapisnik")
     vracilo_posebnosti = models.CharField(max_length=255, blank=True, null=True)
     #   Optional
     # OBJECT MANAGER
