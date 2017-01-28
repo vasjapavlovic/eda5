@@ -84,7 +84,7 @@ class LastniskaEnotaInterna(models.Model):
     def najem(self):
         lastniska_enota = LastniskaEnotaInterna.objects.get(id=self.id)
         najem_lastnine = lastniska_enota.najemlastnine_set.filter(is_active=True)
-        zadnji_najem = najem_lastnine.latest('datum_predaje')  # vrniti bi moralo samo en vnos (zaenkrat pustim še vedno latest)
+        zadnji_najem = najem_lastnine.latest('predaja_datum')  # vrniti bi moralo samo en vnos (zaenkrat pustim še vedno latest)
         najem = zadnji_najem
         return najem
 

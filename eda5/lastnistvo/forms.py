@@ -6,6 +6,7 @@ from django.db.models import Q
 from .models import PredajaLastnine, ProdajaLastnine, NajemLastnine
 
 from eda5.arhiv.models import Arhiviranje
+from eda5.etaznalastnina.models import LastniskaEnotaInterna
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -58,6 +59,13 @@ class ProdajaLastnineUpdateForm(forms.ModelForm):
 
 class NajemLastnineCreateForm(forms.ModelForm):
 
+    # def __init__(self, *args, **kwargs):
+    #     super(NajemLastnineCreateForm, self).__init__(*args, **kwargs)
+
+    #     # pri izbiri lastniške enote prikažemo samo neoddane
+    #     self.fields['lastniska_enota'].queryset = LastniskaEnotaInterna.objects.exclude(
+    #         Q(najemlastnine__vracilo_datum__isnull=True)
+    #     )
 
 
     class Meta:
@@ -66,7 +74,6 @@ class NajemLastnineCreateForm(forms.ModelForm):
             'lastniska_enota',
             'predaja_datum',
             'veljavnost_datum',
-            # 'najemna_pogodba',
             'veljavnost_trajanje_opisno',
             'placnik',
         )
@@ -96,6 +103,7 @@ class NajemLastnineVraciloForm(forms.ModelForm):
             Q(zahtevek=self.instance.predaja_lastnine.zahtevek) &
             Q(dokument__vrsta_dokumenta__oznaka="ZAP")
         )
+
 
     class Meta:
         model = NajemLastnine

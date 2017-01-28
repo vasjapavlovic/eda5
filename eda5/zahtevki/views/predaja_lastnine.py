@@ -207,6 +207,7 @@ class NajemLastnineCreateView(UpdateView):
             predaja_datum = najem_lastnine_create_form.cleaned_data['predaja_datum']
             placnik = najem_lastnine_create_form.cleaned_data['placnik']
             veljavnost_datum = najem_lastnine_create_form.cleaned_data['veljavnost_datum']
+            veljavnost_trajanje_opisno = najem_lastnine_create_form.cleaned_data['veljavnost_trajanje_opisno']
             predaja_lastnine = zahtevek.predajalastnine
 
             NajemLastnine.objects.create_najem_lastnine(
@@ -214,6 +215,7 @@ class NajemLastnineCreateView(UpdateView):
                 predaja_datum=predaja_datum,
                 placnik=placnik,
                 veljavnost_datum=veljavnost_datum,
+                veljavnost_trajanje_opisno=veljavnost_trajanje_opisno,
                 predaja_lastnine=predaja_lastnine
             )
 

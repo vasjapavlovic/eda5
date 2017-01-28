@@ -51,6 +51,7 @@ class NajemLastnineManager(models.Manager):
         placnik=None,
         predaja_datum=None,
         veljavnost_datum=None,
+        veljavnost_trajanje_opisno=None,
         predaja_lastnine=None,
         ):
 
@@ -59,6 +60,7 @@ class NajemLastnineManager(models.Manager):
             placnik=placnik,
             predaja_datum=predaja_datum,
             veljavnost_datum=veljavnost_datum,
+            veljavnost_trajanje_opisno=veljavnost_trajanje_opisno,
             predaja_lastnine=predaja_lastnine,
             )
 
