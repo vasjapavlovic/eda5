@@ -12,6 +12,7 @@
                         <td>naslovnik</td>
                         <td>predmet</td>
                         <td>priponka</td>
+                        <td>Edit</td>
                     </tr>
                     </thead>
 
@@ -25,6 +26,7 @@
                         <td>{{ dokument.naslovnik.naziv }}</td>
                         <td>{{ dokument.naziv }}</td>
                         <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
+                        <td><a href="{% url 'moduli:posta:dokument_update' dokument.pk %}">Edit</a></td>
                     </tr>
                     {% endfor %}
                     </tbody>

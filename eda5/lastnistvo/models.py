@@ -38,7 +38,7 @@ class PredajaLastnine(TimeStampedModel):
             )
 
 
-class ProdajaLastnine(Opombe, IsActiveModel):
+class ProdajaLastnine(TimeStampedModel, Opombe, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -71,7 +71,7 @@ class ProdajaLastnine(Opombe, IsActiveModel):
             )
 
 
-class NajemLastnine(Opombe, IsActiveModel):
+class NajemLastnine(TimeStampedModel, Opombe, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations

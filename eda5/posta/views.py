@@ -8,7 +8,7 @@ import os
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 from django.utils import timezone
 
 from .forms import AktivnostCreateForm, DokumentCreateForm, SkupinaDokumentaIzbiraForm
@@ -60,6 +60,44 @@ class PostaDokumentDetailView(DetailView):
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+class DokumentUpdateFromPartnerView(UpdateView):
+
+    model = Dokument
+    form_class = DokumentCreateForm
+    template_name = 'posta/dokument/update.html'
+
+    def get_success_url(self):
+        return reverse("moduli:partnerji:partner_list")
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DokumentUpdateFromPartnerView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+class DokumentUpdateView(UpdateView):
+
+    model = Dokument
+    form_class = DokumentCreateForm
+    template_name = 'posta/dokument/update.html'
+
+    def get_success_url(self):
+        return reverse("moduli:posta:dokument_list")
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DokumentUpdateView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_CREATE")
         context['modul_zavihek'] = modul_zavihek
 
         return context

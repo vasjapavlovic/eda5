@@ -64,7 +64,7 @@ class Kljuc(models.Model):
         return "%s | %s" % (self.oznaka, self.get_vrsta_kljuca_display())
 
 
-class PredajaKljuca(models.Model):
+class PredajaKljuca(TimeStampedModel):
 
 
     # Predaja Ključev je ločena Ker se pričakuje Zapisnik o predaji, ki ni odvisen od
