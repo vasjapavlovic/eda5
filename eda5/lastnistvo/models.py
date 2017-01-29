@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from .managers import *
 
 from eda5.arhiv.models import Arhiviranje
-from eda5.core.models import TimeStampedModel, IsActiveModel, Opombe
+from eda5.core.models import TimeStampedModel, IsActiveModel, Opombe, IsLikvidiranModel
 from eda5.etaznalastnina.models import LastniskaEnotaElaborat, LastniskaEnotaInterna
 from eda5.partnerji.models import SkupinaPartnerjev
 from eda5.zahtevki.models import Zahtevek
@@ -38,7 +38,7 @@ class PredajaLastnine(TimeStampedModel):
             )
 
 
-class ProdajaLastnine(TimeStampedModel, Opombe, IsActiveModel):
+class ProdajaLastnine(TimeStampedModel, Opombe, IsLikvidiranModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -71,7 +71,7 @@ class ProdajaLastnine(TimeStampedModel, Opombe, IsActiveModel):
             )
 
 
-class NajemLastnine(TimeStampedModel, Opombe, IsActiveModel):
+class NajemLastnine(TimeStampedModel, Opombe, IsLikvidiranModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
