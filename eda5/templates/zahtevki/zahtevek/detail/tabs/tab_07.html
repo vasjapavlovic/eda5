@@ -6,36 +6,33 @@
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
                     <tr>
-                        <td>datum</td>
-                        <td>{{ object.dogodek.datum_dogodka }}</td>
+                        <th>datum</th>
+                        <th>kritičen čas</th>
+                        <th>opis</th>
+                        <th>Potrebna prijava policiji?</th>
+                        <th>Je povzročena škoda?</th>
+                        <th>Prijava Škode</th>
+                        <th>Prijava policiji</th>
+                        <th>Poravnava škode</th>
+                        <th>Edit</th>
                     </tr>
+
+                    {% for dogodek in object.dogodek_set.all %}
+                    
                     <tr>
-                        <td>cas</td>
-                        <td>{{ object.dogodek.cas_dogodka }}</td>
+                        <td>{{ dogodek.datum_dogodka }}</td>
+                        <td>{{ dogodek.cas_dogodka }}</td>
+                        <td>{{ dogodek.opis_dogodka }}</td>
+                        <td>{{ dogodek.is_potrebna_prijava_policiji }}</td>
+                        <td>{{ dogodek.is_nastala_skoda }}</td>
+                        <td><a href="{{ MEDIA_URL }}{{ dogodek.prijava_skode.priponka }}">{{  dogodek.prijava_skode }}</a></td>
+                        <td><a href="{{ MEDIA_URL }}{{ dogodek.prijava_policiji.priponka }}">{{  dogodek.prijava_policiji }}</a></td>
+                        <td><a href="{{ MEDIA_URL }}{{ object.dogodek.poravnava_skode.priponka }}">{{  dogodek.poravnava_skode }}</a></td>
+                        <td><a type="button" href="{% url 'moduli:zahtevki:dogodek_update_main' dogodek.pk %}">Edit</a></td>
                     </tr>
-                    <tr>
-                        <td>opis</td>
-                        <td>{{ object.dogodek.opis_dogodka }}</td>
-                    </tr>
-                    <tr>
-                        <td>Potrebna prijava policiji?</td>
-                        <td>{{ object.dogodek.is_potrebna_prijava_policiji }}</td>
-                    </tr>
-                    <tr>
-                        <td>Je povzročena škoda?</td>
-                        <td>{{ object.dogodek.is_natala_skoda }}</td>
-                    </tr>
-                        <td>Prijava Škode</td>
-                        <td><a href="{{ MEDIA_URL }}{{ object.dogodek.prijava_skode.priponka }}">{{  object.dogodek.prijava_skode }}</a></td>
-                    </tr>
-                    </tr>
-                        <td>Prijava policiji</td>
-                        <td><a href="{{ MEDIA_URL }}{{ object.dogodek.prijava_policiji.priponka }}">{{  object.dogodek.prijava_policiji }}</a></td>
-                    </tr>
-                    </tr>
-                        <td>Poravnava škode</td>
-                        <td><a href="{{ MEDIA_URL }}{{ object.dogodek.poravnava_skode.priponka }}">{{  object.dogodek.poravnava_skode }}</a></td>
-                    </tr>
+
+                    {% endfor %}
+                    
                 </table>
             </div>
         </div>

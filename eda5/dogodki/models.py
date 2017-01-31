@@ -13,7 +13,7 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
 # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    zahtevek = models.OneToOneField(Zahtevek)  # OneToOneField = pod zahtevek se rašuje samo en dogodek
+    zahtevek = models.ForeignKey(Zahtevek)  # OneToOneField = pod zahtevek se rašuje samo en dogodek
     #   Mandatory
     datum_dogodka = models.DateField(verbose_name="datum dogodka")
     opis_dogodka = models.TextField(verbose_name="opis dogodka")
@@ -24,9 +24,10 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
     cas_dogodka = models.TimeField(blank=True, null=True, verbose_name="okvirni čas dogodka")
     predvidena_visina_skode = models.DecimalField(
         max_digits=7, decimal_places=2, blank=True, null=True, verbose_name="predvidena višina škode")
-    prijava_skode = models.OneToOneField(Dokument, blank=True, null=True, related_name="prijava_skode")
-    prijava_policiji = models.OneToOneField(Dokument, blank=True, null=True, related_name="prijava_policiji")
-    poravnava_skode = models.OneToOneField(Dokument, blank=True, null=True, related_name="poravnava_skode")
+    prijava_skode = models.ForeignKey(Dokument, blank=True, null=True, related_name="prijava_skode")
+    prijava_policiji = models.ForeignKey(Dokument, blank=True, null=True, related_name="prijava_policiji")
+    poravnava_skode = models.ForeignKey(Dokument, blank=True, null=True, related_name="poravnava_skode")
+
     # OBJECT MANAGER
     objects = managers.DogodekManager()
     # CUSTOM PROPERTIES

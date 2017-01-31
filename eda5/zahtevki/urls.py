@@ -13,12 +13,13 @@ urlpatterns = [
 
     url(r'^(?P<pk>\d+)/detail/$', splosno.ZahtevekDetailView.as_view(), name="zahtevek_detail"),
     url(r'^(?P<pk>\d+)/main/update/$', splosno.ZahtevekUpdateView.as_view(), name="zahtevek_update_main"),
-    url(r'^(?P<pk>\d+)/dogodek/update/$', splosno.DogodekUpdateView.as_view(), name="dogodek_update_main"),
+
 ]
 
 # zahtevek škodni dogodek
 urlpatterns += [
     url(r'^(?P<pk>\d+)/dogodek/create/$', dogodek.DogodekCreateView.as_view(), name="zahtevek_create_dogodek"),
+    url(r'^(?P<pk>\d+)/dogodek/update/$', splosno.DogodekUpdateView.as_view(), name="dogodek_update_main"),
 ]
 
 # zahtevek sestanek
