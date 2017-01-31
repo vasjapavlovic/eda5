@@ -8,7 +8,6 @@ from . import managers
 from eda5.core.models import TimeStampedModel
 from eda5.deli.models import DelStavbe, Element
 from eda5.delovninalogi.models import DelovniNalog
-from eda5.dogodki.models import Dogodek
 from eda5.katalog.models import ModelArtikla
 from eda5.narocila.models import NarociloDokument
 from eda5.partnerji.models import Oseba
@@ -97,7 +96,6 @@ class Arhiviranje(TimeStampedModel):
     element = models.ForeignKey(Element, blank=True, null=True)
     narocilo_dokument = models.ForeignKey(NarociloDokument, blank=True, null=True)
     artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
-    dogodek = models.ForeignKey(Dogodek, blank=True, null=True)
     ''' edino račun ima lahko samo eno priponko '''
     racun = models.OneToOneField(Racun, blank=True, null=True)
     # ********************************************************************

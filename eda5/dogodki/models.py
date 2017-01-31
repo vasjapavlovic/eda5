@@ -3,10 +3,8 @@ from django.core.urlresolvers import reverse
 
 from . import managers
 
+from eda5.arhiv.models import Arhiviranje
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
-
-from eda5.posta.models import Dokument
-
 from eda5.zahtevki.models import Zahtevek
 
 class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
@@ -24,9 +22,9 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
     cas_dogodka = models.TimeField(blank=True, null=True, verbose_name="okvirni čas dogodka")
     predvidena_visina_skode = models.DecimalField(
         max_digits=7, decimal_places=2, blank=True, null=True, verbose_name="predvidena višina škode")
-    prijava_skode = models.ForeignKey(Dokument, blank=True, null=True, related_name="prijava_skode")
-    prijava_policiji = models.ForeignKey(Dokument, blank=True, null=True, related_name="prijava_policiji")
-    poravnava_skode = models.ForeignKey(Dokument, blank=True, null=True, related_name="poravnava_skode")
+    prijava_skode = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="prijava_skode")
+    prijava_policiji = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="prijava_policiji")
+    poravnava_skode = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="poravnava_skode")
 
     # OBJECT MANAGER
     objects = managers.DogodekManager()
