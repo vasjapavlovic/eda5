@@ -16,7 +16,7 @@ class VeljavnostDokumenta(TimeStampedModel, IsActiveModel):
     arhiviranje = models.OneToOneField(Arhiviranje, verbose_name='arhiviranje')
     #   Mandatory
     velja_od = models.DateField(verbose_name='velja od')
-    velja_do = models.DateField(verbose_name='velja do')
+    velja_do = models.DateField(blank=True, null=True, verbose_name='velja do')
 
     #   Optional
     # OBJECT MANAGER
