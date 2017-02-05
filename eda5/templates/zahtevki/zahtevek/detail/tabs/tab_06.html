@@ -1,8 +1,15 @@
 <!-- Predaja Lastnine -->
 
+<!-- Model nima še nobenega vnosa -->
+{% if not object.predajalastnine %}
+    Zahtevek še nima registriranih pod-zahtevkov.
 
+<!-- Vnosi so na razpolago -->
+{% else %}
 
 <!-- PRODAJA -->
+        {% if bject.predajalastnine.prodajalastnine_set.all %}
+
         <div class="panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Prodaja</div>
             <div class="panel-body">
@@ -25,7 +32,11 @@
                         <td>{{ object.predajalastnine.kupec.naziv }}</td>
                         <td>{{ prodaja_lastnine.datum_predaje }}</td>
                         <td><a href="{{ MEDIA_URL }}{{ prodaja_lastnine.zapisnik_izrocitev.dokument.priponka }}">{{ prodaja_lastnine.zapisnik_izrocitev.dokument.oznaka }}</a></td>
-                        <td><a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_update' prodaja_lastnine.pk %}">Urejanje</a></td>
+                        <td>
+                            <a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_update' prodaja_lastnine.pk %}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
                     </tr>
 
                     {% endfor %}
@@ -35,11 +46,15 @@
             </div>
         </div>
 
+        {% endif %}
+
 
 
 
 
 <!-- NAJEM -->
+        {% if object.predajalastnine.najemlastnine_set.all %}
+
         <div class="panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Najem</div>
             <div class="panel-body">
@@ -73,7 +88,11 @@
                         <td><a href="{{ MEDIA_URL }}{{ najem_lastnine.najemna_pogodba.dokument.priponka }}">{{ najem_lastnine.najemna_pogodba.dokument.oznaka }}</a></td>
                         <td>{{ najem_lastnine.vracilo_datum }}</td>
                         <td>{{ najem_lastnine.vracilo_posebnosti }}</td>
-                        <td><a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_vracilo' najem_lastnine.pk %}">Urejanje</a></td>
+                        <td>
+                            <a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_vracilo' najem_lastnine.pk %}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
 
                     </tr>
                     
@@ -83,3 +102,7 @@
                 </table>
             </div>
         </div>
+
+        {% endif %}
+
+{% endif %}

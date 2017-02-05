@@ -1,3 +1,11 @@
+<!-- Model nima še nobenega vnosa -->
+{% if not zaznamek_list %}
+    Zahtevek še nima dodanih zaznamkov.
+
+<!-- Vnosi so na razpolago -->
+{% else %}
+
+
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -6,6 +14,7 @@
                             <tr>
                                 <th>datum in ura</th>
                                 <th>tekst</th>
+                                <th>Edit</th>
 
                             </tr>
                         </thead>
@@ -16,6 +25,11 @@
                         <tr>
                             <td>{{ zaznamek.datum }} {{ zaznamek.ura }}</td>
                             <td>{{ zaznamek.tekst }}</td>
+                            <td>
+                                <a href="{% url 'moduli:zaznamki:zaznamek_update' zaznamek.pk %}">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                            </td>
 
                         </tr>
                         {% endfor %}
@@ -26,3 +40,5 @@
                 </div>
             </div>
         </div>
+
+{% endif %}

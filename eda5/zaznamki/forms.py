@@ -20,3 +20,7 @@ class ZaznamekForm(forms.ModelForm):
             'datum': DateInput(),
             'ura': TimeInput(),
         }
+
+
+class ZaznamekUpdateForm(ZaznamekForm):
+    pass

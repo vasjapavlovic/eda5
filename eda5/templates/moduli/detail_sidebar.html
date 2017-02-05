@@ -4,7 +4,7 @@
 
     <!-- Naziv Modula + Link -->
     <li>
-        <a class="bg-{{ modul_zavihek.modul.barva }}" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">
+        <a style="background:{{ modul_zavihek.modul.barva }}; opacity:1; !important" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">
             <i class="ion-home"></i>
             <span class="nav-label">{{ modul_zavihek.modul.naziv }}</span>
         </a>
@@ -28,7 +28,7 @@
 
 
     <li>
-        <a class="bg-{{ zavihek.modul.barva }}" href="{% url 'moduli:detail' zavihek.modul.pk %}">
+        <a style="background:{{ zavihek.modul.barva }}; opacity:1; !important" href="{% url 'moduli:detail' zavihek.modul.pk %}">
             <i class="ion-home"></i>
             <span class="nav-label">{{ zavihek.modul.naziv }}</span>
         </a>

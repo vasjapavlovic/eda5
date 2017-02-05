@@ -20,83 +20,7 @@
 
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
-
-    <!-- SPLOŠNI UKAZI ZAHTEVKOV -->
-    <li><a type="button" href="{% url 'moduli:zahtevki:zahtevek_update_main' object.pk %}"><b>Uredi</b> Podatke</a></li>
-    <!-- Opravilo -->
-    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}">
-        <b>Dodaj</b> Opravilo</a>
-    </li>
-    <!-- Dokument -->
-    <li>
-        <a type="button" data-toggle="modal" data-target="#addDokumentacija">
-        <b>Dodaj</b> Dokument</a>
-    </li>
-    <!-- Zaznamek -->
-    <li>
-        <a type="button" data-toggle="modal" data-target="#addZaznamek">
-        <b>Dodaj</b> Zaznamek</a>
-    </li>
-    <!-- Podzahtevek -->
-    <li>
-        <a type="button" data-toggle="modal" data-target="#addPodzahtevek">
-        <b>Dodaj</b> Podzahtevek</a>
-    </li>
-
-
-    
-    <!-- DOGODEK -->
-    <li>----------------------------------</li>
-
-    {% if object.dogodek %}
-    <li>
-        <a type="button" href="{% url 'moduli:zahtevki:dogodek_update_main' object.dogodek.pk %}">
-        <b>Uredi</b> Dogodek</a>
-    </li>
-    {% else %}
-    <li>
-        <a type="button" href="{% url 'moduli:zahtevki:zahtevek_create_dogodek' object.pk %}">
-        <b>Registriraj</b> Dogodek</a>
-    </li>
-    {% endif %}
-
-
-    <!-- IZVAJANJE PLANA -->
-    <li>----------------------------------</li>
-    <li>
-        <a type="button" href="{% url 'moduli:zahtevki:opravilo_from_vzorec_create' object.pk %}">
-        <b>Dodaj</b> Planirano Opravilo</a>
-    </li> 
-
-
-
-    <!-- LASTNINA -->
-    <li>----------------------------------</li>
-    <!-- Če je zahtevek Predaja Lastnine == 4
-     if object.vrsta == 4  -->
-    <li>
-        <a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_create' object.pk %}">
-        <b>Dodaj</b> Prodajo LE</a>
-    </li>
-
-    <li>
-        <a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_create' object.pk %}">
-        <b>Dodaj</b> Najem LE</a>
-    </li> 
-
-    <li>
-
-        <a type="button" href="{% url 'moduli:zahtevki:predaja_kljuca_create' object.pk %}">
-        <b>Dodaj</b> Predajo Ključa</a>
-    </li> 
-    <!-- endif  -->
-
-
-
-
-    
-    
-
+    {% include "zahtevki/zahtevek/detail/navbar_left.html" %}
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -105,11 +29,23 @@
 <!-- PAGE TITLE -->
 {% block content_title %}
 
-    <div style="background:{{ modul_zavihek.modul.barva }}; opacity:0.5; !important" class="jumbotron">
-        <b>({{ object.oznaka }}|{{ object.get_vrsta_display }}|{{ object.get_status_display }})</b><br>
-        {{object.naziv}}
 
-    </div><!-- end jumbotron -->
+    <!-- panel -->
+    <div style="background:#FFFFFF; opacity:1; !important" class="panel-default">
+        <div style="background:{{modul_zavihek.modul.barva}}; opacity:1; !important" class="panel-heading" >
+            <font color="white">
+                <h3><b>{{ modul_zavihek.modul.naziv }}</b> | {{ modul_zavihek.naziv }}</h3>
+            </font>
+        </div>
+        
+        <div class="panel-body">
+            <table style="row-height=5; !important"  class="table table-bordered table-condensed">
+                <font color="black">
+                    {% include "zahtevki/zahtevek/detail/header.html" %}
+                </font>
+            </table>
+        </div>
+    </div><!-- end panel -->
 
 {% endblock %}
 <!-- end PAGE TITLE -->

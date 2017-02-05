@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from . import managers
 
@@ -22,6 +23,13 @@ class Zaznamek(models.Model):
     objects = managers.ZaznamekManager()
     # CUSTOM PROPERTIES
     # METHODS
+    def get_absolute_url(self):
+
+        if self.zahtevek:
+            return reverse("moduli:zahtevki:zahtevek_detail", kwargs={'pk': self.zahtevek.pk})
+
+        if self.delovninalog:
+            return reverse("moduli:delovninalogi:dn_detail", kwargs={'pk': self.delovninalog.pk})
 
     # META AND STRING
     class Meta:

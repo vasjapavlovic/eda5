@@ -27,7 +27,7 @@ class PredajaKljucaCreateForm(forms.ModelForm):
 			# 'predaja_zapisnik', --> v vračilu se updata
 		)
 		widgets = {
-            'datum_predaje': DateInput(),
+            'predaja_datum': DateInput(),
         }
 
 

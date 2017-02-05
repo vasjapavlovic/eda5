@@ -1,5 +1,11 @@
-<!-- Dogodki -->
+<!-- PREDAJA KLJUČEV -->
 
+<!-- Če še ni nobene predaje -->
+{% if not predaja_kljuca_list %}
+    Trenutno še ni registriranih predaj ključev.
+
+<!-- Ko so registrirane predaje ključev -->
+{% else %}
 
         <div class="panel-{{ modul_zavihek.modul.barva }}">
             <div class="panel-heading">Predaja ključev</div>
@@ -29,7 +35,11 @@
                         <td>{{ object.vracilo_datum }}</td>
                         <td><a href="{{ MEDIA_URL }}{{ object.vracilo_zapisnik.dokument.priponka }}">{{ object.vracilo_zapisnik.dokument.oznaka }}</a></td>
                         <td>{{ object.vracilo_posebnosti }}</td>
-                        <td><a type="button" href="{% url 'moduli:zahtevki:vracilo_kljuca_create' object.pk %}">Dopolni podatke</a></td>
+                        <td>
+                            <a type="button" href="{% url 'moduli:zahtevki:vracilo_kljuca_create' object.pk %}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                     
@@ -37,3 +47,4 @@
             </div>
         </div>
 
+{% endif %}
