@@ -61,6 +61,7 @@ urlpatterns += [
 ]
 
 
+
 # zahtevek analiza
 urlpatterns += [
     url(r'^zahtevek-analiza/$', analiza.ZahtevekAnalizaCreateView.as_view(), name="zahtevek_create_analiza"),

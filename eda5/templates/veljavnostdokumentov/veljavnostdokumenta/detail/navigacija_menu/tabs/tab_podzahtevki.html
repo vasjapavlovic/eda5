@@ -1,0 +1,100 @@
+{% extends "zahtevki/zahtevek/detail/navigacija_menu/tabs/tab_base.html" %} 
+{% load crispy_forms_tags %}
+
+<!-- TAB_NAVIGACIJA############################################ -->
+
+    <!--NASLOV-->
+    {% block detail_tab_title %}PODZAHTEVKI{% endblock %}
+    <!--end NASLOV-->
+
+
+    <!--CONTROLER_LEFT-->
+    {% block detail_tab_controler_left %}
+        <li><a href="" data-toggle="modal" data-target="#addPodzahtevek">Nov Podzahtevek</a></li>
+    {% endblock %}
+    <!--end CONTROLER_LEFT-->
+
+
+    <!--CONTROLER_RIGHT-->
+    {% block detail_tab_controler_right %}
+
+    {% endblock %}
+    <!--end CONTROLER_RIGHT-->
+
+<!-- end TAB_NAVIGACIJA -->
+
+
+<!-- CONTENT################################################### -->
+
+    {% block detail_tab_content %}
+
+        <table class="table table-hover table-condensed">
+        <tr>
+        <th>oznaka</th>
+        <th>predmet</th>
+        <th>rok izvedbe</th>
+        <th>vrsta</th>
+        </tr>
+
+    {% for podzahtevek in zahtevek_child_list %}
+
+    {% if podzahtevek.is_active %}
+    <tr>
+    {% else %}
+    
+    <tr class="success">
+    {% endif %}
+
+        <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' podzahtevek.pk %}">{{ podzahtevek.oznaka }}</a></td>
+        <td>{{ podzahtevek.predmet }}</td>
+        <td>{{ podzahtevek.rok_izvedbe }}</td>
+    </tr>
+    {% endfor %}
+
+    </table>
+        
+
+<!-- Modal ADD Pod-Zahtevek -->
+<div class="modal fade" id="addPodzahtevek" tabindex="-1" role="dialog" aria-labelledby="addPodzahtevek">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Novo Podzahtevek</h4>
+            </div>
+
+
+            <form action="" method="POST">{% csrf_token %}
+                <div class="modal-body">
+                    {{ zahtevek_create_form|crispy  }}   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                    <button type="submit" class="btn btn-primary">Shrani</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+        
+    {% endblock %}
+
+<!-- end CONTENT -->
+
+
+
+
+
+
+
+
+
+
+
+
+    

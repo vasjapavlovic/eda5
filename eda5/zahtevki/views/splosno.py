@@ -171,6 +171,7 @@ class ZahtevekDetailView(DetailView):
 
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
 
+        # DODAJANJE ZAZNAMKOV
         if zaznamek_form.is_valid():
             tekst = zaznamek_form.cleaned_data['tekst']
             datum = zaznamek_form.cleaned_data['datum']
@@ -184,6 +185,7 @@ class ZahtevekDetailView(DetailView):
 
             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
+        # DODAJANJE PODZAHTEVKOV
         if zahtevek_create_form.is_valid():
 
             vrsta_zahtevka = zahtevek_create_form.cleaned_data['vrsta_zahtevka']
@@ -235,6 +237,8 @@ class ZahtevekDetailView(DetailView):
             )
 
             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
 
         # IF NOT VALID
         return render(request, self.template_name, {

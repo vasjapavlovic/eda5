@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^reports/', include("eda5.reports.urls", namespace="reports")),
     url(r'^skladisce/', include("eda5.skladisce.urls", namespace="skladisce")),
     url(r'^stevcno-stanje/', include("eda5.stevcnostanje.urls", namespace="stevcnostanje")),
+    url(r'^veljavnost-dokumentov/', include("eda5.veljavnostdokumentov.urls", namespace="veljavnostdokumentov")),
     url(r'^zahtevki/', include("eda5.zahtevki.urls", namespace="zahtevki")),
     url(r'^zaznamki/', include("eda5.zaznamki.urls", namespace="zaznamki")),
 ]

@@ -77,6 +77,7 @@ LOCAL_APPS = (
     'eda5.users',  # custom users app
     'eda5.zahtevki',  # reševanje zahtevkov naročnikov
     'eda5.zaznamki',  # zaznamki
+    'eda5.veljavnostdokumentov',  # sledenje veljavnosti dokuemntov
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
