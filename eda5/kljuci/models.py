@@ -51,6 +51,7 @@ class Kljuc(models.Model):
     vrsta_kljuca = models.IntegerField(choices=VRSTA_KLJUCA)
     status_kljuca = models.IntegerField(default=1, choices=STATUS_DALJINCA)
     #   Optional
+    opomba_statusa_kljuca = models.CharField(max_length=255, blank=True, null=True, verbose_name='opomba spremembe statusa ključa')
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
