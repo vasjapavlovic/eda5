@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from django.db.models import Max
 
-from .forms import DelCreateForm, ProjektnoMestoCreateForm, ElementCreateForm, NastavitevCreateForm, SkupinaIzbiraForm
+from .forms import DelCreateForm, ProjektnoMestoCreateForm, ElementCreateForm, NastavitevCreateForm, SkupinaIzbiraForm, DelUpdateForm
 from .models import DelStavbe, Skupina, Element, Podskupina, ProjektnoMesto
 
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
@@ -30,6 +30,22 @@ class DelCreateView(CreateView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+
+class DelUpdateView(UpdateView):
+
+    model = DelStavbe
+    form_class = DelUpdateForm
+    template_name = "deli/delstavbe/update.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelUpdateView, self).get_context_data(*args, **kwargs)
+
+        modul_zavihek = Zavihek.objects.get(oznaka="DEL_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
 
 
 # view called with ajax to reload the month drop down list
@@ -121,16 +137,6 @@ class DelDetailView(DetailView):
         context['modul_zavihek'] = modul_zavihek
         return context
 
-
-class DelUpdateView(UpdateView):
-    model = DelStavbe
-    template_name = "deli/delstavbe/detail/update.html"
-    fields = [
-              'podskupina',
-              'oznaka',
-              'naziv',
-              'lastniska_skupina',
-              ]
 
 
 class ElementDetailView(DetailView):

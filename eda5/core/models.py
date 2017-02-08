@@ -77,3 +77,4 @@ class Opombe(models.Model):
 
     class Meta:
         abstract = True
+

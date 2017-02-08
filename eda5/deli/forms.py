@@ -32,9 +32,14 @@ class DelCreateForm(forms.ModelForm):
             'podskupina',
             'oznaka',
             'naziv',
+            'funkcija',
             'shema',
             'lastniska_skupina',
         )
+
+
+class DelUpdateForm(DelCreateForm):
+    pass
 
 
 class SkupinaCreateForm(forms.ModelForm):

@@ -5,13 +5,24 @@
         <th>Artikel</th>
     </tr>
 
-    {% for projektno_mesto in object.projektna_mesta_all %}
-    {% for element in projektno_mesto.elementi_aktivni %}
+    {% for projektno_mesto in object.projektna_mesta_aktivna %}
+
     <tr>
-        <td><h1><b style="color:#0000FF"><a href="{% url 'moduli:deli:element_detail' element.id %}">{{ projektno_mesto.oznaka }}</a></b></h1></td>
+        <td><h1><b style="color:#0000FF">{{ projektno_mesto.oznaka }}</b></h1></td>
         <td><b>{{ projektno_mesto.naziv }}</b><br><i>{{ projektno_mesto.tip_elementa.naziv }}</i></td>
-        <td>{{ element.artikel.naziv }}<br><i>{{ element.artikel.proizvajalec.naziv }}</i></td>
+
+
+        <!-- Podatki o artiklu -->
+        {% if projektno_mesto.element %}
+
+        <td>Serijska številka: {{ projektno_mesto.aktiven_element.serijska_st }} | Tovarniška številka: {{ projektno_mesto.aktiven_element.serijska_st }}<br>{{ projektno_mesto.aktiven_element.artikel.naziv }}<br><i>{{ projektno_mesto.aktiven_element.artikel.proizvajalec.naziv }}</i></td>
+
+        {% else %}
+
+        <td><b>Artikel ni definiran!</b></td>
+
+        {% endif %}
     </tr>
-    {% endfor %}
+
     {% endfor %}
 </table>

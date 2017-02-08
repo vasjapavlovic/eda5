@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.db import models
 
 from . import managers
 
-from eda5.core.models import IsActiveModel
+from eda5.core.models import IsActiveModel, TimeStampedModel
 
 from eda5.katalog.models import ModelArtikla, TipArtikla, ObratovalniParameter
 from eda5.etaznalastnina.models import LastniskaSkupina
@@ -102,6 +104,11 @@ class DelStavbe(models.Model):
         projektno_mesto = self.projektnomesto_set.all()
         return projektno_mesto
 
+    @property
+    def projektna_mesta_aktivna(self):
+        projektna_mesta = self.projektnomesto_set.filter(is_active=True)
+        return projektna_mesta
+
     # METHODS
     def get_absolute_url(self):
         return reverse('moduli:deli:del_detail', kwargs={'pk': self.pk})
@@ -118,7 +125,7 @@ class DelStavbe(models.Model):
                            )
 
 
-class ProjektnoMesto(models.Model):
+class ProjektnoMesto(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -129,13 +136,34 @@ class ProjektnoMesto(models.Model):
     naziv = models.CharField(max_length=255)
     #   Optional
     funkcija = models.CharField(max_length=255, blank=True, null=True, verbose_name="funkcija elementa")
+
+
+    @receiver(post_save, sender=DelStavbe)
+    def create_projektnomesto_from_delstavbe(sender, created, instance, **kwargs):
+
+        if created:
+
+            # oznaka dela stavbe
+            delstavbe = DelStavbe.objects.get(pk=instance.pk)
+            oznaka_dela_stavbe = delstavbe.oznaka
+            oznaka_projektnega_mesta = "S-" + oznaka_dela_stavbe
+
+            #splošni tip elementa
+            splosni_tip_elementa = TipArtikla.objects.get(oznaka="splosno")
+
+            projektno_mesto = ProjektnoMesto(oznaka=oznaka_projektnega_mesta, naziv="Splošni del stavbe", funkcija="Splošni del stavbe", tip_elementa=splosni_tip_elementa, del_stavbe=instance)
+
+            projektno_mesto.save()
+
+
+
     # OBJECT MANAGER
 
     # CUSTOM PROPERTIES
     @property
-    def elementi_aktivni(self):
+    def aktiven_element(self):  # element ki je trenutno aktiven pod posameznim projektnim mestom
         elementi = self.element_set.filter(is_active=True)
-        return elementi
+        return elementi[0]
 
     # METHODS
     def get_absolute_url(self):
