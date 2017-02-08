@@ -1,0 +1,27 @@
+<!-- Lastniki -->
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>LE</th>
+        <th>naslov</th>
+        <th>neto tlorisna površina</th>
+        <th>lastniški delež</th>
+        <th>program</th>
+    </tr>
+
+    {% for LE in object.lastniska_skupina.lastniska_enota.all %}
+
+
+    <tr>
+        <td>{{ LE.oznaka }}</td>
+        <td>{{ LE.naslov }}, {{ LE.posta }}</td>
+        <td>{{ LE.povrsina_tlorisna_neto }}</td>
+        <td>{{ LE.lastniski_delez }}</td>
+        <td>{{ LE.program }}</td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+
+
