@@ -1,12 +1,13 @@
 from functools import partial
 
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop, VzorecOpravila
 
-from eda5.deli.models import Element
+from eda5.deli.models import Element, ProjektnoMesto
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
@@ -41,7 +42,7 @@ class OpraviloCreateForm(forms.ModelForm):
         self.fields['oznaka'].widget.attrs['readonly'] = True
 
         # querysets
-        self.fields["narocilo"].queryset = Narocilo.objects.all()
+        self.fields["narocilo"].queryset = Narocilo.objects.all().order_by('-id')
         self.fields["nosilec"].queryset = Oseba.objects.all()
 
         # filtriranje dropdown
@@ -176,6 +177,10 @@ class OpraviloElementUpdateForm(OpraviloUpdateForm):
         fields = (
             'element',
         )
+        widgets = {
+            'element': FilteredSelectMultiple(ProjektnoMesto, False, attrs={'rows':'2'})}
+
+
 
 
 class DelovniNalogVcakanjuModelForm(forms.ModelForm):

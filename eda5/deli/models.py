@@ -109,6 +109,7 @@ class DelStavbe(models.Model):
         projektna_mesta = self.projektnomesto_set.filter(is_active=True)
         return projektna_mesta
 
+
     # METHODS
     def get_absolute_url(self):
         return reverse('moduli:deli:del_detail', kwargs={'pk': self.pk})

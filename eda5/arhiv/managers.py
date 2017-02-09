@@ -11,7 +11,6 @@ class ArhiviranjeManager(models.Manager):
                 delovninalog=None,
                 delstavbe=None,
                 element=None,
-                narocilo_dokument=None,
                 artikel=None,
                 racun=None,
                 arhiviral=None,
@@ -31,7 +30,6 @@ class ArhiviranjeManager(models.Manager):
             racun=racun,
             delstavbe=delstavbe,
             element=element,
-            narocilo_dokument=narocilo_dokument,
             artikel=artikel,
         )
 

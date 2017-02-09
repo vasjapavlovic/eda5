@@ -84,11 +84,11 @@ class PredajaKljuca(TimeStampedModel):
     #   Mandatory
     vrsta_predaje = models.IntegerField(choices=VRSTA_PREDAJE)
     predaja_datum = models.DateField()
-    predaja_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name='predaja_zapisnik',)
+    predaja_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name='predaja_zapisnik')
 
 
     vracilo_datum = models.DateField(blank=True, null=True)
-    vracilo_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name='vracilo_zapisnik',)
+    vracilo_zapisnik = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name='vracilo_zapisnik')
     vracilo_posebnosti = models.CharField(max_length=255, blank=True, null=True)
 
     #   Optional

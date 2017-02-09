@@ -1,21 +1,21 @@
 from django.shortcuts import render
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.core.context_processors import csrf
 
-from django.views.generic import TemplateView, FormView, ListView, DetailView
+from django.views.generic import TemplateView, FormView, ListView, DetailView, UpdateView
 
 from .forms import NarociloCreateIzbiraForm, NarociloSplosnoCreateForm, NarociloTelefonCreateForm
-from .forms import NarociloDokumentCreateForm
+from .forms import NarociloDokumentCreateForm, NarociloDokumentUpdateForm
 from .models import Narocilo, NarociloTelefon, NarociloDokument
 
-from eda5.arhiv.forms import ArhiviranjeNarociloForm
-from eda5.arhiv.models import Arhiviranje, ArhivMesto
-
-from eda5.partnerji.models import SkupinaPartnerjev, Partner, Oseba
 
 from eda5.moduli.models import Zavihek
+from eda5.partnerji.models import Partner, Oseba
+from eda5.zahtevki.models import Zahtevek
+
+
 
 
 class NarocilaHomeView(TemplateView):
@@ -37,9 +37,10 @@ class NarociloListView(ListView):
 
 
 
-class NarociloCreateIzbiraView(TemplateView):
-    model = Narocilo
+class NarociloCreateIzbiraView(UpdateView):
+    model = Zahtevek
     template_name = "narocila/narocilo/create_izbira.html"
+    fields = ('id', )
 
     def get_context_data(self, *args, **kwargs):
         context = super(NarociloCreateIzbiraView, self).get_context_data(*args, **kwargs)
@@ -47,12 +48,14 @@ class NarociloCreateIzbiraView(TemplateView):
         # zahtevek
         context['narocilo_izbira_create_form'] = NarociloCreateIzbiraForm
 
-        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE")
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
         return context
 
     def post(self, request, *args, **kwargs):
+
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 
         narocilo_izbira_create_form = NarociloCreateIzbiraForm(request.POST or None)
 
@@ -62,30 +65,36 @@ class NarociloCreateIzbiraView(TemplateView):
 
             # naročilo telefon
             if vrsta_narocila == '1':
-                return HttpResponseRedirect(reverse('moduli:narocila:narocilo_create_telefon'))
+                return HttpResponseRedirect(reverse('moduli:narocila:narocilo_create_telefon', kwargs={'pk': zahtevek.pk}))
 
             # naročilo dokument
             if vrsta_narocila == '2':
-                return HttpResponseRedirect(reverse('moduli:narocila:narocilo_create_dokument'))
+                return HttpResponseRedirect(reverse('moduli:narocila:narocilo_create_dokument', kwargs={'pk': zahtevek.pk}))
 
 
-class NarociloTelefonCreateView(TemplateView):
+
+class NarociloTelefonCreateView(UpdateView):
+    model = Zahtevek
     template_name = "narocila/narocilo/create_telefon.html"
+    fields = ('id', )
 
     def get_context_data(self, *args, **kwargs):
         context = super(NarociloTelefonCreateView, self).get_context_data(*args, **kwargs)
         context['narocilo_splosno_form'] = NarociloSplosnoCreateForm
         context['narocilo_telefon_form'] = NarociloTelefonCreateForm
 
-        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_TEL")
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
         return context
 
     def post(self, request, *args, **kwargs):
+
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+
         narocilo_splosno_form = NarociloSplosnoCreateForm(request.POST or None)
         narocilo_telefon_form = NarociloTelefonCreateForm(request.POST or None)
-        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_TEL")
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
 
         if narocilo_telefon_form.is_valid():
             oseba = narocilo_telefon_form.cleaned_data['oseba']
@@ -121,6 +130,7 @@ class NarociloTelefonCreateView(TemplateView):
             vrednost = narocilo_splosno_form.cleaned_data['vrednost']
 
             Narocilo.objects.create_narocilo(
+                zahtevek=zahtevek,
                 narocilo_telefon=narocilo_telefon,
                 narocnik=narocnik,
                 izvajalec=izvajalec,
@@ -139,7 +149,7 @@ class NarociloTelefonCreateView(TemplateView):
                 }
             )
 
-        return HttpResponseRedirect(reverse('moduli:narocila:home'))
+        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk }))
 
 
 # view called with ajax to reload the month drop down list
@@ -150,14 +160,14 @@ def reload_controls_view(request):
 
     context = {}
     # get the year that the user has typed
-    skupina_partnerjev = request.POST['skupina_partnerjev']
+    partner = request.POST['partner']
 
     # definiramo objekt
-    skupina_partnerjev = SkupinaPartnerjev.objects.get(id=skupina_partnerjev)
+    partner = Partner.objects.get(id=partner)
 
     # izdelamo seznam oseb (id-ji)
     osebe = []
-    for partner in skupina_partnerjev.partner.all():
+    for partner in partner.all():
         for oseba in partner.oseba_set.all():
             # vnesemov seznam, ki ga gradimo
             osebe.append(oseba.id)
@@ -186,8 +196,10 @@ class NarociloDetailView(DetailView):
         return context
 
 
-class NarociloDokumentCreateView(TemplateView):
+class NarociloDokumentCreateView(UpdateView):
+    model = Zahtevek
     template_name = "narocila/narocilo/create_dokument.html"
+    fields = ('id', )
 
     def get_context_data(self, *args, **kwargs):
         context = super(NarociloDokumentCreateView, self).get_context_data(*args, **kwargs)
@@ -195,10 +207,8 @@ class NarociloDokumentCreateView(TemplateView):
         # narocila
         context['narocilo_splosno_form'] = NarociloSplosnoCreateForm
         context['narocilo_dokument_form'] = NarociloDokumentCreateForm
-        # arhiv
-        context['arhiviranje_create_form'] = ArhiviranjeNarociloForm
         # moduli
-        modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_DOKUMENT")
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
         return context
@@ -208,21 +218,17 @@ class NarociloDokumentCreateView(TemplateView):
         #############
         ''' SETUP'''
         #############
+        ''' Pridobimo zahtevek v katerem se naročilo izdeluje '''
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
         # narocilo
         narocilo_splosno_form = NarociloSplosnoCreateForm(request.POST or None)
         narocilo_dokument_form = NarociloDokumentCreateForm(request.POST or None)
-        # arhiv
-        arhiviranje_create_form = ArhiviranjeNarociloForm(request.POST or None)
         # moduli
         modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_DOKUMENT")
 
         #####################################
         ''' PRIDOBITEV PODATKOV IZ FORMS'''
         #####################################
-        if narocilo_dokument_form.is_valid():
-            tip_dokumenta = narocilo_dokument_form.cleaned_data['tip_dokumenta']
-            narocilo_dokument_form_is_valid = True
-
         if narocilo_splosno_form.is_valid():
             narocnik = narocilo_splosno_form.cleaned_data['narocnik']
             izvajalec = narocilo_splosno_form.cleaned_data['izvajalec']
@@ -233,38 +239,18 @@ class NarociloDokumentCreateView(TemplateView):
             vrednost = narocilo_splosno_form.cleaned_data['vrednost']
             narocilo_splosno_form_is_valid = True
 
-        if arhiviranje_create_form.is_valid():
-            dokument = arhiviranje_create_form.cleaned_data['dokument']
-            lokacija_hrambe = ArhivMesto.objects.get(oznaka="NAR")  # lokacija hrambe = NAROČILA
-            # vrsta hrambe
-            elektronski = True
-            # E-pošta se hrani v elektronski obliki
-            if tip_dokumenta == 1:  # 1 == e-pošta
-                fizicni = False
-            # Pogodbe in naročilnice se hranijo v elektronski in fizični obliki
-            else:
-                fizicni = True
-            # trenutni logirani uporabnik
-            user = request.user
-            oseba = Oseba.objects.get(user=user)
-            # pogoj za vnos podatkov
-            arhiviranje_create_form_is_valid = True
+        if narocilo_dokument_form.is_valid():
+            tip_dokumenta = narocilo_dokument_form.cleaned_data['tip_dokumenta']
+            narocilo_dokument_form_is_valid = True
 
         ################################
         ''' IZDELAVA VNOSA V BAZI '''
         ################################
-        if narocilo_splosno_form_is_valid is True and narocilo_dokument_form_is_valid is True and \
-                arhiviranje_create_form_is_valid is True:
-
-            # create narocilo-dokument
-            narocilo_dokument_data = NarociloDokument.objects.create_narocilo_dokument(
-                tip_dokumenta=tip_dokumenta,
-            )
-            narocilo_dokument = NarociloDokument.objects.get(id=narocilo_dokument_data.pk)
+        if narocilo_splosno_form_is_valid is True and narocilo_dokument_form_is_valid is True:
 
             # create narocilo-splosno
             narocilo_data = Narocilo.objects.create_narocilo(
-                narocilo_dokument=narocilo_dokument,
+                zahtevek=zahtevek,
                 narocnik=narocnik,
                 izvajalec=izvajalec,
                 oznaka=oznaka,
@@ -275,23 +261,137 @@ class NarociloDokumentCreateView(TemplateView):
             )
             narocilo = Narocilo.objects.get(id=narocilo_data.pk)
 
-            # create arhiviranje-dokumenta
-            Arhiviranje.objects.create_arhiviranje(
-                narocilo_dokument=narocilo_dokument,
-                dokument=dokument,
-                arhiviral=oseba,
-                elektronski=elektronski,
-                fizicni=fizicni,
-                lokacija_hrambe=lokacija_hrambe,
+            # create narocilo-dokument
+            narocilo_dokument_data = NarociloDokument.objects.create_narocilo_dokument(
+                tip_dokumenta=tip_dokumenta,
+                narocilo=narocilo,
             )
 
-            return HttpResponseRedirect(reverse('moduli:narocila:narocilo_detail', kwargs={"pk": narocilo.pk}))
+            ''' pridobimo objekt NarociloDokument, ki ga rabimo, da izvedemo update in dodamo dokument'''
+            narocilo_dokument = Narocilo.objects.get(id=narocilo_dokument_data.pk)
+
+
+            return HttpResponseRedirect(reverse('moduli:narocila:narocilo_update_dokument', kwargs={'pk': narocilo_dokument.pk }))
 
         else:
             return render(request, self.template_name, {
                 'narocilo_splosno_form': narocilo_splosno_form,
                 'narocilo_dokument_form': narocilo_dokument_form,
-                'arhiviranje_create_form': arhiviranje_create_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )
+
+
+
+# class NarociloDokumentCreateView(UpdateView):
+#     model = Zahtevek
+#     template_name = "narocila/narocilo/create_dokument.html"
+#     fields = ('id', )
+
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(NarociloDokumentCreateView, self).get_context_data(*args, **kwargs)
+
+#         # narocila
+#         context['narocilo_splosno_form'] = NarociloSplosnoCreateForm
+#         context['narocilo_dokument_form'] = NarociloDokumentCreateForm
+#         # moduli
+#         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
+#         context['modul_zavihek'] = modul_zavihek
+
+#         return context
+
+#     def post(self, request, *args, **kwargs):
+
+#         #############
+#         ''' SETUP'''
+#         #############
+#         ''' Pridobimo zahtevek v katerem se naročilo izdeluje '''
+#         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+#         # narocilo
+#         narocilo_splosno_form = NarociloSplosnoCreateForm(request.POST or None)
+#         narocilo_dokument_form = NarociloDokumentCreateForm(request.POST or None)
+#         # moduli
+#         modul_zavihek = Zavihek.objects.get(oznaka="NAROCILO_CREATE_DOKUMENT")
+
+#         #####################################
+#         ''' PRIDOBITEV PODATKOV IZ FORMS'''
+#         #####################################
+#         if narocilo_splosno_form.is_valid():
+#             narocnik = narocilo_splosno_form.cleaned_data['narocnik']
+#             izvajalec = narocilo_splosno_form.cleaned_data['izvajalec']
+#             oznaka = narocilo_splosno_form.cleaned_data['oznaka']
+#             predmet = narocilo_splosno_form.cleaned_data['predmet']
+#             datum_narocila = narocilo_splosno_form.cleaned_data['datum_narocila']
+#             datum_veljavnosti = narocilo_splosno_form.cleaned_data['datum_veljavnosti']
+#             vrednost = narocilo_splosno_form.cleaned_data['vrednost']
+
+
+#             # create narocilo-splosno
+#             narocilo_data = Narocilo.objects.create_narocilo(
+#                 zahtevek=zahtevek,
+#                 narocnik=narocnik,
+#                 izvajalec=izvajalec,
+#                 oznaka=oznaka,
+#                 predmet=predmet,
+#                 datum_narocila=datum_narocila,
+#                 datum_veljavnosti=datum_veljavnosti,
+#                 vrednost=vrednost,
+#             )
+#             narocilo = Narocilo.objects.get(id=narocilo_data.pk)
+
+
+#         else:
+#             return render(request, self.template_name, {
+#                 'narocilo_splosno_form': narocilo_splosno_form,
+#                 'narocilo_dokument_form': narocilo_dokument_form,
+#                 'modul_zavihek': modul_zavihek,
+#                 }
+#             )
+
+#         if narocilo_dokument_form.is_valid():
+#             tip_dokumenta = narocilo_dokument_form.cleaned_data['tip_dokumenta']
+
+#             # create narocilo-dokument
+#             narocilo_dokument_data = NarociloDokument.objects.create_narocilo_dokument(
+#                 tip_dokumenta=tip_dokumenta,
+#                 narocilo=narocilo,
+#             )
+
+#             narocilo_dokument = Narocilo.objects.get(id=narocilo_dokument_data.pk)
+
+#         else:
+#             return render(request, self.template_name, {
+#                 'narocilo_splosno_form': narocilo_splosno_form,
+#                 'narocilo_dokument_form': narocilo_dokument_form,
+#                 'modul_zavihek': modul_zavihek,
+#                 }
+#             )
+
+#         return HttpResponseRedirect(reverse('moduli:narocila:narocilo_update_dokument', kwargs={'pk': narocilo_dokument.pk }))
+
+        ################################
+        ''' IZDELAVA VNOSA V BAZI '''
+        ################################
+
+
+
+class NarociloDokumentUpdateView(UpdateView):
+
+    model = NarociloDokument
+    form_class = NarociloDokumentUpdateForm
+    template_name = "narocila/narocilo/update_dokument.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NarociloDokumentUpdateView, self).get_context_data(*args, **kwargs)
+
+        # moduli
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def get_success_url(self, **kwargs):
+        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.object.narocilo.zahtevek.pk })
+
+    
+            

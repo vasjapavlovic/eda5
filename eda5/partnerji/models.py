@@ -19,6 +19,7 @@ class Partner(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
+    partner_skupina = models.ManyToManyField("self", blank=True)
     # ***Mandatory***
     kratko_ime = models.CharField(max_length=100)
     naslov = models.CharField(max_length=255)

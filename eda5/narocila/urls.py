@@ -12,10 +12,42 @@ urlpatterns = [
 
 # NAROCILO
 urlpatterns += [
-    url(r'^narocilo-create/$', views.NarociloCreateIzbiraView.as_view(), name="narocilo_create"),
-    url(r'^narocilo-create-telefon/$', views.NarociloTelefonCreateView.as_view(), name="narocilo_create_telefon"),
-    url(r'^narocilo-create-dokument/$', views.NarociloDokumentCreateView.as_view(), name="narocilo_create_dokument"),
-    url(r'^reload_controls.html$', views.reload_controls_view, name='reload_controls'),
-    url(r'^seznam/$', views.NarociloListView.as_view(), name="narocilo_list"),
-    url(r'^(?P<pk>\d+)/detail$', views.NarociloDetailView.as_view(), name="narocilo_detail"),
+    url(
+        r'^from-zahtevek/(?P<pk>\d+)/narocilo-create/$', 
+        views.NarociloCreateIzbiraView.as_view(), 
+        name="narocilo_create"
+    ),
+
+    url(
+        r'^from-zahtevek/(?P<pk>\d+)/narocilo-create-telefon/$', 
+        views.NarociloTelefonCreateView.as_view(), 
+        name="narocilo_create_telefon"
+    ),
+
+    url(
+        r'^from-zahtevek/(?P<pk>\d+)/narocilo-create-dokument/$', 
+        views.NarociloDokumentCreateView.as_view(), 
+        name="narocilo_create_dokument"
+    ),
+
+    url(
+        r'^from-zahtevek/(?P<pk>\d+)/narocilo-update-dokument/$', 
+        views.NarociloDokumentUpdateView.as_view(), 
+        name="narocilo_update_dokument"
+    ),
+
+    url(r'^reload_controls.html$', 
+        views.reload_controls_view, 
+        name='reload_controls'
+        ),
+
+    url(r'^seznam/$', 
+        views.NarociloListView.as_view(), 
+        name="narocilo_list"
+        ),
+
+    url(r'^(?P<pk>\d+)/detail$', 
+        views.NarociloDetailView.as_view(), 
+        name="narocilo_detail"
+        ),
 ]

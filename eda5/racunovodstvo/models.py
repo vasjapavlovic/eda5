@@ -7,7 +7,7 @@ from eda5.etaznalastnina.models import LastniskaSkupina
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.delovninalogi.models import DelovniNalog
-from eda5.narocila.models import Narocilo
+
 
 
 from .managers import RacunManager, StrosekManager

@@ -9,7 +9,6 @@ from eda5.core.models import TimeStampedModel
 from eda5.deli.models import DelStavbe, Element
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.katalog.models import ModelArtikla
-from eda5.narocila.models import NarociloDokument
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.racunovodstvo.models import Racun
@@ -47,7 +46,6 @@ class ArhivMesto(models.Model):
     #   Relations
     arhiv = models.ForeignKey(Arhiv)
     zahtevek = models.OneToOneField(Zahtevek, blank=True, null=True)
-    delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
     #   Mandatory
     oznaka = models.CharField(max_length=50, verbose_name='oznaka')
     naziv = models.CharField(max_length=255, verbose_name='naziv')
@@ -94,7 +92,6 @@ class Arhiviranje(TimeStampedModel):
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     delstavbe = models.ForeignKey(DelStavbe, blank=True, null=True)
     element = models.ForeignKey(Element, blank=True, null=True)
-    narocilo_dokument = models.ForeignKey(NarociloDokument, blank=True, null=True)
     artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
     ''' edino račun ima lahko samo eno priponko '''
     racun = models.OneToOneField(Racun, blank=True, null=True)

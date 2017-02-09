@@ -7,7 +7,6 @@ from django.utils import timezone
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 from .models import ZahtevekAnaliza, ZahtevekPovprasevanje, ZahtevekReklamacija
 
-from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba, SkupinaPartnerjev
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -36,8 +35,6 @@ class ZahtevekCreateForm(forms.ModelForm):
         self.fields['oseba_hidden'].required = False
         self.fields['skupina_partnerjev_hidden'].required = False
 
-        # prikažemo samo veljavna naročila
-        self.fields['narocilo'].queryset = Narocilo.objects.veljavna()
 
     def clean_oznaka(self):
         # poskrbimo: post ne more povoziti OZNAKO, ki je readonly
@@ -57,7 +54,6 @@ class ZahtevekCreateForm(forms.ModelForm):
             'oznaka',
             'naziv',
             'rok_izvedbe',
-            'narocilo',
             'nosilec',
         )
         widgets = {
@@ -69,7 +65,6 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
 
     class Meta(ZahtevekCreateForm.Meta):
 
-        # brez "narocilo" --> ni potrebno saj je naročilo enako zahtevek_parent
         fields = (
             'oznaka',
             'naziv',
@@ -87,7 +82,6 @@ class ZahtevekUpdateForm(forms.ModelForm):
             'naziv',
             'vrsta',
             'rok_izvedbe',
-            'narocilo',
             'nosilec',
             'status',
         )

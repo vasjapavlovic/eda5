@@ -38,6 +38,9 @@ from eda5.kljuci.models import PredajaKljuca
 from eda5.kljuci.forms import PredajaKljucaCreateForm
 from eda5.kljuci.forms import PredajaKljucaVraciloForm
 
+# Naročila
+from eda5.narocila.models import Narocilo
+
 # Moduli
 from eda5.moduli.models import Zavihek
 
@@ -135,6 +138,9 @@ class ZahtevekDetailView(DetailView):
         context['predajakljuca_vracilo_form'] = PredajaKljucaVraciloForm
         context['predaja_kljuca_list'] = PredajaKljuca.objects.filter(
                 zahtevek=self.object.id)
+
+        # naročila
+        context['narocila_list'] = Narocilo.objects.filter(zahtevek=self.object.id)
 
         # opravilo
         context['opravilo_form'] = OpraviloCreateForm

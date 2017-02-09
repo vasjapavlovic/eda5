@@ -1,0 +1,43 @@
+<!-- NAROČILA -->
+
+<!-- Če še ni nobene predaje -->
+{% if not narocila_list %}
+    Trenutno še ni registriranih naročil.
+
+<!-- Ko so registrirane predaje ključev -->
+{% else %}
+
+        <div class="panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Naročila</div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>oznaka</th>
+                        <th>predmet</th>
+                        <th>Dokument</th>
+                        <th>Command</th>
+
+                    </tr>
+
+                    {% for object in narocila_list %}
+
+
+                        <td><b><a href="{% url 'moduli:narocila:narocilo_detail' object.pk %}">{{ object.narocilo.predmet }} ({{ object.narocilo.oznaka}})
+                        </a>{{ object.oznaka }}</b></td>
+                        
+                        <td>{{ object.predmet }}</td>
+
+                        <td><a href="{{ MEDIA_URL }}{{ object.narocilodokument.dokument.dokument.priponka }}">{{ object.narocilodokument.dokument.dokument.oznaka }}</a></td>
+
+
+                        <td>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    
+                </table>
+            </div>
+        </div>
+
+{% endif %}

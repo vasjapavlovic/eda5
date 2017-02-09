@@ -2,7 +2,7 @@ from django.db import models
 
 from eda5.core.models import ZaporednaStevilka
 from eda5.zahtevki.models import Zahtevek
-from eda5.partnerji.models import SkupinaPartnerjev, Oseba
+from eda5.partnerji.models import Partner, Oseba
 
 '''
 SESTANEK
@@ -38,7 +38,7 @@ class Sestanek(models.Model):
     # ATRIBUTES
     #   Relations
     zahtevek = models.OneToOneField(Zahtevek)
-    sklicatelj = models.ForeignKey(SkupinaPartnerjev, null=True, blank=True)
+    sklicatelj = models.ForeignKey(Partner, null=True, blank=True)
     udelezenci = models.ManyToManyField(Oseba, blank=True, verbose_name="udeleženci")
     #   Mandatory
     datum = models.DateField(null=True, blank=True, verbose_name="datum sestanka")

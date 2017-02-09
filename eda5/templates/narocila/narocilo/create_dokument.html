@@ -38,7 +38,7 @@
 
     <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
 
-    <form id="narocilo_create_form" method="POST" action="{% url 'moduli:narocila:narocilo_create_dokument' %}" enctype="multipart/form-data">{% csrf_token %}
+    <form id="narocilo_create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 
 
         <div class="panel panel-{{ modul_zavihek.modul.barva }}">
@@ -55,12 +55,6 @@
             </div>
         </div>
 
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Naročilnica</div>
-            <div class="panel-body">
-                {{ arhiviranje_create_form|crispy  }}
-            </div>
-        </div>
 
         <input type="submit" value="Potrdi">
 

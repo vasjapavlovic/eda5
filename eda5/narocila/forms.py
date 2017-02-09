@@ -1,11 +1,14 @@
 from functools import partial
 
 from django import forms
+from django.db.models import Q
 from django.utils import timezone
 
 from .models import Narocilo, NarociloTelefon, NarociloDokument
 
+from eda5.arhiv.models import Arhiviranje
 from eda5.partnerji.models import Oseba
+from eda5.zahtevki.models import Zahtevek
 
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -89,4 +92,28 @@ class NarociloDokumentCreateForm(forms.ModelForm):
         model = NarociloDokument
         fields = [
             'tip_dokumenta',
+        ]
+
+
+class NarociloDokumentUpdateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        super(NarociloDokumentUpdateForm, self).__init__(*args, **kwargs)
+
+        ''' Pri izbiri dokumenta prikažemo samo pogodbe in naročilnice '''
+
+        
+        self.fields['dokument'].queryset = Arhiviranje.objects.filter(
+        Q(zahtevek=self.instance.narocilo.zahtevek) & 
+            (
+                Q(dokument__vrsta_dokumenta__oznaka="PGD") |
+                Q(dokument__vrsta_dokumenta__oznaka="NRC")
+            )
+        )
+
+    class Meta:
+        model = NarociloDokument
+        fields = [
+            'dokument',
         ]

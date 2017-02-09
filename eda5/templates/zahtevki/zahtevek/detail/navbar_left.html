@@ -22,6 +22,14 @@
     </li>
 
 
+    <!-- NAROČILA -->
+    <li>----------------------------------</li>
+
+    <li>
+        <a type="button" href="{% url 'moduli:narocila:narocilo_create' object.pk %}">
+        <b>Dodaj</b> Naročilo</a>
+    </li>
+
     
     <!-- DOGODEK -->
     <li>----------------------------------</li>
@@ -61,4 +69,8 @@
         <a type="button" href="{% url 'moduli:zahtevki:predaja_kljuca_create' object.pk %}">
         <b>Dodaj</b> Predajo Ključa</a>
     </li> 
+
+
+
+
     <!-- endif  -->

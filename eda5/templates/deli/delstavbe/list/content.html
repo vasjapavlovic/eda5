@@ -1,62 +1,38 @@
-<div class="row m-t-30">
-    <div class="col-sm-12">
-        <div class="panel panel-default p-0">
-            <div class="panel-body p-0"> 
-
-<table class="table table-condensed table-bordered">
-
-                <thead>
-                    <th>oznaka</th>
-                    <th>opis</th>
-                    <th>funkcija</th>
-                    <th>edit</th>
-                </thead>
-
+<!-- naslov -->
 {% for skupina in object_list %}
-    <tr>
-        <td colspan="4" class="danger"><b>({{ skupina.oznaka }}) {{ skupina.naziv }}</b></td>
-    </tr>
-        {% for podskupina in skupina.sorted_podskupinadelov_set %}
-
-        <tr>
-            <td colspan="4"  class="warning"><b>({{ podskupina.oznaka }}) {{ podskupina.naziv }}</b></td>
-
-        </tr>
-                <!-- START: Seznam delov stavbe - tabela  -->
-                
-            <tr>
+{{ skupina.oznaka }}. {{ skupina.naziv }}
 
 
+<!-- posamezni paneli -->
+{% for podskupina in skupina.sorted_podskupinadelov_set %}
+<div class="panel panel-info">
+    <!-- naslov panela -->
+    <div class="panel-heading">{{ podskupina.oznaka }}. {{ podskupina.naziv }}</div>
+    <table class="table">
+        <thead>
+            <th>oznaka</th>
+            <th>opis</th>
+            <th>funkcija</th>
+            <th>edit</th>
+        </thead>
 
-                {% for del in podskupina.sorted_delstavbe_set %}
-                <tbody>
-                    <td><b><a href="{% url 'moduli:deli:del_detail' del.pk %}">({{ del.oznaka }})</a></b></td>
-                    <td>{{ del.naziv }}</td>
-                    <td>{{ del.funkcija }}</td>
-                    <td>
-                        <a type="button" href="{% url 'moduli:deli:del_update' del.pk %}"> 
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </tbody>
-                {% endfor %}
+        <!-- posamezni vnosi delov -->
+        {% for del in podskupina.sorted_delstavbe_set %}
+        <tbody>
+            <td><b><a href="{% url 'moduli:deli:del_detail' del.pk %}">({{ del.oznaka }})</a></b></td>
+            <td>{{ del.naziv }}</td>
+            <td>{{ del.funkcija }}</td>
+            <td>
+                <a type="button" href="{% url 'moduli:deli:del_update' del.pk %}"> 
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tbody>
+        {% endfor %}
 
 
-                {% endfor %}
-                </tr>
-                <!-- END: Seznam delov stavbe - tabela  -->
-
-
-
-        
-        
-    
+    </table>
+</div>
 
 {% endfor %}
-</table>
-
-
-            </div>
-        </div>
-    </div>
-</div>
+{% endfor %}

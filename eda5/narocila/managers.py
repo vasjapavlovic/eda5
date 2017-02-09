@@ -6,11 +6,14 @@ class NarociloManager(models.Manager):
 
     use_for_related_fields = True
 
+    ''' Prikaži samo veljavna naročila '''
     def veljavna(self, **kwargs):
         return self.filter(datum_veljavnosti__gte=timezone.now(), **kwargs)
 
+    ''' Izdela novo naročilo '''
     def create_narocilo(
         self,
+        zahtevek=None,
         narocnik=None,
         izvajalec=None,
         oznaka=None,
@@ -19,9 +22,10 @@ class NarociloManager(models.Manager):
         datum_veljavnosti=None,
         vrednost=None,
         narocilo_telefon=None,
-        narocilo_dokument=None,
+
     ):
         narocilo_model = self.model(
+            zahtevek=zahtevek,
             narocnik=narocnik,
             izvajalec=izvajalec,
             oznaka=oznaka,
@@ -30,7 +34,7 @@ class NarociloManager(models.Manager):
             datum_veljavnosti=datum_veljavnosti,
             vrednost=vrednost,
             narocilo_telefon=narocilo_telefon,
-            narocilo_dokument=narocilo_dokument,
+
         )
         narocilo_model.save(using=self._db)
         return narocilo_model
@@ -59,12 +63,18 @@ class NarociloTelefonManager(models.Manager):
 
 class NarociloDokumentManager(models.Manager):
 
+    use_for_related_fields = True
+
     def create_narocilo_dokument(
         self,
         tip_dokumenta=None,
+        dokument=None,
+        narocilo=None,
     ):
         narocilo_dokument_model = self.model(
             tip_dokumenta=tip_dokumenta,
+            dokument=dokument,
+            narocilo=narocilo,
         )
         narocilo_dokument_model.save(using=self._db)
         return narocilo_dokument_model

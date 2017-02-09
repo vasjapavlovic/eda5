@@ -11,7 +11,7 @@ class SkupinaAdmin(admin.ModelAdmin):
 
 @admin.register(models.Partner)
 class PartnerAdmin(admin.ModelAdmin):
-
+    filter_horizontal = ['partner_skupina']
     search_fields = ('kratko_ime',)
 
 admin.site.register(models.Drzava)

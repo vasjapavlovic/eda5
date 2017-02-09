@@ -91,6 +91,9 @@ class DelListView(ListView):
         context = super(DelListView, self).get_context_data(*args, **kwargs)
         context['del_form'] = DelCreateForm
 
+        seznam_delov_AA = DelStavbe.objects.filter(podskupina__oznaka="AA")
+        context['seznam_delov_AA'] = seznam_delov_AA
+
         modul_zavihek = Zavihek.objects.get(oznaka="DEL_LIST")
         context['modul_zavihek'] = modul_zavihek
 

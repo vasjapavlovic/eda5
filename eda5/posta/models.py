@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from eda5.core.models import TimeStampedModel, ZaporednaStevilka
-from eda5.partnerji.models import SkupinaPartnerjev, Oseba
+from eda5.partnerji.models import Oseba, Partner
 
 from . import managers
 
@@ -52,8 +52,8 @@ class Dokument(TimeStampedModel):
     #   Relations
     aktivnost = models.OneToOneField(Aktivnost)
     vrsta_dokumenta = models.ForeignKey('VrstaDokumenta', verbose_name="vrsta dokumenta")
-    avtor = models.ForeignKey(SkupinaPartnerjev, related_name="avtor")
-    naslovnik = models.ForeignKey(SkupinaPartnerjev, related_name="naslovnik")
+    avtor = models.ForeignKey(Partner, related_name="avtor")
+    naslovnik = models.ForeignKey(Partner, related_name="naslovnik")
     #   Mandatory
     oznaka_baza = models.IntegerField(blank=True, null=True)
     oznaka = models.CharField(max_length=50, verbose_name='številka dokumenta')

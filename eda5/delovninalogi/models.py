@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
-from eda5.deli.models import Element
+from eda5.deli.models import Element, ProjektnoMesto
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.zahtevki.models import Zahtevek
@@ -26,7 +26,7 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
     '''pod naročilo je odzadaj tudi relacija na naročnika in izvajalca'''
     # planirano_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)
-    element = models.ManyToManyField(Element)
+    element = models.ManyToManyField(ProjektnoMesto)
     #   Mandatory
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)

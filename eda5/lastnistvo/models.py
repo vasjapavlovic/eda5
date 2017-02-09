@@ -6,7 +6,7 @@ from .managers import *
 from eda5.arhiv.models import Arhiviranje
 from eda5.core.models import TimeStampedModel, IsActiveModel, Opombe, IsLikvidiranModel
 from eda5.etaznalastnina.models import LastniskaEnotaElaborat, LastniskaEnotaInterna
-from eda5.partnerji.models import SkupinaPartnerjev
+from eda5.partnerji.models import Partner
 from eda5.zahtevki.models import Zahtevek
 
 
@@ -15,8 +15,8 @@ class PredajaLastnine(TimeStampedModel):
     # ATRIBUTES
     #   Relations
     zahtevek = models.OneToOneField(Zahtevek, blank=True, null=True)
-    prodajalec = models.ForeignKey(SkupinaPartnerjev, related_name="prodajalec")
-    kupec = models.ForeignKey(SkupinaPartnerjev, related_name="kupec")
+    prodajalec = models.ForeignKey(Partner, related_name="prodajalec")
+    kupec = models.ForeignKey(Partner, related_name="kupec")
     #   Mandatory
     oznaka = models.CharField(max_length=20, unique=True)  # LST-2016-1
     #   Optional
@@ -46,7 +46,7 @@ class ProdajaLastnine(TimeStampedModel, Opombe, IsLikvidiranModel, IsActiveModel
     lastniska_enota = models.ForeignKey(LastniskaEnotaElaborat, blank=True, null=True, verbose_name="LE")
 
     #   Mandatory
-    placnik = models.ForeignKey(SkupinaPartnerjev)
+    placnik = models.ForeignKey(Partner)
     datum_predaje = models.DateField()
     zapisnik_izrocitev = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="prodaja_izrocitev_zapisnik")
 
@@ -80,7 +80,7 @@ class NajemLastnine(TimeStampedModel, Opombe, IsLikvidiranModel, IsActiveModel):
 
     #   Mandatory
     najemna_pogodba = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="najemna_pogodba")
-    placnik = models.ForeignKey(SkupinaPartnerjev)
+    placnik = models.ForeignKey(Partner)
     predaja_datum = models.DateField()
     veljavnost_datum = models.DateField(blank=True, null=True)
     veljavnost_trajanje_opisno = models.CharField(max_length=255, blank=True, null=True, verbose_name="trajanje pogodbe - opisno")
