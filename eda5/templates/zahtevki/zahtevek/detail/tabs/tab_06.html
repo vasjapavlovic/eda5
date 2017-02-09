@@ -28,8 +28,8 @@
 
                     <tr>
                         <td>{{ prodaja_lastnine.lastniska_enota.oznaka }}</td>
-                        <td>{{ object.predajalastnine.prodajalec.naziv }}</td>
-                        <td>{{ object.predajalastnine.kupec.naziv }}</td>
+                        <td>{{ object.predajalastnine.prodajalec.kratko_ime }}</td>
+                        <td>{{ object.predajalastnine.kupec.kratko_ime }}</td>
                         <td>{{ prodaja_lastnine.datum_predaje }}</td>
                         <td><a href="{{ MEDIA_URL }}{{ prodaja_lastnine.zapisnik_izrocitev.dokument.priponka }}">{{ prodaja_lastnine.zapisnik_izrocitev.dokument.oznaka }}</a></td>
                         <td>
