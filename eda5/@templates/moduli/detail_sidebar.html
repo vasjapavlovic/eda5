@@ -1,0 +1,33 @@
+<!-- SideBar znotraj zavihka | zraven je ze osnovni meni - glej base.html-->
+
+    <!-- Glede na odprt zavihek-->
+    <li style="background: {{ modul_zavihek.modul.barva }}; !important"><a href="#" data-target=".{{ modul_zavihek.modul.naziv }}-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> {{ modul_zavihek.modul.naziv }}<i class="fa fa-collapse"></i></a></li> 
+    
+
+    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
+
+    {% if zavihek.url_ref %}
+    <li><ul class="{{ modul_zavihek.modul.naziv }}-menu nav nav-list collapse in">
+            <li><a href="{{ zavihek.urlreference }}"><span class="fa fa-caret-right"></span> {{ zavihek.naziv }}</a></li>
+    </ul></li>
+    {% endif %}
+    {% endfor %}
+
+
+
+    <!-- Logične povezave z zavihkom-->
+    {% for modul_zavihek in modul_zavihek.parent.all %}
+
+    <li><a href="#" data-target=".{{ modul_zavihek.modul.naziv }}-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> {{ modul_zavihek.modul.naziv }}<i class="fa fa-collapse"></i></a></li> 
+    
+
+    {% if modul_zavihek.url_ref %}
+    <li><ul class="{{ modul_zavihek.modul.naziv }}-menu nav nav-list collapse">
+            <li><a href="{{ modul_zavihek.urlreference }}"><span class="fa fa-caret-right"></span> {{ modul_zavihek.naziv }}</a></li>
+    </ul></li>
+    {% endif %}
+
+
+    {% endfor %}
+
+

@@ -1,0 +1,26 @@
+<!-- TAB_01 Content -->
+
+
+                    <table id="datatable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Oznaka</th>
+                                <th>Vrsta</th>
+                                <th>Predmet</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            {% for object in zahtevki_vresevanju_list %}
+                            <tr>
+                                <td>{{ object.id }}</td>
+                                <td><b><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}">{{ object.oznaka }}</a></b></td>
+                                <td><b>{{ object.get_vrsta_display }}</b></td>
+                                <td>{{ object.naziv }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+

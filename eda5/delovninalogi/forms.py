@@ -154,7 +154,7 @@ class OpraviloUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(OpraviloUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['element'].queryset = Element.objects.filter(is_active=True)
+        self.fields['element'].queryset = ProjektnoMesto.objects.filter(is_active=True)
 
     class Meta:
         model = Opravilo
@@ -177,8 +177,7 @@ class OpraviloElementUpdateForm(OpraviloUpdateForm):
         fields = (
             'element',
         )
-        widgets = {
-            'element': FilteredSelectMultiple(ProjektnoMesto, False, attrs={'rows':'2'})}
+
 
 
 

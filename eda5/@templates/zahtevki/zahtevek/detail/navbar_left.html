@@ -1,0 +1,105 @@
+<div class="navbar-collapse collapse stat" style="height: 1px;">
+          <ul id="command-menu" class="nav navbar-nav navbar-right">
+            <li class="dropdown hidden-xs">
+                <button href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                     Ukazi
+                    <i class="fa fa-caret-down"></i>
+
+
+                </button>
+
+              <ul class="dropdown-menu">
+                    <!-- SPLOŠNI UKAZI ZAHTEVKOV -->
+
+    <li class="dropdown-header">Splošno Zahtevki</li>
+    <li><a type="button" href="{% url 'moduli:zahtevki:zahtevek_update_main' object.pk %}"><b>Uredi</b> Podatke</a></li>
+    
+    <!-- Dokument -->
+    <li>
+        <a type="button" data-toggle="modal" data-target="#addDokumentacija">
+        <b>Dodaj</b> Dokument</a>
+    </li>
+    <!-- Zaznamek -->
+    <li>
+        <a type="button" data-toggle="modal" data-target="#addZaznamek">
+        <b>Dodaj</b> Zaznamek</a>
+    </li>
+    <!-- Podzahtevek -->
+    <li>
+        <a type="button" data-toggle="modal" data-target="#addPodzahtevek">
+        <b>Dodaj</b> Podzahtevek</a>
+    </li>
+
+
+    <!-- NAROČILA -->
+    <li class="divider"></li>
+    <li class="dropdown-header">Naročila</li>
+
+    <li>
+        <a type="button" href="{% url 'moduli:narocila:narocilo_create' object.pk %}">
+        <b>Dodaj</b> Naročilo</a>
+    </li>
+
+    
+    <!-- DOGODEK -->
+    <li class="divider"></li>
+    <li class="dropdown-header">Dogodki</li>
+
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:zahtevek_create_dogodek' object.pk %}">
+        <b>Registriraj</b> Dogodek</a>
+    </li>
+
+
+
+    <!-- OPRAVILA -->
+    <li class="divider"></li>
+    <li class="dropdown-header">Opravila</li>
+    <!-- Opravilo -->
+    <li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}">
+        <b>Dodaj</b> Opravilo</a>
+    </li>
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:opravilo_from_vzorec_create' object.pk %}">
+        <b>Dodaj</b> Planirano Opravilo</a>
+    </li> 
+
+
+
+    <!-- LASTNINA -->
+    <li class="divider"></li>
+    <li class="dropdown-header">Predaja lastnine</li>
+    <!-- Če je zahtevek Predaja Lastnine == 4
+     if object.vrsta == 4  -->
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_create' object.pk %}">
+        <b>Dodaj</b> Prodajo LE</a>
+    </li>
+
+    <li>
+        <a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_create' object.pk %}">
+        <b>Dodaj</b> Najem LE</a>
+    </li> 
+
+    <li>
+
+        <a type="button" href="{% url 'moduli:zahtevki:predaja_kljuca_create' object.pk %}">
+        <b>Dodaj</b> Predajo Ključa</a>
+    </li> 
+
+
+
+
+    <!-- endif  -->
+
+
+
+
+              </ul>
+            </li>
+          </ul>
+
+
+
+        </div>

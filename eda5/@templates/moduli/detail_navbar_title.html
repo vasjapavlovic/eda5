@@ -1,0 +1,8 @@
+<!-- Left Navbar Title-->
+
+<h1 class="page-title">{{ modul_zavihek.modul.naziv }}</h1>
+<ul class="breadcrumb">
+    <li><a href="{% url 'moduli:home' %}">Moduli</a> </li>
+    <li><a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">{{ modul_zavihek.modul.naziv }}</a></li>
+    <li class="active">{{ modul_zavihek.naziv }}</li>
+</ul>

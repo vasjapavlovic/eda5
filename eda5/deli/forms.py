@@ -14,6 +14,17 @@ class SkupinaIzbiraForm(forms.Form):
 
 class ElementIzbiraForm(forms.Form):
 
+    def __init__(self, *args, **kwargs):
+        super(ElementIzbiraForm, self).__init__(*args, **kwargs)
+
+        self.fields['skupina'].required = False
+        self.fields['podskupina'].required = False
+        self.fields['del_stavbe'].required = False
+
+        self.fields['podskupina_hidden'].required = False
+        self.fields['del_stavbe_hidden'].required = False
+        self.fields['element_hidden'].required = False
+
     skupina = forms.ModelChoiceField(queryset=Skupina.objects.all())
     podskupina = forms.ModelChoiceField(queryset=Podskupina.objects.all())
     del_stavbe = forms.ModelChoiceField(queryset=DelStavbe.objects.all())
@@ -21,7 +32,7 @@ class ElementIzbiraForm(forms.Form):
     # za filtriranje
     podskupina_hidden = forms.ModelChoiceField(queryset=Podskupina.objects.all())
     del_stavbe_hidden = forms.ModelChoiceField(queryset=DelStavbe.objects.all())
-    element_hidden = forms.ModelChoiceField(queryset=Element.objects.all())
+    element_hidden = forms.ModelChoiceField(queryset=ProjektnoMesto.objects.all())
 
 
 class DelCreateForm(forms.ModelForm):

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+<!-- block sidebar -->
+<!-- endblock -->
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block left-navbar %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->Moduli :<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+
+
+    {% for modul in object_list %}
+
+    <div class="col-lg-3 col-sm-6">
+        
+        <div class="panel-moduli radius-top radius-bottom">
+            
+            <div class="panel-heading-moduli radius-top radius-bottom-0 label" style="background: {{ modul.barva }}; !important" href="{% url 'moduli:detail' modul.pk %}">
+                <div class="panel-title">
+                    <p><a href="{% url 'moduli:detail' modul.pk %}">{{ modul.naziv }}</a></p>
+                </div>
+            </div>
+
+
+            <div class="panel-body" style="background: {{ modul.barva }}; opacity: 0.5;!important">
+                <h5>{{ modul.opis }}</h5>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

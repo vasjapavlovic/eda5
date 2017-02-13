@@ -29,11 +29,11 @@ class ZahtevekManager(models.Manager):
 
     # zahtevki v reševanju
     def zahtevki_vresevanju(self, **kwargs):
-        return self.filter(status=3)
+        return self.filter(status=3).order_by('-id')
 
     # zaključeni zahtevki
     def zahtevki_zakljuceni(self, **kwargs):
-        return self.filter(status=4).order_by("-created",)
+        return self.filter(status=4).order_by('-id')
 
 
 class ZahtevekSestanekManager(models.Manager):

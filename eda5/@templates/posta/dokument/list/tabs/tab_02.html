@@ -1,0 +1,37 @@
+<!-- ARHIVIRANO -->
+
+
+            <div class="table-responsive">
+                <table id="datatable_posta_arhivirano" class="table table-condensed table-bordered table-hover">
+
+                    <thead class="bg-primary">
+                        <tr>
+                            <td>datum</td>
+                            <td>oznaka</td>
+                            <td>vrsta dokumenta</td>
+                            <td>pošiljatelj</td>
+                            <td>naslovnik</td>
+                            <td>predmet</td>
+                            <td>priponka</td>
+                            <td>Edit</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for dokument in arhivirano_list %}
+                        <tr>
+                            <td>{{ dokument.get_year_date }}{{ dokument.get_month_date }}{{ dokument.get_day_date }}</td>
+                            <td><b><a href="{% url 'moduli:posta:dokument_detail' dokument.pk %}">{{ dokument.oznaka }}</a></b></td>
+                            <td>{{ dokument.vrsta_dokumenta.naziv }} ({{ dokument.vrsta_dokumenta.oznaka }})</td>
+                            <td>{{ dokument.avtor.kratko_ime }}</td>
+                            <td>{{ dokument.naslovnik.kratko_ime }}</td>
+                            <td>{{ dokument.naziv }}</td>
+                            <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
+                            <td><a href="{% url 'moduli:posta:dokument_update' dokument.pk %}">Edit</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+                </div>
+            </div>

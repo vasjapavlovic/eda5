@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+    {% include "zahtevki/zahtevek/detail/navbar_left.html" %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+
+
+
+
+
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+    
+    <!-- panel -->
+<div class="row">
+<div class="col-sm-6 col-md-6">
+
+    <div class="panel">
+        <div class="panel-heading no-collapse"><p>Podrobnosti zahtevka</p></div>
+
+            <table style="row-height=5; !important"  class="table table-condensed table-bordered">
+                <font color="black">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    {% include "zahtevki/zahtevek/detail/header.html" %}
+                    </tbody>
+                </font>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- end panel -->
+{% include "zahtevki/zahtevek/detail/content.html" %}
+{% include "zahtevki/zahtevek/detail/modal.html" %}
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

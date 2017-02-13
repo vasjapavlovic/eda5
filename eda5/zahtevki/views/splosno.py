@@ -148,7 +148,7 @@ class ZahtevekDetailView(DetailView):
 
         # zaznamek
         context['zaznamek_form'] = ZaznamekForm
-        context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id)
+        context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id).order_by('-datum')
 
         # zahtevek - child
         context['zahtevek_create_form'] = ZahtevekIzbiraForm
@@ -380,6 +380,8 @@ def reload_controls_element_del_stavbe_view(request):
     for del_stavbe in podskupina.delstavbe_set.all():
         del_stavbe_list.append(del_stavbe.id)
 
+
+
     # OUTPUT FILTER
 
     # DelStavbe
@@ -398,18 +400,15 @@ def reload_controls_element_element_view(request):
     # get the object
     del_stavbe = request.POST['del_stavbe']
     del_stavbe = DelStavbe.objects.get(id=del_stavbe)
-    projektno_mesto_list = ProjektnoMesto.objects.filter(del_stavbe=del_stavbe)
 
-    # deli stavbe glede na izbrano podskupino
-    element_list = []
-    for projektno_mesto in projektno_mesto_list:
-        # obstaja samo en element v projektnem mestu. ostali niso aktivni
-        element = projektno_mesto.element_set.all()[0]
-        element_list.append(element.id)
+
+    projektno_mesto_list = []
+    for projektnomesto in del_stavbe.projektnomesto_set.all():
+        projektno_mesto_list.append(projektnomesto.id)
 
     # OUTPUT FILTER
 
     # DelStavbe
-    context['element_to_display'] = element_list
+    context['element_to_display'] = projektno_mesto_list
 
     return JsonResponse(context)
