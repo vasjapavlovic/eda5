@@ -58,7 +58,6 @@ class ZahtevekPovprasevanjeCreateView(TemplateView):
                 vrsta=6,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
-                narocilo=narocilo,
                 nosilec=nosilec,
                 status=3,
             )

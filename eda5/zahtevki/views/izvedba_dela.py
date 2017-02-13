@@ -64,7 +64,6 @@ class ZahtevekIzvedbaDelCreateView(TemplateView):
                 vrsta=3,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
-                narocilo=narocilo,
                 nosilec=nosilec,
                 status=3,
             )
@@ -132,7 +131,6 @@ class PodzahtevekIzvedbaDelCreateView(UpdateView):
                 vrsta=3,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
-                narocilo=narocilo,
                 nosilec=nosilec,
                 status=3,
                 zahtevek_parent=zahtevek_parent

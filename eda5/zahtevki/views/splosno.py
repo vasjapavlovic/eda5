@@ -306,7 +306,6 @@ class OpraviloCreateView(UpdateView):
                 oznaka=oznaka,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
-                narocilo=narocilo,
                 zahtevek=zahtevek,
                 nosilec=nosilec,
                 planirano_opravilo=planirano_opravilo,
