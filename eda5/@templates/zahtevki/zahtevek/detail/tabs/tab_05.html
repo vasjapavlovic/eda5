@@ -1,35 +1,37 @@
-<!-- Model nima še nobenega vnosa -->
+<!-- PODZAHTEVKI -->
+
+<!-- Ko še ni registriranih vnosov -->
 {% if not zahtevek_child_list %}
     Zahtevek še nima registriranih pod-zahtevkov.
 
-<!-- Vnosi so na razpolago -->
+<!-- Ko vnosi že obstajajo -->
 {% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
 
+            <tr>
+                <th>oznaka</th>
+                <th>predmet</th>
+                <th>rok izvedbe</th>
+            </tr>
 
-<table class="table table-hover table-condensed">
-        <tr>
-        <th>oznaka</th>
-        <th>predmet</th>
-        <th>rok izvedbe</th>
+        </thead>
+        <tbody>
 
-        </tr>
+            {% for podzahtevek in zahtevek_child_list %}
 
-{% for podzahtevek in zahtevek_child_list %}
+            {% if podzahtevek.is_active %}
+            <tr>
+            {% else %}
+            <tr class="success">
+            {% endif %}
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' podzahtevek.pk %}">{{ podzahtevek.oznaka }}</a></td>
+                <td>{{ podzahtevek.naziv }}</td>
+                <td>{{ podzahtevek.rok_izvedbe }}</td>
+            </tr>
 
-    {% if podzahtevek.is_active %}
-    <tr>
-    {% else %}
+            {% endfor %}
 
-    <tr class="success">
-    {% endif %}
-
-        <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' podzahtevek.pk %}">{{ podzahtevek.oznaka }}</a></td>
-        <td>{{ podzahtevek.naziv }}</td>
-        <td>{{ podzahtevek.rok_izvedbe }}</td>
-    </tr>
-{% endfor %}
-
-</table>
-
-
+        </tbody>
+    </table>
 {% endif %}

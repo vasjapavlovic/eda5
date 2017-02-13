@@ -1,108 +1,91 @@
-<!-- Predaja Lastnine -->
+<!-- PREDAJA LASTNINE -->
 
-<!-- Model nima še nobenega vnosa -->
+<!-- Ko še ni registriranih vnosov -->
 {% if not object.predajalastnine %}
-    Zahtevek še nima registriranih pod-zahtevkov.
+    Zahtevek še nima registriranih predaj lastnine.
 
-<!-- Vnosi so na razpolago -->
+<!-- Ko vnosi že obstajajo -->
 {% else %}
 
-<!-- PRODAJA -->
-        {% if object.predajalastnine.prodajalastnine_set.all %}
+<!-- PRODAJA LASTNINE -->
+    {% if object.predajalastnine.prodajalastnine_set.all %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
 
-        <div class="panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Prodaja</div>
-            <div class="panel-body">
-                <table class="table table-striped table-bordered">
-                        <tr>
-                            <th>lastniška enota</th>
-                            <th>prodajalec</th>
-                            <th>kupec</th>
-                            <th>datum predaje</th>
-                            <th>Zapisnik o primopredaji</th>
-                            <th>Urejanje</th>
-                        </tr>
-                    {% if object.predajalastnine.prodajalastnine_set.all %}
-                    {% for prodaja_lastnine in object.predajalastnine.prodajalastnine_set.all %}
+            <tr>
+                <th>lastniška enota</th>
+                <th>prodajalec</th>
+                <th>kupec</th>
+                <th>datum predaje</th>
+                <th>Zapisnik o primopredaji</th>
+                <th>Urejanje</th>
+            </tr>
 
+        </thead>
+        <tbody>
 
-                    <tr>
-                        <td>{{ prodaja_lastnine.lastniska_enota.oznaka }}</td>
-                        <td>{{ object.predajalastnine.prodajalec.kratko_ime }}</td>
-                        <td>{{ object.predajalastnine.kupec.kratko_ime }}</td>
-                        <td>{{ prodaja_lastnine.datum_predaje }}</td>
-                        <td><a href="{{ MEDIA_URL }}{{ prodaja_lastnine.zapisnik_izrocitev.dokument.priponka }}">{{ prodaja_lastnine.zapisnik_izrocitev.dokument.oznaka }}</a></td>
-                        <td>
-                            <a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_update' prodaja_lastnine.pk %}">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                    </tr>
+            {% for prodaja_lastnine in object.predajalastnine.prodajalastnine_set.all %}
 
-                    {% endfor %}
-                    {% endif %}
+            {% if not najem_lastnine.vracilo_datum %}
+            <tr class="danger">
+            {% else %}
+            <tr class="success">
+            {% endif %}
+                <td>{{ prodaja_lastnine.lastniska_enota.oznaka }}</td>
+                <td>{{ object.predajalastnine.prodajalec.kratko_ime }}</td>
+                <td>{{ object.predajalastnine.kupec.kratko_ime }}</td>
+                <td>{{ prodaja_lastnine.datum_predaje }}</td>
+                <td><a href="{{ MEDIA_URL }}{{ prodaja_lastnine.zapisnik_izrocitev.dokument.priponka }}">{{ prodaja_lastnine.zapisnik_izrocitev.dokument.oznaka }}</a></td>
+                <td><a type="button" href="{% url 'moduli:zahtevki:prodaja_lastnine_update' prodaja_lastnine.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            </tr>
 
-                </table>
-            </div>
-        </div>
-
-{% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 
 
+    <!-- NAJEM LASTNINE -->
+    {% if object.predajalastnine.najemlastnine_set.all %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
 
+            <tr>
+                <th>lastniška enota</th>
+                <th>Najemodajalec</th>
+                <th>Najemojemalec</th>
+                <th>datum predaje</th>
+                <th>najem do dne</th>
+                <th>Najemna pogodba</th>
+                <th>Vračilo Datum</th>
+                <th>Vračilo Posebnosti</th>
+                <th>Urejanje</th>
+            </tr>
 
+        </thead>
+        <tbody>
 
-<!-- NAJEM -->
-        {% if object.predajalastnine.najemlastnine_set.all %}
+            {% for najem_lastnine in object.predajalastnine.najemlastnine_set.all %}
 
-        <div class="panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Najem</div>
-            <div class="panel-body">
-                <table class="table table-striped table-bordered">
-                        <tr>
-                            <th>lastniška enota</th>
-                            <th>Najemodajalec</th>
-                            <th>Najemojemalec</th>
-                            <th>datum predaje</th>
-                            <th>najem do dne</th>
-                            <th>Najemna pogodba</th>
-                            <th>Vračilo Datum</th>
-                            <th>Vračilo Posebnosti</th>
-                            <th>Urejanje</th>
+            {% if not najem_lastnine.vracilo_datum %}
+            <tr class="danger">
+            {% else %}
+            <tr class="success">
+            {% endif %}
+                <td>{{ najem_lastnine.lastniska_enota.oznaka }}</td>
+                <td>{{ object.predajalastnine.prodajalec.kratko_ime }}</td>
+                <td>{{ object.predajalastnine.kupec.kratko_ime }}</td>
+                <td>{{ najem_lastnine.predaja_datum }}</td>
+                <td>{{ najem_lastnine.veljavnost_datum }}</td>
+                <td><a href="{{ MEDIA_URL }}{{ najem_lastnine.najemna_pogodba.dokument.priponka }}">{{ najem_lastnine.najemna_pogodba.dokument.oznaka }}</a></td>
+                <td>{{ najem_lastnine.vracilo_datum }}</td>
+                <td>{{ najem_lastnine.vracilo_posebnosti }}</td>
+                <td><a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_vracilo' najem_lastnine.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            </tr>
 
-                        </tr>
-                    {% if object.predajalastnine.najemlastnine_set.all %}
-                    {% for najem_lastnine in object.predajalastnine.najemlastnine_set.all %}
-
-                    {% if not najem_lastnine.vracilo_datum %}
-                    <tr class="danger">
-                    {% else %}
-                    <tr class="success">
-                    {% endif %}
-                    
-                        <td>{{ najem_lastnine.lastniska_enota.oznaka }}</td>
-                        <td>{{ object.predajalastnine.prodajalec.kratko_ime }}</td>
-                        <td>{{ object.predajalastnine.kupec.kratko_ime }}</td>
-                        <td>{{ najem_lastnine.predaja_datum }}</td>
-                        <td>{{ najem_lastnine.veljavnost_datum }}</td>
-                        <td><a href="{{ MEDIA_URL }}{{ najem_lastnine.najemna_pogodba.dokument.priponka }}">{{ najem_lastnine.najemna_pogodba.dokument.oznaka }}</a></td>
-                        <td>{{ najem_lastnine.vracilo_datum }}</td>
-                        <td>{{ najem_lastnine.vracilo_posebnosti }}</td>
-                        <td>
-                            <a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_vracilo' najem_lastnine.pk %}">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </a>
-                        </td>
-
-                    </tr>
-                    
-                    {% endfor %}
-                    {% endif %}
-
-                </table>
-            </div>
-        </div>
-
-        {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 
 {% endif %}

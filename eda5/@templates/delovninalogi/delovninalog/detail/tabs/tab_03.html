@@ -1,28 +1,37 @@
-<!-- dokumentacija -->
+<!-- DOKUMENTI -->
 
+<!-- Ko še ni registriranih vnosov -->
+{% if not object.arhiviranje_set.all %}
+    Delovni nalog še nima arhiviranih dokumentov.
 
-<table class="table table-hover table-condensed">
-    <tr>
-        <th>datum</th>
-        <th>oznaka</th>
-        <th>izdal</th>
-        <th>opis</th>
-        <th>priponka</th>
-    </tr>
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
 
-{% for arhiviranje in object.arhiviranje_set.all %}
+            <tr>
+                <th>datum</th>
+                <th>oznaka</th>
+                <th>izdal</th>
+                <th>opis</th>
+                <th>priponka</th>
+            </tr>
 
+        </thead>
+        <tbody>
 
-    <tr>
+            {% for arhiviranje in object.arhiviranje_set.all %}
 
-        <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
-        <td>{{ arhiviranje.dokument.oznaka }}</td>
-        <td>{{ arhiviranje.dokument.avtor }}</td>
-        <td>{{ arhiviranje.dokument.naziv }}</td>
-        <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+            <tr>
+                <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+                <td>{{ arhiviranje.dokument.oznaka }}</td>
+                <td>{{ arhiviranje.dokument.avtor }}</td>
+                <td>{{ arhiviranje.dokument.naziv }}</td>
+                <td><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">priponka</a></td>
+            </tr>
 
-    </tr>
+            {% endfor %}
 
-{% endfor %}
-
-</table>
+        </tbody>
+    </table>
+{% endif %}

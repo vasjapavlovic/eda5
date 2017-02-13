@@ -4,34 +4,27 @@
 
 <div class="row m-t-30">
     <div class="col-sm-12">
-        <div class="panel panel-default p-0">
-            <div class="panel-body p-0"> 
+        <div class="panel with-nav-tabs panel-default">
 
-
-
-                <!--nav-tabs-->              
-                <ul class="nav nav-tabs profile-tabs">
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
                     <li><a data-toggle="tab" href="#dela"><b>D</b>ela</a></li>
                     <li><a data-toggle="tab" href="#material"><b>M</b>aterial</a></li>
                     <li><a data-toggle="tab" href="#dokumentacija"><b>D</b>okumentacija</a></li>
                     <li><a data-toggle="tab" href="#zaznamki"><b>Z</b>aznamki</a></li>
-                    
-
                 </ul>
-                <!--end nav-tabs-->
+            </div>
 
-
-
-                <!--tab-content-->
-                <div class="tab-content m-0"> 
+            <div class="panel-body" > 
+                <div class="tab-content"> 
 
 
 
                     <!--tab******************************** -->
                     <div id="podatki" class="tab-pane active">
                         <div class="profile-desk">
-                            <h1>PODATKI :</h1>
+                            <text>Podatki:</text>
                             {% include "delovninalogi/delovninalog/detail/tabs/tab_01.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -41,7 +34,7 @@
                     <!--tab******************************** -->
                     <div id="dela" class="tab-pane">
                         <div class="profile-desk">
-                            <h1>DELA :</h1>
+                            <text>Dela:</text>
                             {% include "delovninalogi/delovninalog/detail/tabs/tab_02.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -51,7 +44,7 @@
                     <!--tab******************************** -->
                     <div id="dokumentacija" class="tab-pane">
                         <div class="profile-desk">
-                            <h1>DOKUMENTACIJA :</h1>
+                            <text>Dokumentacija:</text>
                             {% include "delovninalogi/delovninalog/detail/tabs/tab_03.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -61,7 +54,7 @@
                     <!--tab******************************** -->
                     <div id="material" class="tab-pane">
                         <div class="profile-desk">
-                            <h1>MATERIAL :</h1>
+                            <text>Material:</text>
                             {% include "delovninalogi/delovninalog/detail/tabs/tab_04.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -71,19 +64,15 @@
                     <!--tab******************************** -->
                     <div id="zaznamki" class="tab-pane">
                         <div class="profile-desk">
-                            <h1>ZAZNAMKI :</h1>
+                            <text>Zaznamki:</text>
                             {% include "delovninalogi/delovninalog/detail/tabs/tab_05.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
 
-
                 </div>
-                <!--end tab-content-->
-
-
-
             </div>
+            
         </div>
     </div>
 </div>

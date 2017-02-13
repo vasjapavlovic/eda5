@@ -1,50 +1,35 @@
 <!-- zahtevek detail : NAVIGACIJA_MENU -->
 
 
-
 <div class="row m-t-30">
     <div class="col-sm-12">
         <div class="panel with-nav-tabs panel-default">
+
             <div class="panel-heading">
-                
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
-                    <li><a data-toggle="tab" href="#opravila"><b>O</b>pravila</a></li>
-                    <li><a data-toggle="tab" href="#dokumentacija"><b>D</b>okumentacija</a></li>
-                    <li><a data-toggle="tab" href="#zaznamki"><b>Z</b>aznamki</a></li>
-                    <li><a data-toggle="tab" href="#podzahtevki"><b>P</b>odzahtevki</a></li>
-
-                    <li><a data-toggle="tab" href="#predaja_lastnine"><b>P</b>redaja Lastnine</a></li>
-                    <li><a data-toggle="tab" href="#kljuci"><b>K</b>ljuci</a></li>
-                    <li><a data-toggle="tab" href="#dogodki"><b>D</b>ogodek</a></li>
-                    <li><a data-toggle="tab" href="#narocila"><b>N</b>aročila</a></li>
-
-
-            
+                    <li class="active"><a data-toggle="tab" href="#podatki">Podatki</a></li>
+                    <li><a data-toggle="tab" href="#zaznamki">Zaznamki</a></li>
+                    <li><a data-toggle="tab" href="#dokumentacija">Dokumentacija</a></li>
+                    <li><a data-toggle="tab" href="#podzahtevki">Podzahtevki</a></li>
+                    <li><a data-toggle="tab" href="#narocila">Naročila</a></li>
+                    <li><a data-toggle="tab" href="#opravila">Opravila</a></li>
+                    <li><a data-toggle="tab" href="#predaja_lastnine">Predaja Lastnine</a></li>
+                    <li><a data-toggle="tab" href="#kljuci">Kljuci</a></li>
+                    <li><a data-toggle="tab" href="#dogodki">Dogodek</a></li>
+                    
                 </ul>
-                
             </div>
 
 
-            <div class="panel-body p-0" > 
-
-
-
-                <!--nav-tabs-->              
-                
-                <!--end nav-tabs-->
-
-
-
-                <!--tab-content-->
-                <div class="tab-content m-0"> 
+            <div class="panel-body" > 
+                <div class="tab-content"> 
 
 
 
                     <!--tab******************************** -->
                     <div id="podatki" class="tab-pane active">
                         <div class="profile-desk">
-                            <h3>Podatki o zahtevku:</h3>
+                            <text>Podatki o zahtevku:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_01.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -54,7 +39,7 @@
                     <!--tab******************************** -->
                     <div id="opravila" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Opravila:</h3>
+                            <text>Opravila:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_02.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -64,7 +49,7 @@
                     <!--tab******************************** -->
                     <div id="dokumentacija" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Dokumentacija:</h3>
+                            <text>Dokumentacija:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_03.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -74,7 +59,7 @@
                     <!--tab******************************** -->
                     <div id="zaznamki" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Zaznamki:</h3>
+                            <text>Zaznamki:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_04.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -84,7 +69,7 @@
                     <!--tab******************************** -->
                     <div id="podzahtevki" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Podzahtevki:</h3>
+                            <text>Podzahtevki:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_05.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -94,42 +79,45 @@
                     <!--tab******************************** -->
                     <div id="predaja_lastnine" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Predaja lastnine:</h3>
+                            <text>Predaja lastnine:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_06.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
+
+
                     <!--tab******************************** -->
                     <div id="kljuci" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Ključi:</h3>
+                            <text>Ključi:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_08.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
+
+
                     <!--tab******************************** -->
                     <div id="dogodki" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Dogodki:</h3>
+                            <text>Dogodki:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_07.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
+
+
                     <!--tab******************************** -->
                     <div id="narocila" class="tab-pane">
                         <div class="profile-desk">
-                            <h3>Naročila:</h3>
+                            <text>Naročila:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_09.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
 
                 </div>
-                <!--end tab-content-->
-
-
-
             </div>
+            
         </div>
     </div>
 </div>

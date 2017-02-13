@@ -105,9 +105,9 @@ label {
   background-color: #eee;
 }
 .navbar {
-  -webkit-box-shadow: 0px 0px 3px #cccccc;
-  -moz-box-shadow: 0px 0px 3px #cccccc;
-  box-shadow: 0px 0px 3px #cccccc;
+  -webkit-box-shadow: 0px 0px 3px #f2c202;
+  -moz-box-shadow: 0px 0px 3px #f2c202;
+  box-shadow: 0px 0px 3px #f2c202;
   padding: 0em 1em;
   margin: 0px;
   -webkit-border-radius: 0px;
@@ -140,6 +140,10 @@ label {
   background-color: #444;
   color: #fff;
 }
+.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover { 
+  color: #f2c202;
+}
+
 .navbafr {
   position: relative;
   z-index: 20;
@@ -389,11 +393,12 @@ a.panel-heading:hover,
 }
 /*Navigation*/
 .sidebar-nav {
+
   width: 240px;
-  position: fixed;
+  position: relative;
   float: left;
   border-top: none;
-  border-left: none;
+  border-left: 30px;
   margin: 0em;
 }
 .sidebar-nav ul {

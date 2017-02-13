@@ -20,19 +20,21 @@
 
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
-    {% include "zahtevki/zahtevek/detail/navbar_left.html" %}
+
+<div class="navbar-collapse collapse stat" style="height: 1px;">
+    <ul id="main-menu" class="nav navbar-nav navbar-right">
+        <li class="dropdown hidden-xs">
+            <button href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i>Ukazi<i class="fa fa-caret-down"></i></button>
+
+            <ul class="dropdown-menu">
+                {% include "zahtevki/zahtevek/detail/navbar_left.html" %}
+            </ul>
+        </li>
+    </ul>
+</div>
+
 {% endblock %}
 <!-- end Navbar-Left podatki -->
-
-
-
-<!-- PAGE TITLE -->
-
-
-
-
-
-<!-- end PAGE TITLE -->
 
 
 
@@ -44,7 +46,7 @@
 <div class="col-sm-6 col-md-6">
 
     <div class="panel">
-        <div class="panel-heading no-collapse"><p>Podrobnosti zahtevka</p></div>
+        <div class="panel-heading no-collapse">Podrobnosti zahtevka</div>
 
             <table style="row-height=5; !important"  class="table table-condensed table-bordered">
                 <font color="black">

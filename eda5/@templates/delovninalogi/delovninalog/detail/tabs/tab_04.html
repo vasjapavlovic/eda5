@@ -1,24 +1,33 @@
-<!-- material -->
+<!-- MATERIAL -->
 
+<!-- Ko še ni registriranih vnosov -->
+{% if not material_list %}
+    Delovni nalog še nima vnešenega materiala.
 
-<table class="table table-striped table-bordered">
-        <tr>
-            <th>oznaka</th>
-            <th>naziv</th>
-            <th>količina</th>
-        </tr>
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
 
-    {% for material in material_list %}
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>količina</th>
+            </tr>
 
+        </thead>
+        <tbody>
 
-    <tr>
-    
-        <td>{{ material.artikel.oznaka }}</td>
-        <td>{{ material.artikel.naziv }}</td>
-        <td>{{ material.kom }}</td>
-        
-    </tr>
+            {% for arhiviranje in object.arhiviranje_set.all %}
 
-    {% endfor %}
+            <tr>
+                <td>{{ material.artikel.oznaka }}</td>
+                <td>{{ material.artikel.naziv }}</td>
+                <td>{{ material.kom }}</td>
+            </tr>
 
+            {% endfor %}
+
+        </tbody>
     </table>
+{% endif %}
