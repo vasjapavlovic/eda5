@@ -50,7 +50,6 @@ class ZahtevekPovprasevanjeCreateView(TemplateView):
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
             rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
-            narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
             nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
 
             zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
@@ -141,7 +140,6 @@ class PodzahtevekPovprasevanjeCreateView(UpdateView):
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
             rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
-            narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
             nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
 
             zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
@@ -149,7 +147,6 @@ class PodzahtevekPovprasevanjeCreateView(UpdateView):
                 vrsta=6,
                 naziv=naziv,
                 rok_izvedbe=rok_izvedbe,
-                narocilo=narocilo,
                 nosilec=nosilec,
                 status=3,
                 zahtevek_parent=zahtevek_parent,

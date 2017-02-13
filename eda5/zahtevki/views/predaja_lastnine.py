@@ -73,7 +73,6 @@ class ZahtevekPredajaLastnineCreateView(TemplateView):
             oznaka = zahtevek_splosno_form.cleaned_data['oznaka']
             naziv = zahtevek_splosno_form.cleaned_data['naziv']
             rok_izvedbe = zahtevek_splosno_form.cleaned_data['rok_izvedbe']
-            narocilo = zahtevek_splosno_form.cleaned_data['narocilo']
             nosilec = zahtevek_splosno_form.cleaned_data['nosilec']
 
             zahtevek_splosno_data = Zahtevek.objects.create_zahtevek(
