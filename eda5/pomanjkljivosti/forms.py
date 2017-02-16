@@ -65,4 +65,5 @@ class PomanjkljivostCreateFromZahtevekForm(forms.ModelForm):
             'element',
             'etaza_text',
             'lokacija_text',
+            'prioriteta',
         )
