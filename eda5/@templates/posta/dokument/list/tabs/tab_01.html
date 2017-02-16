@@ -1,35 +1,97 @@
-<!-- ZA ARHIVIRANJE -->
+<!-- TAB_01 Content -->
 
-            <div class="table">
-                <table id="datatable_posta_nearhivirano"  class="table table-condensed table-bordered table-hover">
+{% if za_arhiviranje_list %}
 
-                    <thead class="bg-primary">
-                    <tr>
-                        <td>datum</td>
-                        <td>oznaka</td>
-                        <td>vrsta dokumenta</td>
-                        <td>pošiljatelj</td>
-                        <td>naslovnik</td>
-                        <td>predmet</td>
-                        <td>priponka</td>
-                        <td>Edit</td>
-                    </tr>
-                    </thead>
+<form class="pull-right" action="{% url 'moduli:posta:dokument_list' %}" method="GET">
 
-                    <tbody>
-                    {% for dokument in za_arhiviranje_list %}
-                    <tr>
-                        <td>{{ dokument.get_year_date }}{{ dokument.get_month_date }}{{ dokument.get_day_date }}</td>
-                        <td><b><a href="{% url 'moduli:posta:dokument_detail' dokument.pk %}">{{ dokument.oznaka }}</a></b></td>
-                        <td>{{ dokument.vrsta_dokumenta.naziv }} ({{ dokument.vrsta_dokumenta.oznaka }})</td>
-                        <td>{{ dokument.avtor.kratko_ime }}</td>
-                        <td>{{ dokument.naslovnik.kratko_ime }}</td>
-                        <td>{{ dokument.naziv }}</td>
-                        <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
-                        <td><a href="{% url 'moduli:posta:dokument_update' dokument.pk %}">Edit</a></td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
 
-                </table>
-            </div>
+<!-- ....
+<div class="navbar-collapse collapse stat" style="height: 1px;">
+    <ul id="main-menu" class="nav navbar-nav navbar-right">
+        <li class="dropdown hidden-xs">
+            <button href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i> Ukazi <i class="fa fa-caret-down"></i></button>
+
+            <ul class="dropdown-menu">
+                
+
+
+                <li class="dropdown-header">Seznam vsebuje dokumente</li>
+                <div id="checkbox-container">
+                <button>Check All</button>
+
+                {% for vrsta_dokumenta in vrste_dokumentov %}
+
+                <li><label for="option{{forloop.counter}}">{{ vrsta_dokumenta.naziv }}</label><input name="{{ vrsta_dokumenta.oznaka }}" type="checkbox" id="option{{forloop.counter}}" value="ok"></li>
+
+                {% endfor %}
+
+                </div>
+
+                
+
+
+
+
+            </ul>
+        </li>
+    </ul>
+</div>
+.... -->
+
+<div id="search-container">
+    <input type="text" name="q" />
+    <button type="submit">search</button>
+</div>
+
+
+    
+</form>
+
+                    <table id="" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>vrsta dokumenta</td>
+                                <td>oznaka</td>
+                                <td>datum</td>
+                                <td>pošiljatelj</td>
+                                <td>naslovnik</td>
+                                <td>predmet</td>
+                                <td>priponka</td>
+                                <td>Edit</td>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            {% for dokument in object_list %}
+                            <tr>
+                                <td>{{ dokument.vrsta_dokumenta.naziv }} ({{ dokument.vrsta_dokumenta.oznaka }})</td>
+                                <td><b><a href="{% url 'moduli:posta:dokument_detail' dokument.pk %}">{{ dokument.oznaka }}</a></b></td>
+                                <td>{{ dokument.datum_dokumenta }}</td>
+                                <td>{{ dokument.avtor.kratko_ime }}</td>
+                                <td>{{ dokument.naslovnik.kratko_ime }}</td>
+                                <td>{{ dokument.naziv }}</td>
+                                <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
+                                <td><a href="{% url 'moduli:posta:dokument_update' dokument.pk %}">Edit</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {# .... **Now the pagination section** .... #}
+    {% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li><a href="{% url 'moduli:posta:dokument_list' %}?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% endif %}
+      <li><a href="">Stran {{ page_obj.number }} od {{ page_obj.paginator.num_pages }}</a></li>
+      {% if page_obj.has_next %}
+      <li><a href="{% url 'moduli:posta:dokument_list' %}?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+
+
+
+    {% endif %}
+

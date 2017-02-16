@@ -1,0 +1,40 @@
+<!-- POMANJKLJIVOSTI -->
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not pomanjkljivost_list %}
+    Trenutno še ni registriranih pomanjkljivosti.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>oznaka</th>
+                <th>opis</th>
+                <th>prijava dne</th>
+                <th>prioriteta</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for object in pomanjkljivost_list %}
+
+            {% if object.opravilo_set.all %}
+            <tr class="info">
+            {% else %}
+            <tr>
+            {% endif %}
+                <td><b><a href="">
+                {{ object.oznaka }}</a></b></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.prijava_dne }}</td>
+                <td>{{ object.get_prioriteta_display }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endif %}

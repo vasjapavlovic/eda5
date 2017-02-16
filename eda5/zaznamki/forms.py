@@ -1,6 +1,7 @@
 from functools import partial
 
 from django import forms
+
 from .models import Zaznamek
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -24,3 +25,4 @@ class ZaznamekForm(forms.ModelForm):
 
 class ZaznamekUpdateForm(ZaznamekForm):
     pass
+

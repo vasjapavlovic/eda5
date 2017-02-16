@@ -25,7 +25,11 @@ from eda5.deli.forms import ElementIzbiraForm
 from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto 
 
 # Delovni Nalogi
-from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm
+from eda5.delovninalogi.forms import \
+    OpraviloCreateForm, \
+    OpraviloElementUpdateForm, \
+    OpraviloPomanjkljivostUpdateForm
+    
 from eda5.delovninalogi.models import Opravilo
 
 # Dogodki
@@ -38,11 +42,14 @@ from eda5.kljuci.models import PredajaKljuca
 from eda5.kljuci.forms import PredajaKljucaCreateForm
 from eda5.kljuci.forms import PredajaKljucaVraciloForm
 
+# Moduli
+from eda5.moduli.models import Zavihek
+
 # Naročila
 from eda5.narocila.models import Narocilo
 
-# Moduli
-from eda5.moduli.models import Zavihek
+# Pomanjkljivosti
+from eda5.pomanjkljivosti.models import Pomanjkljivost
 
 # Partnerji
 from eda5.partnerji.models import Oseba
@@ -145,6 +152,9 @@ class ZahtevekDetailView(DetailView):
         # opravilo
         context['opravilo_form'] = OpraviloCreateForm
         context['opravilo_list'] = Opravilo.objects.filter(zahtevek=self.object.id)
+
+        # pomanjkljivosti
+        context['pomanjkljivost_list'] = Pomanjkljivost.objects.filter(zahtevek=self.object.id)
 
         # zaznamek
         context['zaznamek_form'] = ZaznamekForm
@@ -271,8 +281,9 @@ class OpraviloCreateView(UpdateView):
 
         # opravilo
         context['opravilo_create_form'] = OpraviloCreateForm
-        context['opravilo_element_update_form'] = OpraviloElementUpdateForm
         context['element_izbira_form'] = ElementIzbiraForm
+        context['opravilo_element_update_form'] = OpraviloElementUpdateForm
+        context['opravilo_pomanjkljivost_update_form'] = OpraviloPomanjkljivostUpdateForm
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
@@ -287,13 +298,19 @@ class OpraviloCreateView(UpdateView):
 
         # forms
         opravilo_create_form = OpraviloCreateForm(request.POST or None)
-        opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
         element_izbira_form = ElementIzbiraForm(request.POST or None)
+        opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
+        opravilo_pomanjkljivost_update_form = OpraviloPomanjkljivostUpdateForm(request.POST or None)
+        
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
 
-        # izdelamo opravilo (!!!elemente opravilu dodamo kasneje)
+
+        ''' Izdelamo novo opravilo kjer se kasneje dodatno dopolni
+        na katerih elementih se opravilo opravlja ter katere
+        pomanjkljivosti se odpravljajo v tem opravilu. '''
+
         if opravilo_create_form.is_valid():
             oznaka = opravilo_create_form.cleaned_data['oznaka']
             naziv = opravilo_create_form.cleaned_data['naziv']
@@ -317,11 +334,17 @@ class OpraviloCreateView(UpdateView):
         else:
             return render(request, self.template_name, {
                 'opravilo_create_form': opravilo_create_form,
-                'opravilo_element_update_form': opravilo_element_update_form,
                 'element_izbira_form': element_izbira_form,
+                'opravilo_element_update_form': opravilo_element_update_form,
+                'opravilo_pomanjkljivost_update_form': opravilo_pomanjkljivost_update_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )
+
+
+        ''' Posodobitev opravila tako, da se pove na katerih elementih
+        stavbe se opravilo izvaja. Pomembno za elektronsko servisno
+        knjigo. '''
 
         if opravilo_element_update_form.is_valid():
             element = opravilo_element_update_form.cleaned_data['element']
@@ -332,8 +355,29 @@ class OpraviloCreateView(UpdateView):
         else:
             return render(request, self.template_name, {
                 'opravilo_create_form': opravilo_create_form,
-                'opravilo_element_update_form': opravilo_element_update_form,
                 'element_izbira_form': element_izbira_form,
+                'opravilo_element_update_form': opravilo_element_update_form,
+                'opravilo_pomanjkljivost_update_form': opravilo_pomanjkljivost_update_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+
+        ''' Posodobitev opravila tako, da mu dodeli pomanjkljivosti, 
+        ki se odpravljajo v tem opravilu'''
+
+        if opravilo_pomanjkljivost_update_form.is_valid():
+            pomanjkljivost = opravilo_pomanjkljivost_update_form.cleaned_data['pomanjkljivost']
+
+            opravilo_object.pomanjkljivost = pomanjkljivost
+            opravilo_object.save()
+
+        else:
+            return render(request, self.template_name, {
+                'opravilo_create_form': opravilo_create_form,
+                'element_izbira_form': element_izbira_form,
+                'opravilo_element_update_form': opravilo_element_update_form,
+                'opravilo_pomanjkljivost_update_form': opravilo_pomanjkljivost_update_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )

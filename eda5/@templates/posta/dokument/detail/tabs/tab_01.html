@@ -1,6 +1,6 @@
 <!-- TAB_01 Content -->
 
-    <table class="table table-condensed">
+    <table class="table table-condensed table-bordered">
         <tbody>
 
             <tr>
@@ -11,11 +11,11 @@
             </tr>
             <tr>
                 <td>Pošiljatelj</td>
-                <td><a href="" class="ng-binding">{{ object.avtor.naziv }}</a></td>
+                <td><a href="" class="ng-binding">{{ object.avtor.kratko_ime }}</a></td>
             </tr>
             <tr>
                 <td>Naslovnik</td>
-                <td><a href="#" class="ng-binding">{{ object.naslovnik.naziv }}</a></td>
+                <td><a href="#" class="ng-binding">{{ object.naslovnik.kratko_ime }}</a></td>
             </tr>
             <tr>
                 <td><b>Status</b></td>
@@ -34,11 +34,15 @@
             </tr>
             <tr>
                 <td>Prejeto dne</td>
-                <td>{{ object.aktivnost.created }}</td>
+                <td>{{ object.aktivnost.date_created }}</td>
             </tr>
             <tr>
                 <td>Arhivirano dne</td>
-                <td>{{ object.arhiviranje.created }}</td>
+                {% if not object.arhiviranje.date_created %}
+                <td>Dokument ni arhiviran.</td>
+                {% else %}
+                <td>{{ object.arhiviranje.date_created }}</td>
+                {% endif %}
             </tr>
 
         </tbody>

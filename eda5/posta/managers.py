@@ -22,6 +22,17 @@ class AktivnostManager(models.Manager):
 
 class DokumentManager(models.Manager):
 
+    def __init__(self, *args, **kwargs):
+        super(DokumentManager, self).__init__(*args, **kwargs)
+
+    def arhivirano():
+        return self.get_query_set().filter(arhiviranje__isnull=False).order_by('-aktivnost__datum_aktivnosti')[0]
+
+    def za_arhiviranje():
+        return self.get_query_set().filter(arhiviranje__isnull=True).order_by('-aktivnost__datum_aktivnosti')[0]
+
+
+
     def create_dokument(
                         self,
                         aktivnost=None,

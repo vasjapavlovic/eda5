@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.http import JsonResponse
 from django.core.context_processors import csrf
+
 
 import os
 
@@ -19,7 +20,7 @@ from eda5.arhiv.models import Arhiviranje, ArhivMesto, Arhiv
 
 from eda5.nastavitve.models import NastavitevPartnerja
 
-from eda5.partnerji.models import Oseba, SkupinaPartnerjev
+from eda5.partnerji.models import Oseba, Partner
 
 from eda5.moduli.models import Zavihek
 
@@ -31,6 +32,8 @@ class PostaHomeView(TemplateView):
 class DokumentListView(ListView):
     model = Dokument
     template_name = "posta/dokument/list/base.html"
+    paginate_by = 10
+
 
     def get_context_data(self, *args, **kwargs):
         context = super(DokumentListView, self).get_context_data(*args, **kwargs)
@@ -43,11 +46,80 @@ class DokumentListView(ListView):
         arhivirano_list = Dokument.objects.filter(arhiviranje__isnull=False)
         context['arhivirano_list'] = arhivirano_list
 
+        # dokumenti
+        vrste_dokumentov = VrstaDokumenta.objects.all()
+        context['vrste_dokumentov'] = vrste_dokumentov
+
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_LIST")
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+
+    def get_queryset(self):
+        # Fetch the queryset from the parent get_queryset
+        queryset = super(DokumentListView, self).get_queryset()
+
+        queryset = queryset.order_by("-aktivnost__created")
+
+        # Definiramo vse vrste dokumentov
+        vrste_dokumentov = VrstaDokumenta.objects.all()
+
+        # Iskalnik
+        # Pridobimo parameter "name=q"
+        q = self.request.GET.get("q")
+
+        if q:
+            # return filtered queryset
+            return queryset.filter(
+                Q(oznaka__icontains=q) |
+                Q(naziv__icontains=q) |
+                Q(avtor__kratko_ime__icontains=q) |
+                Q(naslovnik__kratko_ime__icontains=q) |
+                Q(datum_dokumenta__icontains=q) |
+                Q(vrsta_dokumenta__naziv__icontains=q)
+            )
+
+        # Filtriranje glede na vrste dokumentov, ki se izberejo
+        # Pridobimo stanje, katere vrste dokumentov je uporabnik
+        # izbral
+        # for vrsta_dokumenta in vrste_dokumentov:
+
+        #     vrednost_checkbox = self.request.GET.get(vrsta_dokumenta.oznaka)
+            
+
+        # # rac = self.request.GET.get("rac")
+        # # pgd = self.request.GET.get("pgd")
+        # # dop = self.request.GET.get("dop")
+        # # kl = self.request.GET.get("kl")
+
+
+        #     if vrednost_checkbox == None:
+        #             print(vrsta_dokumenta.oznaka)
+        #             print(vrednost_checkbox)
+        #             return queryset.exclude(vrsta_dokumenta__oznaka__icontains=vrsta_dokumenta.oznaka)
+        #     else:
+        #         pass
+
+
+
+        # if not rac=="True":
+        #     print(rac)
+        #     # podatki ne vsebujejo
+        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="RAC")
+        # if not pgd =="True":
+        #     # podatki ne vsebujejo
+        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="PGD")
+        # if not dop =="True":
+        #     # podatki ne vsebujejo
+        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="DOP")
+        # if not kl =="True":
+        #     # podatki ne vsebujejo
+        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="KL")
+
+        # return base queryset
+        return queryset
 
 
 class PostaDokumentDetailView(DetailView):
@@ -179,7 +251,7 @@ class DokumentCreateView(TemplateView):
             np = NastavitevPartnerja.objects.all()[0]
             # ker operiramo s skupinami partnerjev moramo za partnerja pridobiti skupino,
             # ki ustreza samo nastavljenemu partnerju
-            partner = SkupinaPartnerjev.objects.get(oznaka=np.partner.davcna_st)
+            partner = Partner.objects.get(id=np.partner.pk)
 
             # če je aktivnost 1=Vhodna Pošta --> naslovnik = nastavljeni partner
             if vrsta_aktivnosti == 1:

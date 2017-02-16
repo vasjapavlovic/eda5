@@ -22,7 +22,6 @@ class DogodekManager(models.Manager):
             is_nastala_skoda=is_nastala_skoda,
             povzrocitelj=povzrocitelj,
             zahtevek=zahtevek,
-
             )
 
         dogodek.save(using=self._db)

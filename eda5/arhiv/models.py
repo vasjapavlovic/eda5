@@ -105,6 +105,10 @@ class Arhiviranje(TimeStampedModel):
     # OBJECT MANAGER
     objects = managers.ArhiviranjeManager()
     # CUSTOM PROPERTIES
+    @property
+    def date_created(self):
+        aktivnost_date_created = self.created.date()
+        return aktivnost_date_created
     # METHODS
 
     # META AND STRING

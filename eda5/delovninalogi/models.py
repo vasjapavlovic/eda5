@@ -12,27 +12,46 @@ from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 from eda5.deli.models import Element, ProjektnoMesto
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
+
+# Pomanjkljivosti
+from eda5.pomanjkljivosti.models import Pomanjkljivost
+
+
 from eda5.zahtevki.models import Zahtevek
 from eda5.planiranje.models import PlaniranoOpravilo
 
 
 class Opravilo(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
-    # ATRIBUTES
-    #   Relations
+    #   RELATIONS
+
     zahtevek = models.ForeignKey(Zahtevek)
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
     nosilec = models.ForeignKey(Oseba)
     planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
-    '''pod naročilo je odzadaj tudi relacija na naročnika in izvajalca'''
-    # planirano_opravilo = models.ForeignKey(PlanOpravilo, blank=True, null=True)
+
+    ''' Navezava na pomanjkljivosti, ki se v opravilu odpravljajo.
+    V opravilu se lahko odpravlja več pomanjkljivosti. 
+    Pomanjkljivost se lahko odpravlja v več opravilih za katerega
+    je potrebno svoje naročilo. '''
+
+    pomanjkljivost = models.ManyToManyField(Pomanjkljivost, blank=True)
+
+
+    '''Opravilo se izvaja na posameznih elementih stavbe, 
+    ki se jih definira tukaj'''
+
     element = models.ManyToManyField(ProjektnoMesto)
-    #   Mandatory
+
+
+    #   MANDATORY
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)
     rok_izvedbe = models.DateField()
     is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno iz strani nadzornika")
     #   Optional
+
+
 
 
     # OBJECT MANAGER
@@ -138,7 +157,8 @@ class Delo(TimeStampedModel, StatusModel):
     delovninalog = models.ForeignKey(DelovniNalog, verbose_name="delovni nalog")
     vrsta_dela = models.ForeignKey('DeloVrsta', blank=True, null=True)
     #   Mandatory
-    opis = models.TextField(blank=True, null=True)
+    oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=255)
     #   Optional
     datum = models.DateField(blank=True, null=True)
     '''****spremeni v DurationField*****'''

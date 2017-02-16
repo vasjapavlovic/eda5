@@ -20,7 +20,7 @@ class OpraviloManager(models.Manager):
                               naziv=naziv,
                               rok_izvedbe=rok_izvedbe,
                               narocilo=narocilo,
-                              # element se doda kasnee pod ElementManager in OpraviloCreateView
+                              # element se doda kasneje pod ElementManager in OpraviloCreateView
                               zahtevek=zahtevek,
                               nosilec=nosilec,
                               planirano_opravilo=planirano_opravilo,
@@ -95,23 +95,29 @@ class DeloManager(models.Manager):
     def koncana_dela(self, **kwargs):
         return self.filter(time_stop__isnull=False)
 
-    def create_delo(self,
+    def create_delo(
+                    self,
+                    oznaka=None,
+                    naziv=None,
                     delavec=None,
                     datum=None,
                     vrsta_dela=None,
                     time_start=None,
                     delovninalog=None,
-                    ):
+    ):
 
         if not delovninalog:
             raise ValueError("Izbran mora biti delovninalog")
 
-        delo = self.model(delavec=delavec,
+        delo = self.model(
+                          oznaka=oznaka,
+                          naziv=naziv,
+                          delavec=delavec,
                           datum=datum,
                           vrsta_dela=vrsta_dela,
                           time_start=time_start,
                           delovninalog=delovninalog,
-                          )
+        )
 
         delo.save(using=self._db)
         return delo

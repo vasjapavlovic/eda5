@@ -157,6 +157,10 @@ USE_I18N = True
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
 USE_L10N = False  # LOCALE DATE FORMAT
 DATE_FORMAT = "d.m.Y"
+DATETIME_FORMAT = "d.m.Y  P"
+TIME_FORMAT = "H:i"
+
+# DATE_INPUT_FORMATS = ("%d.%m.%Y", "%d-%m-%Y", "%Y-%m-%d", )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True

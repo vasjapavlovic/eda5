@@ -150,11 +150,13 @@ class VzorecOpravilaCreateForm(forms.ModelForm):
         }
 
 
+
+
 class OpraviloUpdateForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super(OpraviloUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['element'].queryset = ProjektnoMesto.objects.filter(is_active=True)
+    # def __init__(self, *args, **kwargs):
+        # super(OpraviloUpdateForm, self).__init__(*args, **kwargs)
+        # self.fields['element'].queryset = ProjektnoMesto.objects.filter(is_active=True)
 
     class Meta:
         model = Opravilo
@@ -169,6 +171,8 @@ class OpraviloUpdateForm(forms.ModelForm):
             'rok_izvedbe': DateInput(),
         }
 
+''' Ko je opravilo izdelano ga posodobimo tako, da mu
+dodelimo še na katerih elementih se izvaja'''
 
 class OpraviloElementUpdateForm(OpraviloUpdateForm):
 
@@ -176,6 +180,19 @@ class OpraviloElementUpdateForm(OpraviloUpdateForm):
         model = Opravilo
         fields = (
             'element',
+        )
+
+
+''' Ko je opravilo izdelano ga posodobimo tako, da mu
+dodelimo še katere pomanjkljivosti se v opravilu 
+odpravljajo '''
+
+class OpraviloPomanjkljivostUpdateForm(OpraviloUpdateForm):
+
+    class Meta:
+        model = Opravilo
+        fields = (
+            'pomanjkljivost',
         )
 
 
@@ -243,14 +260,71 @@ class DelovniNalogVresevanjuModelForm(forms.ModelForm):
             }
 
 
-class DeloForm(forms.Form):
+class DeloCreateForm(forms.ModelForm):
 
-    DELAVCI = Oseba.objects.all()
-    VRSTE_DEL = DeloVrsta.objects.all()
+    def __init__(self, *args, **kwargs):
+        super(DeloCreateForm, self).__init__(*args, **kwargs)
 
-    delavec = forms.ModelChoiceField(queryset=DELAVCI)
-    vrsta_dela = forms.ModelChoiceField(queryset=VRSTE_DEL)
-    opis = forms.CharField()
+        ''' Avtomatska oznaka dela. Oznaka = Zaporedna številka '''
+
+        try:
+            zap_st = Delo.objects.all().count()
+            zap_st = zap_st + 1
+        except:
+            zap_st = 1
+
+        oznaka = zap_st
+        self.initial['oznaka'] = oznaka
+        self.fields['oznaka'].widget.attrs['readonly'] = True
+
+
+        ''' Avtomatska dodelitev trenutnega datuma in časa začetka
+        izvajanja dela. '''
+
+        datum = timezone.now().date()
+        time_start = timezone.now().time().strftime('%H:%M')
+
+        self.initial['datum'] = datum
+        self.fields['datum'].widget.attrs['readonly'] = True
+
+        self.initial['time_start'] = time_start
+        self.fields['time_start'].widget.attrs['readonly'] = True
+
+
+    def clean_oznaka(self):
+
+        """ poskrbimo: post ne more povoziti OZNAKO, ki je readonly """
+
+        instance = getattr(self, 'instance', None)
+
+        if instance and instance.pk:
+            return instance.oznaka
+        else:
+            return self.cleaned_data['oznaka']
+
+
+        if instance and instance.pk:
+            return instance.datum
+        else:
+            return self.cleaned_data['datum']
+
+
+        if instance and instance.pk:
+            return instance.time_start
+        else:
+            return self.cleaned_data['time_start']
+
+
+    class Meta:
+        model = Delo
+        fields = (
+            'oznaka',
+            'naziv',
+            'delavec',
+            'vrsta_dela',
+            'datum',
+            'time_start',
+        )
 
 
 class DeloZacetoUpdateModelForm(forms.ModelForm):

@@ -45,7 +45,9 @@
     <div class="panel">
         <div class="panel-heading">Podatki o opravilu</div>
         <div class="panel-body">
+
             {{ opravilo_create_form|crispy  }} 
+
         </div>
     </div>
 
@@ -53,32 +55,59 @@
         <div class="panel-heading">Elementi na katerih se opravilo izvaja (servisna knjiga)</div>
         <div class="panel-body">
 
-            <!-- Filtriranje Elementov za izbiro -->
             {{ element_izbira_form | crispy  }} 
 
+            <div class="row">
+                <div class="col-xs-5">
+                    <select name="from[]" id="search" class="form-control" size="8" multiple="multiple"></select>
+                </div>
+                        
+                <div class="col-xs-2">
+                    <button type="button" id="search_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                    <button type="button" id="search_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button type="button" id="search_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button type="button" id="search_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                </div>
+                    
+                <div class="col-xs-5">
+                    <select name="element" id="search_to" class="form-control" size="8" multiple="multiple"></select>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        
 
-<div class="row">
-    <div class="col-xs-5">
-        <select name="from[]" id="search" class="form-control" size="8" multiple="multiple">
-        </select>
-    </div>
-    
-    <div class="col-xs-2">
-        <button type="button" id="search_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
-        <button type="button" id="search_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
-        <button type="button" id="search_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
-        <button type="button" id="search_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
-    </div>
-    
-    <div class="col-xs-5">
-        <select name="element" id="search_to" class="form-control" size="8" multiple="multiple"></select>
-    </div>
-</div>
+    <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+        <div class="panel-heading">Pomanjkljivosti, ki se odpravljajo v opravilu</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-5">
+                    <select name="from[]" id="search1" class="form-control" size="8" multiple="multiple">
 
-</div>
+                        {% for pomanjkljivost in opravilo_pomanjkljivost_update_form.fields.pomanjkljivost.queryset %}
+
+                        <option value="{{ pomanjkljivost.pk }}">({{ pomanjkljivost.oznaka }}) {{ pomanjkljivost.naziv }}</option>
+
+                        {% endfor %}
+
+                    </select>
+                </div>
+                
+                <div class="col-xs-2">
+                    <button type="button" id="search1_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                    <button type="button" id="search1_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button type="button" id="search1_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button type="button" id="search1_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                </div>
+                
+                <div class="col-xs-5">
+                    <select name="pomanjkljivost" id="search1_to" class="form-control" size="8" multiple="multiple"></select>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
     <input type="submit" value="Potrdi">
 
@@ -313,7 +342,21 @@
                 right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
             },
             fireSearch: function(value) {
-                return value.length > 3;
+                return value.length > 0;
+            }
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#search1').multiselect({
+            search: {
+                left: '<input type="text" name="q2" class="form-control" placeholder="Search..." />',
+                right: '<input type="text" name="q2" class="form-control" placeholder="Search..." />',
+            },
+            fireSearch: function(value) {
+                return value.length > 0;
             }
         });
     });

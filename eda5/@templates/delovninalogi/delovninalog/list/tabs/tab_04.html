@@ -1,34 +1,44 @@
 <!-- TAB_04 -->
 
-    <table class="table">
-        <tr>
-            <th>delovni nalog</th>
-            <th>opravilo</th>
-            <th>rok izvedbe</th>
-            <th>zaključeno dne</th>
-            <th>nosilec</th>
-            <th>nadzor</th>
-        </tr>
 
-        {% for dn in dn_zakljuceni_list %}
-        {% if dn.opravilo.is_potrjen %}
-        <tr class="success">
-        {% else %}
-        <tr>
-        {% endif %}
-            <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
-            <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
-            <td>{{ dn.opravilo.rok_izvedbe }}</td>
-            <td>{{ dn.datum_stop }}</td>
-            <td><b>{{ dn.nosilec.priimek }} {{ dn.nosilec.ime }}</b><br>
-                ({{ dn.nosilec.podjetje.kratko_ime }})
-            </td>
-            <td><b>{{ dn.opravilo.nosilec.priimek }} {{ dn.opravilo.nosilec.ime }}</b><br>
-                ({{ dn.opravilo.nosilec.podjetje.kratko_ime}})
-            </td>
-        </tr>
-        </div>
-        
-        {% endfor %}
-     
+<!-- Ko še ni registriranih vnosov -->
+{% if not dn_zakljuceni_list %}
+    Ni delovnih nalogov V PLANU.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>delovni nalog</th>
+                <th>opravilo</th>
+                <th>rok izvedbe</th>
+                <th>zaključeno dne</th>
+                <th>nosilec</th>
+                <th>nadzor</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for dn in dn_zakljuceni_list %}
+
+            {% if dn.opravilo.is_potrjen %}
+            <tr class="success">
+            {% else %}
+            <tr>
+            {% endif %}
+                <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.id %}">{{ dn.oznaka }}</a></td>
+                <td>{{ dn.opravilo.naziv }} ({{ dn.opravilo.oznaka }})</td>
+                <td>{{ dn.opravilo.rok_izvedbe }}</td>
+                <td>{{ dn.datum_stop }}</td>
+                <td><b>{{ dn.nosilec.priimek }} {{ dn.nosilec.ime }}</b>({{ dn.nosilec.podjetje.kratko_ime }})</td>
+                <td><b>{{ dn.opravilo.nosilec.priimek }} {{ dn.opravilo.nosilec.ime }}</b>({{ dn.opravilo.nosilec.podjetje.kratko_ime}})</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
     </table>
+{% endif %}

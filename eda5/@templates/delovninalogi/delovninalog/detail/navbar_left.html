@@ -2,7 +2,7 @@
 
 
 <!-- Splošni ukazi Delovnih nalogov -->
-<li class="dropdown-header">Splošno Delovni Nalogi</li>
+<li class="dropdown-header">Splošno</li>
 
     <li><a href="" type="button" href=""><b>Uredi</b> Podatke</a></li>
 
@@ -10,7 +10,6 @@
 
     <li><a href="" type="button" data-toggle="modal" data-target="#addZaznamek"><b>Dodaj</b> Zaznamek</a></li>
 
-    <li><a href="" type="button" data-toggle="modal" data-target="#addPodzahtevek"><b>Dodaj</b> Podzahtevek</a></li>
 
 
 
@@ -24,6 +23,7 @@
         
         <li><a href="" type="button" class="" data-toggle="modal" data-target="#addDelo">
             <b>Dodaj</b> Delo</a></li>
+
         <li><a href="" type="button" class="" data-toggle="modal" data-target="#addMaterial">
                 <b>Dodaj</b> Material</a></li>
 
@@ -40,7 +40,7 @@
 <li class="dropdown-header">Posebni ukazi</li>
 
     {% if object.status == 1 %}
-    <li><a href="{% url 'moduli:delovninalogi:dn_update_vcakanju' object.id %}">Planiraj delo</a></li>
+    <li><a href="{% url 'moduli:delovninalogi:dn_update_vcakanju' object.id %}"><b>Planiraj</b> delo</a></li>
     {% endif %}
 
     {% if object.status == 3 %}
@@ -48,7 +48,7 @@
     {% endif %}
 
     {% if object.status == 4 %}
-    <li><a href="">Natisni Delovni Nalog</a></li>
+    <li><a href=""><b>Natisni</b> Delovni Nalog</a></li>
     {% endif %}
 
 {% endif %}

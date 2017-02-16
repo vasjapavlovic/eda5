@@ -2,7 +2,7 @@ from django.db import models
 
 from eda5.partnerji.models import Partner
 
-
+''' Nastavimo partnerja projekta '''
 class NastavitevPartnerja(models.Model):
     partner = models.OneToOneField(Partner)
 

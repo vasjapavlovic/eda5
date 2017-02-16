@@ -5,7 +5,11 @@ from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop, Vzo
 
 @admin.register(Opravilo)
 class OpraviloAdmin(admin.ModelAdmin):
-    filter_horizontal = ("element",)
+
+    filter_horizontal = (
+        "element",
+        "pomanjkljivost",
+    )
 
 
 @admin.register(DelovniNalog)

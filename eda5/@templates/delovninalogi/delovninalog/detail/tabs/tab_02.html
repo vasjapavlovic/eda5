@@ -7,70 +7,71 @@
 <!-- Ko vnosi že obstajajo -->
 {% else %}
 
-<!-- ODPRTA DELA -->
-    {% if not object.status == 4 %}
     <table class="table table-condensed table-bordered table-striped">
         <thead>
 
             <tr>
-                <th>datum</th>
-                <th>začetek</th>
+                <th>oznaka</th>
+                <th>naziv</th>
                 <th>delavec</th>
                 <th>vrsta_dela</th>
-            </tr>
-
-        </thead>
-        <tbody>
-
-            {% for delo in object.delo_set.odprta_dela %}
-
-            <tr>
-                <td><a href="{% url 'moduli:delovninalogi:delo_update' delo.id %}">{{ delo.datum }}</a></td>
-                <td>{{ delo.time_start }}</td>
-                <td>{{ delo.delavec.priimek }} {{ delo.delavec.ime }}<br>({{ delo.delavec.podjetje.kratko_ime }})</td>
-                <td>{{ delo.vrsta_dela.naziv }} (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-    </table>
-    {% endif %}
-
-
-<!-- ZAKLJUČENA DELA -->
-    {% if object.status == 4 %}
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-
-            <tr>
                 <th>datum</th>
                 <th>začetek</th>
                 <th>konec</th>
                 <th>porabljen čas</th>
-                <th>delavec</th>
-                <th>vrsta_dela</th>
+                <th>Edit</th>
             </tr>
 
         </thead>
         <tbody>
 
-            {% for delo in object.delo_set.koncana_dela %}
+            {% for delo in object.delo_set.all %}
 
+            {% if delo.time_stop %}
+            <tr class="info">
+            {% else %}
             <tr>
+            {% endif %}
+                <td>{{ delo.oznaka }}</td>
+                <td>{{ delo.naziv }}</td>
+                <td>{{ delo.delavec.ime }} ({{ delo.delavec.priimek }})</td>
+                <td>{{ delo.vrsta_dela.naziv }} (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
                 <td>{{ delo.datum }}</td>
                 <td>{{ delo.time_start }}</td>
+
+
+                <!-- Prikaži samo v primeru, da vnos obstaja -->
+
+                {% if delo.time_stop %}
                 <td>{{ delo.time_stop }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+
+
+                <!-- Prikaži samo v primeru, da vnos obstaja -->
+
+                {% if delo.time_stop %}
                 <td>{{ delo.porabljen_cas }}</td>
-                <td>{{ delo.delavec.priimek }} ({{ delo.delavec.ime }})</td>
-                <td>{{ delo.vrsta_dela.naziv }} (<b>{{ delo.vrsta_dela.oznaka }}</b>)</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+
+
+                <!-- Če delo ni končano prikaži ukaz za zaključek dela.
+                Če je delo končano prikaži ukaz Uredi delo. -->
+
+                {% if delo.time_stop %}
+                <td><button>Uredi</button></td>
+                {% else %}
+                <td><button data-toggle="modal" data-target="#updateDelo">Zaključi</button></td>
+                {% endif %}
             </tr>
 
             {% endfor %}
             
         </tbody>
     </table>
-    {% endif %}
 
 
 {% endif %}

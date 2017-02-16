@@ -18,7 +18,7 @@ class ObvestiloListView(ListView):
 
     def get_queryset(self):
         queryset = super(ObvestiloListView, self).get_queryset()
-        queryset = queryset.filter(objavljeno=True)
+        queryset = queryset.filter(is_active=True)
         return queryset
 
 

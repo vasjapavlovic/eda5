@@ -10,18 +10,6 @@ from eda5.deli.models import Element
 
 class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
-    # STATUS
-    draft = 0
-    # vCakanju = 1
-    # vPlanu = 2
-    vResevanju = 3
-    zakljuceno = 4
-
-    STATUS = (
-        (draft, 'draft'),
-        (vResevanju, 'V Reševanju'),
-        (zakljuceno, 'Zaključeno'),
-        )
 
     VRSTE_ZAHTEVKOV = (
         (1, 'Škodni Dogodek'),

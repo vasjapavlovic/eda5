@@ -55,7 +55,7 @@ class StatusModel(models.Model):
     vPlanu = 2
     vResevanju = 3
     zakljuceno = 4
-    preklicano =5
+    deleted = 5
 
     STATUS = (
         (draft, 'draft'),
@@ -63,13 +63,31 @@ class StatusModel(models.Model):
         (vPlanu, 'v planu'),
         (vResevanju, 'v reševanju'),
         (zakljuceno, 'zaključeno'),
-        (preklicano, 'preklicano'),
+        (deleted, 'izbrisano'),
     )
 
     status = models.IntegerField(default=0, choices=STATUS)
 
     class Meta:
         abstract = True
+
+
+class PrioritetaModel(models.Model):
+    nizka = 0
+    normalna = 1
+    velika = 2
+
+    PRIORITETA = (
+        (nizka, 'Nizka prioriteta'),
+        (normalna, 'Normalna'),
+        (velika, 'Velika prioriteta - Nujno'),
+    )
+
+    prioriteta = models.IntegerField(default=1, choices=PRIORITETA)
+
+    class Meta:
+        abstract = True
+
 
 
 class Opombe(models.Model):

@@ -1,6 +1,7 @@
 from functools import partial
 
 from django import forms
+from django.utils import timezone
 
 from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
 
@@ -10,11 +11,18 @@ TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 class AktivnostCreateForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(AktivnostCreateForm, self).__init__(*args, **kwargs)
+
+        datum_aktivnosti = timezone.now().date()
+        self.initial['datum_aktivnosti'] = datum_aktivnosti
+
     class Meta:
         model = Aktivnost
         fields = (
-            'vrsta_aktivnosti',
             'datum_aktivnosti',
+            'vrsta_aktivnosti',
+            
         )
         widgets = {
             'datum_aktivnosti': DateInput(),
@@ -22,6 +30,11 @@ class AktivnostCreateForm(forms.ModelForm):
 
 
 class SkupinaDokumentaIzbiraForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super(SkupinaDokumentaIzbiraForm, self).__init__(*args, **kwargs)
+        
+        self.fields['skupina_dokumenta'].required = False
 
     skupina_dokumenta = forms.ModelChoiceField(queryset=SkupinaDokumenta.objects.all())
     vrsta_dokumenta_hidden = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())

@@ -2,12 +2,12 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from eda5.core.models import TimeStampedModel
+from eda5.core.models import TimeStampedModel, StatusModel, IsActiveModel
 from eda5.partnerji.models import Oseba
 from eda5.zahtevki.models import Zahtevek
 
 
-class Obvestilo(TimeStampedModel):
+class Obvestilo(TimeStampedModel, StatusModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
@@ -16,7 +16,6 @@ class Obvestilo(TimeStampedModel):
     oznaka = models.CharField(max_length=50)
     naziv = models.CharField(max_length=255)
     vsebina = models.TextField()
-    objavljeno = models.BooleanField(default=False)
     #   Optional
     # OBJECT MANAGER
     # CUSTOM PROPERTIES

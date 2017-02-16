@@ -26,6 +26,11 @@ class Aktivnost(TimeStampedModel):
     # OBJECT MANAGER
     objects = managers.AktivnostManager()
     # CUSTOM PROPERTIES
+    @property
+    def date_created(self):
+        aktivnost_date_created = self.created.date()
+        return aktivnost_date_created
+
     # METHODS
 
     # META AND STRING

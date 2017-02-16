@@ -15,7 +15,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 from .mixins import MessagesActionMixin
 from .forms import OpraviloUpdateForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm,\
-                   DelovniNalogVresevanjuModelForm, DeloForm, DeloZacetoUpdateModelForm
+                   DelovniNalogVresevanjuModelForm, DeloCreateForm, DeloZacetoUpdateModelForm
 from .models import Opravilo, DelovniNalog, Delo, VzorecOpravila
 
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
@@ -114,7 +114,8 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['arhiviranje_form'] = ArhiviranjeDelovniNalogForm
 
         # delo
-        context['delo_form'] = DeloForm
+        context['delo_create_form'] = DeloCreateForm
+        context['delo_update_form'] = DeloZacetoUpdateModelForm
         context['delo_list'] = Delo.objects.filter(delovninalog=self.object.id)
         context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=self.object.id).distinct('delavec')
 
@@ -139,11 +140,14 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         delovninalog = DelovniNalog.objects.get(id=self.get_object().id)
         arhiviranje_form = ArhiviranjeDelovniNalogForm(request.POST or None)
         zaznamek_form = ZaznamekForm(request.POST or None)
-        delo_form = DeloForm(request.POST or None)
+        delo_create_form = DeloCreateForm(request.POST or None)
+        delo_update_form = DeloZacetoUpdateModelForm(request.POST or None)
         dnevnik_delovninalog_form = DnevnikDelovniNalogCreateForm(request.POST or None)
 
-        # VNOS ZAZNAMKA
-        # =================================================================================================
+        
+        ''' Vnašanje zaznamkov v delovni nalog preko
+        okna, ki se odpre nad obstoječim oknom (MODAL)'''
+
         if zaznamek_form.is_valid():
 
             # PODATKI ZA VNOS
@@ -154,36 +158,45 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
             # DODATNE VALIDACIJE
             # ---------------------------------------------------------------------------------------------
-            # validacija_zaznamek_add_01
-            '''če je delovni-nalog že zaključen novih zaznamkov ni mogoče vnašati. V templates je gumb za nove vnose
-            odstranjen.Ta validacija je samo za slučaj če bi se link do gumba ročno vnesel'''
+            
+
+            ''' validacija_zaznamek_add_01
+            če je delovni-nalog že zaključen novih zaznamkov ni 
+            mogoče vnašati '''
 
             if delovninalog.status == 4:
                 messages.error(request, "Delovni nalog je že zaključen! Novih zaznamkov ni mogoče vnašati.")
                 return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
+            else:
+
             # VNOS V BAZO
             # ---------------------------------------------------------------------------------------------
-            Zaznamek.objects.create_zaznamek(tekst=tekst,
-                                             datum=datum,
-                                             ura=ura,
-                                             delovninalog=delovninalog,
-                                             )
+                Zaznamek.objects.create_zaznamek(tekst=tekst,
+                                                 datum=datum,
+                                                 ura=ura,
+                                                 delovninalog=delovninalog,
+                                                 )
+
+                return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
             # POGOJI PREUSMERJANJA
             # ---------------------------------------------------------------------------------------------
 
         # VNOS NOVEGA DELA
         # =================================================================================================
-        if delo_form.is_valid():
+        if delo_create_form.is_valid():
 
             # PODATKI ZA VNOS
             # ---------------------------------------------------------------------------------------------
 
-            delavec = delo_form.cleaned_data['delavec']
-            vrsta_dela = delo_form.cleaned_data['vrsta_dela']
-            datum = timezone.now().date()
-            time_start = timezone.now().time().strftime("%H:%M:%S")
+            oznaka = delo_create_form.cleaned_data['oznaka']
+            naziv = delo_create_form.cleaned_data['naziv']
+            vrsta_dela = delo_create_form.cleaned_data['vrsta_dela']
+            delavec = delo_create_form.cleaned_data['delavec']
+            datum = delo_create_form.cleaned_data['datum']
+            time_start = delo_create_form.cleaned_data['time_start']
+
 
             # DODATNE VALIDACIJE
             # ---------------------------------------------------------------------------------------------
@@ -216,23 +229,25 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             # VNOS V BAZO
             # ---------------------------------------------------------------------------------------------
 
-            Delo.objects.create_delo(delavec=delavec,
-                                     datum=datum,
-                                     vrsta_dela=vrsta_dela,
-                                     time_start=time_start,
-                                     delovninalog=delovninalog,
-                                     )
+            Delo.objects.create_delo(
+                oznaka=oznaka,
+                naziv=naziv,
+                delavec=delavec,
+                datum=datum,
+                vrsta_dela=vrsta_dela,
+                time_start=time_start,
+                delovninalog=delovninalog,
+            )
 
             messages.success(request, 'Novo delo je vneseno')
-            # sporočilo uporabniku
 
-            # POGOJI PREUSMERJANJA
-            # ---------------------------------------------------------------------------------------------
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
-            '''Ko je status delovnega-naloga "V PLANU" izvedi preusmeritev na UPDATE-STATUS --> dn_update_vplanu'''
-            if delovninalog.status == 2:
-                return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_update_vplanu',
-                                                    kwargs={'pk': delovninalog.pk}))
+
+        if delo_update_form.is_valid():
+
+            oznaka = delo_update_form.cleaned_data['time_stop']
+
 
         if arhiviranje_form.is_valid():
 
@@ -272,14 +287,6 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
             return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
-        # return render(request, self.template_name, {
-        #     'object': delovninalog,
-        #     'dnevnik_delovninalog_form': dnevnik_delovninalog_form,
-        #     'delo_form': delo_form,
-        #     'zaznamek_form': zaznamek_form,
-        #     'arhiviranje_form': arhiviranje_form,
-        #     }
-        # )
         return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
 
