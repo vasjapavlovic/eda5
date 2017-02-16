@@ -9,7 +9,7 @@
         <ul class="{{ modul_zavihek.modul.oznaka }}-menu nav nav-list collapse in"> 
             {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
             {% if zavihek.url_ref %}
-            <li><a href="{{ zavihek.urlreference }}"><span class="fa fa-caret-right"></span> {{ zavihek.naziv }}</a></li>
+            <li><a href="{{ zavihek.url_ref }}"><span class="fa fa-caret-right"></span> {{ zavihek.naziv }}</a></li>
             {% endif %}
             {% endfor %}
         </ul>
@@ -26,7 +26,7 @@
         <ul class="{{ modul_zavihek.modul.oznaka }}-menu nav nav-list collapse in"> 
             {% for zavihek in modul_zavihek.parent.all  %}
             {% if zavihek.url_ref %}
-            <li><a href="{{ zavihek.urlreference }}"><span class="fa fa-caret-right"></span> {{ zavihek.naziv }}</a></li>
+            <li><a href="{{ zavihek.url_ref }}"><span class="fa fa-caret-right"></span> {{ zavihek.naziv }}</a></li>
             {% endif %}
             {% endfor %}
         </ul>
