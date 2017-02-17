@@ -177,10 +177,11 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
         verbose_name_plural = "projektna mesta"
 
     def __str__(self):
-        return "(%s)%s - %s" % (
+        return "(%s)%s - %s - %s" % (
             self.oznaka,
             self.naziv,
-            self.tip_elementa.naziv
+            self.tip_elementa.naziv,
+            self.del_stavbe.naziv,
             )
 
 

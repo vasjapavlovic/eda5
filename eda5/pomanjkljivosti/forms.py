@@ -18,6 +18,7 @@ class PomanjkljivostCreateForm(forms.ModelForm):
             'element_text',
             'etaza_text',
             'lokacija_text',
+            'prioriteta',
         )
 
 

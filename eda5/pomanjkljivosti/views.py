@@ -89,12 +89,14 @@ class PomanjkljivostCreateFromZahtevekView(UpdateView):
             etaza_text = pomanjkljivost_create_from_zahtevek_form.cleaned_data['etaza_text']
             lokacija_text = pomanjkljivost_create_from_zahtevek_form.cleaned_data['lokacija_text']
             element = pomanjkljivost_create_from_zahtevek_form.cleaned_data['element']
+            prioriteta = pomanjkljivost_create_from_zahtevek_form.cleaned_data['prioriteta']
 
             Pomanjkljivost.objects.create_pomanjkljivost(
                 oznaka=oznaka,
                 naziv=naziv,
                 prijavil_text=prijavil_text,
                 prijava_dne=prijava_dne,
+                prioriteta=prioriteta,
                 element_text=element_text,
                 etaza_text=etaza_text,
                 lokacija_text=lokacija_text,
