@@ -24,6 +24,7 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
         max_digits=7, decimal_places=2, blank=True, null=True, verbose_name="predvidena višina škode")
     prijava_skode = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="prijava_skode")
     prijava_policiji = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="prijava_policiji")
+    racun_za_popravilo = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="racun_za_popravilo")
     poravnava_skode = models.ForeignKey(Arhiviranje, blank=True, null=True, related_name="poravnava_skode")
 
     # OBJECT MANAGER

@@ -63,6 +63,7 @@ class DogodekUpdateForm(forms.ModelForm):
 			'is_nastala_skoda',
 			'prijava_skode',
 			'prijava_policiji',
+            'racun_za_popravilo',
 			'poravnava_skode',
 		)
 
