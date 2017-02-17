@@ -69,6 +69,9 @@
             <!-- če delovni nalog ima likvidirane dokumente ali pa če ima dodeljen račun
             iz vezave stroška na delovni nalog -->
             {% if delovninalog.arhiviranje_set.all or delovninalog.strosek %}
+
+
+            {% if delovninalog.strosek %}
             <tr class="warning">
                 <td colspan="6">Delovni nalog: št.: <b>{{ delovninalog.oznaka }}</b> | Naziv: <b>{{ delovninalog.opravilo.naziv }}</b></td></tr>
 
@@ -91,6 +94,7 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
 
 
