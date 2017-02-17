@@ -51,7 +51,7 @@ class DogodekUpdateForm(forms.ModelForm):
         )
 
         self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
-            Q(zahtevek=self.instance.zahtevek) &
+            Q(lokacija_hrambe__oznaka=self.instance.zahtevek.oznaka) &
             Q(dokument__vrsta_dokumenta__oznaka="RAC")
         )
 

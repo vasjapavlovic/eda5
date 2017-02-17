@@ -121,12 +121,6 @@ class ZahtevekUpdateView(UpdateView):
     template_name = "zahtevki/zahtevek/update_zahtevek_main.html"
 
 
-class DogodekUpdateView(UpdateView):
-    model = Dogodek
-    form_class = DogodekUpdateForm
-    template_name = "dogodki/dogodek/update_dogodek.html"
-
-
 class ZahtevekDetailView(DetailView):
     model = Zahtevek
     template_name = "zahtevki/zahtevek/detail/base.html"

@@ -35,7 +35,7 @@
                 <td><a href="{{ MEDIA_URL }}{{ dogodek.prijava_skode.dokument.priponka }}">{{  dogodek.prijava_skode }}</a></td>
                 <td><a href="{{ MEDIA_URL }}{{ dogodek.prijava_policiji.dokument.priponka }}">{{  dogodek.prijava_policiji }}</a></td>
                 <td><a href="{{ MEDIA_URL }}{{ object.dogodek.poravnava_skode.dokument.priponka }}">{{  dogodek.poravnava_skode }}</a></td>
-                <td><a type="button" href="{% url 'moduli:zahtevki:dogodek_update_main' dogodek.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a type="button" href="{% url 'moduli:dogodki:dogodek_update_from_zahtevek' dogodek.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
             </tr>
 
             {% endfor %}

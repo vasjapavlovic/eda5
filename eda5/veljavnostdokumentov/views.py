@@ -4,11 +4,16 @@ from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView
 
 
+# Veljavnost dokumentov
 from .forms import VeljavnostDokumentaCreateForm, VeljavnostDokumentaUpdateForm
-
 from .models import VeljavnostDokumenta
 
+
+# Arhiv
 from eda5.arhiv.models import Arhiviranje
+
+# Moduli
+from eda5.moduli.models import Zavihek
 
 
 class VeljavnostDokumentaCreateView(UpdateView):
@@ -23,8 +28,9 @@ class VeljavnostDokumentaCreateView(UpdateView):
         context['veljavnost_dokumenta_create_form'] = VeljavnostDokumentaCreateForm
 
         # zavihek
-        # modul_zavihek = Zavihek.objects.get(oznaka="VELJAVNOST_DOKUMENTA_CREATE")
-        # context['modul_zavihek'] = modul_zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
 
         return context
 
@@ -67,3 +73,11 @@ class VeljavnostDokumentaUpdateView(UpdateView):
     form_class = VeljavnostDokumentaUpdateForm
     template_name = "veljavnostdokumentov/veljavnostdokumenta/update.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(VeljavnostDokumentaUpdateView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
