@@ -21,11 +21,14 @@
         </thead>
         <tbody>
 
-        <!-- Pogoji pod katerimi se dokumenti tukaj prikažejo ali ne -->
-            {% if not arhiviranje.delovninalog %}<!-- če je direktno pod zahtevek -->
-            {% if not arhiviranje.dogodek %}<!-- če je direktno pod dogodek -->
+        
+            
 
             {% for arhiviranje in arhiv_mesto.arhiviranje_set.all %}
+
+            <!-- Pogoji pod katerimi se dokumenti tukaj prikažejo ali ne -->
+            {% if not arhiviranje.delovninalog %}<!-- če je direktno pod zahtevek -->
+            {% if not arhiviranje.dogodek %}<!-- če je direktno pod dogodek -->
 
             <!-- V primeru, da se dokument vodi v evidenci veljavnosti dokumentov -->
             {% if arhiviranje.veljavnostdokumenta.is_active %}
@@ -51,10 +54,12 @@
                 </td>
             </tr>
 
+            {% endif %}
+            {% endif %}
+            
             {% endfor %}
 
-            {% endif %}
-            {% endif %}
+            
 
             
             <!-- Dokumentacija iz Delovnih nalogov -->
