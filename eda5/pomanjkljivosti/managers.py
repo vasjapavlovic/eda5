@@ -21,7 +21,7 @@ class PomanjkljivostManager(models.Manager):
             oznaka=oznaka,
             naziv=naziv,
             prijavil_text=prijavil_text,
-            prijava_dne=prydijava_dne,
+            prijava_dne=prijava_dne,
             prioriteta=prioriteta,
             element_text=element_text,
             etaza_text=etaza_text,
