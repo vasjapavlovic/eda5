@@ -130,6 +130,9 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     # @property
     # def delo_koncano(self):
     #     return self.delo_set.filter(time_stop__isnull=False).order_by("-time_stop")
+    @property
+    def racun_dokument(self):
+        return self.strosek.racun.arhiviranje.dokument
 
     
 

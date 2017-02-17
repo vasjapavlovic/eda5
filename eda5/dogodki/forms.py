@@ -50,6 +50,11 @@ class DogodekUpdateForm(forms.ModelForm):
             Q(dokument__vrsta_dokumenta__oznaka="PRV")
         )
 
+        self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
+            Q(zahtevek=self.instance.zahtevek) &
+            Q(dokument__vrsta_dokumenta__oznaka="RAC")
+        )
+
 
     class Meta:
     	model = Dogodek

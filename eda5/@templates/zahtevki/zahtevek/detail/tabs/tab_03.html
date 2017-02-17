@@ -46,7 +46,7 @@
 
                     <!-- Če ni sledenja veljavnosti dokumenta -->
                     {% else %}
-                    <a href="{% url 'moduli:veljavnostdokumentov:veljavnost_dokumenta_create' arhiviranje.pk  %}"><i class="fa fa-chain-broken" aria-hidden="true"></i>
+                    <a href="{% url 'moduli:veljavnostdokumentov:veljavnost_dokumenta_create' arhiviranje.pk  %}"><i class="fa fa-chain-broken" aria-hidden="true"></i></a>
                     {% endif %}
                 </td>
             </tr>
@@ -61,9 +61,38 @@
             {% for opravilo in object.opravilo_set.all %}
             {% for delovninalog in opravilo.delovninalog_set.all %}
 
-            {% if delovninalog.arhiviranje_set.all %}
+
+            
+
+
+
+            <!-- če delovni nalog ima likvidirane dokumente ali pa če ima dodeljen račun
+            iz vezave stroška na delovni nalog -->
+            {% if delovninalog.arhiviranje_set.all or delovninalog.strosek %}
             <tr class="warning">
                 <td colspan="6">Delovni nalog: št.: <b>{{ delovninalog.oznaka }}</b> | Naziv: <b>{{ delovninalog.opravilo.naziv }}</b></td></tr>
+
+            <!-- vezava stroška na delovni nalog iz računovodstva -->
+            <tr>
+                <td><b><a href="{{ MEDIA_URL }}{{ delovninalog.racun_dokument.priponka }}">{{ delovninalog.racun_dokument.oznaka }}</a></b></td>
+                <td>({{ delovninalog.racun_dokument.vrsta_dokumenta.oznaka }}) {{ delovninalog.racun_dokument.vrsta_dokumenta.naziv }}</td>
+                <td>{{ delovninalog.racun_dokument.datum_dokumenta }}</td>
+                <td>{{ delovninalog.racun_dokument.naziv }}</td>
+                <td>{{ delovninalog.racun_dokument.avtor.kratko_ime }}</td>
+                <td>
+                    <!-- Če se sledenje veljavnosti dokumenta izvaja -->
+                    {% if delovninalog.strosek.racun.arhiviranje.veljavnostdokumenta %}
+                    <a href="{% url 'moduli:veljavnostdokumentov:veljavnost_dokumenta_update' delovninalog.strosek.racun.arhiviranje.veljavnostdokumenta.pk  %}"><i class="fa fa-link" aria-hidden="true"></i>
+                    </a>
+
+                    <!-- Če ni sledenja veljavnosti dokumenta -->
+                    {% else %}
+                    <a href="{% url 'moduli:veljavnostdokumentov:veljavnost_dokumenta_create' delovninalog.strosek.racun.arhiviranje.pk  %}"><i class="fa fa-chain-broken" aria-hidden="true"></i>
+                    {% endif %}
+                </td>
+            </tr>
+
+
 
             {% for arhiviranje in delovninalog.arhiviranje_set.all %}
                 

@@ -263,6 +263,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
             Arhiviranje.objects.create_arhiviranje(
                 delovninalog=delovninalog,
+                zahtevek=delovninalog.opravilo.zahtevek,
                 dokument=dokument,
                 arhiviral=arhiviral,
                 elektronski=elektronski,

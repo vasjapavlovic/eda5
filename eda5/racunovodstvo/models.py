@@ -3,10 +3,11 @@ from django.core.urlresolvers import reverse
 from decimal import Decimal
 
 from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikvidiranModel
+from eda5.delovninalogi.models import DelovniNalog
 from eda5.etaznalastnina.models import LastniskaSkupina
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
-from eda5.delovninalogi.models import DelovniNalog
+
 
 
 
@@ -89,7 +90,11 @@ class Strosek(models.Model):
     racun = models.ForeignKey(Racun)
     vrsta_stroska = models.ForeignKey("VrstaStroska")
     lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True)
-    delovni_nalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
+
+    # *** Vezava računa na izvedeno opravilo ***
+    delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
+
+
     obdobje_obracuna_leto = models.ForeignKey(ObdobjeLeto)
     obdobje_obracuna_mesec = models.ForeignKey(ObdobjeMesec)
     # ***Mandatory***

@@ -4,12 +4,21 @@ from django.forms import formset_factory
 
 from ..models import Strosek
 
+from eda5.delovninalogi.models import DelovniNalog
+
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
 class StrosekOsnovaCreateForm(forms.ModelForm):
+
+
+    def __init__(self, *args, **kwargs):
+        super(StrosekOsnovaCreateForm, self).__init__(*args, **kwargs)
+
+        self.fields['delovni_nalog'].queryset = DelovniNalog.objects.filter(strosek__isnull=True)
+
 
     class Meta:
         model = Strosek
