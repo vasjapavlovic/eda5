@@ -4,6 +4,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 
+# mixins
+from braces.views import LoginRequiredMixin
+
 # Moduli
 from eda5.moduli.models import Zavihek
 
@@ -24,7 +27,7 @@ class PomanjkljivostiHomeView(TemplateView):
 
 
 ''' Izdelava pomanjkljivosti preko vmesnika'''
-class PomanjkljivostCreateView(CreateView):
+class PomanjkljivostCreateView(LoginRequiredMixin, CreateView):
     model = Pomanjkljivost
     template_name = "pomanjkljivosti/pomanjkljivost/create/create.html"
     form_class = PomanjkljivostCreateForm
@@ -38,7 +41,7 @@ class PomanjkljivostCreateView(CreateView):
         return context
 
 
-class PomanjkljivostListView(ListView):
+class PomanjkljivostListView(LoginRequiredMixin, ListView):
 
     model = Pomanjkljivost
     template_name = "pomanjkljivosti/pomanjkljivost/list/base.html"
@@ -65,13 +68,13 @@ class PomanjkljivostListView(ListView):
         return queryset
 
 
-class PomanjkljivostDetailView(DetailView):
+class PomanjkljivostDetailView(LoginRequiredMixin, DetailView):
     model = Pomanjkljivost
     template_name = "pomanjkljivosti/pomanjkljivost/detail/base.html"
 
 
 ''' Izdelava pomanjkljivosti preko zahtevka'''
-class PomanjkljivostCreateFromZahtevekView(UpdateView):
+class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
 
     model = Zahtevek
     template_name = 'pomanjkljivosti/pomanjkljivost/create/create_from_zahtevek.html'

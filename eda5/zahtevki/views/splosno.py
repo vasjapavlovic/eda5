@@ -8,6 +8,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
+# mixins
+from braces.views import LoginRequiredMixin
 
 # INTERNO ##############################################################
 # Zahtevek Osnova
@@ -59,7 +61,7 @@ from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
 
 
-class ZahtevekListView(ListView):
+class ZahtevekListView(LoginRequiredMixin, ListView):
     model = Zahtevek
     template_name = "zahtevki/zahtevek/list/base.html"
 
@@ -76,7 +78,7 @@ class ZahtevekListView(ListView):
         return context
 
 
-class ZahtevekCreateIzbiraView(TemplateView):
+class ZahtevekCreateIzbiraView(LoginRequiredMixin, TemplateView):
     model = Zahtevek
     template_name = "zahtevki/zahtevek/create_izbira.html"
 
@@ -115,13 +117,13 @@ class ZahtevekCreateIzbiraView(TemplateView):
                 return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_create_reklamacija'))
 
 
-class ZahtevekUpdateView(UpdateView):
+class ZahtevekUpdateView(LoginRequiredMixin, UpdateView):
     model = Zahtevek
     form_class = ZahtevekUpdateForm
     template_name = "zahtevki/zahtevek/update_zahtevek_main.html"
 
 
-class ZahtevekDetailView(DetailView):
+class ZahtevekDetailView(LoginRequiredMixin, DetailView):
     model = Zahtevek
     template_name = "zahtevki/zahtevek/detail/base.html"
 
