@@ -203,3 +203,95 @@ class ProjektnoMestoDetailView(DetailView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+
+
+# # view called with ajax to reload the month drop down list
+# def reload_controls_view(request):
+
+#     c = {}
+#     c.update(csrf(request))
+
+#     context = {}
+#     # get the year that the user has typed
+#     skupina = request.POST['skupina']
+
+#     # get months without reports (months to be displayed in the drop down list)
+#     context['podskupine_to_display'] = list(Podskupina.objects.filter(skupina=skupina).values_list('id', flat=True))
+#     print(context)
+#     # return HttpResponse(json.dumps(context), content_type="application/json")
+#     return JsonResponse(context)
+#     # return JsonResponse(podskupine_to_display)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_element_podskupina_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    skupina = request.POST['skupina']
+    skupina = Skupina.objects.get(id=skupina)
+
+    # podskupine glede na izbrano skupino
+    podskupina_list = []
+    for podskupina in skupina.podskupina_set.all():
+        podskupina_list.append(podskupina.id)
+
+    # OUTPUT FILTER
+    # Podskupine
+    context['podskupine_to_display'] = podskupina_list
+
+    return JsonResponse(context)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_element_del_stavbe_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    podskupina = request.POST['podskupina']
+    podskupina = Podskupina.objects.get(id=podskupina)
+
+    # deli stavbe glede na izbrano podskupino
+    del_stavbe_list = []
+    for del_stavbe in podskupina.delstavbe_set.all():
+        del_stavbe_list.append(del_stavbe.id)
+
+
+
+    # OUTPUT FILTER
+
+    # DelStavbe
+    context['del_stavbe_to_display'] = del_stavbe_list
+
+    return JsonResponse(context)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_element_element_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    # get the object
+    del_stavbe = request.POST['del_stavbe']
+    del_stavbe = DelStavbe.objects.get(id=del_stavbe)
+
+
+    projektno_mesto_list = []
+    for projektnomesto in del_stavbe.projektnomesto_set.all():
+        projektno_mesto_list.append(projektnomesto.id)
+
+    # OUTPUT FILTER
+
+    # DelStavbe
+    context['element_to_display'] = projektno_mesto_list
+
+    return JsonResponse(context)
