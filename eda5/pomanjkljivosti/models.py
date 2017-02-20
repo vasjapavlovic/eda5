@@ -21,7 +21,7 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel):
     oznaka = models.CharField(max_length=20)
     naziv = models.TextField(verbose_name='Problem')
     prijavil_text = models.CharField(max_length=255, verbose_name='prijavil')
-    prijava_dne = models.DateField(verbose_name='prijava dne')
+    prijava_dne = models.DateField(verbose_name='datum ugotovitve')
     element_text = models.CharField(max_length=255, blank=True, null=True, verbose_name='element opisno')
     etaza_text = models.CharField(max_length=50, blank=True, null=True, verbose_name='etaža opisno')
     lokacija_text = models.CharField(max_length=255, blank=True, null=True, verbose_name='lokacija opisno')
@@ -44,7 +44,7 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel):
 
     # METHODS
     def get_absolute_url(self):
-        return reverse('moduli:pomanjkljivosti:pomanjkljivost_detail', kwargs={"pk": self.pk})
+        return reverse('moduli:pomanjkljivosti:pomanjkljivost_list')
 
     # META AND STRING
     class Meta:

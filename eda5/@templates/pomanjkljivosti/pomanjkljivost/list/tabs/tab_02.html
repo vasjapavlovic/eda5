@@ -1,0 +1,31 @@
+
+
+<!-- TAB_02 Content -->
+
+        <text>Seznam odprtih pomanjkljivosti</text>
+        <table class="table">
+            <tr>
+                <th>oznaka</th>
+                <th>prijava</th>
+                <th>prijavil</th>
+                <th>datum ugotovitve</th>
+                <th>elementi</th>
+                <th>lokacija</th>
+                <th>zahtevek</th>
+            </tr>
+
+            {% for object in pomanjkljivosti_vresevanju %}
+
+
+            <tr>
+                <td><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.prijavil }}</td>
+                <td>{{ object.datum_ugotovitve }}</td>
+                <td>{{ object.element }}</td>
+                <td>{{ object.lokacija }}</td>
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+            </tr>
+            {% endfor %}
+
+        </table>

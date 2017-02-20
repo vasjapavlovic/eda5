@@ -26,17 +26,42 @@ class PomanjkljivostiHomeView(TemplateView):
 ''' Izdelava pomanjkljivosti preko vmesnika'''
 class PomanjkljivostCreateView(CreateView):
     model = Pomanjkljivost
-    template_name = "pomanjkljivosti/pomanjkljivost/form.html"
+    template_name = "pomanjkljivosti/pomanjkljivost/create/create.html"
     form_class = PomanjkljivostCreateForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PomanjkljivostCreateView, self).get_context_data(*args, **kwargs)
+        # pridobimo instanco izbranega zavihka
+        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_create")
+        context['modul_zavihek'] = modul_zavihek
+        # vrnemo context
+        return context
 
 
 class PomanjkljivostListView(ListView):
+
     model = Pomanjkljivost
-    template_name = "pomanjkljivosti/pomanjkljivost/list.html"
+    template_name = "pomanjkljivosti/pomanjkljivost/list/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PomanjkljivostListView, self).get_context_data(*args, **kwargs)
+
+        # pridobimo instanco izbranega zavihka
+        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_list")
+        context['modul_zavihek'] = modul_zavihek
+
+        # seznam pomanjkljivosti, ki se že rešujejo
+        pomanjkljivosti_vresevanju = Pomanjkljivost.objects.filter(zahtevek__isnull=False)
+        context['pomanjkljivosti_vresevanju'] = pomanjkljivosti_vresevanju
+
+        # vrnemo context
+        return context
 
     def get_queryset(self):
         queryset = super(PomanjkljivostListView, self).get_queryset()
-        queryset = self.model.objects.filter(is_likvidiran=False)
+        # prikažemo samo ne-rešene pomanjkljivosti
+        queryset = self.model.objects.filter(zahtevek__isnull=True)
+        # vrnemo spremenjene podatke
         return queryset
 
 
@@ -53,16 +78,13 @@ class PomanjkljivostCreateFromZahtevekView(UpdateView):
     fields = ('id', )
 
     def get_context_data(self, *args, **kwargs):
-
         context = super(PomanjkljivostCreateFromZahtevekView, self).get_context_data(*args, **kwargs)
-
         # zavihek
-        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_create")
+        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
         context['modul_zavihek'] = modul_zavihek
-
         # pomanjkljivost
         context['pomanjkljivost_create_from_zahtevek_form'] = PomanjkljivostCreateFromZahtevekForm
-
+        # vrnemo narejene podatke
         return context
 
 
@@ -72,7 +94,7 @@ class PomanjkljivostCreateFromZahtevekView(UpdateView):
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 
         ''' Pridobimo instanco Zavihka '''
-        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_create")
+        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
 
         #FORMS
         pomanjkljivost_create_from_zahtevek_form = PomanjkljivostCreateFromZahtevekForm(request.POST or None)
