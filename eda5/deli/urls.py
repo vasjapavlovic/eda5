@@ -16,4 +16,23 @@ urlpatterns = [
 urlpatterns += [
     url(r'^projektno-mesto-create/$', views.ProjektnoMestoCreateView.as_view(), name="projektno_mesto_create"),
     url(r'^projektno-mesto/(?P<pk>\d+)/detail/$', views.ProjektnoMestoDetailView.as_view(), name="projektnomesto_detail"),
+
+        # IZBIRA PROJEKTNEGA MESTA (ELEMENTA)
+    # Filtriranje glede na izbrano skupino delov stavbe
+    url(r'^reload_controls_element_podskupina.html$', 
+        opravilo.reload_controls_element_podskupina_view, 
+        name='reload_controls_element_podskupina'),
+
+    # Filtriranje glede na izbrano podskupino delov stavbe
+    url(r'^reload_controls_element_del_stavbe.html$', 
+        opravilo.reload_controls_element_del_stavbe_view, 
+        name='reload_controls_element_del_stavbe'),
+
+    # Filtriranje glede na izbran del stavbe
+    url(r'^reload_controls_element_element.html$', 
+        opravilo.reload_controls_element_element_view, 
+        name='reload_controls_element_element'),
+
+
+    
 ]
