@@ -1,12 +1,29 @@
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.core.urlresolvers import reverse, reverse_lazy
 
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
 
-from .forms import DobavaCreateForm, DnevnikDobavaCreateForm
+from .forms import \
+    DobavaCreateForm, \
+    DnevnikDobavaCreateForm, \
+    SkladisceDnevnikFromDelovniNalogCreateForm, \
+    SkladisceDnevnikUpdateForm
+
 from .models import Dobava, Dnevnik
 
+
+# Delovninalogi
+from eda5.delovninalogi.models import DelovniNalog
+from eda5.delovninalogi.mixins import MessagesActionMixin
+
+# Moduli
 from eda5.moduli.models import Zavihek
+
+# Skladisce
+from eda5.skladisce.models import Dnevnik
+
+
 
 
 class SkladisceHomeView(TemplateView):
@@ -94,3 +111,73 @@ class DnevnikListView(ListView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+
+class SkladisceDnevnikCreateFromDelovniNalogView(MessagesActionMixin, UpdateView):
+    model = DelovniNalog
+    template_name = "skladisce/dnevnik/create_from_delovninalog.html"
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SkladisceDnevnikCreateFromDelovniNalogView, self).get_context_data(*args, **kwargs)
+
+        # opravilo
+        context['skladisce_dnevnik_create_from_delovninalog_form'] = SkladisceDnevnikFromDelovniNalogCreateForm
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+
+        # Delovni nalog s katerim imamo opravka (instanca)
+        delovninalog = DelovniNalog.objects.get(id=self.get_object().id)
+
+        # FORMS
+        skladisce_dnevnik_create_from_delovninalog_form = SkladisceDnevnikFromDelovniNalogCreateForm(request.POST or None)
+
+
+        # PODATKI IZ FORMS*********************************************
+        if skladisce_dnevnik_create_from_delovninalog_form.is_valid():
+
+            artikel = skladisce_dnevnik_create_from_delovninalog_form.cleaned_data['artikel']
+            likvidiral = skladisce_dnevnik_create_from_delovninalog_form.cleaned_data['likvidiral']
+            kom = skladisce_dnevnik_create_from_delovninalog_form.cleaned_data['kom']
+
+            # VALIDACIJE **************************************************
+
+            # VNOS V BAZO **************************************************
+            # Izdelamo delo
+            Dnevnik.objects.create_dnevnik(
+                delovninalog=delovninalog,
+                artikel=artikel,
+                likvidiral=likvidiral,
+                kom=kom,
+            )
+
+            # ob izdelavi dela sporočimo uporabniku
+            messages.success(request, 'Material je bil uspešno dodan.')
+
+            # ter izvedemo preusmeritev na obstoječi delovni nalog
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
+
+
+class SkladisceDnevnikUpdateView(MessagesActionMixin, UpdateView):
+    model = Dnevnik
+    form_class = SkladisceDnevnikUpdateForm
+    template_name = "delovninalogi/delo/update_from_delovninalog.html"
+    success_msg = "Material je uspešno posodobljen."
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SkladisceDnevnikUpdateView, self).get_context_data(*args, **kwargs)
+
+        # Zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def get_success_url(self, **kwargs): 
+        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.object.delovninalog.pk})

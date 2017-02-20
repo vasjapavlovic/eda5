@@ -1,40 +1,19 @@
-<!-- Planirana Opravila -->
+<!-- Vzorec Opravila -->
 
-<table class="table table-hover table-condensed">
+<table class="table table-hover table-condensed table-stripped">
     <tr>
         <th>oznaka</th>
         <th>naziv</th>
-        <th>sklop</th>
     </tr>
 
-    {% for predpis_opravilo in predpis_opravilo_list %}
-    {{ predpis_opravilo.podsklop.sklop }}
+    {% for vzorec_opravila in object.vzorecopravila_set.all %}
 
-        {% for predpis in predpis_opravilo.predpis.all %}
-
-    <!-- ZAKONSKE AKTIVNOSTI -->
-
-
-    {% if predpis_opravilo.predpis_podsklop.predpis_sklop.oznaka == "POV" %}
-        
     <tr>
-        <td><a href=""></a>{{ predpis.oznaka }}</td>
-        <td>{{ predpis.naziv }}</td>
-        <td>{{ predpis_opravilo.predpis_podsklop.predpis_sklop.naziv }}</td>
+        <td><a href="{% url 'moduli:delovninalogi:vzorec_opravila_detail' object.pk %}">{{ vzorec_opravila.oznaka }}</a></td>
+        <td>{{ vzorec_opravila.naziv }}</td>
     </tr>
-
-
-    <!-- NEZAKONSKE AKTIVNOSTI -->
-    {% else %}
-    <tr>
-        <td><a href=""></a>{{ predpis.oznaka }}</td>
-        <td>{{ predpis.naziv }}</td>
-        <td>({{ predpis_opravilo.predpis_podsklop.predpis_sklop.oznaka }}) {{ predpis_opravilo.predpis_podsklop.predpis_sklop.naziv }}</td>
-    </tr>
-    {% endif %}
-    
 
     {% endfor %}
-{% endfor %}
+
 
 </table>

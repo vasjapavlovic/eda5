@@ -33,9 +33,9 @@
 <li class="divider"></li>
 <li class="dropdown-header">Izvedba del</li>
 
-<li><a type="button" href="{% url 'moduli:zahtevki:opravilo_create' object.pk %}"><b>Dodaj</b> Opravilo</a></li>
+<li><a type="button" href="{% url 'moduli:delovninalogi:opravilo_create_from_zahtevek' object.pk %}"><b>Dodaj</b> Opravilo</a></li>
 
-<li><a type="button" href="{% url 'moduli:zahtevki:opravilo_from_vzorec_create' object.pk %}"><b>Dodaj</b> Planirano Opravilo</a></li> 
+<li><a type="button" href="{% url 'moduli:delovninalogi:opravilo_create_from_vzorec_from_zahtevek' object.pk %}"><b>Dodaj</b> Planirano Opravilo</a></li> 
 
 <li><a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_create_from_zahtevek' object.pk %}"><b>Dodaj</b> Pomanjkljivost</a></li> 
 

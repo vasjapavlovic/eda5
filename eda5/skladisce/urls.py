@@ -18,6 +18,8 @@ urlpatterns += [
 # DNEVNIK
 urlpatterns += [
     url(r'^dnevnik/seznam/$', views.DnevnikListView.as_view(), name="dnevnik_list"),
+    url(r'^skladisce-dnevnik/(?P<pk>\d+)/create/$', views.SkladisceDnevnikCreateFromDelovniNalogView.as_view(), name="skladisce_dnevnik_create_from_delovninalog"),
+    url(r'^skladisce-dnevnik/(?P<pk>\d+)/update/$', views.SkladisceDnevnikUpdateView.as_view(), name="skladisce_dnevnik_update_from_delovninalog"),
 ]
 
 # ARTIKEL

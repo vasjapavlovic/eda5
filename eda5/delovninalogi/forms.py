@@ -43,7 +43,6 @@ class OpraviloCreateForm(forms.ModelForm):
 
         # querysets
         self.fields["narocilo"].queryset = Narocilo.objects.all().order_by('-id')
-        self.fields["nosilec"].queryset = Oseba.objects.all()
 
         # filtriranje dropdown
         self.fields['oseba_hidden'].required = False
@@ -282,7 +281,7 @@ class DeloCreateForm(forms.ModelForm):
         izvajanja dela. '''
 
         datum = timezone.now().date()
-        time_start = timezone.now().time().strftime('%H:%M')
+        time_start = timezone.now().time().strftime("%H:%M:%S")
 
         self.initial['datum'] = datum
         self.fields['datum'].widget.attrs['readonly'] = True
@@ -292,23 +291,24 @@ class DeloCreateForm(forms.ModelForm):
 
 
     def clean_oznaka(self):
-
         """ poskrbimo: post ne more povoziti OZNAKO, ki je readonly """
-
         instance = getattr(self, 'instance', None)
-
         if instance and instance.pk:
             return instance.oznaka
         else:
-            return self.cleaned_data['oznaka']
+            return self.cleaned_data['oznaka']        
 
-
+    def clean_datum(self):
+        """ poskrbimo: post ne more povoziti datuma, ki je readonly """
+        instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             return instance.datum
         else:
             return self.cleaned_data['datum']
 
-
+    def clean_time_start(self):
+        """ poskrbimo: post ne more povoziti datuma, ki je readonly """
+        instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             return instance.time_start
         else:
@@ -327,35 +327,46 @@ class DeloCreateForm(forms.ModelForm):
         )
 
 
-class DeloZacetoUpdateModelForm(forms.ModelForm):
+class DeloKoncajUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super(DeloZacetoUpdateModelForm, self).__init__(*args, **kwargs)
+        super(DeloKoncajUpdateForm, self).__init__(*args, **kwargs)
         # custom initial properties
         self.initial['time_stop'] = timezone.now().time().strftime("%H:%M:%S")
+        # uredimo, da je time_stop readonly
+        self.fields['time_stop'].widget.attrs['readonly'] = True
 
     class Meta:
         model = Delo
         fields = ('time_stop',)
         widgets = {
-            'time_stop': forms.HiddenInput(),
             'time_stop': TimeInput()
         }
 
+class DeloUpdateForm(forms.ModelForm):
 
-# class DelovniNalogAddDokumentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(DeloUpdateForm, self).__init__(*args, **kwargs)
 
-#     class Meta:
-#         model = DelovniNalog
-#         fields = ("dokument",)
-#         widgets = {"dokument": forms.CheckboxSelectMultiple}
+        # oznake dela ni mogoče spreminjati
+        self.fields['oznaka'].widget.attrs['readonly'] = True
 
-#     def __init__(self, *args, **kwargs):
-#         super(DelovniNalogAddDokumentForm, self).__init__(*args, **kwargs)
+    class Meta:
+        model = Delo
+        fields = (
+            'oznaka',
+            'datum',
+            'vrsta_dela',
+            'delavec',
+            'time_start',
+            'time_stop',
+        )
+        widgets = {
+            'datum': DateInput(),
+            'time_start': TimeInput(),
+            'time_stop': TimeInput()
+        }
 
-#         # vidni samo računi
-#         vrsta_dokumenta = 1
-#         self.fields["dokument"].queryset = Dokument.objects.filter(vrsta_dokumenta=vrsta_dokumenta)
 
 class DeloVrstaSklopCreateForm(forms.ModelForm):
 

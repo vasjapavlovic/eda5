@@ -48,13 +48,15 @@
         </div>
 
 
-        <input type="submit" value="Potrdi">        
+        <input type="submit" value="Potrdi">
 
     </form>
 
-    <div id="reload_controls_planiranje_skupina_planov_view" style="display: none;">{% url 'moduli:zahtevki:reload_controls_planiranje_skupina_planov' %}</div>
-    <div id="reload_controls_planiranje_plan_view" style="display: none;">{% url 'moduli:zahtevki:reload_controls_planiranje_plan' %}</div>
-    <div id="reload_controls_delovninalogi_planirano_opravilo_view" style="display: none;">{% url 'moduli:zahtevki:reload_controls_delovninalogi_planirano_opravilo' %}</div>
+    <div id="reload_controls_planiranje_skupina_planov_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_planiranje_skupina_planov' %}</div>
+
+    <div id="reload_controls_planiranje_plan_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_planiranje_plan' %}</div>
+
+    <div id="reload_controls_delovninalogi_planirano_opravilo_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_delovninalogi_planirano_opravilo' %}</div>
 
 {% endblock %}
 <!-- end PAGE CONTENT -->

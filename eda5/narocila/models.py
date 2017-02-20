@@ -2,12 +2,27 @@ from django.db import models
 from django.db.models import get_model
 from django.utils import timezone
 
+# Naročila
 from . import managers
 
+
+
+# Arhiv
 from eda5 import arhiv
+
+# Core
 from eda5.core.models import TimeStampedModel
+
+# Partnerji
 from eda5.partnerji.models import Partner, Oseba
+
+# Pošta
+from eda5.posta.models import VrstaDokumenta
+
+# Zahtevki
 from eda5.zahtevki.models import Zahtevek
+
+
 
 
 class Narocilo(TimeStampedModel):
@@ -53,18 +68,14 @@ class Narocilo(TimeStampedModel):
 
 class NarociloDokument(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
-    # tipi dokumentov za naročanje
-    TIPI_DOKUMENTOV = (
-        (1, 'e-pošta'),
-        (2, 'naročilnica'),
-        (3, 'pogodba'),
-    )
     # ATRIBUTES
     # ***Relations***
     narocilo = models.OneToOneField(Narocilo, blank=True, null=True)
-    tip_dokumenta = models.IntegerField(choices=TIPI_DOKUMENTOV)
-    # ***Mandatory***
 
+    vrsta_dokumenta = models.ForeignKey(
+        VrstaDokumenta, 
+        verbose_name="vrsta dokumenta")
+    # ***Mandatory***
 
     dokument = models.ForeignKey('arhiv.Arhiviranje', blank=True, null=True)
     # ***Optional***
@@ -86,13 +97,25 @@ class NarociloDokument(TimeStampedModel):
 class NarociloTelefon(TimeStampedModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
-    # ***Relations***
-    oseba = models.ForeignKey(Oseba, blank=True, null=True)
-    # ***Mandatory***
-    telefonska_stevilka = models.CharField(max_length=20)
-    datum_klica = models.DateField()
-    cas_klica = models.TimeField()
-    telefonsko_sporocilo = models.CharField(max_length=255)
+
+    dogovor_text = models.CharField(
+        max_length=255, verbose_name='opis dogovora')
+
+    dogovor_date = models.DateField(
+        verbose_name='datum dogovora')
+
+    dogovor_time = models.TimeField(
+        verbose_name='čas dogovora')
+
+    dogovor_person = models.CharField(
+        max_length=255, blank=True, null=True, 
+        verbose_name='Oseba s katero si se dogovarjal')
+
+    dogovor_phonenumber = models.CharField(
+        max_length=255, blank=True, null=True,
+        verbose_name='telefonska številka')
+
+
     # ***Optional***
     # OBJECT MANAGER
     objects = managers.NarociloTelefonManager()
@@ -101,7 +124,7 @@ class NarociloTelefon(TimeStampedModel):
 
     # META AND STRING
     class Meta:
-        verbose_name = 'naročilo po telefonu'
+        verbose_name = 'ustno/telefonsko naročilo'
         verbose_name_plural = 'naročila po telefonu'
 
     def __str__(self):

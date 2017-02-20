@@ -42,6 +42,7 @@
 
 <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 
+
     <div class="panel">
         <div class="panel-heading">Podatki o opravilu</div>
         <div class="panel-body">
@@ -107,14 +108,17 @@
         </div>
     </div>
 
-
-
     <input type="submit" value="Potrdi">
 
-    <div id="reload_controls_view" style="display: none;">{% url 'moduli:zahtevki:reload_controls' %}</div>
-    <div id="reload_controls_element_podskupina_view" style="display: none;">{% url 'moduli:zahtevki:reload_controls_element_podskupina' %}</div>
-    <div id="reload_controls_element_del_stavbe_view" style="display: none;">{% url 'moduli:zahtevki:reload_controls_element_del_stavbe' %}</div>
-    <div id="reload_controls_element_element_view" style="display: none;">{% url 'moduli:zahtevki:reload_controls_element_element' %}</div>
+
+    <!-- filtriranje pri izbiri projektnega mesta -->
+    <div id="reload_controls_narocilo_osebe_view" style="display: none;">{% url 'moduli:narocila:reload_controls_narocilo_osebe' %}</div>
+
+    <div id="reload_controls_element_podskupina_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_element_podskupina' %}</div>
+
+    <div id="reload_controls_element_del_stavbe_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_element_del_stavbe' %}</div>
+
+    <div id="reload_controls_element_element_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_element_element' %}</div>
 
 
 
@@ -131,33 +135,39 @@
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
 
-
+<script src="{% static 'js/custom_filter.js' %}"></script>
 
 
 <!-- js related to the application -->
 <script>
     
+    // disable nepotrebne dropdown menuje
+    $("#id_nosilec").attr('disabled', true);
+    $("#id_nosilec").empty()
+
+
     $('#create_form').on('change', '#id_narocilo', function()
     {
-        reload_controls(this.value);
+        reload_controls5(this.value);
     });
 
-    function reload_controls(narocilo)
+    function reload_controls5(narocilo)
     {
         $.ajax
         ({
             type: 'POST',
-            url: $("#reload_controls_view").text(),
+            url: $("#reload_controls_narocilo_osebe_view").text(),
             dataType: 'json',
             data: "narocilo="+narocilo,
             success: function(result)
             {
                 //empty month drop down list
-                $("#id_nosilec").empty()                
+                $("#id_nosilec").empty()
+                $("#id_nosilec").attr('disabled', false);
 
                 //NOSILCI FILTER
                 $("#id_nosilec").append('<option value="">---------</option>')
-                $.each( result.nosilci_to_display, function( index, value )
+                $.each( result.list_to_display, function( index, value )
                 {
                     //use the hidden drop down list to populate the month field
                     nosilec=$("#id_oseba_hidden option[value='" + value + "']").text()

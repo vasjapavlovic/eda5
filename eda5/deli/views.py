@@ -142,13 +142,27 @@ class DelDetailView(DetailView):
 
 
 
-class ElementDetailView(DetailView):
-    template_name = "deli/element/detail/base.html"
-    model = Element
+class ProjektnoMestoCreateView(CreateView):
+
+    model = ProjektnoMesto
+    form_class = ProjektnoMestoCreateForm
+    template_name = "deli/projektno_mesto/create.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ElementDetailView, self).get_context_data(*args, **kwargs)
+        context = super(ProjektnoMestoCreateView, self).get_context_data(*args, **kwargs)
+        modul_zavihek = Zavihek.objects.get(oznaka="PROJEKTNO_MESTO_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+        return context
 
+
+class ProjektnoMestoDetailView(DetailView):
+    template_name = "deli/projektnomesto/detail/base.html"
+    model = ProjektnoMesto
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProjektnoMestoDetailView, self).get_context_data(*args, **kwargs)
+
+        # Servisna knjiga
         # seznam delovnih nalogov (za servisno knjigo)
         delovninalog_list = []
         # seznam opravil kjer je vsebovan element
@@ -163,43 +177,29 @@ class ElementDetailView(DetailView):
 
         context['delovninalog_list'] = delovninalog_list
 
-        # seznam nastavitev (za obratovanje)
-        nastavitve = self.object.nastavitev_set.all()
-        context['nastavitev_list'] = nastavitve
+        # # seznam nastavitev (za obratovanje)
+        # nastavitve = self.object.element_set.filter(is_active=True)[0]
+        # nastavitve = nastavitve.nastavitev_set.all()
+        context['nastavitev_list'] = []
 
-        # nastavljene vrednosti (parametri obratovanja)
-        nastavitev_max = self.object.nastavitev_set.values(
-            "obratovalni_parameter").annotate(datum=Max("datum_nastavitve"))
+        # # nastavljene vrednosti (parametri obratovanja)
+        # nastavitev_max = self.object.nastavitev_set.values(
+        #     "obratovalni_parameter").annotate(datum=Max("datum_nastavitve"))
 
-        # sestavimo ustrezen seznam za izpis
-        nastavitev_max_izpis = []
-        for nastavitev in nastavitev_max:
-            nastavitev_max_izpis.append(self.object.nastavitev_set.filter(
-                obratovalni_parameter=nastavitev['obratovalni_parameter'],
-                datum_nastavitve=nastavitev['datum'])[0]
-            )
-        context['nastavitev_max'] = nastavitev_max_izpis
+        # # sestavimo ustrezen seznam za izpis
+        # nastavitev_max_izpis = []
+        # for nastavitev in nastavitev_max:
+        #     nastavitev_max_izpis.append(self.object.nastavitev_set.filter(
+        #         obratovalni_parameter=nastavitev['obratovalni_parameter'],
+        #         datum_nastavitve=nastavitev['datum'])[0]
+        #     )
+        context['nastavitev_max'] = []
+
+        
+
 
         # Zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="ELEMENT_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
-        return context
-
-
-
-
-
-
-
-class ProjektnoMestoCreateView(CreateView):
-
-    model = ProjektnoMesto
-    form_class = ProjektnoMestoCreateForm
-    template_name = "deli/projektno_mesto/create.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(ProjektnoMestoCreateView, self).get_context_data(*args, **kwargs)
-        modul_zavihek = Zavihek.objects.get(oznaka="PROJEKTNO_MESTO_CREATE")
-        context['modul_zavihek'] = modul_zavihek
         return context

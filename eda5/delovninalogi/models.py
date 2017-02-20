@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
-from eda5.deli.models import Element, ProjektnoMesto
+from eda5.deli.models import ProjektnoMesto
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 
@@ -85,20 +85,67 @@ class Opravilo(TimeStampedModel, IsActiveModel):
         return "%s - %s" % (self.oznaka, self.naziv)
 
 
+class VzorecOpravila(TimeStampedModel, IsActiveModel):
+    # ---------------------------------------------------------------------------------------
+    # ATRIBUTES
+    #   Relations
+    narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
+    nosilec = models.ForeignKey(Oseba)
+    planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
+    element = models.ManyToManyField(ProjektnoMesto)
+    #   Mandatory
+    oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=255)
+    rok_izvedbe = models.DateField(blank=True, null=True)
+    is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno iz strani nadzornika")
+    #   Optional
+
+    # OBJECT MANAGER
+    objects = managers.VzorecOpravilaManager()
+
+    # CUSTOM PROPERTIES
+
+    # METHODS
+    # def get_absolute_url(self):
+    #    return reverse("moduli:delovninalogi:vzorec_opravila_detail", kwargs={'pk': self.pk})
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "vzorec opravila"
+        verbose_name_plural = "vzorci opravil"
+
+    def __str__(self):
+        return "%s - %s" % (self.oznaka, self.naziv)
+
+
 class DelovniNalog(TimeStampedModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    opravilo = models.ForeignKey(Opravilo)
+    opravilo = models.ForeignKey(
+        Opravilo)
     #   Mandatory
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(
+        max_length=20)
     '''***naziv ni potreben-vsi podatki v opravilu. Preveri druge možnosti***'''
-    naziv = models.CharField(max_length=255)
+    naziv = models.CharField(
+        max_length=255)
     #   Optional
-    nosilec = models.ForeignKey(Oseba, blank=True, null=True)
-    datum_plan = models.DateField(blank=True, null=True, verbose_name='V planu za dne')
-    datum_start = models.DateField(blank=True, null=True, verbose_name="Začeto dne")
-    datum_stop = models.DateField(blank=True, null=True, verbose_name="Končano dne")
+    nosilec = models.ForeignKey(
+        Oseba, blank=True, null=True, 
+        verbose_name="Izvajalec (kdo bo delo izvedel)")
+
+    datum_plan = models.DateField(
+        blank=True, null=True, 
+        verbose_name='V planu za dne')
+
+    datum_start = models.DateField(
+        blank=True, null=True,
+        verbose_name="Začeto dne")
+
+    datum_stop = models.DateField(
+        blank=True, null=True, 
+        verbose_name="Končano dne")
 
     @receiver(post_save, sender=Opravilo)
     def create_delovninalog_za_novo_opravilo(sender, created, instance, **kwargs):
@@ -245,34 +292,4 @@ class DeloVrstaSklop(models.Model):
         return "%s - %s" % (self.oznaka, self.naziv)
 
 
-class VzorecOpravila(TimeStampedModel, IsActiveModel):
-    # ---------------------------------------------------------------------------------------
-    # ATRIBUTES
-    #   Relations
-    narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
-    nosilec = models.ForeignKey(Oseba)
-    planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
-    element = models.ManyToManyField(Element)
-    #   Mandatory
-    oznaka = models.CharField(max_length=20)
-    naziv = models.CharField(max_length=255)
-    rok_izvedbe = models.DateField(blank=True, null=True)
-    is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno iz strani nadzornika")
-    #   Optional
 
-    # OBJECT MANAGER
-    objects = managers.VzorecOpravilaManager()
-
-    # CUSTOM PROPERTIES
-
-    # METHODS
-    # def get_absolute_url(self):
-    #    return reverse("moduli:delovninalogi:vzorec_opravila_detail", kwargs={'pk': self.pk})
-
-    # META AND STRING
-    class Meta:
-        verbose_name = "vzorec opravila"
-        verbose_name_plural = "vzorci opravil"
-
-    def __str__(self):
-        return "%s - %s" % (self.oznaka, self.naziv)

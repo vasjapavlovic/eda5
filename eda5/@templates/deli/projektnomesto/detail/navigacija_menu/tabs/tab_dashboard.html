@@ -1,0 +1,61 @@
+{% extends "deli/element/detail/navigacija_menu/tabs/tab_base.html" %} 
+
+
+<!-- TAB_NAVIGACIJA############################################ -->
+
+    <!--NASLOV-->
+    {% block detail_tab_title %}DASHBOARD{% endblock %}
+    <!--end NASLOV-->
+
+
+    <!--CONTROLER_LEFT-->
+    {% block detail_tab_controler_left %}
+        <li><a>Aktivnosti</a></li>
+        <li><a>Koledar</a></li>
+    {% endblock %}
+    <!--end CONTROLER_LEFT-->
+
+
+    <!--CONTROLER_RIGHT-->
+    {% block detail_tab_controler_right %}
+        <li><a></a></li>
+    {% endblock %}
+    <!--end CONTROLER_RIGHT-->
+
+<!-- end TAB_NAVIGACIJA -->
+
+
+
+
+
+<!-- CONTENT################################################### -->
+
+    {% block detail_tab_content %}
+
+        <table class="table">
+        <tr>
+            <th>parameter</th>
+            <th>vrednost</th>
+        </tr>
+
+        {% for nastavitev in nastavitev_max %}
+        <tr>
+            <td><b>{{ nastavitev.obratovalni_parameter.oznaka }}</b></td>
+            {% if nastavitev.vrednost == "OFF" %}
+            <td class="btn btn-danger">
+            {% else %}
+            <td class="btn btn-success">
+            {% endif %}
+                {{ nastavitev.vrednost }} {{ nastavitev.obratovalni_parameter.enota }}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% endblock %}
+    
+<!-- end CONTENT -->
+
+
+

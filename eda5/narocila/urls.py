@@ -36,10 +36,6 @@ urlpatterns += [
         name="narocilo_update_dokument"
     ),
 
-    url(r'^reload_controls.html$', 
-        views.reload_controls_view, 
-        name='reload_controls'
-        ),
 
     url(r'^seznam/$', 
         views.NarociloListView.as_view(), 
@@ -49,5 +45,16 @@ urlpatterns += [
     url(r'^(?P<pk>\d+)/detail$', 
         views.NarociloDetailView.as_view(), 
         name="narocilo_detail"
+        ),
+
+    # ##########################################################
+    # FILTRIRANJE
+    # ##########################################################
+
+    # Pri izbiri naročila naj bodo na razpolago samo nosilci, ki so v partnerjih kot
+    # naročnik in izvajalec
+    url(r'^reload_controls_narocilo_osebe.html$', 
+        views.reload_controls_narocilo_osebe_view, 
+        name='reload_controls_narocilo_osebe'
         ),
 ]

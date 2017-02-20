@@ -62,9 +62,9 @@
                 Če je delo končano prikaži ukaz Uredi delo. -->
 
                 {% if delo.time_stop %}
-                <td><button>Uredi</button></td>
+                <td><a class="" href="{% url 'moduli:delovninalogi:delo_update_from_delovninalog' delo.pk %}">Uredi</a></td>
                 {% else %}
-                <td><button data-toggle="modal" data-target="#updateDelo">Zaključi</button></td>
+                <td><a href="{% url 'moduli:delovninalogi:delo_koncaj_update' delo.pk %}">Zaključi</a></td>
                 {% endif %}
             </tr>
 

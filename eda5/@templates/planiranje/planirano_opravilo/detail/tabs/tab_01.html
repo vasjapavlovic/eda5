@@ -1,15 +1,57 @@
-<!-- Podatki -->
+<!-- Planirana Opravila -->
 
-<table class="table">
+<table class="table table-hover table-condensed">
+    <tr>
+        <th>Element</th>
+        <th>Aktivnost</th>
+        <th>Vrsta</th>
+        <th>Priporočena Perioda</th>
+    </tr>
+
+    {% for planirana_aktivnost in planirana_aktivnost_list %}
+
+        {% for element in planirana_aktivnost.element.projektno_mesto.element_set.all %}
+
+    <!-- PLANIRANE AKTIVNOSTI -->
+    {% if planirana_aktivnost.artikel_plan %}
+
+
 
     <tr>
-        <td><small><b>oznaka</b></small></td>
-        <td><b style="color:#0000FF">{{ object.oznaka }}</b></td>
+        <td><a href="{% url 'moduli:deli:element_detail' element.id %}">
+            ({{ planirana_aktivnost.element.projektno_mesto.oznaka }}) 
+            {{ planirana_aktivnost.element.projektno_mesto.tip_elementa.naziv }}
+            {{ planirana_aktivnost.element.projektno_mesto.naziv }} 
+            {{ planirana_aktivnost.element.artikel.naziv }}
+        </a></td>
+        <td><a href="">{{ planirana_aktivnost.artikel_plan.naziv }}</a></td>
+        <td>Planirano po Katalogu</td>
+        <td>
+            {{ planirana_aktivnost.artikel_plan.perioda_predpisana_enota_kolicina }} x 
+            {{ planirana_aktivnost.artikel_plan.perioda_predpisana_enota }}
+        </td>
     </tr>
-    <tr>
-        <td><small><b>naziv</b></small></td>
-        <td><b style="color:#0000FF">{{ object.naziv }}</b></td>
+    
+    {% endif %}
+
+
+    <!-- NEPLANIRANE AKTIVNOSTI -->
+    {% if planirana_aktivnost.naziv_opravila_izven_plana %}
+
+    <tr class="danger">
+        <td><a href="{% url 'moduli:deli:element_detail' element.id %}">
+            ({{ planirana_aktivnost.element.projektno_mesto.oznaka }}) 
+            {{ planirana_aktivnost.element.projektno_mesto.tip_elementa.naziv }}
+            {{ planirana_aktivnost.element.projektno_mesto.naziv }} 
+            {{ planirana_aktivnost.element.artikel.naziv }}
+        </a></td>
+        <td><a href="">{{ planirana_aktivnost.naziv_opravila_izven_plana }}</a></td>
+        <td>Izredna aktivnost izven Kataloga</td>
+        <td></td>
     </tr>
+
+    {% endif %}
+    {% endfor %}
+{% endfor %}
 
 </table>
-

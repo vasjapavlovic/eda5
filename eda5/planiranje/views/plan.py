@@ -75,7 +75,7 @@ class PlanDetailView(DetailView):
         max_opravila_potrjena_planirana = opravila_potrjena_planirana.values(
             "planirano_opravilo").annotate(datum_izvedbe=Max("created"))
 
-        # Zadnje izvedena Planirana Opravila
+        # Dnevnik izvedenih opravil oziroma delovnih nalogov
         # ==================================
         context['opravila_potrjena_planirana'] = opravila_potrjena_planirana
 
@@ -134,14 +134,14 @@ class PlanDetailView(DetailView):
 
         dn_planirano_opravilo_zapadlo_list = []
         for opravilo in planirano_opravilo_zapadlo_list:
-            for dn in opravilo.delovninalog_set.filter(status=4):
+            for dn in opravilo.delovninalog_set.all():
                 dn_planirano_opravilo_zapadlo_list.append(dn)
 
         context['dn_planirano_opravilo_zapadlo_list'] = dn_planirano_opravilo_zapadlo_list
 
         dn_planirano_opravilo_nezapadlo_list = []
         for opravilo in planirano_opravilo_nezapadlo_list:
-            for dn in opravilo.delovninalog_set.filter(status=4):
+            for dn in opravilo.delovninalog_set.all():
                 dn_planirano_opravilo_nezapadlo_list.append(dn)
 
         context['dn_planirano_opravilo_nezapadlo_list'] = dn_planirano_opravilo_nezapadlo_list

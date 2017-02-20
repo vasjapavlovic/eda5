@@ -4,11 +4,25 @@ from django import forms
 from django.db.models import Q
 from django.utils import timezone
 
+
+# Naročila
 from .models import Narocilo, NarociloTelefon, NarociloDokument
 
+
+
+# Arhiv
 from eda5.arhiv.models import Arhiviranje
+
+# Partnerji
 from eda5.partnerji.models import Oseba
+
+# Pošta
+from eda5.posta.models import VrstaDokumenta
+
+# Zahtevki
 from eda5.zahtevki.models import Zahtevek
+
+
 
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -74,24 +88,34 @@ class NarociloTelefonCreateForm(forms.ModelForm):
     class Meta:
         model = NarociloTelefon
         fields = [
-            'oseba',
-            'telefonska_stevilka',
-            'datum_klica',
-            'cas_klica',
-            'telefonsko_sporocilo',
+            'dogovor_text',
+            'dogovor_date',
+            'dogovor_time',
+            'dogovor_person',
+            'dogovor_phonenumber',
         ]
         widgets = {
-            'datum_klica': DateInput(),
-            'cas_klica': TimeInput(),
+            'dogovor_date': DateInput(),
+            'dogovor_time': TimeInput(),
         }
 
 
 class NarociloDokumentCreateForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(NarociloDokumentCreateForm, self).__init__(*args, **kwargs)
+
+        self.fields['vrsta_dokumenta'].queryset = VrstaDokumenta.objects.filter(
+            # pogodba ali
+            Q(oznaka="PGD") |
+            # naročilnica
+            Q(oznaka="NRC")
+        )
+
     class Meta:
         model = NarociloDokument
         fields = [
-            'tip_dokumenta',
+            'vrsta_dokumenta',
         ]
 
 
@@ -102,9 +126,8 @@ class NarociloDokumentUpdateForm(forms.ModelForm):
         super(NarociloDokumentUpdateForm, self).__init__(*args, **kwargs)
 
         ''' Pri izbiri dokumenta prikažemo samo pogodbe in naročilnice '''
-
-        
         self.fields['dokument'].queryset = Arhiviranje.objects.filter(
+
         Q(zahtevek=self.instance.narocilo.zahtevek) & 
             (
                 Q(dokument__vrsta_dokumenta__oznaka="PGD") |

@@ -21,24 +21,49 @@
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
 
-    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-    <li><a type="button" href="{% url 'moduli:planiranje:planirano_opravilo_create' object.pk %}"><b>Dodaj</b> Opravilo</a></li>  
+<div class="navbar-collapse collapse stat" style="height: 1px;">
+    <ul id="main-menu" class="nav navbar-nav navbar-right">
+        <li class="dropdown hidden-xs">
+            <button href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i> Ukazi <i class="fa fa-caret-down"></i></button>
+
+            <ul class="dropdown-menu">
+                {% include "planiranje/plan/detail/navbar_left.html" %}
+            </ul>
+        </li>
+    </ul>
+</div>
 
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
 
 
-<!-- PAGE TITLE -->
-{% block content_title %}
-<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
-{% endblock %}
-<!-- end PAGE TITLE -->
-
 
 
 <!-- PAGE CONTENT -->
 {% block content %}
+    
+    <!-- panel -->
+<div class="row">
+<div class="col-sm-6 col-md-6">
+
+    <div class="panel">
+        <div class="panel-heading no-collapse">Podrobnosti plana</div>
+
+            <table style="row-height=5; !important"  class="table table-condensed table-bordered">
+                <font color="black">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    {% include "planiranje/plan/detail/header.html" %}
+                    </tbody>
+                </font>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
 {% include "planiranje/plan/detail/content.html" %}
 {% include "planiranje/plan/detail/modal.html" %}
 {% endblock %}

@@ -52,7 +52,18 @@ class DnevnikDobavaCreateForm(forms.ModelForm):
         )
 
 
-class DnevnikDelovniNalogCreateForm(forms.ModelForm):
+class SkladisceDnevnikFromDelovniNalogCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Dnevnik
+        fields = (
+            'artikel',
+            'likvidiral',
+            'kom',
+        )
+
+
+class SkladisceDnevnikUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Dnevnik

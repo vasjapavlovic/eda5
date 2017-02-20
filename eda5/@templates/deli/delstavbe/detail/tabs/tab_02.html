@@ -8,7 +8,7 @@
     {% for projektno_mesto in object.projektna_mesta_aktivna %}
 
     <tr>
-        <td><h1><b style="color:#0000FF">{{ projektno_mesto.oznaka }}</b></h1></td>
+        <td><h1><a href="{% url 'moduli:deli:projektnomesto_detail' projektno_mesto.pk %}"><b style="color:#0000FF">{{ projektno_mesto.oznaka }}</b></a></h1></td>
         <td><b>{{ projektno_mesto.naziv }}</b><br><i>{{ projektno_mesto.tip_elementa.naziv }}</i></td>
 
 

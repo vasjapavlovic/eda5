@@ -9,10 +9,11 @@ urlpatterns = [
     url(r'^seznam/$', views.DelListView.as_view(), name="del_list"),
     url(r'^del/(?P<pk>\d+)/detail/$', views.DelDetailView.as_view(), name="del_detail"),
     url(r'^del/(?P<pk>\d+)/update/$', views.DelUpdateView.as_view(), name="del_update"),
-    url(r'^element/(?P<pk>\d+)/detail/$', views.ElementDetailView.as_view(), name="element_detail"),
+    
 ]
 
 # Projektno Mesto
 urlpatterns += [
     url(r'^projektno-mesto-create/$', views.ProjektnoMestoCreateView.as_view(), name="projektno_mesto_create"),
+    url(r'^projektno-mesto/(?P<pk>\d+)/detail/$', views.ProjektnoMestoDetailView.as_view(), name="projektnomesto_detail"),
 ]
