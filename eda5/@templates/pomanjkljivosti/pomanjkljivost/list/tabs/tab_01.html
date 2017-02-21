@@ -1,6 +1,6 @@
 <!-- TAB_01 Content -->
 
-        <text>Seznam odprtih pomanjkljivosti</text>
+        <text>Seznam odprtih pomanjkljivosti</text><br>
         <table class="table">
             <tr>
                 <th>oznaka</th>
@@ -11,7 +11,7 @@
                 <th>lokacija</th>
             </tr>
 
-            {% for object in object_list %}
+            {% for object in pomanjkljivosti_nelikvidirane %}
             <tr>
                 <td><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">{{ object.oznaka }}</a></td>
                 <td>{{ object.naziv }}</td>

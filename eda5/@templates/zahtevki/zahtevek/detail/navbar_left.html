@@ -37,7 +37,18 @@
 
 <li><a type="button" href="{% url 'moduli:delovninalogi:opravilo_create_from_vzorec_from_zahtevek' object.pk %}"><b>Dodaj</b> Planirano Opravilo</a></li> 
 
-<li><a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_create_from_zahtevek' object.pk %}"><b>Dodaj</b> Pomanjkljivost</a></li> 
+<li><a type="button" href="{% url 'moduli:delovninalogi:opravilo_create_pomanjkljivosti' object.pk %}"><b>Dodaj</b> Opravilo za reševanje Pomanjkljivosti</a></li> 
+
+
+
+
+<!-- Izvedba del -->
+<li class="divider"></li>
+<li class="dropdown-header">Pomanjkljivosti</li>
+
+<li><a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_create_from_zahtevek' object.pk %}"><b>Dodaj</b> Pomanjkljivost</a></li>
+
+<li><a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_izbira_from_zahtevek' object.pk %}"><b>Likvidiraj</b> že Prijavljeno Pomanjkljivost</a></li> 
 
 
 

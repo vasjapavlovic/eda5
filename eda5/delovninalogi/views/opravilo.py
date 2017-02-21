@@ -102,7 +102,7 @@ class OpraviloUpdateView(UpdateView):
 
 
 # #########################################################
-# OPRAVILO CREATE VIEW
+# OPRAVILO SPLOŠNO CREATE VIEW
 # #########################################################
 class OpraviloCreateFromZahtevekView(UpdateView):
     model = Zahtevek
@@ -218,7 +218,139 @@ class OpraviloCreateFromZahtevekView(UpdateView):
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
+# #########################################################
+# OPRAVILO ODPRAVA POMANJKLJIVOSTI CREATE VIEW
+# #########################################################
+class OpraviloCreatePomanjkljivosti(UpdateView):
+    model = Zahtevek
+    template_name = "delovninalogi/opravilo/create_pomanjkljivosti.html"
+    fields = ('id', )
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(OpraviloCreatePomanjkljivosti, self).get_context_data(*args, **kwargs)
+
+        # opravilo
+        context['opravilo_create_form'] = OpraviloCreateForm
+        context['opravilo_pomanjkljivost_update_form'] = OpraviloPomanjkljivostUpdateForm
+
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        ###########################################################################
+        # FORMS
+        ###########################################################################
+
+        opravilo_create_form = OpraviloCreateForm(request.POST or None)
+        opravilo_pomanjkljivost_update_form = OpraviloPomanjkljivostUpdateForm(request.POST or None)
+
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
+
+        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost 
+        nahajala '''
+
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+
+        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost 
+        nahajala '''
+
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
+
+        ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
+        Pomembno zaradi načina struktura View-ja '''
+
+        opravilo_create_form_is_valid = False
+        opravilo_pomanjkljivost_update_form_is_valid = False
+
+        ''' Pridobimo podatke o opravilu '''
+
+        if opravilo_create_form.is_valid():
+            oznaka = opravilo_create_form.cleaned_data['oznaka']
+            naziv = opravilo_create_form.cleaned_data['naziv']
+            rok_izvedbe = opravilo_create_form.cleaned_data['rok_izvedbe']
+            narocilo = opravilo_create_form.cleaned_data['narocilo']
+            nosilec = opravilo_create_form.cleaned_data['nosilec']
+            planirano_opravilo = opravilo_create_form.cleaned_data['planirano_opravilo']
+            # ukaz, da je form ustrezno izpolnjen
+            opravilo_create_form_is_valid = True
+
+        ''' Pridobimo podatek o izbranih pomanjkljivostih, ki se
+        bodo v opravilu odpravljale '''
+
+        if opravilo_pomanjkljivost_update_form.is_valid():
+            # seznam pomanjkljivosti
+            pomanjkljivost_list = opravilo_pomanjkljivost_update_form.cleaned_data['pomanjkljivost']
+            # ukaz, da je form ustrezno izpolnjen
+            opravilo_pomanjkljivost_update_form_is_valid = True
+
+        ''' v primeru, da so zgornji Form-i ustrezno izpolnjeni
+        izvrši spodnje ukaze '''
+
+        if opravilo_create_form_is_valid == True and opravilo_pomanjkljivost_update_form_is_valid == True:
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
+
+            ''' Izdelamo novo opravilo kjer se kasneje dodatno dopolni
+            na katerih elementih se opravilo opravlja ter katere
+            pomanjkljivosti se odpravljajo v tem opravilu. '''
+
+            opravilo_data = Opravilo.objects.create_opravilo(
+                oznaka=oznaka,
+                naziv=naziv,
+                rok_izvedbe=rok_izvedbe,
+                narocilo=narocilo,
+                zahtevek=zahtevek,
+                nosilec=nosilec,
+                planirano_opravilo=planirano_opravilo,
+            )
+
+            ''' Instanco izdelanega opravila spravimo za nadaljno
+            uporabo '''
+
+            opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
+        
+            ''' opravilu dodelimo izbrane pomanjkljivosti '''
+
+            opravilo_object.pomanjkljivost = pomanjkljivost_list
+
+            ''' opravilu dodelimo elemente, ki so vezani na pomanjkljivost '''
+            
+            element_list = []
+            for pomanjkljivost in pomanjkljivost_list:
+                for element in pomanjkljivost.element.all():
+                    element_list.append(element)
+
+            opravilo_object.element = element_list
+
+            ''' spravimo zgoraj navedene ukaze v bazi '''
+
+            opravilo_object.save()
+
+            ''' izvedemo preusmeritev '''
+
+            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+
+        # v primeru, da so zgornji Form-i NISO ustrezno izpolnjeni
+        # izvrši spodnje ukaze
+
+        else:
+            return render(request, self.template_name, {
+                'opravilo_create_form': opravilo_create_form,
+                'opravilo_pomanjkljivost_update_form': opravilo_pomanjkljivost_update_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+        
 
 
 # #########################################################

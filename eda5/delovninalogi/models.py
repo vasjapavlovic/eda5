@@ -41,7 +41,7 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     '''Opravilo se izvaja na posameznih elementih stavbe, 
     ki se jih definira tukaj'''
 
-    element = models.ManyToManyField(ProjektnoMesto)
+    element = models.ManyToManyField(ProjektnoMesto, blank=True)
 
 
     #   MANDATORY

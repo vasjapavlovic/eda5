@@ -29,8 +29,8 @@ class PomanjkljivostCreateForm(forms.ModelForm):
 
 
         ''' Avtomatska izdelava datuma vnosa pomanjkljivosti '''
-        prijava_dne = timezone.now().date()
-        self.initial['prijava_dne'] = prijava_dne
+        ugotovljeno_dne = timezone.now().date()
+        self.initial['ugotovljeno_dne'] = ugotovljeno_dne
 
         # Prijavo želim oddati kot anonimen
         self.initial['prijavil_text'] = 'Hočem ostati anonimen.'
@@ -48,17 +48,17 @@ class PomanjkljivostCreateForm(forms.ModelForm):
     class Meta:
         model = Pomanjkljivost
         fields = (
+            
+            # za uporabnika
             'oznaka',
-            'naziv',
+            'opis_text',
             'prijavil_text',
-            'prijava_dne',
+            'ugotovljeno_dne',
             'element_text',
-            'etaza_text',
             'lokacija_text',
-            'prioriteta',
         )
         widgets = {
-            'prijava_dne': DateInput(),
+            'ugotovljeno_dne': DateInput(),
         }
 
 
@@ -81,8 +81,8 @@ class PomanjkljivostCreateFromZahtevekForm(forms.ModelForm):
 
 
         ''' Avtomatska izdelava datuma vnosa pomanjkljivosti '''
-        prijava_dne = timezone.now().date()
-        self.initial['prijava_dne'] = prijava_dne
+        ugotovljeno_dne = timezone.now().date()
+        self.initial['ugotovljeno_dne'] = ugotovljeno_dne
 
     def clean_oznaka(self):
 
@@ -99,14 +99,51 @@ class PomanjkljivostCreateFromZahtevekForm(forms.ModelForm):
         fields = (
             'oznaka',
             'naziv',
+            'opis',
             'prijavil_text',
-            'prijava_dne',
-            'element_text',
-            'element',
-            'etaza_text',
-            'lokacija_text',
+            'ugotovljeno_dne',
             'prioriteta',
+            # element se doda ločeno z widgetom za many-to-many
         )
         widgets = {
-            'prijava_dne': DateInput(),
+            'ugotovljeno_dne': DateInput(),
         }
+
+
+class PomanjkljivostLikvidirajPodZahtevek(forms.ModelForm):
+
+    class Meta:
+        model = Pomanjkljivost
+        fields = (
+
+            # dodatno samo za administratorja
+            'naziv',
+            'opis',
+            'prioriteta',
+            # element se doda ločeno z widgetom za many-to-many
+        )
+
+
+class PomanjkljivostIzbiraFrom(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super(PomanjkljivostIzbiraFrom, self).__init__(*args, **kwargs)
+
+        # nastavimo, da je izbira pomanjkljivosti obvezna
+        self.fields['pomanjkljivost'].required = True
+
+    # definiramo atribut v formu
+    pomanjkljivost = forms.ModelChoiceField(
+        queryset=Pomanjkljivost.objects.filter(zahtevek__isnull=True))
+
+
+class PomanjkljivostElementUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model = Pomanjkljivost
+        fields = (
+            'element',
+        )
+
+
+

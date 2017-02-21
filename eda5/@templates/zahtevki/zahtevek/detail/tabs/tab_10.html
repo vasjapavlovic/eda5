@@ -11,6 +11,7 @@
 
             <tr>
                 <th>oznaka</th>
+                <th>naziv</th>
                 <th>opis</th>
                 <th>prijava dne</th>
                 <th>prioriteta</th>
@@ -26,10 +27,10 @@
             {% else %}
             <tr>
             {% endif %}
-                <td><b><a href="">
-                {{ object.oznaka }}</a></b></td>
+                <td><b><a href="">{{ object.oznaka }}</a></b></td>
                 <td>{{ object.naziv }}</td>
-                <td>{{ object.prijava_dne }}</td>
+                <td>{{ object.opis }}</td>
+                <td>{{ object.ugotovljeno_dne }}</td>
                 <td>{{ object.get_prioriteta_display }}</td>
             </tr>
 

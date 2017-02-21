@@ -24,6 +24,20 @@ urlpatterns += [
     ),
 
 
+    url(  # Izbira pomanjkljivosti za dodelitev zahtevku
+        r'^(?P<pk>\d+)/izbira/$',
+        views.PomanjkljivostIzbiraFromZahtevek.as_view(),
+        name="pomanjkljivost_izbira_from_zahtevek"
+    ),
+
+
+    url(  # Dodelitev izbrane pomanjkljivosti k zahtevku
+        r'^(?P<pk>\d+)/pomanjkljivost-likvidiraj-pod-zahtevek/$',
+        views.PomanjkljivostLikvidirajPodZahtevekView.as_view(),
+        name="pomanjkljivost_likvidiraj_pod_zahtevek"
+    ),
+
+
     url(
         r'^seznam/$',
         views.PomanjkljivostListView.as_view(),
@@ -38,3 +52,5 @@ urlpatterns += [
     ),
 
 ]
+
+

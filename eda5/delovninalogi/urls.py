@@ -38,30 +38,42 @@ urlpatterns += [
 # OPRAVILO
 urlpatterns += [
 
+
     # Seznam opravil
     url(r'^opravila/$', 
         opravilo.OpraviloListView.as_view(), 
         name="opravilo_list"),
+
 
     #  Pregled Opravila
     url(r'^opravila/(?P<pk>\d+)/detail$', 
         opravilo.OpraviloDetailView.as_view(), 
         name="opravilo_detail"),
 
+
     # Posodobitev opravila
     url(r'^opravila/(?P<pk>\d+)/update$', 
         opravilo.OpraviloUpdateView.as_view(), 
         name="opravilo_update"),
+
 
     # Pregled vzorca opravila
     url(r'^vzorec-opravila/(?P<pk>\d+)/detail$', 
         opravilo.OpraviloVzorecDetailView.as_view(), 
         name="vzorec_opravila_detail"),
 
+
     # Izdelava splošnega opravila iz zahtevka
     url(r'^opravilo-create/(?P<pk>\d+)$', 
         opravilo.OpraviloCreateFromZahtevekView.as_view(), 
         name="opravilo_create_from_zahtevek"),
+
+
+    # Izdelava opravila za likvidacijo pomanjkljivosti
+    url(r'^opravilo-create-pomanjkljivosti/(?P<pk>\d+)$', 
+        opravilo.OpraviloCreatePomanjkljivosti.as_view(), 
+        name="opravilo_create_pomanjkljivosti"),
+
 
     # Izdelava opravila iz vzorca in zahtevkov
     url(r'^opravilo-from-vzorec-create/(?P<pk>\d+)$', 
