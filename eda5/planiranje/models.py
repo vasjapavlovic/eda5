@@ -109,6 +109,12 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     perioda_predpisana_enota_kolicina = models.IntegerField(verbose_name="kolicina enote periode")
     perioda_predpisana_kolicina_na_enoto = models.IntegerField(verbose_name="kolicina na enoto periode")
     datum_prve_izvedbe = models.DateField(blank=True, null=True)
+
+    # zaokrožitev minimalno minut
+    zmin = models.IntegerField(
+        default=15, 
+        verbose_name='zaokrožitev [min]')
+    
     #   Optional
     opomba = models.TextField(blank=True)
     # OBJECT MANAGER

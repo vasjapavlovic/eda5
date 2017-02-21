@@ -17,7 +17,7 @@ class PomanjkljivostManager(models.Manager):
         # za administratorja
         naziv=None,
         opis=None,
-        element=None,
+        # element=None,
         prioriteta=None,
         zahtevek=None
     ):
@@ -35,7 +35,7 @@ class PomanjkljivostManager(models.Manager):
             # za administratorja
             naziv=naziv,
             opis=opis,
-            element=element,
+            # element=element, se doda v updatu ko je pomanjkljivost izdelana
             prioriteta=prioriteta,
             zahtevek=zahtevek
         )

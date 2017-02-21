@@ -78,6 +78,8 @@ class PlaniranoOpraviloCreateView(UpdateView):
 
             opomba = planirano_opravilo_create_form.cleaned_data['opomba']
 
+            zmin = planirano_opravilo_create_form.cleaned_data['zmin']
+
             PlaniranoOpravilo.objects.create_planirano_opravilo(
                 oznaka=oznaka,
                 naziv=naziv,
@@ -87,6 +89,7 @@ class PlaniranoOpraviloCreateView(UpdateView):
                 perioda_predpisana_enota_kolicina=perioda_predpisana_enota_kolicina,
                 perioda_predpisana_kolicina_na_enoto=perioda_predpisana_kolicina_na_enoto,
                 opomba=opomba,
+                zmin=zmin,
                 plan=plan,
             )
 

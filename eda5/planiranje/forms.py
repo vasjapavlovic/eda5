@@ -30,5 +30,5 @@ class PlaniranoOpraviloCreateform(forms.ModelForm):
             'perioda_predpisana_kolicina_na_enoto',
             'datum_prve_izvedbe',
             'opomba',
-
+            'zmin'
         )

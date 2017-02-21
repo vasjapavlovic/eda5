@@ -16,6 +16,7 @@ class PlaniranoOpraviloManager(models.Manager):
         perioda_predpisana_kolicina_na_enoto=None,
         datum_prve_izvedbe=None,
         opomba=None,
+        zmin=None,
         plan=None,
     ):
 
@@ -29,6 +30,7 @@ class PlaniranoOpraviloManager(models.Manager):
             perioda_predpisana_kolicina_na_enoto=perioda_predpisana_kolicina_na_enoto,
             datum_prve_izvedbe=datum_prve_izvedbe,
             opomba=opomba,
+            zmin=zmin,
             plan=plan,
         )
 

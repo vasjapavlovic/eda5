@@ -51,7 +51,13 @@ class Opravilo(TimeStampedModel, IsActiveModel):
     is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno iz strani nadzornika")
     #   Optional
 
+    ''' parameter za zaokroževanje porabljenega časa za dela,
+    ki se opravljajo pod to opravilo'''
 
+    # zaokrožitev minimalno minut
+    zmin = models.IntegerField(
+        default=15, 
+        verbose_name='zaokrožitev [min]')
 
 
     # OBJECT MANAGER

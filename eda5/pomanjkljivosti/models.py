@@ -28,6 +28,7 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel):
         max_length=20)
 
     opis_text = models.TextField(
+        blank=True, null=True,
         verbose_name='Problem')
 
     ugotovljeno_dne = models.DateField(
@@ -58,7 +59,8 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel):
         max_length=255, blank=True, null=True,
         verbose_name='naziv pomanjkljivosti')
 
-    opis = models.TextField(blank=True, null=True, 
+    opis = models.TextField(
+        blank=True, null=True, 
         verbose_name='opis pomanjkljivosti')
 
     ''' Projektno mesto je del dela stavbe, ima lokacijo 

@@ -97,8 +97,12 @@ class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
         modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
         context['modul_zavihek'] = modul_zavihek
 
+        # deli
+        context['element_izbira_form'] = ElementIzbiraForm
+
         # pomanjkljivost
         context['pomanjkljivost_create_from_zahtevek_form'] = PomanjkljivostCreateFromZahtevekForm
+        context['pomanjkljivost_element_update_form'] = PomanjkljivostElementUpdateForm
 
         # vrnemo narejene podatke
         return context
@@ -106,42 +110,78 @@ class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
 
+        ###########################################################################
+        # FORMS
+        ###########################################################################
+
+        pomanjkljivost_create_from_zahtevek_form = PomanjkljivostCreateFromZahtevekForm(request.POST or None)
+        pomanjkljivost_element_update_form = PomanjkljivostElementUpdateForm(request.POST or None)
+
+        ''' Na začetku so vsi formi napčni neustrezni-
+        neizbrani'''
+
+        pomanjkljivost_create_from_zahtevek_form_is_valid = False
+        pomanjkljivost_element_update_form_is_valid = False
+
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
+
         ''' Pridobimo instanco zahtevka kjer se pomanjkljivost dodaja '''
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 
         ''' Pridobimo instanco Zavihka '''
         modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
 
-        #FORMS
-        pomanjkljivost_create_from_zahtevek_form = PomanjkljivostCreateFromZahtevekForm(request.POST or None)
-
-
         ''' Izdelamo pomanjkljivost iz zahtevka '''
 
         if pomanjkljivost_create_from_zahtevek_form.is_valid():
             oznaka = pomanjkljivost_create_from_zahtevek_form.cleaned_data['oznaka']
             naziv = pomanjkljivost_create_from_zahtevek_form.cleaned_data['naziv']
+            opis = pomanjkljivost_create_from_zahtevek_form.cleaned_data['opis']
             prijavil_text = pomanjkljivost_create_from_zahtevek_form.cleaned_data['prijavil_text']
-            prijava_dne = pomanjkljivost_create_from_zahtevek_form.cleaned_data['prijava_dne']
-            element_text = pomanjkljivost_create_from_zahtevek_form.cleaned_data['element_text']
-            etaza_text = pomanjkljivost_create_from_zahtevek_form.cleaned_data['etaza_text']
-            lokacija_text = pomanjkljivost_create_from_zahtevek_form.cleaned_data['lokacija_text']
-            element = pomanjkljivost_create_from_zahtevek_form.cleaned_data['element']
+            ugotovljeno_dne = pomanjkljivost_create_from_zahtevek_form.cleaned_data['ugotovljeno_dne']
             prioriteta = pomanjkljivost_create_from_zahtevek_form.cleaned_data['prioriteta']
+            pomanjkljivost_create_from_zahtevek_form_is_valid = True
 
-            Pomanjkljivost.objects.create_pomanjkljivost(
+
+        ''' Pridobimo še elemente, ki so predmet pomanjkljivosti '''
+
+        if pomanjkljivost_element_update_form.is_valid():
+            element = pomanjkljivost_element_update_form.cleaned_data['element']
+            pomanjkljivost_element_update_form_is_valid = True
+
+
+        # če so vsi podatki pravilno izpolnjeni izvrši spodaj navedene ukaze
+        if pomanjkljivost_create_from_zahtevek_form_is_valid == True and pomanjkljivost_element_update_form_is_valid == True:
+
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
+
+            # izdelamo pomanjkljivost
+
+            pomanjkljivost_data = Pomanjkljivost.objects.create_pomanjkljivost(
                 oznaka=oznaka,
                 naziv=naziv,
+                opis=opis,
                 prijavil_text=prijavil_text,
-                prijava_dne=prijava_dne,
+                ugotovljeno_dne=ugotovljeno_dne,
                 prioriteta=prioriteta,
-                element_text=element_text,
-                etaza_text=etaza_text,
-                lokacija_text=lokacija_text,
-                element=element,
+                # element=element, element se doda kasnje
                 zahtevek=zahtevek,
             )
 
+            # pridobimo instanco pomanjkljivosti za nadaljno spreminjanje
+            pomanjkljivost_object = Pomanjkljivost.objects.get(id=pomanjkljivost_data.pk)
+
+            # pomanjkljivosti dodamo izbrane elemente
+            pomanjkljivost_object.element = element
+            pomanjkljivost_object.save()
+
+            # po končanem vnosu se izvede preusmeritev
+
+            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
         else:
             return render(request, self.template_name, {
@@ -151,9 +191,7 @@ class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
             )
 
 
-        ''' po končanem vnosu se izvede preusmeritev '''
 
-        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 
 
 
@@ -201,12 +239,12 @@ class PomanjkljivostIzbiraFromZahtevek(LoginRequiredMixin, UpdateView):
 
         pomanjkljivost_izbira_form = PomanjkljivostIzbiraFrom(request.POST or None)
 
+        pomanjkljivost_izbira_form_is_valid = False
+
 
         ###########################################################################
         # PRIDOBIMO PODATKE
         ###########################################################################
-
-        pomanjkljivost_izbira_form_is_valid = False
 
         ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost 
         nahajala '''
