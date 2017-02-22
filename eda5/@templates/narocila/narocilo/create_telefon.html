@@ -57,7 +57,6 @@
 
         <input type="submit" value="Potrdi">
 
-        <div id="reload_controls_view">{% url 'moduli:narocila:reload_controls' %}</div>
 
     </form>
 
@@ -71,46 +70,7 @@
 
 <script src="{% static 'js/custom_filter.js' %}"></script>
 
-<!-- js related to the application -->
-<script>
-    
-    $('#narocilo_create_form').on('change', '#id_narocnik', function()
-    {
-        reload_controls(this.value);
-    });
 
-    function reload_controls(skupina_partnerjev)
-    {
-        $.ajax
-        ({
-            type: 'POST',
-            url: $("#reload_controls_view").text(),
-            dataType: 'json',
-            data: "skupina_partnerjev="+skupina_partnerjev,
-            success: function(result)
-            {
-                //empty month drop down list
-                $("#id_oseba").empty()
-
-                //add months with no report
-                $("#id_oseba").append('<option value="">---------</option>')
-                $.each( result.list_to_display, function( index, value )
-                {
-                    //use the hidden drop down list to populate the month field
-                    oseba=$("#id_oseba_hidden option[value='" + value + "']").text()
-                    //add months to the drop down list
-                    $('#id_oseba').append('<option value="'+value+'">'+oseba+'</option>')
-
-                });
-            },
-            error: function(xhr, status, error) 
-            {
-                window.console&&console.log(xhr.responseText);
-            }
-        });
-    }
-
-</script>
 
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->
