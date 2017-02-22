@@ -2,7 +2,7 @@
 
 
     <!-- Glede na odprt zavihek-->
-    <li style="background: {{ modul_zavihek.modul.barva }}; !important"><a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}" data-target=".{{ modul_zavihek.modul.oznaka }}-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> {{ modul_zavihek.modul.naziv }}<i class="fa fa-collapse in"></i></a></li> 
+    <li style="background: {{ modul_zavihek.modul.barva }}; !important"><a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}" data-target=".{{ modul_zavihek.modul.oznaka }}-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> {{ modul_zavihek.modul.naziv|upper}}<i class="fa fa-collapse in"></i></a></li> 
     
 
     <li>

@@ -34,7 +34,7 @@ h3.page-tagline{font-size:1.5em;text-align:center;margin:1em 0 2em 0;line-height
 
 .theme-eda5.color{background:#1e1b06}
 
-.theme-eda5 .navbar{background:#1e1b06;background:-webkit-gradient(linear,left bottom,left top,color-stop(0,#1e1b06),color-stop(1,#473a37));background:-ms-linear-gradient(bottom,#1e1b06,#473a37);background:-moz-linear-gradient(center bottom,#1e1b06 0,#473a37 100%);background:-o-linear-gradient(bottom,#1e1b06,#435066);filter:progid:dximagetransform.microsoft.gradient(startColorStr='#4d5b76',EndColorStr='#6f80a1');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#473a37',EndColorStr='#1e1b06')"}
+.theme-eda5 .navbar{background:#1e1b06;background:-webkit-gradient(linear,left bottom,left top,color-stop(0,#1e1b06),color-stop(1,#473a37));background:-ms-linear-gradient(bottom,#1e1b06,#473a37);background:-moz-linear-gradient(center bottom,#1e1b06 0,#473a37 100%);background:-o-linear-gradient(bottom,#1e1b06,#435066);filter:progid:dximagetransform.microsoft.gradient(startColorStr='#1e1b06',EndColorStr='#473a37');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#1e1b06',EndColorStr='#473a37')"}
 
 
 

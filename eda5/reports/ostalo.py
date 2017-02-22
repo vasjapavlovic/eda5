@@ -5,10 +5,11 @@ from django.db.models import Q
 
 from io import BytesIO
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter, A3
+from reportlab.lib.pagesizes import letter, A3, A4
 
 
-from .forms import ReportForm
+
+from ..forms import ReportForm
 
 
 
@@ -97,12 +98,24 @@ def create_pdf_view(request):
     buffer = BytesIO()
 
     # Create the PDF object, using the BytesIO object as its "file."
-    p = canvas.Canvas(buffer, pagesize=A3)
+    p = canvas.Canvas(buffer, pagesize=A4)
+    p.line(10,10, 20, 20)
+    p.setFont("Times-Roman", 10)
 
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
 
-    p.drawString(100, 100, 'DELOVNI NALOG')
+    delovninalogi = DelovniNalog.objects.filter()
+
+    
+    p.drawString(0, 0, 'DELOVNI NALOG')
+    x = 0
+    y = 0
+    for dn in delovninalogi:
+        y= y + 15
+        p.drawString(x, y, dn.oznaka)
+        p.drawString(x+100, y, dn.opravilo.oznaka)
+        p.drawString(x+200, y, dn.opravilo.naziv)
 
 
     # Close the PDF object cleanly.

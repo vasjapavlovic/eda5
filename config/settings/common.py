@@ -41,6 +41,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'highcharts',  # charts
+    'templated_docs',
 )
 
 # Apps specific for this project go here.
@@ -264,3 +265,6 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
+
+# Templated-docs
+TEMPLATED_DOCS_LIBREOFFICE_PATH = '/usr/lib/libreoffice/program'
