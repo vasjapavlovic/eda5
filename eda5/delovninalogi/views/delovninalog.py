@@ -20,8 +20,7 @@ from ..forms import \
     DelovniNalogVplanuModelForm,\
     DelovniNalogVresevanjuModelForm, \
     DeloCreateForm, \
-    DeloKoncajUpdateForm, \
-    DeloZacetoUpdateModelForm
+    DeloKoncajUpdateForm
 
 from ..models import \
     Opravilo, \
@@ -114,7 +113,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         arhiviranje_form = ArhiviranjeDelovniNalogForm(request.POST or None)
         zaznamek_form = ZaznamekForm(request.POST or None)
         delo_create_form = DeloCreateForm(request.POST or None)
-        delo_update_form = DeloZacetoUpdateModelForm(request.POST or None)
+        delo_update_form = DeloKoncajUpdateForm(request.POST or None)
         dnevnik_delovninalog_form = DnevnikDelovniNalogCreateForm(request.POST or None)
 
         
