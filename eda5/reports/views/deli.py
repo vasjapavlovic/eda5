@@ -38,18 +38,15 @@ def DeliSeznamPrintView(request):
     if form.is_valid():
         doctypex = form.cleaned_data['format_field']
         form_is_valid = True
-        print("AAAAAAAAAAAAA")
 
     if deli_seznam_filter_form.is_valid():
         program = deli_seznam_filter_form.cleaned_data['program']
         deli_filter_list = DelStavbe.objects.filter(lastniska_skupina__program=program)
         deli_seznam_filter_form_is_valid = True
-        print("BBBBBBBBBBBBBB")
 
     #Če so formi pravilno izpolnjeni
 
     if form_is_valid == True and deli_seznam_filter_form_is_valid == True:
-        print("CCCCCCCCCCC")
 
         filename = fill_template(
             'reports/deli/deli_seznam.odt', {'deli_filter_list': deli_filter_list, 'datum_danes': datum_danes, 'program': program},

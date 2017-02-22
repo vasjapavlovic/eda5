@@ -62,14 +62,21 @@ class PlanDetailView(DetailView):
         context = super(PlanDetailView, self).get_context_data(*args, **kwargs)
 
         # PlanOpravilo
-        planirano_opravilo_list = PlaniranoOpravilo.objects.filter(plan=self.object.id)
+        planirano_opravilo_list = PlaniranoOpravilo.objects.filter(
+            plan=self.object.id,  # opravila ki so del plana
+            is_active=True,  # samo aktivna opravila želimo, da se prikažejo na seznamu
+            )
         context['planirano_opravilo_list'] = planirano_opravilo_list
 
         #########################################################################################
         # SLDENJE PLANU: ZAPADLA OPRAVILA; OPRAVILA V PLANU; FAZA PLANIRANJA; IZVEDENA OPRAVILA #
         #########################################################################################
 
-        opravila_vsa = Opravilo.objects.filter(planirano_opravilo__plan=self.object.id)
+        opravila_vsa = Opravilo.objects.filter(
+            planirano_opravilo__plan=self.object.id,  # opravila ki so del plana
+            planirano_opravilo__is_active=True,  # samo aktivna opravila želimo, da se prikažejo na seznamu
+            )
+
         # zaenkrat tudi nepotrjena opravila iz strani nadzornika
         opravila_potrjena_planirana = opravila_vsa.filter(planirano_opravilo__isnull=False)
         max_opravila_potrjena_planirana = opravila_potrjena_planirana.values(
