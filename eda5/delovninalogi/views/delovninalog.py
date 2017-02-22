@@ -114,7 +114,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         zaznamek_form = ZaznamekForm(request.POST or None)
         delo_create_form = DeloCreateForm(request.POST or None)
         delo_update_form = DeloKoncajUpdateForm(request.POST or None)
-        dnevnik_delovninalog_form = DnevnikDelovniNalogCreateForm(request.POST or None)
+
 
         
         # ZAZNAMKI
