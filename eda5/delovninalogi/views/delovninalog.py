@@ -20,7 +20,8 @@ from ..forms import \
     DelovniNalogVplanuModelForm,\
     DelovniNalogVresevanjuModelForm, \
     DeloCreateForm, \
-    DeloKoncajUpdateForm
+    DeloKoncajUpdateForm, \
+    DeloZacetoUpdateModelForm
 
 from ..models import \
     Opravilo, \
