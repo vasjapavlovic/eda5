@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-# from django.shortcuts import render
+from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
@@ -52,6 +52,12 @@ class DeloCreateFromDelovniNalogView(MessagesActionMixin, UpdateView):
         # FORMS
         delo_create_form = DeloCreateForm(request.POST or None)
 
+        delo_create_form_is_valid = False
+
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+
 
         if delo_create_form.is_valid():
 
@@ -63,6 +69,13 @@ class DeloCreateFromDelovniNalogView(MessagesActionMixin, UpdateView):
             delavec = delo_create_form.cleaned_data['delavec']
             datum = delo_create_form.cleaned_data['datum']
             time_start = delo_create_form.cleaned_data['time_start']
+            delo_create_form_is_valid = True
+
+            
+
+        if delo_create_form_is_valid == True:
+
+            # VNOS V BAZO **************************************************
 
 
             # VALIDACIJE **************************************************
@@ -96,7 +109,6 @@ class DeloCreateFromDelovniNalogView(MessagesActionMixin, UpdateView):
                 return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
 
-            # VNOS V BAZO **************************************************
             # Izdelamo delo
             delo = Delo.objects.create_delo(
                 oznaka=oznaka,
@@ -112,7 +124,6 @@ class DeloCreateFromDelovniNalogView(MessagesActionMixin, UpdateView):
             # pridobimo delovninalog glede na trenutno izdelano delo
             delovninalog = DelovniNalog.objects.get(id=delo.delovninalog.pk)
             # spremenimo status delovnega naloga
-            print(delovninalog.status)
             # če status že ni spremenjen
             if not delovninalog.status == 3:
                 delovninalog.status = 3
@@ -126,6 +137,16 @@ class DeloCreateFromDelovniNalogView(MessagesActionMixin, UpdateView):
             # ter izvedemo preusmeritev na obstoječi delovni nalog
             return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
+        else:
+        # v primeru, da so zgornji Form-i NISO ustrezno izpolnjeni
+        # izvrši spodnje ukaze
+
+
+            return render(request, self.template_name, {
+                'delo_create_form': delo_create_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
 
 
 class DeloKoncajUpdateView(MessagesActionMixin, UpdateView):

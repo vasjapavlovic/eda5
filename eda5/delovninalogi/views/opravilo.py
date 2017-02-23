@@ -416,7 +416,6 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
             nosilec = vzorec_opravila.nosilec
             planirano_opravilo = vzorec_opravila.planirano_opravilo
             element_list = vzorec_opravila.element.all()
-            print(element_list)
 
             opravilo_data = Opravilo.objects.create_opravilo(
                 oznaka=oznaka,
@@ -434,6 +433,8 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
             opravilo_object.element = element_list
             opravilo_object.save()
 
+            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
         else:
             return render(request, self.template_name, {
                 'vzorec_opravila_izbira_form': vzorec_opravila_izbira_form,
@@ -441,7 +442,7 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
                 }
             )
 
-        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+        
 
 
 # view called with ajax to reload the month drop down list
@@ -453,10 +454,7 @@ def reload_controls_planiranje_skupina_planov_view(request):
     context = {}
     # get the object
     skupina_planov = request.POST['skupina_planov']
-    print(skupina_planov)
     skupina_planov = SkupinaPlanov.objects.get(id=skupina_planov)
-    print(skupina_planov)
-    print(skupina_planov.plan_set.all())
     # podskupine glede na izbrano skupino
     plan_list = []
     for plan in skupina_planov.plan_set.all():
@@ -465,7 +463,6 @@ def reload_controls_planiranje_skupina_planov_view(request):
     # OUTPUT FILTER
     # Podskupine
     context['plan_to_display'] = plan_list
-    print(plan_list)
 
     return JsonResponse(context)
 
