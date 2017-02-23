@@ -10,6 +10,9 @@ from eda5.delovninalogi.models import DelovniNalog
 from eda5.planiranje.models import PlaniranoOpravilo, Plan
 
 from django.views.generic import TemplateView
+# Moduli
+from eda5.moduli.models import Zavihek
+
 
 
 def dn_view(request):
@@ -32,30 +35,82 @@ def dn_view(request):
         return render(request, 'reports/delovninalog/seznam_dn.html', {'form': form})
 
 
-def PrintPlanOVView(request):
 
-    form = FormatForm(request.POST or None)
+class PrintPlanOVView(TemplateView):
 
-    planirana_opravila_list = PlaniranoOpravilo.objects.all()
-    datum_danes = timezone.now().date()
+    template_name = "reports/delovninalog/planirana_opravila_list.html"
 
-    if form.is_valid():
-        doctypex = form.cleaned_data['format_field']
-        filename = fill_template(
-            'reports/delovninalog/planirana_opravila_list.odt', {'planirana_opravila_list': planirana_opravila_list, 'datum_danes': datum_danes},
-            output_format=doctypex)
-        visible_filename = 'planirana_opravila_list.{}'.format(doctypex)
+    def get_context_data(self, *args, **kwargs):
+        context = super(PrintPlanOVView, self).get_context_data(*args, **kwargs)
 
-        return FileResponse(filename, visible_filename)
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
 
-    else:
-        return render(request, 'reports/delovninalog/planirana_opravila_list.html', {'form': form})
+        context['form'] = FormatForm
+        # context['deli_seznam_filter_form'] = DeliSeznamFilterForm
+
+        return context
 
 
+    def post(self, request, *args, **kwargs):
+
+        ###########################################################################
+        # FORMS
+        ###########################################################################
+
+        form = FormatForm(request.POST or None)
+        # deli_seznam_filter_form = DeliSeznamFilterForm(request.POST or None)
+
+        form_is_valid = False
+        # deli_seznam_filter_form_is_valid = False
+
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
+
+        if form.is_valid():
+            doctypex = form.cleaned_data['format_field']
+            form_is_valid = True
+
+        # if deli_seznam_filter_form.is_valid():
+        #     program = deli_seznam_filter_form.cleaned_data['program']
+        #     deli_filter_list = DelStavbe.objects.filter(lastniska_skupina__program=program)
+        #     deli_seznam_filter_form_is_valid = True
+
+        #Če so formi pravilno izpolnjeni
+
+        if form_is_valid == True:
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
+
+            # pridobimo današnji datum za izpis na izpisu
+
+            datum_danes = timezone.now().date()
+
+            # pridobimo seznam delovnih nalogov
+
+            planirana_opravila_list = PlaniranoOpravilo.objects.all()
+
+            # prenos podatkov za aplikacijo templated_docs
+
+            filename = fill_template(
+                'reports/delovninalog/planirana_opravila_list.odt', {'planirana_opravila_list': planirana_opravila_list, 'datum_danes': datum_danes}, output_format=doctypex)
+            visible_filename = 'planirana_opravila_list.{}'.format(doctypex)
+
+            return FileResponse(filename, visible_filename)
 
 
+        # v primeru, da so zgornji Form-i NISO ustrezno izpolnjeni
+        # izvrši spodnje ukaze
 
-
+        else:
+            return render(request, self.template_name, {
+                'form': form,
+                # 'deli_seznam_filter_form': deli_seznam_filter_form,
+                }
+            )
 
 
 

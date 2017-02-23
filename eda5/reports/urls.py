@@ -21,7 +21,7 @@ urlpatterns += [
 
 # print plan ov
 urlpatterns += [
-    url(r'^planirano-opravilo-list/$', dn_seznam.PrintPlanOVView, name="print_plan_ov"),
+    url(r'^planirano-opravilo-list/$', dn_seznam.PrintPlanOVView.as_view(), name="print_plan_ov"),
 ]
 
 # print plan ov
