@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView,
 from django.db.models import Max
 
 from .forms import DelCreateForm, ProjektnoMestoCreateForm, ElementCreateForm, NastavitevCreateForm, SkupinaIzbiraForm, DelUpdateForm
-from .models import DelStavbe, Skupina, Element, Podskupina, ProjektnoMesto
+from .models import Skupina, Podskupina, DelStavbe, ProjektnoMesto, Element
 
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
 from eda5.katalog.models import ObratovalniParameter
@@ -85,7 +85,7 @@ class DelHomeView(TemplateView):
 
 class DelListView(ListView):
     template_name = "deli/delstavbe/list/base.html"
-    model = Skupina
+    model = DelStavbe  # prej je bila tu Skupina
 
     def get_context_data(self, *args, **kwargs):
         context = super(DelListView, self).get_context_data(*args, **kwargs)

@@ -11,7 +11,10 @@ from eda5.moduli.models import Zavihek
 
 
 # Deli
-from eda5.deli.models import Podskupina, DelStavbe
+from eda5.deli.models import DelStavbe
+
+# Delovninalogi
+from eda5.delovninalogi.models import DelovniNalog
 
 # Etažna Lastnina
 from eda5.etaznalastnina.models import LastniskaSkupina, Program
@@ -25,19 +28,19 @@ from eda5.reports.forms import FormatForm, DeliSeznamFilterForm
 ###########################################################
 # SEZNAM DELOV STAVBE PO PROGRAMIH - PRINT
 ###########################################################
-class DeliSeznamPrintView(TemplateView):
+class DnevnikIzvedenihDelView(TemplateView):
 
-    template_name = "reports/deli/deli_seznam_filter.html"
+    template_name = "reports/delovninalog/dnevnik_izvedenih_del.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(DeliSeznamPrintView, self).get_context_data(*args, **kwargs)
+        context = super(DnevnikIzvedenihDelView, self).get_context_data(*args, **kwargs)
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
         context['form'] = FormatForm
-        context['deli_seznam_filter_form'] = DeliSeznamFilterForm
+        # context['deli_seznam_filter_form'] = DeliSeznamFilterForm
 
         return context
 
@@ -49,10 +52,10 @@ class DeliSeznamPrintView(TemplateView):
         ###########################################################################
 
         form = FormatForm(request.POST or None)
-        deli_seznam_filter_form = DeliSeznamFilterForm(request.POST or None)
+        # deli_seznam_filter_form = DeliSeznamFilterForm(request.POST or None)
 
         form_is_valid = False
-        deli_seznam_filter_form_is_valid = False
+        # deli_seznam_filter_form_is_valid = False
 
         ###########################################################################
         # PRIDOBIMO PODATKE
@@ -62,13 +65,14 @@ class DeliSeznamPrintView(TemplateView):
             doctypex = form.cleaned_data['format_field']
             form_is_valid = True
 
-        if deli_seznam_filter_form.is_valid():
-            program = deli_seznam_filter_form.cleaned_data['program']
-            deli_seznam_filter_form_is_valid = True
+        # if deli_seznam_filter_form.is_valid():
+        #     program = deli_seznam_filter_form.cleaned_data['program']
+        #     deli_filter_list = DelStavbe.objects.filter(lastniska_skupina__program=program)
+        #     deli_seznam_filter_form_is_valid = True
 
         #Če so formi pravilno izpolnjeni
 
-        if form_is_valid == True and deli_seznam_filter_form_is_valid == True:
+        if form_is_valid == True:
             ###########################################################################
             # UKAZI
             ###########################################################################
@@ -77,18 +81,16 @@ class DeliSeznamPrintView(TemplateView):
 
             datum_danes = timezone.now().date()
 
-            # izdelamo seznam delov glede na izbrane programe
-            deli_filter_list = DelStavbe.objects.filter(lastniska_skupina__program=program)
+            # pridobimo seznam delovnih nalogov
 
-            # pridobimo še podskupine, ki jih potrebujemo za prikaz delov po podskupinah
-            podskupina_list = Podskupina.objects.all()
+            delovninalog_list = DelovniNalog.objects.filter(status=4)  # zaključeni delovni nalogi
 
             # prenos podatkov za aplikacijo templated_docs
 
             filename = fill_template(
-                'reports/deli/deli_seznam.odt', {'podskupina_list': podskupina_list,'deli_filter_list': deli_filter_list, 'datum_danes': datum_danes, 'program': program},
+                'reports/delovninalog/dnevnik_izvedenih_del.odt', {'delovninalog_list': delovninalog_list, 'datum_danes': datum_danes, },
                 output_format=doctypex)
-            visible_filename = 'deli_seznam_filter.{}'.format(doctypex)
+            visible_filename = 'dnevnik_izvedenih_del.{}'.format(doctypex)
 
             return FileResponse(filename, visible_filename)
 
@@ -98,7 +100,7 @@ class DeliSeznamPrintView(TemplateView):
         else:
             return render(request, self.template_name, {
                 'form': form,
-                'deli_seznam_filter_form': deli_seznam_filter_form,
+                # 'deli_seznam_filter_form': deli_seznam_filter_form,
                 }
             )
 

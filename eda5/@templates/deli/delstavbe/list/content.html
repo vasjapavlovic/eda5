@@ -1,13 +1,18 @@
 <!-- naslov -->
-{% for skupina in object_list %}
-{{ skupina.oznaka }}. {{ skupina.naziv }}
+{% regroup object_list by podskupina.skupina as skupina_list2 %}
+
+    {% for object in skupina_list2 %}
+     {{ object.grouper}}
 
 
 <!-- posamezni paneli -->
-{% for podskupina in skupina.sorted_podskupinadelov_set %}
+        {% regroup object.list by podskupina as podskupina_list2 %}
+
+            {% for object in podskupina_list2 %}
+             
 <div class="panel panel-info">
     <!-- naslov panela -->
-    <div class="panel-heading">{{ podskupina.oznaka }}. {{ podskupina.naziv }}</div>
+    <div class="panel-heading">{{ object.grouper}}</div>
     <table class="table">
         <thead>
             <th>oznaka</th>
@@ -17,13 +22,13 @@
         </thead>
 
         <!-- posamezni vnosi delov -->
-        {% for del in podskupina.sorted_delstavbe_set %}
+        {% for object in object.list %}
         <tbody>
-            <td><b><a href="{% url 'moduli:deli:del_detail' del.pk %}">({{ del.oznaka }})</a></b></td>
-            <td>{{ del.naziv }}</td>
-            <td>{{ del.funkcija }}</td>
-            <td>
-                <a type="button" href="{% url 'moduli:deli:del_update' del.pk %}"> 
+            <td class="col-md-1"><b><a href="{% url 'moduli:deli:del_detail' object.pk %}">({{ object.oznaka }})</a></b></td>
+            <td class="col-md-3">{{ object.naziv }}</td>
+            <td class="col-md-3">{{ object.funkcija }}</td>
+            <td class="col-md-1">
+                <a type="button" href="{% url 'moduli:deli:del_update' object.pk %}"> 
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
             </td>
@@ -36,3 +41,4 @@
 
 {% endfor %}
 {% endfor %}
+

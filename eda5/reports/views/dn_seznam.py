@@ -20,7 +20,6 @@ def dn_view(request):
     datum_danes = timezone.now().date()
 
     if form.is_valid():
-        print(form.cleaned_data)
         doctypex = form.cleaned_data['format_field']
         filename = fill_template(
             'reports/delovninalog/seznam_dn.odt', {'delovninalogi': delovninalogi, 'datum_danes': datum_danes},
@@ -42,7 +41,6 @@ def PrintPlanOVView(request):
     datum_danes = timezone.now().date()
 
     if form.is_valid():
-        print(form.cleaned_data)
         doctypex = form.cleaned_data['format_field']
         filename = fill_template(
             'reports/delovninalog/planirana_opravila_list.odt', {'plan_list': plan_list, 'datum_danes': datum_danes},
