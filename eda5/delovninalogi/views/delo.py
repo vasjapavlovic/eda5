@@ -127,6 +127,7 @@ class DeloCreateFromDelovniNalogView(MessagesActionMixin, UpdateView):
             # če status že ni spremenjen
             if not delovninalog.status == 3:
                 delovninalog.status = 3
+                delovninalog.datum_start = timezone.now().date()
                 # shranimo v bazo
                 delovninalog.save()
 
