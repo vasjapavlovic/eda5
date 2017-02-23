@@ -36,14 +36,13 @@ def PrintPlanOVView(request):
 
     form = FormatForm(request.POST or None)
 
-    plan_list = Plan.objects.all()
     planirana_opravila_list = PlaniranoOpravilo.objects.all()
     datum_danes = timezone.now().date()
 
     if form.is_valid():
         doctypex = form.cleaned_data['format_field']
         filename = fill_template(
-            'reports/delovninalog/planirana_opravila_list.odt', {'plan_list': plan_list, 'datum_danes': datum_danes},
+            'reports/delovninalog/planirana_opravila_list.odt', {'planirana_opravila_list': planirana_opravila_list, 'datum_danes': datum_danes},
             output_format=doctypex)
         visible_filename = 'planirana_opravila_list.{}'.format(doctypex)
 
