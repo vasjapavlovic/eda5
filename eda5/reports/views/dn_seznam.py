@@ -91,7 +91,7 @@ class PrintPlanOVView(TemplateView):
 
             # pridobimo seznam delovnih nalogov
 
-            planirana_opravila_list = PlaniranoOpravilo.objects.all()
+            planirana_opravila_list = PlaniranoOpravilo.objects.filter(is_active=True).order_by('plan__sklop__zap_st')
 
             # prenos podatkov za aplikacijo templated_docs
 
