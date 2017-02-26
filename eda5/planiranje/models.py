@@ -132,15 +132,17 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     # CUSTOM PROPERTIES
     @property
     def do_naslednjega_opravila_dni(self):
-        dni = self.datum_naslednjega_opravila - timezone.now().date()
-        return dni.days
+        if self.datum_naslednjega_opravila:
+            dni = self.datum_naslednjega_opravila - timezone.now().date()
+            return dni.days
 
     @property
     def zapade_14dni(self):
-        if self.do_naslednjega_opravila_dni<=14:
-            return True
-        else:
-            return False
+        if self.do_naslednjega_opravila_dni:
+            if self.do_naslednjega_opravila_dni<=14:
+                return True
+            else:
+                return False
 
     # METHODS
 
