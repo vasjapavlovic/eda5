@@ -1,11 +1,16 @@
 <!-- Sledenje Opravilom -->
 
+
+
+<!-- ZAPADLA OPRAVILA -->
+<text>Zapadla Opravila</text><br>
+
+
 {% if not zapadla_opravila %}
 Ni zapadlih opravil.
 {% else %}
 
-<!-- ZAPADLA OPRAVILA -->
-<text>Zapadla Opravila</text>
+
 <table class="table table-condensed table-bordered table-striped">
     <thead>
 
@@ -41,11 +46,13 @@ Ni zapadlih opravil.
 
 
 
+
+<!-- NE-ZAPADLA OPRAVILA -->
+<text>NE-Zapadla Opravila</text><br>
+
 {% if not nezapadla_opravila %}
 Seznam nezapadlih opravil je prazen.
 {% else %}
-<!-- NE-ZAPADLA OPRAVILA -->
-<text>NE-Zapadla Opravila</text>
 <table class="table table-condensed table-bordered table-striped">
     <thead>
 
