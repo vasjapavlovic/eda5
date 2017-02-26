@@ -3,14 +3,7 @@
 
 
 <!-- ZAPADLA OPRAVILA -->
-<text>Zapadla Opravila</text><br>
-
-
-{% if not zapadla_opravila %}
-Ni zapadlih opravil.
-{% else %}
-
-
+<text>Zapadla Opravila</text>
 <table class="table table-condensed table-bordered table-striped">
     <thead>
 
@@ -42,17 +35,9 @@ Ni zapadlih opravil.
     </tbody>
 </table>
 
-{% endif %}
-
-
-
 
 <!-- NE-ZAPADLA OPRAVILA -->
-<text>NE-Zapadla Opravila</text><br>
-
-{% if not nezapadla_opravila %}
-Seznam nezapadlih opravil je prazen.
-{% else %}
+<text>NE-Zapadla Opravila</text>
 <table class="table table-condensed table-bordered table-striped">
     <thead>
 
@@ -88,6 +73,4 @@ Seznam nezapadlih opravil je prazen.
 
     </tbody>
 </table>
-
-{% endif %}
 
