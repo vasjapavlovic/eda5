@@ -2,18 +2,67 @@
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
 
 
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_left %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
 {% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
 
 
-<form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}
-                <h1>Vračilo ključa:</h1>
 
-                {{ form | crispy }}
+<!-- PAGE CONTENT -->
+{% block content %}
 
+    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
 
-                <input type="submit" value="Potrdi">
-</form>
+    <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Predaja ključa - Dopolnitev ali Vračilo</div>
+            <div class="panel-body">
+                {{ form|crispy  }} 
+            </div>
+        </div>
+
+        <input type="submit" value="Potrdi">
+
+        
+
+    </form>
 
 {% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->
+
+

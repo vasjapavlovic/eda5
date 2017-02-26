@@ -293,3 +293,13 @@ class VraciloKljucaUpdateView(UpdateView):
     model = PredajaKljuca
     form_class = PredajaKljucaVraciloForm
     template_name = "kljuci/predaja_kljuca/update_from_zahtevek.html"
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VraciloKljucaUpdateView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
