@@ -1,6 +1,8 @@
 <!-- Sledenje Opravilom -->
 
-
+{% if not zapadla_opravila %}
+Ni zapadlih opravil.
+{% else %}
 
 <!-- ZAPADLA OPRAVILA -->
 <text>Zapadla Opravila</text>
@@ -35,7 +37,13 @@
     </tbody>
 </table>
 
+{% endif %}
 
+
+
+{% if not nezapadla_opravila %}
+Seznam nezapadlih opravil je prazen.
+{% else %}
 <!-- NE-ZAPADLA OPRAVILA -->
 <text>NE-Zapadla Opravila</text>
 <table class="table table-condensed table-bordered table-striped">
@@ -73,4 +81,6 @@
 
     </tbody>
 </table>
+
+{% endif %}
 
