@@ -186,15 +186,41 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
 
 
 class Element(IsActiveModel):
+
     # ---------------------------------------------------------------------------------------
+    # Element predstavlja dejansko vgrajeno "Napravo" s serijsko in tovarniško številko,
+    # ter ima vezavo na Katalog kjer se definira točno za kateri model določenega proizvajalca
+    # gre.
+    #
+    # ELEMENT bi moral imeti OneToOneRelacijo glede na projektno mesto.
+    # Vendar, ker bo lahko  na projektnem mestu v življenski dobi bilo registriranih več 
+    # elementov je potrebna OneToMany relacija.Projektno mesto bo pa vedno imelo aktiven samo
+    # en element do katerega se dostopa z ukazom
+    # element = ProjektnoMesto.objects.filter(is_active=True)[0]
+    # ---------------------------------------------------------------------------------------
+
     # ATRIBUTES
-    # ***Relations***
-    projektno_mesto = models.ForeignKey(ProjektnoMesto)
-    artikel = models.ForeignKey(ModelArtikla, blank=True, null=True, verbose_name='Model',)
-    # ***Mandatory***
-    tovarniska_st = models.CharField(max_length=100, verbose_name='Tovarniška Številka', blank=True)
-    serijska_st = models.CharField(max_length=100, verbose_name='Serijska Številka', blank=True,)
-    # ***Optional***
+
+    # TOVARNIŠKA ŠTEVILKA proizvajalca predstavlja točno številko izdelanega proizvoda
+    tovarniska_st = models.CharField(
+        max_length=100, blank=True,
+        verbose_name='Tovarniška Številka')
+
+    # SERIJSKA ŠTEVILKA proizvajalca predstavlja številko v seriji.
+    serijska_st = models.CharField(
+        max_length=100, blank=True,
+        verbose_name='Serijska Številka')
+
+    #R PROJEKTNO MESTO. Relacija na projektno mesto
+    projektno_mesto = models.ForeignKey(
+        ProjektnoMesto, 
+        verbose_name='projektno mesto')
+
+    #R ARTIKEL. Relacija na model artikla iz kataloga
+    artikel = models.ForeignKey(
+        ModelArtikla, blank=True, null=True, 
+        verbose_name='Model',)
+
 
     # OBJECT MANAGER
     objects = managers.ElementManagers()

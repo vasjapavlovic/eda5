@@ -56,7 +56,7 @@
 
         <input type="submit" value="Potrdi">
 
-        <div id="reload_controls_view">{% url 'moduli:zahtevki:reload_controls' %}</div>
+
 
     </form>
 
@@ -71,47 +71,6 @@
 <script src="{% static 'js/custom_filter.js' %}"></script>
 
 
-<!-- js related to the application -->
-<script>
-    
-    $('#zahtevek_predaja_lastnine_create_form').on('change', '#id_narocilo', function()
-    {
-        reload_controls(this.value);
-    });
 
-    function reload_controls(narocilo)
-    {
-        $.ajax
-        ({
-            type: 'POST',
-            url: $("#reload_controls_view").text(),
-            dataType: 'json',
-            data: "narocilo="+narocilo,
-            success: function(result)
-            {
-                //empty month drop down list
-                $("#id_nosilec").empty()                
-
-                //NOSILCI FILTER
-                $("#id_nosilec").append('<option value="">---------</option>')
-                $.each( result.nosilci_to_display, function( index, value )
-                {
-                    //use the hidden drop down list to populate the month field
-                    nosilec=$("#id_oseba_hidden option[value='" + value + "']").text()
-                    //add months to the drop down list
-                    $('#id_nosilec').append('<option value="'+value+'">'+nosilec+'</option>')
-
-                });
-
-
-            },
-            error: function(xhr, status, error) 
-            {
-                window.console&&console.log(xhr.responseText);
-            }
-        });
-    }
-
-</script>
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->
