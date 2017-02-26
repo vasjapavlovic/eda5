@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from eda5.posta.models import Dokument
 from eda5.core.models import TimeStampedModel, IsActiveModel
@@ -110,6 +111,14 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     perioda_predpisana_kolicina_na_enoto = models.IntegerField(verbose_name="kolicina na enoto periode")
     datum_prve_izvedbe = models.DateField(blank=True, null=True)
 
+    datum_izvedeno_dne = models.DateField(
+        blank=True, null=True,
+        verbose_name='Izvedeno dne')
+
+    datum_naslednjega_opravila = models.DateField(
+        blank=True, null=True,
+        verbose_name='Naslednji pregled')
+
     # zaokrožitev minimalno minut
     zmin = models.IntegerField(
         default=15, 
@@ -119,7 +128,20 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     opomba = models.TextField(blank=True)
     # OBJECT MANAGER
     objects = managers.PlaniranoOpraviloManager()
+
     # CUSTOM PROPERTIES
+    @property
+    def do_naslednjega_opravila_dni(self):
+        dni = self.datum_naslednjega_opravila - timezone.now().date()
+        return dni.days
+
+    @property
+    def zapade_14dni(self):
+        if self.do_naslednjega_opravila_dni<=14:
+            return True
+        else:
+            return False
+
     # METHODS
 
     # META AND STRING

@@ -5,6 +5,14 @@ class PlaniranoOpraviloManager(models.Manager):
 
     use_for_related_fields = True
 
+    def nezapadla(self, **kwargs):
+        return self.filter(datum_naslednjega_opravila__gte=timezone.now()).order_by('do_naslednjega_opravila_dni')
+
+    def zapadla(self, **kwargs):
+        return self.filter(datum_naslednjega_opravila__lt=timezone.now()).order_by('do_naslednjega_opravila_dni')
+
+
+
     def create_planirano_opravilo(
         self,
         oznaka=None,

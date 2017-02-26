@@ -8,24 +8,26 @@
     <thead>
 
         <tr>
-            <th>oznaka</th>
-            <th>naziv</th>
-            <th>perioda</th>
-            <th>izvedeno dne</th>
-            <th>opravilo</th>
+            <th class="col-md-1">oznaka</th>
+            <th class="col-md-3">naziv</th>
+            <th class="col-md-1">perioda</th>
+            <th class="col-md-2">Izvedeno dne</th>
+            <th class="col-md-1">Datum naslednjega opravila</th>
+            <th class="col-md-1">Naslednje opravilo [dni]</th>
         </tr>
 
     </thead>
     <tbody>
 
-        {% for dn in dn_planirano_opravilo_zapadlo_list %}
+        {% for object in zapadla_opravila %}
 
-        <tr>
-            <td><a href="{% url 'moduli:planiranje:planirano_opravilo_detail' dn.opravilo.planirano_opravilo.pk %}">{{ dn.opravilo.planirano_opravilo.oznaka }}</a></td>
-            <td>{{ dn.opravilo.planirano_opravilo.naziv }}</td>
-            <td>{{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota }}</td>
-            <td>{{ dn.opravilo.created }}</td>
-            <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' dn.opravilo.id %}">{{ dn.opravilo.oznaka }}</a></td>
+        <tr class="danger">
+            <td><a href="{% url 'moduli:planiranje:planirano_opravilo_detail' object.planirano_opravilo.pk %}">{{ object.planirano_opravilo.oznaka }}</a></td>
+            <td>{{ object.planirano_opravilo.naziv }}</td>
+            <td>{{ object.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ object.planirano_opravilo.perioda_predpisana_enota }}</td>
+            <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' object.planirano_opravilo.id %}">{{ object.datum_izvedeno_dne }}-{{ object.oznaka }}</a></td>
+            <td>{{ object.planirano_opravilo.datum_naslednjega_opravila }}</td>
+            <td>{{ object.planirano_opravilo.do_naslednjega_opravila_dni }}</td>
         </tr>
 
         {% endfor %}
@@ -40,24 +42,31 @@
     <thead>
 
         <tr>
-            <th>oznaka</th>
-            <th>naziv</th>
-            <th>perioda</th>
-            <th>izvedeno dne</th>
-            <th>opravilo</th>
+            <th class="col-md-1">oznaka</th>
+            <th class="col-md-3">naziv</th>
+            <th class="col-md-1">perioda</th>
+            <th class="col-md-2">Izvedeno dne</th>
+            <th class="col-md-1">Datum naslednjega opravila</th>
+            <th class="col-md-1">Naslednje opravilo [dni]</th>
         </tr>
 
     </thead>
     <tbody>
 
-        {% for dn in dn_planirano_opravilo_nezapadlo_list %}
+        {% for object in nezapadla_opravila %}
 
+        {% if object.planirano_opravilo.zapade_14dni %}
+        <tr class="warning">
+        {% else %}
         <tr>
-            <td><a href="">{{ dn.opravilo.planirano_opravilo.oznaka }}</a></td>
-            <td>{{ dn.opravilo.planirano_opravilo.naziv }}</td>
-            <td>{{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota }}</td>
-            <td>{{ dn.opravilo.created }}</td>
-            <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' dn.opravilo.id %}">{{ dn.opravilo.oznaka }}</a></td>
+        {% endif %}
+            <td><a href="{% url 'moduli:planiranje:planirano_opravilo_detail' object.planirano_opravilo.pk %}">{{ object.planirano_opravilo.oznaka }}</a></td>
+            <td>{{ object.planirano_opravilo.naziv }}</td>
+            <td>{{ object.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ object.planirano_opravilo.perioda_predpisana_enota }}</td>
+            <td>{{ object.planirano_opravilo.datum_izvedeno_dne }}|<a href="{% url 'moduli:delovninalogi:opravilo_detail' object.planirano_opravilo.id %}">{{ object.oznaka }}</a></td>
+            <td>{{ object.planirano_opravilo.datum_naslednjega_opravila }}</td>
+            <td>{{ object.planirano_opravilo.do_naslednjega_opravila_dni }}</td>
+
         </tr>
 
         {% endfor %}

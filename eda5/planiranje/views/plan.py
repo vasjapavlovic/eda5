@@ -96,11 +96,12 @@ class PlanDetailView(DetailView):
 
         # Zapadla Planirana Opravila
         # ==========================
-        planirano_opravilo_zapadlo_list = []
-        planirano_opravilo_nezapadlo_list = []
+        planirano_opravilo_zapadlo_list_pk = []
+        planirano_opravilo_nezapadlo_list_pk = []
 
         for opravilo in max_opravila_potrjena_planirana:
 
+            # pridobimo instanco zadnjega izvedenega opravila
             obj = Opravilo.objects.filter(
                 planirano_opravilo=opravilo['planirano_opravilo'],
                 created=opravilo['datum_izvedbe'])[0]
@@ -129,29 +130,49 @@ class PlanDetailView(DetailView):
             else:
                 dan = timedelta(days=0)
 
-            datum_naslednjega_opravila = obj.created + leto + mesec + teden + dan
+            datum_izvedeno_dne = obj.created
+            datum_naslednjega_opravila = datum_izvedeno_dne + leto + mesec + teden + dan
+
+            # podatke o datumu izvedena pregleda in datumu naslednjega
+            # pregleda zabeležimo v bazo planiranih opravil
+
+            # pridobimo instanco planiranega opravila
+            planirano_opravilo = PlaniranoOpravilo.objects.get(opravilo=obj)
+
+            # datum izvedenega opravila
+            planirano_opravilo.datum_izvedeno_dne = datum_izvedeno_dne
+
+            # datum naslednje ponovitve opravila
+            planirano_opravilo.datum_naslednjega_opravila = datum_naslednjega_opravila
+
+            # shranimo spremembe v bazo
+            planirano_opravilo.save()
 
             if datum_naslednjega_opravila < timezone.now():
-                planirano_opravilo_zapadlo_list.append(obj)
+                planirano_opravilo_zapadlo_list_pk.append(obj.pk)
             else:
-                planirano_opravilo_nezapadlo_list.append(obj)
+                planirano_opravilo_nezapadlo_list_pk.append(obj.pk)
 
-        context['planirano_opravilo_zapadlo_list'] = planirano_opravilo_zapadlo_list
-        context['planirano_opravilo_nezapadlo_list'] = planirano_opravilo_nezapadlo_list
+        zapadla_opravila = Opravilo.objects.filter(pk__in=planirano_opravilo_zapadlo_list_pk).order_by('planirano_opravilo__datum_naslednjega_opravila')
 
-        dn_planirano_opravilo_zapadlo_list = []
-        for opravilo in planirano_opravilo_zapadlo_list:
-            for dn in opravilo.delovninalog_set.all():
-                dn_planirano_opravilo_zapadlo_list.append(dn)
+        nezapadla_opravila = Opravilo.objects.filter(pk__in=planirano_opravilo_nezapadlo_list_pk).order_by('planirano_opravilo__datum_naslednjega_opravila')
 
-        context['dn_planirano_opravilo_zapadlo_list'] = dn_planirano_opravilo_zapadlo_list
+        context['zapadla_opravila'] = zapadla_opravila
+        context['nezapadla_opravila'] = nezapadla_opravila
 
-        dn_planirano_opravilo_nezapadlo_list = []
-        for opravilo in planirano_opravilo_nezapadlo_list:
-            for dn in opravilo.delovninalog_set.all():
-                dn_planirano_opravilo_nezapadlo_list.append(dn)
+        # dn_planirano_opravilo_zapadlo_list = []
+        # for opravilo in planirano_opravilo_zapadlo_list:
+        #     for dn in opravilo.delovninalog_set.all():
+        #         dn_planirano_opravilo_zapadlo_list.append(dn)
 
-        context['dn_planirano_opravilo_nezapadlo_list'] = dn_planirano_opravilo_nezapadlo_list
+        # context['dn_planirano_opravilo_zapadlo_list'] = dn_planirano_opravilo_zapadlo_list
+
+        # dn_planirano_opravilo_nezapadlo_list = []
+        # for opravilo in planirano_opravilo_nezapadlo_list:
+        #     for dn in opravilo.delovninalog_set.all():
+        #         dn_planirano_opravilo_nezapadlo_list.append(dn)
+
+        # context['dn_planirano_opravilo_nezapadlo_list'] = dn_planirano_opravilo_nezapadlo_list
 
 
 
