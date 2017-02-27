@@ -45,7 +45,7 @@
 
         <input type="submit" value="Potrdi">
 
-        <div id="reload_controls_view" style="display: none;">{% url 'moduli:deli:reload_controls' %}</div>
+        <div id="filter_skupina_podskupina" style="display: none;">{% url 'moduli:deli:filter_skupina_podskupina' %}</div>
 
     </form>
 
@@ -63,6 +63,7 @@
 <!-- js related to the application -->
 <script>
     
+    // FILTER PODSKUPINE DELOV GLEDE NA IZBRANO SKUPINO
     $('#del_form').on('change', '#id_skupina', function()
     {
         reload_controls(this.value);
@@ -73,7 +74,7 @@
         $.ajax
         ({
             type: 'POST',
-            url: $("#reload_controls_view").text(),
+            url: $("#filter_skupina_podskupina").text(),
             dataType: 'json',
             data: "skupina="+skupina,
             success: function(result)

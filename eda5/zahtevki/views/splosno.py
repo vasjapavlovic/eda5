@@ -22,9 +22,14 @@ from ..models import Zahtevek
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto
 
-# Deli
-from eda5.deli.forms import ElementIzbiraForm
-from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto 
+
+
+# Deli MODELS
+from eda5.deli.models import\
+    Skupina,\
+    Podskupina,\
+    DelStavbe,\
+    ProjektnoMesto\
 
 # Delovni Nalogi
 from eda5.delovninalogi.forms import \

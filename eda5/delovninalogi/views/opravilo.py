@@ -35,7 +35,11 @@ from ..mixins import MessagesActionMixin
 # UVOZI ZUNANJIH APLIKAIJ ############################################
 
 # Deli
-from eda5.deli.forms import ElementIzbiraForm
+
+# Deli FORMS
+from eda5.deli.forms import \
+    projektnomesto_forms
+
 from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto 
 
 # Moduli
@@ -116,7 +120,7 @@ class OpraviloCreateFromZahtevekView(UpdateView):
 
         # opravilo
         context['opravilo_create_form'] = OpraviloCreateForm
-        context['element_izbira_form'] = ElementIzbiraForm
+        context['element_izbira_form'] = projektnomesto_forms.ElementIzbiraForm
         context['opravilo_element_update_form'] = OpraviloElementUpdateForm
 
         # zavihek
@@ -132,7 +136,7 @@ class OpraviloCreateFromZahtevekView(UpdateView):
         ###########################################################################
 
         opravilo_create_form = OpraviloCreateForm(request.POST or None)
-        element_izbira_form = ElementIzbiraForm(request.POST or None)
+        element_izbira_form = projektnomesto_forms.ElementIzbiraForm(request.POST or None)
         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
 
         ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.

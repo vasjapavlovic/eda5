@@ -10,8 +10,9 @@ from braces.views import LoginRequiredMixin
 # Moduli
 from eda5.moduli.models import Zavihek
 
-# Deli
-from eda5.deli.forms import ElementIzbiraForm
+# Deli FORMS
+from eda5.deli.forms import\
+    projektnomesto_forms
 
 # Pomanjkljivosti
 from .forms import \
@@ -98,7 +99,7 @@ class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
         context['modul_zavihek'] = modul_zavihek
 
         # deli
-        context['element_izbira_form'] = ElementIzbiraForm
+        context['element_izbira_form'] = projektnomesto_forms.ElementIzbiraForm
 
         # pomanjkljivost
         context['pomanjkljivost_create_from_zahtevek_form'] = PomanjkljivostCreateFromZahtevekForm
@@ -292,7 +293,7 @@ class PomanjkljivostLikvidirajPodZahtevekView(LoginRequiredMixin, UpdateView):
         context['modul_zavihek'] = modul_zavihek
 
         # deli
-        context['element_izbira_form'] = ElementIzbiraForm
+        context['element_izbira_form'] = projektnomesto_forms.ElementIzbiraForm
 
         # pomanjkljivost
         context['pomanjkljivost_likvidiraj_pod_zahtevek_form'] = PomanjkljivostLikvidirajPodZahtevek

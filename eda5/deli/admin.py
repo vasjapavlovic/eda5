@@ -13,6 +13,7 @@ class ElementInlines(admin.TabularInline):
 class ProjektnoMestoInlines(admin.TabularInline):
     model = models.ProjektnoMesto
     extra = 0
+    raw_id_fields = ("lokacija",)
 
 
 class DelStavbeInlines(admin.TabularInline):
@@ -30,6 +31,20 @@ class NastavitevInlines(admin.TabularInline):
     extra = 0
 
 
+
+@admin.register(models.Stavba)
+class StavbaAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.Etaza)
+class EtazaAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.Lokacija)
+class LokacijaAdmin(admin.ModelAdmin):
+    pass
 
 
 

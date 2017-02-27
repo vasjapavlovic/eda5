@@ -25,8 +25,9 @@ from eda5.katalog.models import ArtikelPlan
 # Predpisi
 from eda5.predpisi.models import Predpis
 
-# Deli
-from eda5.deli.forms import ElementIzbiraForm
+# Deli FORMS
+from eda5.deli.forms import\
+    projektnomesto_forms
 
 # Delovni Nalogi
 from eda5.delovninalogi.forms import OpraviloElementUpdateForm, VzorecOpravilaCreateForm
@@ -164,7 +165,7 @@ class VzorecOpravilaCreateView(UpdateView):
         # opravilo
         context['vzorec_opravila_create_form'] = VzorecOpravilaCreateForm
         context['opravilo_element_update_form'] = OpraviloElementUpdateForm
-        context['element_izbira_form'] = ElementIzbiraForm
+        context['element_izbira_form'] = projektnomesto_forms.ElementIzbiraForm
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="VZOREC_OPRAVILA_CREATE")
@@ -180,7 +181,7 @@ class VzorecOpravilaCreateView(UpdateView):
         # forms
         vzorec_opravila_create_form = VzorecOpravilaCreateForm(request.POST or None)
         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
-        element_izbira_form = ElementIzbiraForm(request.POST or None)
+        element_izbira_form = projektnomesto_forms.ElementIzbiraForm(request.POST or None)
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="VZOREC_OPRAVILA_CREATE")

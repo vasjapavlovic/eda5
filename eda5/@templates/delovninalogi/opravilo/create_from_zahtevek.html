@@ -81,14 +81,30 @@
     <input type="submit" value="Potrdi">
 
 
-    <!-- filtriranje pri izbiri projektnega mesta -->
-    <div id="reload_controls_narocilo_osebe_view" style="display: none;">{% url 'moduli:narocila:reload_controls_narocilo_osebe' %}</div>
 
-    <div id="reload_controls_element_podskupina_view" style="display: none;">{% url 'moduli:deli:reload_controls_element_podskupina' %}</div>
 
-    <div id="reload_controls_element_del_stavbe_view" style="display: none;">{% url 'moduli:deli:reload_controls_element_del_stavbe' %}</div>
 
-    <div id="reload_controls_element_element_view" style="display: none;">{% url 'moduli:deli:reload_controls_element_element' %}</div>
+    <!-- FILTRIRANJE - JAVA SCRIPT -->
+
+
+    <!-- FILTER ZA IZBIRO NOSILCA OPRAVILA
+    Ko izbereš naročilo opravila filtrira nosilce opravila -->
+    <div id="reload_controls_narocilo_osebe_view" style="display: none;">
+        {% url 'moduli:narocila:reload_controls_narocilo_osebe' %}</div>
+
+
+    <!-- FILTER ZA IZBIRO PROJEKTNIH MEST
+    Ko izbereš skupino delov filtrira podskupine -->
+    <div id="filter_skupina_podskupina" style="display: none;">
+        {% url 'moduli:deli:filter_skupina_podskupina' %}</div>
+
+    <!-- Ko izbereš podskupino delov filtrira dele stavbe -->
+    <div id="filter_podskupina_delstavbe" style="display: none;">
+        {% url 'moduli:deli:filter_podskupina_delstavbe' %}</div>
+
+    <!-- Ko izbereš del stavbe filtrira projektna mesta -->
+    <div id="filter_delstavbe_projektnomesto" style="display: none;">
+        {% url 'moduli:deli:filter_delstavbe_projektnomesto' %}</div>
 
 
 
@@ -183,7 +199,7 @@
         $.ajax
         ({
             type: 'POST',
-            url: $("#reload_controls_element_podskupina_view").text(),
+            url: $("#filter_skupina_podskupina").text(),
             dataType: 'json',
             data: "skupina="+skupina,
             success: function(result)
@@ -233,7 +249,7 @@
         $.ajax
         ({
             type: 'POST',
-            url: $("#reload_controls_element_del_stavbe_view").text(),
+            url: $("#filter_podskupina_delstavbe").text(),
             dataType: 'json',
             data: "podskupina="+podskupina,
             success: function(result)
@@ -281,7 +297,7 @@
         $.ajax
         ({
             type: 'POST',
-            url: $("#reload_controls_element_element_view").text(),
+            url: $("#filter_delstavbe_projektnomesto").text(),
             dataType: 'json',
             data: "del_stavbe="+del_stavbe,
             success: function(result)

@@ -17,8 +17,14 @@ from eda5.core.forms import ObdobjeLetoCreateForm, ObdobjeMesecCreateForm
 from eda5.partnerji.forms import PostaCreateForm, PartnerCreateForm, BankaCreateForm, DrzavaCreateForm
 from eda5.partnerji.models import Partner, Posta, Drzava, SkupinaPartnerjev
 
-from eda5.deli.forms import SkupinaCreateForm, PodskupinaCreateForm
-from eda5.deli.models import Skupina
+# Deli FORMS
+from eda5.deli.forms import \
+    skupina_forms, \
+    podskupina_forms
+
+# Deli MODELS
+from eda5.deli.models import \
+    Skupina
 
 from eda5.racunovodstvo.forms.racun_forms import KontoCreateForm, PodkontoCreateForm
 from eda5.racunovodstvo.forms.vrsta_stroska_forms import SkupinaVrsteStroskaCreateForm, VrstaStroskaCreateForm
@@ -457,7 +463,7 @@ class UvozCsv(TemplateView):
             seznam = csv.DictReader(rows, delimiter=",")
 
             for row in seznam:
-                form = SkupinaCreateForm(row)
+                form = skupina_forms.SkupinaCreateForm(row)
                 if form.is_valid():
                     form.save()
                     records_added += 1
@@ -480,7 +486,7 @@ class UvozCsv(TemplateView):
                 try:
                     skupina = Skupina.objects.get(oznaka=skupina_oznaka)
                     row['skupina'] = skupina.pk
-                    form = PodskupinaCreateForm(row)
+                    form = podskupina_forms.PodskupinaCreateForm(row)
 
                     if form.is_valid():
                         form.save()

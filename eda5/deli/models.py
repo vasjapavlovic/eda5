@@ -6,13 +6,113 @@ from django.db import models
 
 from . import managers
 
+# Core
 from eda5.core.models import IsActiveModel, TimeStampedModel
 
-from eda5.katalog.models import ModelArtikla, TipArtikla, ObratovalniParameter
+# Etažna lastnina
 from eda5.etaznalastnina.models import LastniskaSkupina
 
+# Katalog
+from eda5.katalog.models import ModelArtikla, TipArtikla, ObratovalniParameter
 
-class Skupina(models.Model):
+# Lokacije
+from eda5.lokacija.models import Prostor
+
+
+
+
+class Stavba(TimeStampedModel, IsActiveModel):
+    # ---------------------------------------------------------------------------------------
+
+    # ATRIBUTES
+
+
+    oznaka = models.CharField(
+        max_length=20, unique=True,
+        verbose_name="Oznaka")
+
+    naziv = models.CharField(
+        max_length=255, blank=True, null=True, 
+        verbose_name="Naziv")
+
+    opis = models.TextField(
+        blank=True, null=True, 
+        verbose_name="Opis")
+
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "Stavba"
+        verbose_name_plural = "Stavbe"
+        ordering = ["oznaka", ]
+
+    def __str__(self):
+        return "%s. %s" % (self.oznaka, self.naziv)
+
+
+class Etaza(TimeStampedModel, IsActiveModel):
+
+
+    # ATRIBUTES
+
+    oznaka = models.CharField(
+        max_length=50, unique=True,
+        verbose_name="Oznaka")
+
+    naziv = models.CharField(
+        max_length=255, blank=True, null=True,
+        verbose_name="Naziv")
+
+    opis = models.TextField(
+        blank=True, null=True, 
+        verbose_name="Opis")
+
+    elevation = models.DecimalField(
+        decimal_places=5, max_digits=20, blank=True, null=True, 
+        verbose_name="Višinska kota Etaže")
+
+    #R STAVBA Relacija na Stavbo
+    stavba = models.ForeignKey(
+        Stavba, 
+        verbose_name="Stavba")
+
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "Etaža"
+        verbose_name_plural = "Etaže"
+        ordering = ["oznaka", ]
+
+    def __str__(self):
+        return "%s. %s" % (self.oznaka, self.naziv)
+
+
+class Lokacija(TimeStampedModel, IsActiveModel):
+
+    # ATRIBUTES
+
+    prostor = models.OneToOneField(
+        "DelStavbe",
+        verbose_name='Prostor'
+    )
+
+    etaza = models.ForeignKey(
+        Etaza,
+        verbose_name="Etaža"
+    )
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "Lokacija"
+        verbose_name_plural = "Lokacije"
+        ordering = ["prostor__oznaka", ]
+
+    def __str__(self):
+        return "%s. %s" % (self.prostor.oznaka, self.etaza.oznaka)
+
+
+
+class Skupina(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
@@ -40,7 +140,7 @@ class Skupina(models.Model):
         return "(%s)%s" % (self.oznaka, self.naziv)
 
 
-class Podskupina(models.Model):
+class Podskupina(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     # ***Relations***
@@ -70,7 +170,7 @@ class Podskupina(models.Model):
         return "(%s)%s" % (self.oznaka, self.naziv)
 
 
-class DelStavbe(models.Model):
+class DelStavbe(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
 
     def shema_directory_path(instance, filename):
@@ -88,12 +188,18 @@ class DelStavbe(models.Model):
     podskupina = models.ForeignKey(Podskupina)
     lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True, verbose_name="lastniška skupina",)
     # ***Mandatory***
-    oznaka = models.CharField(max_length=20, unique=True)
+    oznaka = models.CharField(max_length=50, unique=True)
     naziv = models.CharField(max_length=255)
     # dodaj funkcijo dela stavbe (sistema)
     # ***Optional***
     funkcija = models.CharField(max_length=255, blank=True, null=True, verbose_name="funkcija sistema")
-    shema = models.FileField(upload_to=shema_directory_path, blank=True, verbose_name="shema sistema")
+    #shema = models.FileField(upload_to=shema_directory_path, blank=True, verbose_name="shema sistema")
+
+    # BIM ID. Navezava na BIM program
+    bim_id = models.CharField(
+        max_length=100, blank=True, null=True, 
+        verbose_name='BIM ID')
+
 
     # OBJECT MANAGER
     objects = managers.DelManagers()
@@ -128,16 +234,67 @@ class DelStavbe(models.Model):
 
 class ProjektnoMesto(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
-    # ATRIBUTES
-    #   Relations
-    tip_elementa = models.ForeignKey(TipArtikla)
-    del_stavbe = models.ForeignKey(DelStavbe)
-    #   Mandatory
-    oznaka = models.CharField(max_length=20, unique=True)
-    naziv = models.CharField(max_length=255)
-    #   Optional
-    funkcija = models.CharField(max_length=255, blank=True, null=True, verbose_name="funkcija elementa")
+    # Projektno mesto definira pozicijo v stavbi kamor se vgrajujejo elementi ( glej spodaj
+    # models Element. Projektno mesto določajo oznaka, naziv ter funkcija elementa, ki bo tu
+    # vgrajen ter tudi kateri tip elementa se bo tu vgradil.)
+    #
+    # POMEMBNO - Uporabljen Django Signals tako, da se splošno projektno mesto avtomatsko izdela
+    # ko se izdela nov DelStavbe.
+    # ---------------------------------------------------------------------------------------
 
+    # ATRIBUTES
+
+    # OZNAKA projektnega mesta: npr. 09AA25 kjer pomeni 09 (deveti) element
+    # v sistemu z oznako AA25
+    oznaka = models.CharField(
+        max_length=20, unique=True,
+        verbose_name="Oznaka")
+
+    # NAZIV projektnega mesta : npr. Toplotna črpalka ST
+    naziv = models.CharField(
+        max_length=255, 
+        verbose_name="Naziv")
+
+    # FUNKCIJA s katerim definiramo zakaj se bo ta element potreboval
+    funkcija = models.CharField(
+        max_length=255, blank=True, null=True, 
+        verbose_name="Funkcija Elementa")
+
+    #R TIP ELEMENTA. Definira relacijo na TipArtikla. npr. Toplotna Črpalka
+    tip_elementa = models.ForeignKey(
+        TipArtikla, blank=True, null=True,
+        verbose_name='Tip Elementa')
+
+    #R DEL STAVBE. Definiramo relacijo na DEL STAVBE, ki ga sestavlja več
+    # projektnih mest
+    del_stavbe = models.ForeignKey(
+        DelStavbe, 
+        verbose_name='Del Stavbe')
+
+    # BIM ID. Navezava na BIM program
+    bim_id = models.CharField(
+        max_length=100, blank=True, null=True, 
+        verbose_name='BIM ID')
+
+    # LOKACIJA. Definiramo lokacijo projektnega mesta v stavbi (Prostor, Zemljišče -->Etaža-->Stavba)
+    lokacija = models.ForeignKey(
+        Lokacija, blank=True, null=True,
+        verbose_name='Lokacija v Stavbi')
+
+
+    # OBJECT MANAGER
+
+    # CUSTOM PROPERTIES
+    @property
+    def aktiven_element(self):  # element ki je trenutno aktiven pod posameznim projektnim mestom
+        element = self.element_set.filter(is_active=True)[0]
+        return element
+
+    # METHODS
+
+    # PROJEKTNO MESTO - !!!AVTO. Ob izdelavi dela stavbe se avtomatsko 
+    # izdela splošno projektno mesto ki je potrebno za funkcioniranje
+    # informacijskega sistema
 
     @receiver(post_save, sender=DelStavbe)
     def create_projektnomesto_from_delstavbe(sender, created, instance, **kwargs):
@@ -156,17 +313,6 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
 
             projektno_mesto.save()
 
-
-
-    # OBJECT MANAGER
-
-    # CUSTOM PROPERTIES
-    @property
-    def aktiven_element(self):  # element ki je trenutno aktiven pod posameznim projektnim mestom
-        elementi = self.element_set.filter(is_active=True)
-        return elementi[0]
-
-    # METHODS
     def get_absolute_url(self):
         return reverse('moduli:deli:del_detail', kwargs={'pk': self.del_stavbe.pk})
 
@@ -185,7 +331,7 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
             )
 
 
-class Element(IsActiveModel):
+class Element(TimeStampedModel, IsActiveModel):
 
     # ---------------------------------------------------------------------------------------
     # Element predstavlja dejansko vgrajeno "Napravo" s serijsko in tovarniško številko,
@@ -241,7 +387,7 @@ class Element(IsActiveModel):
                               )
 
 
-class Nastavitev(models.Model):
+class Nastavitev(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
