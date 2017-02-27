@@ -72,10 +72,16 @@ class PodskupinaAdmin(admin.ModelAdmin):
 
 @admin.register(models.DelStavbe)
 class DelStavbeAdmin(admin.ModelAdmin):
-    list_display = ("oznaka", "naziv", "lastniska_skupina", "podskupina")
+    list_display = (
+        "oznaka", 
+        "naziv", 
+        'funkcija',
+        "lastniska_skupina", 
+        "podskupina"
+    )
     # dodati še lastniško skupino
     ordering = ["oznaka"]
-    search_fields = ["oznaka", ]
+    search_fields = ["oznaka", "naziv" ]
     # readonly_fields = ["stevilka",]
     inlines = [
         ProjektnoMestoInlines,
@@ -84,6 +90,16 @@ class DelStavbeAdmin(admin.ModelAdmin):
 
 @admin.register(models.ProjektnoMesto)
 class ProjektnoMestoAdmin(admin.ModelAdmin):
+    list_display = (
+        'oznaka',
+        'naziv',
+        'funkcija',
+        'bim_id',
+        'tip_elementa',
+        'lokacija',
+        'del_stavbe',
+    )
+    search_fields = ["oznaka", "naziv" ]
     inlines = [
         ElementInlines,
 
@@ -92,6 +108,7 @@ class ProjektnoMestoAdmin(admin.ModelAdmin):
         "del_stavbe__oznaka", 
         "oznaka",
     ]
+    raw_id_fields = ("lokacija", "del_stavbe")
 
 
 @admin.register(models.Element)

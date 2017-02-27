@@ -22,6 +22,15 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel):
     ''' Navezavo na točen element uredi administrator. 
     Posamezni uporabniki podatke vpisujejo ročno. '''
 
+
+    # def dokument_directory_path(instance, filename):
+    #     # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
+    #     old_filename_raw = filename.split(".")
+    #     ext = '.' + old_filename_raw[-1]
+    #     filename_parameters = ('media/pomanjkljivosti', str(instance.oznaka_baza))
+    #     new_filename = '/'.join(filename_parameters)
+    #     return '{0}'.format(new_filename + ext)  # output=  media/5.pdf
+
     # Osnovni podatki za vnos iz strani zunanjih
 
     oznaka = models.CharField(
@@ -49,6 +58,10 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel):
     lokacija_text = models.CharField(
         max_length=255, blank=True, null=True, 
         verbose_name='lokacija opisno')
+
+    # priponka = models.FileField(
+    #     upload_to=dokument_directory_path, 
+    #     verbose_name='Fotograija')
 
 
     # Dodatni podatki za administratorja

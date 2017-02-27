@@ -156,7 +156,7 @@ class DeliUvozPodatkovView(TemplateView):
             for row in seznam:
 
 
-
+                # try:
                 # default vrednost shranimo v parametre za nadaljno uporabo
                 stavba_oznaka = row['stavba']
 
@@ -175,7 +175,6 @@ class DeliUvozPodatkovView(TemplateView):
 
                 # pridobimo ločene podatke o tipu artikla
                 tip_artikla_oznaka, tip_artikla_naziv = projektnomesto_tip_elementa.split("_", 1)
-
 
 
                 ##############################################################################################
@@ -235,8 +234,9 @@ class DeliUvozPodatkovView(TemplateView):
                 delstavbe = DelStavbe.objects.get(oznaka=delstavbe_oznaka)
                 delstavbe_id = delstavbe.pk
 
-
+                print(tip_artikla_oznaka)
                 tip_artikla = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+                print(tip_artikla.naziv)
                 tip_artikla_id = tip_artikla.pk
 
 
@@ -268,7 +268,8 @@ class DeliUvozPodatkovView(TemplateView):
                 # PROJEKTNO MESTO
                 ##############################################################################################
 
-
+                # except:
+                #     return messages.error(request, "NEKAJ JE BILO NAROBE")
 
 
 

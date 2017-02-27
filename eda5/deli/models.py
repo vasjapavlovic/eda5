@@ -273,7 +273,7 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
 
     # BIM ID. Navezava na BIM program
     bim_id = models.CharField(
-        max_length=100, blank=True, null=True, 
+        max_length=100, blank=True, null=True,
         verbose_name='BIM ID')
 
     # LOKACIJA. Definiramo lokacijo projektnega mesta v stavbi (Prostor, Zemljišče -->Etaža-->Stavba)
@@ -283,6 +283,7 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
 
 
     # OBJECT MANAGER
+    objects = managers.ProjektnoMestoManagers()
 
     # CUSTOM PROPERTIES
     @property

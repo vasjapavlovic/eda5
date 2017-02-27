@@ -62,6 +62,8 @@ class PomanjkljivostCreateForm(forms.ModelForm):
         }
 
 
+
+
 class PomanjkljivostCreateFromZahtevekForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):

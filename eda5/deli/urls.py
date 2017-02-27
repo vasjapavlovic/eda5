@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 # importamo komplet views
-from .views import filtriranje, skupina, podskupina, delstavbe, projektnomesto, element, deli_uvozpodatkov_views
+from .views import filtriranje, skupina, podskupina, delstavbe, projektnomesto, element
 
 
 
