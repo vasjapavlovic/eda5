@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Q
 
 
 from ..models import Podskupina, Skupina, DelStavbe, ProjektnoMesto
@@ -61,19 +62,36 @@ class ProjektnoMestoSearchForm(forms.Form):
         oznaka_filter = self.cleaned_data['oznaka']
         naziv_filter = self.cleaned_data['naziv']
 
-        # uporabnik filtrira samo po krakem imenu partnerja
+        # filtriranje samo po oznaki
         if oznaka_filter and not naziv_filter:
             return queryset.filter(oznaka__icontains=oznaka_filter)
 
-        # uporabnik filtrira samo po naslovu partnerja
+        # filtriranje ostalo
         if naziv_filter and not oznaka_filter:
-            return queryset.filter(naziv__icontains=naziv_filter)
+            return queryset.filter(
+                Q(naziv__icontains=naziv_filter) |
+                Q(tip_elementa__oznaka__icontains=naziv_filter) |
+                Q(tip_elementa__naziv__icontains=naziv_filter) |
+                Q(del_stavbe__oznaka__icontains=naziv_filter) |
+                Q(del_stavbe__naziv__icontains=naziv_filter) |
+                Q(del_stavbe__podskupina__oznaka__icontains=naziv_filter) |
+                Q(del_stavbe__podskupina__naziv__icontains=naziv_filter)
+                )
         
 
         # uporabnik filtrira po kratkem imenu in naslovu partnerja
         if oznaka_filter and naziv_filter:
             return queryset.filter(
                 Q(oznaka__icontains=oznaka_filter) &
-                Q(naziv__icontains=naziv_filter))
+                (
+                Q(naziv__icontains=naziv_filter) |
+                Q(tip_elementa__oznaka__icontains=naziv_filter) |
+                Q(tip_elementa__naziv__icontains=naziv_filter) |
+                Q(del_stavbe__oznaka__icontains=naziv_filter) |
+                Q(del_stavbe__naziv__icontains=naziv_filter) |
+                Q(del_stavbe__podskupina__oznaka__icontains=naziv_filter) |
+                Q(del_stavbe__podskupina__naziv__icontains=naziv_filter)
+                )
+                )
 
         return queryset
