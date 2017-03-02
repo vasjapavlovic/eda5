@@ -4,6 +4,8 @@ from django.db.models import Q
 
 class OpraviloManager(models.Manager):
 
+    use_for_related_fields = True
+
     def create_opravilo(self,
                         oznaka=None,
                         naziv=None,

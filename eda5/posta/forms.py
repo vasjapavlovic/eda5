@@ -1,9 +1,13 @@
 from functools import partial
 
+from django.contrib.admin.sites import site
+
 from django import forms
 from django.utils import timezone
 
 from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
+
+from eda5.partnerji.widgets import PartnerSelectWithPop, PartnerMultipleSelectWithPop, PartnerForeignKeyRawIdWidget
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -21,7 +25,6 @@ class AktivnostCreateForm(forms.ModelForm):
         model = Aktivnost
         fields = (
             'datum_aktivnosti',
-            'vrsta_aktivnosti',
             
         )
         widgets = {
@@ -42,6 +45,8 @@ class SkupinaDokumentaIzbiraForm(forms.Form):
 
 class DokumentCreateForm(forms.ModelForm):
 
+    # avtor = forms.IntegerField(widget=SelectWithPop)
+
     class Meta:
         model = Dokument
         fields = (
@@ -56,6 +61,8 @@ class DokumentCreateForm(forms.ModelForm):
         )
         widgets = {
             'datum_dokumenta': DateInput(),
+            'avtor': PartnerForeignKeyRawIdWidget(model._meta.get_field('avtor').rel, site),
+            'naslovnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('naslovnik').rel, site),
         }
 
 

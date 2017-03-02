@@ -1,0 +1,28 @@
+
+
+<div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <tr>
+                <th>Oznaka</th>
+                <th>Vrsta</th>
+                <th>Naziv</th>
+                <th>Del Stavbe</th>
+                <th>Podskupina</th>
+                <th>Skupina</th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td><b><a href="" onclick="opener.dismissRelatedLookupPopup(window, {{ object.pk }})">{{ object.oznaka }}</a></b></td>
+                <td>{{ object.tip_elementa.oznaka }}|{{ object.tip_elementa.naziv }}</td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.del_stavbe.oznaka }}|{{ object.del_stavbe.naziv }}</td>
+                <td>{{ object.del_stavbe.podskupina.oznaka }}|{{ object.del_stavbe.podskupina.naziv }}</td>
+                <td>{{ object.del_stavbe.podskupina.skupina.oznaka }}|{{ object.del_stavbe.podskupina.skupina.naziv }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% include 'core/pagination.html' with form_target='list-filter' %}

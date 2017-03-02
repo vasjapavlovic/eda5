@@ -30,7 +30,7 @@
         <td><b>
             {% for element in object.element.all %}
 
-            <li>({{ element.projektno_mesto.oznaka }}) {{ element.projektno_mesto.tip_elementa.naziv }} | {{ element.artikel.naziv }}</li>
+            <li><a href="{% url 'moduli:deli:projektnomesto_detail' element.pk %}">({{ element.oznaka }}) {{ element.tip_elementa.naziv }} | {{ element.naziv }}</a></li>
 
             {% endfor %}
             

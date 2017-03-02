@@ -3,6 +3,8 @@ from django.conf.urls import url
 
 from .views import opravilo, delovninalog, delo
 
+from eda5.deli.views.projektnomesto import ProjektnoMestoCreateView
+
 
 
 # HOME
@@ -79,6 +81,9 @@ urlpatterns += [
     url(r'^opravilo-from-vzorec-create/(?P<pk>\d+)$', 
         opravilo.OpraviloCreateFromVzorecFromZahtevekView.as_view(), 
         name="opravilo_create_from_vzorec_from_zahtevek"),
+
+
+
 
 
     # ##########################################################

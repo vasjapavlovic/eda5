@@ -1,8 +1,10 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
-from django.http import JsonResponse
-from django.shortcuts import render
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
+from django.utils.html import escape  # popup
 
 from django.views.generic import \
     TemplateView, \
@@ -49,13 +51,51 @@ class ProjektnoMestoCreateView(CreateView):
 
     model = ProjektnoMesto
     form_class = projektnomesto_forms.ProjektnoMestoCreateForm
-    template_name = "deli/projektno_mesto/create.html"
+    # template_name = "deli/projektno_mesto/create.html"
+    template_name = "delovninalogi/opravilo/popadd.html"
+
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProjektnoMestoCreateView, self).get_context_data(*args, **kwargs)
         modul_zavihek = Zavihek.objects.get(oznaka="PROJEKTNO_MESTO_CREATE")
         context['modul_zavihek'] = modul_zavihek
         return context
+
+    # def post(self, request, *args, **kwargs):
+
+    #     # forms
+    #     form = projektnomesto_forms.ProjektnoMestoCreateForm(request.POST or None)
+
+    #     # zavihek
+    #     modul_zavihek = Zavihek.objects.get(oznaka="PROJEKTNO_MESTO_CREATE")
+
+
+    #     if form.is_valid():
+    #         try:
+    #             newObject = form.save()
+    #             print('New Object Saved') 
+    #         except:
+    #             newObject = None
+    #             print('New = NONE')
+
+    #         if newObject:
+    #             return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(windows, "%s", "%s");</script>' % (escape(newObject._get_pk_val()), escape(newObject)))
+
+    #         pageContext = {'form': form}
+    #         return render_to_response(self.template_name, pageContext)
+
+    #     else:
+    #         return render(request, self.template_name, {
+    #             'form': form,
+    #             'modul_zavihek': modul_zavihek,
+    #             }
+    #         )
+
+
+
+
+
+
 
 
 class ProjektnoMestoDetailView(DetailView):
@@ -110,3 +150,62 @@ class ProjektnoMestoDetailView(DetailView):
 
 
 
+
+
+# POPUP
+
+
+
+
+class ProjektnoMestoPopupCreateView(CreateView):
+    model = ProjektnoMesto
+    form_class = projektnomesto_forms.ProjektnoMestoCreateForm
+    # template_name = "partnerji/partner/create.html"
+    template_name = "deli/projektnomesto/popup/popup_add.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProjektnoMestoPopupCreateView, self).get_context_data(*args, **kwargs)
+        modul_zavihek = Zavihek.objects.get(oznaka="PROJEKTNO_MESTO_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # forms
+        form = projektnomesto_forms.ProjektnoMestoCreateForm(request.POST or None)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="PROJEKTNO_MESTO_CREATE")
+
+
+        if form.is_valid():
+            try:
+                newObject = form.save()
+                print('New Object Saved') 
+            except:
+                raise forms.ValidationError('Error-napisal Vasja')
+                newObject = None
+                print('New = NONE')
+
+            if newObject:
+                return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % (escape(newObject._get_pk_val()), escape(newObject)))
+
+            pageContext = {'form': form}
+            return render_to_response("deli/projektnomesto/popup/popup_add.html", pageContext)
+
+
+
+        else:
+            return render(request, self.template_name, {
+                'form': form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+
+from eda5.core.views import FilteredListView
+class ProjektnoMestoPopUpListView(FilteredListView):
+    model = ProjektnoMesto
+    form_class= projektnomesto_forms.ProjektnoMestoSearchForm
+    template_name = "deli/projektnomesto/popup/popup_list.html"
+    paginate_by = 10

@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Q
 
 from ..models import DelStavbe
 
@@ -19,3 +20,10 @@ class DelCreateForm(forms.ModelForm):
 
 class DelUpdateForm(DelCreateForm):
     pass
+
+
+
+
+
+
+

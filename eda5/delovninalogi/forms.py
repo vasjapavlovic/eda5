@@ -1,5 +1,8 @@
 from functools import partial
 
+from django.template.loader import render_to_string
+from django.contrib.admin.sites import site
+
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils import timezone
@@ -12,10 +15,17 @@ from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 
+
 from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
+
+
+from eda5.deli.widgets import ProjektnoMestoSelectWithPop, ProjektnoMestoMultipleSelectWithPop, ProjektnoMestoForeignKeyRawIdWidget, ProjektnoMestoManyToManyRawIdWidget
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
+
+
+
 
 
 class OpraviloCreateForm(forms.ModelForm):
@@ -58,6 +68,7 @@ class OpraviloCreateForm(forms.ModelForm):
     # zaradi filtriranja "oseba"
     oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
 
+
     class Meta:
         model = Opravilo
         fields = (
@@ -71,6 +82,7 @@ class OpraviloCreateForm(forms.ModelForm):
         widgets = {
             'rok_izvedbe': DateInput(),
         }
+
 
 
 class VzorecOpravilaIzbiraForm(forms.Form):
@@ -180,6 +192,13 @@ class OpraviloElementUpdateForm(OpraviloUpdateForm):
         fields = (
             'element',
         )
+        widgets = {
+            'element': ProjektnoMestoManyToManyRawIdWidget(model._meta.get_field('element').rel, site),
+        }
+
+
+                    
+
 
 
 ''' Ko je opravilo izdelano ga posodobimo tako, da mu
@@ -391,3 +410,4 @@ class DeloVrstaCreateForm(forms.ModelForm):
             'stopnja_ddv',
             'skupina',
         )
+

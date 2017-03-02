@@ -9,7 +9,7 @@ urlpatterns = [
 
 # DOKUMENT
 urlpatterns += [
-    url(r'^seznam/$', views.DokumentListView.as_view(), name="dokument_list"),
+    url(r'^seznam/?$', views.DokumentListView.as_view(), name="dokument_list"),
     url(r'^create/$', views.DokumentCreateView.as_view(), name="dokument_create"),
     url(r'^(?P<pk>\d+)/update-from-partner/$', views.DokumentUpdateFromPartnerView.as_view(), name="dokument_from_partner_update"),
     url(r'^(?P<pk>\d+)/update/$', views.DokumentUpdateView.as_view(), name="dokument_update"),

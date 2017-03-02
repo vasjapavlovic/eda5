@@ -6,13 +6,11 @@ class AktivnostManager(models.Manager):
     def create_aktivnost(
                         self,
                         izvajalec=None,
-                        vrsta_aktivnosti=None,
                         datum_aktivnosti=None,
                         ):
 
         aktivnost_model = self.model(
             izvajalec=izvajalec,
-            vrsta_aktivnosti=vrsta_aktivnosti,
             datum_aktivnosti=datum_aktivnosti,
         )
 

@@ -9,17 +9,14 @@ from . import managers
 
 class Aktivnost(TimeStampedModel):
 
-    AKTIVNOSTI = (
-        (1, "Vhodna Pošta"),
-        (2, "Izhodna Pošta"),
-        )
+
 
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
     izvajalec = models.ForeignKey(Oseba, related_name="izvajalec", verbose_name="izvajalec poštne storitve")
     #   Mandatory
-    vrsta_aktivnosti = models.IntegerField(choices=AKTIVNOSTI)
+
     datum_aktivnosti = models.DateField()
     #   Optional
 
@@ -39,7 +36,7 @@ class Aktivnost(TimeStampedModel):
         verbose_name_plural = "aktivnosti"
 
     def __str__(self):
-        return "%s - %s" % (self.datum_aktivnosti, self.vrsta_aktivnosti)
+        return "%s" % (self.datum_aktivnosti)
 
 
 class Dokument(TimeStampedModel):

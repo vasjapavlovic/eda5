@@ -1,5 +1,7 @@
 from django import forms
 
+from django.db.models import Q
+
 from .models import Partner, Oseba, Banka, Posta, Drzava
 
 
@@ -37,6 +39,39 @@ class PartnerUpdateForm(PartnerCreateForm):
     # kratko_ime
     # naslov
     # posta
+
+class PartnerSearchForm(forms.Form):
+    kratko_ime = forms.CharField(label='kratko_ime', required=False)
+    davcna_st = forms.CharField(label='davcna_st', required=False)
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(PartnerSearchForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['kratko_ime'] = ""
+        self.initial['davcna_st'] = ""
+
+    def filter_queryset(self, request, queryset):
+
+        kratko_ime_filter = self.cleaned_data['kratko_ime']
+        davcna_st_filter = self.cleaned_data['davcna_st']
+
+        # uporabnik filtrira samo po krakem imenu partnerja
+        if kratko_ime_filter and not davcna_st_filter:
+            return queryset.filter(kratko_ime__icontains=kratko_ime_filter)
+
+        # uporabnik filtrira samo po naslovu partnerja
+        if davcna_st_filter and not kratko_ime_filter:
+            return queryset.filter(davcna_st__icontains=davcna_st_filter)
+        
+
+        # uporabnik filtrira po kratkem imenu in naslovu partnerja
+        if kratko_ime_filter and davcna_st_filter:
+            return queryset.filter(
+                Q(kratko_ime__icontains=kratko_ime_filter) &
+                Q(davcna_st__icontains=davcna_st_filter))
+
+        return queryset
 
 
 class OsebaCreateForm(forms.ModelForm):
@@ -83,43 +118,7 @@ class UvozPartnerjiCsvForm(forms.Form):
     uvozim = forms.BooleanField()
 
 
-    # OSEBA MODEL
-    # priimek = models.CharField(max_length=50)
-    # ime = models.CharField(max_length=50)
-    # status = models.CharField(max_length=1, choices=STATUS)
-    # kvalifikacije = models.TextField(blank=True)
-    # podjetje = models.ForeignKey(Partner)
 
-# def add_new_partners(rows):
-#     rows = io.StringIO(rows)
-#     records_added = 0
-
-#     seznam = csv.DictReader(rows, delimiter=";")
-#     print(seznam.fieldnames)
-
-#     # for row in csv.DictReader(rows, delimiter=";"):
-#     for row in seznam:
-#     # Generate a dict per row, with the first CSV row being the keys.
-    
-#     # Bind the row data to the PurchaseForm.
-#         print(row)
-#         form2 = PartnerCreateForm(row)
-#         # Check to see if the row data is valid.
-#         if form2.is_valid():
-#         # Row data is valid so save the record.
-#             form2.save()
-#             records_added += 1
-
-#     print(records_added)
-#     return records_added
-
-# filename = os.path.abspath("eda5/partnerji/rows1.csv")
-# with open(filename, 'r') as file:
-#     partnerji_file = file.read()
-
-
-
-# add_new_partners(partnerji_file)
 
 class PostaCreateForm(forms.ModelForm):
 

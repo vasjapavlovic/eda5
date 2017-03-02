@@ -33,8 +33,8 @@ class PredajaLastnine(TimeStampedModel):
     def __str__(self):
         return "%s | %s | %s" % (
             self.oznaka,
-            self.prodajalec.naziv,
-            self.kupec.naziv,
+            self.prodajalec.kratko_ime,
+            self.kupec.kratko_ime,
             )
 
 

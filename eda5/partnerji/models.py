@@ -21,11 +21,11 @@ class Partner(TimeStampedModel, IsActiveModel):
     # ***Relations***
     partner_skupina = models.ManyToManyField("self", blank=True)
     # ***Mandatory***
-    kratko_ime = models.CharField(max_length=100)
-    naslov = models.CharField(max_length=255)
+    kratko_ime = models.CharField(max_length=100, verbose_name="Kratko Ime")
+    naslov = models.CharField(max_length=255, verbose_name="Naslov")
     posta = models.ForeignKey("Posta", verbose_name='pošta')
-    is_pravnaoseba = models.BooleanField()
-    davcni_zavezanec = models.BooleanField()
+    is_pravnaoseba = models.NullBooleanField()
+    davcni_zavezanec = models.NullBooleanField()
     # ***Optional***
     davcna_st = models.CharField(max_length=15, unique=True, blank=True)
     maticna_st = models.CharField(max_length=15, blank=True)

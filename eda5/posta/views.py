@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.db.models import Max, Q
 from django.http import JsonResponse
 from django.core.context_processors import csrf
+from django.views.generic.edit import FormMixin
+
 
 
 import os
@@ -72,7 +74,7 @@ class DokumentListView(ListView):
 
         if q:
             # return filtered queryset
-            return queryset.filter(
+            queryset = queryset.filter(
                 Q(oznaka__icontains=q) |
                 Q(naziv__icontains=q) |
                 Q(avtor__kratko_ime__icontains=q) |
@@ -80,6 +82,10 @@ class DokumentListView(ListView):
                 Q(datum_dokumenta__icontains=q) |
                 Q(vrsta_dokumenta__naziv__icontains=q)
             )
+
+            return queryset
+
+
 
         # Filtriranje glede na vrste dokumentov, ki se izberejo
         # Pridobimo stanje, katere vrste dokumentov je uporabnik
@@ -119,7 +125,7 @@ class DokumentListView(ListView):
         #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="KL")
 
         # return base queryset
-        return queryset
+        
 
 
 class PostaDokumentDetailView(DetailView):
@@ -208,7 +214,6 @@ class DokumentCreateView(TemplateView):
 
             aktivnost_create_data = Aktivnost.objects.create_aktivnost(
                 izvajalec=oseba,
-                vrsta_aktivnosti=vrsta_aktivnosti,  # 1=Vhodna Pošta, 2=Izhodna Pošta
                 datum_aktivnosti=datum_aktivnosti,
             )
 
@@ -223,15 +228,7 @@ class DokumentCreateView(TemplateView):
                 }
             )
 
-        #############################################################################################
-        ''' GLEDE NA VRSTO AKTIVNOSTI ---> NI POTREBNO VNAŠATI NASLOVNIKA ALI AVTORJA .required  '''
-        #############################################################################################
-        if vrsta_aktivnosti == 1:
-                dokument_form.fields['naslovnik'].required = False
 
-        if vrsta_aktivnosti == 2:
-                dokument_form.fields['avtor'].required = False
-        # *******************************************************************************************
 
         if dokument_form.is_valid():
 
@@ -244,59 +241,6 @@ class DokumentCreateView(TemplateView):
             priponka = dokument_form.cleaned_data['priponka']
             kraj_izdaje = dokument_form.cleaned_data['kraj_izdaje']
 
-            ###################################################################################
-            '''AVTOMATSKA IZBIRA PARTNERJA GLEDE NA VRSTO AKTIVNOSTI (VHODNA, IZHODNA POŠTA)'''
-            ###################################################################################
-            # pridobimo podatek o nastavljenem partnerju v nastavitvah
-            np = NastavitevPartnerja.objects.all()[0]
-            # ker operiramo s skupinami partnerjev moramo za partnerja pridobiti skupino,
-            # ki ustreza samo nastavljenemu partnerju
-            partner = Partner.objects.get(id=np.partner.pk)
-
-            # če je aktivnost 1=Vhodna Pošta --> naslovnik = nastavljeni partner
-            if vrsta_aktivnosti == 1:
-                naslovnik = partner
-
-            # če je aktivnost 2=Izhodna Pošta --> avtor = nastavljeni partner
-            if vrsta_aktivnosti == 2:
-                avtor = partner
-            # *********************************************************************************
-
-            #############################################
-            # '''AVTOMATSKO OZNAČEVANJE IZHODNE POŠTE'''
-            # #############################################
-            # # pridobimo podatek o nastavljenem partnerju v nastavitvah
-            # np = NastavitevPartnerja.objects.all()[0]
-            # # ker operiramo s skupinami partnerjev moramo za partnerja pridobiti skupino,
-            # # ki ustreza samo nastavljenemu partnerju
-            # partner_skupina = SkupinaPartnerjev.objects.get(oznaka=np.partner.davcna_st)
-            # # leto v oznaki bo glede na datum aktivnosti izhodne pošte
-            # leto = datum_aktivnosti.year
-            # # v primeru, da je avtor dokumenta nastavljeni partner
-            # # if avtor == partner_skupina:
-            # if vrsta_aktivnosti == 2:
-            #
-            #     try:
-            #         # iščemo vse izdane dokumente nastavljenega partnerja v pripadajočem letu
-            #         izdani_dokumenti_partnerja_v_letu = Dokument.objects.filter(
-            #             avtor=partner_skupina,
-            #             aktivnost__datum_aktivnosti__year=leto,  # v pripadajočem letu
-            #             )
-            #
-            #         # oznaka zadnjega dokumenta
-            #         zadnji_izdani_dokumenti_partnerja = izdani_dokumenti_partnerja_v_letu.latest('oznaka_baza')
-            #         zd = zadnji_izdani_dokumenti_partnerja.oznaka.split('-')
-            #
-            #         # če so izdani dokumenti v pripadajočem letu že izdani
-            #         if izdani_dokumenti_partnerja_v_letu.count() >= 1:
-            #
-            #             zap_st = int(zd[2]) + 1
-            #             oznaka = "IZH-" + str(leto) + "-" + str(zap_st)
-            #
-            #     # če v pripadajočem letu dokumentov še ni izdanih
-            #     except:
-            #         oznaka = "IZH-" + str(leto) + "-1"
-            # ***************************************************************************************
 
             ################################################
             '''OZNAČEVANJE DOKUMENTOV NA MEDIA SERVERJU'''

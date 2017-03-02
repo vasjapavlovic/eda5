@@ -1,18 +1,29 @@
-from django.shortcuts import render
+from django import forms
+
+from django.template import RequestContext
+
+from django.db.models import Q
+
+
+
+from django.shortcuts import render, render_to_response
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
+from django.utils.html import escape  # popup
 
-from .forms import PartnerCreateForm, PartnerUpdateForm
+from .forms import PartnerCreateForm, PartnerUpdateForm, PartnerSearchForm
 from .forms import OsebaCreateForm, OsebaUpdateForm, OsebaCreateWidget, TrrCreateWidget, UvozPartnerjiCsvForm, PostaCreateForm
 
 from .models import Partner, Oseba, TRRacun, Banka, Posta
+
 
 # mixins
 from .viewmixins import PartnerSearchMixin
 
 from eda5.moduli.models import Zavihek
+
 
 
 class PartnerHomeView(TemplateView):
@@ -29,6 +40,8 @@ class PartnerCreateView(CreateView):
         modul_zavihek = Zavihek.objects.get(oznaka="PR_CREATE")
         context['modul_zavihek'] = modul_zavihek
         return context
+
+
 
 
 class PartnerUpdateView(UpdateView):
@@ -143,3 +156,80 @@ class PartnerDetailView(DetailView):
         return HttpResponseRedirect(reverse('moduli:partnerji:partner_detail', kwargs={'pk': partner.pk}))
 
 
+
+
+
+
+class PartnerPopupCreateView(CreateView):
+    model = Partner
+    form_class = PartnerCreateForm
+    # template_name = "partnerji/partner/create.html"
+    template_name = "partnerji/partner/popup/popup_add.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PartnerPopupCreateView, self).get_context_data(*args, **kwargs)
+        modul_zavihek = Zavihek.objects.get(oznaka="PR_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # forms
+        form = PartnerCreateForm(request.POST or None)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="PR_CREATE")
+
+
+        if form.is_valid():
+            try:
+                newObject = form.save()
+                print('New Object Saved') 
+            except:
+                raise forms.ValidationError('Error-napisal Vasja')
+                newObject = None
+                print('New = NONE')
+
+            if newObject:
+                return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % (escape(newObject._get_pk_val()), escape(newObject)))
+
+            pageContext = {'form': form}
+            return render_to_response("partnerji/partner/popup/popup_add.html", pageContext)
+
+
+
+        else:
+            return render(request, self.template_name, {
+                'form': form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+
+from eda5.core.views import FilteredListView
+class PartnerPopUpListView(FilteredListView):
+    model = Partner
+    form_class= PartnerSearchForm
+    template_name = "partnerji/partner/popup/popup_list.html"
+    paginate_by = 10
+
+
+
+# class PartnerPopUpListView(ListView):
+#     model = Partner
+#     form_class= SearchForm
+#     template_name = "partnerji/partner/partner_popup_list.html"
+#     paginate_by = 10
+
+
+#     # order_by
+#     def get_queryset(self):
+#         queryset = super(PartnerPopUpListView, self).get_queryset()
+#         queryset = queryset.order_by('kratko_ime')
+#         return queryset
+
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(PartnerPopUpListView, self).get_context_data(*args, **kwargs)
+#         modul_zavihek = Zavihek.objects.get(oznaka="PR_LIST")
+#         context['modul_zavihek'] = modul_zavihek
+#         return context

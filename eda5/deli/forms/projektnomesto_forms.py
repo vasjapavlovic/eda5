@@ -42,3 +42,38 @@ class ElementIzbiraForm(forms.Form):
     podskupina_hidden = forms.ModelChoiceField(queryset=Podskupina.objects.all())
     del_stavbe_hidden = forms.ModelChoiceField(queryset=DelStavbe.objects.all())
     element_hidden = forms.ModelChoiceField(queryset=ProjektnoMesto.objects.all())
+
+
+
+class ProjektnoMestoSearchForm(forms.Form):
+    oznaka = forms.CharField(label='oznaka', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(ProjektnoMestoSearchForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['oznaka'] = ""
+        self.initial['naziv'] = ""
+
+    def filter_queryset(self, request, queryset):
+
+        oznaka_filter = self.cleaned_data['oznaka']
+        naziv_filter = self.cleaned_data['naziv']
+
+        # uporabnik filtrira samo po krakem imenu partnerja
+        if oznaka_filter and not naziv_filter:
+            return queryset.filter(oznaka__icontains=oznaka_filter)
+
+        # uporabnik filtrira samo po naslovu partnerja
+        if naziv_filter and not oznaka_filter:
+            return queryset.filter(naziv__icontains=naziv_filter)
+        
+
+        # uporabnik filtrira po kratkem imenu in naslovu partnerja
+        if oznaka_filter and naziv_filter:
+            return queryset.filter(
+                Q(oznaka__icontains=oznaka_filter) &
+                Q(naziv__icontains=naziv_filter))
+
+        return queryset

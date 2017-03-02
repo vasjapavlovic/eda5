@@ -5,14 +5,19 @@ import os
 
 # DJANGO ##############################################################
 from django.core.context_processors import csrf
+
 from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.utils import timezone
+from django.utils.html import escape  # popup
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
+
+from django import forms
 
 
 
@@ -120,7 +125,6 @@ class OpraviloCreateFromZahtevekView(UpdateView):
 
         # opravilo
         context['opravilo_create_form'] = OpraviloCreateForm
-        context['element_izbira_form'] = projektnomesto_forms.ElementIzbiraForm
         context['opravilo_element_update_form'] = OpraviloElementUpdateForm
 
         # zavihek
@@ -136,7 +140,6 @@ class OpraviloCreateFromZahtevekView(UpdateView):
         ###########################################################################
 
         opravilo_create_form = OpraviloCreateForm(request.POST or None)
-        element_izbira_form = projektnomesto_forms.ElementIzbiraForm(request.POST or None)
         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
 
         ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
@@ -220,13 +223,126 @@ class OpraviloCreateFromZahtevekView(UpdateView):
         else:
             return render(request, self.template_name, {
                 'opravilo_create_form': opravilo_create_form,
-                'element_izbira_form': element_izbira_form,
                 'opravilo_element_update_form': opravilo_element_update_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )
 
-        
+# class OpraviloCreateFromZahtevekView(UpdateView):
+#     model = Zahtevek
+#     template_name = "delovninalogi/opravilo/create_from_zahtevek.html"
+#     fields = ('id', )
+
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(OpraviloCreateFromZahtevekView, self).get_context_data(*args, **kwargs)
+
+#         # opravilo
+#         context['opravilo_create_form'] = OpraviloCreateForm
+#         context['element_izbira_form'] = projektnomesto_forms.ElementIzbiraForm
+#         context['opravilo_element_update_form'] = OpraviloElementUpdateForm
+
+#         # zavihek
+#         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
+#         context['modul_zavihek'] = modul_zavihek
+
+#         return context
+
+#     def post(self, request, *args, **kwargs):
+
+#         ###########################################################################
+#         # FORMS
+#         ###########################################################################
+
+#         opravilo_create_form = OpraviloCreateForm(request.POST or None)
+#         element_izbira_form = projektnomesto_forms.ElementIzbiraForm(request.POST or None)
+#         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
+
+#         ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
+#         Pomembno zaradi načina struktura View-ja '''
+
+#         opravilo_create_form_is_valid = False
+#         opravilo_element_update_form_is_valid = False
+
+#         ###########################################################################
+#         # PRIDOBIMO PODATKE
+#         ###########################################################################
+
+#         # zahtevek
+#         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+
+#         # zavihek
+#         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
+
+#         # podatki o opravilu
+#         if opravilo_create_form.is_valid():
+#             oznaka = opravilo_create_form.cleaned_data['oznaka']
+#             naziv = opravilo_create_form.cleaned_data['naziv']
+#             rok_izvedbe = opravilo_create_form.cleaned_data['rok_izvedbe']
+#             narocilo = opravilo_create_form.cleaned_data['narocilo']
+#             nosilec = opravilo_create_form.cleaned_data['nosilec']
+#             planirano_opravilo = opravilo_create_form.cleaned_data['planirano_opravilo']
+#             opravilo_create_form_is_valid = True
+
+#         # podatki o izbranih elementih, ki se dodajo opravilu
+#         if opravilo_element_update_form.is_valid():
+#             element = opravilo_element_update_form.cleaned_data['element']
+#             opravilo_element_update_form_is_valid = True
+
+#         ''' v primeru, da so zgornji Form-i ustrezno izpolnjeni
+#         izvrši spodnje ukaze '''
+
+#         if opravilo_create_form_is_valid == True and opravilo_element_update_form_is_valid == True:
+#             ###########################################################################
+#             # UKAZI
+#             ###########################################################################
+
+#             # Izdelamo novo opravilo kjer se kasneje dodatno dopolni
+#             # na katerih elementih se opravilo opravlja ter katere
+#             # pomanjkljivosti se odpravljajo v tem opravilu.
+
+#             opravilo_data = Opravilo.objects.create_opravilo(
+#                 oznaka=oznaka,
+#                 naziv=naziv,
+#                 rok_izvedbe=rok_izvedbe,
+#                 narocilo=narocilo,
+#                 zahtevek=zahtevek,
+#                 nosilec=nosilec,
+#                 planirano_opravilo=planirano_opravilo,
+#             )
+
+#             # instanco izdelanega opravila shranimo za nadaljno uporabo
+
+#             opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
+
+#             # Posodobitev opravila tako, da se pove na katerih elementih
+#             # stavbe se opravilo izvaja. Pomembno za elektronsko servisno
+#             # knjigo.
+
+#             opravilo_object.element = element
+#             opravilo_object.save()
+
+#             # če je izbrano planirano_opravilo pridobi podatek "zmin - zaokroževanje"
+#             # iz planiranega opravila
+
+#             if planirano_opravilo:
+#                 zmin = planirano_opravilo.zmin
+#                 opravilo_object.zmin = zmin
+#                 opravilo_object.save()
+
+#             # izvedemo preusmeritev
+
+#             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+
+#         # če zgornji formi niso ustrezno izpolnjeni
+
+#         else:
+#             return render(request, self.template_name, {
+#                 'opravilo_create_form': opravilo_create_form,
+#                 'element_izbira_form': element_izbira_form,
+#                 'opravilo_element_update_form': opravilo_element_update_form,
+#                 'modul_zavihek': modul_zavihek,
+#                 }
+#             )
 
 
 # #########################################################
@@ -535,4 +651,9 @@ def reload_controls_delovninalogi_planirano_opravilo_view(request):
             ###########################################################################
             # UKAZI
             ###########################################################################
+
+
+
+
+
 

@@ -10,6 +10,7 @@ class OpraviloAdmin(admin.ModelAdmin):
         "element",
         "pomanjkljivost",
     )
+    raw_id_fields = ("element",)
 
 
 @admin.register(DelovniNalog)
