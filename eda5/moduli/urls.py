@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     # registracija MODULOV (urlji)
+    url(r'^arhiv/', include("eda5.arhiv.urls", namespace="arhiv")),
     url(r'^deli/', include("eda5.deli.urls", namespace="deli")),
     url(r'^delovninalogi/', include("eda5.delovninalogi.urls", namespace="delovninalogi")),
     url(r'^dogodki/', include("eda5.dogodki.urls", namespace="dogodki")),
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r'^nadzorna-plosca/', include("eda5.nadzornaplosca.urls", namespace="nadzornaplosca")),
     url(r'^narocila/', include("eda5.narocila.urls", namespace="narocila")),
     url(r'^obvestila/', include("eda5.obvestila.urls", namespace="obvestila")),
+    url(r'^obrazci/', include("eda5.obrazci.urls", namespace="obrazci")),
     url(r'^partnerji/', include("eda5.partnerji.urls", namespace="partnerji")),
     url(r'^planiranje/', include("eda5.planiranje.urls", namespace="planiranje")),
     url(r'^posta/', include("eda5.posta.urls", namespace="posta")),

@@ -25,7 +25,9 @@
             <td><a href="{% url 'moduli:planiranje:planirano_opravilo_detail' object.planirano_opravilo.pk %}">{{ object.planirano_opravilo.oznaka }}</a></td>
             <td>{{ object.planirano_opravilo.naziv }}</td>
             <td>{{ object.planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ object.planirano_opravilo.perioda_predpisana_enota }}</td>
-            <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' object.planirano_opravilo.id %}">{{ object.datum_izvedeno_dne }}-{{ object.oznaka }}</a></td>
+            <td>{{ object.planirano_opravilo.datum_izvedeno_dne }}|<a href="{% url 'moduli:delovninalogi:opravilo_detail' object.pk %}">{{ object.oznaka }}</a></td>
+
+
             <td>{{ object.planirano_opravilo.datum_naslednjega_opravila }}</td>
             <td>{{ object.planirano_opravilo.do_naslednjega_opravila_dni }}</td>
         </tr>

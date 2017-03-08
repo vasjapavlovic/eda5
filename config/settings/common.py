@@ -64,6 +64,7 @@ LOCAL_APPS = (
     'eda5.narocila',  # naročila partnerjev
     'eda5.nastavitve',  # globalne nastavitve
     'eda5.obvestila',  # obveščanje lastnikov
+    'eda5.obrazci',  # obrazci - dopisi, obvestila, ...
     'eda5.partnerji',  # podatki o partnerjih
     'eda5.planiranje',  # izdelava planov:  OV, Čiščenje, Ostalo
     'eda5.posta',  # apliakcija za prejeto in oddano pošto

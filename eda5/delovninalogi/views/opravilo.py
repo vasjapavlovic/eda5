@@ -135,9 +135,9 @@ class OpraviloCreateFromZahtevekView(UpdateView):
 
     def post(self, request, *args, **kwargs):
 
-        ###########################################################################
+        # ====================================
         # FORMS
-        ###########################################################################
+        # ====================================
 
         opravilo_create_form = OpraviloCreateForm(request.POST or None)
         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)

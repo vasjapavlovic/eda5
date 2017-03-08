@@ -90,16 +90,16 @@
 <script>
     
     // disable nepotrebne dropdown menuje
-    $("#id_nosilec").attr('disabled', true);
-    $("#id_nosilec").empty()
+    //$("#id_nosilec").attr('disabled', true);
+    //$("#id_nosilec").empty()
 
 
     $('#create_form').on('change', '#id_narocilo', function()
     {
-        reload_controls5(this.value);
+        reload_controls(this.value);
     });
 
-    function reload_controls5(narocilo)
+    function reload_controls(narocilo)
     {
         $.ajax
         ({

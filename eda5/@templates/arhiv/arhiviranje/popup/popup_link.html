@@ -1,0 +1,6 @@
+{% load staticfiles i18n %}
+
+<!--  partner popup list -->
+<a href="{% url 'moduli:arhiv:arhiviranje_popup_list' %}" class="add-another" id="add_id_{{ field }}" onclick="return showAddAnotherPopup(this);">
+<img src="{% static 'admin/img/icon_searchbox.png' %}" width="20" height="20" alt="Add Another"/>
+</a>

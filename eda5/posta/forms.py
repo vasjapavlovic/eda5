@@ -1,9 +1,8 @@
 from functools import partial
 
-from django.contrib.admin.sites import site
-
 from django import forms
 from django.utils import timezone
+from django.contrib.admin.sites import site  # popup
 
 from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
 

@@ -330,7 +330,37 @@ def reload_controls_narocilo_osebe_view(request):
     # get the year that the user has typed
     # partner = request.POST['partner'] <-- ne dela
     # definiramo objekt
-    partner = Partner.objects.get(id=105)
+    # partner = Partner.objects.get(id=105)
+    narocilo = request.POST['narocilo']
+    narocilo = Narocilo.objects.get(id=narocilo)
+    partner = narocilo.narocnik
+    print(partner)
+    # izdelamo seznam oseb (id-ji)
+    osebe = []
+    for oseba in partner.oseba_set.all():
+        # vnesemov seznam, ki ga gradimo
+        osebe.append(oseba.id)
+
+    # osebe to display
+    context['list_to_display'] = osebe
+
+    return JsonResponse(context)
+
+
+# view called with ajax to reload the month drop down list
+def reload_controls_delovninalog_izvajalec_view(request):
+
+    c = {}
+    c.update(csrf(request))
+
+    context = {}
+    print("OK TO JE")
+    delovninalog_id = request.POST['delovninalog']
+    print(delovninalog_id)
+    delovninalog = DelovniNalog.objects.get(id=delovninalog_id)
+    print(delovninalog)
+    narocilo = delovninalog.opravilo.narocilo
+    partner = narocilo.izvajalec
     print(partner)
     # izdelamo seznam oseb (id-ji)
     osebe = []

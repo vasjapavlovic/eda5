@@ -40,10 +40,14 @@ urlpatterns += [
         name="projektnomesto_detail"),
 
 
-    url(r'^projektnomesto/popup-create/?$', projektnomesto.ProjektnoMestoPopupCreateView.as_view(), name='projektnomesto_popup_create'),
+    url(r'^projektnomesto/popup-create/?$', 
+        projektnomesto.ProjektnoMestoPopupCreateView.as_view(), 
+        name='projektnomesto_popup_create'),
 
 
-    url(r'^projektnomesto/popup-list/?$', projektnomesto.ProjektnoMestoPopUpListView.as_view(), name='projektnomesto_popup_list'),
+    url(r'^projektnomesto/popup-list/?$', 
+        projektnomesto.ProjektnoMestoPopUpListView.as_view(), 
+        name='projektnomesto_popup_list'),
 
 ]
 

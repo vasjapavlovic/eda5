@@ -101,3 +101,44 @@ class ArhiviranjeNarociloForm(ArhiviranjeCreateForm):
         fields = (
             'dokument',
         )
+
+
+
+# SEARCH FORMS
+
+class ArhiviranjeSearchForm(forms.Form):
+    oznaka = forms.CharField(label='oznaka', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(ArhiviranjeSearchForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['oznaka'] = ""
+        self.initial['naziv'] = ""
+
+    def filter_queryset(self, request, queryset):
+
+        oznaka_filter = self.cleaned_data['oznaka']
+        naziv_filter = self.cleaned_data['naziv']
+
+        # filtriranje samo po oznaki
+        if oznaka_filter and not naziv_filter:
+            return queryset.filter(dokument__oznaka__icontains=oznaka_filter)
+
+        # filtriranje ostalo
+        if naziv_filter and not oznaka_filter:
+            return queryset.filter(
+                Q(dokument__naziv__icontains=naziv_filter)
+                )
+        
+
+        # uporabnik filtrira po kratkem imenu in naslovu partnerja
+        if oznaka_filter and naziv_filter:
+            return queryset.filter(
+                Q(dokument__oznaka__icontains=oznaka_filter) & (
+                    Q(dokument__naziv__icontains=naziv_filter)
+                )
+            )
+
+        return queryset

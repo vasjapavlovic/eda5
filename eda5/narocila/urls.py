@@ -57,4 +57,9 @@ urlpatterns += [
         views.reload_controls_narocilo_osebe_view, 
         name='reload_controls_narocilo_osebe'
         ),
+
+    url(r'^reload_controls_delovninalog_izvajalec.html$', 
+        views.reload_controls_delovninalog_izvajalec_view, 
+        name='reload_controls_delovninalog_izvajalec'
+        ),
 ]

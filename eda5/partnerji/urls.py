@@ -17,8 +17,6 @@ urlpatterns += [
     url(r'^(?P<pk>\d+)/update-komplet/$', views.PartnerUpdateKompletView.as_view(), name='partner_update_komplet'),
     # POP UP VIEWS
     url(r'^partner/popup-create/?$', views.PartnerPopupCreateView.as_view(), name='partner_popup_create'),
-
-
     url(r'^partner/popup-list/?$', views.PartnerPopUpListView.as_view(), name='partner_popup_list'),
 
 
