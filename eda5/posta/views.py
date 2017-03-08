@@ -83,48 +83,8 @@ class DokumentListView(ListView):
                 Q(vrsta_dokumenta__naziv__icontains=q)
             )
 
-            return queryset
+        return queryset
 
-
-
-        # Filtriranje glede na vrste dokumentov, ki se izberejo
-        # Pridobimo stanje, katere vrste dokumentov je uporabnik
-        # izbral
-        # for vrsta_dokumenta in vrste_dokumentov:
-
-        #     vrednost_checkbox = self.request.GET.get(vrsta_dokumenta.oznaka)
-            
-
-        # # rac = self.request.GET.get("rac")
-        # # pgd = self.request.GET.get("pgd")
-        # # dop = self.request.GET.get("dop")
-        # # kl = self.request.GET.get("kl")
-
-
-        #     if vrednost_checkbox == None:
-        #             print(vrsta_dokumenta.oznaka)
-        #             print(vrednost_checkbox)
-        #             return queryset.exclude(vrsta_dokumenta__oznaka__icontains=vrsta_dokumenta.oznaka)
-        #     else:
-        #         pass
-
-
-
-        # if not rac=="True":
-        #     print(rac)
-        #     # podatki ne vsebujejo
-        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="RAC")
-        # if not pgd =="True":
-        #     # podatki ne vsebujejo
-        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="PGD")
-        # if not dop =="True":
-        #     # podatki ne vsebujejo
-        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="DOP")
-        # if not kl =="True":
-        #     # podatki ne vsebujejo
-        #     return queryset.exclude(vrsta_dokumenta__oznaka__icontains="KL")
-
-        # return base queryset
         
 
 
