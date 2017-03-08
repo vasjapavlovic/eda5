@@ -32,6 +32,58 @@ class DopisCreateView(CreateView):
 		# end context
 		return context
 
+	def form_valid(self, form):
+
+        # pridobimo podatke iz forma
+		vrsta_dokumenta = form.cleaned_data['vrsta_dokumenta']
+		objava = form.cleaned_data['objava']
+
+		# izdelamo oznako dokumenta
+		# ====================================================================
+		# izgled:  DOP-20170308-1223	{oznaka vrste dokumenta}-{datum}-{ura}
+
+		# pridobimo oznako vrste dokumenta
+		#---------------------------------------------------------
+		oznaka_vrste_dokumenta = vrsta_dokumenta.oznaka
+
+		# izdelamo datum dokumenta v textovni in željeni obliki
+		#------------------------------------------------------------
+		# leto izdelanega dokumenta
+		datum_leto = objava.date().year
+		datum_leto = str(datum_leto) # pretvorimo v text
+		# Mesec izdelanega dokumenta ( prikaz 01, 02, ..., 12)
+		datum_mesec = objava.date().month
+		if datum_mesec < 10:
+			datum_mesec = "0" + str(datum_mesec)
+		else:
+			datum_mesec = str(datum_mesec)
+		# Dan izdelanega dokumenta ( prikaz 01, 02, ..., 31)
+		datum_dan = objava.date().day
+		if datum_dan < 10:
+			datum_dan = "0" + str(datum_dan)
+		else:
+			datum_dan = str(datum_dan)
+
+		datum_text = datum_leto + datum_mesec + datum_dan
+
+		# izdelamo uro dokumenta v tekstovni obliki
+		#------------------------------------------------------------
+		cas_ura = objava.time().hour
+		cas_ura = str(cas_ura)
+		cas_minuta = objava.time().minute
+		cas_minuta = str(cas_minuta)
+
+		cas_text = cas_ura + cas_minuta
+
+		# oznaka dokumenta
+		dokument_oznaka = oznaka_vrste_dokumenta + "-" + datum_text + "-" + cas_text
+
+		# shranimo podatek o dokumentu v "form"
+		form.instance.oznaka = dokument_oznaka
+
+		return super(DopisCreateView, self).form_valid(form)
+
+
 
 class DopisListView(ListView):
 	
@@ -103,7 +155,7 @@ class DopisDetailView(DetailView):
 			izpis_data = {
 				'vrsta_dokumenta': obrazec.vrsta_dokumenta.naziv,
 				'oznaka': obrazec.oznaka,
-				'datum': obrazec.datum,
+				'objava': obrazec.objava,
 				'zadeva': obrazec.zadeva,
 				'vsebina': obrazec.vsebina,
 				'posiljatelj': obrazec.posiljatelj,

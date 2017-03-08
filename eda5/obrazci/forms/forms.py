@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.admin.sites import site
+from django.utils import timezone
 
 # relative imports
 from ..models import ObrazecSplosno
@@ -11,13 +12,17 @@ from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKey
 
 
 class ObrazecCreateForm(forms.ModelForm):
-	
+
+	def __init__(self, *args, **kwargs):
+		super(ObrazecCreateForm, self).__init__(*args, **kwargs)
+
+		self.initial['objava'] =  timezone.localtime(timezone.now())
+
 	class Meta:
 		model = ObrazecSplosno
 		fields=(
+			'objava',
 			'vrsta_dokumenta',
-			'oznaka',
-			'datum',
 			'zadeva',
 			'vsebina',
 			'posiljatelj',

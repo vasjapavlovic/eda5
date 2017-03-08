@@ -2,12 +2,15 @@ from functools import partial
 from django.template.loader import render_to_string
 
 from django import forms
+from django.contrib.admin.sites import site
 from django.utils import timezone
 
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 from .models import ZahtevekAnaliza, ZahtevekPovprasevanje, ZahtevekReklamacija
 
+# Partnerji
 from eda5.partnerji.models import Oseba, SkupinaPartnerjev
+from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -58,6 +61,7 @@ class ZahtevekCreateForm(forms.ModelForm):
         )
         widgets = {
             'rok_izvedbe': DateInput(),
+            'nosilec': OsebaForeignKeyRawIdWidget(model._meta.get_field('nosilec').rel, site),
         }
 
 
@@ -65,6 +69,7 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
 
     class Meta(ZahtevekCreateForm.Meta):
 
+        model = Zahtevek
         fields = (
             'oznaka',
             'naziv',
@@ -72,6 +77,10 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
             'rok_izvedbe',
             'nosilec',
         )
+        widgets = {
+            'rok_izvedbe': DateInput(),
+            'nosilec': OsebaForeignKeyRawIdWidget(model._meta.get_field('nosilec').rel, site),
+        }
 
 
 class ZahtevekUpdateForm(forms.ModelForm):
@@ -85,6 +94,10 @@ class ZahtevekUpdateForm(forms.ModelForm):
             'nosilec',
             'status',
         )
+        widgets = {
+            'rok_izvedbe': DateInput(),
+            'nosilec': OsebaForeignKeyRawIdWidget(model._meta.get_field('nosilec').rel, site),
+        }
 
 
 class ZahtevekIzbiraForm(forms.Form):
@@ -128,21 +141,14 @@ class ZahtevekSestanekCreateForm(forms.ModelForm):
         )
         widgets = {
             "datum": DateInput(),
+            'sklicatelj': OsebaForeignKeyRawIdWidget(model._meta.get_field('sklicatelj').rel, site),
+            'udelezenci': OsebaForeignKeyRawIdWidget(model._meta.get_field('udelezenci').rel, site),
         }
 
 
-class ZahtevekSestanekUpdateForm(forms.ModelForm):
-
-    class Meta:
-        model = ZahtevekSestanek
-        fields = (
-            'sklicatelj',
-            'datum',
-            'udelezenci',
-        )
-        widgets = {
-            "datum": DateInput(),
-        }
+class ZahtevekSestanekUpdateForm(ZahtevekSestanekCreateForm):
+    # enako "form" ZahtevekSestanekCreateForm
+    pass
 
 
 class ZahtevekIzvedbaDelCreateForm(forms.ModelForm):
@@ -154,10 +160,6 @@ class ZahtevekIzvedbaDelCreateForm(forms.ModelForm):
         )
 
 
-class ZahtevekIzvedbaDelUpdateForm(forms.ModelForm):
-
-    class Meta:
-        model = ZahtevekIzvedbaDela
-        fields = (
-            'is_zakonska_obveza',
-        )
+class ZahtevekIzvedbaDelUpdateForm(ZahtevekIzvedbaDelCreateForm):
+    # enako "form" ZahtevekSestanekCreateForm
+    pass

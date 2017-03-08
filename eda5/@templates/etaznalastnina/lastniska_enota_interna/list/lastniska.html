@@ -80,7 +80,7 @@
 
                                 <!-- PODATKI O LASTNIKU -->
                             <!-- lastnik -->
-                                <td>{{ object.prodaja.predaja_lastnine.kupec.naziv }}</td>
+                                <td>{{ object.prodaja.predaja_lastnine.kupec.kratko_ime }}</td>
                                 
                             <!-- prejšnji lastnik -->
 
@@ -91,9 +91,9 @@
                                 <td>
                                     <!-- v primeru da link na zahtevke obstaja ga prikaži -->
                                     {% if object.prodaja.predaja_lastnine.zahtevek.pk %}
-                                    <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.prodaja.predaja_lastnine.zahtevek.id %}">{{ object.prodaja.predaja_lastnine.prodajalec.naziv }} | dne {{ object.prodaja.datum_predaje }}</a>
+                                    <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.prodaja.predaja_lastnine.zahtevek.id %}">{{ object.prodaja.predaja_lastnine.prodajalec.kratko_ime }} | dne {{ object.prodaja.datum_predaje }}</a>
                                     {% else %}
-                                    {{ object.prodaja.predaja_lastnine.prodajalec.naziv }} | dne {{ object.prodaja.datum_predaje }}
+                                    {{ object.prodaja.predaja_lastnine.prodajalec.kratko_ime }} | dne {{ object.prodaja.datum_predaje }}
                                     {% endif %}
                                 </td>    
                                 {% endif %}
@@ -102,9 +102,9 @@
 
                                 <!-- PODATKI O NAJEMU -->
                                 <!-- pod pogojem da najemnik obstaja -->
-                                {% if object.najem.predaja_lastnine.kupec.naziv %}
+                                {% if object.najem.predaja_lastnine.kupec.kratko_ime %}
                             <!-- najemnik -->
-                                <td>{{ object.najem.predaja_lastnine.kupec.naziv }}</td>
+                                <td>{{ object.najem.predaja_lastnine.kupec.kratko_ime }}</td>
 
                             <!-- status najema -->
                                 <!-- v primeru da link na zahtevke obstaja ga prikaži -->
@@ -116,12 +116,12 @@
                                 
                                 
                             <!-- placnik stroškov o.v. -->
-                                <td>{{ object.najem.placnik.naziv }}</td>
+                                <td>{{ object.najem.placnik.kratko_ime }}</td>
 
                                 {% else %}
                                 <td></td>
                                 <td></td>
-                                <td>{{ object.prodaja.placnik.naziv }}</td>
+                                <td>{{ object.prodaja.placnik.kratko_ime }}</td>
                                     
                                 
                                 {% endif %}

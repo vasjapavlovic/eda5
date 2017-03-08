@@ -19,7 +19,7 @@ class ObrazecSplosno(StatusModel):
 
 	# datum dopisa. Datum se izdela ko se dopis
 	# objavi, to je, ko ima status - zaključeno
-	datum = models.DateField(
+	objava = models.DateTimeField(
 		blank=True, null=True, 
 		verbose_name='Datum Objave Dokumenta')
 

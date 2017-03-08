@@ -1,6 +1,7 @@
 from functools import partial
 
 from django import forms
+from django.contrib.admin.sites import site
 from django.db.models import Q
 from django.utils import timezone
 
@@ -15,6 +16,7 @@ from eda5.arhiv.models import Arhiviranje
 
 # Partnerji
 from eda5.partnerji.models import Oseba
+from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
 
 # Pošta
 from eda5.posta.models import VrstaDokumenta
@@ -80,6 +82,8 @@ class NarociloSplosnoCreateForm(forms.ModelForm):
         widgets = {
             'datum_narocila': DateInput(),
             'datum_veljavnosti': DateInput(),
+            'narocnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('narocnik').rel, site),
+            'izvajalec': PartnerForeignKeyRawIdWidget(model._meta.get_field('izvajalec').rel, site),
         }
 
 

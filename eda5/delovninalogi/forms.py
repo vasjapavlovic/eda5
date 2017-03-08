@@ -12,7 +12,11 @@ from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop, Vzo
 
 from eda5.deli.models import Element, ProjektnoMesto
 from eda5.narocila.models import Narocilo
+
+# Partnerji
 from eda5.partnerji.models import Oseba
+from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
+
 from eda5.posta.models import Dokument
 
 
@@ -81,6 +85,7 @@ class OpraviloCreateForm(forms.ModelForm):
         )
         widgets = {
             'rok_izvedbe': DateInput(),
+            'nosilec': OsebaForeignKeyRawIdWidget(model._meta.get_field('nosilec').rel, site),
         }
 
 
@@ -158,6 +163,7 @@ class VzorecOpravilaCreateForm(forms.ModelForm):
         )
         widgets = {
             'rok_izvedbe': DateInput(),
+            'nosilec': OsebaForeignKeyRawIdWidget(model._meta.get_field('nosilec').rel, site),
         }
 
 
@@ -180,6 +186,7 @@ class OpraviloUpdateForm(forms.ModelForm):
             )
         widgets = {
             'rok_izvedbe': DateInput(),
+            'element': ProjektnoMestoManyToManyRawIdWidget(model._meta.get_field('element').rel, site),
         }
 
 ''' Ko je opravilo izdelano ga posodobimo tako, da mu
@@ -242,6 +249,7 @@ class DelovniNalogVcakanjuModelForm(forms.ModelForm):
         widgets = {
             'status': forms.HiddenInput(),
             'datum_plan': DateInput(),
+            'nosilec': OsebaForeignKeyRawIdWidget(model._meta.get_field('nosilec').rel, site),
         }
 
 
@@ -350,6 +358,9 @@ class DeloCreateForm(forms.ModelForm):
             'datum',
             'time_start',
         )
+        widgets = {
+            'delavec': OsebaForeignKeyRawIdWidget(model._meta.get_field('delavec').rel, site),
+        }
 
 
 class DeloKoncajUpdateForm(forms.ModelForm):
@@ -389,7 +400,8 @@ class DeloUpdateForm(forms.ModelForm):
         widgets = {
             'datum': DateInput(),
             'time_start': TimeInput(),
-            'time_stop': TimeInput()
+            'time_stop': TimeInput(),
+            'delavec': OsebaForeignKeyRawIdWidget(model._meta.get_field('delavec').rel, site),
         }
 
 

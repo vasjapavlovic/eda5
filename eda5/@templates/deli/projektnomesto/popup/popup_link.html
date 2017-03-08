@@ -1,14 +1,32 @@
 
 {% load staticfiles i18n %}
 
-<!--  partner popup list -->
-<a href="{% url 'moduli:deli:projektnomesto_popup_list' %}" class="add-another" id="add_id_{{ field }}" onclick="return showAddAnotherPopup(this);">
-<img src="{% static 'admin/img/icon_searchbox.png' %}" width="20" height="20" alt="Add Another"/>
+<!--  ProjektnoMesto POPUP LIST -->
+<a 
+	href="{% url 'moduli:deli:projektnomesto_popup_list' %}" 
+	class="add-another" id="add_id_{{ field }}" 
+	onclick="return showAddAnotherPopup(this);"
+	>
+
+	<!-- Icon to open POP Up select from list -->
+	<i class="fa fa-search fa-lg" aria-hidden="true" alt="Add Another"></i>
+
 </a>
 
-<!--  partner popup create -->
-<a href="{% url 'moduli:deli:projektnomesto_popup_create' %}" class="add-another" id="add_id_{{ field }}" onclick="return showAddAnotherPopup(this);">
-<img src="{% static 'admin/img/icon_addlink.gif' %}" width="20" height="20" alt="Add Another"/>
+
+<!--  ProjektnoMesto POPUP CREATE -->
+<a 
+	href="{% url 'moduli:deli:projektnomesto_popup_create' %}" 
+	class="add-another" id="add_id_{{ field }}" 
+	onclick="return showAddAnotherPopup(this);"
+	>
+
+	<!-- Icon to open POP Up create -->
+	<i class="fa fa-plus-circle fa-lg" alt="Add Another" aria-hidden="true"></i>
 </a>
+
+
+
+
 
 

@@ -1,12 +1,17 @@
 from functools import partial
 
 from django import forms
+from django.contrib.admin.sites import site
 from django.db.models import Q
+
 
 from .models import PredajaLastnine, ProdajaLastnine, NajemLastnine
 
 from eda5.arhiv.models import Arhiviranje
 from eda5.etaznalastnina.models import LastniskaEnotaInterna
+
+# Partnerji
+from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -20,6 +25,10 @@ class PredajaLastnineCreateForm(forms.ModelForm):
             'prodajalec',
             'kupec',
         )
+        widgets = {
+            'prodajalec': PartnerForeignKeyRawIdWidget(model._meta.get_field('prodajalec').rel, site),
+            'kupec': PartnerForeignKeyRawIdWidget(model._meta.get_field('kupec').rel, site),
+        }
 
 
 class ProdajaLastnineCreateForm(forms.ModelForm):
@@ -33,6 +42,7 @@ class ProdajaLastnineCreateForm(forms.ModelForm):
         )
         widgets = {
             'datum_predaje': DateInput(),
+            'placnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('placnik').rel, site),
         }
 
 class ProdajaLastnineUpdateForm(forms.ModelForm):
@@ -55,6 +65,7 @@ class ProdajaLastnineUpdateForm(forms.ModelForm):
         )
         widgets = {
             'datum_predaje': DateInput(),
+            'placnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('placnik').rel, site),
         }
 
 class NajemLastnineCreateForm(forms.ModelForm):
@@ -80,6 +91,7 @@ class NajemLastnineCreateForm(forms.ModelForm):
         widgets = {
             'predaja_datum': DateInput(),
             'veljavnost_datum': DateInput(),
+            'placnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('placnik').rel, site),
         }
 
 
@@ -124,4 +136,5 @@ class NajemLastnineVraciloForm(forms.ModelForm):
             'predaja_datum': DateInput(),
             'veljavnost_datum': DateInput(),
             'vracilo_datum': DateInput(),
+            'placnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('placnik').rel, site),
         }
