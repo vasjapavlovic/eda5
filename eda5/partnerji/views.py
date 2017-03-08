@@ -14,7 +14,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, T
 from django.utils.html import escape  # popup
 
 from .forms import PartnerCreateForm, PartnerUpdateForm, PartnerSearchForm
-from .forms import OsebaCreateForm, OsebaUpdateForm, OsebaCreateWidget, TrrCreateWidget, UvozPartnerjiCsvForm, PostaCreateForm
+from .forms import OsebaCreateForm, OsebaUpdateForm, OsebaSearchForm
+from .forms import OsebaCreateWidget, TrrCreateWidget, UvozPartnerjiCsvForm, PostaCreateForm
 
 from .models import Partner, Oseba, TRRacun, Banka, Posta
 
@@ -205,12 +206,19 @@ class PartnerPopupCreateView(CreateView):
                 }
             )
 
-
+# POP UP
 from eda5.core.views import FilteredListView
 class PartnerPopUpListView(FilteredListView):
     model = Partner
     form_class= PartnerSearchForm
-    template_name = "partnerji/partner/popup/popup_list.html"
+    template_name = "partnerji/partner/popup/popup_base.html"
+    paginate_by = 10
+
+
+class OsebaPopUpListView(FilteredListView):
+    model = Oseba
+    form_class= OsebaSearchForm
+    template_name = "partnerji/oseba/popup/popup_base.html"
     paginate_by = 10
 
 

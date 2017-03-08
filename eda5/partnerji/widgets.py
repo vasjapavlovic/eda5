@@ -37,3 +37,12 @@ class PartnerManyToManyRawIdWidget(ManyToManyRawIdWidget):
         popupplus = render_to_string(popup_template, {'field': name})
         return html+popupplus
 
+
+class OsebaForeignKeyRawIdWidget(ForeignKeyRawIdWidget):
+    
+    def render(self, name, *args, **kwargs):
+        popup_template = "partnerji/oseba/popup/popup_link.html"
+        html = super(OsebaForeignKeyRawIdWidget, self).render(name, *args, **kwargs)
+        popupplus = render_to_string(popup_template, {'field': name})
+        return html+popupplus
+

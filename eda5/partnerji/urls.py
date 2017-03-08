@@ -27,4 +27,5 @@ urlpatterns += [
 # Oseba
 urlpatterns += [
     url(r'^oseba_create/$', views.OsebaCreateView.as_view(), name='oseba_create'),
+    url(r'^oseba/popup-list/?$', views.OsebaPopUpListView.as_view(), name='oseba_popup_list'),
 ]
