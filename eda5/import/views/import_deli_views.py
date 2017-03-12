@@ -22,14 +22,16 @@ from eda5.deli.forms import \
     skupina_forms,\
     podskupina_forms, \
     projektnomesto_forms, \
-    deli_lokacija_forms
+    deli_lokacija_forms, \
+    delstavbe_forms
 
 # Deli MODELS
 from eda5.deli.models import \
     Skupina, \
     Podskupina, \
     DelStavbe, \
-    Lokacija
+    Lokacija, \
+    ProjektnoMesto  
 
 # Katalog MODELS
 from eda5.katalog.models import \
@@ -61,7 +63,10 @@ class DeliUvozPodatkovView(TemplateView):
     def post(self, request, *args, **kwargs):
         csv_file_path_form = import_common_forms.CsvFilePath(request.POST or None, request.FILES)
         deli_uvoz_form = import_deli_forms.DeliUvozCsvForm(request.POST or None)
-
+        delstavbe_create_form = delstavbe_forms.DelCreateForm(request.POST or None)
+        projektnomesto_create_form = projektnomesto_forms.ProjektnoMestoCreateForm(request.POST or None)
+        
+    
 
         def get_file_data(csv_file):
 
@@ -88,13 +93,13 @@ class DeliUvozPodatkovView(TemplateView):
 
             rows = io.StringIO(vsebina)
 
-
             seznam = csv.DictReader(rows, delimiter=",")
+
 
             return seznam, linux_user
 
 
-        def import_deli_skupine(csv_file):
+        def import_deli_skupinecsv_file():
 
             seznam, linux_user = get_file_data(csv_file)
 
@@ -149,153 +154,181 @@ class DeliUvozPodatkovView(TemplateView):
             seznam, linux_user = get_file_data(csv_file)
             
 
+            # CREATED
             deli_stavbe_records_added = 0
             projektno_mesto_records_added = 0
+
+            # UPDATED
+            deli_stavbe_records_updated = 0
+            projektno_mesto_records_updated = 0
 
 
             for row in seznam:
 
+                ##############################################################################################
+                # ATRIBUTI iz SEZNAMA
+                #---------------------------------------------------------------------------------------------
 
-                # try:
-                # default vrednost shranimo v parametre za nadaljno uporabo
-                stavba_oznaka = row['stavba']
-
+                # Pridobimo atribute iz seznama
                 projektnomesto_oznaka = row['oznaka']
+                projektnomesto_naziv = row['naziv']
                 projektnomesto_tip_elementa = row['tip_elementa']
                 projektnomesto_bim_id = row['bim_id']
                 klasifikacija = row['klasifikacija']
                 projektnomesto_lokacija = row['lokacija']
+                stavba_oznaka = row['stavba']
 
+                errors = []
+
+                # klasifikacijo razdelimo na več atributov
                 # skupina, podskupina, delstavbe se pridobi iz klasifikacije
                 # npr. A_AA_AA01_Naziv
                 eda5, skupina_oznaka, podskupina_oznaka, delstavbe_oznaka, ostanek = klasifikacija.split("_", 4)
                 # še naziv dela stavbe
                 delstavbe_naziv, ostanek2 = ostanek.split(".", 1)
 
-
                 # pridobimo ločene podatke o tipu artikla
                 tip_artikla_oznaka, tip_artikla_naziv = projektnomesto_tip_elementa.split("_", 1)
 
-
                 ##############################################################################################
                 # DEL STAVBE
                 #---------------------------------------------------------------------------------------------
                 
-                # Atributi
+                # 'oznaka',
+                # 'naziv', 
+                # 'funkcija', 
+                # 'bim_id',
+                # 'podskupina',
 
-                    # pridobimo osnovne atribute za vnos
-                    # 'oznaka',
-                    # 'naziv', 
-                    # 'funkcija', 
-                    # 'bim_id',
-                    # 'podskupina',
+                delstavbe_oznaka = delstavbe_oznaka
+                delstavbe_naziv = delstavbe_naziv
+                delstavbe_funkcija = 'NA'
+                delstavbe_bim_id = 'NA'
+                delstavbe_podskupina_id = Podskupina.objects.get(oznaka=podskupina_oznaka).id
 
-                # pridobimo instanco podskupine dela stavbe
-                podskupina = Podskupina.objects.get(oznaka=podskupina_oznaka)
-                podskupina_id = podskupina.pk
+                delstavbe_data = {
+                    'oznaka': delstavbe_oznaka,
+                    'naziv': delstavbe_naziv,
+                    'funkcija': delstavbe_funkcija,
+                    'bim_id': delstavbe_bim_id,
+                    'podskupina': delstavbe_podskupina_id,
+                }
+                print(delstavbe_data)
+                print(row)
+                
+                # CREATE
+                # ------------------------------------------------------------
+                if not DelStavbe.objects.filter(oznaka=delstavbe_oznaka).exists():
+                    print("Izdelava dela stavbe...")
+                    
+                    # definiramo FORM za vnos stavb
+                    delstavbe_create_form = delstavbe_forms.DelCreateForm(delstavbe_data)
+                    print('Kontrolna točka 1')
+                    if delstavbe_create_form.is_valid():
+                        print('Kontrolna točka 2')
+                        # shranimo podakte
+                        delstavbe_create_form.save()
+                        # število dodanih vnosov povečamo za 1
+                        deli_stavbe_records_added += 1
+                        print("Del stavbe '%s' je bil dodan" % (delstavbe_data['oznaka']))
 
+                    else:
+                        errors.append(delstavbe_create_form.errors)
+                        print(errors)
 
-                # preimenujemo atribute stavbe na seznamu
-                row['oznaka'] = delstavbe_oznaka
-                row['naziv'] = delstavbe_naziv
-                row['bim_id'] = "NA"
-                row['podskupina'] = podskupina_id
-
-                # definiramo FORM za vnos stavb
-                delstavbe_prostor_create_form = deli_lokacija_forms.DelStavbeProstorCreateForm(row)
-
-                # če je FORM pravilno izpolnjen shranimo podatke
-                if delstavbe_prostor_create_form.is_valid():
-                    # shranimo podakte
-                    delstavbe_prostor_create_form.save()
-                    # število dodanih vnosov povečamo za 1
-                    deli_stavbe_records_added += 1
-                    print("DEL STAVBE JE BIL VNEŠEN")
-
-                #---------------------------------------------------------------------------------------------
-                # DEL STAVBE
-                ##############################################################################################
 
                 ##############################################################################################
                 # PROJEKTNO MESTO
                 #---------------------------------------------------------------------------------------------
+
+                # 'oznaka',
+                # 'naziv',
+                # 'funkcija',
+                # 'bim_id',
+                # 'tip_elementa',
+                # 'lokacija',
+                # 'del_stavbe',
+
+                projektnomesto_oznaka = projektnomesto_oznaka
+                projektnomesto_naziv = projektnomesto_naziv
+                projektnomesto_funkcija = 'NA'
+                projektnomesto_bim_id = projektnomesto_bim_id
+
+                projektnomesto_tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+
+                projektnomesto_lokacija = Lokacija.objects.get(prostor__oznaka=projektnomesto_lokacija)
+
+                projektnomesto_del_stavbe = DelStavbe.objects.get(oznaka=delstavbe_oznaka)
+
+                projektnomesto_data = {
+                    'oznaka': projektnomesto_oznaka,
+                    'naziv': projektnomesto_naziv,
+                    'funkcija': projektnomesto_funkcija,
+                    'bim_id': projektnomesto_bim_id,
+                    'tip_elementa': projektnomesto_tip_elementa,
+                    'lokacija': projektnomesto_lokacija,
+                    'del_stavbe': projektnomesto_del_stavbe,
+                }
+
                 
-                # Atributi
+                # CREATE
+                # ------------------------------------------------------------
+                # BIM_ID je unikaten
+                if not ProjektnoMesto.objects.filter(bim_id=projektnomesto_bim_id).exists():
+                    
+                    # definiramo FORM za vnos stavb
+                    projektnomesto_create_form = projektnomesto_forms.ProjektnoMestoCreateForm(projektnomesto_data)
 
-                    # 'oznaka',
-                    # 'naziv',
-                    # 'funkcija',
-                    # 'bim_id',
-                    # 'tip_elementa',
-                    # 'lokacija',
-                    # 'del_stavbe',
+                    if projektnomesto_create_form.is_valid():
+                        # shranimo podakte
+                        projektnomesto_create_form.save()
+                        # število dodanih vnosov povečamo za 1
+                        deli_stavbe_records_added += 1
+                        print("Projektno mesto '%s' je bilo vnešeno" % (projektnomesto_data['oznaka']))
 
+                    else:
+                        # Če se pojavi napaka pri validaciji jo izpiši
+                        errors.append(projektnomesto_create_form.errors)
+                        print(errors)
+
+
+                # UPDATE
+                # ------------------------------------------------------------
                 
-                delstavbe = DelStavbe.objects.get(oznaka=delstavbe_oznaka)
-                delstavbe_id = delstavbe.pk
+                else:
+                    # p1.__dict__.update(mydatadict)
+                    # p1.save()
+                    # pridobimo instanco Projektnega mesta
+                    instance = ProjektnoMesto.objects.get(bim_id=projektnomesto_bim_id)
+                    # posodobimo podatke
+                    instance.oznaka = projektnomesto_data['oznaka']
+                    instance.naziv = projektnomesto_data['naziv']
+                    instance.funkcija = projektnomesto_data['funkcija']
+                    instance.bim_id = projektnomesto_data['bim_id']
+                    instance.tip_elementa = projektnomesto_data['tip_elementa'].id
+                    instance.lokacija = projektnomesto_data['lokacija'].id
+                    instance.del_stavbe = projektnomesto_data['del_stavbe'].id
+                    # shranimo spremembe
+                    instance.save()
 
-                print(tip_artikla_oznaka)
-                tip_artikla = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
-                print(tip_artikla.naziv)
-                tip_artikla_id = tip_artikla.pk
-
-
-                # pridobimo instanco prostora
-                lokacija = Lokacija.objects.get(prostor__oznaka=projektnomesto_lokacija)
-                lokacija_id = lokacija.pk
-
-
-                # preimenujemo atribute stavbe na seznamu
-                row['oznaka'] = projektnomesto_oznaka
-                row['naziv'] = "NA"
-                row['bim_id'] = projektnomesto_bim_id
-                row['tip_elementa'] = tip_artikla_id
-                row['lokacija'] = lokacija_id
-                row['del_stavbe'] = delstavbe_id
-
-                # definiramo FORM za vnos
-                projektnomesto_create_form = projektnomesto_forms.ProjektnoMestoCreateForm(row)
-
-                # če je FORM pravilno izpolnjen shranimo podatke
-                if projektnomesto_create_form.is_valid():
-                    # shranimo podakte
-                    projektnomesto_create_form.save()
-                    # število dodanih vnosov povečamo za 1
-                    projektno_mesto_records_added += 1
-                    print("PROJEKTNO-MESTO JE BILO VNEŠENO")
-
-                #---------------------------------------------------------------------------------------------
-                # PROJEKTNO MESTO
-                ##############################################################################################
-
-                # except:
-                #     return messages.error(request, "NEKAJ JE BILO NAROBE")
+                    # števec vnosov povečamo za 1
+                    projektno_mesto_records_updated += 1
+                    print("Projektno mesto '%s' je bilo posodobljeno" % (projektnomesto_data['oznaka']))
 
 
 
             ''' izbrišemo temp direktorij '''
             shutil.rmtree("/home/%s/temp" % (linux_user))
 
-            return messages.success(request, "DELI STAVBE:%s, PROJEKTNA MESTA:%s" % (deli_stavbe_records_added, projektno_mesto_records_added))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return messages.success(
+                request, 
+                "DELI STAVBE: Created-%s|Updated-%s, PROJEKTNA MESTA: Created-%s|Updated-%s" % (
+                    deli_stavbe_records_added, 
+                    deli_stavbe_records_updated, 
+                    projektno_mesto_records_added, 
+                    projektno_mesto_records_updated
+                )
+            )
 
 
 

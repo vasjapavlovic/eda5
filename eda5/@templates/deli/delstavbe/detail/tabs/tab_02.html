@@ -1,28 +1,59 @@
-<table class="table table-bordered table-hover">
-    <tr>
-        <th>Oznaka Projektnega Mesta</th>
-        <th>Naziv Projektnega Mesta</th>
-        <th>Artikel</th>
-    </tr>
+<!-- PROJEKTNA MESTA -->
 
-    {% for projektno_mesto in object.projektna_mesta_aktivna %}
+<!-- Ko še ni registriranih vnosov -->
+{% if not object.projektna_mesta_aktivna %}
+    Del stavbe še nima dodanih projektnih mest.
 
-    <tr>
-        <td><h1><a href="{% url 'moduli:deli:projektnomesto_detail' projektno_mesto.pk %}"><b style="color:#0000FF">{{ projektno_mesto.oznaka }}</b></a></h1></td>
-        <td><b>{{ projektno_mesto.naziv }}</b><br><i>{{ projektno_mesto.tip_elementa.naziv }}</i></td>
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>Oznaka Projektnega Mesta</th>
+                <th>Naziv Projektnega Mesta</th>
+                <th>Artikel</th>
+                <th>Lokacija</th>
+                <th>Etaža</th>
+                <th>Lokacija</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for projektno_mesto in object.projektna_mesta_aktivna %}
+
+            <tr>
+                <td>
+                    <a href="{% url 'moduli:deli:projektnomesto_detail' projektno_mesto.pk %}"><b>{{ projektno_mesto.oznaka }}</b></a>
+                </td>
+                <td>
+                    <b>{{ projektno_mesto.naziv }}</b>
+                    <br>{{ projektno_mesto.tip_elementa.naziv }}
+                </td>
 
 
-        <!-- Podatki o artiklu -->
-        {% if projektno_mesto.element %}
+                <!-- Podatki o artiklu -->
+                {% if projektno_mesto.element %}
 
-        <td>Serijska številka: {{ projektno_mesto.aktiven_element.serijska_st }} | Tovarniška številka: {{ projektno_mesto.aktiven_element.serijska_st }}<br>{{ projektno_mesto.aktiven_element.artikel.naziv }}<br><i>{{ projektno_mesto.aktiven_element.artikel.proizvajalec.naziv }}</i></td>
+                <td>Serijska številka: {{ projektno_mesto.aktiven_element.serijska_st }} | Tovarniška številka: {{ projektno_mesto.aktiven_element.serijska_st }}<br>{{ projektno_mesto.aktiven_element.artikel.naziv }}<br>{{ projektno_mesto.aktiven_element.artikel.proizvajalec.naziv }}</td>
 
-        {% else %}
+                {% else %}
 
-        <td><b>Artikel ni definiran!</b></td>
+                <td><b>Artikel ni definiran!</b></td>
 
-        {% endif %}
-    </tr>
+                {% endif %}
 
-    {% endfor %}
-</table>
+                <td>{{ projektno_mesto.lokacija.prostor.oznaka }}</td>
+
+                <td>{{ projektno_mesto.lokacija.etaza.oznaka }}</td>
+
+                <td>{{ projektno_mesto.lokacija }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endif %}

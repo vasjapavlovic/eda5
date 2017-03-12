@@ -7,8 +7,8 @@
             <div class="panel-heading">
                 
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#za_arhiviranje">Za Arhiviranje</a></li>
-                    <li><a data-toggle="tab" href="#arhivirano">Arhivirano</a></li>
+                    <li class="active"><a data-toggle="tab" href="#za_arhiviranje">Vsa prejeta pošta</a></li>
+
                 </ul>
                 <!--end nav-tabs-->
 
@@ -24,18 +24,12 @@
                     <!--tab******************************** -->
                     <div id="za_arhiviranje" class="tab-pane active">
                         <div class="profile-desk">
-                        <br>Pošta za Arhiviranje:
+                        <br>Vsa Prejeta Pošta:
                             {% include "posta/dokument/list/tabs/tab_01.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
-                    <!--tab******************************** -->
-                    <div id="arhivirano" class="tab-pane">
-                        <div class="profile-desk">
-                        <br>Arhivirana Pošta:
-                            {% include "posta/dokument/list/tabs/tab_02.html" %}  
-                        </div> <!-- end profile-desk -->
-                    </div> <!-- end tab -->
+
 
 
                     </div>

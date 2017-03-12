@@ -25,6 +25,7 @@ class Stavba(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
 
     # ATRIBUTES
+    #===================================
 
 
     oznaka = models.CharField(
@@ -41,6 +42,7 @@ class Stavba(TimeStampedModel, IsActiveModel):
 
 
     # META AND STRING
+    #===================================
     class Meta:
         verbose_name = "Stavba"
         verbose_name_plural = "Stavbe"
@@ -54,6 +56,7 @@ class Etaza(TimeStampedModel, IsActiveModel):
 
 
     # ATRIBUTES
+    #===================================
 
     oznaka = models.CharField(
         max_length=50, unique=True,
@@ -78,6 +81,7 @@ class Etaza(TimeStampedModel, IsActiveModel):
 
 
     # META AND STRING
+    #===================================
     class Meta:
         verbose_name = "Etaža"
         verbose_name_plural = "Etaže"
@@ -90,6 +94,7 @@ class Etaza(TimeStampedModel, IsActiveModel):
 class Lokacija(TimeStampedModel, IsActiveModel):
 
     # ATRIBUTES
+    #===================================
 
     prostor = models.OneToOneField(
         "DelStavbe",
@@ -102,35 +107,51 @@ class Lokacija(TimeStampedModel, IsActiveModel):
     )
 
     # META AND STRING
+    #===================================
     class Meta:
         verbose_name = "Lokacija"
         verbose_name_plural = "Lokacije"
         ordering = ["prostor__oznaka", ]
 
     def __str__(self):
-        return "%s. %s" % (self.prostor.oznaka, self.etaza.oznaka)
+        return "Prostor: %s | Etaža: %s" % (self.prostor.oznaka, self.etaza.oznaka)
 
 
 
 class Skupina(TimeStampedModel, IsActiveModel):
+
     # ---------------------------------------------------------------------------------------
+    # Skupina delov stavbe združuje dele stavbe (glej spodaj deli stavbe) glede na vrsto.
+    # npr. Sistem, Naprava, Gradbeni element, Prostor, Oprema
+    # ---------------------------------------------------------------------------------------
+
     # ATRIBUTES
-    # ***Relations***
-    # ***Mandatory***
-    oznaka = models.CharField(max_length=20, unique=True)
-    naziv = models.CharField(max_length=255)
-    # ***Optional***
+    #===================================
+
+    # oznaka skupina
+    oznaka = models.CharField(
+        max_length=20, unique=True,
+    )
+
+    # naziv skupina
+    naziv = models.CharField(
+        max_length=255,
+    )
+
 
     # OBJECT MANAGER
+    #===================================
     objects = managers.SkupinaDelovManagers()
 
     # CUSTOM PROPERTIES
+    #===================================
     @property
     def sorted_podskupinadelov_set(self):
         return self.podskupina_set.order_by('oznaka')
     # METHODS
 
     # META AND STRING
+    #===================================
     class Meta:
         ordering = ['oznaka']
         verbose_name = 'skupina delov'
@@ -141,26 +162,45 @@ class Skupina(TimeStampedModel, IsActiveModel):
 
 
 class Podskupina(TimeStampedModel, IsActiveModel):
+
     # ---------------------------------------------------------------------------------------
+    # Podskupina delov stavbe združuje dele stavbe (glej spodaj deli stavbe) glede na
+    # funkcionalnost. Npr. Ogrevanje in haljenje, Vodovod in kanalizacija, Streha, Fasada,...
+    # ---------------------------------------------------------------------------------------
+
     # ATRIBUTES
+    #===================================
     # ***Relations***
-    skupina = models.ForeignKey(Skupina)
-    # ***Mandatory***
-    oznaka = models.CharField(max_length=20, unique=True)
-    naziv = models.CharField(max_length=255)
+    skupina = models.ForeignKey(
+        Skupina
+    )
+
+    # oznaka podskupine
+    oznaka = models.CharField(
+        max_length=20, unique=True,
+    )
+
+    # naziv podskupine
+    naziv = models.CharField(
+        max_length=255,
+    )
     # ***Optional***
 
     # OBJECT MANAGER
+    #===================================
     objects = managers.PodskupinaDelovManagers()
 
     # CUSTOM PROPERTIES
+    #===================================
     @property
     def sorted_delstavbe_set(self):
         return self.delstavbe_set.order_by('oznaka')
 
     # METHODS
+    #===================================
 
     # META AND STRING
+    #===================================
     class Meta:
         ordering = ['oznaka']
         verbose_name = 'podskupina delov'
@@ -171,37 +211,56 @@ class Podskupina(TimeStampedModel, IsActiveModel):
 
 
 class DelStavbe(TimeStampedModel, IsActiveModel):
+
+    shema_directory_path = ""
+
+    # ---------------------------------------------------------------------------------------
+    # Del stavbe predstavlja sistem, napravo, prostor, gradbeni element ali opremo, ki je
+    # definirana oziroma oblikovana glede na (1) zaradi skupnega lastništva (2) smiselno po 
+    # funkcionalnosti-razdelitev na več delov tudi v primeru enega lastnika zaradi smiselne
+    # funkcionalnosti. Del stabe združuje projektna mesta na katerih se vodi servisna knjiga,
+    # imajo planirane aktivnosti, ki so del plana obratovanja in vzdrževanja.
     # ---------------------------------------------------------------------------------------
 
-    def shema_directory_path(instance, filename):
-        # file will be uploaded to MEDIA_ROOT/deli/<del_oznaka>/<new_filename>
-        new_filename_raw = filename.split(".")
-        ext = '.' + new_filename_raw[1]
-
-        parametri_imena = (instance.oznaka, "shema")
-        new_filename = "_".join(parametri_imena)
-
-        return 'deli/{0}/{1}'.format(instance.oznaka, new_filename + ext)
-
     # ATRIBUTES
-    # ***Relations***
-    podskupina = models.ForeignKey(Podskupina)
-    lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True, verbose_name="lastniška skupina",)
-    # ***Mandatory***
-    oznaka = models.CharField(max_length=50, unique=True)
-    naziv = models.CharField(max_length=255)
-    # dodaj funkcijo dela stavbe (sistema)
-    # ***Optional***
-    funkcija = models.CharField(max_length=255, blank=True, null=True, verbose_name="funkcija sistema")
-    #shema = models.FileField(upload_to=shema_directory_path, blank=True, verbose_name="shema sistema")
+    #===================================
+    
+    # oznaka dela stavbe
+    oznaka = models.CharField(
+        max_length=50, unique=True,
+    )
+
+    # naziv dela stavbe
+    naziv = models.CharField(
+        max_length=255,
+    )
+
+    # funkcijo dela stavbe (sistema)
+    funkcija = models.CharField(
+        max_length=255, blank=True, null=True, 
+        verbose_name="funkcija sistema"
+    )
 
     # BIM ID. Navezava na BIM program
     bim_id = models.CharField(
         max_length=100, blank=True, null=True, 
-        verbose_name='BIM ID')
+        verbose_name='BIM ID'
+    )
+
+    #R# lastniška skupina - kdo je lastnik
+    lastniska_skupina = models.ForeignKey(
+        LastniskaSkupina, blank=True, null=True, 
+        verbose_name="lastniška skupina",
+    )
+
+    #R# klasifikacija v podskupino
+    podskupina = models.ForeignKey(
+        Podskupina,
+    )
 
 
     # OBJECT MANAGER
+    #===================================
     objects = managers.DelManagers()
 
     # CUSTOM PROPERTIES
@@ -217,10 +276,12 @@ class DelStavbe(TimeStampedModel, IsActiveModel):
 
 
     # METHODS
+    #===================================
     def get_absolute_url(self):
         return reverse('moduli:deli:del_detail', kwargs={'pk': self.pk})
 
     # META AND STRING
+    #===================================
     class Meta:
         ordering = ['oznaka']
         verbose_name = 'del stavbe'
@@ -233,6 +294,7 @@ class DelStavbe(TimeStampedModel, IsActiveModel):
 
 
 class ProjektnoMesto(TimeStampedModel, IsActiveModel):
+
     # ---------------------------------------------------------------------------------------
     # Projektno mesto definira pozicijo v stavbi kamor se vgrajujejo elementi ( glej spodaj
     # models Element. Projektno mesto določajo oznaka, naziv ter funkcija elementa, ki bo tu
@@ -243,6 +305,7 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
 
     # ATRIBUTES
+    #===================================
 
     # OZNAKA projektnega mesta: npr. 09AA25 kjer pomeni 09 (deveti) element
     # v sistemu z oznako AA25
@@ -283,9 +346,11 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
 
 
     # OBJECT MANAGER
+    #===================================
     objects = managers.ProjektnoMestoManagers()
 
     # CUSTOM PROPERTIES
+    #===================================
     @property
     def aktiven_element(self):  # element ki je trenutno aktiven pod posameznim projektnim mestom
         element = self.element_set.filter(is_active=True)[0]
@@ -310,7 +375,7 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
             #splošni tip elementa
             splosni_tip_elementa = TipArtikla.objects.get(oznaka="splosno")
 
-            projektno_mesto = ProjektnoMesto(oznaka=oznaka_projektnega_mesta, naziv="Splošni del stavbe", funkcija="Splošni del stavbe", tip_elementa=splosni_tip_elementa, del_stavbe=instance)
+            projektno_mesto = ProjektnoMesto(oznaka=oznaka_projektnega_mesta, naziv="splošno", funkcija="-", tip_elementa=splosni_tip_elementa, del_stavbe=instance)
 
             projektno_mesto.save()
 
@@ -318,6 +383,7 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
         return reverse('moduli:deli:del_detail', kwargs={'pk': self.del_stavbe.pk})
 
     # META AND STRING
+    #===================================
     class Meta:
         ordering = ["oznaka", ]
         verbose_name = "projektno mesto"
@@ -347,6 +413,7 @@ class Element(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
 
     # ATRIBUTES
+    #===================================
 
     # TOVARNIŠKA ŠTEVILKA proizvajalca predstavlja točno številko izdelanega proizvoda
     tovarniska_st = models.CharField(
@@ -370,13 +437,17 @@ class Element(TimeStampedModel, IsActiveModel):
 
 
     # OBJECT MANAGER
+    #===================================
     objects = managers.ElementManagers()
 
     # CUSTOM PROPERTIES
+    #===================================
 
     # METHODS
+    #===================================
 
     # META AND STRING
+    #===================================
     class Meta:
         verbose_name = 'element'
         verbose_name_plural = 'elementi'
@@ -391,6 +462,7 @@ class Element(TimeStampedModel, IsActiveModel):
 class Nastavitev(TimeStampedModel, IsActiveModel):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
+    #===================================
     #   Relations
     element = models.ForeignKey(Element)
     obratovalni_parameter = models.ForeignKey(ObratovalniParameter)
@@ -400,10 +472,14 @@ class Nastavitev(TimeStampedModel, IsActiveModel):
     vrednost = models.CharField(max_length=20)
     #   Optional
     # OBJECT MANAGER
+    #===================================
     # CUSTOM PROPERTIES
+    #===================================
     # METHODS
+    #===================================
 
     # META AND STRING
+    #===================================
     class Meta:
         verbose_name = "nastavitev"
         verbose_name_plural = "nastavitve"

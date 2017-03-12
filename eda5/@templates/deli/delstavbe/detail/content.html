@@ -1,45 +1,32 @@
-<!-- zahtevek detail : NAVIGACIJA_MENU -->
-
-
 
 <div class="row m-t-30">
     <div class="col-sm-12">
-        <div class="panel panel-default p-0">
-            <div class="panel-body p-0"> 
+        <div class="panel with-nav-tabs panel-default">
 
-
-
-                <!--nav-tabs-->              
-                <ul class="nav nav-tabs profile-tabs">
-                    <li class="active"><a data-toggle="tab" href="#izkaznica"><b>I</b>zkaznica</a></li>
-                    <li><a data-toggle="tab" href="#elementi"><b>E</b>lementi</a></li>
-                    <li><a data-toggle="tab" href="#lastniki"><b>L</b>astniki</a></li>
-
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#elementi">Elementi</a></li>
+                    <li><a data-toggle="tab" href="#porocanje">Poročanje</a></li>
+                    <li><a data-toggle="tab" href="#lastniki">Lastniki</a></li>
                 </ul>
-                <!--end nav-tabs-->
+            </div>
 
-
-
-                <!--tab-content-->
-                <div class="tab-content m-0"> 
-
-
+            <div class="panel-body" > 
+                <div class="tab-content">
 
                     <!--tab******************************** -->
-                    <div id="izkaznica" class="tab-pane active">
+                    <div id="elementi" class="tab-pane active">
                         <div class="profile-desk">
-                            <h1>IZKAZNICA :</h1>
-                            {% include "deli/delstavbe/detail/tabs/tab_01.html" %}  
+                            {% include "deli/delstavbe/detail/tabs/tab_02.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
 
 
                     <!--tab******************************** -->
-                    <div id="elementi" class="tab-pane">
+                    <div id="porocanje" class="tab-pane">
                         <div class="profile-desk">
-                            <h1>ELEMENTI :</h1>
-                            {% include "deli/delstavbe/detail/tabs/tab_02.html" %}  
+                            {% include "deli/delstavbe/detail/tabs/tab_01.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
@@ -48,7 +35,6 @@
                     <!--tab******************************** -->
                     <div id="lastniki" class="tab-pane">
                         <div class="profile-desk">
-                            <h1>LASTNIKI :</h1>
                             {% include "deli/delstavbe/detail/tabs/tab_03.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -56,11 +42,11 @@
 
 
                 </div>
-                <!--end tab-content-->
-
-
-
             </div>
+            
         </div>
     </div>
 </div>
+
+
+

@@ -14,11 +14,14 @@ from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 from django.utils import timezone
 
-from .forms import AktivnostCreateForm, DokumentCreateForm, SkupinaDokumentaIzbiraForm
+from .forms import AktivnostCreateForm, DokumentCreateForm, DokumentSearchForm, SkupinaDokumentaIzbiraForm
 from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
 
 from eda5.arhiv.forms import ArhiviranjeCreateForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto, Arhiv
+
+# core
+from eda5.core.views import FilteredListView
 
 from eda5.nastavitve.models import NastavitevPartnerja
 
@@ -31,8 +34,9 @@ class PostaHomeView(TemplateView):
     template_name = "posta/home.html"
 
 
-class DokumentListView(ListView):
+class DokumentListView(FilteredListView):
     model = Dokument
+    form_class= DokumentSearchForm
     template_name = "posta/dokument/list/base.html"
     paginate_by = 10
 
@@ -40,50 +44,12 @@ class DokumentListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(DokumentListView, self).get_context_data(*args, **kwargs)
 
-        # dokumentacija za arhiviranje
-        za_arhiviranje_list = Dokument.objects.filter(arhiviranje__isnull=True)
-        context['za_arhiviranje_list'] = za_arhiviranje_list
-
-        # arhivirana dokumentacija
-        arhivirano_list = Dokument.objects.filter(arhiviranje__isnull=False)
-        context['arhivirano_list'] = arhivirano_list
-
-        # dokumenti
-        vrste_dokumentov = VrstaDokumenta.objects.all()
-        context['vrste_dokumentov'] = vrste_dokumentov
-
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_LIST")
         context['modul_zavihek'] = modul_zavihek
 
         return context
 
-
-    def get_queryset(self):
-        # Fetch the queryset from the parent get_queryset
-        queryset = super(DokumentListView, self).get_queryset()
-
-        queryset = queryset.order_by("-aktivnost__created")
-
-        # Definiramo vse vrste dokumentov
-        vrste_dokumentov = VrstaDokumenta.objects.all()
-
-        # Iskalnik
-        # Pridobimo parameter "name=q"
-        q = self.request.GET.get("q")
-
-        if q:
-            # return filtered queryset
-            queryset = queryset.filter(
-                Q(oznaka__icontains=q) |
-                Q(naziv__icontains=q) |
-                Q(avtor__kratko_ime__icontains=q) |
-                Q(naslovnik__kratko_ime__icontains=q) |
-                Q(datum_dokumenta__icontains=q) |
-                Q(vrsta_dokumenta__naziv__icontains=q)
-            )
-
-        return queryset
 
         
 

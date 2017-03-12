@@ -32,6 +32,7 @@ class DelStavbeProstorCreateForm(forms.ModelForm):
         fields = (
             'oznaka',
             'naziv', 
+            'funkcija',
             'bim_id',
             'podskupina',
         )

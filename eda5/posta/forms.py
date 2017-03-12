@@ -1,6 +1,7 @@
 from functools import partial
 
 from django import forms
+from django.db.models import Q
 from django.utils import timezone
 from django.contrib.admin.sites import site  # popup
 
@@ -86,3 +87,58 @@ class VrstaDokumentaCreateForm(forms.ModelForm):
             'zap_st',
             'skupina',
         )
+
+
+
+
+# SEARCH FORMS
+
+class DokumentSearchForm(forms.Form):
+    oznaka = forms.CharField(label='oznaka', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(DokumentSearchForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['oznaka'] = ""
+        self.initial['naziv'] = ""
+
+    def filter_queryset(self, request, queryset):
+
+        oznaka_filter = self.cleaned_data['oznaka']
+        naziv_filter = self.cleaned_data['naziv']
+
+        # filtriranje samo po oznaki
+        if oznaka_filter and not naziv_filter:
+            return queryset.filter(
+                Q(oznaka__icontains=oznaka_filter)
+            )
+
+        # filtriranje ostalo
+        if naziv_filter and not oznaka_filter:
+            return queryset.filter(
+                Q(avtor__kratko_ime__icontains=naziv_filter) |
+                Q(avtor__davcna_st__icontains=naziv_filter) |
+                Q(naslovnik__davcna_st__icontains=naziv_filter) |
+                Q(naslovnik__kratko_ime__icontains=naziv_filter) |
+                Q(naziv__icontains=naziv_filter)
+            )
+        
+
+        # uporabnik filtrira po kratkem imenu in naslovu partnerja
+        if oznaka_filter and naziv_filter:
+            return queryset.filter(
+                (
+                    Q(oznaka__icontains=oznaka_filter)
+                ) &
+                (
+                    Q(avtor__kratko_ime__icontains=naziv_filter) |
+                    Q(avtor__davcna_st__icontains=naziv_filter) |
+                    Q(naslovnik__davcna_st__icontains=naziv_filter) |
+                    Q(naslovnik__kratko_ime__icontains=naziv_filter) |
+                    Q(naziv__icontains=naziv_filter)
+                )
+            )
+
+        return queryset

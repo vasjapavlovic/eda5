@@ -29,15 +29,16 @@ class Program(models.Model):
 
 class LastniskaEnotaElaborat(models.Model):
     # ATRIBUTES
-    # __Relations
-    program = models.ForeignKey(Program, blank=True, null=True)
-    posta = models.ForeignKey(Posta, verbose_name='pošta')
+    
     # __Mandatory
     oznaka = models.CharField(max_length=4, unique=True, verbose_name='številka dela stavbe')
-    naslov = models.CharField(max_length=255)
     opis = models.CharField(max_length=255, blank=True)
+    naslov = models.CharField(max_length=255)
+    posta = models.ForeignKey(Posta, verbose_name='pošta')
     povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
     lastniski_delez = models.DecimalField(decimal_places=4, max_digits=5, blank=True, null=True, verbose_name="lastniški delež")
+
+    program = models.ForeignKey(Program, blank=True, null=True)
 
     # __Optional
     # OBJECT MANAGER
@@ -59,17 +60,45 @@ class LastniskaEnotaElaborat(models.Model):
         return "%s | %s, %s" % (self.oznaka, self.naslov, self.posta)
 
 
+
+# Interna lastniška enote predstavlja del stavbe - prostor -, ki je
+# namenjen prodaji ali najemu. Potreben je iz razloga, ker je
+# Lastniška enota po elaboratu etažne lastnine skupek prostorv, ki se
+# oddajajo v najem različnim najemnikom
+
 class LastniskaEnotaInterna(models.Model):
     # ATRIBUTES
-    # __Relations
-    elaborat = models.ForeignKey(LastniskaEnotaElaborat)
-    # __Mandatory
-    oznaka = models.CharField(max_length=5, unique=True, verbose_name='interna številka dela stavbe')
-    # __Optional
-    #______delež v obliki :  0.9999
-    lastniski_delez = models.DecimalField(decimal_places=4, max_digits=5, blank=True, verbose_name="lastniški delež")
-    povrsina_tlorisna_neto = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='neto tlorisna površina')
-    st_oseb = models.DecimalField(max_digits=2, decimal_places=1, blank=True, verbose_name="število oseb")
+
+    # interna oznaka lastniške enote
+    oznaka = models.CharField(
+        max_length=5, unique=True, 
+        verbose_name='interna številka dela stavbe'
+    )
+
+    # lastniški delež internega dela
+    lastniski_delez = models.DecimalField(
+        decimal_places=4, max_digits=5, blank=True, 
+        verbose_name="lastniški delež"
+    ) # oblika: 0.9999
+
+    # neto tlorisna površina interne lastniške skupine
+    povrsina_tlorisna_neto = models.DecimalField(
+        max_digits=6, decimal_places=2, 
+        verbose_name='neto tlorisna površina'
+    )
+
+    st_oseb = models.DecimalField(
+        max_digits=2, decimal_places=1, blank=True, 
+        verbose_name="število oseb"
+    )
+    
+    # relacija na elaborat etažne lastnine
+    elaborat = models.ForeignKey(
+        LastniskaEnotaElaborat, 
+        verbose_name='Relacija na Elaborat Etažne Lastnine'
+    )
+
+
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     @property

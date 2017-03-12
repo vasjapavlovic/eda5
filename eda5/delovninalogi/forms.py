@@ -234,10 +234,10 @@ class DelovniNalogVcakanjuModelForm(forms.ModelForm):
         self.fields['nosilec'].required = True
 
         # filtriranje dropdown
-        self.fields['oseba_hidden'].required = False
+        # self.fields['oseba_hidden'].required = False
 
     # zaradi filtriranja "oseba"
-    oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
+    # oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
 
     class Meta:
         model = DelovniNalog
