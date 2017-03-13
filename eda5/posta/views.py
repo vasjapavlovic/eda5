@@ -131,7 +131,6 @@ class DokumentCreateView(TemplateView):
 
         if aktivnost_form.is_valid():
 
-            vrsta_aktivnosti = aktivnost_form.cleaned_data['vrsta_aktivnosti']
             datum_aktivnosti = aktivnost_form.cleaned_data['datum_aktivnosti']
 
             # trenutni logirani uporabnik
