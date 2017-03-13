@@ -12,9 +12,8 @@
             <tr>
                 <th>Oznaka Projektnega Mesta</th>
                 <th>Naziv Projektnega Mesta</th>
+                <th>Funkcija</th>
                 <th>Artikel</th>
-                <th>Lokacija</th>
-                <th>Etaža</th>
                 <th>Lokacija</th>
 
             </tr>
@@ -41,13 +40,12 @@
 
                 {% else %}
 
+
+                <td>{{ projektno_mesto.funkcija }}</td>
+
                 <td><b>Artikel ni definiran!</b></td>
 
                 {% endif %}
-
-                <td>{{ projektno_mesto.lokacija.prostor.oznaka }}</td>
-
-                <td>{{ projektno_mesto.lokacija.etaza.oznaka }}</td>
 
                 <td>{{ projektno_mesto.lokacija }}</td>
             </tr>

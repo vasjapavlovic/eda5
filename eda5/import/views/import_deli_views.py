@@ -99,7 +99,7 @@ class DeliUvozPodatkovView(TemplateView):
             return seznam, linux_user
 
 
-        def import_deli_skupinecsv_file():
+        def import_deli_skupine(csv_file):
 
             seznam, linux_user = get_file_data(csv_file)
 
@@ -172,10 +172,11 @@ class DeliUvozPodatkovView(TemplateView):
                 # Pridobimo atribute iz seznama
                 projektnomesto_oznaka = row['oznaka']
                 projektnomesto_naziv = row['naziv']
+                projektnomesto_funkcija = row['funkcija']
                 projektnomesto_tip_elementa = row['tip_elementa']
                 projektnomesto_bim_id = row['bim_id']
                 klasifikacija = row['klasifikacija']
-                projektnomesto_lokacija = row['lokacija']
+                projektnomesto_prostor = row['prostor']
                 stavba_oznaka = row['stavba']
 
                 errors = []
@@ -213,19 +214,14 @@ class DeliUvozPodatkovView(TemplateView):
                     'bim_id': delstavbe_bim_id,
                     'podskupina': delstavbe_podskupina_id,
                 }
-                print(delstavbe_data)
-                print(row)
                 
                 # CREATE
                 # ------------------------------------------------------------
                 if not DelStavbe.objects.filter(oznaka=delstavbe_oznaka).exists():
-                    print("Izdelava dela stavbe...")
                     
                     # definiramo FORM za vnos stavb
                     delstavbe_create_form = delstavbe_forms.DelCreateForm(delstavbe_data)
-                    print('Kontrolna točka 1')
                     if delstavbe_create_form.is_valid():
-                        print('Kontrolna točka 2')
                         # shranimo podakte
                         delstavbe_create_form.save()
                         # število dodanih vnosov povečamo za 1
@@ -251,23 +247,29 @@ class DeliUvozPodatkovView(TemplateView):
 
                 projektnomesto_oznaka = projektnomesto_oznaka
                 projektnomesto_naziv = projektnomesto_naziv
-                projektnomesto_funkcija = 'NA'
+                projektnomesto_funkcija = projektnomesto_funkcija
                 projektnomesto_bim_id = projektnomesto_bim_id
 
                 projektnomesto_tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+                projektnomesto_tip_elementa_id = projektnomesto_tip_elementa.id
 
-                projektnomesto_lokacija = Lokacija.objects.get(prostor__oznaka=projektnomesto_lokacija)
+                projektnomesto_lokacija = Lokacija.objects.get(prostor__oznaka=projektnomesto_prostor)
+                projektnomesto_lokacija_id = projektnomesto_lokacija.id
 
                 projektnomesto_del_stavbe = DelStavbe.objects.get(oznaka=delstavbe_oznaka)
+                projektnomesto_del_stavbe_id = projektnomesto_del_stavbe.id
 
                 projektnomesto_data = {
                     'oznaka': projektnomesto_oznaka,
                     'naziv': projektnomesto_naziv,
                     'funkcija': projektnomesto_funkcija,
                     'bim_id': projektnomesto_bim_id,
-                    'tip_elementa': projektnomesto_tip_elementa,
-                    'lokacija': projektnomesto_lokacija,
-                    'del_stavbe': projektnomesto_del_stavbe,
+                    'tip_elementa': projektnomesto_tip_elementa_id,
+                    'lokacija': projektnomesto_lokacija_id,
+                    'del_stavbe': projektnomesto_del_stavbe_id,
+                    'tip_elementa_object': projektnomesto_tip_elementa,
+                    'lokacija_object': projektnomesto_lokacija,
+                    'del_stavbe_object': projektnomesto_del_stavbe,
                 }
 
                 
@@ -305,9 +307,9 @@ class DeliUvozPodatkovView(TemplateView):
                     instance.naziv = projektnomesto_data['naziv']
                     instance.funkcija = projektnomesto_data['funkcija']
                     instance.bim_id = projektnomesto_data['bim_id']
-                    instance.tip_elementa = projektnomesto_data['tip_elementa'].id
-                    instance.lokacija = projektnomesto_data['lokacija'].id
-                    instance.del_stavbe = projektnomesto_data['del_stavbe'].id
+                    instance.tip_elementa = projektnomesto_data['tip_elementa_object']
+                    instance.lokacija = projektnomesto_data['lokacija_object']
+                    instance.del_stavbe = projektnomesto_data['del_stavbe_object']
                     # shranimo spremembe
                     instance.save()
 

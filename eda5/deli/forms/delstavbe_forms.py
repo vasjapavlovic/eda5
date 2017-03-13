@@ -13,6 +13,7 @@ class DelCreateForm(forms.ModelForm):
             'oznaka',
             'naziv',
             'funkcija',
+            'bim_id',
             #'shema',
             'lastniska_skupina',
         )

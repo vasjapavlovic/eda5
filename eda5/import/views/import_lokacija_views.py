@@ -18,6 +18,16 @@ from ..forms import \
     import_lokacija_forms, \
     import_deli_forms
 
+
+# Deli FORMS
+from eda5.deli.forms import \
+    skupina_forms,\
+    podskupina_forms, \
+    projektnomesto_forms, \
+    deli_lokacija_forms, \
+    delstavbe_forms
+
+
 # Lokacija FORMS
 from eda5.deli.forms import \
     deli_lokacija_forms, \
@@ -99,108 +109,145 @@ class LokacijaUvozPodatkovView(TemplateView):
 
             seznam, linux_user = get_file_data(csv_file)
             
-
-
+            # CREATED
             stavbe_records_added = 0
             etaze_records_added = 0
             prostori_records_added = 0
             lokacije_records_added = 0
             projektnamesta_records_added = 0
 
+            # UPDATED
+            stavbe_records_updated = 0
+            etaze_records_updated = 0
+            prostori_records_updated = 0
+            lokacije_records_updated = 0
+            projektnamesta_records_updated = 0
+
+
+
             for row in seznam:
 
-                # default vrednost shranimo v parametre za nadaljno uporabo
-                delstavbe_oznaka = row['oznaka']
-                delstavbe_naziv = row['naziv']
-                delstavbe_bim_id = row['bim_id']
-                stavba_oznaka = row['stavba']
+                ##############################################################################################
+                # ATRIBUTI iz SEZNAMA
+                #---------------------------------------------------------------------------------------------
+
+                # Pridobimo atribute iz seznama
+                delstavbe_prostor_oznaka = row['oznaka']
+                delstavbe_prostor_naziv = row['naziv']
+                delstavbe_prostor_funkcija = row['funkcija']
+                delstavbe_prostor_bim_id = row['bim_id']
                 etaza_oznaka = row['etaza']
                 etaza_elevation = row['elevation']
+                stavba_oznaka = row['stavba']
                 delstavbe_klasifikacija = row['klasifikacija']
 
-                # pridobimo ločene podatke klasifikacije
-                eda5, skupina_oznaka, podskupina_oznaka, delstavbe_prostor_oznaka, ostanek = delstavbe_klasifikacija.split("_", 4)
+                errors = []
+
+                # klasifikacijo razdelimo na več atributov
+                # skupina, podskupina, delstavbe se pridobi iz klasifikacije
+                # npr. A_AA_AA01_Naziv
+                eda5, skupina_oznaka, podskupina_oznaka, delstavbe_oznaka, ostanek = delstavbe_klasifikacija.split("_", 4)
+                # še naziv dela stavbe
+                delstavbe_naziv, ostanek2 = ostanek.split(".", 1)
 
 
-                # try:
+                # ===========================================================================================
+                # ===========================================================================================
+                # ===========================================================================================
+                # VRSTNI RED IZDELAVE
+                # - STAVBA
+                # - ETAŽA
+                # - DELI STAVBE (prostori)
+                # - LOKACIJE
+                # - PROJEKTNA MESTA (tlak, strop, stene, el-oprema)
+                # ===========================================================================================
+                # ===========================================================================================
+                # ===========================================================================================
 
                 ##############################################################################################
-                # STAVBE
+                # STAVBA
                 #---------------------------------------------------------------------------------------------
+                
+                # 'oznaka',
+                # 'naziv', 
+                # 'opis', 
 
+                stavba_oznaka = stavba_oznaka
+                stavba_naziv = "NA"
+                stavba_opis = "NA"
+
+                stavba_data = {
+                    'oznaka': stavba_oznaka,
+                    'naziv': stavba_naziv,
+                    'opis': stavba_opis,
+                }
+
+                # CREATE
+                # ------------------------------------------------------------
+                if not Stavba.objects.filter(oznaka=stavba_oznaka).exists():
+                    
+                    # definiramo FORM za vnos
+                    stavba_create_form = deli_lokacija_forms.StavbaCreateForm(stavba_data)
+                    if stavba_create_form.is_valid():
+                        # shranimo podakte
+                        stavba_create_form.save()
+                        # število dodanih vnosov povečamo za 1
+                        stavbe_records_added += 1
+                        print("Stavba '%s' je bila dodana" % (stavba_data['oznaka']))
+
+                    else:
+                        errors.append(stavba_create_form.errors)
+                        print(errors)
+
+
+
+                ##############################################################################################
+                # ETAŽA
+                #---------------------------------------------------------------------------------------------
                 # Atributi
 
-                    # 'oznaka',
-                    # 'naziv', 
-                    # 'opis', 
+                # 'oznaka',
+                # 'naziv', 
+                # 'opis',
+                # 'elevation',
+                # 'stavba',
 
-                # preimenujemo atribute stavbe na seznamu
-                row['oznaka'] = stavba_oznaka
-                row['naziv'] = "NA"
-                row['opis'] = "NA"
+                etaza_oznaka = etaza_oznaka
+                etaza_naziv = "NA"
+                etaza_opis = "NA"
+                etaza_elevation = etaza_elevation 
+                stavba_object = Stavba.objects.get(oznaka=stavba_oznaka)
+                stavba_id = stavba_object.id
 
-                # definiramo FORM za vnos stavb
-                stavba_create_form = deli_lokacija_forms.StavbaCreateForm(row)
+                etaza_data = {
+                    'oznaka': etaza_oznaka,
+                    'naziv': etaza_naziv,
+                    'opis': etaza_opis,
+                    'elevation': etaza_elevation,
+                    'stavba': stavba_id,
+                    'stavba_object': stavba_object,
+                }
 
+                # CREATE
+                # ------------------------------------------------------------
+                if not Etaza.objects.filter(oznaka=etaza_oznaka).exists():
+                    
+                    # definiramo FORM za vnos
+                    etaza_create_form = deli_lokacija_forms.EtazaCreateForm(etaza_data)
+                    if etaza_create_form.is_valid():
+                        # shranimo podakte
+                        etaza_create_form.save()
+                        # število dodanih vnosov povečamo za 1
+                        stavbe_records_added += 1
+                        print("Etaža '%s' je bila dodana" % (etaza_data['oznaka']))
 
-                # če je FORM pravilno izpolnjen shranimo podatke
-                if stavba_create_form.is_valid():
-                    # shranimo podakte
-                    stavba_create_form.save()
-                    # število dodanih vnosov povečamo za 1
-                    stavbe_records_added += 1
-                    print("STAVBA JE BILA VNESENA")
-
-                #---------------------------------------------------------------------------------------------
-                # STAVBE
-                ##############################################################################################
-
-
-
-                ##############################################################################################
-                # ETAŽE
-                #---------------------------------------------------------------------------------------------
-                # Atributi
-
-                    # 'oznaka',
-                    # 'naziv', 
-                    # 'opis',
-                    # 'elevation',
-                    # 'stavba',
-
-
-                # pridobimo relacije za vnos
-                stavba = Stavba.objects.get(oznaka=stavba_oznaka)
-                stavba_id = stavba.pk
-
-                # preimenujemo atribute na seznamu
-                row['oznaka'] = etaza_oznaka
-                row['naziv'] = "NA"
-                row['elevation'] = etaza_elevation
-                row['stavba'] = stavba_id
-
-
-                # definiramo FORM za vnos stavb
-                etaza_create_form = deli_lokacija_forms.EtazaCreateForm(row)
-
-
-                # če je FORM pravilno izpolnjen shranimo podatke
-                if etaza_create_form.is_valid():
-                    # shranimo podakte
-                    etaza_create_form.save()
-                    # število dodanih vnosov povečamo za 1
-                    etaze_records_added += 1
-                    print("ETAŽA JE BILA VNESENA")
-
-                #---------------------------------------------------------------------------------------------
-                # ETAŽE
-                ##############################################################################################
-
-
+                    else:
+                        errors.append(etaza_create_form.errors)
+                        print(errors)       
 
 
                 ##############################################################################################
-                # PROSTORI
+                # DEL STAVBE - PROSTORI
                 #---------------------------------------------------------------------------------------------
                 
                 # Atributi
@@ -216,263 +263,238 @@ class LokacijaUvozPodatkovView(TemplateView):
                 # podskupino pridobimo iz klasifikacije = naziv archicad layer-ja
                 # npr. A_AA_AA01_Naziv
 
-
-                
-                # pridobimo instanco podskupine dela stavbe
-                podskupina = Podskupina.objects.get(oznaka=podskupina_oznaka)
-                podskupina_id = podskupina.pk
-
-
-                # preimenujemo atribute stavbe na seznamu
-                row['oznaka'] = delstavbe_oznaka
-                row['naziv'] = delstavbe_naziv
-                row['bim_id'] = delstavbe_bim_id
-                row['podskupina'] = podskupina_id
-
-                # definiramo FORM za vnos stavb
-                delstavbe_prostor_create_form = deli_lokacija_forms.DelStavbeProstorCreateForm(row)
-
-                # če je FORM pravilno izpolnjen shranimo podatke
-                if delstavbe_prostor_create_form.is_valid():
-                    # shranimo podakte
-                    delstavbe_instance = delstavbe_prostor_create_form.save() 
-                    # število dodanih vnosov povečamo za 1
-                    prostori_records_added += 1
-                    print("PROSTOR JE BIL VNEŠEN")
-
-                #---------------------------------------------------------------------------------------------
-                # PROSTORI
                 ##############################################################################################
-
-
-
-
-                ##############################################################################################
-                # LOKACIJA
+                # DEL STAVBE
                 #---------------------------------------------------------------------------------------------
                 
-                # Atributi
+                # 'oznaka',
+                # 'naziv', 
+                # 'funkcija', 
+                # 'bim_id',
+                # 'podskupina',
 
-                    # pridobimo osnovne atribute za vnos
-                    # 'oznaka',
-                    # 'tip_artikla', 
-                    # 'lokacija',
-                    # ''
+                delstavbe_prostor_oznaka = delstavbe_prostor_oznaka
+                delstavbe_prostor_naziv = delstavbe_prostor_naziv
+                delstavbe_prostor_funkcija = delstavbe_prostor_funkcija
+                delstavbe_prostor_bim_id = delstavbe_prostor_bim_id
+                delstavbe_prostor_podskupina = Podskupina.objects.get(oznaka=podskupina_oznaka)
+                delstavbe_prostor_podskupina_id = delstavbe_prostor_podskupina.id
+
+                delstavbe_prostor_data = {
+                    'oznaka': delstavbe_prostor_oznaka,
+                    'naziv': delstavbe_prostor_naziv,
+                    'funkcija': delstavbe_prostor_funkcija,
+                    'bim_id': delstavbe_prostor_bim_id,
+                    'podskupina': delstavbe_prostor_podskupina_id,
+                    'podskupina_object': delstavbe_prostor_podskupina,
+                }
+                
+                # CREATE
+                # ------------------------------------------------------------
+                if not DelStavbe.objects.filter(bim_id=delstavbe_prostor_bim_id).exists():
+                    
+                    # IZDELAMO PROSTOR
+                    # -------------------------------------------------------
+                    # definiramo FORM za vnos stavb
+                    delstavbe_prostor_create_form = delstavbe_forms.DelCreateForm(delstavbe_prostor_data)
+                    if delstavbe_prostor_create_form.is_valid():
+                        # shranimo podakte
+                        delstavbe_prostor_instance = delstavbe_prostor_create_form.save()
+                        # število dodanih vnosov povečamo za 1
+                        prostori_records_added += 1
+                        print("Prostor '%s' je bil dodan" % (delstavbe_prostor_data['oznaka']))
+
+
+                        # IZDELAMO LOKACIJO
+                        # -------------------------------------------------------
+
+                        # 'prostor',
+                        # 'etaza', 
+                        
+                        # pridobimo instanco prostora
+                        prostor = delstavbe_prostor_instance
+                        prostor_id = prostor.id
+
+                        # pridobimo instanco etaže
+                        etaza = Etaza.objects.get(oznaka=etaza_oznaka)
+                        etaza_id = etaza.pk
+
+                        lokacija_data = {
+                            'prostor': prostor_id,
+                            'etaza': etaza_id,
+                        }
+
+                        # definiramo FORM za vnos
+                        lokacija_create_form = deli_lokacija_forms.LokacijaCreateForm(lokacija_data)
+
+                        # če je FORM pravilno izpolnjen shranimo podatke
+                        if lokacija_create_form.is_valid():
+                            # shranimo podakte
+                            lokacija_instance = lokacija_create_form.save()
+                            # število dodanih vnosov povečamo za 1
+                            lokacije_records_added += 1
+                            print("Lokacija '%s' je bila vnešena" % (Lokacija.objects.get(prostor=lokacija_data['prostor'])))
+
+
+                            # IZDELAMO PROJEKTNA MESTA PROSTORA (TLAK, STROP, STENE, EL-OPREMA)
+                            # -------------------------------------------------------
+
+                            ##############################################################################################
+                            # PROJEKTNA MESTA ZA PROSTORE (TLAK, STENE, STROP, RAZSVETLJAVA, VTIČNICE IN STIKALA)
+                            #---------------------------------------------------------------------------------------------
+                            
+                            # PR-TLAK_Tlak prostora
+                            # PR-STENA_Stena prostora
+                            # PR-STROP_Strop prostora
+                            # PR-EL-OPR_Vtičnice, stikala in razsvetljava
+
+                            # TLAK
+                            projektno_mesto_inst = "TLAK"
+                            projektno_mesto_inst_naziv = "Tlak prostora"
+                            projektno_mesto_inst_funkcija = "NA"
+
+                            tip_artikla_oznaka = "PR-" + projektno_mesto_inst
+                            tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+
+                            oznaka = delstavbe_prostor_oznaka + "-" + projektno_mesto_inst
+                            naziv = projektno_mesto_inst_naziv
+                            funkcija = projektno_mesto_inst_funkcija
+
+                            # zaporedna številka vnešenih projektnih mest pod prostor
+                            st_pm = ProjektnoMesto.objects.filter(del_stavbe__bim_id=delstavbe_prostor_bim_id).count()
+                            nova_zap_st_pm = st_pm + 1
+                            nova_zap_st_pm = str(nova_zap_st_pm)
+                            bim_id = delstavbe_prostor_bim_id + '-EDA5-' + nova_zap_st_pm
+
+                            projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
+                                oznaka=oznaka,
+                                naziv=naziv,
+                                funkcija=funkcija,
+                                bim_id=bim_id,
+                                tip_elementa=tip_elementa,
+                                lokacija=lokacija_instance,
+                                del_stavbe=delstavbe_prostor_instance
+                                )
+                            projektnamesta_records_added += 1
+
+                            # STENE
+                            projektno_mesto_inst = "STENA"
+                            projektno_mesto_inst_naziv = "Stene prostora"
+                            projektno_mesto_inst_funkcija = "NA"
+
+                            tip_artikla_oznaka = "PR-" + projektno_mesto_inst
+                            tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+
+                            oznaka = delstavbe_prostor_oznaka + "-" + projektno_mesto_inst
+                            naziv = projektno_mesto_inst_naziv
+                            funkcija = projektno_mesto_inst_funkcija
+
+                            # zaporedna številka vnešenih projektnih mest pod prostor
+                            st_pm = ProjektnoMesto.objects.filter(del_stavbe__bim_id=delstavbe_prostor_bim_id).count()
+                            nova_zap_st_pm = st_pm + 1
+                            nova_zap_st_pm = str(nova_zap_st_pm)
+                            bim_id = delstavbe_prostor_bim_id + '-EDA5-' + nova_zap_st_pm
+
+                            projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
+                                oznaka=oznaka,
+                                naziv=naziv,
+                                funkcija=funkcija,
+                                bim_id=bim_id,
+                                tip_elementa=tip_elementa,
+                                lokacija=lokacija_instance,
+                                del_stavbe=delstavbe_prostor_instance
+                                )
+                            projektnamesta_records_added += 1
+
+
+                            # STROP
+                            projektno_mesto_inst = "STROP"
+                            projektno_mesto_inst_naziv = "Strop prostora"
+                            projektno_mesto_inst_funkcija = "NA"
+
+                            tip_artikla_oznaka = "PR-" + projektno_mesto_inst
+                            tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+
+                            oznaka = delstavbe_prostor_oznaka + "-" + projektno_mesto_inst
+                            naziv = projektno_mesto_inst_naziv
+                            funkcija = projektno_mesto_inst_funkcija
+
+                            # zaporedna številka vnešenih projektnih mest pod prostor
+                            st_pm = ProjektnoMesto.objects.filter(del_stavbe__bim_id=delstavbe_prostor_bim_id).count()
+                            nova_zap_st_pm = st_pm + 1
+                            nova_zap_st_pm = str(nova_zap_st_pm)
+                            bim_id = delstavbe_prostor_bim_id + '-EDA5-' + nova_zap_st_pm
+
+                            projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
+                                oznaka=oznaka,
+                                naziv=naziv,
+                                funkcija=funkcija,
+                                bim_id=bim_id,
+                                tip_elementa=tip_elementa,
+                                lokacija=lokacija_instance,
+                                del_stavbe=delstavbe_prostor_instance
+                                )
+                            projektnamesta_records_added += 1
+
+
+                            # EL OPREMA - VTIČNICE - STIKALA - RAZSVETLJAVA
+                            projektno_mesto_inst = "EL"
+                            projektno_mesto_inst_naziv = "Vtičnice, stikala in razsvetljava prostora"
+                            projektno_mesto_inst_funkcija = "Upravljanje z razsvetljavo in električni priklop za vzdrževanje prostorov"
+
+                            tip_artikla_oznaka = "PR-" + projektno_mesto_inst
+                            tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
+
+                            oznaka = delstavbe_prostor_oznaka + "-" + projektno_mesto_inst
+                            naziv = projektno_mesto_inst_naziv
+                            funkcija = projektno_mesto_inst_funkcija
+
+                            # zaporedna številka vnešenih projektnih mest pod prostor
+                            st_pm = ProjektnoMesto.objects.filter(del_stavbe__bim_id=delstavbe_prostor_bim_id).count()
+                            nova_zap_st_pm = st_pm + 1
+                            nova_zap_st_pm = str(nova_zap_st_pm)
+                            bim_id = delstavbe_prostor_bim_id + '-EDA5-' + nova_zap_st_pm
+
+                            projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
+                                oznaka=oznaka,
+                                naziv=naziv,
+                                funkcija=funkcija,
+                                bim_id=bim_id,
+                                tip_elementa=tip_elementa,
+                                lokacija=lokacija_instance,
+                                del_stavbe=delstavbe_prostor_instance
+                                )
+                            projektnamesta_records_added += 1
+
+
+                    else:
+                        errors.append(delstavbe_prostor_create_form.errors)
+                        print(errors)
+
 
                 
-                # pridobimo instanco prostora
-                prostor = DelStavbe.objects.get(oznaka=delstavbe_oznaka)
-                prostor_id = prostor.pk
-
-                # pridobimo instanco etaže
-                etaza = Etaza.objects.get(oznaka=etaza_oznaka)
-                etaza_id = etaza.pk
-
-                # preimenujemo atribute stavbe na seznamu
-                row['prostor'] = prostor_id
-                row['etaza'] = etaza_id
-
-
-                # definiramo FORM za vnos
-                lokacija_create_form = deli_lokacija_forms.LokacijaCreateForm(row)
-
-                # če je FORM pravilno izpolnjen shranimo podatke
-                if lokacija_create_form.is_valid():
-                    # shranimo podakte
-                    lokacija_instance = lokacija_create_form.save()
-                    # število dodanih vnosov povečamo za 1
-                    lokacije_records_added += 1
-                    print("LOKACIJA JE BILA VNEŠENA")
-
-                #---------------------------------------------------------------------------------------------
-                # LOKACIJA
-                ##############################################################################################
-
-                ##############################################################################################
-                # PROJEKTNA MESTA ZA PROSTORE (TLAK, STENE, STROP, RAZSVETLJAVA, VTIČNICE IN STIKALA)
-                #---------------------------------------------------------------------------------------------
+                # UPDATE
+                # ------------------------------------------------------------
                 
-                # LUX_Razsvetljava prostorov
-                # PR-TLAK_Tlak prostora
-                # PR-STENA_Stena prostora
-                # PR-STROP_Strop prostora
-                # PR-EL-OPR_Vtičnice in stikala
+                else:
+                    # p1.__dict__.update(mydatadict)
+                    # p1.save()
+                    # pridobimo instanco Dela stavbe - prostor
+                    instance = DelStavbe.objects.get(bim_id=delstavbe_prostor_bim_id)
+                    # posodobimo podatke
+                    instance.oznaka = delstavbe_prostor_data['oznaka']
+                    instance.naziv = delstavbe_prostor_data['naziv']
+                    instance.funkcija = delstavbe_prostor_data['funkcija']
+                    instance.podskupina = delstavbe_prostor_data['podskupina_object']
+                    # shranimo spremembe
+                    instance.save()
 
-                # TLAK
-                projektno_mesto_inst = "TLAK"
-                projektno_mesto_inst_naziv = "Tlak prostora"
-                projektno_mesto_inst_funkcija = "NA"
-
-                tip_artikla_oznaka = "PR-" + projektno_mesto_inst
-                tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
-
-                oznaka = delstavbe_oznaka + "-" + projektno_mesto_inst
-                naziv = projektno_mesto_inst_naziv
-                funkcija = projektno_mesto_inst_funkcija
-
-                projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
-                    oznaka=oznaka,
-                    naziv=naziv,
-                    funkcija=funkcija,
-                    bim_id="NA",
-                    tip_elementa=tip_elementa,
-                    lokacija=lokacija_instance,
-                    del_stavbe=delstavbe_instance
-                    )
-                projektnamesta_records_added += 1
-
-                # TLAK
-                projektno_mesto_inst = "STENA"
-                projektno_mesto_inst_naziv = "Stene prostora"
-                projektno_mesto_inst_funkcija = "NA"
-
-                tip_artikla_oznaka = "PR-" + projektno_mesto_inst
-                tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
-
-                oznaka = delstavbe_oznaka + "-" + projektno_mesto_inst
-                naziv = projektno_mesto_inst_naziv
-                funkcija = projektno_mesto_inst_funkcija
-
-                projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
-                    oznaka=oznaka,
-                    naziv=naziv,
-                    funkcija=funkcija,
-                    bim_id="NA",
-                    tip_elementa=tip_elementa,
-                    lokacija=lokacija_instance,
-                    del_stavbe=delstavbe_instance
-                    )
-                projektnamesta_records_added += 1
+                    # števec vnosov povečamo za 1
+                    prostori_records_updated += 1
+                    print("Prostor '%s' je bil posodobljen" % (delstavbe_prostor_data['oznaka']))
 
 
-                # STROP
-                projektno_mesto_inst = "STROP"
-                projektno_mesto_inst_naziv = "Strop prostora"
-                projektno_mesto_inst_funkcija = "NA"
 
-                tip_artikla_oznaka = "PR-" + projektno_mesto_inst
-                tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
-
-                oznaka = delstavbe_oznaka + "-" + projektno_mesto_inst
-                naziv = projektno_mesto_inst_naziv
-                funkcija = projektno_mesto_inst_funkcija
-
-                projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
-                    oznaka=oznaka,
-                    naziv=naziv,
-                    funkcija=funkcija,
-                    bim_id="NA",
-                    tip_elementa=tip_elementa,
-                    lokacija=lokacija_instance,
-                    del_stavbe=delstavbe_instance
-                    )
-                projektnamesta_records_added += 1
-
-
-                # RAZSVETLJAVA
-                projektno_mesto_inst = "LUX"
-                projektno_mesto_inst_naziv = "Razsvetljava prostora"
-                projektno_mesto_inst_funkcija = "NA"
-
-                tip_artikla_oznaka = projektno_mesto_inst
-                tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
-
-                oznaka = delstavbe_oznaka + "-" + projektno_mesto_inst
-                naziv = projektno_mesto_inst_naziv
-                funkcija = projektno_mesto_inst_funkcija
-
-                projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
-                    oznaka=oznaka,
-                    naziv=naziv,
-                    funkcija=funkcija,
-                    bim_id="NA",
-                    tip_elementa=tip_elementa,
-                    lokacija=lokacija_instance,
-                    del_stavbe=delstavbe_instance
-                    )
-                projektnamesta_records_added += 1
-
-
-                # EL OPREMA - VTIČNICE - STIKALA
-                projektno_mesto_inst = "EL-OPR"
-                projektno_mesto_inst_naziv = "Vtičnice in stikala prostora"
-                projektno_mesto_inst_funkcija = "Upravljanje z razsvetljavo in električni priklop za vzdrževanje prostorov"
-
-                tip_artikla_oznaka = "PR-" + projektno_mesto_inst
-                tip_elementa = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
-
-                oznaka = delstavbe_oznaka + "-" + projektno_mesto_inst
-                naziv = projektno_mesto_inst_naziv
-                funkcija = projektno_mesto_inst_funkcija
-
-                projektnomesto_tlak = ProjektnoMesto.objects.create_projektno_mesto(
-                    oznaka=oznaka,
-                    naziv=naziv,
-                    funkcija=funkcija,
-                    bim_id="NA",
-                    tip_elementa=tip_elementa,
-                    lokacija=lokacija_instance,
-                    del_stavbe=delstavbe_instance
-                    )
-
-                projektnamesta_records_added += 1
-                print("DODANA SO BILA PROJEKTNA MESTA PROSTORA")
-
-                # Atributi
-
-                    # 'oznaka',
-                    # 'naziv',
-                    # 'funkcija',
-                    # 'bim_id',
-                    # 'tip_elementa',
-                    # 'lokacija',
-                    # 'del_stavbe',
-
-                
-                # delstavbe = DelStavbe.objects.get(oznaka=delstavbe_oznaka)
-                # delstavbe_id = delstavbe.pk
-
-
-                # tip_artikla = TipArtikla.objects.get(oznaka=tip_artikla_oznaka)
-                # tip_artikla_id = tip_artikla.pk
-
-
-                # # pridobimo instanco prostora
-                # lokacija = Lokacija.objects.get(prostor__oznaka=projektnomesto_lokacija)
-                # lokacija_id = lokacija.pk
-
-                
-                # # pridobimo instanco prostora
-                # prostor = DelStavbe.objects.get(oznaka=delstavbe_oznaka)
-                # prostor_id = prostor.pk
-
-                # # pridobimo instanco etaže
-                # etaza = Etaza.objects.get(oznaka=etaza_oznaka)
-                # etaza_id = etaza.pk
-
-                # preimenujemo atribute stavbe na seznamu
-                # row['prostor'] = prostor_id
-                # row['etaza'] = etaza_id
-
-
-                # definiramo FORM za vnos
-                # lokacija_create_form = deli_lokacija_forms.LokacijaCreateForm(row)
-
-                # # če je FORM pravilno izpolnjen shranimo podatke
-                # if lokacija_create_form.is_valid():
-                #     # shranimo podakte
-                #     lokacija_create_form.save()
-                #     # število dodanih vnosov povečamo za 1
-                #     lokacije_records_added += 1
-                #     print("LOKACIJA JE BILA VNEŠENA")
-
-                #---------------------------------------------------------------------------------------------
-                # LOKACIJA
-                ##############################################################################################
-
-
-                # except:
-                #     return messages.error(request, "NEKAJ JE BILO NAROBE")
 
 
             ''' izbrišemo temp direktorij '''
