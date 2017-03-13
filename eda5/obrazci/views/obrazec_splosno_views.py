@@ -69,9 +69,16 @@ class DopisCreateView(CreateView):
 		# izdelamo uro dokumenta v tekstovni obliki
 		#------------------------------------------------------------
 		cas_ura = objava.time().hour
-		cas_ura = str(cas_ura)
+		if cas_ura < 10:
+			cas_ura = "0" + str(cas_ura)
+		else:
+			cas_ura = str(cas_ura)
+
 		cas_minuta = objava.time().minute
-		cas_minuta = str(cas_minuta)
+		if cas_minuta < 10:
+			cas_minuta = "0" + str(cas_minuta)
+		else:
+			cas_minuta = str(cas_minuta)
 
 		cas_text = cas_ura + cas_minuta
 
