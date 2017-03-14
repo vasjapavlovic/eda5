@@ -63,6 +63,7 @@ class ObrazecSplosno(StatusModel):
 	# Odgovorna oseba
 	oseba_odgovorna = models.ForeignKey(
 		Oseba, related_name='obrazec_oseba_odgovorna',
+		blank=True, null=True,
 		verbose_name='Odgovorna oseba za dokument')
 
 	# priloge

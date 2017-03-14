@@ -27,6 +27,7 @@ urlpatterns += [
 # print plan ov
 urlpatterns += [
     url(r'^deli-list-filter/$', deli.DeliSeznamPrintView.as_view(), name="print_deli_seznam_filter"),
+    url(r'^prostori-list-filter/$', deli.ProstoriSeznamPrintView.as_view(), name="print_prostori_seznam_filter"),
 ]
 
 # racuni in dnevniki izvedenih del
