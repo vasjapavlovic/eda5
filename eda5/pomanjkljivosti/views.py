@@ -187,6 +187,7 @@ class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
         else:
             return render(request, self.template_name, {
                 'pomanjkljivost_create_from_zahtevek_form': pomanjkljivost_create_from_zahtevek_form,
+                'pomanjkljivost_element_update_form': pomanjkljivost_element_update_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )

@@ -1,10 +1,14 @@
 from functools import partial
 
 from django import forms
+from django.contrib.admin.sites import site
 from django.utils import timezone
 
 # Pomanjkljivosti
 from .models import Pomanjkljivost
+
+# Deli
+from eda5.deli.widgets import ProjektnoMestoManyToManyRawIdWidget
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
@@ -146,6 +150,9 @@ class PomanjkljivostElementUpdateForm(forms.ModelForm):
         fields = (
             'element',
         )
+        widgets = {
+            'element': ProjektnoMestoManyToManyRawIdWidget(model._meta.get_field('element').rel, site),
+        }
 
 
 
