@@ -33,38 +33,14 @@
 
 <!-- Ko vnosi že obstajajo -->
 {% else %}
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-
-            <tr>
-                <th>oznaka</th>
-                <th>naziv</th>
-                <th>opis</th>
-                <th>prijava dne</th>
-                <th>prioriteta</th>
-            </tr>
-
-        </thead>
-        <tbody>
-
+			<ul>
             {% for object in pomanjkljivost_list %}
 
-            {% if object.opravilo_set.all %}
-            <tr class="info">
-            {% else %}
-            <tr>
-            {% endif %}
-                <td><b><a href="">{{ object.oznaka }}</a></b></td>
-                <td>{{ object.naziv }}</td>
-                <td>{{ object.opis }}</td>
-                <td>{{ object.ugotovljeno_dne }}</td>
-                <td>{{ object.get_prioriteta_display }}</td>
-            </tr>
+			<li><a href="">  ({{ object.oznaka }}) {{ object.naziv }}</a></li>
 
             {% endfor %}
+            </ul>
 
-        </tbody>
-    </table>
 {% endif %}
 
 </td></tr>
