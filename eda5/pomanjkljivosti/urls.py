@@ -38,6 +38,15 @@ urlpatterns += [
     ),
 
 
+    url(  # Posodobitev pomanjkljivosti - update
+        r'^(?P<pk>\d+)/pomanjkljivost-update/$',
+        views.PomanjkljivostUpdateView.as_view(),
+        name="pomanjkljivost_update"
+    ),
+
+    
+
+
     url(
         r'^seznam/$',
         views.PomanjkljivostListView.as_view(),

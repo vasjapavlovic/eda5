@@ -21,7 +21,7 @@ from eda5.zahtevki.models import Zahtevek
 from eda5.planiranje.models import PlaniranoOpravilo
 
 
-class Opravilo(TimeStampedModel, IsActiveModel):
+class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     #   RELATIONS
 

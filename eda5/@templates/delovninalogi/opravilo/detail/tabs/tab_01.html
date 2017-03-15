@@ -1,43 +1,59 @@
-<!-- Podatki -->
-
-<table class="table">
-
-    <tr>
-        <td><small><b>oznaka</b></small></td>
-        <td><b style="color:#0000FF">{{ object.oznaka }}</b></td>
-    </tr>
-    <tr>
-        <td><small><b>predmet</b></small></td>
-        <td><b style="color:#0000FF">{{ object.naziv }}</b></td>
-    </tr>
+<!-- OPRAVILO -->
 
 
-    <tr>
-        <td><small><b>nosilec</b></small></td>
-        <td><b>{{ object.nosilec.priimek }} {{ object.nosilec.ime }}</b></td>
-    </tr>
-    <tr>
-        <td><small><b>rok izvedbe</b></small></td>
-        <td><b>{{ object.rok_izvedbe }}</b></td>
-    </tr>
-    <tr>
-        <td><small><b>naročilnica</b></small></td>
-        <td><b><a href="{% url 'moduli:narocila:narocilo_detail' object.narocilo.pk %}">{{ object.narocilo.oznaka }}</a></b></td>
-    </tr>
+<!-- Ko še ni registriranih vnosov -->
+{% if not object.element.all %}
+    Opravilo nima dodanih elementov na katerih se izvaja.
 
-    <tr>
-        <td><small><b>Elementi</b></small></td>
-        <td><b>
-            {% for element in object.element.all %}
+<!-- Ko vnosi že obstajajo -->
+{% else %}
 
-            <li><a href="{% url 'moduli:deli:projektnomesto_detail' element.pk %}">({{ element.oznaka }}) {{ element.tip_elementa.naziv }} | {{ element.naziv }}</a></li>
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>Oznaka Projektnega Mesta</th>
+                <th>Naziv Projektnega Mesta</th>
+                <th>Funkcija</th>
+                <th>Artikel</th>
+                <th>Lokacija</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for projektno_mesto in object.element.all %}
+
+            <tr>
+                <td>
+                    <a href="{% url 'moduli:deli:projektnomesto_detail' projektno_mesto.pk %}"><b>{{ projektno_mesto.oznaka }}</b></a>
+                </td>
+                <td>
+                    <b>{{ projektno_mesto.naziv }}</b>
+                    <br>{{ projektno_mesto.tip_elementa.naziv }}
+                </td>
+
+                <td>{{ projektno_mesto.funkcija }}</td>
+                
+                <!-- Podatki o artiklu -->
+                {% if projektno_mesto.element %}
+
+                <td>Serijska številka: {{ projektno_mesto.aktiven_element.serijska_st }} | Tovarniška številka: {{ projektno_mesto.aktiven_element.serijska_st }}<br>{{ projektno_mesto.aktiven_element.artikel.naziv }}<br>{{ projektno_mesto.aktiven_element.artikel.proizvajalec.naziv }}</td>
+
+                {% else %}
+
+
+                <td><b>Artikel ni definiran!</b></td>
+
+                {% endif %}
+
+                <td>{{ projektno_mesto.lokacija }}</td>
+            </tr>
 
             {% endfor %}
             
+        </tbody>
+    </table>
 
 
-        </b></td>
-    </tr>
-
-
-</table>
+{% endif %}

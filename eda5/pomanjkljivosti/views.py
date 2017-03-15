@@ -20,7 +20,8 @@ from .forms import \
     PomanjkljivostCreateFromZahtevekForm, \
     PomanjkljivostLikvidirajPodZahtevek, \
     PomanjkljivostIzbiraFrom, \
-    PomanjkljivostElementUpdateForm
+    PomanjkljivostElementUpdateForm, \
+    PomanjkljivostUpdateForm
 
 from .models import Pomanjkljivost
 
@@ -59,14 +60,18 @@ class PomanjkljivostListView(LoginRequiredMixin, ListView):
         modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_list")
         context['modul_zavihek'] = modul_zavihek
 
-        # seznam pomanjkljivosti, ki se že rešujejo
-        pomanjkljivosti_vresevanju = Pomanjkljivost.objects.filter(zahtevek__isnull=False)
-        context['pomanjkljivosti_vresevanju'] = pomanjkljivosti_vresevanju
-
-
-        # seznam pomanjkljivosti, ki se že rešujejo
+        # neobdelane pomanjkljivosti, ki niso še del nobenega zahtevka
         pomanjkljivosti_nelikvidirane = Pomanjkljivost.objects.filter(zahtevek__isnull=True)
         context['pomanjkljivosti_nelikvidirane'] = pomanjkljivosti_nelikvidirane
+
+        # seznam pomanjkljivosti, ki se že rešujejo (so del zahtevka, niso zaključene)
+        pomanjkljivosti_vresevanju = Pomanjkljivost.objects.filter(zahtevek__isnull=False).exclude(status=4).exclude(status=5)
+        context['pomanjkljivosti_vresevanju'] = pomanjkljivosti_vresevanju
+
+        # rešene pomanjkljivosti
+        pomanjkljivosti_zakljucene = Pomanjkljivost.objects.filter(zahtevek__isnull=False, status=4)
+        context['pomanjkljivosti_zakljucene'] = pomanjkljivosti_zakljucene
+
 
         # vrnemo context
         return context
@@ -384,3 +389,20 @@ class PomanjkljivostLikvidirajPodZahtevekView(LoginRequiredMixin, UpdateView):
         ''' po končanem vnosu se izvede preusmeritev '''
 
         return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': pomanjkljivost.zahtevek.pk}))
+
+
+
+class PomanjkljivostUpdateView(UpdateView):
+    model = Pomanjkljivost
+    form_class = PomanjkljivostUpdateForm
+    template_name = "pomanjkljivosti/pomanjkljivost/update/update.html"
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PomanjkljivostUpdateView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context

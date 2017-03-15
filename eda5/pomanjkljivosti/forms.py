@@ -116,6 +116,27 @@ class PomanjkljivostCreateFromZahtevekForm(forms.ModelForm):
         }
 
 
+class PomanjkljivostUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Pomanjkljivost
+        fields = (
+            'oznaka',
+            'naziv',
+            'opis',
+            'status',
+            'prijavil_text',
+            'ugotovljeno_dne',
+            'prioriteta',
+            'element',
+            # element se doda ločeno z widgetom za many-to-many
+        )
+        widgets = {
+            'ugotovljeno_dne': DateInput(),
+            'element': ProjektnoMestoManyToManyRawIdWidget(model._meta.get_field('element').rel, site),
+        }
+
+
 class PomanjkljivostLikvidirajPodZahtevek(forms.ModelForm):
 
     class Meta:

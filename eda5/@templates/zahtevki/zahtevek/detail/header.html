@@ -24,23 +24,26 @@
 <tr>
     <td><small><b>pomanjkljivosti</b></small></td>
     <td>
+		<!-- Ko še ni registriranih vnosov -->
+		{% if not pomanjkljivost_list %}
+		    Trenutno še ni registriranih pomanjkljivosti.
 
-
-
-<!-- Ko še ni registriranih vnosov -->
-{% if not pomanjkljivost_list %}
-    Trenutno še ni registriranih pomanjkljivosti.
-
-<!-- Ko vnosi že obstajajo -->
-{% else %}
+		<!-- Ko vnosi že obstajajo -->
+		{% else %}
 			<ul>
-            {% for object in pomanjkljivost_list %}
+		    {% for object in pomanjkljivost_list %}
+		    
+			<li><a href="">  ({{ object.oznaka }}) {{ object.naziv }}
 
-			<li><a href="">  ({{ object.oznaka }}) {{ object.naziv }}</a></li>
+			<!-- Update pomanjkljivost -->
+                <a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
-            {% endfor %}
-            </ul>
+			</a></li>
 
-{% endif %}
+		    {% endfor %}
+		    </ul>
 
-</td></tr>
+		{% endif %}
+		
+	</td>
+</tr>

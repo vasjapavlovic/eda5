@@ -1,15 +1,40 @@
 <!-- Delovni Nalogi -->
-<table class="table table-condensed table-bordered">
-
-<tr>
-	{% if object.delovninalog_set.all %}
-	{% for object in object.delovninalog_set.all %}
-
-		<td><a href="{% url 'moduli:delovninalogi:dn_detail' object.pk %}">({{ object.oznaka }})</a> {{ object.naziv }}</td>
-
-	{% endfor %}
-	{% endif %}
-</tr>
 
 
-</table>
+<!-- TAB_02 -->
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not object.delovninalog_set.all %}
+    Opraivlo še nima registriranih delovnih nalogov.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>delovni nalog</th>
+                <th>rok izvedbe</th>
+                <th>planirano dne</th>
+                <th>nosilec</th>
+                <th>nadzor</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for object in object.delovninalog_set.all %}
+
+            <tr>
+                <td><a href="{% url 'moduli:delovninalogi:dn_detail' object.id %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.opravilo.rok_izvedbe }}</td>
+                <td>{{ object.datum_plan }}</td>
+                <td><b>{{ object.nosilec.priimek }} {{ object.nosilec.ime }}</b>({{ object.nosilec.podjetje.kratko_ime }})</td>
+                <td><b>{{ object.opravilo.nosilec.priimek }} {{ object.opravilo.nosilec.ime }}</b>({{ object.opravilo.nosilec.podjetje.kratko_ime}})</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endif %}

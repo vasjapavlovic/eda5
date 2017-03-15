@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from .managers import PomanjkljivostManager
 
 # Core
-from eda5.core.models import TimeStampedModel, IsLikvidiranModel, PrioritetaModel
+from eda5.core.models import TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel
 
 # Deli
 from eda5.deli.models import ProjektnoMesto
@@ -13,7 +13,7 @@ from eda5.deli.models import ProjektnoMesto
 from eda5.zahtevki.models import Zahtevek
 
 
-class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel):
+class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     ###########################################################################
     # ATRIBUTES

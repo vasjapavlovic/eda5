@@ -2,7 +2,7 @@
 
 <!-- TAB_02 Content -->
 
-        <text>Seznam odprtih pomanjkljivosti</text><br>
+        <text>Seznam zaključenih pomanjkljivosti</text><br>
         <table class="table">
             <tr>
                 <th>oznaka</th>
@@ -13,11 +13,9 @@
                 <th>lokacija</th>
                 <th>opravilo</th>
                 <th>zahtevek</th>
-                <th>command</th>
-                
             </tr>
 
-            {% for object in pomanjkljivosti_vresevanju %}
+            {% for object in pomanjkljivosti_zakljucene %}
 
 
             <tr>
@@ -34,11 +32,6 @@
                 </td>
 
                 <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
-
-                <!-- Update pomanjkljivost -->
-                <td><a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-
-
             </tr>
             {% endfor %}
 

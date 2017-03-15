@@ -10,6 +10,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#neobdelane">Ne-obdelane</a></li>
                     <li><a data-toggle="tab" href="#vresevanju">Obdelane</a></li>
+                    <li><a data-toggle="tab" href="#zakljucene">Zaključene</a></li>
 
                 </ul>
                 <!--end nav-tabs-->
@@ -36,6 +37,14 @@
                     <div id="vresevanju" class="tab-pane">
                         <div class="profile-desk">
                             {% include "pomanjkljivosti/pomanjkljivost/list/tabs/tab_02.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+                    <!--tab******************************** -->
+                    <div id="zakljucene" class="tab-pane">
+                        <div class="profile-desk">
+                            {% include "pomanjkljivosti/pomanjkljivost/list/tabs/tab_03.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
