@@ -14,11 +14,11 @@
             {% for object in pomanjkljivosti_nelikvidirane %}
             <tr>
                 <td><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">{{ object.oznaka }}</a></td>
-                <td>{{ object.naziv }}</td>
-                <td>{{ object.prijavil }}</td>
+                <td>{{ object.opis_text }}</td>
+                <td>{{ object.prijavil_text }}</td>
                 <td>{{ object.ugotovljeno_dne }}</td>
-                <td>{{ object.element }}</td>
-                <td>{{ object.lokacija }}</td>
+                <td>{{ object.element_text }}</td>
+                <td>{{ object.lokacija_text }}</td>
             </tr>
             {% endfor %}
 
