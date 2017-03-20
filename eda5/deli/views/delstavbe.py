@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from django.db.models import Max
 
@@ -114,4 +114,22 @@ class DelDetailView(DetailView):
         context = super(DelDetailView, self).get_context_data(*args, **kwargs)
         modul_zavihek = Zavihek.objects.get(oznaka="DEL_DETAIL")
         context['modul_zavihek'] = modul_zavihek
+
+        # Servisna knjiga
+        delstavbe_instance = DelStavbe.objects.get(id=self.object.id)
+        
+        # seznam delovnih nalogov (za servisno knjigo)
+        servisna_knjiga = []
+        # seznam opravil kjer je vsebovan element
+        opravila = Opravilo.objects.filter(element__del_stavbe=self.object.id)
+        # iteriramo skozi seznam opravil, da pridobimo posamezne sezname delovnih nalogov
+        for opravilo in opravila:
+            delovninalog_list_x = DelovniNalog.objects.filter(opravilo=opravilo)
+        # iteriramo skozi seznam delovnih nalogov in dodamo v seznam
+            for dn in delovninalog_list_x:
+                servisna_knjiga.append(dn)
+            # list(delovninalog_list)
+        context['servisna_knjiga'] = servisna_knjiga
+
+
         return context

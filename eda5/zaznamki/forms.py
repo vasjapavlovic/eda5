@@ -26,3 +26,7 @@ class ZaznamekForm(forms.ModelForm):
 class ZaznamekUpdateForm(ZaznamekForm):
     pass
 
+
+class ZaznamekCreateForm(ZaznamekForm):
+    pass
+

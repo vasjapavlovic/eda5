@@ -9,6 +9,7 @@
 
 <!-- PRODAJA LASTNINE -->
     {% if object.predajalastnine.prodajalastnine_set.all %}
+<div class="table-responsive">
     <table class="table table-condensed table-bordered table-striped">
         <thead>
 
@@ -42,11 +43,13 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
     {% endif %}
 
 
     <!-- NAJEM LASTNINE -->
     {% if object.predajalastnine.najemlastnine_set.all %}
+<div class="table-responsive">
     <table class="table table-condensed table-bordered table-striped">
         <thead>
 
@@ -86,6 +89,7 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
     {% endif %}
 
 {% endif %}

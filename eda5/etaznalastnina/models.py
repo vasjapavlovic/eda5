@@ -4,6 +4,8 @@ from django.db.models import Max
 from eda5.partnerji.models import SkupinaPartnerjev, Partner, Posta
 
 
+
+
 class Program(models.Model):
 
     # ATRIBUTES

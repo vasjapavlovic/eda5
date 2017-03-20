@@ -1,6 +1,7 @@
 from django.db import models
 
 
+#---------------------------------------------------------------------------------
 class PredajaLastnineManager(models.Manager):
 
     def create_predaja_lastnine(
@@ -22,6 +23,7 @@ class PredajaLastnineManager(models.Manager):
         return predaja_lastnine
 
 
+#---------------------------------------------------------------------------------
 class ProdajaLastnineManager(models.Manager):
 
     def create_prodaja_lastnine(
@@ -42,7 +44,7 @@ class ProdajaLastnineManager(models.Manager):
         prodaja_lastnine.save(using=self._db)
         return prodaja_lastnine
 
-
+#---------------------------------------------------------------------------------
 class NajemLastnineManager(models.Manager):
 
     def create_najem_lastnine(
@@ -66,3 +68,9 @@ class NajemLastnineManager(models.Manager):
 
         najem_lastnine.save(using=self._db)
         return najem_lastnine
+
+
+
+    def active(self, **kwargs):
+        filtered = self.filter(is_active=True)
+        return filtered

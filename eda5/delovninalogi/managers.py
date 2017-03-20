@@ -89,7 +89,6 @@ class DelovniNalogManager(models.Manager):
 
 class DeloManager(models.Manager):
 
-    use_for_related_fields = True
 
     def odprta_dela(self, **kwargs):
         return self.filter(time_stop__isnull=True)

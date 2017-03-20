@@ -13,6 +13,9 @@ from eda5.moduli.models import Zavihek
 from eda5.stevcnostanje.models import Stevec, Delilnik
 
 from eda5.etaznalastnina.models import LastniskaSkupina
+
+from eda5.lastnistvo.models import ProdajaLastnine, NajemLastnine
+
 from eda5.deli.models import ProjektnoMesto, DelStavbe
 
 
@@ -48,12 +51,19 @@ class LastniskaEnotaInternaListLastView(ListView):
         modul_zavihek = Zavihek.objects.get(oznaka="INT_LIST_LAST")
         context['modul_zavihek'] = modul_zavihek
 
+
+        # lastniška shema EDA center - Kdo je lastnik, kdo je najemnik
+        # LASTNIK --> lastnistvo - predaja_lastnine - prodaja_lastnine
+        # NAJEMNIK --> Lastnistvo - predaja lastnine - najem_lastnine
+
+        # najemi_veljavni = NajemLastnine.objects.filter(vracilo_datum__isnull=True)
+        # context['najemi_veljavni'] = najemi_veljavni
         return context
 
     def get_queryset(self):
         queryset = super(LastniskaEnotaInternaListLastView, self).get_queryset()
 
-        return queryset.select_related('elaborat', 'internadodatno')
+        return queryset.select_related('elaborat')
 
 
 class LastniskaEnotaInternaDetailView(DetailView):

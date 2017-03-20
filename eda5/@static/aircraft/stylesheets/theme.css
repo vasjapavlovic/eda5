@@ -33,7 +33,7 @@ a,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Open Sans', helvetica, arial, sans-serif;
+  font-family: 'Open Sans', 'helvetica', 'arial', 'sans-serif';
 }
 a:hover {
   text-decoration: none;
@@ -307,7 +307,7 @@ footer hr {
   box-shadow: 1px 1px 0px #ffffff;
 }
 .panel .panel-heading {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid transparent;
   border-left: none;
   color: #333;
   display: block;
@@ -316,14 +316,8 @@ footer hr {
   text-transform: none;
   font-size: .85em;
   line-height: 1.5em;
-  background: #efefef;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(1, #fafafa));
-  background: -ms-linear-gradient(bottom, #efefef, #fafafa);
-  background: -moz-linear-gradient(center bottom, #efefef 0%, #fafafa 100%);
-  background: -o-linear-gradient(bottom, #efefef, #fafafa);
-  filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#efefef')";
-  box-shadow: inset 0px 1px 1px white;
+
+
 }
 .panel .panel-heading:not(.no-collapse):hover {
   background: #efefef;

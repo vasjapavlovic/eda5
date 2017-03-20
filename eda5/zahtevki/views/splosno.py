@@ -159,7 +159,7 @@ class ZahtevekDetailView(LoginRequiredMixin, DetailView):
 
         # zaznamek
         context['zaznamek_form'] = ZaznamekForm
-        context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id).order_by('-datum')
+        context['zaznamek_list'] = Zaznamek.objects.filter(zahtevek=self.object.id).order_by('-datum', '-ura')
 
         # zahtevek - child
         context['zahtevek_create_form'] = ZahtevekIzbiraForm

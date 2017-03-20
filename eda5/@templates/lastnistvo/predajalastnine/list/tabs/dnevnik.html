@@ -1,0 +1,35 @@
+<!-- TAB_01 Content -->
+
+        <text>Dnevnik predaj lastnine</text><br>
+        <table class="table">
+            <tr>
+                <th>oznaka</th>
+                <th>datum</th>
+                <th>prodajalec</th>
+                <th>kupec</th>
+                <th>prodaja</th>
+                <th>najem</th>
+            </tr>
+
+            {% for object in predajalastnine_list %}
+            <tr>
+                <td><a href="">{{ object.oznaka }}</a></td>
+                <td>{{ object.created.date }}<a href=""></td>
+                <td><a href="{% url 'moduli:partnerji:partner_detail' object.prodajalec.pk %}">{{ object.prodajalec.kratko_ime }}</a></td>
+                <td><a href="{% url 'moduli:partnerji:partner_detail' object.kupec.pk %}">{{ object.kupec.kratko_ime }}</a></td>
+                <td>
+                    {% for object in object.prodajalastnine_set.all %}
+                        {{ object.lastniska_enota.oznaka }}, 
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for object in object.najemlastnine_set.all %}
+                        {{ object.lastniska_enota.oznaka }}, 
+                    {% endfor %}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+
