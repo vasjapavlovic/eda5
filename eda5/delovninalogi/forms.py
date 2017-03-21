@@ -40,8 +40,8 @@ class OpraviloCreateForm(forms.ModelForm):
         super(OpraviloCreateForm, self).__init__(*args, **kwargs)
         # custom initial properties
 
+        leto = timezone.now().date().year
         try:
-            leto = timezone.now().date().year
             zap_st = Opravilo.objects.all().count()
             zap_st = zap_st + 1
         except:

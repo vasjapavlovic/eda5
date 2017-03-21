@@ -55,7 +55,7 @@
   background: -o-linear-gradient(bottom, #efefef, #fafafa);
   filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#efefef')";
-  box-shadow: inset 0px 1px 1px white;
+
 
 }
 .panel-moduli .panel-heading-moduli:not(.no-collapse):hover {

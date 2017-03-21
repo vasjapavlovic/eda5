@@ -14,12 +14,12 @@
 
 
 
-<!-- Naročila -->
+<!-- Naročila in Reklamacije -->
 <li class="divider"></li>
-<li class="dropdown-header">Naročila</li>
+<li class="dropdown-header">Naročila in Reklamacije</li>
 
 <li><a type="button" href="{% url 'moduli:narocila:narocilo_create' object.pk %}"><b>Dodaj</b> Naročilo</a></li>
-
+<li><a type="button" href="{% url 'moduli:reklamacije:reklamacija_create_from_zahtevek' object.pk %}"><b>Dodaj</b> Reklamacijo</a></li>
 
 
 <!-- Dogodki -->
