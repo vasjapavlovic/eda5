@@ -1,17 +1,13 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
+# Managers
 from . import managers
 
-# Core
+# Models
 from eda5.core.models import TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel
-
-# Delovni nalogi
 from eda5.delovninalogi.models import DelovniNalog
-
-# Partnerji
 from eda5.partnerji.models import Partner
-
-# Zahtevki
 from eda5.zahtevki.models import Zahtevek
 
 
@@ -93,7 +89,8 @@ class Reklamacija(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusMode
 	# ========================================================
 	objects = managers.ReklamacijaManager()
 
-
+	def get_absolute_url(self):
+		return reverse('moduli:reklamacije:reklamacija_detail', kwargs={'pk': self.object.pk})
 
 	#---------------------------------------------------------
 	# META and STR

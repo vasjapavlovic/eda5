@@ -1,10 +1,13 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+# Managers
 from . import managers
 
-from eda5.zahtevki.models import Zahtevek
+# Models
 from eda5.delovninalogi.models import DelovniNalog
+from eda5.reklamacije.models import Reklamacija
+from eda5.zahtevki.models import Zahtevek
 
 
 class Zaznamek(models.Model):
@@ -13,6 +16,7 @@ class Zaznamek(models.Model):
     #   Relations
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
+    reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
     #   Mandatory
     tekst = models.TextField(verbose_name='Tekst')
     datum = models.DateField(verbose_name='Datum')
@@ -30,6 +34,9 @@ class Zaznamek(models.Model):
 
         if self.delovninalog:
             return reverse("moduli:delovninalogi:dn_detail", kwargs={'pk': self.delovninalog.pk})
+
+        if self.reklamacija:
+            return reverse("moduli:reklamacije:reklamacija_detail", kwargs={'pk': self.reklamacija.pk})
 
     # META AND STRING
     class Meta:

@@ -13,6 +13,7 @@ class ArhiviranjeManager(models.Manager):
                 element=None,
                 artikel=None,
                 racun=None,
+                reklamacija=None,
                 arhiviral=None,
                 lokacija_hrambe=None,
                 elektronski=None,
@@ -31,6 +32,7 @@ class ArhiviranjeManager(models.Manager):
             delstavbe=delstavbe,
             element=element,
             artikel=artikel,
+            reklamacija=reklamacija,
         )
 
         arhiviranje.save(using=self._db)

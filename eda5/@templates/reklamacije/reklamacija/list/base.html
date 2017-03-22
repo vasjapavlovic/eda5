@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content %}
+<h2><b>{{ modul_zavihek.naziv }}</b></h2>
+{% include "reklamacije/reklamacija/list/content.html" %}
+{% include "reklamacije/reklamacija/list/modal.html" %}
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

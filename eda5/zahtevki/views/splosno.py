@@ -1,69 +1,37 @@
-# PYTHON ##############################################################
+# Python
 
 
-# DJANGO ##############################################################
+# Django
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
-# mixins
+# Mixins
 from braces.views import LoginRequiredMixin
 
-# INTERNO ##############################################################
-# Zahtevek Osnova
-from ..forms import ZahtevekUpdateForm, ZahtevekIzbiraForm
+# Models
 from ..models import Zahtevek
-
-
-# UVOŽENO ##############################################################
-# Arhiv
-from eda5.arhiv.forms import ArhiviranjeZahtevekForm
 from eda5.arhiv.models import Arhiviranje, ArhivMesto
-
-
-
-# Deli MODELS
-from eda5.deli.models import\
-    Skupina,\
-    Podskupina,\
-    DelStavbe,\
-    ProjektnoMesto\
-
-# Delovni Nalogi
-from eda5.delovninalogi.forms import \
-    OpraviloCreateForm, \
-    OpraviloElementUpdateForm, \
-    OpraviloPomanjkljivostUpdateForm
-    
+from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto
 from eda5.delovninalogi.models import Opravilo
-
-# Dogodki
-from eda5.dogodki.forms import DogodekCreateForm
-from eda5.dogodki.forms import DogodekUpdateForm
 from eda5.dogodki.models import Dogodek
-
-# Kljuci
 from eda5.kljuci.models import PredajaKljuca
-from eda5.kljuci.forms import PredajaKljucaCreateForm
-from eda5.kljuci.forms import PredajaKljucaVraciloForm
-
-# Moduli
 from eda5.moduli.models import Zavihek
-
-# Naročila
 from eda5.narocila.models import Narocilo
-
-# Pomanjkljivosti
-from eda5.pomanjkljivosti.models import Pomanjkljivost
-
-# Partnerji
 from eda5.partnerji.models import Oseba
-
-# Zaznamki
-from eda5.zaznamki.forms import ZaznamekForm
+from eda5.pomanjkljivosti.models import Pomanjkljivost
+from eda5.reklamacije.models import Reklamacija
 from eda5.zaznamki.models import Zaznamek
+
+# Forms
+from ..forms import ZahtevekUpdateForm, ZahtevekIzbiraForm
+from eda5.arhiv.forms import ArhiviranjeZahtevekForm
+from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm, OpraviloPomanjkljivostUpdateForm
+from eda5.dogodki.forms import DogodekCreateForm, DogodekUpdateForm
+from eda5.kljuci.forms import PredajaKljucaCreateForm, PredajaKljucaVraciloForm
+from eda5.zaznamki.forms import ZaznamekForm   
 
 
 class ZahtevekListView(LoginRequiredMixin, ListView):
@@ -156,6 +124,10 @@ class ZahtevekDetailView(LoginRequiredMixin, DetailView):
 
         # pomanjkljivosti
         context['pomanjkljivost_list'] = Pomanjkljivost.objects.filter(zahtevek=self.object.id)
+
+        # reklamacije
+        context['reklamacija_list'] = Reklamacija.objects.filter(zahtevek=self.object.id)
+
 
         # zaznamek
         context['zaznamek_form'] = ZaznamekForm

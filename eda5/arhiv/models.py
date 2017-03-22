@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 from . import managers
 
+# Models
 from eda5.core.models import TimeStampedModel
 from eda5.deli.models import DelStavbe, Element
 from eda5.delovninalogi.models import DelovniNalog
@@ -12,7 +13,10 @@ from eda5.katalog.models import ModelArtikla
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.racunovodstvo.models import Racun
+from eda5.reklamacije.models import Reklamacija
 from eda5.zahtevki.models import Zahtevek
+
+# Forms
 
 ''' POZOR !!! uporabljeni DJANGO-SIGNALS.
     Avtomatsko se izdelajo 
@@ -88,11 +92,13 @@ class Arhiviranje(TimeStampedModel):
     ''' LOKACIJA LIKVIDIRANEGA DOKUMENTA '''
     ######################################################################
     ''' skupine, ki lahko imajo več priponk '''
-    zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
+    artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     delstavbe = models.ForeignKey(DelStavbe, blank=True, null=True)
     element = models.ForeignKey(Element, blank=True, null=True)
-    artikel = models.ForeignKey(ModelArtikla, blank=True, null=True)
+    reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
+    zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
+    
     ''' edino račun ima lahko samo eno priponko '''
     racun = models.OneToOneField(Racun, blank=True, null=True)
     # ********************************************************************

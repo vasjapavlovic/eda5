@@ -1,0 +1,39 @@
+<!-- PODZAHTEVKI -->
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not zahtevek_child_list %}
+    Zahtevek še nima registriranih pod-zahtevkov.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>oznaka</th>
+                <th>predmet</th>
+                <th>rok izvedbe</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for podzahtevek in zahtevek_child_list %}
+
+            {% if podzahtevek.is_active %}
+            <tr>
+            {% else %}
+            <tr class="success">
+            {% endif %}
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' podzahtevek.pk %}">{{ podzahtevek.oznaka }}</a></td>
+                <td>{{ podzahtevek.naziv }}</td>
+                <td>{{ podzahtevek.rok_izvedbe }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}

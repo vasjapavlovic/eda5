@@ -11,9 +11,15 @@ urlpatterns = [
     ),
 
     url(
-        r'^(?P<pk>\d+)/zaznamek-create/$', 
+        r'^/zahtevek/(?P<pk>\d+)/zaznamek-create/$', 
         views.ZaznamekCreateFromZahtevek.as_view(), 
         name="zaznamek_create_from_zahtevek"
+    ),
+
+    url(
+        r'^/reklamacija/(?P<pk>\d+)/zaznamek-create/$', 
+        views.ZaznamekCreateFromReklamacija.as_view(), 
+        name="zaznamek_create_from_reklamacija"
     ),
 
 

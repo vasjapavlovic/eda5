@@ -1,0 +1,57 @@
+<!-- zahtevek detail : NAVIGACIJA_MENU -->
+
+
+<div class="row m-t-30">
+    <div class="col-sm-12">
+        <div class="panel with-nav-tabs panel-default">
+
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#podatki">Podatki</a></li>
+                    <li><a data-toggle="tab" href="#zaznamki">Zaznamki</a></li>
+                    <li><a data-toggle="tab" href="#dokumentacija">Dokumentacija</a></li>       
+                </ul>
+            </div>
+
+
+            <div class="panel-body" > 
+                <div class="tab-content"> 
+
+
+
+                    <!--tab******************************** -->
+                    <div id="podatki" class="tab-pane active">
+                        <div class="profile-desk">
+                            <text>Podatki o zahtevku:</text>
+                            {% include "reklamacije/reklamacija/detail/tabs/tab_01.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="dokumentacija" class="tab-pane">
+                        <div class="profile-desk">
+                            <text>Dokumentacija:</text>
+                            {% include "reklamacije/reklamacija/detail/tabs/tab_03.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="zaznamki" class="tab-pane">
+                        <div class="profile-desk">
+                            <text>Zaznamki:</text>
+                            {% include "reklamacije/reklamacija/detail/tabs/tab_04.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

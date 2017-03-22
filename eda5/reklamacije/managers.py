@@ -22,6 +22,7 @@ class ReklamacijaManager(models.Manager):
         self,
         oznaka=None,
         naziv=None,
+        opis=None,
         datum=None,
         narocnik=None,
         izvajalec=None,
@@ -33,6 +34,7 @@ class ReklamacijaManager(models.Manager):
         reklamacija = self.model(
             oznaka=oznaka,
             naziv=naziv,
+            opis=opis,
             datum=datum,
             narocnik=narocnik,
             izvajalec=izvajalec,
@@ -43,3 +45,11 @@ class ReklamacijaManager(models.Manager):
 
         reklamacija.save(using=self._db)
         return reklamacija
+
+    # zahtevki v reševanju
+    def status_vresevanju(self, **kwargs):
+        return self.filter(status=3).order_by('-id')
+
+    # zaključeni zahtevki
+    def status_zakljuceno(self, **kwargs):
+        return self.filter(status=4).order_by('-id')

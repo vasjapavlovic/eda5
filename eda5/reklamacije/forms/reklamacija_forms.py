@@ -1,9 +1,17 @@
 from functools import partial
 
 from django import forms
+from django.contrib.admin.sites import site  # popup
 from django.utils import timezone
 
+
+# Models
 from ..models import Reklamacija
+
+# Forms
+
+# Widgets
+from eda5.partnerji.widgets import PartnerSelectWithPop, PartnerMultipleSelectWithPop, PartnerForeignKeyRawIdWidget
 
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -50,4 +58,26 @@ class ReklamacijaCreateFromZahtevekForm(forms.ModelForm):
 		)
 		widgets = {
             'datum': DateInput(),
+            'narocnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('narocnik').rel, site),
+            'izvajalec': PartnerForeignKeyRawIdWidget(model._meta.get_field('izvajalec').rel, site),
+        }
+
+
+class ReklamacijaUpdateForm(forms.ModelForm):
+
+	class Meta:
+		model = Reklamacija
+		fields = (
+			'oznaka',
+			'naziv',
+			'opis',
+			'datum',
+			'narocnik',
+			'izvajalec',
+			'okvirni_strosek',
+		)
+		widgets = {
+            'datum': DateInput(),
+            'narocnik': PartnerForeignKeyRawIdWidget(model._meta.get_field('narocnik').rel, site),
+            'izvajalec': PartnerForeignKeyRawIdWidget(model._meta.get_field('izvajalec').rel, site),
         }
