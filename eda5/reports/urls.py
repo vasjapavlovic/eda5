@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik
+from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe
 
 
 # Racun
@@ -43,4 +43,18 @@ urlpatterns += [
 urlpatterns += [
     url(r'^delavci_v_delu/$', ostalo.ReportDelavciVDelu.as_view(), name="delavci_v_delu"),
     url(r'^dnevnik_izvedenih_del/$', ostalo.ReportDelovniNalogODnevnik.as_view(), name="dnevnik"),
+]
+
+
+# DelStavbe
+urlpatterns += [
+
+    url(
+        r'^edacenter/delstavbe/zunanji(?P<pk>\d+)zunanji$', 
+        delstavbe.ReportDelStavbeView.as_view(), 
+        name="delstavbe_detail"
+    ),
+
+
+
 ]

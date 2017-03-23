@@ -1,0 +1,43 @@
+<!-- Header -->
+
+<tr>
+    <td><small><b>oznaka</b></small></td>
+    <td></b>{{ object.oznaka }}</td>
+</tr>
+
+<tr>
+    <td><small><b>naziv</b></small></td>
+    <td>{{ object.naziv }}</td>
+</tr>
+
+
+<tr>
+    <td>
+    	<!-- funkcija | oznaka-->
+    	<small><b>funkcija</b></small>
+    </td>
+    <td>
+    	<!-- funkcija | vrednost-->
+    	{% if object.funkcija %}
+    	</b>{{ object.funkcija }}</b>
+    	{% else %}
+    	-
+    	{% endif %}
+    </td>
+</tr>
+
+
+<tr>
+    <td>
+    	<!-- Lastniška skupina | oznaka-->
+    	<small><b>lastniška skupina</b></small>
+    </td>
+    <td>
+    	<!-- Lastniška skupina | vrednost-->
+    	{% if object.lastniska_skupina %}
+    	</b>{{ object.lastniska_skupina.oznaka }}| {{ object.lastniska_skupina.naziv }}</b>
+    	{% else %}
+    	-
+    	{% endif %}
+    </td>
+</tr>

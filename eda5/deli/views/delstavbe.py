@@ -1,31 +1,25 @@
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+# Django
 from django.core.context_processors import csrf
-from django.http import JsonResponse
+from django.core.urlresolvers import reverse
+from django.db.models import Max
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
-from django.db.models import Max
-
 
 # Mixins
 from braces.views import LoginRequiredMixin
 
-
-from ..forms import \
-    skupina_forms, \
-    podskupina_forms, \
-    delstavbe_forms, \
-    projektnomesto_forms, \
-    element_forms, \
-    nastavitev_forms
-
+# Models
 from ..models import Skupina, Podskupina, DelStavbe, ProjektnoMesto, Element
-
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
 from eda5.katalog.models import ObratovalniParameter
+from eda5.moduli.models import Zavihek
 from eda5.racunovodstvo.models import Strosek
 
-from eda5.moduli.models import Zavihek
+# Forms
+from ..forms import skupina_forms, podskupina_forms, delstavbe_forms
+from ..forms import projektnomesto_forms, element_forms, nastavitev_forms
+
 
 
 class DelCreateView(LoginRequiredMixin, CreateView):
