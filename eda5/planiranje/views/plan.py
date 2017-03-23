@@ -1,5 +1,5 @@
 # PYTHON ##############################################################
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 
 # DJANGO ##############################################################
@@ -78,7 +78,7 @@ class PlanDetailView(DetailView):
             )
 
         # zaenkrat tudi nepotrjena opravila iz strani nadzornika
-        opravila_potrjena_planirana = opravila_vsa.filter(planirano_opravilo__isnull=False)
+        opravila_potrjena_planirana = opravila_vsa
         max_opravila_potrjena_planirana = opravila_potrjena_planirana.values(
             "planirano_opravilo").annotate(datum_izvedbe=Max("created"))
 
@@ -130,7 +130,19 @@ class PlanDetailView(DetailView):
             else:
                 dan = timedelta(days=0)
 
-            datum_izvedeno_dne = obj.created
+
+            # ==================================================
+            # Določitev datuma izvedenega opravila in naslednjega opravila
+            # ===========================================================
+
+            # pridobimo planirani datum izvedbe dela po odprtem opravilu
+            opravilo = obj
+            delovninalog_prvi = obj.delovninalog_set.first()
+            delovninalog_prvi_planirano_dne = delovninalog_prvi.datum_plan
+            datum_izvedeno_dne = delovninalog_prvi_planirano_dne
+
+
+            # glede na periodo posameznega opravila določimo še datum naslednjega opravila
             datum_naslednjega_opravila = datum_izvedeno_dne + leto + mesec + teden + dan
 
             # podatke o datumu izvedena pregleda in datumu naslednjega
@@ -148,7 +160,7 @@ class PlanDetailView(DetailView):
             # shranimo spremembe v bazo
             planirano_opravilo.save()
 
-            if datum_naslednjega_opravila < timezone.now():
+            if datum_naslednjega_opravila < timezone.now().date():
                 planirano_opravilo_zapadlo_list_pk.append(obj.pk)
             else:
                 planirano_opravilo_nezapadlo_list_pk.append(obj.pk)
