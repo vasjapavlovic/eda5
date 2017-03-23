@@ -75,6 +75,7 @@ class ReklamacijaUpdateForm(forms.ModelForm):
 			'narocnik',
 			'izvajalec',
 			'okvirni_strosek',
+			'status',
 		)
 		widgets = {
             'datum': DateInput(),
