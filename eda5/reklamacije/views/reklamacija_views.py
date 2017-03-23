@@ -84,6 +84,7 @@ class ReklamacijaCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
 	        reklamacija = Reklamacija.objects.create_reklamacija(
 	            oznaka=oznaka,
 	            naziv=naziv,
+                opis=opis,
 	            datum=datum,
 	            narocnik=narocnik,
 	            izvajalec=izvajalec,

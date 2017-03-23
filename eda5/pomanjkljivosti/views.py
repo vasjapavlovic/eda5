@@ -4,29 +4,20 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 
-# mixins
+# Mixins
 from braces.views import LoginRequiredMixin
 
-# Moduli
-from eda5.moduli.models import Zavihek
-
-# Deli FORMS
-from eda5.deli.forms import\
-    projektnomesto_forms
-
-# Pomanjkljivosti
-from .forms import \
-    PomanjkljivostCreateForm, \
-    PomanjkljivostCreateFromZahtevekForm, \
-    PomanjkljivostLikvidirajPodZahtevek, \
-    PomanjkljivostIzbiraFrom, \
-    PomanjkljivostElementUpdateForm, \
-    PomanjkljivostUpdateForm
-
+# Models
 from .models import Pomanjkljivost
-
-# Zahtevki
+from eda5.moduli.models import Zavihek
 from eda5.zahtevki.models import Zahtevek
+
+# Forms
+from .forms import PomanjkljivostCreateForm, PomanjkljivostCreateFromZahtevekForm, PomanjkljivostLikvidirajPodZahtevek
+from .forms import PomanjkljivostIzbiraFrom, PomanjkljivostElementUpdateForm, PomanjkljivostUpdateForm
+from eda5.deli.forms import projektnomesto_forms
+
+
 
 
 class PomanjkljivostiHomeView(TemplateView):
@@ -121,6 +112,7 @@ class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
         ###########################################################################
 
         pomanjkljivost_create_from_zahtevek_form = PomanjkljivostCreateFromZahtevekForm(request.POST or None)
+        potrdilo_form = PotrdiloForm(request.POST or None)
         pomanjkljivost_element_update_form = PomanjkljivostElementUpdateForm(request.POST or None)
 
         ''' Na začetku so vsi formi napčni neustrezni-

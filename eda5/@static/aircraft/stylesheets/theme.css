@@ -188,10 +188,11 @@ label {
 }
 .content {
   position: relative;
-  min-height: 800px;
+  min-height: 1500px;
   background: #fff;
   margin-left: 240px;
   border-left: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
   padding: 15px 15px 0px 15px;
 }
 .header {
@@ -228,6 +229,7 @@ label {
 }
 .page-content {
   padding: 1em;
+
 }
 footer {
   padding: 1em;
