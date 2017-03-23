@@ -139,7 +139,7 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
     @property
     def zapade_14dni(self):
         if self.do_naslednjega_opravila_dni:
-            if self.do_naslednjega_opravila_dni<=14:
+            if self.do_naslednjega_opravila_dni <= 14:
                 return True
             else:
                 return False

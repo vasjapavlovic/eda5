@@ -6,6 +6,11 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from django.db.models import Max
 
+
+# Mixins
+from braces.views import LoginRequiredMixin
+
+
 from ..forms import \
     skupina_forms, \
     podskupina_forms, \
@@ -23,7 +28,7 @@ from eda5.racunovodstvo.models import Strosek
 from eda5.moduli.models import Zavihek
 
 
-class DelCreateView(CreateView):
+class DelCreateView(LoginRequiredMixin, CreateView):
 
     model = DelStavbe
     form_class = delstavbe_forms.DelCreateForm
@@ -39,7 +44,7 @@ class DelCreateView(CreateView):
         return context
 
 
-class DelUpdateView(UpdateView):
+class DelUpdateView(LoginRequiredMixin, UpdateView):
 
     model = DelStavbe
     form_class = delstavbe_forms.DelUpdateForm
@@ -55,7 +60,7 @@ class DelUpdateView(UpdateView):
 
 
 
-class DelListView(ListView):
+class DelListView(LoginRequiredMixin, ListView):
     template_name = "deli/delstavbe/list/base.html"
     model = DelStavbe  # prej je bila tu Skupina
 
@@ -106,7 +111,7 @@ class DelListView(ListView):
         return HttpResponseRedirect(reverse('moduli:deli:del_list'))
 
 
-class DelDetailView(DetailView):
+class DelDetailView(LoginRequiredMixin, DetailView):
     template_name = "deli/delstavbe/detail/base.html"
     model = DelStavbe
 
@@ -133,3 +138,4 @@ class DelDetailView(DetailView):
 
 
         return context
+
