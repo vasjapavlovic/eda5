@@ -90,7 +90,7 @@ class Reklamacija(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusMode
 	objects = managers.ReklamacijaManager()
 
 	def get_absolute_url(self):
-		return reverse('moduli:reklamacije:reklamacija_detail', kwargs={'pk': self.object.pk})
+		return reverse('moduli:reklamacije:reklamacija_detail', kwargs={'pk': self.pk})
 
 	#---------------------------------------------------------
 	# META and STR
