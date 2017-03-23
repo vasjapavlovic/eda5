@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 
 # Managers
 from . import managers
@@ -91,7 +90,7 @@ class Reklamacija(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusMode
 	objects = managers.ReklamacijaManager()
 
 	def get_absolute_url(self):
-		return HttpResponseRedirect(reverse('moduli:reklamacije:reklamacija_detail', kwargs={'pk': self.pk}))
+		return reverse('moduli:reklamacije:reklamacija_detail', kwargs={'pk': self.pk})
 
 	#---------------------------------------------------------
 	# META and STR
