@@ -78,60 +78,10 @@
         </div>
         
 
-        <!-- ###################################################################### -->
-        <!-- STRANSKI MENI -->
-        <!-- ###################################################################### -->
-        <div class="sidebar-nav">
-            <ul>
-                <li>
-                    {% if messages %}
-                      {% for message in messages %}
-                          <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close" >&times;</a>
-                          </div>
-                      {% endfor %}
-                    {% endif %}
-                </li>
-
-
-
-                    <ul class="dashboard-menu nav nav-list">
-                        <li><a href="{% url 'moduli:home' %}">Moduli</a></li>
-
-                    </ul>
-                
-
-                {% block sidebar %}{% endblock sidebar %}
-                    
-            </ul>
+        <div class="container">
+        <div class="jumbotron">
+            {% block content %}{% endblock content %}
         </div>
-
-
-        <!-- ###################################################################### -->
-        <!-- VRSTICA POD ZGORNJIM MENUJEM-->
-        <!-- ###################################################################### -->
-        <div class="content">
-
-            <div class="header">
-                <!-- Desni del -->
-                <!-- ###################################################################### -->
-
-                <div class="stats">
-
-                    {% block navbar_left %}{% endblock navbar_left %}
-                </div>
-
-                <!-- Levi del -->
-                <!-- ###################################################################### -->
-                {% block navbar_title %}{% endblock navbar_title %}
-            </div>
-
-            <div class="page-content">
-            <!-- ###################################################################### -->
-            <!-- VSEBINA -->
-            <!-- ###################################################################### -->
-                {% block content %}{% endblock content %}
-            </div>
 
             
         </div>

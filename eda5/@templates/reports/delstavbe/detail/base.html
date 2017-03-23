@@ -6,25 +6,8 @@
 {% block content %}
     <!-- panel -->
 
-<div class="row">
-<div class="col-sm-6 col-md-6">
+{% include "reports/delstavbe/detail/header.html" %}
 
-    <div class="panel">
-        <div class="panel-heading no-collapse">Podrobnosti Dela stavbe</div>
-
-            <table style="row-height=5; !important"  class="table table-condensed table-bordered">
-                <font color="black">
-                    <thead>
-                    </thead>
-                    <tbody>
-                    {% include "reports/delstavbe/detail/header.html" %}
-                    </tbody>
-                </font>
-            </table>
-        </div>
-    </div>
-</div>
-</div>
 
 {% include "reports/delstavbe/detail/content.html" %}
 
