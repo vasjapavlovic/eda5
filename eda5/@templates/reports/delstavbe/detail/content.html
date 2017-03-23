@@ -5,7 +5,8 @@
 
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#servisnaknjiga">Servisna Knjiga</a></li>
+                    <li class="active"><a data-toggle="tab" href="#plan">Plan</a></li>
+                    <li><a data-toggle="tab" href="#servisnaknjiga">Servisna Knjiga</a></li>
                     <li><a data-toggle="tab"
                 </ul>
             </div>
@@ -15,7 +16,15 @@
 
 
                     <!--tab******************************** -->
-                    <div id="elementi" class="tab-pane active">
+                    <div id="plan" class="tab-pane active">
+                        <div class="profile-desk">
+
+                            {% include "reports/delstavbe/detail/tabs/tab_01.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+                    <!--tab******************************** -->
+                    <div id="servisnaknjiga" class="tab-pane">
                         <div class="profile-desk">
 
                             {% include "reports/delstavbe/detail/tabs/tab_04.html" %}  
