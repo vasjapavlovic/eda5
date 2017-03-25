@@ -1,29 +1,28 @@
 <!-- zahtevek detail : NAVIGACIJA_MENU -->
 
 
-<div class="row m-t-30">
-    <div class="col-sm-12">
-        <div class="panel with-nav-tabs panel-default">
-
-            <div class="panel-heading">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#podatki">Podatki</a></li>
-                    <li><a data-toggle="tab" href="#zaznamki">Zaznamki</a></li>
-                    <li><a data-toggle="tab" href="#dokumentacija">Dokumentacija</a></li>
-                    <li><a data-toggle="tab" href="#podzahtevki">Podzahtevki</a></li>
-                    <li><a data-toggle="tab" href="#narocila">Naročila</a></li>
-                    <li><a data-toggle="tab" href="#opravila">Opravila</a></li>
-                    <li><a data-toggle="tab" href="#predaja_lastnine">Predaja Lastnine</a></li>
-                    <li><a data-toggle="tab" href="#kljuci">Kljuci</a></li>
-                    <li><a data-toggle="tab" href="#dogodki">Dogodki</a></li>
-                    <li><a data-toggle="tab" href="#pomanjkljivosti">Pomanjkljivosti</a></li>
-                    <li><a data-toggle="tab" href="#reklamacije">Reklamacije</a></li>
+<div class="row m-t-30 no_padding ">
+    <div class="col-sm-12 no_padding ">
+        <div class="panel no_padding">
+            <div class="panel-heading background_dark_grey">
+                <ul class="nav nav-pills">
+                    <li class="active"><a class="btn background_dark_grey" data-toggle="tab" href="#podatki">Podatki</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#zaznamki">Zaznamki</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#dokumentacija">Dokumentacija</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#podzahtevki">Podzahtevki</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#narocila">Naročila</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#opravila">Opravila</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#predaja_lastnine">Predaja Lastnine</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#kljuci">Kljuci</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#dogodki">Dogodki</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#pomanjkljivosti">Pomanjkljivosti</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#reklamacije">Reklamacije</a></li>
                     
                 </ul>
             </div>
 
 
-            <div class="panel-body" > 
+            <div class="panel-body background_grey" > 
                 <div class="tab-content"> 
 
 
@@ -31,7 +30,6 @@
                     <!--tab******************************** -->
                     <div id="podatki" class="tab-pane active">
                         <div class="profile-desk">
-                            <text>Podatki o zahtevku:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_01.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -41,7 +39,6 @@
                     <!--tab******************************** -->
                     <div id="opravila" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Opravila:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_02.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -51,7 +48,6 @@
                     <!--tab******************************** -->
                     <div id="dokumentacija" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Dokumentacija:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_03.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -61,7 +57,6 @@
                     <!--tab******************************** -->
                     <div id="zaznamki" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Zaznamki:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_04.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -71,7 +66,6 @@
                     <!--tab******************************** -->
                     <div id="podzahtevki" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Podzahtevki:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_05.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -81,7 +75,6 @@
                     <!--tab******************************** -->
                     <div id="predaja_lastnine" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Predaja lastnine:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_06.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -91,7 +84,6 @@
                     <!--tab******************************** -->
                     <div id="kljuci" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Ključi:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_08.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -101,7 +93,6 @@
                     <!--tab******************************** -->
                     <div id="dogodki" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Dogodki:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_07.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -111,7 +102,6 @@
                     <!--tab******************************** -->
                     <div id="narocila" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Naročila:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_09.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -121,7 +111,6 @@
                     <!--tab******************************** -->
                     <div id="pomanjkljivosti" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Pomanjkljivosti:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_10.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
@@ -131,7 +120,6 @@
                     <!--tab******************************** -->
                     <div id="reklamacije" class="tab-pane">
                         <div class="profile-desk">
-                            <text>Reklamacije:</text>
                             {% include "zahtevki/zahtevek/detail/tabs/tab_11.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->

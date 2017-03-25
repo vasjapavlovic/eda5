@@ -21,17 +21,21 @@
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
 
-<div class="navbar-collapse collapse stat" style="height: 1px;">
-    <ul id="main-menu" class="nav navbar-nav navbar-right">
-        <li class="dropdown hidden-xs">
-            <button href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i> Ukazi <i class="fa fa-caret-down"></i></button>
+<!-- user menu -->
+<li class="dropdown">
+    <!-- link ime -->
+    <a class="" href="#" data-toggle="dropdown">
+        <b class="btn_ukazi">Ukazi</b>
 
-            <ul class="dropdown-menu">
-                {% include "zahtevki/zahtevek/detail/navbar_left.html" %}
-            </ul>
-        </li>
+    </a>
+
+
+    <ul class="dropdown-menu">
+        {% include "zahtevki/zahtevek/detail/navbar_left.html" %}
     </ul>
-</div>
+</li>
+
+
 
 {% endblock %}
 <!-- end Navbar-Left podatki -->
@@ -39,16 +43,17 @@
 
 
 <!-- PAGE CONTENT -->
-{% block content %}
-    
-    <!-- panel -->
-<div class="row">
-<div class="col-sm-6 col-md-6">
-<h2><b>{{ modul_zavihek.naziv }}</b></h2>
-    <div class="panel">
-        <div class="panel-heading no-collapse">Podrobnosti zahtevka</div>
 
-            <table style="row-height=5; !important"  class="table table-condensed table-bordered">
+
+{% block content-header %}
+    <!-- panel -->
+<div class="row no_padding">
+    <div class="col-sm-12 col-md-12 no_padding">
+        <div class="panel">
+            <div class="panel-heading no-collapse background_dark_grey_header">Podrobnosti zahtevka
+            </div>
+
+            <table style="row-height=5; !important"  class="table table-condensed table-bordered background_yellow">
                 <font color="black">
                     <thead>
                     </thead>
@@ -57,11 +62,12 @@
                     </tbody>
                 </font>
             </table>
-        </div>
+        </div>   
     </div>
 </div>
-</div>
+{% endblock %}
 
+{% block content-body %}
     <!-- end panel -->
 {% include "zahtevki/zahtevek/detail/content.html" %}
 {% include "zahtevki/zahtevek/detail/modal.html" %}

@@ -2,14 +2,10 @@
 
 
     <!-- Glede na odprt zavihek-->
-    <li style="background: {{ modul_zavihek.modul.barva }}; !important"><a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}" data-target=".{{ modul_zavihek.modul.oznaka }}-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> {{ modul_zavihek.modul.naziv|upper}}<i class="fa fa-collapse in"></i></a></li> 
-    
 
-    <li>
-        <ul class="{{ modul_zavihek.modul.oznaka }}-menu nav nav-list collapse in"> 
             {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
             {% if zavihek.url_ref %}
-            <li><a href="{{ zavihek.urlreference }}"><span class="fa fa-caret-right"></span> {{ zavihek.naziv }}</a></li>
+            <a class="list-group-item background_grey" href="{{ zavihek.urlreference }}"><span class="fa fa-caret-right"></span> {{ zavihek.naziv }}</a>
             {% endif %}
             {% endfor %}
 
@@ -18,13 +14,10 @@
             {% for zavihek_parent in modul_zavihek.parent.all %}
             {% if zavihek_parent.url_ref %}
 
-            <li><a href="{{ zavihek_parent.urlreference }}"><span class="fa fa-caret-right"></span> {{ zavihek_parent.naziv }} |{{ zavihek_parent.modul.oznaka }}-{{ zavihek_parent.modul.naziv }}</a></li>
+            <a class="list-group-item background_grey" href="{{ zavihek_parent.urlreference }}"><span class="fa fa-caret-right"></span> {{ zavihek_parent.naziv }}</a>
 
             {% endif %}
             {% endfor %}
-
-        </ul>
-    </li>
 
 
     

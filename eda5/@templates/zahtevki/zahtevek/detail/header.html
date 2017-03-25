@@ -1,28 +1,32 @@
 <!-- Header -->
 
+<col style="width:15%">
+<col style="width:85%">
+
+
 <tr>
-    <td><small><b>oznaka</b></small></td>
+    <td><b>oznaka</b></td>
     <td></b>{{ object.oznaka }}</td>
 </tr>
 
 <tr>
-    <td><small><b>naziv</b></small></td>
+    <td><b>naziv</b></td>
     <td>{{ object.naziv }}</td>
 </tr>
 
 <tr>
-    <td><small><b>vrsta</b></small></td>
+    <td><b>vrsta</b></td>
     <td>{{ object.get_vrsta_display }}</td>
 </tr>
 
 <tr>
-    <td><small><b>status</b></small></td>
+    <td><b>status</b></td>
     <td></b>{{ object.get_status_display }}</b></td>
 </tr>
 
 
 <tr>
-    <td><small><b>pomanjkljivosti</b></small></td>
+    <td><b>pomanjkljivosti</b></td>
     <td>
 		<!-- Ko še ni registriranih vnosov -->
 		{% if not pomanjkljivost_list %}

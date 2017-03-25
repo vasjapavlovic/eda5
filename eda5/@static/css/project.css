@@ -1,209 +1,78 @@
-/* These styles are generated from project.css. */
-
-/*Blocks*/
-.radius-top {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-} 
-.radius-bottom {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.radius-top-0 {
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-} 
-.radius-bottom-0 {
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
 
 
-.panel-moduli {
-  border: 1px solid #ccc;
-  background: white;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  max-height: 350px;
-  max-width: 300px;
 
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-          box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-.dialog .panel-moduli {
-  -webkit-box-shadow: 1px 1px 0px #ffffff;
-  -moz-box-shadow: 1px 1px 0px #ffffff;
-  box-shadow: 1px 1px 0px #ffffff;
-}
-.panel-moduli .panel-heading-moduli {
-
-  padding: 10px 15px;
-  border-bottom: 1px solid transparent;
-  border-bottom: 1px solid #ccc;
-  border-left: none;
-  color: #333;
-  display: block;
+.navbar-eda5 {
+  z-index: 1000;
+  border-width: 0 0 1px;
   margin-bottom: 0px;
-  text-shadow: none;
-  text-transform: none;
-  font-size: .85em;
-  line-height: 1.5em;
-  background: #efefef;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(1, #fafafa));
-  background: -ms-linear-gradient(bottom, #efefef, #fafafa);
-  background: -moz-linear-gradient(center bottom, #efefef 0%, #fafafa 100%);
-  background: -o-linear-gradient(bottom, #efefef, #fafafa);
-  filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#efefef')";
-
-
-}
-.panel-moduli .panel-heading-moduli:not(.no-collapse):hover {
-  background: #efefef;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e2e2e2), color-stop(1, #fafafa));
-  background: -ms-linear-gradient(bottom, #e2e2e2, #fafafa);
-  background: -moz-linear-gradient(center bottom, #e2e2e2 0%, #fafafa 100%);
-  background: -o-linear-gradient(bottom, #e2e2e2, #fafafa);
-  filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#e2e2e2')";
-}
-.panel-moduli .panel-heading-moduli .panel-icon {
-  border-right: 1px solid #AAA;
-  box-shadow: 1px 0px 1px #fff;
-  border-left: none;
-  text-align: center;
-  padding-left: 1em;
-  line-height: 2em;
-  margin-top: -0.25em;
-}
-.panel-moduli .panel-heading-moduli .panel-icon a {
-  padding: 0em;
-}
-.panel-moduli .panel-heading-moduli .panel-icon [class*="icon-moduli-"] {
-  padding: 0em 1em;
-  line-height: 1em;
-}
-.panel-moduli .panel-heading-moduli .panel-icon .pull-right {
-  border-left: 1px solid #AAA;
-  border-right: none;
-  box-shadow: inset 1px 0px 1px #fff;
-}
-.panel-moduli .panel-heading-moduli .label {
-  float: right;
-  line-height: 1.5em;
-  -webkit-box-shadow: 1px 1px 0px #ffffff;
-  -moz-box-shadow: 1px 1px 0px #ffffff;
-  box-shadow: 1px 1px 0px #ffffff;
-
-}
-p.panel-heading-moduli,
-a.panel-heading-moduli,
-.panel-heading-moduli a {
-  color: #505050;
-  display: block;
-  outline: none;
-
-}
-a.panel-heading-moduli:hover,
-.panel-heading-moduli a:hover {
-  opacity: #505050;
-}
-.panel-body-moduli {
-  min-height: 8em;
-  padding: 15px;
-}
-.panel-body-moduli h1,
-.panel-body-moduli h2,
-.panel-body-moduli h3,
-.panel-body-moduli h4,
-.panel-body-moduli h5,
-.panel-body-moduli h6,
-.panel-body-moduli table {
-  margin-top: 12px;
-}
-.panel-body-moduli.collapse {
-  margin-top: 0em;
-  margin-bottom: 0em;
+  margin-top: 50px;
 }
 
+.navbar-eda5-logo-pozicija {
+    margin-top: -15px !important; //if the logo has a 70px height.
+  }
 
+/* z index je manjši da ga zgornji meni lahko prekrije */
+.navbar-moduli {
+  z-index: 999;
+  background: #121459;
+  border-width: 0 0 1px;
+  margin-bottom: 0px;
+}
 
-.panel .panel-heading {
-  font-family: 'Open Sans', Helvetica, sans-serif;
-  background: #858585;
-  background: -moz-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #858585), color-stop(100%, #e1e1e1));
-  background: -webkit-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: -o-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: -ms-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: linear-gradient(to bottom, #858585 0%, #e1e1e1 100%);
-  color: #000;
-  padding: 0px 0px 1px 0px;
+.navbar_title {
+  z-index: 999;
+  background: #fff;
+  border-width: 0 0 1px;
+}
+
+.background_grey {
+  background: #f2f2f2;
+}
+
+.background_dark_grey {
+  background: #5c5c5c;
+  color: #fff;
   font-weight: bold;
 }
+
+.btn_ukazi {
+  background: #5c5c5c;
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 30px 5px 30px;
 }
 
-.panel .panel-heading:not(.no-collapse):hover {
-  background: #424141;
+.background_dark_grey_header {
+  background: #5c5c5c;
+  color: rgb(255, 217, 102);
+  font-weight: bold;
+}
+
+.background_yellow {
+  background: #fcf8e3;
+  color: #8a6d3b;
+}
+
+.no_padding {
+  padding: 0 0 0 0;
+}
+
+.nav-pills > li {
+  width: 19.7%;
+  text-align: right;
+}
+
+.nav-pills > li > a {
+  text-align: center;
+}
+
+
+.text_white {
   color: #fff;
 }
 
-
-.nav-tabs {
-  background: #858585;
-  background: -moz-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #858585), color-stop(100%, #e1e1e1));
-  background: -webkit-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: -o-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: -ms-linear-gradient(top, #858585 0%, #e1e1e1 100%);
-  background: linear-gradient(to bottom, #858585 0%, #e1e1e1 100%);
-}
-
-.nav-tabs > li {
-  float: left;
-  border: 0 solid transparent;
-
-
-}
-.nav-tabs > li > a {
-  margin-right: 2px;
-  line-height: 0;
-  border: 0 solid transparent;
-  border-radius: 2px 2px 2px 2px;
-  color: #000;
-  
-}
-.nav-tabs > li > a:hover {
-  border-color: #eee #eee #ddd;
-  color: #000;
-
-}
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
-  color: #fff;
-  cursor: default;
-  background-color: #0f0f0f;
-  border: 0 solid transparent;
-  border-bottom-color: transparent;
-}
-
-
-.panel-body table {
-  margin-top: 0px;
-  border: 4px solid black;
-}
-
-
-.table .table {
-  background-color: #fff;
-}
-.table-condensed > thead > tr > th,
-.table-condensed > tbody > tr > th,
-.table-condensed > tfoot > tr > th,
-.table-condensed > thead > tr > td,
-.table-condensed > tbody > tr > td,
-.table-condensed > tfoot > tr > td {
-  padding: 0px;
+.table_bottom_border {
+  border-top: 5px solid;
+  border-bottom: 3px solid;
 }

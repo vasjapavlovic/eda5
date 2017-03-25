@@ -1,8 +1,10 @@
 <!-- Left Navbar Title-->
+{% block navbar_title_modul %}
+<a class="navbar-brand" href="{% url 'moduli:home' %}">{{ modul_zavihek.modul.naziv }}</a>
+{% endblock navbar_title_modul %}
 
-<h1 class="page-title">{{ modul_zavihek.modul.naziv }}</h1>
-<ul class="breadcrumb">
+<ul class="nav navbar-nav">
     <li><a href="{% url 'moduli:home' %}">Moduli</a> </li>
     <li><a href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">{{ modul_zavihek.modul.naziv }}</a></li>
-    <li class="active">{{ modul_zavihek.naziv }}</li>
+    <li class="active"><a>{{ modul_zavihek.naziv }}</a></li>
 </ul>
