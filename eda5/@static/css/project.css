@@ -31,20 +31,20 @@
 }
 
 .background_dark_grey {
-  background: #5c5c5c;
+  background: #4b4b4b;
   color: #fff;
   font-weight: bold;
 }
 
 .btn_ukazi {
-  background: #5c5c5c;
+  background: #4b4b4b;
   color: #fff;
   font-weight: bold;
   padding: 5px 30px 5px 30px;
 }
 
 .background_dark_grey_header {
-  background: #5c5c5c;
+  background: #4b4b4b;
   color: rgb(255, 217, 102);
   font-weight: bold;
 }
@@ -69,10 +69,18 @@
 
 
 .text_white {
-  color: #fff;
+  color: #123;
 }
 
 .table_bottom_border {
   border-top: 5px solid;
   border-bottom: 3px solid;
+}
+
+.height_100 {
+  height: 100%;
+}
+
+.sidebar_add {
+  font-size: 50%;
 }

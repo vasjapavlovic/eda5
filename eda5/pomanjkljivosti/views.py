@@ -112,7 +112,6 @@ class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
         ###########################################################################
 
         pomanjkljivost_create_from_zahtevek_form = PomanjkljivostCreateFromZahtevekForm(request.POST or None)
-        potrdilo_form = PotrdiloForm(request.POST or None)
         pomanjkljivost_element_update_form = PomanjkljivostElementUpdateForm(request.POST or None)
 
         ''' Na začetku so vsi formi napčni neustrezni-

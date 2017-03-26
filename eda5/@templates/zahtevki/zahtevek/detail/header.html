@@ -26,28 +26,32 @@
 
 
 <tr>
-    <td><b>pomanjkljivosti</b></td>
-    <td>
+    <td rowspan="100"><b>pomanjkljivosti</b></td>
+
+
 		<!-- Ko še ni registriranih vnosov -->
 		{% if not pomanjkljivost_list %}
 		    Trenutno še ni registriranih pomanjkljivosti.
 
 		<!-- Ko vnosi že obstajajo -->
 		{% else %}
-			<ul>
+	   
 		    {% for object in pomanjkljivost_list %}
-		    
-			<li><a href="">  ({{ object.oznaka }}) {{ object.naziv }}
+		    <tr>
+    			<td>
+                    <a href="">  ({{ object.oznaka }}) {{ object.naziv }}
 
-			<!-- Update pomanjkljivost -->
-                <a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        			<!-- Update pomanjkljivost -->
+                        <a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
-			</a></li>
+        			</a>
+                </td>
 
+            </tr>
 		    {% endfor %}
-		    </ul>
+
 
 		{% endif %}
-		
-	</td>
+
+	
 </tr>
