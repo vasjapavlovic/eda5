@@ -95,11 +95,8 @@ class PartnerDetailView(DetailView):
         context['oseba_form'] = self.form_class
         context['trr_form'] = TrrCreateWidget
 
-        modul_zavihek = Zavihek.objects.get(oznaka="PR_LIST")
+        modul_zavihek = Zavihek.objects.get(oznaka="PR_DETAIL")
         context['modul_zavihek'] = modul_zavihek
-
-        modul_zavihek2 = Zavihek.objects.get(oznaka="PR_DETAIL")
-        context['modul_zavihek2'] = modul_zavihek2
 
         return context
 
