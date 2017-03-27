@@ -1,6 +1,7 @@
 <!-- TAB_03 Content -->
 
-<table class="table table-condensed">
+<div class="table-resposnive">
+    <table class="table table-bordered table-striped">
     <tbody>
         {% for skpartner in object.skupinapartnerjev_set.all %}
         {% for dokument in skpartner.naslovnik.all %}
@@ -37,3 +38,4 @@
         {% endfor %}
     </tbody>
 </table>
+</div>

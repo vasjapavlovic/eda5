@@ -1,0 +1,22 @@
+<!-- HEADER -->
+
+<!-- table col width -->
+<col style="width:15%">
+<col style="width:85%">
+
+
+<!-- table vsebina -->
+<tr>
+    <td><b>Naziv</b></td>
+    <td></b>{{ object.kratko_ime }}</td>
+</tr>
+
+<tr>
+    <td><b>Davčna št.</b></td>
+    <td>{{ object.davcna_st }}</td>
+</tr>
+
+<tr>
+    <td><b>Naslov</b></td>
+    <td>{{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}, {{ object.posta.drzava.naziv }}</td>
+</tr>
