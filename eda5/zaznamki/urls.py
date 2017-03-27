@@ -22,5 +22,11 @@ urlpatterns = [
         name="zaznamek_create_from_reklamacija"
     ),
 
+    url(
+        r'^/delovninalog/(?P<pk>\d+)/zaznamek-create/$', 
+        views.ZaznamekCreateFromDelovniNalog.as_view(), 
+        name="zaznamek_create_from_delovninalog"
+    ),
+
 
 ]

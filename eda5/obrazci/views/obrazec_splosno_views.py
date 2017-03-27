@@ -1,17 +1,18 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, CreateView	
 
-# dodatki
+# templated docs
 from templated_docs import fill_template
 from templated_docs.http import FileResponse
 
-# relative imports
+# Models
 from ..models import ObrazecSplosno
-from ..forms.forms import ObrazecCreateForm
-
-# absolute imports
 from eda5.moduli.models import Zavihek
+
+# Forms
+from ..forms.forms import ObrazecCreateForm
 from eda5.reports.forms import FormatForm
+
 
 
 class DopisCreateView(CreateView):

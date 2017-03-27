@@ -1,55 +1,41 @@
-# PYTHON ##############################################################
+# Python
 from datetime import datetime, timedelta
 import os
 
 
-# DJANGO ##############################################################
+# Django
 from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-# from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 
-# UVOZI ZNOTRAJ APLIKACIJE ############################################
-from ..forms import \
-    OpraviloUpdateForm, \
-    DelovniNalogVcakanjuModelForm, \
-    DelovniNalogVplanuModelForm,\
-    DelovniNalogVresevanjuModelForm, \
-    DeloCreateForm, \
-    DeloKoncajUpdateForm
-
-from ..models import \
-    Opravilo, \
-    DelovniNalog, \
-    Delo, \
-    VzorecOpravila
-
-from ..mixins import MessagesActionMixin
+# Templated docs
+from templated_docs import fill_template
+from templated_docs.http import FileResponse
 
 
-# UVOZI ZUNANJIH APLIKAIJ ############################################
-
-# Moduli
-from eda5.moduli.models import Zavihek
-
-# Arhiv
-from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
+# Models
+from ..models import Opravilo, DelovniNalog, Delo, VzorecOpravila
 from eda5.arhiv.models import Arhiviranje, ArhivMesto
-
-# Partnerji
+from eda5.moduli.models import Zavihek
 from eda5.partnerji.models import Oseba
-
-# Skladišče
 from eda5.skladisce.models import Dnevnik
-
-# Zaznamki
-from eda5.zaznamki.forms import ZaznamekForm
 from eda5.zaznamki.models import Zaznamek
 
+
+# Forms
+from ..forms import OpraviloUpdateForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm
+from ..forms import DelovniNalogVresevanjuModelForm, DeloCreateForm, DeloKoncajUpdateForm
+from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
+from eda5.reports.forms import FormatForm
+from eda5.zaznamki.forms import ZaznamekForm
+
+
+# Mixins
+from ..mixins import MessagesActionMixin
 
 
 
@@ -89,6 +75,9 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['delo_update_form'] = DeloKoncajUpdateForm
         context['delo_list'] = Delo.objects.filter(delovninalog=self.object.id)
         context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=self.object.id).distinct('delavec')
+
+        # from za izbiro formata izvoza
+        context['form'] = FormatForm 
 
         # skladisce
         context['material_list'] = Dnevnik.objects.filter(delovninalog=self.object.id)
