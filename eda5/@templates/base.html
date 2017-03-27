@@ -143,16 +143,17 @@
         <!-- ###################################################################### -->
         <!-- navbar_moduli -->
         <!-- ====================================================================== -->
-        <nav class="navbar navbar-default navbar-static-top navbar-moduli">
-            <div class="container">
+        <nav class="navbar navbar-static-top navbar-moduli ">
+            <div class="container ">
                 <!-- header -->
+
+                <text class="navbar-brand text_white">Moduli</text>
+
                 <div class="navbar-header">
                     <!-- gumb za colapse v primeru zmanjšanja displaya -->
                     <button class="navbar-toggle collapsed" type="button"  data-toggle="collapse" data-target="#navbar_moduli" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <i class="fa fa-bars text_white" aria-hidden="true"></i>
+
                     </button>
 
                 </div>
@@ -162,8 +163,8 @@
 
                     <!-- levi meni - ob logotu -->
                     <ul class="nav navbar-nav">
-                        <li><a class="" href="#">Zahtevki</a></li>
-                        <li><a class="" href="#">Delovni nalogi</a></li>
+                        <li><a class="text_white" href="#">Izvedba del</a></li>
+                        <li><a class="text_white" href="#">Predaja lastnine</a></li>
                     </ul>
                     
                 </div>
@@ -175,47 +176,42 @@
         <!-- ###################################################################### -->
         <!-- navbar_prikazovalnik -->
         <!-- ====================================================================== -->
-        <nav class="navbar navbar-default navbar-static-top navbar_title">
+        <div class="navbar navbar-static-top navbar_title">
             <div class="container">
 
-                <!-- header -->
-                <div class="navbar-header">
-                {% block navbar_title_modul %}{% endblock navbar_title_modul %}
+                <div class="navbar-header pull-left">
+                    <text class="navbar-brand">Navigacija</text>
+                    {% block navigacija %}{% endblock %}
+                    <a class="btn btn-default navbar-btn visible-xs" type="button" data-toggle="offcanvas">Hitre povezave</a>
+
                 </div>
 
-                <!-- leva stran -->
-                <ul class="nav navbar-nav">
-                {% block navbar_title %}{% endblock navbar_title %}
-                </ul>
-                
-                <!-- desna stran -->
+                <div class="navbar-header pull-right">
+                    <ul class="nav navbar-nav navbar-right">
 
-                <ul class="nav navbar-nav navbar-right">
-                {% block navbar_left %}{% endblock navbar_left %}
+                {% block navbar_right %}{% endblock %}
+
+
+                        
+   
                 </ul>
+                </div>
+
+
+                
                 
             </div>
-        </nav>
+        </div>
 
-
+        <hr>
         <!-- ###################################################################### -->
         <!-- BODY -->
         <!-- ====================================================================== -->
 
-        <div class="container">
-        
+        <div class="container min_height_800">
             <div class="row row-offcanvas row-offcanvas-right">
-
-
-                
-
-
                 <div class="col-xs-12 col-sm-10">
-                    <p class="pull-right visible-xs">
-                        <button class="btn btn-primary btn-xs" type="button" data-toggle="offcanvas">Toggle nav</button>
-                    </p>
-
-
+                    
 
                     <div class="col-xs-12 col-sm-12 no_padding">
                     {% block content-header %}{% endblock %}
@@ -243,54 +239,15 @@
                         <li class="list-group-item background_dark_grey">Hitre povezave</li>
                         {% block sidebar %}{% endblock sidebar %}
                     </div>
-
-
                 </div>
-
-                
-
-        <!-- ###################################################################### -->
-        <!-- sidebar -->
-        <!-- ###################################################################### -->
-
-
-
-
-        <!-- ###################################################################### -->
-        <!-- VRSTICA POD ZGORNJIM MENUJEM-->
-        <!-- ###################################################################### -->
-        <div class="content">
-
-            <div class="header">
-                <!-- Desni del -->
-                <!-- ###################################################################### -->
-
-                <div class="stats">
-
-                    
-                </div>
-
-                <!-- Levi del -->
-                <!-- ###################################################################### -->
-                
             </div>
-
-            <div class="page-content">
-            <!-- ###################################################################### -->
-            <!-- VSEBINA -->
-            <!-- ###################################################################### -->
-                
-            </div>
-
-            
-        </div>
         </div>
 
         <hr>
 
         <div class="container">
             <footer class="footer">
-                <p class="pull-right">EDA5</p>
+                <p class="pull-right"></p>
                 <p>© 2012-2017 EDAFM, upravljanje stavb, d.o.o.</p>
             </footer>
         </div>

@@ -34,7 +34,7 @@
 
 
 <!-- PAGE CONTENT -->
-{% block content %}
+{% block content-body %}
 
 
     <form id="del_form" method="POST", action="{% url 'moduli:deli:del_update' object.pk %}" enctype="multipart/form-data">{% csrf_token %}

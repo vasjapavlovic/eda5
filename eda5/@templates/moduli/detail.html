@@ -17,36 +17,45 @@
 
 
 <!-- Navbar-Left podatki -->
-{% block navbar_left %}
+{% block navbar_right %}
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
 
 
-<!-- PAGE TITLE -->
-{% block content_title %}
-<!-- Title -->{{ object.naziv }}<!-- napis modula -->
-{% endblock %}
-<!-- end PAGE TITLE -->
-
-
-
 <!-- PAGE CONTENT -->
-{% block content-body %}
+{% block content-header %}
 
-    <!-- seznam zavihkov -->
-    <table class="table">
-        {% for zavihek in object.zavihek_set.all %}
 
-            <!-- Povezavo prikaži samo v primeru, da ima zavihek vpisan url -->
-            {% if zavihek.url_ref %}
-            <tr>
-                <td><h3><a href="{{ zavihek.urlreference }}" >{{ zavihek.naziv }}</a></h3></td>
-            </tr>
-            {% endif %}
-        
-        {% endfor %}
-    </table><!-- end seznam zavihkov -->
+<div class="row ">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel border_hairline_grey">
+            <div class="panel-heading no-collapse background_dark_grey_header">
+                {{ object.naziv }}
+            </div>
+
+            <table class="table table-bordered background_yellow">
+                <thead>
+                 </thead>
+                <tbody>
+                    {% for zavihek in object.zavihek_set.all %}
+
+                    <!-- Povezavo prikaži samo v primeru, da ima zavihek vpisan url -->
+                    {% if zavihek.url_ref %}
+                    <tr>
+                    <td><h4><a href="{{ zavihek.urlreference }}" >{{ zavihek.naziv }}</a></h4></td>
+                    </tr>
+                    {% endif %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>   
+    </div>
+</div>
+
+
+
 
 {% endblock %}
 <!-- end PAGE CONTENT -->

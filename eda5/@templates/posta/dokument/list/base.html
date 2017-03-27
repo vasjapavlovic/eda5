@@ -1,110 +1,65 @@
-{% extends "base.html" %}
+{% extends "base_200.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-<!-- SideBar podatki -->
+
+<!-- #########################################################################-->
+<!--  NAVIGAIJA -->
+<!-- #########################################################################-->
+{% block navigacija %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+
+
+
+<!-- #########################################################################-->
+<!--  SIDEBAR -->
+<!-- #########################################################################-->
 {% block sidebar %}
     {% include "moduli/detail_sidebar.html" %}
 {% endblock %}
-<!-- end SideBar podatki -->
 
 
 
-<!-- Navbar Title -->
-{% block navbar_title %}
-    {% include "moduli/detail_navbar_title.html" %}
+<!-- #########################################################################-->
+<!--  NAVIGACIJA DESNO -->
+<!-- #########################################################################-->
+{% block navbar_right_podrobno %}
+    {% include "posta/dokument/list/100_navigacija/100_navigacija_right.html" %}
 {% endblock %}
-<!-- end Navbar Title -->
 
 
 
-<!-- Navbar-Left podatki -->
-{% block navbar_left %}
+<!-- #########################################################################-->
+<!--  CONTENT HEADER -->
+<!-- #########################################################################-->
+{% block content-header-content %}
+    {% include "posta/dokument/list/200_content/100_content_header.html" %}
 {% endblock %}
-<!-- end Navbar-Left podatki -->
 
 
 
-<!-- PAGE TITLE -->
-{% block content_title %}
-<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+<!-- #########################################################################-->
+<!--  CONTENT BODY -->
+<!-- #########################################################################-->
+{% block content-body-items %}
+    {% include "posta/dokument/list/200_content/200_content_body_items.html" %}
 {% endblock %}
-<!-- end PAGE TITLE -->
 
 
-
-<!-- PAGE CONTENT -->
-{% block content %}
-{% include "posta/dokument/list/content.html" %}
-{% include "posta/dokument/list/modal.html" %}
+{% block content-body-tabs %}
+    {% include "posta/dokument/list/200_content/300_content_body_tabs.html" %}
 {% endblock %}
-<!-- end PAGE CONTENT -->
+
+
+{% block content-modal %}
+    {% include "posta/dokument/list/200_content/400_content_modal.html" %}
+{% endblock %}
 
 
 
-<!-- JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
+<!--  JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
 {% block javascript_extra %}
-
-<!-- nelikvidirana pošta -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#datatable_posta_nearhivirano').dataTable();
-        } );
-    </script>
-
-    <!-- likvidirana pošta -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#datatable_posta_arhivirano').dataTable();
-        } );
-    </script>
-
-    <!-- Reload page doesn't change selection of the checkboxes -->
-    <script type="text/javascript">
-        var formValues = JSON.parse(localStorage.getItem('formValues')) || {};
-        var $checkboxes = $("#checkbox-container :checkbox");
-        var $button = $("#checkbox-container button");
-
-        function allChecked(){
-          return $checkboxes.length === $checkboxes.filter(":checked").length;
-        }
-
-        function updateButtonStatus(){
-          $button.text(allChecked()? "Uncheck all" : "Check all");
-        }
-
-        function handleButtonClick(){
-          $checkboxes.prop("checked", allChecked()? false : true)
-        }
-
-        function updateStorage(){
-          $checkboxes.each(function(){
-            formValues[this.id] = this.checked;
-          });
-
-          formValues["buttonText"] = $button.text();
-          localStorage.setItem("formValues", JSON.stringify(formValues));
-        }
-
-        $button.on("click", function() {
-          handleButtonClick();
-          updateButtonStatus();
-          updateStorage();
-        });
-
-        $checkboxes.on("change", function(){
-          updateButtonStatus();
-          updateStorage();
-        });
-
-        // On page load
-        $.each(formValues, function(key, value) {
-          $("#" + key).prop('checked', value);
-        });
-
-        $button.text(formValues["buttonText"]);
-    </script>
-
-
 {% endblock %}
-<!-- end JAVASCRIPT EXTRA -->

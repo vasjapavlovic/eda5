@@ -1,0 +1,47 @@
+<!-- PREDAJA KLJUČEV -->
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not predaja_kljuca_list %}
+    Trenutno še ni registriranih predaj ključev.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>oznaka</th>
+                <th>datum predaje</th>
+                <th>zapisnik o predaji</th>
+                <th>datum vračila</th>
+                <th>zapisnik o vračilu</th>
+                <th>posebnosti vračila</th>
+                <th>Command</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for object in predaja_kljuca_list %}
+
+            {% if not object.vracilo_datum %}
+            <tr class="danger">
+            {% else %}
+            <tr class="success">
+            {% endif %}
+                <td><b>{{ object.kljuc.oznaka }}</b></td>
+                <td>{{ object.predaja_datum }}</td>
+                <td><a href="{{ MEDIA_URL }}{{ object.predaja_zapisnik.dokument.priponka }}">{{ object.predaja_zapisnik.dokument.oznaka }}</a></td>
+                <td>{{ object.vracilo_datum }}</td>
+                <td><a href="{{ MEDIA_URL }}{{ object.vracilo_zapisnik.dokument.priponka }}">{{ object.vracilo_zapisnik.dokument.oznaka }}</a></td>
+                <td>{{ object.vracilo_posebnosti }}</td>
+                <td><a type="button" href="{% url 'moduli:zahtevki:vracilo_kljuca_create' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}

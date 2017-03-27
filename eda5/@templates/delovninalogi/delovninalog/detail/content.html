@@ -1,22 +1,19 @@
 <!-- delovninalogi detail : NAVIGACIJA_MENU -->
 
-
-
-<div class="row m-t-30">
-    <div class="col-sm-12">
-        <div class="panel with-nav-tabs panel-default">
-
-            <div class="panel-heading">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
-                    <li><a data-toggle="tab" href="#dela"><b>D</b>ela</a></li>
-                    <li><a data-toggle="tab" href="#material"><b>M</b>aterial</a></li>
-                    <li><a data-toggle="tab" href="#dokumentacija"><b>D</b>okumentacija</a></li>
-                    <li><a data-toggle="tab" href="#zaznamki"><b>Z</b>aznamki</a></li>
+<div class="row m-t-30 no_padding ">
+    <div class="col-sm-12 no_padding ">
+        <div class="panel no_padding">
+            <div class="panel-heading background_dark_grey no_padding">
+                <ul class="nav nav-pills">
+                    <li class="active"><a class="btn background_dark_grey" data-toggle="tab" href="#podatki">Podatki</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#dela">Dela</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#material">Material</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#dokumentacija">Dokumentacija</a></li>
+                    <li><a class="btn background_dark_grey" data-toggle="tab" href="#zaznamki">Zaznamki</a></li>
                 </ul>
             </div>
 
-            <div class="panel-body" > 
+            <div class="panel-body background_grey" > 
                 <div class="tab-content"> 
 
 
@@ -63,6 +60,7 @@
                             {% include "delovninalogi/delovninalog/detail/tabs/tab_05.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
+
 
 
                 </div>

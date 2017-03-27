@@ -17,7 +17,7 @@
 
 
 <!-- Navbar-Left podatki -->
-{% block navbar_left %}
+{% block navbar_right %}
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -26,23 +26,24 @@
 <!-- PAGE CONTENT -->
 {% block content-body %}
     
-    <a href="{% url 'moduli:reports:delstavbe_detail' 68 %}">Dvigalo D1</a>
-
     {% for modul in object_list %}
 
-    <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="col-lg-4 col-sm-6 no_left_padding">
         
-        <div class="panel-moduli radius-top radius-bottom">
+        <div class="panel radius-top radius-bottom panel_shadow ">
             
-            <div class="panel-heading-moduli radius-top radius-bottom-0 label" style="background: {{ modul.barva }}; !important" href="{% url 'moduli:detail' modul.pk %}">
-                <div class="panel-title">
-                    <p><a href="{% url 'moduli:detail' modul.pk %}">{{ modul.naziv }}</a></p>
+            <a class="" href="{% url 'moduli:detail' modul.pk %}">
+            <div class="panel-heading radius-top radius-bottom-0" style="background: {{ modul.barva }}; !important" href="{% url 'moduli:detail' modul.pk %}">
+                <div class="panel-title moduli_title_text">
+                    <p>{{ modul.naziv }}</p>
                 </div>
             </div>
+            </a>
 
 
-            <div class="panel-body" style="background: {{ modul.barva }}; opacity: 0.5;!important">
-                    <h5>{{ modul.opis }}</h5>
+            <div class="panel-body height_100 moduli_body_text" style="background: {{ modul.barva }}; opacity: 0.5;!important">
+
+                    <p>{{ modul.opis }}</p>
             </div>
 
         </div>

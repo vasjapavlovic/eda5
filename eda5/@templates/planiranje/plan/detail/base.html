@@ -1,77 +1,65 @@
-{% extends "base.html" %}
+{% extends "base_200.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-<!-- SideBar podatki -->
+
+<!-- #########################################################################-->
+<!--  NAVIGAIJA -->
+<!-- #########################################################################-->
+{% block navigacija %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+
+
+
+<!-- #########################################################################-->
+<!--  SIDEBAR -->
+<!-- #########################################################################-->
 {% block sidebar %}
     {% include "moduli/detail_sidebar.html" %}
 {% endblock %}
-<!-- end SideBar podatki -->
 
 
 
-<!-- Navbar Title -->
-{% block navbar_title %}
-    {% include "moduli/detail_navbar_title.html" %}
+<!-- #########################################################################-->
+<!--  NAVIGACIJA DESNO -->
+<!-- #########################################################################-->
+{% block navbar_right_podrobno %}
+    {% include "planiranje/plan/detail/100_navigacija/100_navigacija_right.html" %}
 {% endblock %}
-<!-- end Navbar Title -->
 
 
 
-<!-- Navbar-Left podatki -->
-{% block navbar_left %}
-
-<div class="navbar-collapse collapse stat" style="height: 1px;">
-    <ul id="main-menu" class="nav navbar-nav navbar-right">
-        <li class="dropdown hidden-xs">
-            <button href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i> Ukazi <i class="fa fa-caret-down"></i></button>
-
-            <ul class="dropdown-menu">
-                {% include "planiranje/plan/detail/navbar_left.html" %}
-            </ul>
-        </li>
-    </ul>
-</div>
-
+<!-- #########################################################################-->
+<!--  CONTENT HEADER -->
+<!-- #########################################################################-->
+{% block content-header-content %}
+    {% include "planiranje/plan/detail/200_content/100_content_header.html" %}
 {% endblock %}
-<!-- end Navbar-Left podatki -->
 
 
 
-
-
-<!-- PAGE CONTENT -->
-{% block content %}
-    
-    <!-- panel -->
-<div class="row">
-<div class="col-sm-6 col-md-6">
-
-    <div class="panel">
-        <div class="panel-heading no-collapse">Podrobnosti plana</div>
-
-            <table style="row-height=5; !important"  class="table table-condensed table-bordered">
-                <font color="black">
-                    <thead>
-                    </thead>
-                    <tbody>
-                    {% include "planiranje/plan/detail/header.html" %}
-                    </tbody>
-                </font>
-            </table>
-        </div>
-    </div>
-</div>
-</div>
-
-{% include "planiranje/plan/detail/content.html" %}
-{% include "planiranje/plan/detail/modal.html" %}
+<!-- #########################################################################-->
+<!--  CONTENT BODY -->
+<!-- #########################################################################-->
+{% block content-body-items %}
+    {% include "planiranje/plan/detail/200_content/200_content_body_items.html" %}
 {% endblock %}
-<!-- end PAGE CONTENT -->
+
+
+{% block content-body-tabs %}
+    {% include "planiranje/plan/detail/200_content/300_content_body_tabs.html" %}
+{% endblock %}
+
+
+{% block content-modal %}
+    {% include "planiranje/plan/detail/200_content/400_content_modal.html" %}
+{% endblock %}
 
 
 
-<!-- JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
+<!--  JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
 {% block javascript_extra %}
 {% endblock %}
-<!-- end JAVASCRIPT EXTRA -->

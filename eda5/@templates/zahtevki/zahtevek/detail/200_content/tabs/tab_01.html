@@ -1,0 +1,85 @@
+<!-- TAB_01 Content -->
+Tu bo dashboard za podatke v zvezi z zahtevki.
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+
+        <!--Če parent zahtevka obstaja-->
+        <tr>
+            {% if object.zahtevek_parent %}
+            <td><small><b>Nad-Zahtevki</b></small></td>
+            
+            <td>
+                {% if object.zahtevek_parent.zahtevek_parent.zahtevek_parent %}
+                    <b> <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.naziv }}</b>|{{ object.zahtevek_parent.zahtevek_parent.zahtevek_parent.get_status_display }}
+                {% endif %}
+
+                    {% if object.zahtevek_parent.zahtevek_parent %}
+                    <ul><li>
+                        
+                        <b><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.zahtevek_parent.pk %}">({{ object.zahtevek_parent.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.zahtevek_parent.naziv }}</b>|{{ object.zahtevek_parent.zahtevek_parent.get_status_display }}
+                        </li>
+                    {% endif %}
+
+                            {% if object.zahtevek_parent %}
+                            <ul><li>
+                            
+                            <b><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek_parent.pk %}">({{ object.zahtevek_parent.get_vrsta_display }}|{{ object.zahtevek_parent.oznaka }})</a> {{ object.zahtevek_parent.naziv }}</b>|{{ object.zahtevek_parent.get_status_display }}
+                            </li></ul>
+                            {% endif %}
+
+                {% endif %}
+                </ul>
+            </td>
+        </tr>
+        
+        {% if object.zahtevek_set.all %}
+        <tr>
+            <td><small><b>Pod-Zahtevki</b></small></td>
+            <td>
+
+            <!--NIVO 1--> 
+            {% if object.zahtevek_set.all %}  
+            {% for object in object.zahtevek_set.all %}
+                    <ul>
+                        <li><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}"><b>({{ object.get_vrsta_display }}|{{ object.oznaka }})</b> {{ object.naziv }}</a>|{{ object.get_status_display }}</li>
+                        
+                        
+
+                            {% if object.zahtevek_set.all %} 
+                            {% for object in object.zahtevek_set.all %}
+                                <ul><!--NIVO 2-->
+                                    <li><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}"><b>({{ object.get_vrsta_display }}|{{ object.oznaka }})</b> {{ object.naziv }}</a>|{{ object.get_status_display }}</li>
+                            
+  
+                                
+                                    {% if object.zahtevek_set.all %} 
+                                    {% for object in object.zahtevek_set.all %}
+                                        <ul><!--NIVO 3-->
+                                            <li><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}"><b>({{ object.get_vrsta_display }}|{{ object.oznaka }})</b> {{ object.naziv }}</a>|{{ object.get_status_display }}</li>
+
+                                     
+                                            {% if object.zahtevek_set.all %} 
+                                            {% for object in object.zahtevek_set.all %}
+                                                <ul><!--NIVO 4-->
+                                                    <li><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}"><b>({{ object.get_vrsta_display }}|{{ object.oznaka }})</b> {{ object.naziv }}</a>|{{ object.get_status_display }}</li>
+                                                </ul>
+                                            {% endfor %}
+                                            {% endif %}
+
+                                        </ul>
+                                    {% endfor %}
+                                    {% endif %}
+                                
+                                </ul>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>  
+            {% endfor %}
+            {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+
+
+    </table>
+</div>

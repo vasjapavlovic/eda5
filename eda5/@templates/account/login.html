@@ -7,36 +7,36 @@
 {% load url from future %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block content-body %}
     
 
 
 <div class="dialog">
-    <div class="panel panel-default">
-        <p class="panel-heading no-collapse">Prijava</p>
-        <div class="panel-body">
-            <form class="form-horizontal m-t-40" method="POST" action="{% url 'account_login' %}">{% csrf_token %}
-                <div class="form-group ">
-                        <div class="col-xs-12">
-                            {{ form.login | as_crispy_field }}
+    <div class="panel">
+        <div class="panel-heading no-collapse background_dark_grey">Prijava</div>
+            <div class="panel-body background_grey">
+                <form class="form-horizontal m-t-40 padding_side_20" method="POST" action="{% url 'account_login' %}">{% csrf_token %}
+                    <div class="form-group">
+                            <div class="col-xs-12">
+                                {{ form.login | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="form-group">
                             
+                            <div class="col-xs-12">
+                                {{ form.password | as_crispy_field }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group ">
-                        
-                        <div class="col-xs-12">
-                            {{ form.password | as_crispy_field }}
-                        </div>
-                    </div>
-                <button class="btn btn-primary pull-right" type="submit">Vstopi</button>
-                <label class="remember-me"><input type="checkbox"> Zapomni si</label>
-                <div class="clearfix"></div>
-            </form>
+
+                    <button class="btn btn_ukazi pull-right" type="submit">Vstopi</button>
+                    <label class="remember-me"><input type="checkbox"> Zapomni si</label>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
         </div>
-    </div>
-    <p class="pull-right" style=""><a href="http://www.edafm.si" target="blank" style="font-size: .75em; margin-top: .25em;">EDAFM, upravljanje stavb, d.o.o.</a></p>
-    <p><a href="reset-password.html">Ste pozabili geslo?</a></p>
+
+    <p class="pull-right"><a href="reset-password.html">Ste pozabili geslo?</a></p>
 </div>
 
-{% endblock content %}
+{% endblock %}
 

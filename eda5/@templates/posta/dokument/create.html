@@ -19,7 +19,7 @@
 
 
 <!-- Navbar-Left podatki -->
-{% block navbar_left %}
+{% block navbar_right %}
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -32,25 +32,36 @@
 <!-- end PAGE TITLE -->
 
 
+{% block content-header %}
+    <div class="row ">
+        <div class="col-sm-12 col-md-12 ">
+            <div class="panel border_hairline_grey">
+                <div class="panel-heading no-collapse background_dark_grey_header">
+                    {{ modul_zavihek.naziv }}
+                </div>
+
+                    
+            </div>   
+        </div>
+    </div>
+{% endblock %}
 
 <!-- PAGE CONTENT -->
-{% block content %}
+{% block content-body %}
 
     <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
 
     <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-        <h1>Vnos Dokumenta</h1>
-
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Podatki o obdelavi</div>
-            <div class="panel-body">
+        <div class="panel no_padding">
+            <div class="panel-heading background_dark_grey">Podatki o obdelavi</div>
+            <div class="panel-body background_grey">
                 {{ aktivnost_form | crispy  }} 
             </div>
         </div>
 
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Podatki o dokumentu</div>
-            <div class="panel-body">
+        <div class="panel ">
+            <div class="panel-heading background_dark_grey">Podatki o dokumentu</div>
+            <div class="panel-body background_grey">
 
                 {{ skupina_dokumenta_form | crispy  }}
 
@@ -78,26 +89,6 @@
 {% block javascript_extra %}
 
 <script src="{% static 'js/custom_filter.js' %}"></script>
-
-
-<!-- akcija glede na izbrano vrsto aktivnosti 
-1=Vhodna Pošta, 2=Izhodna Pošta -->
-<script>
-
-    $('#create_form').on('change', '#id_vrsta_aktivnosti', function()
-        {
-            if (this.value == 1) {
-                document.getElementById('id_avtor').disabled = false;
-                document.getElementById('id_naslovnik').disabled = true;
-            }
-
-            if (this.value == 2) {
-                document.getElementById('id_avtor').disabled = true;
-                document.getElementById('id_naslovnik').disabled = false;
-            }
-        });
-
-</script>
 
 
 <!-- js related to the application -->

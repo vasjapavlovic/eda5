@@ -46,6 +46,12 @@ class SkupinaDokumentaIzbiraForm(forms.Form):
 class DokumentCreateForm(forms.ModelForm):
 
     # avtor = forms.IntegerField(widget=SelectWithPop)
+    def __init__(self, *args, **kwargs):
+        super(DokumentCreateForm, self).__init__(*args, **kwargs)
+
+        self.fields['avtor'].widget.attrs['disabled'] = True
+        self.fields['naslovnik'].widget.attrs['disabled'] = True
+
 
     class Meta:
         model = Dokument

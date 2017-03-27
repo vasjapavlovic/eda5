@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
@@ -34,7 +35,7 @@
 
 
 <!-- PAGE CONTENT -->
-{% block content %}
+{% block content-body %}
 {% include "zahtevki/zahtevek/list/content.html" %}
 {% include "zahtevki/zahtevek/list/modal.html" %}
 {% endblock %}

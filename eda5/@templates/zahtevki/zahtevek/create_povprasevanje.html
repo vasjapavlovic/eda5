@@ -19,7 +19,7 @@
 
 
 <!-- Navbar-Left podatki -->
-{% block navbar_left %}
+{% block navbar_right %}
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -34,7 +34,7 @@
 
 
 <!-- PAGE CONTENT -->
-{% block content %}
+{% block content-body %}
 
     <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
     <form id="zahtevek_analiza_create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
