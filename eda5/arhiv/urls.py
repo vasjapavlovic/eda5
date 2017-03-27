@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import ArhiviranjePopUpListView, ArhiviranjeCreateFromReklamacija, ArhiviranjeCreateFromZahtevek
+from .views import ArhiviranjePopUpListView, ArhiviranjeCreateFromReklamacija, ArhiviranjeCreateFromZahtevek, ArhiviranjeCreateFromDelovniNalog
 
 
 # HOME
@@ -24,6 +24,11 @@ urlpatterns += [
         name="arhiviranje_create_from_reklamacija"
     ),
 
+    url(
+        r'^/delovninalog/(?P<pk>\d+)/arhiviranje-create/$', 
+        ArhiviranjeCreateFromDelovniNalog.as_view(), 
+        name="arhiviranje_create_from_delovninalog"
+    ),
 
 
 ]

@@ -3,12 +3,9 @@
 
 <!-- Splošni ukazi Delovnih nalogov -->
 <li class="dropdown-header">Splošno</li>
-
-    <li><a href="" type="button"><b>Uredi</b> Podatke</a></li>
-
-    <li><a href="" type="button"><b>Dodaj</b> Dokument</a></li>
-
-    <li><a href="{% url 'moduli:zaznamki:zaznamek_create_from_delovninalog' object.pk %}" type="button"><b>Dodaj</b> Zaznamek</a></li>
+<li><a href="" type="button"><b>Uredi</b> Podatke</a></li>
+<li><a href="{% url 'moduli:arhiv:arhiviranje_create_from_delovninalog' object.pk %}" type="button"><b>Dodaj</b> Dokument</a></li>
+<li><a href="{% url 'moduli:zaznamki:zaznamek_create_from_delovninalog' object.pk %}" type="button"><b>Dodaj</b> Zaznamek</a></li>
 
 
 
