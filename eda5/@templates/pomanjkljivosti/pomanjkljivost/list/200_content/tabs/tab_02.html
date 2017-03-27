@@ -1,9 +1,15 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not pomanjkljivosti_vresevanju %}
+    Ni pomanjkljivosti v reševanju.
 
+<!-- Ko vnosi že obstajajo -->
+{% else %}
 
 <!-- TAB_02 Content -->
-
-        <text>Seznam odprtih pomanjkljivosti</text><br>
-        <table class="table">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            
+            <thead>
             <tr>
                 <th>oznaka</th>
                 <th>naziv</th>
@@ -16,11 +22,15 @@
                 <th>command</th>
                 
             </tr>
+            </thead>
+
+            <tbody>
 
             {% for object in pomanjkljivosti_vresevanju %}
 
 
             <tr>
+
                 <td><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">{{ object.oznaka }}</a></td>
                 <td>{{ object.naziv }}</td>
                 <td>{{ object.opis }}</td>
@@ -41,5 +51,9 @@
 
             </tr>
             {% endfor %}
+            </tbody>
 
         </table>
+    </div>
+
+{% endif %}

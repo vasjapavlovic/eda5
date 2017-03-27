@@ -599,7 +599,7 @@ def reload_controls_planiranje_plan_view(request):
     plan = Plan.objects.get(id=plan)
 
     planirano_opravilo_list = []
-    for planirano_opravilo in plan.planiranoopravilo_set.all():
+    for planirano_opravilo in plan.planiranoopravilo_set.filter(is_active=True):
         planirano_opravilo_list.append(planirano_opravilo.id)
 
     # OUTPUT FILTER

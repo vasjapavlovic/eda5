@@ -1,7 +1,14 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not pomanjkljivosti_nelikvidirane %}
+    Ni nelikvidiranih pomanjkljivosti.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
 <!-- TAB_01 Content -->
 
-        <text>Seznam odprtih pomanjkljivosti</text><br>
-        <table class="table">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            
             <tr>
                 <th>oznaka</th>
                 <th>prijava</th>
@@ -23,4 +30,6 @@
             {% endfor %}
 
         </table>
+</div>
 
+{% endif %}

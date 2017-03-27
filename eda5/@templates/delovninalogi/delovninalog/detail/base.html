@@ -1,82 +1,55 @@
-{% extends "base.html" %}
+{% extends "base_200.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-<!-- SideBar podatki -->
-{% block sidebar %}
-    {% include "moduli/detail_sidebar.html" %}
-{% endblock %}
-<!-- end SideBar podatki -->
 
 
-
-<!-- Navbar Title -->
-{% block navbar_title %}
-    {% include "moduli/detail_navbar_title.html" %}
-{% endblock %}
-<!-- end Navbar Title -->
-
-
-
-<!-- Navbar-Left podatki -->
-{% block navbar_left %}
-
-<!-- user menu -->
-<li class="dropdown">
-    <!-- link ime -->
-    <a class="" href="#" data-toggle="dropdown">
-        <b class="btn_ukazi">Ukazi</b>
-
-    </a>
-
-
-    <ul class="dropdown-menu">
-        {% include "delovninalogi/delovninalog/detail/navbar_left.html" %}
-    </ul>
-</li>
-
-
-
-{% endblock %}
-<!-- end Navbar-Left podatki -->
-
-
-
-<!-- PAGE CONTENT -->
-
-
-{% block content-header %}
-    <!-- panel -->
-<div class="row no_padding">
-    <div class="col-sm-12 col-md-12 no_padding">
-        <div class="panel">
-            <div class="panel-heading no-collapse background_dark_grey_header">Podrobnosti zahtevka
-            </div>
-
-            <table style="row-height=5; !important"  class="table table-condensed table-bordered background_yellow">
-                <font color="black">
-                    <thead>
-                    </thead>
-                    <tbody>
-                    {% include "delovninalogi/delovninalog/detail/header.html" %}
-                    </tbody>
-                </font>
-            </table>
-        </div>   
-    </div>
-</div>
+<!-- #########################################################################-->
+<!--  NAVIGACIJA DESNO -->
+<!-- #########################################################################-->
+{% block navbar_right_podrobno %}
+    {% include "delovninalogi/delovninalog/detail/100_navigacija/100_navigacija_right.html" %}
 {% endblock %}
 
-{% block content-body %}
-    <!-- end panel -->
-{% include "delovninalogi/delovninalog/detail/content.html" %}
-{% include "delovninalogi/delovninalog/detail/modal.html" %}
+
+
+<!-- #########################################################################-->
+<!--  CONTENT HEADER -->
+<!-- #########################################################################-->
+{% block content-header-content %}
+    {% include "delovninalogi/delovninalog/detail/200_content/100_content_header.html" %}
 {% endblock %}
-<!-- end PAGE CONTENT -->
 
 
 
-<!-- JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
+<!--  CONTENT BODY -->
+<!-- #########################################################################-->
+{% block content-body-items %}
+    {% include "delovninalogi/delovninalog/detail/200_content/200_content_body_items.html" %}
+{% endblock %}
+
+
+{% block content-body-tabs %}
+    {% include "delovninalogi/delovninalog/detail/200_content/300_content_body_tabs.html" %}
+{% endblock %}
+
+
+{% block content-modal %}
+    {% include "delovninalogi/delovninalog/detail/200_content/400_content_modal.html" %}
+{% endblock %}
+
+
+
+<!-- #########################################################################-->
+<!--  JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
 {% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
 {% endblock %}
-<!-- end JAVASCRIPT EXTRA -->

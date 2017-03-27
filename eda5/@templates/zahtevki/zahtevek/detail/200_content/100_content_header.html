@@ -42,7 +42,7 @@
 		    {% for object in pomanjkljivost_list %}
 		    <tr>
     			<td>
-                    <a href="">  ({{ object.oznaka }}) {{ object.naziv }}
+                    <a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">  ({{ object.oznaka }}) {{ object.naziv }}
 
         			<!-- Update pomanjkljivost -->
                         <a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

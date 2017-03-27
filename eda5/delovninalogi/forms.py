@@ -57,6 +57,7 @@ class OpraviloCreateForm(forms.ModelForm):
 
         # querysets
         self.fields["narocilo"].queryset = Narocilo.objects.all().order_by('-id')
+        self.fields["planirano_opravilo"].queryset = PlaniranoOpravilo.objects.filter(is_active=True)
 
         # filtriranje dropdown
         self.fields['oseba_hidden'].required = False
@@ -106,7 +107,7 @@ class VzorecOpravilaIzbiraForm(forms.Form):
 
     skupina_planov = forms.ModelChoiceField(queryset=SkupinaPlanov.objects.all())
     plan = forms.ModelChoiceField(queryset=Plan.objects.all())
-    planirano_opravilo = forms.ModelChoiceField(queryset=PlaniranoOpravilo.objects.all())
+    planirano_opravilo = forms.ModelChoiceField(queryset=PlaniranoOpravilo.objects.filter(is_active=True))
     vzorec_opravila = forms.ModelChoiceField(queryset=VzorecOpravila.objects.all())
 
     # za filtriranje

@@ -33,6 +33,7 @@ class ZahtevekCreateForm(forms.ModelForm):
         nova_oznaka = "ZHT-%s-%s" % (leto, zap_st)
         self.initial['oznaka'] = nova_oznaka
         self.fields['oznaka'].widget.attrs['readonly'] = True
+        self.fields['nosilec'].widget.attrs['readonly'] = True
 
         # filtriranje dropdown
         self.fields['oseba_hidden'].required = False
@@ -46,6 +47,14 @@ class ZahtevekCreateForm(forms.ModelForm):
             return instance.oznaka
         else:
             return self.cleaned_data['oznaka']
+
+    def clean_nosilec(self):
+        # poskrbimo: post ne more povoziti OZNAKO, ki je readonly
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.nosilec
+        else:
+            return self.cleaned_data['nosilec']
 
     # zaradi filtriranja "oseba"
     oseba_hidden = forms.ModelChoiceField(queryset=Oseba.objects.all())
@@ -84,6 +93,14 @@ class PodzahtevekCreateForm(ZahtevekCreateForm):
 
 
 class ZahtevekUpdateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        super(ZahtevekUpdateForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+
+        self.fields['nosilec'].widget.attrs['readonly'] = True
+
 
     class Meta:
         model = Zahtevek

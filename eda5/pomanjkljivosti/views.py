@@ -79,6 +79,15 @@ class PomanjkljivostDetailView(LoginRequiredMixin, DetailView):
     model = Pomanjkljivost
     template_name = "pomanjkljivosti/pomanjkljivost/detail/base.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(PomanjkljivostDetailView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
 
 ''' Izdelava pomanjkljivosti preko zahtevka'''
 class PomanjkljivostCreateFromZahtevekView(LoginRequiredMixin, UpdateView):

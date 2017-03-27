@@ -137,33 +137,49 @@ class PlanDetailView(DetailView):
 
             # pridobimo planirani datum izvedbe dela po odprtem opravilu
             opravilo = obj
-            delovninalog_prvi = obj.delovninalog_set.first()
+            delovninalog_prvi = opravilo.delovninalog_set.first()
             delovninalog_prvi_planirano_dne = delovninalog_prvi.datum_plan
             datum_izvedeno_dne = delovninalog_prvi_planirano_dne
 
+            if datum_izvedeno_dne:
+                # glede na periodo posameznega opravila določimo še datum naslednjega opravila
+                datum_naslednjega_opravila = datum_izvedeno_dne + leto + mesec + teden + dan
 
-            # glede na periodo posameznega opravila določimo še datum naslednjega opravila
-            datum_naslednjega_opravila = datum_izvedeno_dne + leto + mesec + teden + dan
+                # podatke o datumu izvedena pregleda in datumu naslednjega
+                # pregleda zabeležimo v bazo planiranih opravil
 
-            # podatke o datumu izvedena pregleda in datumu naslednjega
-            # pregleda zabeležimo v bazo planiranih opravil
+                # pridobimo instanco planiranega opravila
+                planirano_opravilo = PlaniranoOpravilo.objects.get(opravilo=opravilo)
 
-            # pridobimo instanco planiranega opravila
-            planirano_opravilo = PlaniranoOpravilo.objects.get(opravilo=obj)
+                # datum izvedenega opravila
+                planirano_opravilo.datum_izvedeno_dne = datum_izvedeno_dne
+                
 
-            # datum izvedenega opravila
-            planirano_opravilo.datum_izvedeno_dne = datum_izvedeno_dne
+                # datum naslednje ponovitve opravila
+                planirano_opravilo.datum_naslednjega_opravila = datum_naslednjega_opravila
 
-            # datum naslednje ponovitve opravila
-            planirano_opravilo.datum_naslednjega_opravila = datum_naslednjega_opravila
 
-            # shranimo spremembe v bazo
-            planirano_opravilo.save()
 
-            if datum_naslednjega_opravila < timezone.now().date():
-                planirano_opravilo_zapadlo_list_pk.append(obj.pk)
+                # shranimo spremembe v bazo
+                planirano_opravilo.save()
+
+                if datum_naslednjega_opravila < timezone.now().date():
+                    planirano_opravilo_zapadlo_list_pk.append(obj.pk)
+                else:
+                    planirano_opravilo_nezapadlo_list_pk.append(obj.pk)
+
             else:
-                planirano_opravilo_nezapadlo_list_pk.append(obj.pk)
+                # če je slučajno dodan delovninalog v čakanju ga izpustimo ker
+                # trenutna nastavitev za osvežitev planiranih opravil
+                # je glede na planirani datum prvega delovnega naloga
+                planirano_opravilo = PlaniranoOpravilo.objects.get(opravilo=opravilo)
+                datum_naslednjega_opravila = planirano_opravilo.datum_naslednjega_opravila
+                if datum_naslednjega_opravila < timezone.now().date():
+                    planirano_opravilo_zapadlo_list_pk.append(obj.pk)
+                else:
+                    planirano_opravilo_nezapadlo_list_pk.append(obj.pk)
+
+                    
 
         zapadla_opravila = Opravilo.objects.filter(pk__in=planirano_opravilo_zapadlo_list_pk).order_by('planirano_opravilo__datum_naslednjega_opravila')
 

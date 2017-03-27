@@ -49,8 +49,8 @@ class DokumentCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DokumentCreateForm, self).__init__(*args, **kwargs)
 
-        self.fields['avtor'].widget.attrs['disabled'] = True
-        self.fields['naslovnik'].widget.attrs['disabled'] = True
+        self.fields['avtor'].widget.attrs['readonly'] = True
+        self.fields['naslovnik'].widget.attrs['readonly'] = True
 
 
     class Meta:

@@ -1,9 +1,14 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not pomanjkljivosti_zakljucene %}
+    Ni zaključenih pomanjkljivosti.
 
+<!-- Ko vnosi že obstajajo -->
+{% else %}
 
 <!-- TAB_02 Content -->
 
-        <text>Seznam zaključenih pomanjkljivosti</text><br>
-        <table class="table">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>oznaka</th>
                 <th>naziv</th>
@@ -36,3 +41,6 @@
             {% endfor %}
 
         </table>
+    </div>
+
+{% endif %}
