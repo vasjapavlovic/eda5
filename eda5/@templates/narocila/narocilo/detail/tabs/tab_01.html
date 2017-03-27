@@ -43,8 +43,8 @@
         <td><b>{{ object.datum_veljavnosti }}</b></td>
     </tr>
     <tr>
-        <td><small><b>Izvajalec</a></b></small></td>
-        <td><b><a href="{% url 'moduli:partnerji:partner_detail' object.izvajalec.pk %}">{{ object.narocnik.kratko_ime }} ({{ object.narocnik.davcna_st }})</a></b></td>
+        <td><small><b>Naročnik</a></b></small></td>
+        <td><b><a href="{% url 'moduli:partnerji:partner_detail' object.narocnik.pk %}">{{ object.narocnik.kratko_ime }} ({{ object.narocnik.davcna_st }})</a></b></td>
     </tr>
     <tr>
         <td><small><b>Izvajalec</a></b></small></td>

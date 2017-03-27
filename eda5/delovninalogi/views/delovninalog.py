@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
@@ -77,7 +78,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=self.object.id).distinct('delavec')
 
         # from za izbiro formata izvoza
-        context['form'] = FormatForm 
+        context['format_form'] = FormatForm 
 
         # skladisce
         context['material_list'] = Dnevnik.objects.filter(delovninalog=self.object.id)
@@ -95,66 +96,88 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
 
+        
+        ###########################################################################
+        # FORMS
+        ###########################################################################
+        format_form = FormatForm(request.POST or None)
+        format_form_is_valid = True
+
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
+        
+
+        # instanca
         # Delovni nalog s katerim imamo opravka (instanca)
         delovninalog = DelovniNalog.objects.get(id=self.get_object().id)
 
-        # FORMS
-        arhiviranje_form = ArhiviranjeDelovniNalogForm(request.POST or None)
-        zaznamek_form = ZaznamekForm(request.POST or None)
-        delo_create_form = DeloCreateForm(request.POST or None)
-        delo_update_form = DeloKoncajUpdateForm(request.POST or None)
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+
+        # dokumenti
+        dokumenti = Arhiviranje.objects.filter(delovninalog=delovninalog)
+
+        # dela
+        dela = Delo.objects.filter(delovninalog=delovninalog)
+
+        # material
+        dnevnik = Dnevnik.objects.filter(delovninalog=delovninalog)
+        for material in dnevnik:
+            print(material.artikel.oznaka)
 
 
+
+
+        if format_form_is_valid == True:
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
         
-        # ZAZNAMKI
-        # =================================================================================================
-        ''' Vnašanje zaznamkov v delovni nalog preko
-        okna, ki se odpre nad obstoječim oknom (MODAL)'''
+            # iz instance pridobimo željene podatke
+            # ki jih bomo uporabili v izpisu
+            vrsta_dokumenta = "DELOVNI NALOG"
+            oznaka = delovninalog.oznaka
+            naslovnik = delovninalog.opravilo.narocilo.narocnik
+            za_izvajalca = delovninalog.nosilec
+            opravilo = delovninalog.opravilo
 
-        if zaznamek_form.is_valid():
+            izpis_data = {
+                'vrsta_dokumenta': vrsta_dokumenta,
+                'oznaka': oznaka,
+                'naslovnik': naslovnik,
+                'za_izvajalca': za_izvajalca,
+                'opravilo': opravilo,
+                'dokumenti': dokumenti,
+                'dela': dela,
+                'dnevnik': dnevnik,
+            }
 
-            # pridobimo podatke iz forma
-            tekst = zaznamek_form.cleaned_data['tekst']
-            datum = zaznamek_form.cleaned_data['datum']
-            ura = zaznamek_form.cleaned_data['ura']
-
-
-            # izdelamo zaznamek znotraj delovnega naloga
-            Zaznamek.objects.create_zaznamek(
-                tekst=tekst,
-                datum=datum,
-                ura=ura,
-                delovninalog=delovninalog,
+            # izdelamo izpis
+            filename = fill_template(
+                # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+                'obrazci/delovninalogi/delovninalog_20170327.odt', 
+                # podatki za uporabo v oblikovni datoteki   
+                izpis_data,                     
+                output_format="pdf"
             )
 
-            # redirectamo na obstoječi delovni nalog
-            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
+            visible_filename = '{}.{}'.format(oznaka ,"pdf")
 
-        if arhiviranje_form.is_valid():
+            return FileResponse(filename, visible_filename)
 
-            dokument = arhiviranje_form.cleaned_data['dokument']
-            elektronski = arhiviranje_form.cleaned_data['elektronski']
-            fizicni = arhiviranje_form.cleaned_data['fizicni']
-            lokacija_hrambe = ArhivMesto.objects.get(oznaka=delovninalog.opravilo.zahtevek.oznaka)
+        # v primeru, da so zgornji Form-i NISO ustrezno izpolnjeni
+        # izvrši spodnje ukaze
 
-            # arhiviral
-            user = request.user
-            oseba = Oseba.objects.get(user=user)
-            arhiviral = oseba
-
-            Arhiviranje.objects.create_arhiviranje(
-                delovninalog=delovninalog,
-                zahtevek=delovninalog.opravilo.zahtevek,
-                dokument=dokument,
-                arhiviral=arhiviral,
-                elektronski=elektronski,
-                fizicni=fizicni,
-                lokacija_hrambe=lokacija_hrambe,
+        else:
+            return render(request, self.template_name, {
+                'format_form': format_form,
+                'modul_zavihek': modul_zavihek,
+                }
             )
 
-            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
 
-        return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': delovninalog.pk}))
+
 
 
 # Planiranje delovnih nalogov s statusom "V Čakanju"

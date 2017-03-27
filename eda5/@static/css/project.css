@@ -185,3 +185,9 @@ ul.text_white > a {
   min-height: 800px;
 
 }
+
+.button_to_label {
+    background:rgba(0,0,0,0);
+    border:none;
+    color: #000;
+}
