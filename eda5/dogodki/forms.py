@@ -67,23 +67,23 @@ class DogodekUpdateForm(forms.ModelForm):
         try:
             self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
                 # prikaži samo račune - RAC
-                Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
+                #Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
                 # prikaži samo dokumente, ki so likvidirani pod obravnavanim zahtevkom
                 Q(zahtevek=self.instance.zahtevek) |
                 # prikaži tudi dokumente, ki so likvidirani pod delovnimi nalogi
                 Q(id__in=delovnianlogi_arhiviranje_id_list) |
                 # prikaži tudi račune, ki so vezani na delovninalog
-                Q(racun__in=delovninalogi_racun_id_list))
+                Q(racun__in=delovninalogi_racun_id_list)
             )
 
         except:
             self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
                 # prikaži samo račune - RAC
-                Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
+                #Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
                 # prikaži samo dokumente, ki so likvidirani pod obravnavanim zahtevkom
                 Q(zahtevek=self.instance.zahtevek) |
                 # prikaži tudi dokumente, ki so likvidirani pod delovnimi nalogi
-                Q(id__in=delovnianlogi_arhiviranje_id_list))
+                Q(id__in=delovnianlogi_arhiviranje_id_list)
             )
 
 
