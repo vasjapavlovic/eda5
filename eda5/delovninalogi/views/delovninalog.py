@@ -123,9 +123,6 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
         # material
         dnevnik = Dnevnik.objects.filter(delovninalog=delovninalog)
-        for material in dnevnik:
-            print(material.artikel.oznaka)
-
 
 
 
@@ -137,17 +134,20 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             # iz instance pridobimo željene podatke
             # ki jih bomo uporabili v izpisu
             vrsta_dokumenta = "DELOVNI NALOG"
-            oznaka = delovninalog.oznaka
             naslovnik = delovninalog.opravilo.narocilo.narocnik
             za_izvajalca = delovninalog.nosilec
+            za_narocnika = delovninalog.opravilo.narocilo.narocnik.kratko_ime
             opravilo = delovninalog.opravilo
+            narocilo = delovninalog.opravilo.narocilo
 
             izpis_data = {
                 'vrsta_dokumenta': vrsta_dokumenta,
-                'oznaka': oznaka,
+                'delovninalog': delovninalog,
                 'naslovnik': naslovnik,
                 'za_izvajalca': za_izvajalca,
+                'za_narocnika': za_narocnika,
                 'opravilo': opravilo,
+                'narocilo': narocilo,
                 'dokumenti': dokumenti,
                 'dela': dela,
                 'dnevnik': dnevnik,
@@ -162,7 +162,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 output_format="pdf"
             )
 
-            visible_filename = '{}.{}'.format(oznaka ,"pdf")
+            visible_filename = '{}.{}'.format(delovninalog.oznaka ,"pdf")
 
             return FileResponse(filename, visible_filename)
 
