@@ -54,7 +54,7 @@ class DogodekUpdateForm(forms.ModelForm):
         for opravilo in self.instance.zahtevek.opravilo_set.all():
             for delovninalog in opravilo.delovninalog_set.all():
                 if delovninalog:
-                    if delovninalog.strosek.racun:
+                    try:
                         self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
                             # prikaži samo račune - RAC
                             Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
@@ -66,7 +66,7 @@ class DogodekUpdateForm(forms.ModelForm):
                             Q(racun=delovninalog.strosek.racun))
                         )
 
-                    else:
+                    except:
                         self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
                             # prikaži samo račune - RAC
                             Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
