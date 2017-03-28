@@ -51,30 +51,40 @@ class DogodekUpdateForm(forms.ModelForm):
         )
 
         # filtriranje izbora dokumentov za racun_za_popravilo
+        delovnianlogi_arhiviranje_id_list = []
+        delovninalogi_racun_id_list = []
         for opravilo in self.instance.zahtevek.opravilo_set.all():
             for delovninalog in opravilo.delovninalog_set.all():
-                if delovninalog:
+                for arhiviranje in delovninalog.arhiviranje_set.all():
+                    delovnianlogi_arhiviranje_id_list.append(arhiviranje.pk)
+
                     try:
-                        self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
-                            # prikaži samo račune - RAC
-                            Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
-                            # prikaži samo dokumente, ki so likvidirani pod obravnavanim zahtevkom
-                            Q(zahtevek=self.instance.zahtevek) |
-                            # prikaži tudi dokumente, ki so likvidirani pod delovnimi nalogi
-                            Q(delovninalog=delovninalog) |
-                            # prikaži tudi račune, ki so vezani na delovninalog
-                            Q(racun=delovninalog.strosek.racun))
-                        )
+                        delovninalogi_racun_id_list.append(delovninalog.strosek.racun.pk)
 
                     except:
-                        self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
-                            # prikaži samo račune - RAC
-                            Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
-                            # prikaži samo dokumente, ki so likvidirani pod obravnavanim zahtevkom
-                            Q(zahtevek=self.instance.zahtevek) |
-                            # prikaži tudi dokumente, ki so likvidirani pod delovnimi nalogi
-                            Q(delovninalog=delovninalog))
-                        )
+                        pass
+
+        try:
+            self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
+                # prikaži samo račune - RAC
+                Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
+                # prikaži samo dokumente, ki so likvidirani pod obravnavanim zahtevkom
+                Q(zahtevek=self.instance.zahtevek) |
+                # prikaži tudi dokumente, ki so likvidirani pod delovnimi nalogi
+                Q(id__in=delovnianlogi_arhiviranje_id_list) |
+                # prikaži tudi račune, ki so vezani na delovninalog
+                Q(racun__in=delovninalogi_racun_id_list))
+            )
+
+        except:
+            self.fields['racun_za_popravilo'].queryset = Arhiviranje.objects.filter(
+                # prikaži samo račune - RAC
+                Q(dokument__vrsta_dokumenta__oznaka="RAC") & (
+                # prikaži samo dokumente, ki so likvidirani pod obravnavanim zahtevkom
+                Q(zahtevek=self.instance.zahtevek) |
+                # prikaži tudi dokumente, ki so likvidirani pod delovnimi nalogi
+                Q(id__in=delovnianlogi_arhiviranje_id_list))
+            )
 
 
 
