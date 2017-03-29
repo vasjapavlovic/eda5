@@ -32,3 +32,18 @@ class PlaniranoOpraviloCreateform(forms.ModelForm):
             'opomba',
             'zmin'
         )
+
+class PlaniranoOpraviloUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = PlaniranoOpravilo
+        fields = (
+            'naziv',
+            'namen',
+            'obseg',
+            'perioda_predpisana_enota',
+            'perioda_predpisana_enota_kolicina',
+            'perioda_predpisana_kolicina_na_enoto',
+            'opomba',
+            'zmin',
+        )
