@@ -316,7 +316,7 @@ class DeloCreateForm(forms.ModelForm):
 
         datum = timezone.now().date()
 
-        time_start = timezone.localtime(timezone.now()).time().strftime("%H:%M:00")
+        time_start = timezone.localtime(timezone.now()).time().strftime("%H:%M:%s")
         # sekunde želimo, da štartajo vedno iz .00
 
         self.initial['datum'] = datum
@@ -371,7 +371,7 @@ class DeloKoncajUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DeloKoncajUpdateForm, self).__init__(*args, **kwargs)
         # custom initial properties
-        self.initial['time_stop'] = timezone.localtime(timezone.now()).time().strftime("%H:%M:00")
+        self.initial['time_stop'] = timezone.localtime(timezone.now()).time().strftime("%H:%M:%s")
         # sekunde želimo, da so vedno na .00
         # uredimo, da je time_stop readonly
         self.fields['time_stop'].widget.attrs['readonly'] = True

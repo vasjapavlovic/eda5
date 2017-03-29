@@ -221,6 +221,12 @@ class Delo(TimeStampedModel, StatusModel):
     time_start = models.DurationField(blank=True, null=True, verbose_name="Ura:Začeto")
     time_stop = models.DurationField(blank=True, null=True, verbose_name="Ura:Končano")
 
+    delo_cas_rac = models.DecimalField(
+        decimal_places=2, max_digits=5,
+        blank=True, null=True, 
+        verbose_name="Porabljen čas [UR]"
+    )
+
     # OBJECT MANAGER
     objects = managers.DeloManager()
 
