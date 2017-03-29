@@ -19,7 +19,7 @@
 
 
 <!-- Navbar-Left podatki -->
-{% block navbar_left %}
+{% block navbar_right %}
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -47,36 +47,15 @@
             </div>
         </div>
 
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Elementi na katerih se opravilo izvaja (servisna knjiga)</div>
-            <div class="panel-body">
-
-                <!-- Filtriranje Elementov za izbiro -->
-                {{ element_izbira_form | crispy  }} 
-                
-                <!-- Izbira Elementov -->
-                <select name="element" class="multi-select" multiple="" id="id_element">
-
-                    <!--  choices -->
-                    {% for element in opravilo_element_update_form.fields.element.queryset %}
-                    <option value="{{ element.pk }}">{{ element.projektno_mesto.oznaka }} {{ element.artikel.naziv }}</option>
-                    {% endfor %}
-
-                </select><!-- end multi select -->
-
+        <!-- _______________________________________________________-->
+            <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+                <div class="panel-heading">Elementi na katerih se opravilo izvaja (servisna knjiga)</div>
+                <div class="panel-body">
+                    {{ opravilo_element_update_form | crispy  }}   
+                </div>
             </div>
-        </div>
 
         <input type="submit" value="Potrdi">
-
-        <div id="reload_controls_element_podskupina_view" style="display: none;">{% url 'moduli:deli:reload_controls_element_podskupina' %}</div>
-        <div id="reload_controls_element_del_stavbe_view" style="display: none;">{% url 'moduli:deli:reload_controls_element_del_stavbe' %}</div>
-        <div id="reload_controls_element_element_view" style="display: none;">{% url 'moduli:deli:reload_controls_element_element' %}</div>
-
-
-
-
-        
 
     </form>
 
@@ -136,135 +115,7 @@
 </script>
 
 
-<!-- ELEMENT PODSKUPINA FILTER -->
-<script>
-    
-    $('#create_form').on('change', '#id_skupina', function()
-    {
-        reload_controls1(this.value);
-    });
 
-    function reload_controls1(skupina)
-    {
-        $.ajax
-        ({
-            type: 'POST',
-            url: $("#reload_controls_element_podskupina_view").text(),
-            dataType: 'json',
-            data: "skupina="+skupina,
-            success: function(result)
-            {
-                //empty month drop down list
-                $("#id_podskupina").empty()
-                $("#id_del_stavbe").empty()   
-                $("#id_element").empty()              
-
-                //PODSKUPINA FILTER
-                $("#id_podskupina").append('<option value="">---------</option>')
-                $.each( result.podskupine_to_display, function( index, value )
-                {
-                    //use the hidden drop down list to populate the month field
-                    parameter=$("#id_podskupina_hidden option[value='" + value + "']").text()
-                    //add months to the drop down list
-                    $('#id_podskupina').append('<option value="'+value+'">'+parameter+'</option>')
-
-                });
-
-            },
-            error: function(xhr, status, error) 
-            {
-                window.console&&console.log(xhr.responseText);
-            }
-        });
-    }
-
-</script>
-
-<!-- ELEMENT DEL STAVBE FILTER -->
-<script>
-    
-    $('#create_form').on('change', '#id_podskupina', function()
-    {
-        reload_controls2(this.value);
-    });
-
-    function reload_controls2(podskupina)
-    {
-        $.ajax
-        ({
-            type: 'POST',
-            url: $("#reload_controls_element_del_stavbe_view").text(),
-            dataType: 'json',
-            data: "podskupina="+podskupina,
-            success: function(result)
-            {
-                //empty month drop down list
-                $("#id_del_stavbe").empty()
-                $("#id_element").empty()              
-
-                //PODSKUPINA FILTER
-                $("#id_del_stavbe").append('<option value="">---------</option>')
-                $.each( result.del_stavbe_to_display, function( index, value )
-                {
-                    //use the hidden drop down list to populate the month field
-                    parameter=$("#id_del_stavbe_hidden option[value='" + value + "']").text()
-                    //add months to the drop down list
-                    $('#id_del_stavbe').append('<option value="'+value+'">'+parameter+'</option>')
-
-                });
-
-            },
-            error: function(xhr, status, error) 
-            {
-                window.console&&console.log(xhr.responseText);
-            }
-        });
-    }
-
-</script>
-
-
-<!-- ELEMENT FILTER -->
-<script>
-    
-    $('#create_form').on('change', '#id_del_stavbe', function()
-    {
-        reload_controls3(this.value);
-    });
-
-    function reload_controls3(del_stavbe)
-    {
-        $.ajax
-        ({
-            type: 'POST',
-            url: $("#reload_controls_element_element_view").text(),
-            dataType: 'json',
-            data: "del_stavbe="+del_stavbe,
-            success: function(result)
-            {
-                //empty month drop down list
-                $("#id_element").empty()              
-
-                //PODSKUPINA FILTER
-                $("#id_element").append('<option value="">---------</option>')
-                $.each( result.element_to_display, function( index, value )
-                {
-                    //use the hidden drop down list to populate the month field
-                    parameter=$("#id_element_hidden option[value='" + value + "']").text()
-                    //add months to the drop down list
-                    $('#id_element').append('<option value="'+value+'">'+parameter+'</option>')
-
-                });
-
-            },
-            error: function(xhr, status, error) 
-            {
-                window.console&&console.log(xhr.responseText);
-            }
-        });
-    }
-
-</script>
 
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->
