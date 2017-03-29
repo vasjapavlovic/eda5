@@ -316,14 +316,13 @@ class DeloCreateForm(forms.ModelForm):
 
         datum = timezone.now().date()
 
-        time_start = timezone.localtime(timezone.now()).time().strftime("%H:%M:%s")
+        time_start = timezone.localtime(timezone.now()).time().strftime("%H:%M:%S")
         # sekunde želimo, da štartajo vedno iz .00
 
         self.initial['datum'] = datum
         self.fields['datum'].widget.attrs['readonly'] = True
 
         self.initial['time_start'] = time_start
-        self.fields['time_start'].widget.attrs['readonly'] = True
 
 
     def clean_oznaka(self):
@@ -363,6 +362,7 @@ class DeloCreateForm(forms.ModelForm):
         )
         widgets = {
             'delavec': OsebaForeignKeyRawIdWidget(model._meta.get_field('delavec').rel, site),
+            'time_start': TimeInput(),
         }
 
 
@@ -371,10 +371,10 @@ class DeloKoncajUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DeloKoncajUpdateForm, self).__init__(*args, **kwargs)
         # custom initial properties
-        self.initial['time_stop'] = timezone.localtime(timezone.now()).time().strftime("%H:%M:%s")
+        self.initial['time_stop'] = timezone.localtime(timezone.now()).time().strftime("%H:%M:%S")
         # sekunde želimo, da so vedno na .00
         # uredimo, da je time_stop readonly
-        self.fields['time_stop'].widget.attrs['readonly'] = True
+        # self.fields['time_stop'].widget.attrs['readonly'] = True
 
     class Meta:
         model = Delo

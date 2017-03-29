@@ -1,5 +1,4 @@
 # Python
-from datetime import datetime, timedelta
 import os
 from datetime import timedelta, datetime
 import pandas as pd
@@ -20,7 +19,7 @@ from templated_docs import fill_template
 from templated_docs.http import FileResponse
 
 # Models
-from ..models import Opravilo, DelovniNalog, Delo, VzorecOpravila
+from ..models import Opravilo, DelovniNalog, Delo, VzorecOpravila, DeloVrsta
 from eda5.arhiv.models import Arhiviranje, ArhivMesto
 from eda5.moduli.models import Zavihek
 from eda5.partnerji.models import Oseba
@@ -216,22 +215,22 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             delo_cas_rac = zaokrozen_zmin(delo_cas, zmin, '+')
             # pretvorjen v decimalno številko delo_cas
             delo_cas_rac = pretvori_v_ure(delo_cas_rac)
+            # shranimo v bazo
+            delo.delo_cas_rac = delo_cas_rac
+            delo.save()
 
 
-
-
-
-
-
-
-
-
-         # ##########################################################   
-
-
+        '''
+        Glede na izračunane čase za izvedbo del 
+        izračunamo skupne porabljene čase po VRSTA_DELA.
+        '''
+        delo_cas_vrstadela = Delo.objects.filter(delovninalog=delovninalog)
+        vrstadel_cas_list = delo_cas_vrstadela.values('vrsta_dela__oznaka', 'vrsta_dela__naziv').order_by('vrsta_dela').annotate(vrstadela_cas_rac_sum=Sum('delo_cas_rac'))
+  
 
         # material
         dnevnik = Dnevnik.objects.filter(delovninalog=delovninalog)
+
 
 
 
@@ -250,6 +249,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             za_narocnika = delovninalog.opravilo.narocilo.narocnik.kratko_ime
             opravilo = delovninalog.opravilo
             narocilo = delovninalog.opravilo.narocilo
+            datum = timezone.localtime(timezone.now()).date()
 
             izpis_data = {
                 'vrsta_dokumenta': vrsta_dokumenta,
@@ -264,6 +264,8 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
                 'dnevnik': dnevnik,
                 'skupaj_ur_rac': skupaj_ur_rac,
                 'skupaj_ur_dej': skupaj_ur_dej,
+                'vrstadel_cas_list': vrstadel_cas_list,
+                'datum': datum,
             }
 
             # izdelamo izpis
