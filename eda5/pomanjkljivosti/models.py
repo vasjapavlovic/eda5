@@ -1,16 +1,21 @@
+
+# Python
+
+# Django
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from .managers import PomanjkljivostManager
-
-# Core
+# Models
 from eda5.core.models import TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel
-
-# Deli
 from eda5.deli.models import ProjektnoMesto
-
-# Zahtevek
+from eda5.partnerji.models import Oseba
 from eda5.zahtevki.models import Zahtevek
+
+# Forms
+
+# Managers
+from .managers import PomanjkljivostManager, NalogaManager
+
 
 
 class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel):
@@ -19,8 +24,10 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
     # ATRIBUTES
     ###########################################################################
 
-    ''' Navezavo na točen element uredi administrator. 
-    Posamezni uporabniki podatke vpisujejo ročno. '''
+    ''' 
+    Navezavo na točen element uredi administrator. 
+    Posamezni uporabniki podatke vpisujejo ročno. 
+    '''
 
 
     # def dokument_directory_path(instance, filename):
@@ -118,5 +125,84 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
 
     def __str__(self):
         return "(%s) %s" % (self.oznaka, self.opis_text)
+
+
+
+class Naloga(models.Model):
+
+    '''
+    Definirana kot nekaj kar je potrebno izdelali.
+    Kot nekakšen "Task". Vsak uporabnik ima svoje naloge,
+    ki si jih vpiše, da jih mora rešiti. Naloge se 
+    Rešujejo z opravili - zato, da je evidenca kje so bile rešene.
+    Naloge se vežejo tudi na alinee po sestankih.
+    '''
+
+    ###########################################################################
+    # ATRIBUTES
+    ###########################################################################
+
+    oznaka = models.CharField(
+        max_length=20)
+
+    naziv = models.CharField(
+        max_length=255,
+        verbose_name='naziv pomanjkljivosti')
+
+    opis = models.TextField(
+        blank=True, null=True, 
+        verbose_name='opis pomanjkljivosti')
+
+    datum = models.DateField(
+        verbose_name='datum')
+
+    # natančno omejeno trajanje
+    rok = models.DateField(
+        verbose_name='rok za izvedbo')
+
+    # Navezava na zahtevek kjer se naloga rešuje
+    zahtevek = models.ForeignKey(
+        Zahtevek, blank=True, null=True, 
+        verbose_name='zahtevek')
+
+    '''
+    Navezava na uporabnike, ki nalogo vidijo.
+    Ob izdelavi se avtomatsko doda obstoječi uporabnik.
+    Nato po želji obstoječi uporabnik lahko nalogo
+    dodeli tudi ostalim
+    '''
+    oseba = models.ManyToManyField(
+        Oseba,
+        verbose_name="Za Osebe")
+
+
+    ###########################################################################
+    # OBJECT MANAGER
+    ###########################################################################
+
+    objects = NalogaManager()
+
+    ###########################################################################
+    # CUSTOM PROPERTIES
+    ###########################################################################
+
+    ###########################################################################
+    # METHODS
+    ###########################################################################
+
+    #def get_absolute_url(self):
+    #    return reverse('moduli:pomanjkljivosti:naloga_list')
+
+    ###########################################################################
+    # META AND STRING
+    ###########################################################################
+
+    class Meta:
+        verbose_name = "naloga"
+        verbose_name_plural = "naloge"
+
+    def __str__(self):
+        return "(%s) %s" % (self.oznaka, self.naziv)
+
 
 

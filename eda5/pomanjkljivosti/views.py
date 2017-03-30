@@ -67,6 +67,7 @@ class PomanjkljivostListView(LoginRequiredMixin, ListView):
         # vrnemo context
         return context
 
+    # tega sedaj ne potrebujem !!!!!!!! podatki se uporabijo iz contexta
     def get_queryset(self):
         queryset = super(PomanjkljivostListView, self).get_queryset()
         # prikažemo samo ne-rešene pomanjkljivosti

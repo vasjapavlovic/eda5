@@ -43,3 +43,6 @@ class PomanjkljivostManager(models.Manager):
         pomanjkljivost.save(using=self.db)
         return pomanjkljivost
 
+
+class PomanjkljivostManager(models.Manager):
+    pass
