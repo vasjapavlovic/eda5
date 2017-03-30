@@ -128,7 +128,7 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
 
 
 
-class Naloga(models.Model):
+class Naloga(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel):
 
     '''
     Definirana kot nekaj kar je potrebno izdelali.
@@ -147,14 +147,11 @@ class Naloga(models.Model):
 
     naziv = models.CharField(
         max_length=255,
-        verbose_name='naziv pomanjkljivosti')
+        verbose_name='naziv naloge')
 
     opis = models.TextField(
         blank=True, null=True, 
-        verbose_name='opis pomanjkljivosti')
-
-    datum = models.DateField(
-        verbose_name='datum')
+        verbose_name='opis naloge')
 
     # natančno omejeno trajanje
     rok = models.DateField(
