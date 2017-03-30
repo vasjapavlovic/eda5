@@ -44,5 +44,5 @@ class PomanjkljivostManager(models.Manager):
         return pomanjkljivost
 
 
-class PomanjkljivostManager(models.Manager):
+class NalogaManager(models.Manager):
     pass
