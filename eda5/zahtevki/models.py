@@ -23,7 +23,18 @@ class Zahtevek(IsActiveModel, TimeStampedModel, StatusModel):
 
     # ATRIBUTES
     # ***Relations***
-    zahtevek_parent = models.ForeignKey("self", null=True, blank=True)
+    zahtevek_parent = models.ForeignKey(
+        "self", 
+        null=True, blank=True,
+        verbose_name="Zahtevek Parent",
+    )
+
+    zahtevek_povezava = models.ManyToManyField(
+        "self", 
+        blank=True,
+        verbose_name="Povezava zahtevkov",
+    )
+
     nosilec = models.ForeignKey(Oseba)
     # ***Mandatory***
     oznaka = models.CharField(max_length=20)

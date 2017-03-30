@@ -83,3 +83,27 @@ Tu bo dashboard za podatke v zvezi z zahtevki.
 
     </table>
 </div>
+
+
+Povezave z ostalimi zahtevki
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <!--Če parent zahtevka obstaja-->
+        <thead>
+            <tr>
+                <th>Oznaka</th>
+                <th>Naziv</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object.zahtevek_povezava.all %}
+            <tr> 
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+            </tr>
+            {% endfor %}
+        </body>
+        
+    </table>
+</div>

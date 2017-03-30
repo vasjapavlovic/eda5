@@ -4,6 +4,8 @@ from .views import splosno, sestanek, izvedba_dela, predaja_lastnine, analiza, p
 
 # zahtevek
 urlpatterns = [
+    url(r'^zahtevek/popup-list/?$', splosno.ZahtevekPopUpListView.as_view(), name='zahtevek_popup_list'),   
+
     url(r'^zahtevek-create/$', splosno.ZahtevekCreateIzbiraView.as_view(), name="zahtevek_create"),
     url(r'^zahtevek-seznam/$', splosno.ZahtevekListView.as_view(), name="zahtevek_list"),
 

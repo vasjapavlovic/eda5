@@ -1,17 +1,24 @@
+# Python
 from functools import partial
-from django.template.loader import render_to_string
 
+# Django
 from django import forms
 from django.contrib.admin.sites import site
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.db.models import Q
+from django.template.loader import render_to_string
 from django.utils import timezone
 
+# Models
 from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekIzvedbaDela
 from .models import ZahtevekAnaliza, ZahtevekPovprasevanje, ZahtevekReklamacija
-
-# Partnerji
 from eda5.partnerji.models import Oseba, SkupinaPartnerjev
-from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
 
+# Forms
+
+# Widgets
+from .widgets import ZahtevekForeignKeyRawIdWidget, ZahtevekManyToManyRawIdWidget
+from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
@@ -110,10 +117,14 @@ class ZahtevekUpdateForm(forms.ModelForm):
             'rok_izvedbe',
             'nosilec',
             'status',
+            'zahtevek_parent',
+            'zahtevek_povezava',
         )
         widgets = {
             'rok_izvedbe': DateInput(),
             'nosilec': OsebaForeignKeyRawIdWidget(model._meta.get_field('nosilec').rel, site),
+            'zahtevek_parent': ZahtevekForeignKeyRawIdWidget(model._meta.get_field('zahtevek_parent').rel, site),
+            'zahtevek_povezava': ZahtevekManyToManyRawIdWidget(model._meta.get_field('zahtevek_povezava').rel, site),
         }
 
 
@@ -180,3 +191,46 @@ class ZahtevekIzvedbaDelCreateForm(forms.ModelForm):
 class ZahtevekIzvedbaDelUpdateForm(ZahtevekIzvedbaDelCreateForm):
     # enako "form" ZahtevekSestanekCreateForm
     pass
+
+
+
+# SEARCH FORMS
+
+class ZahtevekSearchForm(forms.Form):
+    oznaka = forms.CharField(label='oznaka', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(ZahtevekSearchForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['oznaka'] = ""
+        self.initial['naziv'] = ""
+
+
+    def filter_queryset(self, request, queryset):
+
+        oznaka_filter = self.cleaned_data['oznaka']
+        naziv_filter = self.cleaned_data['naziv']
+
+        # filtriranje samo po oznaki
+        if oznaka_filter and not naziv_filter:
+            return queryset.filter(
+                Q(oznaka__icontains=oznaka_filter)
+            )
+
+        # filtriranje ostalo
+        if naziv_filter and not oznaka_filter:
+            return queryset.filter(
+                Q(naziv__icontains=naziv_filter)
+            )
+        
+
+        # uporabnik filtrira po kratkem imenu in naslovu partnerja
+        if oznaka_filter and naziv_filter:
+            return queryset.filter(
+                Q(oznaka__icontains=oznaka_filter) &
+                Q(naziv__icontains=naziv_filter)
+            )
+
+        return queryset

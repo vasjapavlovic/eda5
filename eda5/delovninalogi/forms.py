@@ -1,35 +1,32 @@
+# Python
 from functools import partial
 
-from django.template.loader import render_to_string
-from django.contrib.admin.sites import site
+# Django
 
 from django import forms
+# potrebno za RawIdWidget
+from django.contrib.admin.sites import site
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.template.loader import render_to_string
+from django.utils import timezone
 
+# Models
 from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop, VzorecOpravila
-
 from eda5.deli.models import Element, ProjektnoMesto
 from eda5.narocila.models import Narocilo
-
-# Partnerji
 from eda5.partnerji.models import Oseba
-from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
-
+from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
 from eda5.posta.models import Dokument
 
+#Forms
 
-from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
-
-
-from eda5.deli.widgets import ProjektnoMestoSelectWithPop, ProjektnoMestoMultipleSelectWithPop, ProjektnoMestoForeignKeyRawIdWidget, ProjektnoMestoManyToManyRawIdWidget
-
+# Widgets
+from eda5.deli.widgets import ProjektnoMestoSelectWithPop, ProjektnoMestoMultipleSelectWithPop
+from eda5.deli.widgets import ProjektnoMestoForeignKeyRawIdWidget, ProjektnoMestoManyToManyRawIdWidget
+from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
-
-
-
 
 
 class OpraviloCreateForm(forms.ModelForm):

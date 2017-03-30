@@ -51,7 +51,7 @@ class DokumentListView(FilteredListView):
         return context
 
 
-        
+    
 
 
 class PostaDokumentDetailView(DetailView):

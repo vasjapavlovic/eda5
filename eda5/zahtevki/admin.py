@@ -5,7 +5,8 @@ from .models import Zahtevek, ZahtevekSkodniDogodek, ZahtevekSestanek, ZahtevekI
 
 @admin.register(Zahtevek)
 class ZahtevekAdmin(admin.ModelAdmin):
-    pass
+
+    raw_id_fields = ("zahtevek_povezava",)
 
 
 @admin.register(ZahtevekSkodniDogodek)

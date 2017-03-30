@@ -26,28 +26,32 @@ from eda5.reklamacije.models import Reklamacija
 from eda5.zaznamki.models import Zaznamek
 
 # Forms
-from ..forms import ZahtevekUpdateForm, ZahtevekIzbiraForm
+from ..forms import ZahtevekUpdateForm, ZahtevekIzbiraForm, ZahtevekSearchForm
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
 from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm, OpraviloPomanjkljivostUpdateForm
 from eda5.dogodki.forms import DogodekCreateForm, DogodekUpdateForm
 from eda5.kljuci.forms import PredajaKljucaCreateForm, PredajaKljucaVraciloForm
-from eda5.zaznamki.forms import ZaznamekForm   
+from eda5.zaznamki.forms import ZaznamekForm
+
+# Views
+from eda5.core.views import FilteredListView
 
 
-class ZahtevekListView(LoginRequiredMixin, ListView):
+class ZahtevekListView(LoginRequiredMixin, FilteredListView):
     model = Zahtevek
+    form_class= ZahtevekSearchForm
     template_name = "zahtevki/zahtevek/list/base.html"
+    paginate_by = 10
 
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekListView, self).get_context_data(*args, **kwargs)
 
         # content
-        context['zahtevki_vresevanju_list'] = self.model.objects.zahtevki_vresevanju()
-        context['zahtevki_zakljuceni_list'] = self.model.objects.zahtevki_zakljuceni()
+        # context['zahtevki_vresevanju_list'] = self.model.objects.zahtevki_vresevanju()
+        # context['zahtevki_zakljuceni_list'] = self.model.objects.zahtevki_zakljuceni()
 
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_LIST")
         context['modul_zavihek'] = modul_zavihek
-
         return context
 
 
@@ -244,3 +248,12 @@ class ZahtevekDetailView(LoginRequiredMixin, DetailView):
         )
 
 
+# POPUP
+# dodatek za filtriranje prikazanega seznama
+from eda5.core.views import FilteredListView
+from ..forms import ZahtevekSearchForm
+class ZahtevekPopUpListView(FilteredListView):
+    model = Zahtevek
+    form_class= ZahtevekSearchForm
+    template_name = "zahtevki/zahtevek/popup/popup_base.html"
+    paginate_by = 10

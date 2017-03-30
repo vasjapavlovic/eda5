@@ -12,7 +12,7 @@ from eda5.reklamacije.models import Reklamacija
 from eda5.zahtevki.models import Zahtevek
 
 # Forms
-from .forms import ArhiviranjeSearchForm, ArhiviranjeZahtevekForm
+from .forms import ArhiviranjeZahtevekForm
 
 
 class ArhiviranjeListView(ListView):
@@ -24,6 +24,7 @@ class ArhiviranjeListView(ListView):
 # POPUP
 # dodatek za filtriranje prikazanega seznama
 from eda5.core.views import FilteredListView
+from .forms import ArhiviranjeSearchForm
 class ArhiviranjePopUpListView(FilteredListView):
     model = Arhiviranje
     form_class= ArhiviranjeSearchForm

@@ -7,7 +7,7 @@ from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop, Vzo
 class OpraviloAdmin(admin.ModelAdmin):
 
     filter_horizontal = (
-        "element",
+
         "pomanjkljivost",
     )
     raw_id_fields = ("element",)
