@@ -11,4 +11,5 @@ class PomanjkljivostAdmin(admin.ModelAdmin):
 
 @admin.register(models.Naloga)
 class NalogaAdmin(admin.ModelAdmin):
-    pass
+    
+    filter_horizontal = ("oseba",)

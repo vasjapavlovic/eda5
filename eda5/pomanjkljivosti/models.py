@@ -124,7 +124,7 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
         verbose_name_plural = "pomanjkljivosti"
 
     def __str__(self):
-        return "(%s) %s" % (self.oznaka, self.opis_text)
+        return "(%s) %s | %s" % (self.oznaka, self.naziv, self.opis_text)
 
 
 
@@ -160,8 +160,7 @@ class Naloga(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel):
     # Navezava na zahtevek kjer se naloga rešuje
     zahtevek = models.ForeignKey(
         Zahtevek, blank=True, null=True, 
-        verbose_name='zahtevek')
-
+        verbose_name='Rešuje se pod Zahtevkom')
     '''
     Navezava na uporabnike, ki nalogo vidijo.
     Ob izdelavi se avtomatsko doda obstoječi uporabnik.
@@ -171,6 +170,11 @@ class Naloga(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel):
     oseba = models.ManyToManyField(
         Oseba,
         verbose_name="Za Osebe")
+
+    # V nalogi se lahko rešuje tudi pomanjkljivost
+    pomanjkljivost = models.ForeignKey(
+        Pomanjkljivost, blank=True, null=True, 
+        verbose_name='Povezava na pomanjkljivost')
 
 
     ###########################################################################
