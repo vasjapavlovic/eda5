@@ -2,7 +2,7 @@
 from decimal import Decimal
 
 # DJANGO #############################################################
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -267,7 +267,7 @@ class RacunUpdateView(UpdateView):
     template_name = "racunovodstvo/racun/update.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(StrosekUpdateView, self).get_context_data(*args, **kwargs)
+        context = super(RacunUpdateView, self).get_context_data(*args, **kwargs)
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="RACUN_CREATE")
