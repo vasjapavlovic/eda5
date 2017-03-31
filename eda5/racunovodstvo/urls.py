@@ -13,6 +13,7 @@ urlpatterns = [
 # Strosek
 urlpatterns += [
     url(r'^(?P<pk>\d+)/strosek-from-racun-create/$', strosek_views.StrosekCreateView.as_view(), name="strosek_from_racun_create"),
+    url(r'^(?P<pk>\d+)/strosek/update/$', strosek_views.StrosekUpdateView.as_view(), name="strosek_update"),
 
     # filtriranje
     # filtriranje

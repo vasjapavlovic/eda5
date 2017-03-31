@@ -91,8 +91,6 @@ class PlanDetailView(DetailView):
                 delovni_nalog_zakljucen_list.append(dn)
 
         context['delovni_nalog_zakljucen_list'] = delovni_nalog_zakljucen_list
-        print('DN', opravila_potrjena_planirana)
-
 
         # Zapadla Planirana Opravila
         # ==========================

@@ -7,6 +7,9 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import UpdateView
 
+# Forms
+
+from ..forms.strosek_forms import StrosekOsnovaCreateForm, StrosekUpdateForm
 # RELATIVNI UVOZI #############################
 from ..forms.strosek_forms import StrosekOsnovaCreateForm
 from ..forms.vrsta_stroska_forms import VrstaStroskaIzbiraForm
@@ -121,7 +124,21 @@ class StrosekCreateView(UpdateView):
 
 
 class StrosekUpdateView(UpdateView):
-    pass
+    model = Strosek
+    form_class = StrosekUpdateForm
+    template_name = "racunovodstvo/strosek/update.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(StrosekUpdateView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="STROSEK_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def get_success_url(self, **kwargs):
+        return reverse('moduli:racunovodstvo:racun_detail', kwargs={'pk': self.object.racun.pk})
 
 
 # view called with ajax to reload the month drop down list
