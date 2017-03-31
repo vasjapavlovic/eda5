@@ -1,56 +1,55 @@
-{% extends "base.html" %}
+{% extends "base_200.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-<!-- SideBar podatki -->
-{% block sidebar %}
-    {% include "moduli/detail_sidebar.html" %}
+
+
+<!-- #########################################################################-->
+<!--  NAVIGACIJA DESNO -->
+<!-- #########################################################################-->
+{% block navbar_right_podrobno %}
+    {% include "racunovodstvo/racun/detail/100_navigacija/100_navigacija_right.html" %}
 {% endblock %}
-<!-- end SideBar podatki -->
 
 
 
-<!-- Navbar Title -->
-{% block navbar_title %}
-    {% include "moduli/detail_navbar_title.html" %}
+<!-- #########################################################################-->
+<!--  CONTENT HEADER -->
+<!-- #########################################################################-->
+{% block content-header-content %}
+    {% include "racunovodstvo/racun/detail/200_content/100_content_header.html" %}
 {% endblock %}
-<!-- end Navbar Title -->
 
 
 
-<!-- Navbar-Left podatki -->
-{% block navbar_left %}
-
-    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-    <li><a type="button" href="{% url 'moduli:racunovodstvo:strosek_from_racun_create' object.pk %}"><b>Dodaj</b> Strošek</a></li>
-
+<!-- #########################################################################-->
+<!--  CONTENT BODY -->
+<!-- #########################################################################-->
+{% block content-body-items %}
+    {% include "racunovodstvo/racun/detail/200_content/200_content_body_items.html" %}
 {% endblock %}
-<!-- end Navbar-Left podatki -->
 
 
-
-<!-- PAGE TITLE -->
-{% block content_title %}
-    <div class="panel panel-{{ modul_zavihek.modul.barva }} p-0">
-            <table class="table">
-                {% include "racunovodstvo/racun/detail/header.html" %}
-            </table>
-    </div>
+{% block content-body-tabs %}
+    {% include "racunovodstvo/racun/detail/200_content/300_content_body_tabs.html" %}
 {% endblock %}
-<!-- end PAGE TITLE -->
 
 
-
-<!-- PAGE CONTENT -->
-{% block content-body %}
-{% include "racunovodstvo/racun/detail/content.html" %}
-{% include "racunovodstvo/racun/detail/modal.html" %}
+{% block content-modal %}
+    {% include "racunovodstvo/racun/detail/200_content/400_content_modal.html" %}
 {% endblock %}
-<!-- end PAGE CONTENT -->
 
 
 
-<!-- JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
+<!--  JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
 {% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
 {% endblock %}
-<!-- end JAVASCRIPT EXTRA -->

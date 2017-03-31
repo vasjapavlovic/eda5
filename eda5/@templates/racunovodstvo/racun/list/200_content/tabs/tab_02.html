@@ -1,0 +1,35 @@
+<!-- Likvidirani -->
+
+<div class="table-responsive">
+<table id="" class="table table-bordered table-striped">
+<thead>
+    <tr>
+        <th>rac. st.</th>
+        <th>št.dokumenta</th>
+        <th>predmet</th>
+        <th>pošiljatelj</th>
+        <th>priponka</th>
+    </tr>
+</thead>
+
+<tbody>
+{% for racun in racun_likvidiran_list %}
+    
+    {% if racun %}
+
+    <tr>
+        <td><a href="{% url 'moduli:racunovodstvo:racun_detail' racun.pk %}">
+        {{ racun.oznaka }}.{{ racun.racunovodsko_leto }}</a></td>
+        <td>{{ racun.dokument.oznaka }}</td>
+        <td>{{ racun.dokument.naziv }}</td>
+        <td>{{ racun.dokument.avtor }}</td>
+        <td><a href="{{ MEDIA_URL }}{{ racun.dokument.priponka }}" target="_blank">{{ racun.dokument.priponka }}</a></td>
+
+    </tr>
+    {% endif %}
+    
+{% endfor %}
+</tbody>
+
+</table>
+</div>

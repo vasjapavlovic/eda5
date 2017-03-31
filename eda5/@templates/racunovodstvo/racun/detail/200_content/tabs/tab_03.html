@@ -1,0 +1,71 @@
+<!-- Strosek -->
+
+
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+    <thead class="bg-primary">
+    <tr>
+        <th>oznaka</th>
+        <th>naziv</th>
+        <th>vrsta stroška</th>
+        <th>datum opravljene storitve</th>
+        <th>obdobje obračuna</th>
+        <th>strosek brez ddv</th>
+        <th>stopnja ddv</th>
+        <th>strosek z ddv</th>
+    </tr>
+    </thead>
+
+    <tbody>
+{% for strosek in strosek_list %}
+    
+    <tr>
+        <td><b>{{ strosek.racun.dokument.vrsta_dokumenta.oznaka }}.{{ strosek.racun.oznaka }}.{{ strosek.racun.racunovodsko_leto }}-{{ strosek.oznaka }}</b></td>
+        <td>{{ strosek.naziv }}</td>
+        <td>(<b>{{ strosek.vrsta_stroska.oznaka }}</b>){{ strosek.vrsta_stroska.naziv }}</td>
+        <td>{{ strosek.datum_storitve_od }}-{{ strosek.datum_storitve_do }}</td>
+        <td><b>{{ strosek.obdobje_obracuna_leto.oznaka }}-{{ strosek.obdobje_obracuna_mesec.oznaka }}</b></td>
+        <td>{{ strosek.osnova }}</td>
+        <td>{{ strosek.stopnja_ddv_output }}</td>
+        <td>{{ strosek.strosek_z_ddv }}</td>
+    </tr>
+
+{% endfor %}
+    <tbody>
+
+    <!-- SKUPAJ V FOOTER-->
+    <tr class="bg-primary">
+        <td><b>SKUPAJ</b></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Skupaj Vrednost brez DDV</td>
+        <td>{{ strosek_vrednost_brez_ddv }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Skupaj Vrednost z DDV</td>
+        <td>{{ strosek_vrednost_z_dvv }}</td>
+    </tr>
+
+
+
+</table>
+</div>

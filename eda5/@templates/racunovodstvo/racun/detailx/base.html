@@ -21,9 +21,8 @@
 <!-- Navbar-Left podatki -->
 {% block navbar_left %}
 
-    <li><a type="button" class="" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
-    <li><a type="button" class="" data-toggle="modal" data-target="#addArtikel">
-        <b>Dodaj</b> Artikel</a></li>
+    <li><a type="button" data-toggle="modal" data-target=""><b>Uredi</b> Podatke</a></li>
+    <li><a type="button" href="{% url 'moduli:racunovodstvo:strosek_from_racun_create' object.pk %}"><b>Dodaj</b> Strošek</a></li>
 
 {% endblock %}
 <!-- end Navbar-Left podatki -->
@@ -32,7 +31,11 @@
 
 <!-- PAGE TITLE -->
 {% block content_title %}
-<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+    <div class="panel panel-{{ modul_zavihek.modul.barva }} p-0">
+            <table class="table">
+                {% include "racunovodstvo/racun/detail/header.html" %}
+            </table>
+    </div>
 {% endblock %}
 <!-- end PAGE TITLE -->
 
@@ -40,8 +43,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content-body %}
-    {% include "skladisce/dobava/detail/content.html" %}
-    {% include "skladisce/dobava/detail/modal.html" %}
+{% include "racunovodstvo/racun/detail/content.html" %}
+{% include "racunovodstvo/racun/detail/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 
@@ -49,6 +52,5 @@
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
-    {% include "skladisce/dobava/detail/js.html" %}
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->

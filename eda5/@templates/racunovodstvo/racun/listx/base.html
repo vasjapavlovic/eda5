@@ -35,8 +35,8 @@
 
 <!-- PAGE CONTENT -->
 {% block content-body %}
-    {% include "skladisce/dobava/list/content.html" %}
-    {% include "skladisce/dobava/list/modal.html" %}
+{% include "racunovodstvo/racun/list/content.html" %}
+{% include "racunovodstvo/racun/list/modal.html" %}
 {% endblock %}
 <!-- end PAGE CONTENT -->
 
@@ -44,6 +44,20 @@
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
-    {% include "skladisce/dobava/list/js.html" %}
+
+    <!-- nelikvidirani računi -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable_racun_nelikvidiran').dataTable();
+        } );
+    </script>
+
+    <!-- likvidirani računi -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable_racun_likvidiran').dataTable();
+        } );
+    </script>
+
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->

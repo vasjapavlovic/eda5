@@ -1,3 +1,6 @@
+<!-- zahtevek detail : NAVIGACIJA_MENU -->
+
+
 
 <div class="row m-t-30">
     <div class="col-sm-12">
@@ -8,8 +11,8 @@
 
                 <!--nav-tabs-->              
                 <ul class="nav nav-tabs profile-tabs">
-                    <li class="active"><a data-toggle="tab" href="#podatki"><b>P</b>odatki</a></li>
-                    <li><a data-toggle="tab" href="#tab_artikli"><b>A</b>rtikli</a></li>
+                    <li class="active"><a data-toggle="tab" href="#nelikvidirani">Računi <b>za Likvidiranje</b></a></li>
+                    <li><a data-toggle="tab" href="#likvidirani"><b>Likvidirani</b> Računi</a></li>          
                 </ul>
                 <!--end nav-tabs-->
 
@@ -21,20 +24,19 @@
 
 
                     <!--tab******************************** -->
-                    <div id="podatki" class="tab-pane active">
+                    <div id="nelikvidirani" class="tab-pane active">
                         <div class="profile-desk">
-                            <h1>PODATKI :</h1>
-                            {% include "skladisce/dobava/detail/tabs/tab_01.html" %}  
+                            <h1>RAČUNI ZA LIKVIDIRANJE:</h1>
+                            {% include "racunovodstvo/racun/list/tabs/tab_01.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
 
-
                     <!--tab******************************** -->
-                    <div id="tab_artikli" class="tab-pane">
+                    <div id="likvidirani" class="tab-pane">
                         <div class="profile-desk">
-                            <h1>ARTIKLI :</h1>
-                            {% include "skladisce/dobava/detail/tabs/tab_02.html" %}   
+                            <h1>LIKVIDIRANI RAČUNI:</h1>
+                            {% include "racunovodstvo/racun/list/tabs/tab_02.html" %}  
                         </div> <!-- end profile-desk -->
                     </div> <!-- end tab -->
 
