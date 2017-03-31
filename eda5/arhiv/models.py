@@ -14,6 +14,7 @@ from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.racunovodstvo.models import Racun
 from eda5.reklamacije.models import Reklamacija
+from eda5.skladisce.models import Dobava
 from eda5.zahtevki.models import Zahtevek
 
 # Forms
@@ -98,6 +99,8 @@ class Arhiviranje(TimeStampedModel):
     element = models.ForeignKey(Element, blank=True, null=True)
     reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
+    dobava = models.ForeignKey(Dobava, blank=True, null=True)
+    # dodaj dogodek
     
     ''' edino račun ima lahko samo eno priponko '''
     racun = models.OneToOneField(Racun, blank=True, null=True)

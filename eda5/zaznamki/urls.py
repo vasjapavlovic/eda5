@@ -28,5 +28,11 @@ urlpatterns = [
         name="zaznamek_create_from_delovninalog"
     ),
 
+    url(
+        r'^/dobava/(?P<pk>\d+)/zaznamek-create/$', 
+        views.ZaznamekCreateFromDobava.as_view(), 
+        name="zaznamek_create_from_dobava"
+    ),
+
 
 ]

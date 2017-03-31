@@ -14,6 +14,7 @@ from .models import Dobava, Dnevnik
 
 
 # Delovninalogi
+from eda5.arhiv.models import Arhiviranje
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.delovninalogi.mixins import MessagesActionMixin
 
@@ -22,6 +23,7 @@ from eda5.moduli.models import Zavihek
 
 # Skladisce
 from eda5.skladisce.models import Dnevnik
+from eda5.zaznamki.models import Zaznamek
 
 
 
@@ -70,6 +72,12 @@ class DobavaDetailView(DetailView):
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DOBAVA_DETAIL")
         context['modul_zavihek'] = modul_zavihek
+
+        # zaznamki
+        context['zaznamek_list'] = Zaznamek.objects.filter(dobava=self.object.id).order_by('-datum', '-ura')
+
+        # Arhiviranje
+        context['arhiviranje'] = Arhiviranje.objects.filter(dobava=self.object.id)
 
         return context
 

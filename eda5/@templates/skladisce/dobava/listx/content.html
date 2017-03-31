@@ -1,0 +1,18 @@
+<div class="table-condensed table-hover table-bordered">
+    <table class="table">
+        <tr>
+            <th>Oznaka</th>
+            <th>Predmet</th>
+            <th>Datum</th>
+        </tr>
+
+        {% for object in object_list %}
+        <tr>
+            <td><a href="{% url 'moduli:skladisce:dobava_detail' object.pk %}">{{ object.oznaka }}</a></td>
+            <td>{{ object.naziv }}</td>
+            <td>{{ object.datum }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>

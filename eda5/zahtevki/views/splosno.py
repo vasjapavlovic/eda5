@@ -41,7 +41,7 @@ class ZahtevekListView(LoginRequiredMixin, FilteredListView):
     model = Zahtevek
     form_class= ZahtevekSearchForm
     template_name = "zahtevki/zahtevek/list/base.html"
-    paginate_by = 10
+    paginate_by = 30
 
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekListView, self).get_context_data(*args, **kwargs)

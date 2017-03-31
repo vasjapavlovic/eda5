@@ -9,6 +9,7 @@ class ArhiviranjeManager(models.Manager):
                 dokument=None,
                 zahtevek=None,
                 delovninalog=None,
+                dobava=None,
                 delstavbe=None,
                 element=None,
                 artikel=None,
@@ -33,6 +34,7 @@ class ArhiviranjeManager(models.Manager):
             element=element,
             artikel=artikel,
             reklamacija=reklamacija,
+            dobava=dobava,
         )
 
         arhiviranje.save(using=self._db)

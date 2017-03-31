@@ -65,12 +65,17 @@ class VeljavnostDokumentaCreateView(UpdateView):
                 }
             )
 
-        # če je dokument likvidiran pod delovnim nalogom:
+        if arhiviranje.zahtevek:
+            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': arhiviranje.zahtevek.pk}))
+
+        if arhiviranje.dobava:
+            return HttpResponseRedirect(reverse('moduli:skladisce:dobava_detail', kwargs={'pk': arhiviranje.dobava.pk}))
+
         if arhiviranje.delovninalog:
             return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': arhiviranje.delovninalog.pk}))
 
-        else:
-            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': arhiviranje.zahtevek.pk}))
+        if arhiviranje.reklamacija:
+            return HttpResponseRedirect(reverse('moduli:reklamacije:reklamacija_detail', kwargs={'pk': arhiviranje.reklamacija.pk}))
 
 
 class VeljavnostDokumentaUpdateView(UpdateView):
