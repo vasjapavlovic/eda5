@@ -65,7 +65,12 @@ class RacunCreateView(TemplateView):
             datum_storitve_od = racun_create_form.cleaned_data['datum_storitve_od']
             datum_storitve_do = racun_create_form.cleaned_data['datum_storitve_do']
             valuta = racun_create_form.cleaned_data['valuta']
-
+            povracilo_stroskov_zaposlenemu = racun_create_form.cleaned_data['povracilo_stroskov_zaposlenemu']
+            je_reprezentanca = racun_create_form.cleaned_data['je_reprezentanca']
+            reprezentanca_opis = racun_create_form.cleaned_data['reprezentanca_opis']
+            zavrnjen = racun_create_form.cleaned_data['zavrnjen']
+            zavrnjen_datum = racun_create_form.cleaned_data['zavrnjen_datum']
+            zavrnjen_obrazlozitev_text = racun_create_form.cleaned_data['zavrnjen_obrazlozitev_text']
             form_racun_is_valid = 1  # pogoj - glej spodaj
 
         else:

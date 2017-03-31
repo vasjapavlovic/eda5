@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class RacunManager(models.Manager):
     def create_racun(
         self,
@@ -10,6 +9,12 @@ class RacunManager(models.Manager):
         datum_storitve_od=None,
         datum_storitve_do=None,
         valuta=None,
+        povracilo_stroskov_zaposlenemu=None,
+        je_reprezentanca=None,
+        reprezentanca_opis=None,
+        zavrnjen=None,
+        zavrnjen_datum=None,
+        zavrnjen_obrazlozitev_text=None,
         ):
 
         racun = self.model(
@@ -19,6 +24,12 @@ class RacunManager(models.Manager):
             datum_storitve_od=datum_storitve_od,
             datum_storitve_do=datum_storitve_do,
             valuta=valuta,
+            povracilo_stroskov_zaposlenemu=povracilo_stroskov_zaposlenemu,
+            je_reprezentanca=je_reprezentanca,
+            reprezentanca_opis=reprezentanca_opis,
+            zavrnjen=zavrnjen,
+            zavrnjen_datum=zavrnjen_datum,
+            zavrnjen_obrazlozitev_text=zavrnjen_obrazlozitev_text,
         )
 
         racun.save(using=self._db)
