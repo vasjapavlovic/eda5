@@ -14,7 +14,7 @@ class RacunManager(models.Manager):
         reprezentanca_opis=None,
         zavrnjen=None,
         zavrnjen_datum=None,
-        zavrnjen_obrazlozitev_text=None,
+        zavrnjen_obrazlozitev_text=None
         ):
 
         racun = self.model(
@@ -29,7 +29,7 @@ class RacunManager(models.Manager):
             reprezentanca_opis=reprezentanca_opis,
             zavrnjen=zavrnjen,
             zavrnjen_datum=zavrnjen_datum,
-            zavrnjen_obrazlozitev_text=zavrnjen_obrazlozitev_text,
+            zavrnjen_obrazlozitev_text=zavrnjen_obrazlozitev_text
         )
 
         racun.save(using=self._db)
