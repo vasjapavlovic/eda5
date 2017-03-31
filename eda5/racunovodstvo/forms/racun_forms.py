@@ -19,12 +19,21 @@ class RacunCreateForm(forms.ModelForm):
             "datum_storitve_od",
             "datum_storitve_do",
             "valuta",
+            "je_reprezentanca",
+            "reprezentanca_opis",
+            "zavrnjen",
+            "zavrnjen_datum",
+            "zavrnjen_obrazlozitev_text",
             )
         widgets = {
             'datum_storitve_od': DateInput(),
             'datum_storitve_do': DateInput(),
             'valuta': DateInput(),
         }
+
+
+class RacunUpdateForm(RacunCreateForm):
+    pass
 
 
 class KontoCreateForm(forms.ModelForm):

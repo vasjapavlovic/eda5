@@ -12,7 +12,7 @@ from django.shortcuts import render
 
 # INTERNO ############################################################
 from ..models import Racun, Strosek
-from ..forms.racun_forms import RacunCreateForm
+from ..forms.racun_forms import RacunCreateForm, RacunUpdateForm
 
 
 # UVOŽENO ############################################################
@@ -257,3 +257,23 @@ class RacunDetailView(DetailView):
         context['strosek_vrednost_z_dvv'] = "%.2f" % (strosek_vrednost_z_dvv)
 
         return context
+
+
+
+
+class RacunUpdateView(UpdateView):
+    model = Racun
+    form_class = RacunUpdateForm
+    template_name = "racunovodstvo/racun/update.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(StrosekUpdateView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="RACUN_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def get_success_url(self, **kwargs):
+        return reverse('moduli:racunovodstvo:racun_detail', kwargs={'pk': self.object.pk})

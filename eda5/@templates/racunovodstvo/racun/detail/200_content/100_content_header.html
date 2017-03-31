@@ -34,8 +34,8 @@
 </tr>
 
 <tr>
-    <td>Naziv Izvajalca/Dobavitelja:</td>
-    <td>{{ object.dokument.avtor.kratko_ime }}</td>
+    <td>Izvajalec/Dobavitelj:</td>
+    <td><a href="{% url 'moduli:partnerji:partner_detail' object.dokument.avtor.pk %}">{{ object.dokument.avtor.kratko_ime }}</a></td>
 </tr>
 
 
