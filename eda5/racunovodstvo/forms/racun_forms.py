@@ -19,6 +19,7 @@ class RacunCreateForm(forms.ModelForm):
             "datum_storitve_od",
             "datum_storitve_do",
             "valuta",
+            "povracilo_stroskov_zaposlenemu",
             "je_reprezentanca",
             "reprezentanca_opis",
             "zavrnjen",
