@@ -183,6 +183,12 @@ class RacunCreateView(TemplateView):
                 datum_storitve_od=datum_storitve_od,
                 datum_storitve_do=datum_storitve_do,
                 valuta=valuta,
+                povracilo_stroskov_zaposlenemu=povracilo_stroskov_zaposlenemu,
+                je_reprezentanca=je_reprezentanca,
+                reprezentanca_opis=reprezentanca_opis,
+                zavrnjen=zavrnjen,
+                zavrnjen_datum=zavrnjen_datum,
+                zavrnjen_obrazlozitev_text=zavrnjen_obrazlozitev_text,
                 )
 
             racun = Racun.objects.get(id=racun_data.pk)
