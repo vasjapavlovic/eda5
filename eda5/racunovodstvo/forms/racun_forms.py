@@ -1,11 +1,19 @@
-from django import forms
+# Python
 from functools import partial
+
+# Django
+from django import forms
+from django.contrib.admin.sites import site
 from django.utils import timezone
 
+# Models
+from ..models import Racun, Konto, PodKonto
 from eda5.core.models import ObdobjeLeto
 
-from ..models import Racun, Konto, PodKonto
+# Forms
 
+# Widgets
+from eda5.partnerji.widgets import OsebaForeignKeyRawIdWidget
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
@@ -30,6 +38,7 @@ class RacunCreateForm(forms.ModelForm):
             'datum_storitve_od': DateInput(),
             'datum_storitve_do': DateInput(),
             'valuta': DateInput(),
+            'povracilo_stroskov_zaposlenemu': OsebaForeignKeyRawIdWidget(model._meta.get_field('povracilo_stroskov_zaposlenemu').rel, site),
         }
 
 
