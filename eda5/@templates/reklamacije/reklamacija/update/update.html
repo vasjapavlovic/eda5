@@ -19,7 +19,7 @@
 
 
 <!-- Navbar-Left podatki -->
-{% block navbar_left %}
+{% block navbar_right %}
 {% endblock %}
 <!-- end Navbar-Left podatki -->
 
@@ -32,6 +32,19 @@
 <!-- end PAGE TITLE -->
 
 
+{% block content-header %}
+    <div class="row ">
+        <div class="col-sm-12 col-md-12 ">
+            <div class="panel border_hairline_grey">
+                <div class="panel-heading no-collapse background_dark_grey_header">
+                    {{ modul_zavihek.naziv }}
+                </div>
+
+                    
+            </div>   
+        </div>
+    </div>
+{% endblock %}
 
 <!-- PAGE CONTENT -->
 {% block content-body %}
@@ -39,22 +52,20 @@
     <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
 
     <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Podatki o reklamaciji</div>
-            <div class="panel-body">
-                {{ form|crispy }} 
+        <div class="panel no_padding">
+            <div class="panel-heading background_dark_grey">Podatki o reklamaciji</div>
+            <div class="panel-body background_grey">
+                {{ form|crispy }}
             </div>
         </div>
 
-        <input type="submit" value="Potrdi">
 
+        <div class="panel ">
+            <input class="bg-{{ modul_zavihek.modul.barva }}" type="submit" value="Potrdi Vnos">
 
+            
+        </div>
 
-
-
-
-        
 
     </form>
 
@@ -67,5 +78,3 @@
 {% block javascript_extra %}
 {% endblock %}
 <!-- end JAVASCRIPT EXTRA -->
-
-

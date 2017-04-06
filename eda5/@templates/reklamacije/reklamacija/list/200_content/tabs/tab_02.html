@@ -3,13 +3,13 @@
 
 
 <!-- Ko še ni registriranih vnosov -->
-{% if not reklamacije_vresevanju %}
-    V reševanju ni reklamacij.
+{% if not reklamacije_zakljucene %}
+    Zaključenih reklamacij še ni.
 
 <!-- Ko vnosi že obstajajo -->
 {% else %}
 <div class="table-responsive">
-    <table class="table table-condensed table-bordered table-striped">
+    <table class="table table-bordered table-striped">
         <thead>
 
             <tr>
@@ -23,7 +23,7 @@
         </thead>
         <tbody>
 
-            {% for object in reklamacije_vresevanju %}
+            {% for object in reklamacije_zakljucene %}
 
             <tr>
                 <td><a href="{% url 'moduli:reklamacije:reklamacija_detail' object.pk %}">{{ object.oznaka }}</a></td>
