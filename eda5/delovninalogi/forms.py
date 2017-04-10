@@ -17,6 +17,7 @@ from eda5.deli.models import Element, ProjektnoMesto
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
+from eda5.naloge.models import Naloga
 from eda5.posta.models import Dokument
 
 #Forms
@@ -204,8 +205,6 @@ class OpraviloElementUpdateForm(OpraviloUpdateForm):
 
                     
 
-
-
 ''' Ko je opravilo izdelano ga posodobimo tako, da mu
 dodelimo še katere pomanjkljivosti se v opravilu 
 odpravljajo '''
@@ -219,6 +218,25 @@ class OpraviloPomanjkljivostUpdateForm(OpraviloUpdateForm):
         )
 
 
+''' Ko je opravilo izdelano ga posodobimo tako, da mu
+dodelimo še katere pomanjkljivosti se v opravilu 
+odpravljajo '''
+
+class OpraviloNalogaUpdateForm(OpraviloUpdateForm):
+
+    def __init__(self, *args, **kwargs):
+        super(OpraviloNalogaUpdateForm, self).__init__(*args, **kwargs)
+        # custom initial properties
+
+        # v prikazu nočemo zaključenih in izbrisanih
+        self.fields["naloga"].queryset = Naloga.objects.exclude(status=4).exclude(status=5).order_by('-created')
+
+
+    class Meta:
+        model = Opravilo
+        fields = (
+            'naloga',
+        )
 
 
 

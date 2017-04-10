@@ -1,0 +1,33 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not naloge_nelikvidirane %}
+    Ni nelikvidiranih nalog.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<!-- TAB_01 Content -->
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            
+            <tr>
+                <th>oznaka</th>
+                <th>prijava</th>
+                <th>prijavil</th>
+                <th>rok izvedbe</th>
+                <th>nosilec</th>
+            </tr>
+
+            {% for object in naloge_nelikvidirane %}
+            <tr>
+                <td><a href="{% url 'moduli:naloge:naloga_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.opis }}</td>
+                <td>{{ object.rok_izvedbe }}</td>
+                <td>{{ object.nosilec }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% endif %}

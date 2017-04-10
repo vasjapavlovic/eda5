@@ -23,6 +23,7 @@ from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.pomanjkljivosti.models import Pomanjkljivost
 from eda5.reklamacije.models import Reklamacija
+from eda5.sestanki.models import Sestanek
 from eda5.zaznamki.models import Zaznamek
 
 # Forms
@@ -132,6 +133,8 @@ class ZahtevekDetailView(LoginRequiredMixin, DetailView):
         # reklamacije
         context['reklamacija_list'] = Reklamacija.objects.filter(zahtevek=self.object.id)
 
+        # sestanki
+        context['sestanek_list'] = Sestanek.objects.filter(zahtevek=self.object.id)
 
         # zaznamek
         context['zaznamek_form'] = ZaznamekForm

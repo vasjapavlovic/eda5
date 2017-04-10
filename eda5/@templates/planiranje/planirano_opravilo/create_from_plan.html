@@ -1,5 +1,3 @@
-
-
 {% extends "base.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
@@ -34,45 +32,23 @@
 <!-- end PAGE TITLE -->
 
 
-{% block content-header %}
-    <div class="row ">
-        <div class="col-sm-12 col-md-12 ">
-            <div class="panel border_hairline_grey">
-                <div class="panel-heading no-collapse background_dark_grey_header">
-                    {{ modul_zavihek.naziv }}
-                </div>
-
-                    
-            </div>   
-        </div>
-    </div>
-{% endblock %}
 
 <!-- PAGE CONTENT -->
 {% block content-body %}
 
-    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+    <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 
-    <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-
-        <div class="panel">
-            <div class="panel-heading background_dark_grey">Podatki o Opravilu</div>
-                <div class="panel-body background_grey">
-                {{ vzorec_opravila_create_form|crispy  }} 
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Splosni podatki</div>
+            <div class="panel-body">
+                {{ planirano_opravilo_create_form|crispy  }} 
             </div>
         </div>
-
-
-        <div class="panel">
-            <div class="panel-heading background_dark_grey">Elementi na katerih se opravilo izvaja (servisna knjiga)</div>
-                <div class="panel-body background_grey">
-                    {{ opravilo_element_update_form | crispy  }}   
-                </div>
-            </div>
 
         <input type="submit" value="Potrdi">
 
     </form>
+
 {% endblock %}
 <!-- end PAGE CONTENT -->
 

@@ -1,0 +1,53 @@
+<!-- HEADER -->
+
+<!-- table col width -->
+<col style="width:15%">
+<col style="width:85%">
+
+
+<!-- Header -->
+
+<tr>
+    <td><small><b>oznaka</b></small></td>
+    <td></b>{{ object.oznaka }}</td>
+</tr>
+
+<tr>
+    <td><small><b>naziv</b></small></td>
+    <td>{{ object.naziv }}</td>
+</tr>
+
+<tr>
+    <td><small><b>Opis</b></small></td>
+    <td>{{ object.opis }}</td>
+</tr>
+
+<tr>
+    <td><small><b>Datum</b></small></td>
+    <td>{{ object.datum }}</td>
+</tr>
+
+<tr>
+    <td><small><b>Sklicatelj</b></small></td>
+    <td><a href="{% url 'moduli:partnerji:partner_detail' object.sklicatelj.pk %}">{{ object.sklicatelj.kratko_ime }}</a></td>
+</tr>
+
+<tr>
+    <td><small><b>Prisotni</b></small></td>
+    <td>
+        {% for object in object.prisotni.all %}
+        {{ object.ime }} {{ object.priimek }}, 
+        {% endfor %}
+
+    </td>
+</tr>
+
+<tr>
+    <td><small><b>Status</b></small></td>
+    <td></b>{{ object.get_status_display }}</b></td>
+</tr>
+
+<tr>
+    <td><small><b>Zahtevek</b></small></td>
+    <td>Sestanek se rešuje v zahtevku št. <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+</tr>

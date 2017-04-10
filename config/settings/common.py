@@ -61,6 +61,7 @@ LOCAL_APPS = (
     'eda5.lokacija',  # lokacije elementov stavbe
     'eda5.moduli',  # zbirnik vseh modulov
     'eda5.nadzornaplosca',  # nadzorna plošča (linki do krmilnikov, ....)
+    'eda5.naloge',  # naloge, ki jih je potrebno opraviti (tasks)
     'eda5.narocila',  # naročila partnerjev
     'eda5.nastavitve',  # globalne nastavitve
     'eda5.obvestila',  # obveščanje lastnikov

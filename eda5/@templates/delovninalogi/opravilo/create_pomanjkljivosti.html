@@ -19,7 +19,7 @@
 
 
     <!-- Navbar-Left podatki -->
-    {% block navbar_left %}
+    {% block navbar_right %}
     {% endblock %}
     <!-- end Navbar-Left podatki -->
 
@@ -48,6 +48,15 @@
             <div class="panel-body">
 
                 {{ opravilo_create_form|crispy  }} 
+
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-heading">Naloge, ki se odpravljajo v opravilu</div>
+            <div class="panel-body">
+
+                {{ opravilo_naloga_update_form|crispy  }} 
 
             </div>
         </div>

@@ -11,27 +11,33 @@ urlpatterns = [
     ),
 
     url(
-        r'^/zahtevek/(?P<pk>\d+)/zaznamek-create/$', 
+        r'^zahtevek/(?P<pk>\d+)/zaznamek-create/$', 
         views.ZaznamekCreateFromZahtevek.as_view(), 
         name="zaznamek_create_from_zahtevek"
     ),
 
     url(
-        r'^/reklamacija/(?P<pk>\d+)/zaznamek-create/$', 
+        r'^reklamacija/(?P<pk>\d+)/zaznamek-create/$', 
         views.ZaznamekCreateFromReklamacija.as_view(), 
         name="zaznamek_create_from_reklamacija"
     ),
 
     url(
-        r'^/delovninalog/(?P<pk>\d+)/zaznamek-create/$', 
+        r'^delovninalog/(?P<pk>\d+)/zaznamek-create/$', 
         views.ZaznamekCreateFromDelovniNalog.as_view(), 
         name="zaznamek_create_from_delovninalog"
     ),
 
     url(
-        r'^/dobava/(?P<pk>\d+)/zaznamek-create/$', 
+        r'^dobava/(?P<pk>\d+)/zaznamek-create/$', 
         views.ZaznamekCreateFromDobava.as_view(), 
         name="zaznamek_create_from_dobava"
+    ),
+
+    url(
+        r'^sestanek/(?P<pk>\d+)/zaznamek-create/$', 
+        views.ZaznamekCreateFromSestanek.as_view(), 
+        name="zaznamek_create_from_sestanek"
     ),
 
 

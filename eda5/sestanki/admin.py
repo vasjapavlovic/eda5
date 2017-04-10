@@ -1,23 +1,23 @@
 from django.contrib import admin
 
-from eda5.sestanki.models import Sestanek, TemaSestankov, TockaSestanka, AlinejaSestanka
+from eda5.sestanki.models import Sestanek, Tema, Tocka, Sklep
 
 
 @admin.register(Sestanek)
 class SestanekAdmin(admin.ModelAdmin):
-    filter_horizontal = ('udelezenci', )
+    raw_id_fields = ("sklicatelj", "prisotni", )
 
 
-@admin.register(TemaSestankov)
-class TemaSestankovAdmin(admin.ModelAdmin):
+@admin.register(Tema)
+class TemaAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(TockaSestanka)
-class TockaSestankaAdmin(admin.ModelAdmin):
+@admin.register(Tocka)
+class TockaAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(AlinejaSestanka)
-class AlinejaSestankaAdmin(admin.ModelAdmin):
-   filter_horizontal = ('predlagal', 'proti_predlogu')
+@admin.register(Sklep)
+class SklepAdmin(admin.ModelAdmin):
+    raw_id_fields = ("dopolnitev_sklepov",)

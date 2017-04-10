@@ -1,0 +1,51 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not naloge_vresevanju %}
+    Ni nalog v reševanju.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+
+<!-- TAB_02 Content -->
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+
+            
+            <thead>
+            <tr>
+                <th>oznaka</th>
+                <th>prijava</th>
+                <th>prijavil</th>
+                <th>rok izvedbe</th>
+                <th>nosilec</th>
+                <th>zahtevek</th>
+                <th>command</th>
+                
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for object in naloge_vresevanju %}
+
+
+            <tr>
+                <td><a href="{% url 'moduli:naloge:naloga_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.opis }}</td>
+                <td>{{ object.rok_izvedbe }}</td>
+                <td>{{ object.nosilec }}</td>
+
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+
+                <!-- Update naloga -->
+                <td><a type="button" href="{% url 'moduli:naloge:naloga_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+
+
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+{% endif %}

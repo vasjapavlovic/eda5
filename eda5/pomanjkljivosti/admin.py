@@ -7,9 +7,3 @@ from . import models
 class PomanjkljivostAdmin(admin.ModelAdmin):
     
     raw_id_fields = ("element",)
-
-
-@admin.register(models.Naloga)
-class NalogaAdmin(admin.ModelAdmin):
-    
-    filter_horizontal = ("oseba",)

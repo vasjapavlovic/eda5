@@ -1,11 +1,10 @@
-# PYTHON ##############################################################
+# Python
 from datetime import datetime, timedelta
 import os
 
-
-# DJANGO ##############################################################
+# Django
+from django import forms
 from django.core.context_processors import csrf
-
 from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -16,48 +15,21 @@ from django.utils import timezone
 from django.utils.html import escape  # popup
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
-
-from django import forms
-
-
-
-
-# UVOZI ZNOTRAJ APLIKACIJE ############################################
-from ..forms import \
-    OpraviloUpdateForm, \
-    VzorecOpravilaIzbiraForm, \
-    OpraviloCreateForm, \
-    OpraviloElementUpdateForm, \
-    OpraviloPomanjkljivostUpdateForm
-
-from ..models import \
-    Opravilo, \
-    VzorecOpravila
-
-from ..mixins import MessagesActionMixin
-
-
-# UVOZI ZUNANJIH APLIKAIJ ############################################
-
-# Deli
-
-# Deli FORMS
-from eda5.deli.forms import \
-    projektnomesto_forms
-
-from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto 
-
-# Moduli
+# Models
+from ..models import Opravilo, VzorecOpravila
+from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto
 from eda5.moduli.models import Zavihek
-
-# Planiranje
 from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
-
-# Pomanjkljivosti
 from eda5.pomanjkljivosti.models import Pomanjkljivost
-
-# Zahtevki
 from eda5.zahtevki.models import Zahtevek
+
+# Forms
+from ..forms import OpraviloUpdateForm, VzorecOpravilaIzbiraForm, OpraviloCreateForm
+from ..forms import OpraviloElementUpdateForm, OpraviloPomanjkljivostUpdateForm, OpraviloNalogaUpdateForm
+from eda5.deli.forms import projektnomesto_forms
+
+# Mixins
+from ..mixins import MessagesActionMixin
 
 
 # #########################################################
@@ -126,6 +98,7 @@ class OpraviloCreateFromZahtevekView(UpdateView):
         # opravilo
         context['opravilo_create_form'] = OpraviloCreateForm
         context['opravilo_element_update_form'] = OpraviloElementUpdateForm
+        context['opravilo_naloga_update_form'] = OpraviloNalogaUpdateForm
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
@@ -141,12 +114,14 @@ class OpraviloCreateFromZahtevekView(UpdateView):
 
         opravilo_create_form = OpraviloCreateForm(request.POST or None)
         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
+        opravilo_naloga_update_form = OpraviloNalogaUpdateForm(request.POST or None)
 
         ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
         Pomembno zaradi načina struktura View-ja '''
 
         opravilo_create_form_is_valid = False
         opravilo_element_update_form_is_valid = False
+        opravilo_naloga_update_form_is_valid = False
 
         ###########################################################################
         # PRIDOBIMO PODATKE
@@ -173,10 +148,21 @@ class OpraviloCreateFromZahtevekView(UpdateView):
             element = opravilo_element_update_form.cleaned_data['element']
             opravilo_element_update_form_is_valid = True
 
+        ''' Pridobimo podatek o izbranih nalogah, ki se
+        bodo v opravilu odpravljale '''
+
+        if opravilo_naloga_update_form.is_valid():
+            # seznam pomanjkljivosti
+            naloga_list = opravilo_naloga_update_form.cleaned_data['naloga']
+            # ukaz, da je form ustrezno izpolnjen
+            opravilo_naloga_update_form_is_valid = True
+
         ''' v primeru, da so zgornji Form-i ustrezno izpolnjeni
         izvrši spodnje ukaze '''
 
-        if opravilo_create_form_is_valid == True and opravilo_element_update_form_is_valid == True:
+        if opravilo_create_form_is_valid == True and \
+            opravilo_element_update_form_is_valid == True and \
+            opravilo_naloga_update_form_is_valid == True:
             ###########################################################################
             # UKAZI
             ###########################################################################
@@ -198,6 +184,10 @@ class OpraviloCreateFromZahtevekView(UpdateView):
             # instanco izdelanega opravila shranimo za nadaljno uporabo
 
             opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
+
+            ''' opravilu dodelimo izbrane naloge '''
+
+            opravilo_object.naloga = naloga_list
 
             # Posodobitev opravila tako, da se pove na katerih elementih
             # stavbe se opravilo izvaja. Pomembno za elektronsko servisno
@@ -224,125 +214,10 @@ class OpraviloCreateFromZahtevekView(UpdateView):
             return render(request, self.template_name, {
                 'opravilo_create_form': opravilo_create_form,
                 'opravilo_element_update_form': opravilo_element_update_form,
+                'opravilo_naloga_update_form': opravilo_naloga_update_form,
                 'modul_zavihek': modul_zavihek,
                 }
             )
-
-# class OpraviloCreateFromZahtevekView(UpdateView):
-#     model = Zahtevek
-#     template_name = "delovninalogi/opravilo/create_from_zahtevek.html"
-#     fields = ('id', )
-
-#     def get_context_data(self, *args, **kwargs):
-#         context = super(OpraviloCreateFromZahtevekView, self).get_context_data(*args, **kwargs)
-
-#         # opravilo
-#         context['opravilo_create_form'] = OpraviloCreateForm
-#         context['element_izbira_form'] = projektnomesto_forms.ElementIzbiraForm
-#         context['opravilo_element_update_form'] = OpraviloElementUpdateForm
-
-#         # zavihek
-#         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
-#         context['modul_zavihek'] = modul_zavihek
-
-#         return context
-
-#     def post(self, request, *args, **kwargs):
-
-#         ###########################################################################
-#         # FORMS
-#         ###########################################################################
-
-#         opravilo_create_form = OpraviloCreateForm(request.POST or None)
-#         element_izbira_form = projektnomesto_forms.ElementIzbiraForm(request.POST or None)
-#         opravilo_element_update_form = OpraviloElementUpdateForm(request.POST or None)
-
-#         ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
-#         Pomembno zaradi načina struktura View-ja '''
-
-#         opravilo_create_form_is_valid = False
-#         opravilo_element_update_form_is_valid = False
-
-#         ###########################################################################
-#         # PRIDOBIMO PODATKE
-#         ###########################################################################
-
-#         # zahtevek
-#         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
-
-#         # zavihek
-#         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
-
-#         # podatki o opravilu
-#         if opravilo_create_form.is_valid():
-#             oznaka = opravilo_create_form.cleaned_data['oznaka']
-#             naziv = opravilo_create_form.cleaned_data['naziv']
-#             rok_izvedbe = opravilo_create_form.cleaned_data['rok_izvedbe']
-#             narocilo = opravilo_create_form.cleaned_data['narocilo']
-#             nosilec = opravilo_create_form.cleaned_data['nosilec']
-#             planirano_opravilo = opravilo_create_form.cleaned_data['planirano_opravilo']
-#             opravilo_create_form_is_valid = True
-
-#         # podatki o izbranih elementih, ki se dodajo opravilu
-#         if opravilo_element_update_form.is_valid():
-#             element = opravilo_element_update_form.cleaned_data['element']
-#             opravilo_element_update_form_is_valid = True
-
-#         ''' v primeru, da so zgornji Form-i ustrezno izpolnjeni
-#         izvrši spodnje ukaze '''
-
-#         if opravilo_create_form_is_valid == True and opravilo_element_update_form_is_valid == True:
-#             ###########################################################################
-#             # UKAZI
-#             ###########################################################################
-
-#             # Izdelamo novo opravilo kjer se kasneje dodatno dopolni
-#             # na katerih elementih se opravilo opravlja ter katere
-#             # pomanjkljivosti se odpravljajo v tem opravilu.
-
-#             opravilo_data = Opravilo.objects.create_opravilo(
-#                 oznaka=oznaka,
-#                 naziv=naziv,
-#                 rok_izvedbe=rok_izvedbe,
-#                 narocilo=narocilo,
-#                 zahtevek=zahtevek,
-#                 nosilec=nosilec,
-#                 planirano_opravilo=planirano_opravilo,
-#             )
-
-#             # instanco izdelanega opravila shranimo za nadaljno uporabo
-
-#             opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
-
-#             # Posodobitev opravila tako, da se pove na katerih elementih
-#             # stavbe se opravilo izvaja. Pomembno za elektronsko servisno
-#             # knjigo.
-
-#             opravilo_object.element = element
-#             opravilo_object.save()
-
-#             # če je izbrano planirano_opravilo pridobi podatek "zmin - zaokroževanje"
-#             # iz planiranega opravila
-
-#             if planirano_opravilo:
-#                 zmin = planirano_opravilo.zmin
-#                 opravilo_object.zmin = zmin
-#                 opravilo_object.save()
-
-#             # izvedemo preusmeritev
-
-#             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
-
-#         # če zgornji formi niso ustrezno izpolnjeni
-
-#         else:
-#             return render(request, self.template_name, {
-#                 'opravilo_create_form': opravilo_create_form,
-#                 'element_izbira_form': element_izbira_form,
-#                 'opravilo_element_update_form': opravilo_element_update_form,
-#                 'modul_zavihek': modul_zavihek,
-#                 }
-#             )
 
 
 # #########################################################
@@ -358,6 +233,7 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
 
         # opravilo
         context['opravilo_create_form'] = OpraviloCreateForm
+        context['opravilo_naloga_update_form'] = OpraviloNalogaUpdateForm
         context['opravilo_pomanjkljivost_update_form'] = OpraviloPomanjkljivostUpdateForm
 
         # seznam pomanjkljivosti, ki se že rešujejo
@@ -377,12 +253,14 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
         ###########################################################################
 
         opravilo_create_form = OpraviloCreateForm(request.POST or None)
+        opravilo_naloga_update_form = OpraviloNalogaUpdateForm(request.POST or None)
         opravilo_pomanjkljivost_update_form = OpraviloPomanjkljivostUpdateForm(request.POST or None)
 
         ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
         Pomembno zaradi načina struktura View-ja '''
 
         opravilo_create_form_is_valid = False
+        opravilo_naloga_update_form_is_valid = False
         opravilo_pomanjkljivost_update_form_is_valid = False
 
         ###########################################################################
@@ -411,6 +289,15 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
             # ukaz, da je form ustrezno izpolnjen
             opravilo_create_form_is_valid = True
 
+        ''' Pridobimo podatek o izbranih nalogah, ki se
+        bodo v opravilu odpravljale '''
+
+        if opravilo_naloga_update_form.is_valid():
+            # seznam pomanjkljivosti
+            naloga_list = opravilo_naloga_update_form.cleaned_data['naloga']
+            # ukaz, da je form ustrezno izpolnjen
+            opravilo_naloga_update_form_is_valid = True
+
         ''' Pridobimo podatek o izbranih pomanjkljivostih, ki se
         bodo v opravilu odpravljale '''
 
@@ -423,7 +310,9 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
         ''' v primeru, da so zgornji Form-i ustrezno izpolnjeni
         izvrši spodnje ukaze '''
 
-        if opravilo_create_form_is_valid == True and opravilo_pomanjkljivost_update_form_is_valid == True:
+        if opravilo_create_form_is_valid == True and \
+            opravilo_pomanjkljivost_update_form_is_valid == True and \
+            opravilo_naloga_update_form_is_valid == True:
             ###########################################################################
             # UKAZI
             ###########################################################################
@@ -446,6 +335,10 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
             uporabo '''
 
             opravilo_object = Opravilo.objects.get(id=opravilo_data.pk)
+
+            ''' opravilu dodelimo izbrane naloge '''
+
+            opravilo_object.naloga = naloga_list
         
             ''' opravilu dodelimo izbrane pomanjkljivosti '''
 
@@ -475,6 +368,7 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
         else:
             return render(request, self.template_name, {
                 'opravilo_create_form': opravilo_create_form,
+                'opravilo_naloga_update_form': opravilo_naloga_update_form,
                 'opravilo_pomanjkljivost_update_form': opravilo_pomanjkljivost_update_form,
                 'modul_zavihek': modul_zavihek,
                 }
