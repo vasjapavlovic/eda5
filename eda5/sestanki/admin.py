@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from eda5.sestanki.models import Sestanek, Tema, Tocka, Sklep
+from eda5.sestanki.models import Sestanek, Tema, Tocka, Sklep, OpombaSklepa
 
 
 @admin.register(Sestanek)
@@ -21,3 +21,8 @@ class TockaAdmin(admin.ModelAdmin):
 @admin.register(Sklep)
 class SklepAdmin(admin.ModelAdmin):
     raw_id_fields = ("dopolnitev_sklepov",)
+
+
+@admin.register(OpombaSklepa)
+class OpombaSklepaAdmin(admin.ModelAdmin):
+    raw_id_fields = ("sklep",)
