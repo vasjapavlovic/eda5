@@ -40,7 +40,7 @@
 
 
 
-<!-- Izvedba del -->
+<!-- Pomanjkljivosti -->
 <li class="divider"></li>
 <li class="dropdown-header">Pomanjkljivosti</li>
 
@@ -61,3 +61,9 @@
 <li><a type="button" href="{% url 'moduli:zahtevki:najem_lastnine_create' object.pk %}"><b>Dodaj</b> Najem LE</a></li> 
 
 <li><a type="button" href="{% url 'moduli:zahtevki:predaja_kljuca_create' object.pk %}"><b>Dodaj</b> Predajo Ključa</a></li> 
+
+<!-- Sestanki -->
+<li class="divider"></li>
+<li class="dropdown-header">Sestanki</li>
+
+<li><a type="button" href="{% url 'moduli:sestanki:sestanek_create_from_zahtevek' object.pk %}"><b>Registriraj</b> Sestanek</a></li>

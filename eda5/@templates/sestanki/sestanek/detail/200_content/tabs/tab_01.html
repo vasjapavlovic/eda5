@@ -1,0 +1,62 @@
+
+<!-- dnevni red -->
+<b>Dnevni red</b>
+<br>
+{% for object in tocka_list %}
+({{ object.oznaka }}) {{ object.naziv }}<br>
+{% endfor %}
+
+<br>
+<!-- sklepi po točkah -->
+<table class="table table-bordered">
+
+<thead>
+    <tr><b>
+        <th>oznaka</th>
+        <th>sklep</th>
+        <th>izvede</th>
+        <th>rok izvedbe</th>
+        <th>ukazi</th>
+        </b>
+    </tr>
+</thead>
+
+<tbody>
+    {% regroup sklep_list by tocka as dnevnired %}
+
+    {% for tocka in dnevnired %}
+    <tr class="info">
+    <td colspan="5"><b>{{ tocka.grouper}}</b></td>
+    <tr>
+
+    {% for sklep in tocka.list %}
+    <tr>
+        <td>{{ tocka.grouper.oznaka }}-{{ sklep.oznaka }}</td>
+        <td>{{ sklep.opis }}<br>
+            {% for naloga in sklep.naloga_set.all %}
+            {% if naloga.status == 4 %}
+            <strike><b style="color: #cf2f17;">Naloga: {{ naloga.oznaka }}-{{ naloga.naziv }}{% for opravilo in naloga.opravilo_set.all %}
+            <a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a>
+            {% endfor %}
+            </b></strike><br>
+            {% else %}
+            <b style="color: #cf2f17;">Naloga: {{ naloga.oznaka }}-{{ naloga.naziv }}{% for opravilo in naloga.opravilo_set.all %}
+            <a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a>
+            {% endfor %}
+            </b><br>
+
+            
+            {% endif %}
+            {% endfor %}
+        </td>
+        <td>{{ sklep.izvede }}</td>
+        <td>{{ sklep.rok_izvedbe }} {{ sklep.rok_izvedbe_opis }}</td>
+        <td></td>
+    </tr>
+    {% endfor %}
+
+    {% endfor %}
+</tbody>
+
+</table>
+

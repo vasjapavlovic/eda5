@@ -407,3 +407,9 @@ class PomanjkljivostUpdateView(UpdateView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+
+
+
+
+

@@ -1,24 +1,25 @@
+# Python
+from datetime import datetime
+
+# Django
 from django.core.urlresolvers import reverse
 from django.db import models
-from datetime import datetime
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 
-from django.dispatch import receiver
-from django.db.models.signals import post_save
 
+# Models
 from . import managers
-
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
 from eda5.deli.models import ProjektnoMesto
+from eda5.naloge.models import Naloga
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
-
-# Pomanjkljivosti
-from eda5.pomanjkljivosti.models import Pomanjkljivost
-
-
-from eda5.zahtevki.models import Zahtevek
 from eda5.planiranje.models import PlaniranoOpravilo
+from eda5.pomanjkljivosti.models import Pomanjkljivost
+from eda5.zahtevki.models import Zahtevek
+
 
 
 class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
@@ -37,6 +38,12 @@ class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
 
     pomanjkljivost = models.ManyToManyField(Pomanjkljivost, blank=True)
 
+    ''' Navezava na naloge, ki se v opravilu urejajo.
+    V opravilu se lahko odpravlja več nalog. 
+    Naloga se lahko odpravlja v več opravilih za katerega
+    je potrebno svoje naročilo. '''
+
+    naloga = models.ManyToManyField(Naloga, blank=True)
 
     '''Opravilo se izvaja na posameznih elementih stavbe, 
     ki se jih definira tukaj'''
