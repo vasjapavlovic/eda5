@@ -33,6 +33,16 @@
     <tr>
         <td>{{ tocka.grouper.oznaka }}-{{ sklep.oznaka }}</td>
         <td>{{ sklep.opis }}<br>
+
+            <!-- Opombe sklepov -->
+            {% if sklep.opombasklepa_set.all %}
+            {% for opombasklepa in sklep.opombasklepa_set.all %}
+            <b style="color: #0e12ff;">Opomba: {{ opombasklepa.oznaka }}-({{ opombasklepa.opomnil }}){{ opombasklepa.opis }}
+            </b><br>
+            {% endfor %}
+            {% endif %}
+
+            <!-- Naloge -->
             {% for naloga in sklep.naloga_set.all %}
             {% if naloga.status == 4 %}
             <strike><b style="color: #cf2f17;">Naloga: {{ naloga.oznaka }}-{{ naloga.naziv }}{% for opravilo in naloga.opravilo_set.all %}
@@ -44,10 +54,10 @@
             <a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a>
             {% endfor %}
             </b><br>
-
-            
             {% endif %}
             {% endfor %}
+
+
         </td>
         <td>{{ sklep.izvede }}</td>
         <td>{{ sklep.rok_izvedbe }} {{ sklep.rok_izvedbe_opis }}</td>

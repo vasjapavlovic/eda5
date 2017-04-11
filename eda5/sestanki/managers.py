@@ -55,3 +55,7 @@ class TemaManager(models.Manager):
 
 class TockaManager(models.Manager):
     pass
+
+
+class OpombaSklepaManager(models.Manager):
+    pass

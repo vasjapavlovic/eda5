@@ -288,3 +288,65 @@ class Sklep(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, Zap
         return "(%s)%s-%s-%s" % (self.tocka.sestanek.zahtevek.oznaka, self.tocka.sestanek.oznaka, self.tocka.oznaka, self.oznaka)
 
 # UREDI ŠE GLASOVANJE ZA SKLEPE
+
+
+class OpombaSklepa(TimeStampedModel, StatusModel):
+    ''' 
+    Sklep predstavlja dogovor na sestanku, ki se zapiše
+    in realizira. K sklepu se zapiše tudi kdo ga realizira/reši
+    '''
+    #=================================================
+    # ATRIBTUI
+    #-------------------------------------------------
+
+    #=================================================
+    # osnovni podatki
+    #-------------------------------------------------
+    # oznaka
+    # vsebina
+    # 
+
+    #=================================================
+    # relacije
+    #-------------------------------------------------
+    # tocka : relacija na točko dnenega reda sestanka
+    # dopolnitev_sklepov : relacija na druge sklepe, ki jih ta dopolnjuje
+    # izvede : kdo bo sklep realiziral. Če sklep ni
+    #          narave, da je potrebno kaj narediti se pusti mesto prazno
+    # rok: do kdaj mora biti sklep realiziran
+    # rok_opis: če se še opisno zapiše
+
+    oznaka = models.CharField(
+        max_length=255,
+        verbose_name="oznaka",)
+ 
+    opis = models.TextField(
+        verbose_name="vsebina",)
+
+    opomnil = models.CharField(
+        max_length=255,
+        blank=True, null=True,
+        verbose_name="opomnil",)
+
+    sklep = models.ForeignKey(
+        Sklep,
+        verbose_name="sklep sestanka",)
+
+    #---------------------------------------------------------
+    # OBJECT MANAGER
+    # ========================================================
+    objects = managers.OpombaSklepaManager()
+
+
+    #---------------------------------------------------------
+    # META and STR
+    # ========================================================
+    class Meta:
+        verbose_name = "opomba sklepa"
+        verbose_name_plural = "opombe sklepov"
+
+    def __str__(self):
+        # sestanek-tocka-sklep = (ZHT-2017-1)1-1-1, (ZHT-2017-1)1-2-1, ...
+        return "(%s)%s-%s-%s" % (self.sklep.tocka.sestanek.zahtevek.oznaka, self.sklep.tocka.sestanek.oznaka, self.sklep.tocka.oznaka, self.oznaka)
+
+# UREDI ŠE GLASOVANJE ZA SKLEPE
