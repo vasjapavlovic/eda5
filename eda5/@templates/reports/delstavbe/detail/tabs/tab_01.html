@@ -1,19 +1,24 @@
 <!-- Servisna knjiga na sistemu -->
 
 
-<table id="datatable" class="table table-bordered table-hover">
-        <tr>
-            <th>Izvedeno dne</th>
-            <th>Delovni nalog</th>
-        </tr>
+<table id="datatable" class="table">
+
 
 
     {% for dn in servisna_knjiga %}
 
-        <tr>
-            <td>{{ dn.datum_stop }}</td>
-            <td>{{ dn.oznaka }} | {{ dn.opravilo.naziv }}({{ dn.opravilo.oznaka }}</td>
+
+        {% if dn.opravilo.planirano_opravilo %}
+        <tr class="success">
+        {% else %}
+        <tr class="danger">
+        {% endif %}
+
+            <td style="text-align: center;"><b>{{ dn.datum_stop }}</b><br>
+            {{ dn.oznaka }} | {{ dn.opravilo.naziv }}</td>
         </tr>
+
+
 
     {% endfor %}
 
