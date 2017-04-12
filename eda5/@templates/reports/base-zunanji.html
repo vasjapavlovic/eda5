@@ -59,37 +59,14 @@
 
 
 
-        <!-- ###################################################################### -->
-        <!-- ZGORNJI MENI -->
-        <!-- ###################################################################### -->
-
-        <div class="navbar navbar-default" role="navigation">
-
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a href="{% url 'moduli:home' %}"><span class="navbar-brand"> <b>EDA</b>5<span class="fa fa-paper-plane"></span></span></a>
-            </div>
-
-        </div>
         
 
         <div class="container">
-        <div class="jumbotron">
-            {% block content-body %}{% endblock %}
+            <div class="jumbotron">
+                {% block content-body %}{% endblock %}
+            </div>
         </div>
 
-            
-        </div>
-
-        <footer class="footer">
-                    <p class="pull-right">EDA5</p>
-                    <p>© 2012-2017 EDAFM, upravljanje stavb, d.o.o.</p>
-            </footer>
 
         {% block javascript %}
 
