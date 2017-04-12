@@ -1,41 +1,20 @@
-<!-- TAB_01 Content -->
+<!-- Servisna knjiga na sistemu -->
 
-{% if object %}
 
-{{ object }}
+<table id="datatable" class="table table-bordered table-hover">
+        <tr>
+            <th>Izvedeno dne</th>
+            <th>Delovni nalog</th>
+        </tr>
 
-{% endif %}
 
-<div class="table-responsive">
+    {% for dn in servisna_knjiga %}
 
-<table class="table">
-    <col width="10%">
-    <col width="55%">
-    <col width="15%">
-    <col width="15%">
-    <col width="5%">
+        <tr>
+            <td>{{ dn.datum_stop }}</td>
+            <td>{{ dn.oznaka }} | {{ dn.opravilo.naziv }}({{ dn.opravilo.oznaka }}</td>
+        </tr>
 
-    <tr>
-        <th>Oznaka</th>
-        <th>Naziv</th>
-        <th>Izvedeno dne</th>
-        <th>Naslednji predviden pregled dne</th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>VD-01</td>
-        <td>Redni mesečni servis dvižnih naprav</td>
-        <td>1.1.2017</td>
-        <td>1.2.2017</td>
-        <td><i class="fa fa-check" aria-hidden="true"></i></td>
-    </tr>
-    <tr>
-        <td>VD-02</td>
-        <td>Letni pregled dvižnih naprav</td>
-        <td>1.3.2017</td>
-        <td>1.3.2018</td>
-        <td><i class="fa fa-check" aria-hidden="true"></i></td>
-    </tr>
+    {% endfor %}
 
 </table>
-</div>

@@ -35,10 +35,10 @@ class ReportDelStavbeView(DetailView):
         # seznam delovnih nalogov (za servisno knjigo)
         servisna_knjiga = []
         # seznam opravil kjer je vsebovan element
-        opravila = Opravilo.objects.filter(element__del_stavbe=self.object.id)
+        opravila = Opravilo.objects.filter(element__del_stavbe=self.object.id).order_by('-created',)
         # iteriramo skozi seznam opravil, da pridobimo posamezne sezname delovnih nalogov
         for opravilo in opravila:
-            delovninalog_list_x = DelovniNalog.objects.filter(opravilo=opravilo)
+            delovninalog_list_x = DelovniNalog.objects.filter(opravilo=opravilo, status=4)
         # iteriramo skozi seznam delovnih nalogov in dodamo v seznam
             for dn in delovninalog_list_x:
                 servisna_knjiga.append(dn)
