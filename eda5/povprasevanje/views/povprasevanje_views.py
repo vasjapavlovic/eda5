@@ -145,12 +145,31 @@ class PovprasevanjeDetailView(LoginRequiredMixin, DetailView):
             skupaj_cena=Sum('ponudbapopostavki__vrednost_za_izracun'))
         context['ponudba_list'] = ponudba_list
 
+        return context
 
-        
+
+class PovprasevanjeZunanjiDetailView(LoginRequiredMixin, DetailView):
+    model = Povprasevanje
+    template_name = "povprasevanje/povprasevanje/detail-zunanji/base.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PovprasevanjeZunanjiDetailView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="povprasevanje_detail")
+        context['modul_zavihek'] = modul_zavihek
+
+        # ostalo
+        postavka_list = Postavka.objects.filter(povprasevanje=self.object.pk).order_by('oznaka')
+        context['postavka_list'] = postavka_list
 
 
+        ponudba_list = Ponudba.objects.filter(povprasevanje=self.object.pk).order_by('oznaka').annotate(
+            skupaj_cena=Sum('ponudbapopostavki__vrednost_za_izracun'))
+        context['ponudba_list'] = ponudba_list
 
         return context
+
 
 
 class PovprasevanjeUpdateView(UpdateView):

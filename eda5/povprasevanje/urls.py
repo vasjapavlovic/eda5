@@ -25,6 +25,12 @@ urlpatterns += [
     ),
 
     url(
+        r'^zunanji/(?P<pk>\d+)/detail/$', 
+        povprasevanje_views.PovprasevanjeZunanjiDetailView.as_view(), 
+        name="povprasevanje_zunanji_detail"
+    ),
+
+    url(
         r'^(?P<pk>\d+)/povprasevanje/create/$', 
         povprasevanje_views.PovprasevanjeCreateFromZahtevekView.as_view(), 
         name="povprasevanje_create_from_zahtevek"
