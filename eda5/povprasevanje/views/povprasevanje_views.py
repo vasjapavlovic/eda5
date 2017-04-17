@@ -141,16 +141,6 @@ class PovprasevanjeDetailView(LoginRequiredMixin, DetailView):
         context['postavka_list'] = postavka_list
 
 
-
-        for postavka in postavka_list:
-            for ponudbapopostavki in postavka.ponudbapopostavki_set.all():
-                ponudnik = ponudbapopostavki.ponudba.ponudnik
-                print(ponudnik)
-
-
-
-
-
         ponudba_list = Ponudba.objects.filter(povprasevanje=self.object.pk).order_by('oznaka').annotate(
             skupaj_cena=Sum('ponudbapopostavki__vrednost_za_izracun'))
         context['ponudba_list'] = ponudba_list
