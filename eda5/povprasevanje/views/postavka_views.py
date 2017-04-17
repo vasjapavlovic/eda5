@@ -25,7 +25,7 @@ from eda5.zaznamki.forms import ZaznamekForm
 
 class PostavkaCreateFromPovprasevanjeView(LoginRequiredMixin, UpdateView):
     model = Povprasevanje
-    template_name = "povprasevanje/ponudba/create/create_from_povprasevanje.html"
+    template_name = "povprasevanje/postavka/create/create_from_povprasevanje.html"
     fields = ('id', )
 
 
