@@ -1,15 +1,19 @@
 # Python
 # Django
+from django.core.urlresolvers import reverse
 from django.db import models
+
 # Models
 from . import managers
-from eda5.core.models import timestampedmodel
+from eda5.arhiv.models import Arhiviranje
+from eda5.core.models import TimeStampedModel, StatusModel
 from eda5.partnerji.models import Partner
+from eda5.zahtevki.models import Zahtevek
 # Forms
 # Widgets
 
 
-class Povprasevanje(timestampedmodel):
+class Povprasevanje(TimeStampedModel, StatusModel):
     '''
     zbirnik ponudb, izvedba analize ponudb in
     izbira dobavitelja. Zaključek povpraševanja
@@ -30,6 +34,17 @@ class Povprasevanje(timestampedmodel):
 
     opis = models.TextField(
         verbose_name="opis",)
+
+    datum = models.DateField(
+        verbose_name="datum",)
+
+    priloge = models.ManyToManyField(
+        Arhiviranje, 
+        blank=True,
+        related_name="povprasevanje_priloge",
+        verbose_name="priloge"
+    )
+
 
     zahtevek = models.ForeignKey( 
         Zahtevek,
@@ -55,7 +70,7 @@ class Povprasevanje(timestampedmodel):
         return "%s | %s | %s" % (self.oznaka, self.naziv, self.zahtevek.oznaka)
 
 
-class Postavka(timestampedmodel):
+class Postavka(TimeStampedModel):
     '''
     postavka povpraševanja - popis
     '''
@@ -71,6 +86,14 @@ class Postavka(timestampedmodel):
     # opis postavke
     opis = models.TextField(
         verbose_name="opis",)
+
+    # priloge k postavki - razno gradivo proizvajalca itd
+    priloge = models.ManyToManyField(
+        Arhiviranje, 
+        blank=True,
+        related_name="postavka_priloge",
+        verbose_name="priloge",
+    )
 
     # postavka je del povpraševanja
     povprasevanje = models.ForeignKey(
@@ -97,7 +120,7 @@ class Postavka(timestampedmodel):
         return "%s | %s" % (self.oznaka, self.povprasevanje.oznaka)
 
 
-class Ponudba(timestampedmodel):
+class Ponudba(TimeStampedModel):
     '''
     dobavitelj, ki se ga v povpraševanju obravnava
     '''
@@ -113,6 +136,33 @@ class Ponudba(timestampedmodel):
         verbose_name="ponudnik",
     )
 
+    ponudba_dokument = models.ForeignKey(
+        Arhiviranje, 
+        blank=True, null=True, 
+        related_name="ponudba_dokument",
+        verbose_name="ponudba dokument"
+    )
+
+    garancija = models.CharField(
+        max_length=255,
+        blank=True, null=True, 
+        verbose_name="garancija - opisno",
+    )
+
+    referenca_opis = models.CharField(
+        max_length=255,
+        blank=True, null=True,
+        verbose_name="referenca - opisno",
+    )
+
+    referenca_dokument = models.ForeignKey(
+        Arhiviranje, 
+        blank=True, null=True, 
+        related_name="referenca_dokument",
+        verbose_name="referenca - dokumentacija"
+    )
+
+    # vrednosti postavke po popisu
     vrednost_postavke = models.ManyToManyField(
         Postavka,
         blank=True,
@@ -151,7 +201,7 @@ class Ponudba(timestampedmodel):
         return "%s | %s" % (self.oznaka, self.ponudnik.kratko_ime)
 
 
-class PonudbaPoPostavki(timestampedmodel):
+class PonudbaPoPostavki(TimeStampedModel):
 
     postavka = models.ForeignKey(Postavka)
 
@@ -160,13 +210,13 @@ class PonudbaPoPostavki(timestampedmodel):
     vrednost_za_izracun = models.DecimalField(
         max_digits=10, decimal_places=2,
         blank=True, null=True,
-        verbose_name="vrednost za izračun cene"
+        verbose_name="vrednost-izračun cene"
     )
 
     vrednost_opis = models.CharField(
         max_length=255,
         blank=True, null=True,
-        verbose_name="ponudba po postavkah",
+        verbose_name="vrednost-opisno",
     )
 
     #---------------------------------------------------------
@@ -182,6 +232,8 @@ class PonudbaPoPostavki(timestampedmodel):
     # META and STR
     # ========================================================
     class Meta:
+        # ena postavk je lahko v eni ponudbi vpisana samo 1x
+        unique_together = ('postavka', 'ponudba',)
         verbose_name_plural = "ponudbe po postavkah"
 
     def __str__(self):

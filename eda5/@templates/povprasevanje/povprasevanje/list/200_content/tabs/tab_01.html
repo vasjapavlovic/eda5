@@ -1,0 +1,31 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not object_list %}
+    Nobenega povpraševanja še ni registriranega.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<!-- TAB_01 Content -->
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            
+            <tr>
+                <th>oznaka</th>
+                <th>datum</th>
+                <th>naziv</th>
+                <th>zahtevek</th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td><a href="{% url 'moduli:povprasevanje:povprasevanje_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.datum }}</td>
+                <td>{{ object.naziv }}</td>
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% endif %}

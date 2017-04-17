@@ -15,7 +15,7 @@ class PonudbaAdmin(admin.ModelAdmin):
 
 @admin.register(Postavka)
 class PostavkaAdmin(admin.ModelAdmin):
-    pass
+    raw_id_fields = ("priloge",)
 
 
 @admin.register(PonudbaPoPostavki)
