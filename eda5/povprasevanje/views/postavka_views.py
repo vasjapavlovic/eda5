@@ -66,8 +66,8 @@ class PostavkaCreateFromPovprasevanjeView(LoginRequiredMixin, UpdateView):
 
         # podatki o opravilu
         if postavka_create_from_povprasevanje_form.is_valid():
-            oznaka = postavka_create_from_povprasevanje_form_is_valid.cleaned_data['oznaka']
-            opis = postavka_create_from_povprasevanje_form_is_valid.cleaned_data['opis']
+            oznaka = postavka_create_from_povprasevanje_form.cleaned_data['oznaka']
+            opis = postavka_create_from_povprasevanje_form.cleaned_data['opis']
 
             # custom validation - postavka se v ponudbi pojavi samo enkrat
             postavka_create_from_povprasevanje_form_is_valid = True
