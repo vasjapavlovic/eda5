@@ -35,14 +35,12 @@ class PostavkaManager(models.Manager):
         self,
         oznaka=None,
         opis=None,
-        priloge=None,
         povprasevanje=None,
     ):
 
         postavka = self.model(
             oznaka=oznaka,
             opis=opis,
-            priloge=priloge,
             povprasevanje=povprasevanje,
         )
 
