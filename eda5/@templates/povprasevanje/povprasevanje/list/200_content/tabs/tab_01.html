@@ -14,14 +14,20 @@
                 <th>datum</th>
                 <th>naziv</th>
                 <th>zahtevek</th>
+                <th>status</th>
             </tr>
 
             {% for object in object_list %}
+            {% if object.status == 4 %}
+            <tr class="success">
+            {% else %}
             <tr>
+            {% endif %}
                 <td><a href="{% url 'moduli:povprasevanje:povprasevanje_detail' object.pk %}">{{ object.oznaka }}</a></td>
                 <td>{{ object.datum }}</td>
                 <td>{{ object.naziv }}</td>
                 <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+                <td>{{ object.get_status_display }}</td>
             </tr>
             {% endfor %}
 
