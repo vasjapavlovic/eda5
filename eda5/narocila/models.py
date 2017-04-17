@@ -5,7 +5,7 @@ from django.utils import timezone
 # Naročila
 from . import managers
 
-
+# Models
 
 # Arhiv
 from eda5 import arhiv

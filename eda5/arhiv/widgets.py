@@ -10,3 +10,11 @@ class ArhiviranjeManyToManyRawIdWidget(ManyToManyRawIdWidget):
         html = super(ArhiviranjeManyToManyRawIdWidget, self).render(name, *args, **kwargs)
         popupplus = render_to_string(popup_template, {'field': name})
         return html+popupplus
+
+class ArhiviranjeForeignKeyRawIdWidget(ForeignKeyRawIdWidget):
+    
+    def render(self, name, *args, **kwargs):
+        popup_template = "arhiv/arhiviranje/popup/popup_link.html"
+        html = super(ForeignKeyRawIdWidget, self).render(name, *args, **kwargs)
+        popupplus = render_to_string(popup_template, {'field': name})
+        return html+popupplus

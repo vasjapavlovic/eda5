@@ -19,7 +19,7 @@ from eda5.deli.forms import projektnomesto_forms
 
 
 
-''' Izdelava pomanjkljivosti preko vmesnika'''
+''' Izdelava naloge'''
 class NalogaCreateView(LoginRequiredMixin, CreateView):
     model = Naloga
     template_name = "naloge/naloga/create/create.html"
