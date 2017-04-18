@@ -170,7 +170,7 @@ class DopisDetailView(DetailView):
 				'naslovnik': obrazec.naslovnik,
 				'oseba_izdelal': obrazec.oseba_izdelal,
 				'oseba_odgovorna': obrazec.oseba_odgovorna,
-				'priloge': obrazec.priloge,
+				'priloge': obrazec.priloge.all(),
 				'povezava': povezava
 			}
 
