@@ -70,7 +70,7 @@ class PonudbaCreateFromPovprasevanjeView(LoginRequiredMixin, UpdateView):
             ponudnik = ponudba_create_from_povprasevanje_form.cleaned_data['ponudnik']
 
             # custom validation - postavka se v ponudbi pojavi samo enkrat
-            if Ponudba.objects.filter(ponudnik=ponudnik).exists():
+            if Ponudba.objects.filter(povprasevanje=povprasevanje, ponudnik=ponudnik).exists():
                 # opozorilo
                 messages.error(self.request, "Ta ponudnik v povpraševanju že obstaja.")
                 #preusmeritev
