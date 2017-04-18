@@ -5,10 +5,8 @@
 <li class="dropdown-header">Splošno</li>
 
 <li><a type="button" href="{% url 'moduli:povprasevanje:povprasevanje_update' object.pk %}"><b>Uredi</b> Podatke</a></li>
+<li><a type="button" href="{% url 'moduli:povprasevanje:povprasevanje_zunanji_detail' object.pk %}"><b>Link</b> Za zunanje</a></li>
 
-<li><a type="button" href="{% url 'moduli:arhiv:arhiviranje_create_from_povprasevanje' object.pk %}">Dodaj Dokument</a></li>
-
-<li><a type="button" href="{% url 'moduli:zaznamki:zaznamek_create_from_povprasevanje' object.pk %}">Dodaj Zaznamek</a></li>
 
 
 <li class="dropdown-header">Predmet povpraševanja</li>
@@ -19,12 +17,6 @@
 <li class="dropdown-header">Ponudbe</li>
 
 <li><a type="button" href="{% url 'moduli:povprasevanje:ponudba_create_from_povprasevanje' object.pk %}"><b>Dodaj</b> Ponudnika</a></li>
-
-
-
-<li class="dropdown-header">Razno</li>
-
-<li><a type="button" href="{% url 'moduli:povprasevanje:povprasevanje_zunanji_detail' object.pk %}"><b>Link</b> Za zunanje</a></li>
 
 
 

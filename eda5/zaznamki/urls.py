@@ -40,5 +40,11 @@ urlpatterns = [
         name="zaznamek_create_from_sestanek"
     ),
 
+    url(
+        r'^povprasevanje/(?P<pk>\d+)/zaznamek-create/$', 
+        views.ZaznamekCreateFromPovprasevanje.as_view(), 
+        name="zaznamek_create_from_povprasevanje"
+    ),
+
 
 ]

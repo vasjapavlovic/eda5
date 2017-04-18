@@ -6,6 +6,7 @@ from . import managers
 
 # Models
 from eda5.delovninalogi.models import DelovniNalog
+from eda5.povprasevanje.models import Povprasevanje
 from eda5.reklamacije.models import Reklamacija
 from eda5.sestanki.models import Sestanek
 from eda5.skladisce.models import Dobava
@@ -16,11 +17,13 @@ class Zaznamek(models.Model):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
-    zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
-    reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
     dobava = models.ForeignKey(Dobava, blank=True, null=True)
+    povprasevanje = models.ForeignKey(Povprasevanje, blank=True, null=True)
+    reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
     sestanek = models.ForeignKey(Sestanek, blank=True, null=True)
+    zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
+
     #   Mandatory
     tekst = models.TextField(verbose_name='Tekst')
     datum = models.DateField(verbose_name='Datum')
@@ -47,6 +50,9 @@ class Zaznamek(models.Model):
 
         if self.sestanek:
             return reverse("moduli:sestanki:sestanek_detail", kwargs={'pk': self.sestanek.pk})
+
+        if self.povprasevanje:
+            return reverse("moduli:povprasevanje:povprasevanje_detail", kwargs={'pk': self.povprasevanje.pk})
 
     # META AND STRING
     class Meta:

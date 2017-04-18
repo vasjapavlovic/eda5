@@ -41,6 +41,12 @@ urlpatterns += [
         name="arhiviranje_create_from_sestanek"
     ),
 
+    url(
+        r'^povprasevanje/(?P<pk>\d+)/arhiviranje-create/$', 
+        views.ArhiviranjeCreateFromPovprasevanje.as_view(), 
+        name="arhiviranje_create_from_povprasevanje"
+    ),
+
 ]
 
 
