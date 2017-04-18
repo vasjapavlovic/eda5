@@ -16,6 +16,7 @@ class ArhiviranjeManager(models.Manager):
                 racun=None,
                 reklamacija=None,
                 sestanek=None,
+                povprasevanje=None,
                 arhiviral=None,
                 lokacija_hrambe=None,
                 elektronski=None,
@@ -37,6 +38,7 @@ class ArhiviranjeManager(models.Manager):
             reklamacija=reklamacija,
             dobava=dobava,
             sestanek=sestanek,
+            povprasevanje=povprasevanje,
         )
 
         arhiviranje.save(using=self._db)

@@ -5,7 +5,8 @@ from django.db import models
 
 # Models
 from . import managers
-from eda5.arhiv.models import Arhiviranje
+# from eda5.arhiv.models import Arhiviranje
+from eda5 import arhiv
 from eda5.core.models import TimeStampedModel, StatusModel
 from eda5.partnerji.models import Partner
 from eda5.zahtevki.models import Zahtevek
@@ -39,7 +40,7 @@ class Povprasevanje(TimeStampedModel, StatusModel):
         verbose_name="datum",)
 
     priloge = models.ManyToManyField(
-        Arhiviranje, 
+        'arhiv.Arhiviranje', 
         blank=True,
         related_name="povprasevanje_priloge",
         verbose_name="priloge"
@@ -89,7 +90,7 @@ class Postavka(TimeStampedModel):
 
     # priloge k postavki - razno gradivo proizvajalca itd
     priloge = models.ManyToManyField(
-        Arhiviranje, 
+        'arhiv.Arhiviranje', 
         blank=True,
         related_name="postavka_priloge",
         verbose_name="priloge",
@@ -137,7 +138,7 @@ class Ponudba(TimeStampedModel):
     )
 
     ponudba_dokument = models.ForeignKey(
-        Arhiviranje, 
+        'arhiv.Arhiviranje', 
         blank=True, null=True, 
         related_name="ponudba_dokument",
         verbose_name="ponudba dokument"
@@ -156,7 +157,7 @@ class Ponudba(TimeStampedModel):
     )
 
     referenca_dokument = models.ForeignKey(
-        Arhiviranje, 
+        'arhiv.Arhiviranje', 
         blank=True, null=True, 
         related_name="referenca_dokument",
         verbose_name="referenca - dokumentacija"

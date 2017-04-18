@@ -8,6 +8,7 @@ from django.views.generic import DetailView, UpdateView
 from .models import Zaznamek
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.moduli.models import Zavihek
+from eda5.povprasevanje.models import Povprasevanje
 from eda5.reklamacije.models import Reklamacija
 from eda5.sestanki.models import Sestanek
 from eda5.skladisce.models import Dobava
