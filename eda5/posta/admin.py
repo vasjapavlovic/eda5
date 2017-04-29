@@ -13,7 +13,7 @@ class DokumentInline(admin.TabularInline):
 
 @admin.register(Dokument)
 class DokumentAdmin(admin.ModelAdmin):
-    search_fields = ['oznaka']
+    search_fields = ['oznaka', 'naziv', 'priponka']
 
 
 @admin.register(Aktivnost)
