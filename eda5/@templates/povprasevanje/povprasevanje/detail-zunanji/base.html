@@ -1,4 +1,4 @@
-{% extends "base_200.html" %}
+{% extends "base_300.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
@@ -33,8 +33,25 @@
 <!-- #########################################################################-->
 <!--  CONTENT HEADER -->
 <!-- #########################################################################-->
-{% block content-header-content %}
-    {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/100_content_header.html" %}
+{% block content-header %}
+<div class="row ">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel border_hairline_grey">
+            <div class="panel-heading no-collapse background_dark_grey_header">
+                {{ modul_zavihek.naziv }}
+            </div>
+
+            <table class="table table-bordered background_yellow">
+                <thead>
+                </thead>
+                <tbody>
+                {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/100_content_header.html" %}
+                </tbody>
+            </table>
+        </div>   
+    </div>
+</div>
+    
 {% endblock %}
 
 
@@ -42,19 +59,29 @@
 <!-- #########################################################################-->
 <!--  CONTENT BODY -->
 <!-- #########################################################################-->
-{% block content-body-items %}
-    {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/200_content_body_items.html" %}
+{% block content-body %}
+<div class="row m-t-30  ">
+    <div class="col-sm-12">
+        <div class="panel no_padding">
+            <div class="panel-heading background_dark_grey no_padding">
+                <ul class="nav nav-pills">
+                    {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/200_content_body_items.html" %}
+                </ul>
+            </div>
+
+            <div class="panel-body background_grey" > 
+                <div class="tab-content"> 
+                    {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/300_content_body_tabs.html" %}
+                    {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/400_content_modal.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+    
 {% endblock %}
 
 
-{% block content-body-tabs %}
-    {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/300_content_body_tabs.html" %}
-{% endblock %}
-
-
-{% block content-modal %}
-    {% include "povprasevanje/povprasevanje/detail-zunanji/200_content/400_content_modal.html" %}
-{% endblock %}
 
 
 

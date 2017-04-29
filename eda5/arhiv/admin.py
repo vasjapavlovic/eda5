@@ -16,4 +16,4 @@ class ArhivMestoAdmin(admin.ModelAdmin):
 
 @admin.register(Arhiviranje)
 class ArhiviranjeAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['dokument__oznaka', 'dokument__naziv']
