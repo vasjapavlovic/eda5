@@ -17,7 +17,6 @@
         <b>{{ postavka.oznaka }} <a href="{% url 'moduli:povprasevanje:postavka_update' postavka.pk %}"> Edit</a></b><br>
         {{ postavka.opis }}<br>
         {% for priloga in postavka.priloge.all %}
-        - <a href="href={{ MEDIA_URL }}{{ priloga.dokument.priponka }}">{{ priloga.dokument.oznaka }}</a> | {{ priloga.dokument.naziv }}<br>
         {% endfor %}
         </td>
     </tr>

@@ -1,13 +1,19 @@
+# Django
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.utils import timezone
 from django.views.generic import DetailView, UpdateView, ListView
+
+# Templated docs
+from templated_docs import fill_template
+from templated_docs.http import FileResponse
 
 # Mixins
 from braces.views import LoginRequiredMixin
 
 # Models
-from ..models import Sestanek, Tocka, Sklep, Tema
+from ..models import Sestanek, Tocka, Vnos, Zadeva
 from eda5.moduli.models import Zavihek
 from eda5.zahtevki.models import Zahtevek
 from eda5.zaznamki.models import Zaznamek
@@ -15,6 +21,7 @@ from eda5.zaznamki.models import Zaznamek
 
 # Forms
 from ..forms import sestanek_forms
+from eda5.reports.forms import FormatForm
 
 
 class SestanekCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
@@ -169,7 +176,7 @@ class SestanekDetailView(LoginRequiredMixin, DetailView):
         context['tocka_list'] = tocka_list
 
         # sklepi sestanka
-        sklep_list = Sklep.objects.filter(tocka__sestanek=self.object.id).order_by('tocka__oznaka', 'oznaka',)
+        sklep_list = Vnos.objects.filter(tocka__sestanek=self.object.id).order_by('tocka__oznaka', 'zap_st',)
         context['sklep_list'] = sklep_list
 
 
@@ -178,3 +185,65 @@ class SestanekDetailView(LoginRequiredMixin, DetailView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+    def post(self, request, *args, **kwargs):
+
+        
+        ###########################################################################
+        # FORMS
+        ###########################################################################
+        format_form = FormatForm(request.POST or None)
+        format_form_is_valid = True
+
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
+        
+        # instanca
+        # Sestanek s katerim imamo opravka (instanca)
+        sestanek = Sestanek.objects.get(id=self.get_object().id)
+
+        tocka_list = Tocka.objects.filter(sestanek=sestanek).order_by('oznaka',)
+
+        sklep_list = Vnos.objects.filter(tocka__sestanek=sestanek).order_by('tocka__oznaka', 'zap_st',)
+
+        datum_tiska = timezone.localtime(timezone.now()).date()
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="sestanek_detail")
+
+
+        if format_form_is_valid == True:
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
+
+            izpis_data = {
+                'sestanek': sestanek,
+                'tocka_list': tocka_list,
+                'sklep_list': sklep_list,
+                'datum_tiska': datum_tiska,
+            }
+
+            # izdelamo izpis
+            filename = fill_template(
+                # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+                'sestanki/sestanek/detail/zapisniksestanka_20170503.ods', 
+                # podatki za uporabo v oblikovni datoteki   
+                izpis_data,                     
+                output_format="xlsx"
+            )
+
+            visible_filename = '{}.{}'.format(sestanek.oznaka ,"xlsx")
+
+            return FileResponse(filename, visible_filename)
+
+        # v primeru, da so zgornji Form-i NISO ustrezno izpolnjeni
+        # izvrši spodnje ukaze
+
+        else:
+            return render(request, self.template_name, {
+                'format_form': format_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )

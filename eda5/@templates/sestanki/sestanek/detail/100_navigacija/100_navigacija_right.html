@@ -7,3 +7,9 @@
 
 <li class="dropdown-header">Naloge</li>
 <li><a type="button" href="{% url 'moduli:naloge:naloga_create_from_sestanek' object.pk %}">Dodaj Nalogo</a></li>
+
+<li>
+    <form id="" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+        <input class="button_to_label" type="submit" value="Natisni Zapisnik Sestanka">
+    </form>
+</li>

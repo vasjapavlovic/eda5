@@ -53,9 +53,17 @@ class TemaManager(models.Manager):
     pass
 
 
+class ZadevaManager(models.Manager):
+    pass
+
+
 class TockaManager(models.Manager):
     pass
 
 
-class OpombaSklepaManager(models.Manager):
+class VnosManager(models.Manager):
+    pass
+
+
+class OpombaVnosaManager(models.Manager):
     pass
