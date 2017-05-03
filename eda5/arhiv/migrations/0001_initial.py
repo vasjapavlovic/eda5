@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('zahtevki', '__first__'),
         ('racunovodstvo', '__first__'),
-        ('sestanki', '0003_auto_20170410_1800'),
         ('partnerji', '__first__'),
         ('reklamacije', '__first__'),
         ('deli', '__first__'),
