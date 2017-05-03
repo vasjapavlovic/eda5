@@ -12,7 +12,7 @@ class NalogaManager(models.Manager):
         prioriteta=None,
         nosilec=None,
         zahtevek=None,
-        sklep_sestanka=None  # navezava na sklep sestanka
+        vnos_sestanka=None  # navezava na sklep sestanka
     ):
 
         naloga = self.model(
@@ -23,7 +23,7 @@ class NalogaManager(models.Manager):
             prioriteta=prioriteta,
             nosilec=nosilec,
             zahtevek=zahtevek,
-            sklep_sestanka=sklep_sestanka  # navezava na sklep sestanka
+            vnos_sestanka=vnos_sestanka  # navezava na sklep sestanka
             )
 
         naloga.save(using=self.db)

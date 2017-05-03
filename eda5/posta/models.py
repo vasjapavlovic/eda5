@@ -88,7 +88,7 @@ class Dokument(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("moduli:posta:list_likvidacija")
 
-    def __str__(self):
+    def __str__(self):      
         return "(%s) %s | %s" % (self.oznaka, self.naziv, self.datum_dokumenta, )
 
 

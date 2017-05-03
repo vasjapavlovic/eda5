@@ -9,10 +9,11 @@ from eda5.partnerji.models import Partner, Oseba
 from eda5.zahtevki.models import Zahtevek
 
 
+
 ''' 
 V modulu Sestanki se beležijo zbori lastnikov, sestanki s
 predstavniki etažnih lastnikov, individualni sestanki.
-Na podlagi sklepov se lahko opredelijo tudi naloge, katerim 
+Na podlagi vnosov se lahko opredelijo tudi naloge, katerim 
 se lahko opravlja sledenje
 
 Primer:
@@ -29,19 +30,23 @@ Dnevni red:
     -Točka 2: Def
     -Točka 3: razno
 
-Obravnava:
+Zapisnik:
 - Točka 1:
-    - Sklep 1 (tema 1)
-    - Sklep 2 (tema 1)
-    - Sklep 3 (tema 1)
+    Zadeva 1 --> Tema y
+    - Sklep 1 (zadeva 1)
+    - Sklep 2 (zadeva 1)
+    - Sklep 3 (zadeva 1)
 
 - Točka 2:
-    - Sklep 1 (tema 2)
-    - Sklep 2 (tema 2)
-    - Sklep 3 (tema 2)
+    Zadeva 2 --> Tema y
+    - Sklep 1 (zadeva 2)
+    - Sklep 2 (zadeva 2)
+    - Sklep 3 (zadeva 2)
 
 - Točka 3:
+    Zadeva 1 --> Tema y
     - Sklep 1 (tema 1)
+    Zadeva 2 --> Tema y
     - Sklep 2 (tema 2)
     - Sklep 3 (tema 2)
 '''
@@ -72,6 +77,7 @@ class Sestanek(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel):
     # relacije z zahtevki, delovni nalogi,
     #-------------------------------------------------
     # zahtevek, sestanek je del zahtevka
+
 
     oznaka = models.CharField(
         max_length=255,
@@ -122,13 +128,10 @@ class Sestanek(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel):
 
 class Tema(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, ZaporednaStevilka):
     ''' 
-    Tema združuje sklepe sestanka s skupnim problemom oziroma
-    namenom.
+    Tema združuje Zadeve v skupine (širše gledano) - npr. tema odprava pomanjkljivosti, pogodba o upravljanju
     '''
     #=================================================
     # ATRIBTUI
-    #-------------------------------------------------
-
     #=================================================
     # osnovni podatki
     #-------------------------------------------------
@@ -136,6 +139,10 @@ class Tema(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, Zapo
     # naziv, naziv teme
     # opis, opis teme
     # status (če je izbrisana je ne prikaži ...)
+    #=================================================
+    # Relacije
+    #-------------------------------------------------
+    # tema sestanka
 
     oznaka = models.CharField(
         max_length=255,
@@ -160,6 +167,57 @@ class Tema(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, Zapo
     class Meta:
         verbose_name = "tema"
         verbose_name_plural = "teme"
+
+    def __str__(self):
+        return "(%s)%s" % (self.oznaka, self.naziv)
+
+
+
+
+class Zadeva(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, ZaporednaStevilka):
+    ''' 
+    Zadeva združuje sklepe sestanka s skupnim problemom oziroma
+    namenom.
+    '''
+    #=================================================
+    # ATRIBTUI
+    #=================================================
+    # osnovni podatki
+    #-------------------------------------------------
+    # oznaka, oznaka teme. zap.št.
+    # naziv, naziv teme
+    # opis, opis teme
+    # status (če je izbrisana je ne prikaži ...)
+
+
+    oznaka = models.CharField(
+        max_length=255,
+        verbose_name="oznaka",)
+ 
+    naziv = models.CharField(
+        max_length=255,
+        verbose_name="naziv",)
+
+    opis = models.TextField(
+        verbose_name="opis",)
+
+    tema = models.ForeignKey(
+        Tema,
+        blank=True, null=True,
+        verbose_name="tema",)
+
+    #---------------------------------------------------------
+    # OBJECT MANAGER
+    # ========================================================
+    objects = managers.ZadevaManager()
+
+
+    #---------------------------------------------------------
+    # META and STR
+    # ========================================================
+    class Meta:
+        verbose_name = "zadeva"
+        verbose_name_plural = "zadeve"
 
     def __str__(self):
         return "(%s)%s" % (self.oznaka, self.naziv)
@@ -214,9 +272,9 @@ class Tocka(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, Zap
         return "(%s) %s" % (self.oznaka, self.naziv)
 
 
-class Sklep(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, ZaporednaStevilka):
+class Vnos(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, ZaporednaStevilka):
     ''' 
-    Sklep predstavlja dogovor na sestanku, ki se zapiše
+    Vnos predstavlja dogovor na sestanku, ki se zapiše
     in realizira. K sklepu se zapiše tudi kdo ga realizira/reši
     '''
     #=================================================
@@ -235,6 +293,7 @@ class Sklep(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, Zap
     #-------------------------------------------------
     # tocka : relacija na točko dnenega reda sestanka
     # dopolnitev_sklepov : relacija na druge sklepe, ki jih ta dopolnjuje
+    # zadeva : relacija na Zadevo o kateri se razpravlja
     # izvede : kdo bo sklep realiziral. Če sklep ni
     #          narave, da je potrebno kaj narediti se pusti mesto prazno
     # rok: do kdaj mora biti sklep realiziran
@@ -265,23 +324,28 @@ class Sklep(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, Zap
         Tocka,
         verbose_name="točka sestanka",)
 
-    dopolnitev_sklepov = models.ManyToManyField(
+    dopolnitev_vnosov = models.ManyToManyField(
         "self",
         blank=True,
-        verbose_name="dopolnitev sklepov",)
+        verbose_name="dopolnitev vnosov",)
+
+    zadeva = models.ForeignKey(
+        Zadeva,
+        blank=True, null=True,
+        verbose_name="zadeva",)
 
     #---------------------------------------------------------
     # OBJECT MANAGER
     # ========================================================
-    objects = managers.TockaManager()
+    objects = managers.VnosManager()
 
 
     #---------------------------------------------------------
     # META and STR
     # ========================================================
     class Meta:
-        verbose_name = "sklep sestanka"
-        verbose_name_plural = "sklepi sestankov"
+        verbose_name = "vnos sestanka"
+        verbose_name_plural = "vnosi sestankov"
 
     def __str__(self):
         # sestanek-tocka-sklep = (ZHT-2017-1)1-1-1, (ZHT-2017-1)1-2-1, ...
@@ -290,7 +354,7 @@ class Sklep(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel, Zap
 # UREDI ŠE GLASOVANJE ZA SKLEPE
 
 
-class OpombaSklepa(TimeStampedModel, StatusModel):
+class OpombaVnosa(TimeStampedModel, StatusModel):
     ''' 
     Sklep predstavlja dogovor na sestanku, ki se zapiše
     in realizira. K sklepu se zapiše tudi kdo ga realizira/reši
@@ -328,25 +392,25 @@ class OpombaSklepa(TimeStampedModel, StatusModel):
         blank=True, null=True,
         verbose_name="opomnil",)
 
-    sklep = models.ForeignKey(
-        Sklep,
-        verbose_name="sklep sestanka",)
+    vnos = models.ForeignKey(
+        Vnos,
+        verbose_name="vnos sestanka",)
 
     #---------------------------------------------------------
     # OBJECT MANAGER
     # ========================================================
-    objects = managers.OpombaSklepaManager()
+    objects = managers.OpombaVnosaManager()
 
 
     #---------------------------------------------------------
     # META and STR
     # ========================================================
     class Meta:
-        verbose_name = "opomba sklepa"
-        verbose_name_plural = "opombe sklepov"
+        verbose_name = "opomba vnosa"
+        verbose_name_plural = "opombe vnosov"
 
     def __str__(self):
-        # sestanek-tocka-sklep = (ZHT-2017-1)1-1-1, (ZHT-2017-1)1-2-1, ...
-        return "(%s)%s-%s-%s" % (self.sklep.tocka.sestanek.zahtevek.oznaka, self.sklep.tocka.sestanek.oznaka, self.sklep.tocka.oznaka, self.oznaka)
+        # sestanek-tocka-vnos = (ZHT-2017-1)1-1-1, (ZHT-2017-1)1-2-1, ...
+        return "(%s)%s-%s-%s" % (self.vnos.tocka.sestanek.zahtevek.oznaka, self.vnos.tocka.sestanek.oznaka, self.vnos.tocka.oznaka, self.oznaka)
 
 # UREDI ŠE GLASOVANJE ZA SKLEPE

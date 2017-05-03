@@ -13,7 +13,7 @@
 <thead>
     <tr><b>
         <th>oznaka</th>
-        <th>sklep</th>
+        <th>vnos</th>
         <th>izvede</th>
         <th>rok izvedbe</th>
         <th>ukazi</th>
@@ -22,6 +22,7 @@
 </thead>
 
 <tbody>
+
     {% regroup sklep_list by tocka as dnevnired %}
 
     {% for tocka in dnevnired %}
@@ -29,21 +30,31 @@
     <td colspan="5"><b>{{ tocka.grouper}}</b></td>
     <tr>
 
-    {% for sklep in tocka.list %}
+
+    {% regroup tocka.list by zadeva as zadeva_list %}
+
+    {% for zadeva in zadeva_list %}
+    <tr class="success">
+    <td colspan="5"><b>{{ zadeva.grouper}}</b></td>
     <tr>
-        <td>{{ tocka.grouper.oznaka }}-{{ sklep.oznaka }}</td>
-        <td>{{ sklep.opis }}<br>
+
+
+
+    {% for vnos in zadeva.list %}
+    <tr>
+        <td>{{ tocka.grouper.oznaka }}-{{ vnos.oznaka }}</td>
+        <td>{{ vnos.opis }}<br>
 
             <!-- Opombe sklepov -->
-            {% if sklep.opombasklepa_set.all %}
-            {% for opombasklepa in sklep.opombasklepa_set.all %}
+            {% if vnos.opombavnosa_set.all %}
+            {% for opombasklepa in vnos.opombavnosa_set.all %}
             <b style="color: #0e12ff;">Opomba: {{ opombasklepa.oznaka }}-({{ opombasklepa.opomnil }}){{ opombasklepa.opis }}
             </b><br>
             {% endfor %}
             {% endif %}
 
             <!-- Naloge -->
-            {% for naloga in sklep.naloga_set.all %}
+            {% for naloga in vnos.naloga_set.all %}
             {% if naloga.status == 4 %}
             <strike><b style="color: #cf2f17;">Naloga: {{ naloga.oznaka }}-{{ naloga.naziv }}{% for opravilo in naloga.opravilo_set.all %}
             <a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a>
@@ -59,10 +70,12 @@
 
 
         </td>
-        <td>{{ sklep.izvede }}</td>
-        <td>{{ sklep.rok_izvedbe }} {{ sklep.rok_izvedbe_opis }}</td>
+        <td>{{ vnos.izvede }}</td>
+        <td>{{ vnos.rok_izvedbe }} {{ vnos.rok_izvedbe_opis }}</td>
         <td></td>
     </tr>
+    {% endfor %}
+
     {% endfor %}
 
     {% endfor %}

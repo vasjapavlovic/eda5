@@ -57,7 +57,7 @@ class NalogaCreateForm(forms.ModelForm):
             'rok_izvedbe',
             'prioriteta',
             'nosilec',
-            'sklep_sestanka',
+            'vnos_sestanka',
             'status',
         )
         widgets = {
@@ -83,7 +83,7 @@ class NalogaUpdateForm(forms.ModelForm):
             'rok_izvedbe',
             'prioriteta',
             'nosilec',
-            'sklep_sestanka',
+            'vnos_sestanka',
             'status',
         )
         widgets = {

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 # Models
 from eda5.core.models import TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel
 from eda5.partnerji.models import Oseba
-from eda5.sestanki.models import Sklep
+from eda5.sestanki.models import Vnos
 from eda5.zahtevki.models import Zahtevek
 
 # Forms
@@ -64,8 +64,8 @@ class Naloga(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel):
     Navezava na sestanek. Na podlagi sklepov sestanka se rešujejo
     oziroma določijo naloge
     '''
-    sklep_sestanka = models.ForeignKey(
-        Sklep,
+    vnos_sestanka = models.ForeignKey(
+        Vnos,
         blank=True, null=True,
         verbose_name="sklep sestanka")
 

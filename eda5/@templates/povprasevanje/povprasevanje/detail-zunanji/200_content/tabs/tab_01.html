@@ -17,7 +17,7 @@
         <b>{{ postavka.oznaka }}</b><br>
         {{ postavka.opis }}<br>
         {% for priloga in postavka.priloge.all %}
-        - <a href="href={{ MEDIA_URL }}{{ priloga.dokument.priponka }}">{{ priloga.dokument.oznaka }}</a> | {{ priloga.dokument.naziv }}<br>
+        - <a href="{{ MEDIA_URL }}{{ priloga.dokument.priponka }}">{{ priloga.dokument.oznaka }}</a> | {{ priloga.dokument.naziv }}<br>
         {% endfor %}
         </td>
     </tr>
@@ -29,7 +29,7 @@
 
     {% for priloga in object.priloge.all %}
     <tr>
-        <td><a href="href={{ MEDIA_URL }}{{ priloga.dokument.priponka }}">{{ priloga.dokument.oznaka }}</a> | {{ priloga.dokument.naziv }}</td>
+        <td><a href="{{ MEDIA_URL }}{{ priloga.dokument.priponka }}">{{ priloga.dokument.oznaka }}</a> | {{ priloga.dokument.naziv }}</td>
     </tr>
     {% endfor %}
 

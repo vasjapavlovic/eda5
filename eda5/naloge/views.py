@@ -10,7 +10,7 @@ from braces.views import LoginRequiredMixin
 # Models
 from .models import Naloga
 from eda5.moduli.models import Zavihek
-from eda5.sestanki.models import Sestanek, Sklep
+from eda5.sestanki.models import Sestanek, Vnos
 from eda5.zahtevki.models import Zahtevek
 
 # Forms
@@ -248,7 +248,7 @@ class NalogaIzbiraFromZahtevek(LoginRequiredMixin, UpdateView):
 ''' Izdelava pomanjkljivosti preko zahtevka'''
 class NalogaCreateFromSestanekView(LoginRequiredMixin, UpdateView):
 
-    model = Sklep
+    model = Vnos
     template_name = 'naloge/naloga/create/create_from_zahtevek.html'
     fields = ('id', )
 
@@ -298,7 +298,7 @@ class NalogaCreateFromSestanekView(LoginRequiredMixin, UpdateView):
             rok_izvedbe = naloga_create_from_zahtevek_form.cleaned_data['rok_izvedbe']
             prioriteta = naloga_create_from_zahtevek_form.cleaned_data['prioriteta']
             nosilec = naloga_create_from_zahtevek_form.cleaned_data['nosilec']
-            sklep_sestanka = naloga_create_from_zahtevek_form.cleaned_data['sklep_sestanka']
+            vnos_sestanka = naloga_create_from_zahtevek_form.cleaned_data['vnos_sestanka']
             naloga_create_from_zahtevek_form_is_valid = True
 
         # če so vsi podatki pravilno izpolnjeni izvrši spodaj navedene ukaze
@@ -317,7 +317,7 @@ class NalogaCreateFromSestanekView(LoginRequiredMixin, UpdateView):
                 rok_izvedbe=rok_izvedbe,
                 prioriteta=prioriteta,
                 nosilec=nosilec,
-                sklep_sestanka=sklep_sestanka,
+                vnos_sestanka=vnos_sestanka,
                 zahtevek=sestanek.zahtevek,
             )
 
