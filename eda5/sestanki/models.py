@@ -121,6 +121,7 @@ class Sestanek(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel):
     class Meta:
         verbose_name = "sestanek"
         verbose_name_plural = "sestanki"
+        ordering = ['-datum']
 
     def __str__(self):
         return "%s | %s | %s" % (self.oznaka, self.datum, self.zahtevek.oznaka)
