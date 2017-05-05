@@ -83,9 +83,14 @@ AWS_EXPIRY = 60 * 60 * 24 * 7
 # # # TODO See: https://github.com/jschneier/django-storages/issues/47
 # # # Revert the following and use str after the above-mentioned bug is fixed in
 # # # either django-storage-redux or boto
+#AWS_HEADERS = {
+#    'Cache-Control': six.b('max-age=%d, s-maxage=%d, must-revalidate' % (
+#        AWS_EXPIRY, AWS_EXPIRY))
+#}
+
 AWS_HEADERS = {
-    'Cache-Control': six.b('max-age=%d, s-maxage=%d, must-revalidate' % (
-        AWS_EXPIRY, AWS_EXPIRY))
+    'Expires': 'Thu, 15 Apr 2010 20:00:00 GMT',
+    'Cache-Control': 'max-age=86400',
 }
 
 # URL that handles the media served from MEDIA_ROOT, used for managing
