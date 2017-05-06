@@ -74,8 +74,12 @@ AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
 AWS_S3_HOST = env("DJANGO_AWS_S3_HOST")
 AWS_AUTO_CREATE_BUCKET = False
-AWS_QUERYSTRING_AUTH = False
+AWS_QUERYSTRING_AUTH = True  # spremenjeno iz FALSE, da se file shrani kot private
 AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
+
+
+AWS_DEFAULT_ACL = "private"
+AWS_S3_CUSTOM_DOMAIN = None
 
 # # AWS cache settings, don't change unless you know what you're doing:
 #AWS_EXPIRY = 60 * 60 * 24 * 7
