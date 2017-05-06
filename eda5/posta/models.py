@@ -46,7 +46,7 @@ class Dokument(TimeStampedModel):
         # file will be uploaded to MEDIA_ROOT/prejeta_posta/<vrsta_dokumenta>/<new_filename>
         old_filename_raw = filename.split(".")
         ext = '.' + old_filename_raw[-1]
-        filename_parameters = ('media2', str(instance.avtor.davcna_st) + str(instance.oznaka_baza) + str(instance.created))
+        filename_parameters = ('media', str(instance.oznaka_baza))
         new_filename = '/'.join(filename_parameters)
         return '{0}'.format(new_filename + ext)  # output=  media/5.pdf
 
