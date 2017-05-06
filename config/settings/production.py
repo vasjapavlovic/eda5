@@ -81,6 +81,8 @@ AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
 AWS_DEFAULT_ACL = "private"
 AWS_S3_CUSTOM_DOMAIN = None
 
+AWS_S3_ENCRYPTION = True  # shranjenemu file dodeli AES-256
+
 # # AWS cache settings, don't change unless you know what you're doing:
 #AWS_EXPIRY = 60 * 60 * 24 * 7
 
