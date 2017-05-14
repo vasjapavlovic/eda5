@@ -11,11 +11,14 @@ class OpraviloAdmin(admin.ModelAdmin):
         "pomanjkljivost",
     )
     raw_id_fields = (
+        "zahtevek",
         "narocilo", 
         "element", 
         "vrsta_stroska",
         "nosilec",
         'planirano_opravilo',
+        "pomanjkljivosti",
+        'naloga',
         )
 
 
