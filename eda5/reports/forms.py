@@ -1,9 +1,19 @@
+# Python
+# Django
 from django import forms
 from django.utils.html import conditional_escape, mark_safe
 from django.utils.encoding import smart_text
 
-from eda5.racunovodstvo.models import SkupinaVrsteStroska
+# Models
+from eda5.core.models import ObdobjeLeto, ObdobjeMesec
 from eda5.etaznalastnina.models import Program
+from eda5.racunovodstvo.models import SkupinaVrsteStroska
+
+
+
+# Forms
+
+
 
 
 class ReportForm(forms.Form):
@@ -29,3 +39,12 @@ class DeliSeznamFilterForm(forms.Form):
 
     program = forms.ModelMultipleChoiceField(
         queryset=Program.objects.all())
+
+
+class ObracunFilterForm(forms.Form):
+
+    obdobje_leto = forms.ModelChoiceField(
+        queryset=ObdobjeLeto.objects.all())
+
+    obdobje_mesec = forms.ModelChoiceField(
+        queryset=ObdobjeMesec.objects.all())

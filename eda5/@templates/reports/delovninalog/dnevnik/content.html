@@ -1,9 +1,9 @@
 
-<table class="table table-condensed">
+<table class="table table-striped">
 
 
 {% for dn in delovninalogi %}
-<thead class="bg-primary">
+<thead>
     <tr>
         <th>Delovni Nalog</th>
         <th>Naziv opravila</th>
@@ -13,7 +13,7 @@
 
 
 
-<tbody class="bg-primary">
+<tbody>
     <tr>
         <td><a href="{% url 'moduli:delovninalogi:dn_detail' dn.pk %}"><b>{{ dn.oznaka }}</b></a></td>
         <td>{{ dn.opravilo.naziv }}</td>
@@ -21,14 +21,13 @@
     </tr>
 
     <!-- dnevnik opravljenih del za posamezni delovni nalog-->
-    <thead class="bg-info">
+    <thead>
     <tr>
         <th>Vrsta dela</th>
         <th>Opis dela</th>
         <th>Delavec</th>
         <th>Datum</th>
         <th>Začetek</th>
-        <th>Konec</th>
         <th>Trajanje</th>
     </tr>
     </thead>
@@ -41,8 +40,7 @@
         <td>{{ delo.delavec.priimek }} {{ delo.delavec.ime }}</td>
         <td>{{ delo.datum }}</td>
         <td>{{ delo.time_start }}</td>
-        <td>{{ delo.time_stop}}</td>
-        <td>{{ delo.porabljen_cas}}</td>
+        <td>{{ delo.delo_cas_rac}}</td>
     </tr>
     </tbody>
     {% endfor %}
