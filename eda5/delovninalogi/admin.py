@@ -17,7 +17,7 @@ class OpraviloAdmin(admin.ModelAdmin):
         "vrsta_stroska",
         "nosilec",
         'planirano_opravilo',
-        "pomanjkljivosti",
+        "pomanjkljivost",
         'naloga',
         )
 
