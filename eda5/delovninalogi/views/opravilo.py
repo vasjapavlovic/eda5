@@ -422,6 +422,7 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
 
             nova_oznaka = "OPR-%s-%s" % (leto, zap_st)  #
 
+
             # iz VzorecOpravila poberemo podatke
             oznaka = nova_oznaka
             naziv = vzorec_opravila.naziv
@@ -445,6 +446,12 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
 
             # shranimo še elemente, ki so v ManyToMany relaciji z opravilom
             opravilo_object.element = element_list
+            opravilo_object.save()
+
+            # iz planiranega opravila poberemo in vpišemo podatek o zaokroževanju
+
+            zmin = planirano_opravilo.zmin
+            opravilo_object.zmin = zmin
             opravilo_object.save()
 
             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
