@@ -10,7 +10,13 @@ class OpraviloAdmin(admin.ModelAdmin):
 
         "pomanjkljivost",
     )
-    raw_id_fields = ("element", "vrsta_stroska")
+    raw_id_fields = (
+        "narocilo", 
+        "element", 
+        "vrsta_stroska",
+        "nosilec",
+        'planirano_opravilo',
+        )
 
 
 @admin.register(DelovniNalog)
