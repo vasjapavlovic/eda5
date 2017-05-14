@@ -22,6 +22,8 @@ from eda5.zahtevki.models import Zahtevek
 
 
 
+
+
 class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     #   RELATIONS
@@ -30,6 +32,13 @@ class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
     nosilec = models.ForeignKey(Oseba)
     planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
+
+
+    # Stroškovno mesto. Vsako opravilo se vmesti v posamezno stroškovno mesto.
+    # Namen je finančno poročilo po posameznih stroškovnih mestih
+
+    # vrsta_stroska = models.ForeignKey("racunovodstvo.VrstaStroska", blank=True, null=True, verbose_name="vrsta stroška")
+
 
     ''' Navezava na pomanjkljivosti, ki se v opravilu odpravljajo.
     V opravilu se lahko odpravlja več pomanjkljivosti. 

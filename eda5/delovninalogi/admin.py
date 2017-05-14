@@ -11,6 +11,7 @@ class OpraviloAdmin(admin.ModelAdmin):
         "pomanjkljivost",
     )
     raw_id_fields = ("element",)
+    # raw_id_fields = ("element", "vrsta_stroska")
 
 
 @admin.register(DelovniNalog)
