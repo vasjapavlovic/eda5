@@ -37,7 +37,7 @@ class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
     # Stroškovno mesto. Vsako opravilo se vmesti v posamezno stroškovno mesto.
     # Namen je finančno poročilo po posameznih stroškovnih mestih
 
-    # vrsta_stroska = models.ForeignKey("racunovodstvo.VrstaStroska", blank=True, null=True, verbose_name="vrsta stroška")
+    vrsta_stroska = models.ForeignKey("racunovodstvo.VrstaStroska", blank=True, null=True, verbose_name="vrsta stroška")
 
 
     ''' Navezava na pomanjkljivosti, ki se v opravilu odpravljajo.
@@ -115,6 +115,7 @@ class VzorecOpravila(TimeStampedModel, IsActiveModel):
     nosilec = models.ForeignKey(Oseba)
     planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
     element = models.ManyToManyField(ProjektnoMesto)
+    vrsta_stroska = models.ForeignKey("racunovodstvo.VrstaStroska", blank=True, null=True, verbose_name="vrsta stroška")
     #   Mandatory
     oznaka = models.CharField(max_length=20)
     naziv = models.CharField(max_length=255)

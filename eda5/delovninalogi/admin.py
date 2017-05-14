@@ -10,8 +10,7 @@ class OpraviloAdmin(admin.ModelAdmin):
 
         "pomanjkljivost",
     )
-    raw_id_fields = ("element",)
-    # raw_id_fields = ("element", "vrsta_stroska")
+    raw_id_fields = ("element", "vrsta_stroska")
 
 
 @admin.register(DelovniNalog)
@@ -36,4 +35,11 @@ class DeloVrstaSklopAdmin(admin.ModelAdmin):
 
 @admin.register(VzorecOpravila)
 class VzorecOpravilaAdmin(admin.ModelAdmin):
-    pass
+    
+    raw_id_fields = (
+        "narocilo", 
+        "element", 
+        "vrsta_stroska",
+        "nosilec",
+        'planirano_opravilo',
+        )
