@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe
+from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe, obracuni_views
 
 
 # Racun
@@ -35,7 +35,10 @@ urlpatterns += [
     url(r'^dn-zbirni-dnevnik/$', dn_racun_dnevnik.DnevnikIzvedenihDelView.as_view(), name="print_dnevnik_izvedenih_del"),
 ]
 
-
+# obracuni
+urlpatterns += [
+    url(r'^obracuni/zbirni-delovni-nalog/$', obracuni_views.ObracunZbirniDelovniNalogView.as_view(), name="obracuni_zbirni_delovni_nalog_view"),
+]
 
 
 
