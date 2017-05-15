@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content-body %}
+
+{{ naslov_data.st_dokumenta }}<br>
+{{ naslov_data.tip_dokumenta }}<br>
+{{ naslov_data.narocnik }}<br>
+{{ naslov_data.narocilo }}<br>
+<br>
+
+
+
+{% for dn, dela, material in dn_list %}
+
+<table class="table table-bordered">
+    <col style="width:5%">
+    <col style="width:15%">
+    <col style="width:55%">
+    <col style="width:15%">
+
+<tr class="danger">
+    <td><b>{{ forloop.counter }}</b></td>
+    <td><b>Delovni nalog</b></td>
+    <td colspan="2">{{ dn.oznaka }}</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Opravilo</td>
+    <td colspan="2">{{ dn.opravilo.oznaka }} | {{ dn.opravilo.naziv }}</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Datum storitve</td>
+    <td colspan="2">{{ dn.datum_start }}-{{ dn.datum_stop }}</td>
+</tr>
+<tr>
+    <td></td>
+    <td>Nosilec</td>
+    <td colspan="2">{{ dn.opravilo.nosilec }}</td>
+</tr>
+
+{% if dela %}
+<tr>
+    <td></td>
+    <td class="warning" colspan="3"><b>Delo</b></td>
+<tr>
+
+<tr>
+{% for delo in dela %}
+    <td></td>
+    <td></td>
+    <td>({{ delo.vrsta_dela__oznaka }}) {{ delo.vrsta_dela__naziv }}</td>
+    <td><b>{{ delo.vrstadela_cas_rac_sum }}</b> UR</td>
+    
+{% endfor %}
+</tr>
+{% endif %}
+
+
+
+{% if material %}
+<tr>
+    <td></td>
+    <td class="warning" colspan="3"><b>Material</b></td>
+    
+</tr>
+
+{% for material in material %}
+<tr>
+    <td></td>
+    <td></td>
+    <td>({{ material.artikel.oznaka }}) {{ material.artikel.naziv }}</td>
+    <td><b>{{ material.kom }}</b> KOM</td>
+</tr>
+{% endfor %}
+{% endif %}
+
+
+
+</table>
+
+{% endfor %}
+
+{% endblock %}
+
+
+
