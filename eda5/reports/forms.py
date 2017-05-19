@@ -1,4 +1,5 @@
 # Python
+from functools import partial
 # Django
 from django import forms
 from django.utils.html import conditional_escape, mark_safe
@@ -7,8 +8,11 @@ from django.utils.encoding import smart_text
 # Models
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec
 from eda5.etaznalastnina.models import Program
-from eda5.racunovodstvo.models import SkupinaVrsteStroska
+from eda5.narocila.models import Narocilo
+from eda5.racunovodstvo.models import SkupinaVrsteStroska, VrstaStroska 
 
+DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
 # Forms
@@ -48,3 +52,35 @@ class ObracunFilterForm(forms.Form):
 
     obdobje_mesec = forms.ModelChoiceField(
         queryset=ObdobjeMesec.objects.all())
+
+
+class ObracunIzrednaDelaForm(forms.Form):
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(ObracunIzrednaDelaForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['datum_od'] = ""
+        self.initial['datum_do'] = ""
+        self.initial['vrsta_stroska'] = ""
+
+    datum_od = forms.DateField(label='datum od', required=False)
+    datum_do = forms.DateField(label='datum do', required=False)
+
+    narocilo = forms.ModelChoiceField(
+        queryset=Narocilo.objects.veljavna())
+
+    vrsta_stroska = forms.ModelChoiceField(
+        queryset=VrstaStroska.objects.filter(skupina__skupina__skupina__oznaka="O"))
+
+
+
+class ObracunIzpisVrstaForm(forms.Form):
+    VRSTA_IZPISA_CHOICES = (
+        ('neplanirano', 'Neplanirano - Izpis'),
+        ('planirano', 'Planirano - Izpis'),
+        ('neplanirano_delitev', 'Neplanirano - Delitev'),
+        ('planirano_delitev', 'Planirano - Delitev'),
+    )
+
+    vrsta_izpisa_field = forms.ChoiceField(choices=VRSTA_IZPISA_CHOICES)

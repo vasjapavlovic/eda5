@@ -38,6 +38,7 @@ urlpatterns += [
 # obracuni
 urlpatterns += [
     url(r'^obracuni/zbirni-delovni-nalog/$', obracuni_views.ObracunZbirniDelovniNalogView.as_view(), name="obracuni_zbirni_delovni_nalog_view"),
+    url(r'^obracuni/zbirni-delovni-nalog-planirano/$', obracuni_views.ObracunZbirniDelovniNalogPlaniranaView.as_view(), name="obracuni_zbirni_delovni_nalog_planirano_view"),
 ]
 
 

@@ -35,7 +35,7 @@
 <br>
 
 
-{% for dn, dela_filtered_list, vrstadel_cas_list, material in dn_list %}
+{% for planiranoopravilo, vrstadel_cas_list in plan_opravila_list %}
 
 <table class="table table-bordered table_border_light">
     <col style="width:5%">
@@ -45,41 +45,19 @@
 
 <tr class="danger">
     <td><b>{{ forloop.counter }}</b></td>
-    <td><b>Opravilo</b></td>
-    <td colspan="2">{{ dn.opravilo.oznaka }} | {{ dn.opravilo.naziv }}</td>
+    <td><b>Planirano Opravilo</b></td>
+    <td colspan="2">({{ planiranoopravilo.oznaka }}) {{ planiranoopravilo.naziv }}</td>
 </tr>
 
-<tr>
-    <td></td>
-    <td>Delovni nalog</td>
-    <td colspan="2"><a href="{% url 'moduli:delovninalogi:dn_detail' dn.pk %}">{{ dn.oznaka }}</a></td>
 
-</tr>
-<tr>
-    <td></td>
-    <td>Datum storitve</td>
-    <td colspan="2">{{ dn.datum_start }}-{{ dn.datum_stop }}</td>
-</tr>
-<tr>
-    <td></td>
-    <td>Nosilec</td>
-    <td colspan="2">{{ dn.opravilo.nosilec }}</td>
-</tr>
 
-{% if dela_filtered_list %}
+{% if vrstadel_cas_list %}
 <tr class="table_top_border_dashed">
     <td></td>
     <td class="warning" colspan="3"><b>Delo</b></td>
 <tr>
 
-{% for delo in dela_filtered_list %}
-<tr>
-    <td></td>
-    <td><a class="" href="{% url 'moduli:delovninalogi:delo_update_from_delovninalog' delo.pk %}">Uredi</a></td>
-    <td>({{ delo.vrsta_dela.oznaka }}) {{ delo.naziv }} | {{ delo.datum }} | {{ delo.time_start }} | {{ delo.delavec }}</td>
-    <td>{{ delo.delo_cas_rac }} UR</td>
-</tr>
-{% endfor %}
+
 
 {% for delo_vrsta in vrstadel_cas_list %}
 <tr>
@@ -90,27 +68,6 @@
 </tr>
 {% endfor %}
 {% endif %}
-
-
-
-{% if material %}
-<tr class="table_top_border_dashed">
-    <td></td>
-    <td class="warning" colspan="3"><b>Material</b></td>
-    
-</tr>
-
-{% for material in material %}
-<tr>
-    <td></td>
-    <td></td>
-    <td>({{ material.artikel.oznaka }}) {{ material.artikel.naziv }}</td>
-    <td><b>{{ material.kom }}</b> KOM</td>
-</tr>
-{% endfor %}
-{% endif %}
-
-
 
 </table>
 
