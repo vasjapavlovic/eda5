@@ -69,6 +69,7 @@ class ObrazecSplosno(StatusModel):
 	# priloge
 	priloge = models.ManyToManyField(
 		Arhiviranje,
+		blank=True,
 		verbose_name='Priloge')
 
 	class Meta:
