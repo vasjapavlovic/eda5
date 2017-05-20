@@ -63,6 +63,8 @@ class ObracunIzrednaDelaForm(forms.Form):
         self.initial['datum_od'] = ""
         self.initial['datum_do'] = ""
         self.initial['vrsta_stroska'] = ""
+        self.initial['prikazi_izpis_del'] = False
+        self.initial['prikazi_izpis_dn'] = False
 
     datum_od = forms.DateField(label='datum od', required=False)
     datum_do = forms.DateField(label='datum do', required=False)
@@ -72,6 +74,10 @@ class ObracunIzrednaDelaForm(forms.Form):
 
     vrsta_stroska = forms.ModelChoiceField(
         queryset=VrstaStroska.objects.filter(skupina__skupina__skupina__oznaka="O"))
+
+
+    prikazi_izpis_del = forms.BooleanField(label='Prikaži izpis del', required=False)
+    prikazi_izpis_dn = forms.BooleanField(label='Prikaži izpis delovnih nalogov', required=False)
 
 
 

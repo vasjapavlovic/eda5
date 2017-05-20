@@ -19,7 +19,7 @@ from eda5.core.utils import zaokrozen_zmin, pretvori_v_ure
 
 #Models
 from eda5.deli.models import Podskupina, DelStavbe
-from eda5.delovninalogi.models import DelovniNalog, Delo
+from eda5.delovninalogi.models import DelovniNalog, Delo, DeloVrsta
 from eda5.etaznalastnina.models import LastniskaSkupina, Program
 from eda5.moduli.models import Zavihek
 from eda5.narocila.models import Narocilo
@@ -357,6 +357,8 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             obdobje_do = obracun_izredna_dela_form.cleaned_data['datum_do']
             vrsta_stroska = obracun_izredna_dela_form.cleaned_data['vrsta_stroska']
             narocilo = obracun_izredna_dela_form.cleaned_data['narocilo']
+            prikazi_izpis_del = obracun_izredna_dela_form.cleaned_data['prikazi_izpis_del']
+            prikazi_izpis_dn = obracun_izredna_dela_form.cleaned_data['prikazi_izpis_dn']
 
             ''' izpolnemo podakte o računskem času delovnega naloga '''
 
@@ -403,24 +405,69 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             Glede na izračunane čase za izvedbo del 
             izračunamo skupne porabljene čase po VRSTA_DELA.
             '''
-            plan_opravila_list = []
-            for dn in delovninalog_filtered_list:
 
-                # skupni porabljen čas za izvedbo glede na vrsto del (ZUN damo ben ker se ne obračunajo)
-                dela_filtered_list = Delo.objects.filter(delovninalog=dn).exclude(vrsta_dela__oznaka="ZUN").order_by('datum', 'time_start')
-                vrstadel_cas_list = dela_filtered_list.values('vrsta_dela__oznaka', 'vrsta_dela__naziv').order_by('vrsta_dela').annotate(vrstadela_cas_rac_sum=Sum('delo_cas_rac'))
-
-                # dnevnik porabljenega materiala
-                material = Dnevnik.objects.filter(delovninalog=dn)
-
-                # če v delovnemu nalogu ni del, ki se obračunajo, ga ne prikažem
-                if dela_filtered_list:
-                    plan_opravila_list.append((dn.opravilo.planirano_opravilo, vrstadel_cas_list))
 
             
+            vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).values(
+                'delovninalog__opravilo__planirano_opravilo__id', 'delovninalog__opravilo__planirano_opravilo__oznaka', 'vrsta_dela__id').annotate(
+                vrstadela_cas_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__opravilo__planirano_opravilo__oznaka')
 
 
 
+            planiranoopravilo_vrstadel_sum_list = []
+            for vrsta_del_sum in vrstadel_cas_list:
+                planirano_opravilo_id = vrsta_del_sum['delovninalog__opravilo__planirano_opravilo__id']
+                vrsta_dela_id = vrsta_del_sum['vrsta_dela__id']
+                vrstadela_cas_rac_sum = vrsta_del_sum['vrstadela_cas_rac_sum']
+
+
+                planiranoopravilo = PlaniranoOpravilo.objects.filter(id=planirano_opravilo_id)
+                if not planiranoopravilo:
+                    planiranoopravilo = ""
+
+                else:
+                    planiranoopravilo = planiranoopravilo[0]
+
+
+                    dn_list = []
+                    dela_delovninalog_list = Delo.objects.filter(
+                        delovninalog__in=delovninalog_filtered_list, delovninalog__opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'delovninalog__id').annotate(dn_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__datum_start')
+
+                    for dn in dela_delovninalog_list:
+                        dn_id = dn['delovninalog__id']
+                        delovninalog = DelovniNalog.objects.get(id=dn_id)
+                        
+                        dn_rac_sum = dn['dn_rac_sum']
+                        dn_list.append((delovninalog, dn_rac_sum))
+
+
+
+                vrstadela = DeloVrsta.objects.filter(id=vrsta_dela_id)
+                if not vrstadela:
+                    vrstadela = ""
+                else:
+                    vrstadela = vrstadela[0]
+
+
+
+
+                vnos = {
+                    'plan': planiranoopravilo.plan,
+                    'planiranoopravilo': planiranoopravilo,
+                    'vrstadela': vrstadela,
+                    'dn_list':dn_list,
+                    'planiranoopravilo_vrstadela_cas_rac_sum': vrstadela_cas_rac_sum,
+                }
+
+                planiranoopravilo_vrstadel_sum_list.append(vnos)
+
+
+
+
+
+
+            skupaj_ur = vrstadel_cas_list.aggregate(skupaj_ur=Sum('vrstadela_cas_rac_sum'))
 
             naslov_data = {
                     'st_dokumenta': "DN-ZBIRNI-EDA20121-201704",
@@ -430,6 +477,8 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                     'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
                     'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
                     'delovninalog_filtered_list': delovninalog_filtered_list,
+                    'prikazi_izpis_del': prikazi_izpis_del,
+                    'prikazi_izpis_dn': prikazi_izpis_dn,
             }
 
 
@@ -437,8 +486,8 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             context = self.get_context_data(
                 obracun_izredna_dela_form=obracun_izredna_dela_form, 
                 naslov_data=naslov_data,
-                plan_opravila_list=plan_opravila_list,
-                vrstadel_cas_list=vrstadel_cas_list,
+                planiranoopravilo_vrstadel_sum_list=planiranoopravilo_vrstadel_sum_list,
+                skupaj_ur=skupaj_ur,
             )
         else:
             context = self.get_context_data(
@@ -447,3 +496,178 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
         return self.render_to_response(context)
 
+
+
+
+    def post(self, request, *args, **kwargs):
+
+        ###########################################################################
+        # FORMS
+        ###########################################################################
+
+        obracun_izpis_vrsta_form = ObracunIzpisVrstaForm(request.POST or None)
+        obracun_izredna_dela_form = ObracunIzrednaDelaForm(request.POST or None)
+
+        obracun_izpis_vrsta_form_is_valid = False
+        obracun_izredna_dela_form_is_valid = False
+
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
+
+        if obracun_izpis_vrsta_form.is_valid():
+            vrsta_izpisa = obracun_izpis_vrsta_form.cleaned_data['vrsta_izpisa_field']
+            obracun_izpis_vrsta_form_is_valid = True
+
+        if obracun_izredna_dela_form.is_valid():
+            obdobje_od = obracun_izredna_dela_form.cleaned_data['datum_od']
+            obdobje_do = obracun_izredna_dela_form.cleaned_data['datum_do']
+            vrsta_stroska = obracun_izredna_dela_form.cleaned_data['vrsta_stroska']
+            narocilo = obracun_izredna_dela_form.cleaned_data['narocilo']
+            prikazi_izpis_del = obracun_izredna_dela_form.cleaned_data['prikazi_izpis_del']
+            prikazi_izpis_dn = obracun_izredna_dela_form.cleaned_data['prikazi_izpis_dn']
+            obracun_izredna_dela_form_is_valid = True
+
+
+
+        #Če so formi pravilno izpolnjeni
+
+        if obracun_izpis_vrsta_form_is_valid == True and obracun_izredna_dela_form_is_valid == True:
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
+
+            ''' izpolnemo podakte o računskem času delovnega naloga '''
+
+            stroskovnomesto = vrsta_stroska
+
+            # seznam delovnih nalogov ki so del osnovnega filtra
+            delovninalog_filtered_list = DelovniNalog.objects.filter(
+                opravilo__narocilo=narocilo, # delovni nalogi ki so del naročila
+                # opravilo__planirano_opravilo__isnull=True,  # samo neplanirana opravila
+                opravilo__vrsta_stroska=vrsta_stroska,
+                datum_stop__isnull=False)
+                #.filter(
+                #Q(datum_stop__gte=obdobje_od) & Q(datum_stop__lte=obdobje_do)
+                #)
+
+            delovninalog_filtered_list = delovninalog_filtered_list.filter(
+                Q(datum_stop__gte=obdobje_od) & Q(datum_stop__lte=obdobje_do)
+                )
+            '''
+            Glede na izračunane čase za izvedbo del 
+            izračunamo skupne porabljene čase po VRSTA_DELA.
+            '''
+
+
+            
+            vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).values(
+                'delovninalog__opravilo__planirano_opravilo__id', 'delovninalog__opravilo__planirano_opravilo__oznaka', 'vrsta_dela__id').annotate(
+                vrstadela_cas_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__opravilo__planirano_opravilo__oznaka')
+
+
+
+            planiranoopravilo_vrstadel_sum_list = []
+            for vrsta_del_sum in vrstadel_cas_list:
+                planirano_opravilo_id = vrsta_del_sum['delovninalog__opravilo__planirano_opravilo__id']
+                vrsta_dela_id = vrsta_del_sum['vrsta_dela__id']
+                vrstadela_cas_rac_sum = vrsta_del_sum['vrstadela_cas_rac_sum']
+
+
+                planiranoopravilo = PlaniranoOpravilo.objects.filter(id=planirano_opravilo_id)
+                if not planiranoopravilo:
+                    planiranoopravilo = ""
+
+                else:
+                    planiranoopravilo = planiranoopravilo[0]
+
+
+                    dn_list = []
+                    dela_delovninalog_list = Delo.objects.filter(
+                        delovninalog__in=delovninalog_filtered_list, delovninalog__opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'delovninalog__id').annotate(dn_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__datum_start')
+
+                    for dn in dela_delovninalog_list:
+                        dn_id = dn['delovninalog__id']
+                        delovninalog = DelovniNalog.objects.get(id=dn_id)
+                        
+                        dn_rac_sum = dn['dn_rac_sum']
+                        dn_list.append((delovninalog, dn_rac_sum))
+
+
+
+                vrstadela = DeloVrsta.objects.filter(id=vrsta_dela_id)
+                if not vrstadela:
+                    vrstadela = ""
+                else:
+                    vrstadela = vrstadela[0]
+
+
+
+
+                vnos = {
+                    'plan': planiranoopravilo.plan,
+                    'planiranoopravilo': planiranoopravilo,
+                    'vrstadela': vrstadela,
+                    'dn_list':dn_list,
+                    'planiranoopravilo_vrstadela_cas_rac_sum': vrstadela_cas_rac_sum,
+                }
+
+                planiranoopravilo_vrstadel_sum_list.append(vnos)
+
+
+
+
+
+
+            skupaj_ur = vrstadel_cas_list.aggregate(skupaj_ur=Sum('vrstadela_cas_rac_sum'))
+
+            naslov_data = {
+                    'st_dokumenta': "DN-ZBIRNI-EDA20121-201704",
+                    'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
+                    'obdobje': "Od " + str(obdobje_od) + " Do " + str(obdobje_do),
+                    'stroskovnomesto': stroskovnomesto,
+                    'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
+                    'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
+                    'delovninalog_filtered_list': delovninalog_filtered_list,
+                    'prikazi_izpis_del': prikazi_izpis_del,
+                    'prikazi_izpis_dn': prikazi_izpis_dn,
+            }
+
+
+            # prenos podatkov za aplikacijo templated_docs
+            if vrsta_izpisa == "planirano":
+                filename = fill_template(
+                    'reports/obracuni/obracun_planirano.ods', 
+                    {
+                    'naslov_data': naslov_data,
+                    'planiranoopravilo_vrstadel_sum_list': planiranoopravilo_vrstadel_sum_list,
+                    'skupaj_ur': skupaj_ur,
+                    },
+                    output_format="xlsx"
+                    )
+                visible_filename = 'zbirni_obracun.{}'.format("xlsx")
+                return FileResponse(filename, visible_filename)
+
+            # prenos podatkov za aplikacijo templated_docs
+            if vrsta_izpisa == "planirano_delitev":
+                filename = fill_template(
+                     {
+                    'naslov_data': naslov_data,
+                    'planiranoopravilo_vrstadel_sum_list': planiranoopravilo_vrstadel_sum_list,
+                    'skupaj_ur': skupaj_ur,
+                    },
+                    output_format="xlsx"
+                    )
+                visible_filename = 'zbirni_obracun.{}'.format("xlsx")
+                return FileResponse(filename, visible_filename)
+
+        # v primeru, da so zgornji Form-i NISO ustrezno izpolnjeni
+        # izvrši spodnje ukaze
+
+        else:
+            return render(request, self.template_name, {
+                'obracun_izpis_vrsta_form': obracun_izpis_vrsta_form,
+                'obracun_izredna_dela_form': obracun_izredna_dela_form,
+                }
+            )
