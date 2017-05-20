@@ -7,7 +7,7 @@
 <form method="GET" action="" enctype="multipart/form-data">
 
 
-                    {{ obracun_izredna_dela_form }}
+                    {{ obracun_izredna_dela_form|crispy }}
 
                     
 
@@ -35,45 +35,91 @@
 <br>
 
 
-{% for planiranoopravilo, vrstadel_cas_list in plan_opravila_list %}
+
+{% regroup planiranoopravilo_vrstadel_sum_list by plan as plan_list %}
+
+{% for plan in plan_list %}
+<h3>{{ forloop.counter }}. {{ plan.grouper.oznaka }} {{ plan.grouper.naziv }}</h3>
+
+
+{% regroup plan.list by planiranoopravilo as planiranoopravilo_list %}
+
+{% for planiranoopravilo in planiranoopravilo_list %}
+
 
 <table class="table table-bordered table_border_light">
     <col style="width:5%">
-    <col style="width:15%">
-    <col style="width:55%">
-    <col style="width:15%">
+    <col style="width:60%">
+    <col style="width:10%">
 
 <tr class="danger">
-    <td><b>{{ forloop.counter }}</b></td>
-    <td><b>Planirano Opravilo</b></td>
-    <td colspan="2">({{ planiranoopravilo.oznaka }}) {{ planiranoopravilo.naziv }}</td>
+    <td>{{forloop.counter }}.</td>
+    <td>(<b>{{ planiranoopravilo.grouper.oznaka }}) {{ planiranoopravilo.grouper.naziv }}</b></td>
+    <td></td>
+</tr>
+
+
+<tr class="table_top_border_dashed">
+    <td></td>
+    <td class="warning" colspan="2">Obračun</td>
+</tr>
+
+{% for delo_vrsta in planiranoopravilo.list %}
+<tr>
+    <td></td>
+    <td>({{ delo_vrsta.vrstadela.oznaka }}) {{ delo_vrsta.vrstadela.naziv }}</td>
+    <td><b>{{ delo_vrsta.planiranoopravilo_vrstadela_cas_rac_sum }}</b> UR</td>
+</tr>
+
+{% endfor %}
+
+
+{% if naslov_data.prikazi_izpis_dn %}
+<tr>
+    <td></td>
+    <td class="warning" colspan="2">Delovni nalogi</td>
 </tr>
 
 
 
-{% if vrstadel_cas_list %}
-<tr class="table_top_border_dashed">
-    <td></td>
-    <td class="warning" colspan="3"><b>Delo</b></td>
-<tr>
+{% regroup planiranoopravilo.list by dn_list as delovninalog_list %}
+{% for object in delovninalog_list %}
+{% for delovninalog, cas_rac_sum in object.grouper %}
 
-
-
-{% for delo_vrsta in vrstadel_cas_list %}
 <tr>
     <td></td>
-    <td></td>
-    <td>({{ delo_vrsta.vrsta_dela__oznaka }}) {{ delo_vrsta.vrsta_dela__naziv }}</td>
-    <td><b>{{ delo_vrsta.vrstadela_cas_rac_sum }}</b> UR</td>
+    <td>
+    <a href="{% url 'moduli:delovninalogi:dn_detail' delovninalog.pk %}">({{ delovninalog.oznaka }}) | {{ delovninalog.datum_start }} | {{ delovninalog.nosilec }}</a>
+    </td>
+    <td><b>{{ cas_rac_sum }}</b> UR</td>
+</tr>
+
+
+{% if naslov_data.prikazi_izpis_del %}
+
+{% for delo in delovninalog.delo_set.all|dictsort:"time_start" %}
+<tr>
+    <td><a href="{% url 'moduli:delovninalogi:delo_update_from_delovninalog' delo.pk %}">Uredi</a></td>
+    <td>{{ delo.datum }} {{ delo.time_start }} | {{ delo.vrsta_dela.oznaka }} {{ delo.vrsta_dela.naziv }} | {{ delo.delavec }}</td>
+    <td><b>{{ delo.delo_cas_rac }}</b> UR</td>
 </tr>
 {% endfor %}
 {% endif %}
 
-</table>
 
 {% endfor %}
+{% endfor %}
+{% endif %}
+
+
+
+</table>
+
+
+{% endfor %}
+{% endfor %}
+{{ skupaj_ur }}
 
 {% endblock %}
-
 
 
