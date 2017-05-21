@@ -139,10 +139,9 @@ class ObracunZbirniDelovniNalogView(TemplateView):
 
 
             naslov_data = {
-                    'st_dokumenta': "DN-ZBIRNI-" + vrsta_stroska.oznaka + str(obdobje_do),
+                    'st_dokumenta': "DN-ZBIRNI-EDA20121-201704",
                     'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
-                    'obdobje_od': str(obdobje_od),
-                    'obdobje_do': str(obdobje_do),
+                    'obdobje': "Od " + str(obdobje_od) + " Do " + str(obdobje_do),
                     'stroskovnomesto': stroskovnomesto,
                     'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
                     'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
@@ -274,10 +273,9 @@ class ObracunZbirniDelovniNalogView(TemplateView):
 
 
             naslov_data = {
-                    'st_dokumenta': "DN-ZBIRNI-" + vrsta_stroska.oznaka + str(obdobje_do),
+                    'st_dokumenta': "DN-ZBIRNI-EDA20121-201704",
                     'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
-                    'obdobje_od': str(obdobje_od),
-                    'obdobje_do': str(obdobje_do),
+                    'obdobje': "Od " + str(obdobje_od) + " Do " + str(obdobje_do),
                     'stroskovnomesto': stroskovnomesto,
                     'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
                     'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
@@ -325,7 +323,19 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ObracunZbirniDelovniNalogPlaniranaView, self).get_context_data(*args, **kwargs)
 
+    #     # zavihek
+    #     modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
+    #     context['modul_zavihek'] = modul_zavihek
+
+
         context['obracun_izpis_vrsta_form'] = ObracunIzpisVrstaForm
+    #     context['obracun_filter_form'] = ObracunFilterForm
+
+
+
+
+    #     context['dn_list'] = dn_list
+    #     context['naslov_data'] = naslov_data
 
         return context
 
@@ -339,23 +349,10 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        ### PODATKI ##############################################################################
-
-        # naložimo form za filtriranje seznama delovnih nalogov 
-        # ki se upoštevanjo pri izdelavi poročila
-
+        #form = self.get_form(self.get_form_class())
         obracun_izredna_dela_form = ObracunIzrednaDelaForm(request.GET or None)
 
-        # na začetku predvidimo, da form ni pravilno izpolnjen
-
-        obracun_izredna_dela_form_is_valid = False
-
-        # ko je zgornji form pravilno izpolnjen
-        # pridobimo podatke iz njega, ki jih uporabimo za filter
-
         if obracun_izredna_dela_form.is_valid():
-
-            # pridobimo posamezne podatke iz forma
             obdobje_od = obracun_izredna_dela_form.cleaned_data['datum_od']
             obdobje_do = obracun_izredna_dela_form.cleaned_data['datum_do']
             vrsta_stroska = obracun_izredna_dela_form.cleaned_data['vrsta_stroska']
@@ -363,60 +360,42 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             prikazi_izpis_del = obracun_izredna_dela_form.cleaned_data['prikazi_izpis_del']
             prikazi_izpis_dn = obracun_izredna_dela_form.cleaned_data['prikazi_izpis_dn']
 
-            # sporočimo, da je form ustrezno izpolnjen
-            # na podlagi katerega se izvršijo ukazi
-            obracun_izredna_dela_form_is_valid = True
+            ''' izpolnemo podakte o računskem času delovnega naloga '''
 
-        ### UKAZI ##############################################################################
+            stroskovnomesto = vrsta_stroska
 
-        if obracun_izredna_dela_form_is_valid == True:
-
-            # pripravimo seznam delovnih nalogov, ki so del
-            # izbranega filtra in bodo uporabljeni pri izdelavi poročila
-
+            # seznam delovnih nalogov ki so del osnovnega filtra
             delovninalog_filtered_list = DelovniNalog.objects.filter(
-                # delovni nalogi ki so del naročila
-                opravilo__narocilo=narocilo, 
-                # za izbrano stroškovno mesto
+                opravilo__narocilo=narocilo, # delovni nalogi ki so del naročila
+                # opravilo__planirano_opravilo__isnull=True,  # samo neplanirana opravila
                 opravilo__vrsta_stroska=vrsta_stroska,
-                # samo zaključene delovne naloge
-                datum_stop__isnull=False, 
-                )
+                datum_stop__isnull=False,)
 
-            # dodatno filtriranje glede na izbrano odbodje
-
+            # filtriranje delovnih nalogov glede na izbrano obdobje
             delovninalog_filtered_list = delovninalog_filtered_list.filter(
                 Q(datum_stop__gte=obdobje_od) & Q(datum_stop__lte=obdobje_do)
                 )
 
-            # samo delovne naloge planiranih opravil
-
-            delovninalog_filtered_list = delovninalog_filtered_list.filter(
-                opravilo__planirano_opravilo__isnull=False,
-                )
+            for delovninalog in delovninalog_filtered_list:
 
 
-            # za delovne naloge v filtru izračunamo zaokrožen čas izvedbe
-            # glede na parameter zmin
-
-            for dn in delovninalog_filtered_list:
                 # enota za zaokroževanje
-                zmin = dn.opravilo.zmin
+                zmin = delovninalog.opravilo.zmin
                 # seznam del pod delovnim nalogom
-                delo_list = Delo.objects.filter(delovninalog=dn).annotate(delo_cas=F('time_stop')-F('time_start'))
+                delo_list = Delo.objects.filter(delovninalog=delovninalog).annotate(delo_cas=F('time_stop')-F('time_start'))
 
-                
-                # Izdelamo porabljen čas za izvedbo dela
-                # v enoti UR in ga shranimo v bazo pod delo_cas_rac
-
+                '''
+                Izdelamo porabljen čas za izvedbo dela
+                v enoti UR in ga shranimo v bazo pod delo_cas_rac
+                '''
                 for delo in delo_list:
-                    # osnovni delo_cas izračunan zgoraj
+                    # osnovni delo_cas
                     delo_cas = delo.delo_cas
-                    # delo_cas zaokrožimo glede na funkcijo
+                    # zaokrožen delo_cas
                     delo_cas_rac = zaokrozen_zmin(delo_cas, zmin, '+')
-                    # delo_cas_rac pretvorimo v ure
+                    # pretvorjen v decimalno številko delo_cas
                     delo_cas_rac = pretvori_v_ure(delo_cas_rac)
-                    # delo_cas_rac shranimo v bazo
+                    # shranimo v bazo
                     delo.delo_cas_rac = delo_cas_rac
                     delo.save()
 
@@ -439,59 +418,55 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 vrsta_dela_id = vrsta_del_sum['vrsta_dela__id']
                 vrstadela_cas_rac_sum = vrsta_del_sum['vrstadela_cas_rac_sum']
 
-                # pridobimo instanco planiranega opravila
-                # da bomo filtrirali vse vnose glede na
-                # to opravilo
 
-                planiranoopravilo = PlaniranoOpravilo.objects.filter(id=planirano_opravilo_id).first()
+                planiranoopravilo = PlaniranoOpravilo.objects.filter(id=planirano_opravilo_id)
+                if not planiranoopravilo:
+                    planiranoopravilo = ""
 
-                # seznam id-jev od delovnih nalogov, ki se
-                # uporabijo za izdelavo poročila
-
-                delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
-
-                # pridobimo instanco vrste_dela, da lahko v izpisu
-                # izpisujemo posamezne atribute instance
-
-                vrstadela = DeloVrsta.objects.get(id=vrsta_dela_id)
-
-                # priprava seznama delovnih nalogov z izračunanim računskim porabljenim
-                # časom izvedbe delo_cas_rac
-
-                dn_list = []
-                dela_delovninalog_list = DelovniNalog.objects.filter(
-                    id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
-                    'id').annotate(dn_rac_sum=Sum('delo__delo_cas_rac')).order_by('datum_start')
-
-                for dn in dela_delovninalog_list:
-                    dn_id = dn['id']
-                    delovninalog = DelovniNalog.objects.get(id=dn_id)
-                    
-                    dn_rac_sum = dn['dn_rac_sum']
-
-                    # Končni rezultate: 
-                    # v planiranemu opravilu imamo delovninalog in računski čas
-                    dn_list.append((delovninalog, dn_rac_sum))
+                else:
+                    planiranoopravilo = planiranoopravilo[0]
 
 
-                # priprava seznama Materiala pod delovnim nalogom
+                    dn_list = []
+                    dela_delovninalog_list = Delo.objects.filter(
+                        delovninalog__in=delovninalog_filtered_list, delovninalog__opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'delovninalog__id').annotate(dn_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__datum_start')
 
-                material_dn_list = []
-                delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
-                material_delovninalog_list = DelovniNalog.objects.filter(
-                    id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
-                    'dnevnik__artikel__id').annotate(material_kom=Sum('dnevnik__kom'))
-
-                for i in material_delovninalog_list:
-                    artikel_id = i['dnevnik__artikel__id']
-                    artikel = Artikel.objects.filter(id=artikel_id).first()
-                    
-                    if artikel:
-                        artikel_dn_kom = i['material_kom']
-                        material_dn_list.append((artikel, artikel_dn_kom))
+                    for dn in dela_delovninalog_list:
+                        dn_id = dn['delovninalog__id']
+                        delovninalog = DelovniNalog.objects.get(id=dn_id)
+                        
+                        dn_rac_sum = dn['dn_rac_sum']
+                        dn_list.append((delovninalog, dn_rac_sum))
 
 
-                # Izdelamo output, ki je del templeata
+                    # Material pod delovnim nalogom
+                    material_dn_list = []
+                    delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
+                    dela_delovninalog_list = DelovniNalog.objects.filter(
+                        id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'dnevnik__artikel__id').annotate(material_kom=Sum('dnevnik__kom'))
+
+                    for dn in dela_delovninalog_list:
+                        artikel_id = dn['dnevnik__artikel__id']
+                        artikel = Artikel.objects.filter(id=artikel_id).first()
+                        
+                        if artikel:
+                            artikel_dn_kom = dn['material_kom']
+                            material_dn_list.append((artikel, artikel_dn_kom))
+
+
+
+
+
+                vrstadela = DeloVrsta.objects.filter(id=vrsta_dela_id)
+                if not vrstadela:
+                    vrstadela = ""
+                else:
+                    vrstadela = vrstadela[0]
+
+
+
 
                 vnos = {
                     'plan': planiranoopravilo.plan,
@@ -505,20 +480,25 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 planiranoopravilo_vrstadel_sum_list.append(vnos)
 
 
+
+
+
+
             skupaj_ur = vrstadel_cas_list.aggregate(skupaj_ur=Sum('vrstadela_cas_rac_sum'))
 
             naslov_data = {
-                    'st_dokumenta': "DN-ZBIRNI-" + vrsta_stroska.oznaka + str(obdobje_do),
+                    'st_dokumenta': "DN-ZBIRNI-" + stroskovnomesto.oznaka + str(obdobje_do),
                     'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
                     'obdobje_od': str(obdobje_od),
                     'obdobje_do': str(obdobje_do),
-                    'stroskovnomesto': vrsta_stroska,
+                    'stroskovnomesto': stroskovnomesto,
                     'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
                     'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
                     'delovninalog_filtered_list': delovninalog_filtered_list,
                     'prikazi_izpis_del': prikazi_izpis_del,
                     'prikazi_izpis_dn': prikazi_izpis_dn,
             }
+
 
 
             context = self.get_context_data(
@@ -571,55 +551,27 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
         #Če so formi pravilno izpolnjeni
 
         if obracun_izpis_vrsta_form_is_valid == True and obracun_izredna_dela_form_is_valid == True:
-             # pripravimo seznam delovnih nalogov, ki so del
-            # izbranega filtra in bodo uporabljeni pri izdelavi poročila
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
 
+            ''' izpolnemo podakte o računskem času delovnega naloga '''
+
+            stroskovnomesto = vrsta_stroska
+
+            # seznam delovnih nalogov ki so del osnovnega filtra
             delovninalog_filtered_list = DelovniNalog.objects.filter(
-                # delovni nalogi ki so del naročila
-                opravilo__narocilo=narocilo, 
-                # za izbrano stroškovno mesto
+                opravilo__narocilo=narocilo, # delovni nalogi ki so del naročila
+                # opravilo__planirano_opravilo__isnull=True,  # samo neplanirana opravila
                 opravilo__vrsta_stroska=vrsta_stroska,
-                # samo zaključene delovne naloge
-                datum_stop__isnull=False, 
-                )
-
-            # dodatno filtriranje glede na izbrano odbodje
+                datum_stop__isnull=False)
+                #.filter(
+                #Q(datum_stop__gte=obdobje_od) & Q(datum_stop__lte=obdobje_do)
+                #)
 
             delovninalog_filtered_list = delovninalog_filtered_list.filter(
                 Q(datum_stop__gte=obdobje_od) & Q(datum_stop__lte=obdobje_do)
                 )
-
-            # samo delovne naloge planiranih opravil
-
-            delovninalog_filtered_list = delovninalog_filtered_list.filter(
-                opravilo__planirano_opravilo__isnull=False,
-                )
-
-
-            # za delovne naloge v filtru izračunamo zaokrožen čas izvedbe
-            # glede na parameter zmin
-
-            for dn in delovninalog_filtered_list:
-                # enota za zaokroževanje
-                zmin = dn.opravilo.zmin
-                # seznam del pod delovnim nalogom
-                delo_list = Delo.objects.filter(delovninalog=dn).annotate(delo_cas=F('time_stop')-F('time_start'))
-
-                
-                # Izdelamo porabljen čas za izvedbo dela
-                # v enoti UR in ga shranimo v bazo pod delo_cas_rac
-
-                for delo in delo_list:
-                    # osnovni delo_cas izračunan zgoraj
-                    delo_cas = delo.delo_cas
-                    # delo_cas zaokrožimo glede na funkcijo
-                    delo_cas_rac = zaokrozen_zmin(delo_cas, zmin, '+')
-                    # delo_cas_rac pretvorimo v ure
-                    delo_cas_rac = pretvori_v_ure(delo_cas_rac)
-                    # delo_cas_rac shranimo v bazo
-                    delo.delo_cas_rac = delo_cas_rac
-                    delo.save()
-
             '''
             Glede na izračunane čase za izvedbo del 
             izračunamo skupne porabljene čase po VRSTA_DELA.
@@ -639,59 +591,53 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 vrsta_dela_id = vrsta_del_sum['vrsta_dela__id']
                 vrstadela_cas_rac_sum = vrsta_del_sum['vrstadela_cas_rac_sum']
 
-                # pridobimo instanco planiranega opravila
-                # da bomo filtrirali vse vnose glede na
-                # to opravilo
 
-                planiranoopravilo = PlaniranoOpravilo.objects.filter(id=planirano_opravilo_id).first()
+                planiranoopravilo = PlaniranoOpravilo.objects.filter(id=planirano_opravilo_id)
+                if not planiranoopravilo:
+                    planiranoopravilo = ""
 
-                # seznam id-jev od delovnih nalogov, ki se
-                # uporabijo za izdelavo poročila
-
-                delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
-
-                # pridobimo instanco vrste_dela, da lahko v izpisu
-                # izpisujemo posamezne atribute instance
-
-                vrstadela = DeloVrsta.objects.get(id=vrsta_dela_id)
-
-                # priprava seznama delovnih nalogov z izračunanim računskim porabljenim
-                # časom izvedbe delo_cas_rac
-
-                dn_list = []
-                dela_delovninalog_list = DelovniNalog.objects.filter(
-                    id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
-                    'id').annotate(dn_rac_sum=Sum('delo__delo_cas_rac')).order_by('datum_start')
-
-                for dn in dela_delovninalog_list:
-                    dn_id = dn['id']
-                    delovninalog = DelovniNalog.objects.get(id=dn_id)
-                    
-                    dn_rac_sum = dn['dn_rac_sum']
-
-                    # Končni rezultate: 
-                    # v planiranemu opravilu imamo delovninalog in računski čas
-                    dn_list.append((delovninalog, dn_rac_sum))
+                else:
+                    planiranoopravilo = planiranoopravilo[0]
 
 
-                # priprava seznama Materiala pod delovnim nalogom
+                    dn_list = []
+                    dela_delovninalog_list = Delo.objects.filter(
+                        delovninalog__in=delovninalog_filtered_list, delovninalog__opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'delovninalog__id').annotate(dn_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__datum_start')
 
-                material_dn_list = []
-                delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
-                material_delovninalog_list = DelovniNalog.objects.filter(
-                    id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
-                    'dnevnik__artikel__id').annotate(material_kom=Sum('dnevnik__kom'))
-
-                for i in material_delovninalog_list:
-                    artikel_id = i['dnevnik__artikel__id']
-                    artikel = Artikel.objects.filter(id=artikel_id).first()
-                    
-                    if artikel:
-                        artikel_dn_kom = i['material_kom']
-                        material_dn_list.append((artikel, artikel_dn_kom))
+                    for dn in dela_delovninalog_list:
+                        dn_id = dn['delovninalog__id']
+                        delovninalog = DelovniNalog.objects.get(id=dn_id)
+                        
+                        dn_rac_sum = dn['dn_rac_sum']
+                        dn_list.append((delovninalog, dn_rac_sum))
 
 
-                # Izdelamo output, ki je del templeata
+                    # Material pod delovnim nalogom
+                    material_dn_list = []
+                    delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
+                    dela_delovninalog_list = DelovniNalog.objects.filter(
+                        id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'dnevnik__artikel__id').annotate(material_kom=Sum('dnevnik__kom'))
+
+                    for dn in dela_delovninalog_list:
+                        artikel_id = dn['dnevnik__artikel__id']
+                        artikel = Artikel.objects.filter(id=artikel_id).first()
+                        
+                        if artikel:
+                            artikel_dn_kom = dn['material_kom']
+                            material_dn_list.append((artikel, artikel_dn_kom))
+
+
+
+                vrstadela = DeloVrsta.objects.filter(id=vrsta_dela_id)
+                if not vrstadela:
+                    vrstadela = ""
+                else:
+                    vrstadela = vrstadela[0]
+
+
+
 
                 vnos = {
                     'plan': planiranoopravilo.plan,
@@ -705,22 +651,6 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 planiranoopravilo_vrstadel_sum_list.append(vnos)
 
 
-            skupaj_ur = vrstadel_cas_list.aggregate(skupaj_ur=Sum('vrstadela_cas_rac_sum'))
-
-            naslov_data = {
-                    'st_dokumenta': "DN-ZBIRNI-" + vrsta_stroska.oznaka + str(obdobje_do),
-                    'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
-                    'obdobje_od': str(obdobje_od),
-                    'obdobje_do': str(obdobje_do),
-                    'stroskovnomesto': vrsta_stroska,
-                    'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
-                    'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
-                    'delovninalog_filtered_list': delovninalog_filtered_list,
-                    'prikazi_izpis_del': prikazi_izpis_del,
-                    'prikazi_izpis_dn': prikazi_izpis_dn,
-            }
-
-
 
 
 
@@ -728,11 +658,11 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             skupaj_ur = vrstadel_cas_list.aggregate(skupaj_ur=Sum('vrstadela_cas_rac_sum'))
 
             naslov_data = {
-                    'st_dokumenta': "DN-ZBIRNI-" + vrsta_stroska.oznaka + str(obdobje_do),
+                    'st_dokumenta': "DN-ZBIRNI-" + stroskovnomesto.oznaka + str(obdobje_do),
                     'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
                     'obdobje_od': str(obdobje_od),
                     'obdobje_do': str(obdobje_do),
-                    'stroskovnomesto': vrsta_stroska,
+                    'stroskovnomesto': stroskovnomesto,
                     'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
                     'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
                     'delovninalog_filtered_list': delovninalog_filtered_list,
