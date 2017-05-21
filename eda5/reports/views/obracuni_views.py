@@ -427,7 +427,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
 
             
-            vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).values(
+            vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).exclude(vrsta_dela__oznaka="ZUN").values(
                 'delovninalog__opravilo__planirano_opravilo__id', 'delovninalog__opravilo__planirano_opravilo__oznaka', 'vrsta_dela__id').annotate(
                 vrstadela_cas_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__opravilo__planirano_opravilo__oznaka')
 
@@ -627,7 +627,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
 
             
-            vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).values(
+            vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).exclude(vrsta_dela__oznaka="ZUN").values(
                 'delovninalog__opravilo__planirano_opravilo__id', 'delovninalog__opravilo__planirano_opravilo__oznaka', 'vrsta_dela__id').annotate(
                 vrstadela_cas_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__opravilo__planirano_opravilo__oznaka')
 

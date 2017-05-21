@@ -17,8 +17,8 @@
 
 <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 
-                    {{ obracun_izredna_dela_form }}
-                    {{ obracun_izpis_vrsta_form }}
+                    {{ obracun_izredna_dela_form|crispy }}
+                    {{ obracun_izpis_vrsta_form|crispy }}
 
 
                     <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
