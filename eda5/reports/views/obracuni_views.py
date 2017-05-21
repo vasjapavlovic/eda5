@@ -25,7 +25,7 @@ from eda5.moduli.models import Zavihek
 from eda5.narocila.models import Narocilo
 from eda5.planiranje.models import PlaniranoOpravilo
 from eda5.racunovodstvo.models import VrstaStroska
-from eda5.skladisce.models import Dnevnik
+from eda5.skladisce.models import Dnevnik, Artikel
 
 # Forms
 from ..forms import ObracunIzrednaDelaForm
@@ -442,6 +442,24 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                         dn_list.append((delovninalog, dn_rac_sum))
 
 
+                    # Material pod delovnim nalogom
+                    material_dn_list = []
+                    delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
+                    dela_delovninalog_list = DelovniNalog.objects.filter(
+                        id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'dnevnik__artikel__id').annotate(material_kom=Sum('dnevnik__kom'))
+
+                    for dn in dela_delovninalog_list:
+                        artikel_id = dn['dnevnik__artikel__id']
+                        artikel = Artikel.objects.filter(id=artikel_id).first()
+                        
+                        if artikel:
+                            artikel_dn_kom = dn['material_kom']
+                            material_dn_list.append((artikel, artikel_dn_kom))
+
+
+
+
 
                 vrstadela = DeloVrsta.objects.filter(id=vrsta_dela_id)
                 if not vrstadela:
@@ -457,6 +475,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                     'planiranoopravilo': planiranoopravilo,
                     'vrstadela': vrstadela,
                     'dn_list':dn_list,
+                    'material_dn_list': material_dn_list,
                     'planiranoopravilo_vrstadela_cas_rac_sum': vrstadela_cas_rac_sum,
                 }
 
@@ -470,9 +489,10 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             skupaj_ur = vrstadel_cas_list.aggregate(skupaj_ur=Sum('vrstadela_cas_rac_sum'))
 
             naslov_data = {
-                    'st_dokumenta': "DN-ZBIRNI-EDA20121-201704",
+                    'st_dokumenta': "DN-ZBIRNI-" + stroskovnomesto.oznaka + str(obdobje_do),
                     'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
-                    'obdobje': "Od " + str(obdobje_od) + " Do " + str(obdobje_do),
+                    'obdobje_od': str(obdobje_od),
+                    'obdobje_do': str(obdobje_do),
                     'stroskovnomesto': stroskovnomesto,
                     'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
                     'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
@@ -595,6 +615,22 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                         dn_list.append((delovninalog, dn_rac_sum))
 
 
+                    # Material pod delovnim nalogom
+                    material_dn_list = []
+                    delovninalog_filtered_id_list = delovninalog_filtered_list.values_list('id', flat=True)
+                    dela_delovninalog_list = DelovniNalog.objects.filter(
+                        id__in=delovninalog_filtered_id_list, opravilo__planirano_opravilo=planiranoopravilo).values(
+                        'dnevnik__artikel__id').annotate(material_kom=Sum('dnevnik__kom'))
+
+                    for dn in dela_delovninalog_list:
+                        artikel_id = dn['dnevnik__artikel__id']
+                        artikel = Artikel.objects.filter(id=artikel_id).first()
+                        
+                        if artikel:
+                            artikel_dn_kom = dn['material_kom']
+                            material_dn_list.append((artikel, artikel_dn_kom))
+
+
 
                 vrstadela = DeloVrsta.objects.filter(id=vrsta_dela_id)
                 if not vrstadela:
@@ -610,6 +646,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                     'planiranoopravilo': planiranoopravilo,
                     'vrstadela': vrstadela,
                     'dn_list':dn_list,
+                    'material_dn_list': material_dn_list,
                     'planiranoopravilo_vrstadela_cas_rac_sum': vrstadela_cas_rac_sum,
                 }
 
@@ -623,9 +660,10 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             skupaj_ur = vrstadel_cas_list.aggregate(skupaj_ur=Sum('vrstadela_cas_rac_sum'))
 
             naslov_data = {
-                    'st_dokumenta': "DN-ZBIRNI-EDA20121-201704",
+                    'st_dokumenta': "DN-ZBIRNI-" + stroskovnomesto.oznaka + str(obdobje_do),
                     'tip_dokumenta': "ZBIRNI DELOVNI NALOG",
-                    'obdobje': "Od " + str(obdobje_od) + " Do " + str(obdobje_do),
+                    'obdobje_od': str(obdobje_od),
+                    'obdobje_do': str(obdobje_do),
                     'stroskovnomesto': stroskovnomesto,
                     'narocnik': narocilo.narocnik.kratko_ime + " (" + narocilo.narocnik.davcna_st + ")",
                     'narocilo': narocilo.oznaka + "|" + narocilo.predmet,
