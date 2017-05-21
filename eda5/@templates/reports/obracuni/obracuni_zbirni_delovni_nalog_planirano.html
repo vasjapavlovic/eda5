@@ -29,7 +29,7 @@
 {{ naslov_data.st_dokumenta }}<br>
 {{ naslov_data.tip_dokumenta }}<br>
 ({{ naslov_data.stroskovnomesto.oznaka }}) {{ naslov_data.stroskovnomesto.naziv }}<br>
-{{ naslov_data.obdobje }}<br>
+<b>{{ naslov_data.obdobje_od }}</b> - <b>{{ naslov_data.obdobje_do }}</b><br>
 {{ naslov_data.narocnik }}<br>
 {{ naslov_data.narocilo }}<br>
 <br>
@@ -74,6 +74,19 @@
 {% endfor %}
 
 
+{% regroup planiranoopravilo.list by material_dn_list as material_list %}
+{% for object in material_list %}
+{% for artikel, artikel_dn_kom in object.grouper %}
+<tr>
+    <td></td>
+    <td>({{ artikel.oznaka }}) | {{ artikel.naziv }}</td>
+    <td><b>{{ artikel_dn_kom }}</b> KOM</td>
+</tr>
+{% endfor %}
+{% endfor %}
+
+
+
 {% if naslov_data.prikazi_izpis_dn %}
 <tr>
     <td></td>
@@ -107,9 +120,25 @@
 {% endif %}
 
 
+{% if naslov_data.prikazi_izpis_del %}
+
+{% for object in delovninalog.dnevnik_set.all %}
+<tr>
+    <td><a href="{% url 'moduli:skladisce:skladisce_dnevnik_update_from_delovninalog' object.pk %}">Uredi</a></td>
+    <td>{{ object.artikel.oznaka }} {{ object.artikel.naziv }}</td>
+    <td><b>{{ object.kom }}</b> KOM</td>
+</tr>
+{% endfor %}
+{% endif %}
+
+
 {% endfor %}
 {% endfor %}
 {% endif %}
+
+
+
+
 
 
 
@@ -118,7 +147,7 @@
 
 {% endfor %}
 {% endfor %}
-{{ skupaj_ur }}
+{{ skupaj_ur.skupaj_ur }}
 
 {% endblock %}
 
