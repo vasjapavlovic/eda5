@@ -76,7 +76,7 @@
 <tr>
     <td></td>
     <td><a class="" href="{% url 'moduli:delovninalogi:delo_update_from_delovninalog' delo.pk %}">Uredi</a></td>
-    <td>({{ delo.vrsta_dela.oznaka }}) {{ delo.naziv }} | {{ delo.datum }} | {{ delo.time_start }} | {{ delo.delavec }}</td>
+    <td>({{ delo.vrsta_dela.oznaka }}) {{ delo.naziv }} | {{ delo.datum }} | {{ delo.time_start }} | {{ delo.delavec }} | {{ delo.naziv }}</td>
     <td>{{ delo.delo_cas_rac }} UR</td>
 </tr>
 {% endfor %}

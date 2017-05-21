@@ -410,6 +410,7 @@ class DeloUpdateForm(forms.ModelForm):
         model = Delo
         fields = (
             'oznaka',
+            'naziv',
             'datum',
             'vrsta_dela',
             'delavec',

@@ -113,7 +113,7 @@
 {% for delo in delovninalog.delo_set.all|dictsort:"time_start" %}
 <tr>
     <td><a href="{% url 'moduli:delovninalogi:delo_update_from_delovninalog' delo.pk %}">Uredi</a></td>
-    <td>{{ delo.datum }} {{ delo.time_start }} | {{ delo.vrsta_dela.oznaka }} {{ delo.vrsta_dela.naziv }} | {{ delo.delavec }}</td>
+    <td>{{ delo.datum }} {{ delo.time_start }} | {{ delo.vrsta_dela.oznaka }} {{ delo.vrsta_dela.naziv }} | {{ delo.delavec }} | {{ delo.naziv }}</td>
     <td><b>{{ delo.delo_cas_rac }}</b> UR</td>
 </tr>
 {% endfor %}
