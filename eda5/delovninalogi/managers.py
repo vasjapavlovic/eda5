@@ -13,6 +13,7 @@ class OpraviloManager(models.Manager):
                         narocilo=None,
                         zahtevek=None,
                         nosilec=None,
+                        vrsta_stroska=None,
                         planirano_opravilo=None,
                         ):
         if not zahtevek:
@@ -25,6 +26,7 @@ class OpraviloManager(models.Manager):
                               # element se doda kasneje pod ElementManager in OpraviloCreateView
                               zahtevek=zahtevek,
                               nosilec=nosilec,
+                              vrsta_stroska=vrsta_stroska,
                               planirano_opravilo=planirano_opravilo,
                               )
 
@@ -40,6 +42,7 @@ class VzorecOpravilaManager(models.Manager):
                                rok_izvedbe=None,
                                narocilo=None,
                                nosilec=None,
+                               vrsta_stroska=None,
                                planirano_opravilo=None,
                                ):
 
@@ -49,6 +52,7 @@ class VzorecOpravilaManager(models.Manager):
                               rok_izvedbe=rok_izvedbe,
                               narocilo=narocilo,
                               nosilec=nosilec,
+                              vrsta_stroska=vrsta_stroska,
                               planirano_opravilo=planirano_opravilo,
                               )
 

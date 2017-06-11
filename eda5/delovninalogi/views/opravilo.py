@@ -140,6 +140,7 @@ class OpraviloCreateFromZahtevekView(UpdateView):
             rok_izvedbe = opravilo_create_form.cleaned_data['rok_izvedbe']
             narocilo = opravilo_create_form.cleaned_data['narocilo']
             nosilec = opravilo_create_form.cleaned_data['nosilec']
+            vrsta_stroska = opravilo_create_form.cleaned_data['vrsta_stroska']
             planirano_opravilo = opravilo_create_form.cleaned_data['planirano_opravilo']
             opravilo_create_form_is_valid = True
 
@@ -178,6 +179,7 @@ class OpraviloCreateFromZahtevekView(UpdateView):
                 narocilo=narocilo,
                 zahtevek=zahtevek,
                 nosilec=nosilec,
+                vrsta_stroska=vrsta_stroska,
                 planirano_opravilo=planirano_opravilo,
             )
 
@@ -429,6 +431,7 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
             rok_izvedbe = timezone.now().date()  # rok izvedbe izhaja iz zadnjega dodanega + perioda
             narocilo = vzorec_opravila.narocilo
             nosilec = vzorec_opravila.nosilec
+            vrsta_stroska = vzorec_opravila.vrsta_stroska
             planirano_opravilo = vzorec_opravila.planirano_opravilo
             element_list = vzorec_opravila.element.all()
 
@@ -439,6 +442,7 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
                 narocilo=narocilo,
                 zahtevek=zahtevek,
                 nosilec=nosilec,
+                vrsta_stroska=vrsta_stroska,
                 planirano_opravilo=planirano_opravilo,
             )
 

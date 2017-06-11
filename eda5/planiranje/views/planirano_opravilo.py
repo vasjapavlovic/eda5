@@ -193,6 +193,7 @@ class VzorecOpravilaCreateView(UpdateView):
             rok_izvedbe = vzorec_opravila_create_form.cleaned_data['rok_izvedbe']
             narocilo = vzorec_opravila_create_form.cleaned_data['narocilo']
             nosilec = vzorec_opravila_create_form.cleaned_data['nosilec']
+            vrsta_stroska = vzorec_opravila_create_form.cleaned_data['vrsta_stroska']
 
             vzorec_opravila_data = VzorecOpravila.objects.create_vzorec_opravila(
                 oznaka=oznaka,
@@ -200,6 +201,7 @@ class VzorecOpravilaCreateView(UpdateView):
                 rok_izvedbe=rok_izvedbe,
                 narocilo=narocilo,
                 nosilec=nosilec,
+                vrsta_stroska=vrsta_stroska,
                 planirano_opravilo=planirano_opravilo,
             )
 
