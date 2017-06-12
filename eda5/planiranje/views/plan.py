@@ -173,7 +173,9 @@ class PlanDetailView(DetailView):
                 opravilo = obj
                 planirano_opravilo = PlaniranoOpravilo.objects.get(opravilo=opravilo)
                 datum_naslednjega_opravila = planirano_opravilo.datum_naslednjega_opravila
+                print(datum_naslednjega_opravila)
                 if datum_naslednjega_opravila < timezone.now().date():
+                    print()
                     planirano_opravilo_zapadlo_list_pk.append(obj.pk)
                 else:
                     planirano_opravilo_nezapadlo_list_pk.append(obj.pk)
