@@ -170,6 +170,7 @@ class PlanDetailView(DetailView):
                 # če je slučajno dodan delovninalog v čakanju ga izpustimo ker
                 # trenutna nastavitev za osvežitev planiranih opravil
                 # je glede na planirani datum prvega delovnega naloga
+                opravilo = obj
                 planirano_opravilo = PlaniranoOpravilo.objects.get(opravilo=opravilo)
                 datum_naslednjega_opravila = planirano_opravilo.datum_naslednjega_opravila
                 if datum_naslednjega_opravila < timezone.now().date():
