@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-header %}
+
+
+<div class="row ">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel border_hairline_grey">
+            <div class="panel-heading no-collapse background_dark_grey_header">
+                {{ object.naziv }}
+            </div>
+
+            <table class="table table-bordered background_yellow">
+                <thead>
+                 </thead>
+                <tbody>
+                    {% for zavihek in object.zavihek_set.all %}
+
+                    <!-- Povezavo prikaži samo v primeru, da ima zavihek vpisan url -->
+                    {% if zavihek.url_ref %}
+                    <tr>
+                    <td><h4><a href="{{ zavihek.urlreference }}" >{{ zavihek.naziv }}</a></h4></td>
+                    </tr>
+                    {% endif %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>   
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

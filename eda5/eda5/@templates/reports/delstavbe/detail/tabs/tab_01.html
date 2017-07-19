@@ -1,0 +1,33 @@
+<!-- Servisna knjiga na sistemu -->
+
+
+<table class="table">
+
+
+
+    {% for dn in servisna_knjiga %}
+
+
+        {% if dn.opravilo.planirano_opravilo %}
+        <tr class="success">
+        {% else %}
+        <tr class="danger">
+        {% endif %}
+
+            <td style="text-align: center;">
+            <b>{{ dn.datum_stop }}</b><br>
+            {% if dn.opravilo.planirano_opravilo %}
+            <text style="font-size: 8px; font-family: arial; color: #065a1c ">{{ dn.opravilo.planirano_opravilo.oznaka }} | {{ dn.opravilo.planirano_opravilo.plan.oznaka }} | 
+            {{ dn.opravilo.planirano_opravilo.plan.naziv }}</text><br>
+            {% endif %}
+            {{ dn.oznaka }} | {{ dn.opravilo.naziv }}
+            
+
+            </td>
+        </tr>
+
+
+
+    {% endfor %}
+
+</table>

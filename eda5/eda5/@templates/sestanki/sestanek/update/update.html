@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+{% block content-header %}
+    <div class="row ">
+        <div class="col-sm-12 col-md-12 ">
+            <div class="panel border_hairline_grey">
+                <div class="panel-heading no-collapse background_dark_grey_header">
+                    {{ modul_zavihek.naziv }}
+                </div>
+
+                    
+            </div>   
+        </div>
+    </div>
+{% endblock %}
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+    <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+        <div class="panel no_padding">
+            <div class="panel-heading background_dark_grey">Podatki o sestanku</div>
+            <div class="panel-body background_grey">
+                {{ form|crispy }}
+            </div>
+        </div>
+
+
+        <div class="panel ">
+            <input class="bg-{{ modul_zavihek.modul.barva }}" type="submit" value="Potrdi Vnos">
+
+            
+        </div>
+
+
+    </form>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

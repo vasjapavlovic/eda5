@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+{% block content-header %}
+    <div class="row ">
+        <div class="col-sm-12 col-md-12 ">
+            <div class="panel border_hairline_grey">
+                <div class="panel-heading no-collapse background_dark_grey_header">
+                    {{ modul_zavihek.naziv }}
+                </div>
+
+                    
+            </div>   
+        </div>
+    </div>
+{% endblock %}
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+    <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+        <div class="panel no_padding">
+            <div class="panel-heading background_dark_grey">Podatki o obdelavi</div>
+            <div class="panel-body background_grey">
+                {{ aktivnost_form | crispy  }} 
+            </div>
+        </div>
+
+        <div class="panel ">
+            <div class="panel-heading background_dark_grey">Podatki o dokumentu</div>
+            <div class="panel-body background_grey">
+
+                {{ skupina_dokumenta_form | crispy  }}
+
+                {{ dokument_form | crispy  }}
+
+            </div>
+        </div>
+
+        <div class="panel ">
+            <input class="bg-{{ modul_zavihek.modul.barva }}" type="submit" value="Potrdi Vnos">
+
+            
+        </div>
+
+        <div id="reload_controls_view" style="display: none;">{% url 'moduli:posta:reload_controls' %}</div>
+
+    </form>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+<script src="{% static 'js/custom_filter.js' %}"></script>
+
+
+<!-- js related to the application -->
+<script>
+    
+    $('#create_form').on('change', '#id_skupina_dokumenta', function()
+    {
+        reload_controls(this.value);
+    });
+
+    function reload_controls(skupina_dokumenta)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_view").text(),
+            dataType: 'json',
+            data: "skupina_dokumenta="+skupina_dokumenta,
+            success: function(result)
+            {
+                //empty month drop down list
+                $("#id_vrsta_dokumenta").empty()
+
+                //add months with no report
+                $("#id_vrsta_dokumenta").append('<option value="">---------</option>')
+                $.each( result.list_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    vrsta_dokumenta=$("#id_vrsta_dokumenta_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_vrsta_dokumenta').append('<option value="'+value+'">'+vrsta_dokumenta+'</option>')
+
+                });
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

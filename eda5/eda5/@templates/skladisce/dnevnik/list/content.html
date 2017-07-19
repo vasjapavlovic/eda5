@@ -1,0 +1,38 @@
+
+
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <tr>
+                <th>datum</th>
+                <th>storitev</th>
+                <th>zapis</th>
+                <th>likvidiral</th>
+                <th>artikel</th>
+                <th>količina</th>
+
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                {% if  object.dobava %}
+                    <td>{{ object.datum }}</td>
+                    <td>{{ object.storitev }}</td>
+                    <td><a href="{% url 'moduli:skladisce:dobava_detail' object.dobava.pk %}">{{ object.dobava.oznaka }}</a></td>
+                {% endif %}
+
+
+                {% if  object.delovninalog %}
+                    <td>{{ object.datum }}</td>
+                    <td>{{ object.storitev }}</td>
+                    <td><a href="{% url 'moduli:delovninalogi:dn_detail' object.delovninalog.pk %}">{{ object.delovninalog.oznaka }}</a></td>
+                {% endif %}
+
+                
+                <td>{{ object.likvidiral.priimek }} {{ object.likvidiral.ime }}</td>
+                <td>{{ object.artikel.naziv }} ({{ object.artikel.oznaka }})</td>
+                <td>{{ object.kom }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>

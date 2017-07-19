@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->Planiranje dela<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+             
+    <form id="create_form" method="POST", action="">{% csrf_token %}
+        
+        {{ form | crispy }}
+
+        <input type="submit" value="Potrdi">
+
+
+
+
+
+    <!-- _______________________________________________________-->
+    <!-- Filtriranje - Java Script -->
+
+    <!-- Ko izbereš naročilo opravila filtrira nosilce opravila -->
+    <div id="reload_controls_delovninalog_izvajalec" style="display: none;">
+        {% url 'moduli:narocila:reload_controls_delovninalog_izvajalec' %}</div>
+        
+    </form>
+
+
+
+
+
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+
+<script src="{% static 'js/custom_filter.js' %}"></script>
+
+
+<script>
+    
+    // disable nepotrebne dropdown menuje
+    //$("#id_nosilec").attr('disabled', true);
+    //$("#id_nosilec").empty()
+
+
+    $(document).onload(function()
+    {
+        reload_controls(this.value);
+    });
+
+    function reload_controls(narocilo)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_delovninalog_izvajalec").text(),
+            dataType: 'json',
+            data: "narocilo="+narocilo,
+            success: function(result)
+            {
+                //empty nosilec drop down list
+                $("#id_nosilec").empty()
+                $("#id_nosilec").attr('disabled', false);
+
+                //add entries to drop down list
+                $("#id_nosilec").append('<option value="">---------</option>')
+                $.each( result.list_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    nosilec=$("#id_oseba_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_nosilec').append('<option value="'+value+'">'+nosilec+'</option>')
+
+                });
+
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

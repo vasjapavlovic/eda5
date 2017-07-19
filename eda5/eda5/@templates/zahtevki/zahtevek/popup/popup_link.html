@@ -1,0 +1,14 @@
+{% load staticfiles i18n %}
+
+<!--  ARHIVIRANJE POPUP -->
+
+<a 
+	href="{% url 'moduli:zahtevki:zahtevek_popup_list' %}" 
+	class="add-another" id="add_id_{{ field }}" 
+	onclick="return showAddAnotherPopup(this);"
+>
+
+	<!-- Icon to open POP Up select from list -->
+	<i class="fa fa-search fa-lg" aria-hidden="true" alt="Add Another"></i>
+
+</a>

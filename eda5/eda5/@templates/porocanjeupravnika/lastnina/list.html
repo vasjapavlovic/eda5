@@ -1,0 +1,103 @@
+{% extends "porocanjeupravnika/home.html" %}
+{% load staticfiles i18n %}
+
+{% block content-body %}
+
+
+<div class="container">
+<div class="jumbotron">
+<h1>Seznam Etažne Lastnine</h1>
+</div>
+
+
+
+<h3>ENOTE V LASTI</h3>
+
+
+        {% for object in object_list %}
+        {% if object.lastnik.id == current_partner.id %}
+
+        <table class="table table-bordered" >
+            <tr>
+                <th>oznaka EDAFM</th>
+                <th>oznaka Elaborat</th>
+                <th>Naslov</th>
+                <th>Lastnik</th>
+                <th>Najemnik</th>
+                <th>Plačnik stroškov</th>
+                <th>neto tlorisna površina</th>
+            </tr>
+
+        {% else %}
+            <i>Ni enot v lasti</i>
+        {% endif %}
+        {% endfor %}
+
+            {% for object in object_list %}
+                {% if object.lastnik.id == current_partner.id %}
+
+                <tr>
+                    <td><b><a href="{% url 'moduli:etaznalastnina:int_detail' object.id %}">{{ object.oznaka }}</a></b></td>
+                    <td>{{ object.elaborat.oznaka }}</td>
+                    <td>{{ object.elaborat.naslov }}, {{ object.elaborat.posta.postna_stevilka }} {{ object.elaborat.posta.naziv }}</td>
+                    <td>{{ object.lastnik }}</td>
+                    <td>{{ object.najemnik }}</td>
+                    <td>{{ object.placnik }}</td>
+                    <td>{{ object.povrsina_tlorisna_neto }}</td>
+
+                </tr>
+
+                {% endif %}
+            </table>
+            
+            {% endfor %}
+
+
+
+<br><h3>ENOTE V NAJEMU</h3>
+
+
+        {% for object in object_list %}
+        {% if object.najemnik.id == current_partner.id %}
+
+        <table class="table table-bordered">
+            <tr>
+                <th>oznaka EDAFM</th>
+                <th>oznaka Elaborat</th>
+                <th>Naslov</th>
+                <th>Lastnik</th>
+                <th>Najemnik</th>
+                <th>Plačnik stroškov</th>
+                <th>neto tlorisna površina</th>
+            </tr>
+
+        {% else %}
+            <i>Ni enot v najemu</i>
+        {% endif %}
+        {% endfor %}
+
+            {% for object in object_list %}
+                {% if object.najemnik.id == current_partner.id %}
+
+                <tr>
+                    <td><b><a href="{% url 'porocanje:lastnina:detail' object.id %}">{{ object.oznaka }}</a></b></td>
+                    <td>{{ object.elaborat.oznaka }}</td>
+                    <td>{{ object.elaborat.naslov }}, {{ object.elaborat.posta.postna_stevilka }} {{ object.elaborat.posta.naziv }}</td>
+                    <td>{{ object.lastnik }}</td>
+                    <td>{{ object.najemnik }}</td>
+                    <td>{{ object.placnik }}</td>
+                    <td>{{ object.povrsina_tlorisna_neto }}</td>
+
+                </tr>
+
+                {% endif %}
+            </table>
+            
+            {% endfor %}
+
+
+
+
+
+
+{% endblock %}

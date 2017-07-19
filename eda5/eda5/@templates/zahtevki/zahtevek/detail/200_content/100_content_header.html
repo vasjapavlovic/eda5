@@ -1,0 +1,61 @@
+<!-- HEADER -->
+
+<!-- table col width -->
+<col style="width:15%">
+<col style="width:85%">
+
+
+<!-- table vsebina -->
+<tr>
+    <td><b>oznaka</b></td>
+    <td></b>{{ object.oznaka }}</td>
+</tr>
+
+<tr>
+    <td><b>naziv</b></td>
+    <td>{{ object.naziv }}</td>
+</tr>
+
+<tr>
+    <td><b>vrsta</b></td>
+    <td>{{ object.get_vrsta_display }}</td>
+</tr>
+
+<tr>
+    <td><b>status</b></td>
+    <td></b>{{ object.get_status_display }}</b></td>
+</tr>
+
+
+<tr>
+    <td rowspan="100"><b>V zahtevku se rešuje</b></td>
+
+
+		<!-- Ko še ni registriranih vnosov -->
+		{% if not pomanjkljivost_list %}
+        <td>Trenutno še ni registriranih pomanjkljivosti.</td>
+		    
+
+		<!-- Ko vnosi že obstajajo -->
+		{% else %}
+
+		    {% for object in pomanjkljivost_list %}
+		    <tr>
+    			<td>
+                    <a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">  ({{ object.oznaka }}) {{ object.naziv }}
+
+        			<!-- Update pomanjkljivost -->
+                        <a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+        			</a>
+                </td>
+
+            </tr>
+		    {% endfor %}
+
+
+
+		{% endif %}
+
+	
+</tr>

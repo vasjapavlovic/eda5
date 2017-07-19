@@ -1,0 +1,61 @@
+
+<div class="row m-t-30">
+    <div class="col-sm-12">
+        <div class="panel with-nav-tabs panel-default">
+
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#elementi">Elementi</a></li>
+                    <li><a data-toggle="tab" href="#porocanje">Poročanje</a></li>
+                    <li><a data-toggle="tab" href="#lastniki">Lastniki</a></li>
+                    <li><a data-toggle="tab" href="#servisnaknjiga">Servisna Knjiga</a></li>
+                </ul>
+            </div>
+
+            <div class="panel-body" > 
+                <div class="tab-content">
+
+                    <!--tab******************************** -->
+                    <div id="elementi" class="tab-pane active">
+                        <div class="profile-desk">
+                            {% include "deli/delstavbe/detail/tabs/tab_02.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="porocanje" class="tab-pane">
+                        <div class="profile-desk">
+                            {% include "deli/delstavbe/detail/tabs/tab_01.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                    <!--tab******************************** -->
+                    <div id="lastniki" class="tab-pane">
+                        <div class="profile-desk">
+                            {% include "deli/delstavbe/detail/tabs/tab_03.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+                    <!--tab******************************** -->
+                    <div id="servisnaknjiga" class="tab-pane">
+                        <div class="profile-desk">
+                            {% include "deli/delstavbe/detail/tabs/tab_04.html" %}  
+                        </div> <!-- end profile-desk -->
+                    </div> <!-- end tab -->
+
+
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+

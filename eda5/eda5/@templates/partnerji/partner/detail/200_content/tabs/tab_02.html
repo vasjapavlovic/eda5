@@ -1,0 +1,22 @@
+<!-- TAB_02 Content -->
+<div class="table-resposnive">
+    <table class="table table-bordered table-striped">
+        <tbody>
+
+            <th><b>Ime in Priimek</b></th>
+            <th><b>Status</b></th>
+            <th><b>Kvalifikacije</b></th>
+
+
+            {% for oseba in object.oseba_set.all %}
+
+            <tr>
+                <td>{{ oseba.priimek }} {{ oseba.ime }}</td>
+                <td>{{ oseba.status }}</td>
+                <td>{{ oseba.kvalifikacije }}</td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

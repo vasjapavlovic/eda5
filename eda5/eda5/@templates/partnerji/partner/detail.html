@@ -1,0 +1,162 @@
+{% extends "moduli/detail.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+{% include trr_modal.html %}
+
+<!-- sidebar podatki -->
+{% block navbar %}
+    
+    <li>
+        <a class="bg-{{ modul_zavihek.modul.barva }}" href="{% url 'moduli:detail' modul_zavihek.modul.pk %}"><i class="ion-home"></i>
+            <span class="nav-label">{{ modul_zavihek.modul.naziv }}</span>
+        </a>
+    </li>
+
+    {% for zavihek in modul_zavihek.modul.zavihek_set.all %}
+    <li><a href="{{ zavihek.urlreference }}">{{ zavihek.naziv }}</a></li>
+    {% endfor %}
+
+{% endblock %}
+
+
+
+{% block naziv_modula %}
+
+    <a class="navbar-brand">
+        <b> Opcije -- </b>
+    </a>
+
+{% endblock %}
+
+
+{% block left-navbar %}
+
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="">
+            <b>Uredi</b> Podatke</a></li>
+    <li><a> | </a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addTRR">
+            <b>Dodaj</b> TR Račun</a></li>
+    <li><a> | </a></li>
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="#addOSEBA">
+            <b>Dodaj</b> Osebo</a></li>
+
+{% endblock %}
+
+
+
+{% block content-body %}
+
+<div class="wraper container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="bg-picture" style="background-image:url('img/bg_6.jpg')">
+              <span class="bg-picture-overlay"></span><!-- overlay -->
+              <!-- meta -->
+        
+
+        <!-- Osebe ===================================================================
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Osebe
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+
+                    <div class="table-condensed table-hover table-bordered table-striped">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#novaOseba">
+                        Dodaj Osebo
+                        </button>
+                        <table class="table">
+                            <tr>
+                                <th>Priimek in Ime</th>
+                                <th>Status</th>
+                                <th>Kvalifikacije</th>
+                            </tr>
+
+                            {% for oseba in object.oseba_set.all|dictsort:"status" %}
+                            <tr>
+                                <td>{{ oseba.priimek }} {{ oseba.ime }}</td>
+                                <td>{{ oseba.status }}</td>
+                                <td>{{ oseba.kvalifikacije }}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+
+                        <div class="modal fade" id="novaOseba" tabindex="-1" role="dialog" aria-labelledby="novaOseba">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            
+                                            Nova Oseba
+                                        
+                                        </h4>
+                                    </div>
+                                    <form action="" method="POST">{% csrf_token %}
+                                        <div class="modal-body">
+                                            {{ oseba_form|crispy  }}   
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                                            <button type="submit" class="btn btn-primary">Shrani</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Dokumentacija ===================================================================
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Dokumentacija
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">-->
+                    <!-- INSERT HERE 
+                    <div class="table-condensed table-hover table-bordered table-striped">
+                    <table class="table">
+                        <tr>
+                            <th>številka</th>
+                            <th>vrsta</th>
+                            <th>opis</th>
+                            <th>prejeto dne</th>
+                            <th>priponka</th>
+                        </tr>
+                    {% for dokument in object.dokument_set.all %}
+
+                        <tr>
+                            <td>{{ dokument.oznaka }}</td>
+                            <td>{{ dokument.vrsta_dokumenta.naziv }}</td>
+                            <td>{{ dokument.opis }}</td>
+                            <td>{{ dokument.datum_prejema }}</td>
+                            <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}"><i class="fa fa-file-pdf-o"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<!-- Tehnični podatki -->
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>oznaka</th>
+            <th>naziv</th>
+            <th>maritev</th>
+            <th>stevec</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+    {% for delilnik in delilnik_enota_list %}
+    <tr>
+        <td><a href="{% url 'moduli:stevcnostanje:delilnik_detail' delilnik.pk %}">{{ delilnik.oznaka }}</a></td>
+        <td>{{ delilnik.opis }}</td>
+        <td>{{ delilnik.get_meritev_display }}</td>
+        <td>{{ delilnik.stevec.oznaka }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>

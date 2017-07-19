@@ -1,0 +1,36 @@
+<!-- zahtevek detail : NAVIGACIJA_MENU -->
+
+
+<!--nav-tabs-->
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab_dashboard"><b>D</b>ashboard</a></li>
+    <li><a data-toggle="tab" href="#tab_elementi"><b>E</b>elementi</a></li>
+    <li><a data-toggle="tab" href="#tab_lastniki"><b>L</b>astništvo</a></li>
+</ul>
+<!--end nav-tabs-->
+
+<!--tab-content-->
+<div class="tab-content">
+
+
+    <!--tab******************************** -->
+        <div id="tab_dashboard" class="tab-pane fade in active">
+            {% include "deli/delstavbe/detail/navigacija_menu/tabs/dashboard/base.html" %}  
+        </div>
+
+
+    <!--tab******************************** -->
+        <div id="tab_elementi" class="tab-pane fade">
+            {% include "deli/delstavbe/detail/navigacija_menu/tabs/elementi/base.html" %}  
+        </div>
+
+
+    <!--tab******************************** -->
+        <div id="tab_lastniki" class="tab-pane fade">
+            {% include "deli/delstavbe/detail/navigacija_menu/tabs/lastniki/base.html" %}
+        </div>
+
+
+</div>
+<!--end tab-content-->
+

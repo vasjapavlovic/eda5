@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+    <div class="panel panel-default">                 
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>interna oznaka</th>
+                                <th>oznaka elaborat</th>
+                                <th>program</th>
+                                <th>opis</th>
+                                <th>lastnik</th>
+                                <th>prejšnji lastnik</th>
+                                <th>najemnik</th>
+                                <th>status najema</th>
+                                <th>plačnik stroškov o.v.</th>
+                            </tr>
+                        </thead>
+
+                 
+                        <tbody>
+                            {% for object in object_list %}
+
+                            <tr>
+                                <td><b><a href="">{{ object.oznaka }}</a></b></td>
+                                <td>{{ object.elaborat.oznaka }}</td>
+                                <td>{{ object.elaborat.program.naziv }}</td>
+                                <td>{{ object.elaborat.opis }}</td>
+
+                                <!-- pod pogojem da najemnik obstaja -->
+                                {% if object.najem.predaja_lastnine.kupec.naziv %}
+
+                                <td>{{ object.prodaja.predaja_lastnine.kupec.naziv }}</td>
+                                
+                                    <!-- če prejšnji lastnik ne obstaja -->
+                                    {% if object.prodaja.predaja_lastnine.prodajalec %}
+                                        <td>{{ object.prodaja.predaja_lastnine.prodajalec.naziv }} | dne {{ object.prodaja.datum_predaje }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                               
+                                        <td>{{ object.najem.predaja_lastnine.kupec.naziv }}</td>
+                                        <td>v najemu od dne {{ object.najem.datum_predaje }}</td>
+                                        <td>{{ object.najem.placnik.naziv }}</td>
+
+                                {% else %}
+                                <td>{{ object.prodaja.predaja_lastnine.kupec.naziv }}</td>
+                                
+
+                                    <!-- če prejšnji lastnik ne obstaja -->
+                                    {% if object.prodaja.predaja_lastnine.prodajalec %}
+                                        <td>{{ object.prodaja.predaja_lastnine.prodajalec.naziv }} | dne {{ object.prodaja.datum_predaje }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ object.prodaja.placnik.naziv }}</td>
+                                    
+
+                                {% endif %}
+
+                                <!-- podatki o prejšnjih lastnikih -->
+                                
+
+
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

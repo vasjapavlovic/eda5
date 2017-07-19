@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+
+    <li><a type="button" class="navbar-brand" data-toggle="modal" data-target="">
+            <b>Uredi</b> Podatke</a></li>
+
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+
+
+    <div class="jumbotron p-0 p-t-10">
+        <h3>{{ object.naziv }} ({{ object.oznaka }})</h3>
+        
+    </div><!-- end jumbotron -->
+
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+{% include "delovninalogi/vzorec_opravila/detail/content.html" %}
+{% include "delovninalogi/vzorec_opravila/detail/modal.html" %}
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pogled za Izvajalca Del &mdash; EDA5 Project 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="EDA5 Project 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EDA5 Project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_ec2.html">Developing with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="struktura.html">KAZALO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">EDA5 Project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Pogled za Izvajalca Del</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/za_izvajalca_backup.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pogled-za-izvajalca-del">
+<span id="glossary"></span><h1>Pogled za Izvajalca Del<a class="headerlink" href="#pogled-za-izvajalca-del" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="izvedba-del-delovni-nalogi">
+<h2>IZVEDBA DEL : DELOVNI-NALOGI<a class="headerlink" href="#izvedba-del-delovni-nalogi" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Statusi delovnega-naloga:</dt>
+<dd><ul class="first last simple">
+<li>V ČAKANJU</li>
+<li>V PLANU</li>
+<li>V REŠEVANJU</li>
+<li>ZAKLJUČENI</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="v-cakanju">
+<h3>V ČAKANJU<a class="headerlink" href="#v-cakanju" title="Permalink to this headline">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-namen">Namen:</dt>
+<dd><ul class="first last simple">
+<li>Čakanje na potrditev nosilca izvedbe-del po delovnem-nalogu.</li>
+</ul>
+</dd>
+<dt id="term-polja">Polja:</dt>
+<dd><ul class="first last simple">
+<li>delovni nalog (oznaka)</li>
+<li>opravilo</li>
+<li>rok izvedbe</li>
+<li>nosilec</li>
+<li>nadzor</li>
+</ul>
+</dd>
+<dt id="term-posebnosti-prikaza">Posebnosti prikaza:</dt>
+<dd><ul class="first last simple">
+<li>delovne-naloge vidi samo nosilec (opcijsko vključi v nastavitev)</li>
+</ul>
+</dd>
+<dt id="term-aktivnosti">Aktivnosti:</dt>
+<dd><ul class="first last">
+<li><p class="first">kliknemo na delovni-nalog</p>
+</li>
+<li><dl class="first docutils">
+<dt>vnesemo &#8220;planirani datum izvedbe del&#8221; po delovnem-nalogu</dt>
+<dd><ul class="first last simple">
+<li>datum ne sme biti čez rok-izvedbe-opravila</li>
+<li>razpon dni med datumom &#8220;v planu&#8221; in &#8220;rok izvedbe&#8221; ne sme biti večji od &#8220;št_dni&#8221; &lt;&#8211; definiraj v opravilih</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">možnost vpisa zaznamkov (posebnosti) za nadzor</p>
+</li>
+<li><p class="first">potrditev s klikom na &#8220;POTRDI&#8221;</p>
+</li>
+<li><p class="first">po uspešni potrditvi (validacija) se status delovnega-naloga spremeni = &#8220;V PLANU&#8221;</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="v-planu">
+<h3>V PLANU<a class="headerlink" href="#v-planu" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Aktivnosti:</dt>
+<dd><ul class="first last simple">
+<li>vnos prvega dela = sprememba statusa delovnega-naloga = &#8220;V REŠEVANJU&#8221;</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="v-resevanju">
+<h3>V REŠEVANJU<a class="headerlink" href="#v-resevanju" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Aktivnosti:</dt>
+<dd><ul class="first simple">
+<li>s pritiksom na zaključi delovni-nalog se status spremeni = &#8220;ZAKLJUČENO&#8221;</li>
+<li>delovni-nalog se avtomatsko natisne. Kasnejše tiskanje je možno pod</li>
+</ul>
+<p class="last">zaključeni delovni-nalogi</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="zakljuceni">
+<h3>ZAKLJUČENI<a class="headerlink" href="#zakljuceni" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Podatki:</dt>
+<dd><ul class="first last simple">
+<li>Podatki o OPRAVILU in DELOVNEM NALOGU</li>
+<li></li>
+<li></li>
+</ul>
+</dd>
+<dt>Dodatne opcije:</dt>
+<dd><ul class="first last simple">
+<li>možnost tiskanja delovnega naloga</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Vasja Pavlovič.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

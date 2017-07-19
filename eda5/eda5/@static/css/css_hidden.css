@@ -1,0 +1,58 @@
+/* hide month_hidden control */
+
+
+/* DELI */
+#id_podskupina_hidden, label[for="id_podskupina_hidden"]{
+    display: none;
+}
+
+#id_del_stavbe_hidden, label[for="id_del_stavbe_hidden"]{
+    display: none;
+}
+
+#id_element_hidden, label[for="id_element_hidden"]{
+    display: none;
+}
+
+/* POSTA */
+#id_vrsta_dokumenta_hidden, label[for="id_vrsta_dokumenta_hidden"]{
+    display: none;
+}
+
+/* PARTNERJI */
+#id_oseba_hidden, label[for="id_oseba_hidden"]{
+    display: none;
+}
+
+#id_skupina_partnerjev_hidden, label[for="id_skupina_partnerjev_hidden"]{
+    display: none;
+}
+
+/* DELOVNINALOGI */
+#id_plan_hidden, label[for="id_plan_hidden"]{
+    display: none;
+}
+#id_planirano_opravilo_hidden, label[for="id_planirano_opravilo_hidden"]{
+    display: none;
+}
+#id_vzorec_opravila_hidden, label[for="id_vzorec_opravila_hidden"]{
+    display: none;
+}
+
+/* RAČUNOVODSTVO */
+#id_konto_hidden, label[for="id_konto_hidden"]{
+    display: none;
+}
+
+#id_podkonto_hidden, label[for="id_podkonto_hidden"]{
+    display: none;
+}
+
+#id_skupina_vrste_stroska_hidden, label[for="id_skupina_vrste_stroska_hidden"]{
+    display: none;
+}
+
+#id_vrsta_stroska_hidden, label[for="id_vrsta_stroska_hidden"]{
+    display: none;
+}
+

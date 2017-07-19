@@ -1,0 +1,19 @@
+<!-- podatki -->
+
+<div class="table-responsive">
+<table class="table table-bordered table-striped">
+    <tbody>
+        <tr>
+            <td><b>Opravilo</b></td>
+            <td><a href="{% url 'moduli:delovninalogi:opravilo_detail' object.opravilo.pk %}" class="ng-binding">
+                ({{ object.opravilo.oznaka }})</a> {{ object.opravilo.naziv }}</td>
+        </tr>
+        <tr>
+            <td><b>Zahtevek</b></td>
+            <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.opravilo.zahtevek.pk %}" class="ng-binding">({{ object.opravilo.zahtevek.oznaka }})</a> {{ object.opravilo.zahtevek.naziv }}</td>
+        </tr>
+        
+    </tbody>
+</table>
+</div>
+

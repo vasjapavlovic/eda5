@@ -1,0 +1,31 @@
+<!-- Vzdrževanje -->
+
+<table class="table table-bordered table-hover">
+        <tr>
+            <th>naziv</th>
+            <th>tip opravila</th>
+            <th>perioda</th>
+            <th>planirano opravilo</th>
+            <th>zapade dne</th>
+        </tr>
+
+    {% for aktivnost in object.planiranaaktivnost_set.all %}
+
+
+    <tr>
+        <td>
+            {% if aktivnost.artikel_plan %}
+                {{ aktivnost.artikel_plan.naziv }}
+            {% else %}
+                {{ aktivnost.naziv_opravila_izven_plana }}
+            {% endif %}
+        </td>
+        <td>{% if aktivnost.artikel_plan %}predpisano{% else %}dodatno{% endif %}</td>
+        <td>{{ aktivnost.planirano_opravilo.perioda_predpisana_kolicina_na_enoto }} x {{ aktivnost.planirano_opravilo.perioda_predpisana_enota_kolicina }}-{{ aktivnost.planirano_opravilo.perioda_predpisana_enota }}</td>
+        <td>({{ aktivnost.planirano_opravilo.oznaka }}) {{ aktivnost.planirano_opravilo.naziv }}</td>
+        <td></td>
+    </tr>
+
+    {% endfor %}
+
+</table>

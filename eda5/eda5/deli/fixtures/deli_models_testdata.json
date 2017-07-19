@@ -1,0 +1,74 @@
+[
+{
+    "pk": 1,
+    "model": "deli.skupina",
+    "fields": {
+        "naziv": "Sistemi in Naprave",
+        "oznaka": "A"
+    }
+},
+{
+    "pk": 1,
+    "model": "deli.podskupina",
+    "fields": {
+        "naziv": "Ogrevanje in Hlajenje",
+        "oznaka": "AA",
+        "skupina": 1
+    }
+},
+{
+    "pk": 1,
+    "model": "deli.delstavbe",
+    "fields": {
+        "naziv": "Primarni Sistem Ogrevanja Poslovni Prostori",
+        "shema": "deli/AA01 Primarni sistem ogrevanja-poslovni prostori/AA01_shema.pdf",
+        "oznaka": "AA01",
+        "podskupina": 1,
+        "lastniska_skupina": null
+    }
+},
+{
+    "pk": 1,
+    "model": "deli.projektnomesto",
+    "fields": {
+        "oznaka": "01AA01",
+        "naziv": "k2.g2.cr.1",
+        "tip_elementa": 1,
+        "funkcija": "distribucija vode",
+        "del_stavbe": 1
+    }
+},
+{
+    "pk": 2,
+    "model": "deli.projektnomesto",
+    "fields": {
+        "oznaka": "02AA01",
+        "naziv": "k2.g2.cr.2",
+        "tip_elementa": 1,
+        "funkcija": "priprava tople vode",
+        "del_stavbe": 1
+    }
+},
+{
+    "pk": 1,
+    "model": "deli.element",
+    "fields": {
+        "tovarniska_st": "BBX20152232",
+        "serijska_st": "",
+        "projektno_mesto": 1,
+        "model_artikla": 1,
+        "is_active": true
+    }
+},
+{
+    "pk": 2,
+    "model": "deli.element",
+    "fields": {
+        "tovarniska_st": "BBXXXXXX",
+        "serijska_st": "",
+        "projektno_mesto": 1,
+        "model_artikla": 1,
+        "is_active": false
+    }
+}
+]

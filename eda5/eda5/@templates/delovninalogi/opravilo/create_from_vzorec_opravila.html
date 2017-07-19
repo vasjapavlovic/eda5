@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+    <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+            <div class="panel-heading">Izberi Vzorec Opravila</div>
+            <div class="panel-body">
+                {{ vzorec_opravila_izbira_form|crispy  }} 
+            </div>
+        </div>
+
+
+        <input type="submit" value="Potrdi">
+
+    </form>
+
+    <div id="reload_controls_planiranje_skupina_planov_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_planiranje_skupina_planov' %}</div>
+
+    <div id="reload_controls_planiranje_plan_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_planiranje_plan' %}</div>
+
+    <div id="reload_controls_delovninalogi_planirano_opravilo_view" style="display: none;">{% url 'moduli:delovninalogi:reload_controls_delovninalogi_planirano_opravilo' %}</div>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+<script src="{% static 'js/custom_filter.js' %}"></script>
+
+<!-- js related to the application -->
+<script>
+    // disable nepotrebne dropdown menuje
+    $("#id_plan").attr('disabled', true);
+    $("#id_planirano_opravilo").attr('disabled', true);
+    $("#id_vzorec_opravila").attr('disabled', true); 
+
+    $('#create_form').on('change', '#id_skupina_planov', function()
+    {
+        reload_controls(this.value);
+    });
+
+    function reload_controls(skupina_planov)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_planiranje_skupina_planov_view").text(),
+            dataType: 'json',
+            data: "skupina_planov="+skupina_planov,
+            success: function(result)
+            {
+                //empty month drop down list
+                $("#id_plan").empty()
+                $("#id_planirano_opravilo").empty()
+                $("#id_vzorec_opravila").empty()
+
+                // disable nepotrebne dropdown menuje
+                $("#id_plan").attr('disabled', false);
+                $("#id_planirano_opravilo").attr('disabled', true);
+                $("#id_vzorec_opravila").attr('disabled', true); 
+
+
+                //NOSILCI FILTER
+                $("#id_plan").append('<option value="">---------</option>')
+                $.each( result.plan_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    field=$("#id_plan_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_plan').append('<option value="'+value+'">'+field+'</option>')
+
+                });
+
+
+
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+
+<!-- ELEMENT PODSKUPINA FILTER -->
+<script>
+
+    // ob spremembi dropdown skupine
+    $('#create_form').on('change', '#id_plan', function()
+    {
+        reload_controls1(this.value);
+        
+    });
+
+    function reload_controls1(plan)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_planiranje_plan_view").text(),
+            dataType: 'json',
+            data: "plan="+plan,
+            success: function(result)
+            {
+                // ponastavimo dropdown menuje
+                $("#id_planirano_opravilo").empty()
+                $("#id_vzorec_opravila").empty()   
+
+                // disable nepotrebne dropdown menuje
+                $("#id_plan").attr('disabled', false);
+                $("#id_planirano_opravilo").attr('disabled', false);
+                $("#id_vzorec_opravila").attr('disabled', true);        
+
+                //PODSKUPINA FILTER
+                $("#id_planirano_opravilo").append('<option value="">---------</option>')
+                $.each( result.planirano_opravilo_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    parameter=$("#id_planirano_opravilo_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_planirano_opravilo').append('<option value="'+value+'">'+parameter+'</option>')
+
+                });
+
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+<!-- ELEMENT DEL STAVBE FILTER -->
+<script>
+    
+    $('#create_form').on('change', '#id_planirano_opravilo', function()
+    {
+        reload_controls2(this.value);
+    });
+
+    function reload_controls2(planirano_opravilo)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_delovninalogi_planirano_opravilo_view").text(),
+            dataType: 'json',
+            data: "planirano_opravilo="+planirano_opravilo,
+            success: function(result)
+            {
+                // ponastavimo dropdown menuje
+                $("#id_vzorec_opravila").empty()      
+
+                // disable nepotrebne dropdown menuje
+                $("#id_plan").attr('disabled', false);
+                $("#id_planirano_opravilo").attr('disabled', false);
+                $("#id_vzorec_opravila").attr('disabled', false);          
+
+                //PODSKUPINA FILTER
+                $("#id_vzorec_opravila").append('<option value="">---------</option>')
+                $.each( result.vzorec_opravila_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    parameter=$("#id_vzorec_opravila_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_vzorec_opravila').append('<option value="'+value+'">'+parameter+'</option>')
+
+                });
+
+            },
+            error: function(xhr, status, error) 
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->
+
+

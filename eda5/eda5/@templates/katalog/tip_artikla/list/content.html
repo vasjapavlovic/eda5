@@ -1,0 +1,23 @@
+<!-- TIPI ARTIKLOV -->
+
+            <div class="table-responsive">
+                <table id="datatable_katalog_tip_artikla_list"  class="table table-condensed table-hover">
+
+                    <thead class="bg-primary">
+                    <tr>
+                        <td>oznaka</td>
+                        <td>naziv</td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for tip_artikla in object_list %}
+                    <tr>
+                        <td><b><a href="">{{ tip_artikla.oznaka }}</a></b></td>
+                        <td>{{ tip_artikla.naziv }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>

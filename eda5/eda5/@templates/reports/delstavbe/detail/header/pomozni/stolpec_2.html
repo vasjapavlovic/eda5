@@ -1,0 +1,18 @@
+<table class="table">
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Prejeta Dokumentacija</b></small></td>
+
+            <td>
+                <ul>
+                {% for dokumentacija in object.prejeta_dokumentacija.all %}
+                    <li><a href="{{ MEDIA_URL }}{{ dokumentacija.priponka }} ">{{ dokumentacija.oznaka }} {{ dokumentacija.opis }}</a></li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+
+
+</table>

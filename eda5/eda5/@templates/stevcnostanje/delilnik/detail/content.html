@@ -1,0 +1,35 @@
+<div class="jumbotron">
+        <h1>
+            {{ object.oznaka }}<br>
+            {{ object.stevec.naziv }}
+        </h1>
+    </div>
+    <h2>Odčitki</h2>
+    <div id="chart_container" style="width:100%; height:400px;"></div>
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+
+            <tr>
+                <th>datum</th>
+                <th>obračunsko obdobje</th>
+                <th>odčital</th>
+                <th>začetno stanje</th>
+                <th>končno stanje</th>
+                <th>poraba</th>
+            </tr>
+
+{% for odcitek in object.odcitek_set.all %}
+
+            <tr>
+                <td>{{ odcitek.datum_odcitka }}</td>
+                <td>{{ odcitek.obdobje_leto.oznaka }}-{{ odcitek.obdobje_mesec.oznaka }}</td>
+                <td>{{ odcitek.odcital }}</td>
+                <td>{{ odcitek.stanje_staro }}</td>
+                <td>{{ odcitek.stanje_novo }}</td>
+                <td><b>{{ odcitek.poraba }}</b></td>
+            </tr>
+
+{% endfor %}
+
+        </table>
+</div>

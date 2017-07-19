@@ -1,0 +1,43 @@
+<table class="table">
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Datum nastanka škode</b></small></td>
+            <td>{{ object.zahtevekskodnidogodek.datum_nastanka_skode }}</td>
+        </tr>
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Prijava škode</b></small></td>
+            <td>
+                <a href="{{ MEDIA_URL }}{{ object.zahtevekskodnidogodek.dokument_prijava_skode.priponka }}">
+                    {{ object.zahtevekskodnidogodek.dokument_prijava_skode }}
+                </a>
+            </td>
+        </tr>
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Zapisnik o Ogledu</b></small></td>
+            <td>
+                <a href="{{ MEDIA_URL }}{{ object.zahtevekskodnidogodek.dokument_zapisnik_ogleda.priponka }}">
+                    {{ object.zahtevekskodnidogodek.dokument_zapisnik_ogleda }}
+                </a>
+            </td>
+        </tr>
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Poravnava Škode</b></small></td>
+            <td>
+                <a href="{{ MEDIA_URL }}{{ object.zahtevekskodnidogodek.dokument_poravnava.priponka }}">
+                    {{ object.zahtevekskodnidogodek.dokument_poravnava }}
+                </a>
+            </td>
+        </tr>
+
+</table>

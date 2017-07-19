@@ -1,0 +1,40 @@
+
+<!-- POVPRASEVANJE -->
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not razdelilnik_list %}
+    Trenutno še ni registriranih povpraševanj.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>status</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for object in razdelilnik_list %}
+
+            {% if object.status == 4 %}
+            <tr class="success">
+            {% else %}
+            <tr>
+            {% endif %}
+                <td><a href="{% url 'moduli:razdelilnik:razdelilnik_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.get_status_display }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}

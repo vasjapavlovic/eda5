@@ -1,0 +1,28 @@
+<table class="table">
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Sklicatelj</b></small></td>
+            <td>{{ object.zahteveksestanek.sklicatelj.kratko_ime }}</td>
+        </tr>
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Datum sestanka</b></small></td>
+            <td>{{ object.zahteveksestanek.datum }}</td>
+        </tr>   
+
+
+    <!--vrstica******************************** -->
+        <tr>
+            <td><small><b>Zapisnik</b></small></td>
+            <td>
+                <a href="{{ MEDIA_URL }}{{ object.zahteveksestanek.zapisnik.priponka }}">
+                    {{ object.zahteveksestanek.zapisnik }}
+                </a>
+            </td>
+        </tr>
+
+</table>

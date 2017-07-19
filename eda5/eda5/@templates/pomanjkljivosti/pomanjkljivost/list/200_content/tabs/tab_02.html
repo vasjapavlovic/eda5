@@ -1,0 +1,60 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not pomanjkljivosti_vresevanju %}
+    Ni pomanjkljivosti v reševanju.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+
+<!-- TAB_02 Content -->
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+
+            
+            <thead>
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>opis</th>
+                <th>prijavil</th>
+                <th>datum ugotovitve</th>
+                <th>lokacija</th>
+                <th>opravilo</th>
+                <th>zahtevek</th>
+                <th>command</th>
+                
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for object in pomanjkljivosti_vresevanju %}
+
+
+            <tr>
+
+                <td><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.opis }}</td>
+                <td>{{ object.prijavil_text }}</td>
+                <td>{{ object.ugotovljeno_dne }}</td>
+                <td>{{ object.lokacija_text }}</td>
+                <td>
+                    {% for opravilo in object.opravilo_set.all %}
+                        <a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a><br>
+                    {% endfor %}
+                </td>
+
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+
+                <!-- Update pomanjkljivost -->
+                <td><a type="button" href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_update' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+
+
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+{% endif %}

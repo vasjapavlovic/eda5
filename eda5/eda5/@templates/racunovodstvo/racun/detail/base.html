@@ -1,0 +1,55 @@
+{% extends "base_200.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+
+
+<!-- #########################################################################-->
+<!--  NAVIGACIJA DESNO -->
+<!-- #########################################################################-->
+{% block navbar_right_podrobno %}
+    {% include "racunovodstvo/racun/detail/100_navigacija/100_navigacija_right.html" %}
+{% endblock %}
+
+
+
+<!-- #########################################################################-->
+<!--  CONTENT HEADER -->
+<!-- #########################################################################-->
+{% block content-header-content %}
+    {% include "racunovodstvo/racun/detail/200_content/100_content_header.html" %}
+{% endblock %}
+
+
+
+<!-- #########################################################################-->
+<!--  CONTENT BODY -->
+<!-- #########################################################################-->
+{% block content-body-items %}
+    {% include "racunovodstvo/racun/detail/200_content/200_content_body_items.html" %}
+{% endblock %}
+
+
+{% block content-body-tabs %}
+    {% include "racunovodstvo/racun/detail/200_content/300_content_body_tabs.html" %}
+{% endblock %}
+
+
+{% block content-modal %}
+    {% include "racunovodstvo/racun/detail/200_content/400_content_modal.html" %}
+{% endblock %}
+
+
+
+<!-- #########################################################################-->
+<!--  JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
+{% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
+{% endblock %}

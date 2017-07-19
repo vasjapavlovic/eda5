@@ -1,0 +1,55 @@
+<!-- PROJEKTNA MESTA -->
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not object.projektna_mesta_aktivna %}
+    Del stavbe še nima dodanih projektnih mest.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>Oznaka Projektnega Mesta</th>
+                <th>Naziv Projektnega Mesta</th>
+                <th>Funkcija</th>
+                <th>Artikel</th>
+                <th>Lokacija</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for projektno_mesto in object.projektna_mesta_aktivna %}
+
+            <tr>
+                <td>
+                    <a href="{% url 'moduli:deli:projektnomesto_detail' projektno_mesto.pk %}"><b>{{ projektno_mesto.oznaka }}</b></a>
+                </td>
+                <td>
+                    <b>{{ projektno_mesto.naziv }}</b>
+                    <br>{{ projektno_mesto.tip_elementa.naziv }}
+                </td>
+
+
+                <td>{{ projektno_mesto.funkcija }}</td>
+
+                <!-- Podatki o artiklu -->
+                {% if projektno_mesto.element %}
+
+                <td>Serijska številka: {{ projektno_mesto.aktiven_element.serijska_st }} | Tovarniška številka: {{ projektno_mesto.aktiven_element.serijska_st }}<br>{{ projektno_mesto.aktiven_element.artikel.naziv }}<br>{{ projektno_mesto.aktiven_element.artikel.proizvajalec.naziv }}</td>
+
+                {% else %}
+
+                <td><b>Artikel ni definiran!</b></td>
+
+                {% endif %}
+
+                <td>{{ projektno_mesto.lokacija }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endif %}

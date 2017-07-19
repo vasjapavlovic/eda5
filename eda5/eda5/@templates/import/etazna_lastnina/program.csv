@@ -1,0 +1,6 @@
+oznaka,naziv,zap_st
+PARK,Parkirni Program,1
+TRG,Trgovski Program,2
+PIS,Pisarniški Program,3
+STAN,Stanovanjski Program,4
+MED,Med Programi,0

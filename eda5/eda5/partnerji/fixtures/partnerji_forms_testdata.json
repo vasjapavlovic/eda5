@@ -1,0 +1,185 @@
+[
+{
+    "model": "partnerji.skupinapartnerjev",
+    "fields": {
+        "naziv": "EDAFM d.o.o.",
+        "oznaka": "",
+        "partner": [
+            1
+        ],
+        "updated": "2015-10-30T12:16:10.355Z",
+        "created": "2015-10-30T12:16:10.355Z"
+    },
+    "pk": 1
+},
+{
+    "model": "partnerji.partner",
+    "fields": {
+        "davcna_st": "97041823",
+        "maticna_st": "6163157000",
+        "user": null,
+        "kratko_ime": "EDAFM d.o.o.",
+        "created": "2015-10-25T12:25:51.857Z",
+        "dolgo_ime": "EDAFM, upravljanje stavb, d.o.o.",
+        "updated": "2015-10-29T20:22:12.195Z",
+        "is_active": true,
+        "posta": 3,
+        "davcni_zavezanec": true,
+        "is_pravnaoseba": true,
+        "naslov": "Delpinova ulica 18B"
+    },
+    "pk": 1
+},
+{
+    "model": "partnerji.partner",
+    "fields": {
+        "davcna_st": "94314527",
+        "maticna_st": "5860580000",
+        "user": null,
+        "kratko_ime": "NOVA KBM d.d.",
+        "created": "2015-10-25T12:43:05.736Z",
+        "dolgo_ime": "NOVA KREDITNA BANKA MARIBOR d.d.",
+        "updated": "2015-10-25T15:50:11.361Z",
+        "is_active": true,
+        "posta": 3,
+        "davcni_zavezanec": true,
+        "is_pravnaoseba": true,
+        "naslov": "Ulica Vita Kraigherja 4"
+    },
+    "pk": 2
+},
+{
+    "model": "partnerji.partner",
+    "fields": {
+        "davcna_st": "91132550",
+        "maticna_st": "5860571000",
+        "user": null,
+        "kratko_ime": "NLB d.d.",
+        "created": "2015-10-25T12:44:47.688Z",
+        "dolgo_ime": "NOVA LJUBLJANSKA BANKA d.d., Ljubljana",
+        "updated": "2015-10-25T12:44:47.688Z",
+        "is_active": true,
+        "posta": 2,
+        "davcni_zavezanec": true,
+        "is_pravnaoseba": true,
+        "naslov": " Trg republike 2"
+    },
+    "pk": 3
+},
+{
+    "model": "partnerji.drzava",
+    "fields": {
+        "naziv": "Slovenija",
+        "iso_koda": "SI"
+    },
+    "pk": 1
+},
+{
+    "model": "partnerji.drzava",
+    "fields": {
+        "naziv": "Nemčija",
+        "iso_koda": "DE"
+    },
+    "pk": 2
+},
+{
+    "model": "partnerji.posta",
+    "fields": {
+        "updated": "2015-10-25T12:15:23.439Z",
+        "is_active": true,
+        "drzava": 1,
+        "naziv": "Nova Gorica",
+        "created": "2015-10-25T12:15:23.439Z",
+        "postna_stevilka": "5000"
+    },
+    "pk": 1
+},
+{
+    "model": "partnerji.posta",
+    "fields": {
+        "updated": "2015-10-25T12:15:34.241Z",
+        "is_active": true,
+        "drzava": 1,
+        "naziv": "Ljubljana",
+        "created": "2015-10-25T12:15:34.241Z",
+        "postna_stevilka": "1000"
+    },
+    "pk": 2
+},
+{
+    "model": "partnerji.posta",
+    "fields": {
+        "updated": "2015-10-25T12:15:34.241Z",
+        "is_active": true,
+        "drzava": 1,
+        "naziv": "Maribor",
+        "created": "2015-10-25T12:15:34.241Z",
+        "postna_stevilka": "2000"
+    },
+    "pk": 3
+},
+{
+    "model": "partnerji.banka",
+    "fields": {
+        "updated": "2015-10-25T12:43:33.635Z",
+        "is_active": true,
+        "bancna_oznaka": "04",
+        "partner": 2,
+        "bic_koda": "KBMASI2X",
+        "created": "2015-10-25T12:43:33.635Z"
+    },
+    "pk": 1
+},
+{
+    "model": "partnerji.banka",
+    "fields": {
+        "updated": "2015-10-25T12:45:11.499Z",
+        "is_active": true,
+        "bancna_oznaka": "02",
+        "partner": 3,
+        "bic_koda": "LJBASI2X",
+        "created": "2015-10-25T12:45:11.499Z"
+    },
+    "pk": 2
+},
+{
+    "model": "partnerji.trracun",
+    "fields": {
+        "iban": "SI56047500002032492",
+        "updated": "2015-10-25T20:27:47.626Z",
+        "is_active": true,
+        "banka": 1,
+        "partner": 1,
+        "created": "2015-10-25T17:58:13.044Z"
+    },
+    "pk": 1
+},
+{
+    "model": "partnerji.oseba",
+    "fields": {
+        "status": "A",
+        "updated": "2015-10-25T16:12:49.480Z",
+        "is_active": true,
+        "podjetje": 1,
+        "priimek": "Pavlovič",
+        "ime": "Vasja",
+        "kvalifikacije": "",
+        "created": "2015-10-25T16:12:49.480Z"
+    },
+    "pk": 1
+},
+{
+    "model": "partnerji.oseba",
+    "fields": {
+        "status": "B",
+        "updated": "2015-10-25T16:13:14.842Z",
+        "is_active": true,
+        "podjetje": 1,
+        "priimek": "Kobal",
+        "ime": "Tomaž",
+        "kvalifikacije": "Elektroinstalaterska dela",
+        "created": "2015-10-25T16:13:14.842Z"
+    },
+    "pk": 2
+}
+]

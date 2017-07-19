@@ -1,0 +1,46 @@
+<!-- Ko še ni registriranih vnosov -->
+{% if not pomanjkljivosti_zakljucene %}
+    Ni zaključenih pomanjkljivosti.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+
+<!-- TAB_02 Content -->
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>opis</th>
+                <th>prijavil</th>
+                <th>datum ugotovitve</th>
+                <th>lokacija</th>
+                <th>opravilo</th>
+                <th>zahtevek</th>
+            </tr>
+
+            {% for object in pomanjkljivosti_zakljucene %}
+
+
+            <tr>
+                <td><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.opis }}</td>
+                <td>{{ object.prijavil_text }}</td>
+                <td>{{ object.ugotovljeno_dne }}</td>
+                <td>{{ object.lokacija_text }}</td>
+                <td>
+                    {% for opravilo in object.opravilo_set.all %}
+                        <a href="{% url 'moduli:delovninalogi:opravilo_detail' opravilo.pk %}">{{ opravilo.oznaka }}</a><br>
+                    {% endfor %}
+                </td>
+
+                <td><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% endif %}

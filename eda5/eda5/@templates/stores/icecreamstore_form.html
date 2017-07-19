@@ -1,0 +1,12 @@
+{% extends "moduli/modul_list.html" %}
+{% load crispy_forms_tags %}
+
+{% block content-body %}
+<form method="POST", action="">{% csrf_token %}
+{{ form | crispy}}
+
+    <input type="submit" value="Potrdi">
+
+</form>
+
+{% endblock %}

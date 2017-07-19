@@ -1,0 +1,41 @@
+<!-- TAB_01 Content -->
+
+
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not reklamacije_zakljucene %}
+    Zaključenih reklamacij še ni.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>opis</th>
+                <th>datum</th>
+                <th>status</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for object in reklamacije_zakljucene %}
+
+            <tr>
+                <td><a href="{% url 'moduli:reklamacije:reklamacija_detail' object.pk %}">{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.opis }}</td>
+                <td>{{ object.datum }}</td>
+                <td>{{ object.get_status_display }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}

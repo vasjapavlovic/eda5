@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+    <div class="panel panel-default">             
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>interna oznaka</th>
+                                <th>oznaka elaborat</th>
+                                <th>opis</th>
+                                <th>neto tlorisna površina</th>
+                                <th>lastniški delež na skupnih delih</th>
+                                <th>uporabno dovoljenje</th>
+                                <th>stanje prostora</th>
+                                <th>lastnik</th>
+                                <th>najemnik</th>
+                                <th>plačnik stroškov o.v.</th>
+                            </tr>
+                        </thead>
+
+                 
+                        <tbody>
+                            {% for object in object_list %}
+
+                            <tr>
+                                <td><b><a href="">{{ object.oznaka }}</a></b></td>
+                                <td>{{ object.elaborat.oznaka }}</td>
+                                <td>{{ object.elaborat.opis }}</td>
+                                <td>{{ object.povrsina_tlorisna_neto }}</td>
+                                <td>{{ object.lastniski_delez }}</td>
+                                <td>{{ object.internadodatno.uporabno_dovoljenje.st_dokumenta }}</td>
+                                <td>{{ object.internadodatno.stanje_prostora }}</td>
+                                <td>{{ object.prodaja.predaja_lastnine.kupec.kratko_ime }}</td>
+
+                                <!-- pod pogojem da najemnik obstaja -->
+                                {% if object.najem.predaja_lastnine.kupec.kratko_ime %}
+                                <td>{{ object.najem.predaja_lastnine.kupec.kratko_ime }}</td>
+                                <td>{{ object.najem.placnik.kratko_ime }}</td>
+                                {% else %}
+                                <td></td>
+                                <td>{{ object.prodaja.placnik.kratko_ime }}</td>
+
+                                {% endif %}
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
+{% endblock %}
+<!-- end JAVASCRIPT EXTRA -->

@@ -1,0 +1,28 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:home' %}">Nazaj</a> | <a href="">Nov vnos</a>
+    </i></small>
+
+<div class="jumbotron">
+    <h1>NAROČILA</h1>
+</div>
+
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+
+            <tr>
+                <td><b><a href="">Dodaj Novo Pošto</a></b></td>
+            </tr>
+
+        </table>
+    </div>
+
+
+
+{% endblock %}

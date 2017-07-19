@@ -1,0 +1,150 @@
+[
+{
+    "model": "etaznalastnina.lastniskaenotaelaborat",
+    "fields": {
+        "povrsina_tlorisna_neto": "160",
+        "oznaka": "33",
+        "naslov": "Delpinova ulica 18A",
+        "posta": 1
+    },
+    "pk": 1
+},
+{
+    "model": "etaznalastnina.lastniskaenotaelaborat",
+    "fields": {
+        "povrsina_tlorisna_neto": "700",
+        "oznaka": "96",
+        "naslov": "Delpinova ulica 18B",
+        "posta": 1
+    },
+    "pk": 2
+},
+{
+    "model": "etaznalastnina.lastniskaenotainterna",
+    "fields": {
+        "povrsina_tlorisna_neto": "160",
+        "oznaka": "10330",
+        "program": "stanovanje",
+        "lastniski_delez": "0.0330",
+        "elaborat": 1,
+        "st_oseb": 1
+    },
+    "pk": 1
+},
+{
+    "model": "etaznalastnina.lastniskaenotainterna",
+    "fields": {
+        "povrsina_tlorisna_neto": "50",
+        "oznaka": "10961",
+        "program": "poslovni prostor",
+        "lastniski_delez": "0.0330",
+        "elaborat": 2,
+        "st_oseb": 1
+    },
+    "pk": 2
+},
+{
+    "model": "etaznalastnina.program",
+    "fields": {
+        "oznaka": "300",
+        "naziv": "stanovanjski program",
+        "zap_st": 3
+    },
+    "pk": 1
+},
+{
+    "model": "etaznalastnina.program",
+    "fields": {
+        "oznaka": "100",
+        "naziv": "trgovski Program",
+        "zap_st": 1
+    },
+    "pk": 2
+},
+{
+    "model": "etaznalastnina.program",
+    "fields": {
+        "oznaka": "400",
+        "naziv": "parkirni Program",
+        "zap_st": 4
+    },
+    "pk": 3
+},
+{
+    "model": "etaznalastnina.program",
+    "fields": {
+        "oznaka": "200",
+        "naziv": "pisarniški Program",
+        "zap_st": 2
+    },
+    "pk": 4
+},
+{
+    "model": "etaznalastnina.program",
+    "fields": {
+        "oznaka": "500",
+        "naziv": "Med Programi",
+        "zap_st": 5
+    },
+    "pk": 5
+},
+{
+    "model": "etaznalastnina.lastniskaskupina",
+    "fields": {
+        "oznaka": "301",
+        "opis": "",
+        "naziv": "vsa stanovanja",
+        "program": 1,
+        "lastniska_enota": [
+            1
+        ]
+    },
+    "pk": 1
+},
+{
+    "model": "etaznalastnina.lastniskaskupina",
+    "fields": {
+        "oznaka": "101",
+        "opis": "",
+        "naziv": "Vse enote Trgovskega programa",
+        "program": 2,
+        "lastniska_enota": [
+            2
+        ]
+    },
+    "pk": 2
+},
+{
+    "model": "etaznalastnina.lastniskaskupina",
+    "fields": {
+        "oznaka": "201",
+        "opis": "",
+        "naziv": "Pisarne E1-E8",
+        "program": 4,
+        "lastniska_enota": []
+    },
+    "pk": 3
+},
+{
+    "model": "etaznalastnina.lastniskaskupina",
+    "fields": {
+        "oznaka": "401",
+        "opis": "",
+        "naziv": "Vsi parkirni prostori Eda center",
+        "program": 3,
+        "lastniska_enota": []
+    },
+    "pk": 4
+},
+{
+    "model": "etaznalastnina.lastniskaskupina",
+    "fields": {
+        "oznaka": "503",
+        "opis": "",
+        "naziv": "Vse poslovne enote",
+        "program": 5,
+        "lastniska_enota": []
+    },
+    "pk": 5
+}
+]

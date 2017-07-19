@@ -1,0 +1,31 @@
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <table id="datatable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Oznaka</th>
+                            <th>Naziv</th>
+                            <th>Naročnik</th>
+                            <th>Izvajalec</th>
+                        </tr>
+                    </thead>
+
+             
+                    <tbody>
+                        {% for object in object_list %}
+
+                        <tr>
+                            <td><b><a href="{% url 'moduli:narocila:narocilo_detail' object.id %}">{{ object.oznaka }}</a></b></td>
+                            <td>{{ object.predmet }}</td>
+                            <td>{{ object.narocnik.naziv }}</td>
+                            <td>{{ object.izvajalec.kratko_ime }}</td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>

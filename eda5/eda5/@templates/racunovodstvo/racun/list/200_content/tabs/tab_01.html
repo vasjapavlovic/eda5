@@ -1,0 +1,33 @@
+<!-- NeLikvidirani -->
+
+<div class="table-responsive">
+<table id="" class="table table-bordered table-striped">
+<thead>
+    <tr>
+        <th>št.dokumenta</th>
+        <th>predmet</th>
+        <th>pošiljatelj</th>
+        <th>priponka</th>
+    </tr>
+</thead>
+
+<tbody>
+{% for racun in racun_nelikvidiran_list %}
+    
+    {% if racun %}
+
+    <tr>
+
+        <td><a href="{% url 'moduli:posta:dokument_detail' racun.pk %}">{{ racun.oznaka }}</a></td>
+        <td>{{ racun.naziv }}</td>
+        <td>{{ racun.avtor }}</td>
+        <td><a href="{{ MEDIA_URL }}{{ racun.priponka }}" target="_blank">{{ racun.priponka }}</a></td>
+
+    </tr>
+    {% endif %}
+    
+{% endfor %}
+</tbody>
+
+</table>
+</div>

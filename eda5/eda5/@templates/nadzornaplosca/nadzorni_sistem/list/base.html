@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block sidebar %}
+<!-- SideBar podatki -->
+    {% include "moduli/detail_sidebar.html" %}
+<!-- end SideBar podatki -->
+{% endblock %}
+
+
+
+
+
+{% block navbar_title %}
+<!-- Navbar Title -->
+    {% include "moduli/detail_navbar_title.html" %}
+<!-- end Navbar Title -->
+{% endblock %}
+
+
+
+
+
+{% block navbar_right %}
+<!-- Navbar-Left podatki -->
+<!-- end Navbar-Left podatki -->
+{% endblock %}
+
+
+
+
+
+{% block content_title %}
+<!-- PAGE TITLE -->
+<h1>Seznam nadzornih sistemov</h1>
+<!-- end PAGE TITLE -->
+{% endblock %}
+
+
+
+
+
+{% block content-body %}
+<!-- PAGE CONTENT -->
+
+    {% include "nadzornaplosca/nadzorni_sistem/list/content.html" %}
+    {% include "nadzornaplosca/nadzorni_sistem/list/modal.html" %}
+
+<!-- end PAGE CONTENT -->
+{% endblock %}
+
+
+
+
+{% block javascript_extra %}
+    <!-- JAVASCRIPT EXTRA -->
+    {% include "nadzornaplosca/nadzorni_sistem/list/js.html" %}
+
+    <!-- end JAVASCRIPT EXTRA -->
+{% endblock %}

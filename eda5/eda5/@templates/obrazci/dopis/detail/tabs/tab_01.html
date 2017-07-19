@@ -1,0 +1,75 @@
+<!-- Podatki -->
+{{  povezava }}
+<div class="panel panel-{{ modul_zavihek.modul.barva }}">
+    <div class="panel-heading">Podatki o dokumentu:</div>
+    <div class="panel-body">
+
+		<div class="table-responsive">
+			<table class="table table-condensed">
+				<tbody>
+					<tr>
+						<td>Oznaka</td>
+						<td>{{ object.oznaka }}</td>
+					<tr>
+					<tr>
+						<td>Vrsta</td>
+						<td>{{ object.vrsta_dokumenta.naziv }}</td>
+					<tr>
+					<tr>
+						<td>Datum</td>
+						<td>{{ object.objava }}</td>
+					<tr>
+					<tr>
+						<td>Zadeva</td>
+						<td>{{ object.zadeva }}</td>
+					<tr>
+					<tr>
+						<td>Vsebina</td>
+						<td>{{ object.vsebina }}</td>
+					<tr>
+					<tr>
+						<td>Pošiljatelj</td>
+						<td>{{ object.posiljatelj }}</td>
+					<tr>
+					<tr>
+						<td>Naslovnik</td>
+						<td>{{ object.naslovnik }}</td>
+					<tr>
+					<tr>
+						<td>Izdelal</td>
+						<td>{{ object.oseba_izdelal }}</td>
+					<tr>
+					<tr>
+						<td>Odgovorna</td>
+						<td>{{ object.oseba_izdelal }}</td>
+					<tr>
+					<tr>
+						<td>Priloge</td>
+						<td>
+							{% for priloga in object.priloge.all %}
+								-{{ priloga.dokument.vrsta_dokumenta.naziv }} št.:{{ priloga.dokument.oznaka }}<br>
+
+							{% endfor %}
+						</td>
+					<tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<form id="narocilo_create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+
+
+    <div class="panel panel-{{ modul_zavihek.modul.barva }}">
+        <div class="panel-heading">Izbira formata izpisa</div>
+        <div class="panel-body">
+            {{ form  }}
+            <input class="btn" type="submit" value="Izvozi">
+        </div>
+    </div>
+
+    
+
+</form>

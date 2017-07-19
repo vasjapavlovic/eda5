@@ -1,0 +1,27 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:home' %}">Nazaj</a>
+    </i></small>
+
+    <div class="jumbotron">
+        <h1>Pomanjkljivosti</h1>
+    </div>
+
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <tr>
+                <td><h2><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_create' %}"><b>Prijavi</b> Pomanjkljivost</a></h2></td>
+            </tr>
+            <tr>
+                <td><h2><a href="{% url 'moduli:pomanjkljivosti:pomanjkljivost_list' %}"><b>Prijavljene</b> Pomanjkljivosti</a></h2></td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}

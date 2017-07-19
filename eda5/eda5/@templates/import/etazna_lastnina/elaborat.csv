@@ -1,0 +1,552 @@
+oznaka,naslov,posta,program,opis,povrsina_tlorisna_neto,lastniski_delez
+1,Delpinova ulica 18 A,5000,STAN,Stanovanje,65.6,0.0028
+2,Delpinova ulica 18 A,5000,STAN,Stanovanje,117.07,0.0050
+3,Delpinova ulica 18 A,5000,STAN,Stanovanje,189.91,0.0080
+4,Delpinova ulica 18 A,5000,STAN,Stanovanje,72.79,0.0031
+5,Delpinova ulica 18 A,5000,STAN,Stanovanje,99.63,0.0042
+6,Delpinova ulica 18 C,5000,STAN,Stanovanje,102.06,0.0043
+7,Delpinova ulica 18 C,5000,STAN,Stanovanje,66.01,0.0028
+8,Delpinova ulica 18 C,5000,STAN,Stanovanje,138.57,0.0059
+9,Delpinova ulica 18 C,5000,STAN,Stanovanje,116.39,0.0049
+10,Delpinova ulica 18 C,5000,STAN,Stanovanje,83.06,0.0035
+11,Delpinova ulica 18 A,5000,STAN,Stanovanje,65.61,0.0028
+12,Delpinova ulica 18 A,5000,STAN,Stanovanje,117.79,0.0050
+13,Delpinova ulica 18 A,5000,STAN,Stanovanje,188.34,0.0080
+14,Delpinova ulica 18 A,5000,STAN,Stanovanje,72.98,0.0031
+15,Delpinova ulica 18 A,5000,STAN,Stanovanje,98.68,0.0042
+16,Delpinova ulica 18 C,5000,STAN,Stanovanje,100.41,0.0043
+17,Delpinova ulica 18 C,5000,STAN,Stanovanje,64.27,0.0027
+18,Delpinova ulica 18 C,5000,STAN,Stanovanje,139.38,0.0059
+19,Delpinova ulica 18 C,5000,STAN,Stanovanje,116.26,0.0049
+20,Delpinova ulica 18 C,5000,STAN,Stanovanje,83.63,0.0035
+21,Delpinova ulica 18 A,5000,STAN,Stanovanje,65.45,0.0028
+22,Delpinova ulica 18 A,5000,STAN,Stanovanje,115.83,0.0049
+23,Delpinova ulica 18 A,5000,STAN,Stanovanje,186.00,0.0079
+24,Delpinova ulica 18 A,5000,STAN,Stanovanje,72.02,0.0030
+25,Delpinova ulica 18 A,5000,STAN,Stanovanje,99.20,0.0042
+26,Delpinova ulica 18 C,5000,STAN,Stanovanje,100.11,0.0042
+27,Delpinova ulica 18 C,5000,STAN,Stanovanje,64.77,0.0027
+28,Delpinova ulica 18 C,5000,STAN,Stanovanje,136.09,0.0058
+29,Delpinova ulica 18 C,5000,STAN,Stanovanje,114.72,0.0049
+30,Delpinova ulica 18 C,5000,STAN,Stanovanje,83.24,0.0035
+31,Delpinova ulica 18 A,5000,STAN,Stanovanje,66.18,0.0028
+32,Delpinova ulica 18 A,5000,STAN,Stanovanje,115.20,0.0049
+33,Delpinova ulica 18 A,5000,STAN,Stanovanje,190.92,0.0081
+34,Delpinova ulica 18 A,5000,STAN,Stanovanje,71.84,0.0030
+35,Delpinova ulica 18 A,5000,STAN,Stanovanje,99.05,0.0042
+36,Delpinova ulica 18 C,5000,STAN,Stanovanje,99.92,0.0042
+37,Delpinova ulica 18 C,5000,STAN,Stanovanje,63.59,0.0027
+38,Delpinova ulica 18 C,5000,STAN,Stanovanje,137.97,0.0058
+39,Delpinova ulica 18 C,5000,STAN,Stanovanje,115.07,0.0049
+40,Delpinova ulica 18 C,5000,STAN,Stanovanje,83.53,0.0035
+41,Delpinova ulica 18 B,5000,PIS,Arhiv,899.19,0.0190
+44,Delpinova ulica 18 B,5000,TRG,Dvigalo,89.26,0.0019
+45,Delpinova ulica 18 B,5000,PIS,Skladišče,6.12,0.0003
+51,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+52,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+53,Delpinova ulica 18 B,5000,PIS,Skladišče,14.65,0.0006
+54,Delpinova ulica 18 B,5000,TRG,Predprostor,26.30,0.0011
+55,Delpinova ulica 18 B,5000,PIS,Skladišče,187.57,0.0024
+57,Delpinova ulica 18 B,5000,PIS,Skladišče,14.22,0.0006
+58,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+59,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+60,Delpinova ulica 18 B,5000,PIS,Skladišče,14.56,0.0006
+61,Delpinova ulica 18 B,5000,PIS,Skladišče,52.95,0.0022
+62,Delpinova ulica 18 B,5000,PIS,Skladišče,4.00,0.0002
+63,Delpinova ulica 18 B,5000,TRG,Arhiv,158.33,0.0034
+65,Delpinova ulica 18 B,5000,PIS,Skladišče,14.31,0.0006
+66,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+67,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+68,Delpinova ulica 18 B,5000,PIS,Skladišče,14.56,0.0006
+69,Delpinova ulica 18 B,5000,PIS,Skladišče,4.00,0.0002
+70,Delpinova ulica 18 B,5000,TRG,Arhiv,158.33,0.0067
+72,Delpinova ulica 18 B,5000,PIS,Skladišče,14.31,0.0006
+73,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+74,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+75,Delpinova ulica 18 B,5000,TRG,Dvigalo,33.28,0.0007
+76,Delpinova ulica 18 B,5000,PIS,Shramba,5.72,0.0002
+79,Delpinova ulica 18 B,5000,TRG,Skladišče,20.46,0.0003
+80,Delpinova ulica 18 B,5000,TRG,Kuhinja,619.98,0.0263
+81,Delpinova ulica 18 B,5000,TRG,Market,704.32,0.0298
+82,Delpinova ulica 18 B,5000,TRG,Prodajalna,14.52,0.0006
+83,Delpinova ulica 18 B,5000,PIS,Shramba,5.72,0.0002
+84,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+85,Delpinova ulica 18 B,5000,PIS,Skladišče,4.40,0.0002
+86,Delpinova ulica 18 B,5000,TRG,Skladišče,52.95,0.0022
+88,Delpinova ulica 18 B,5000,TRG,Skladišče,47.42,0.0020
+90,Delpinova ulica 18 B,5000,PARK,Blagajna,29.07,0.0012
+91,Delpinova ulica 18 B,5000,TRG,WC,4.00,0.0002
+92,Delpinova ulica 18 B,5000,TRG,Trafo postaja,127.14,0.0038
+93,Delpinova ulica 18 B,5000,PARK,Stopnišče + Dvigalo,166.30,0.0035
+95,Delpinova ulica 18 B,5000,TRG,Dvigalo,11.93,0.0003
+96,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,539.45,0.0228
+97,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,31.20,0.0013
+98,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,79.97,0.0034
+99,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,30.20,0.0013
+100,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,22.84,0.0010
+101,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,452.95,0.0192
+102,Delpinova ulica 18 B,5000,TRG,Kavarna,230.98,0.0098
+103,Delpinova ulica 18 B,5000,TRG,WC,4.07,0.0002
+104,Delpinova ulica 18 B,5000,TRG,WC,4.07,0.0002
+105,Delpinova ulica 18 B,5000,TRG,Pasaža,527.94,0.0045
+106,Delpinova ulica 18 B,5000,TRG,Predprostor,12.42,0.0001
+115,Delpinova ulica 18 B,5000,TRG,Avditorij,517.69,0.0002
+116,Delpinova ulica 18 B,5000,TRG,Samopostrežna restavracija,679.84,0.0288
+117,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,146.11,0.0062
+118,Delpinova ulica 18 B,5000,TRG,Skladišče,4.19,0.0002
+119,Delpinova ulica 18 B,5000,TRG,Skladišče,4.40,0.0002
+120,Delpinova ulica 18 B,5000,TRG,Trgovsko storitveni lokal,113.83,0.0048
+121,Delpinova ulica 18 B,5000,TRG,Konferenčni center,605.98,0.0257
+122,Delpinova ulica 18 B,5000,TRG,Predprostor,17.40,0.0001
+123,Delpinova ulica 18 B,5000,TRG,Tehnični prostor,5.72,0.0002
+124,Delpinova ulica 18 B,5000,TRG,Pasaža,275.09,0.0023
+125,Delpinova ulica 18 B,5000,TRG,Terasa,117.44,0.0005
+126,Delpinova ulica 18 B,5000,TRG,Terasa koridor,40.41,0.0002
+129,Delpinova ulica 18 B,5000,TRG,WC,47.32,0.0020
+131,Delpinova ulica 18 B,5000,PIS,Pisarniški prostori,243.87,0.0103
+132,Delpinova ulica 18 B,5000,TRG,Terasa bar,167.80,0.0071
+133,Delpinova ulica 18 B,5000,TRG,Pasaža,128.58,0.0011
+134,Delpinova ulica 18 B,5000,PIS,Pisarniški prostori,240.00,0.0102
+135,Delpinova ulica 18 B,5000,TRG,Zunanja terasa,573.31,0.0002
+136,Delpinova ulica 18 B,5000,PIS,Sprejemni prostor,30.95,0.0013
+138,Delpinova ulica 18 B,5000,TRG,Letni vrt terasa bar,194.20,0.0041
+150,Delpinova ulica 18 B,5000,PIS,Poslovna enota,1032.18,0.0533
+155,Delpinova ulica 18 B,5000,PIS,Poslovna enota,491.00,0.0208
+156,Delpinova ulica 18 B,5000,PIS,Poslovna enota,557.79,0.0236
+160,Delpinova ulica 18 B,5000,PIS,Poslovna enota,1083.24,0.0459
+164,Delpinova ulica 18 B,5000,PIS,Tehnični prostor,10.12,0.0004
+165,Delpinova ulica 18 B,5000,PIS,Poslovna enota,1083.24,0.0459
+193,Delpinova ulica 18 B,5000,PIS,Tehnični prostor,10.12,0.0004
+194,Delpinova ulica 18 B,5000,PIS,Poslovna enota,1083.24,0.0459
+198,Delpinova ulica 18 B,5000,PIS,Tehnični prostor,10.12,0.0004
+199,Delpinova ulica 18 B,5000,PIS,Poslovna enota,1083.20,0.0459
+203,Delpinova ulica 18 B,5000,PIS,Tehnični prostor,10.12,0.0004
+204,Delpinova ulica 18 B,5000,PIS,Poslovna enota,1083.24,0.0459
+208,Delpinova ulica 18 B,5000,PIS,Tehnični prostor,10.12,0.0004
+209,Delpinova ulica 18 B,5000,PIS,Poslovna enota,939.39,0.0398
+218,Delpinova ulica 18 B,5000,PIS,Tehnični prostor,9.89,0.0004
+268,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+269,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+270,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+287,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+288,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+289,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+290,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+291,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+292,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+293,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+294,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+295,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+296,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+297,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+298,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+299,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+300,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+301,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+302,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+303,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+304,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+305,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+306,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+307,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+308,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+309,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+310,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+311,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+312,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+313,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+314,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+315,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+316,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+317,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+318,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+319,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+320,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+321,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+322,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+323,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+324,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+325,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+326,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+327,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+328,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+329,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+330,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+331,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+332,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+333,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+334,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+335,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+336,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+337,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+338,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+339,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+340,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+341,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+342,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+343,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+344,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+345,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+346,Delpinova ulica 18 B,5000,PARK,Parkirni boks,17.92,0.0008
+347,Delpinova ulica 18 B,5000,PARK,Parkirni boks,17.79,0.0008
+348,Delpinova ulica 18 B,5000,PARK,Parkirni boks,21.40,0.0009
+349,Delpinova ulica 18 B,5000,PARK,Parkirni boks,20.85,0.0009
+350,Delpinova ulica 18 B,5000,PARK,Parkirni boks,20.85,0.0009
+351,Delpinova ulica 18 B,5000,PARK,Parkirni boks,21.40,0.0009
+352,Delpinova ulica 18 B,5000,PARK,Parkirni boks,21.40,0.0009
+353,Delpinova ulica 18 B,5000,PARK,Parkirni boks,21.40,0.0009
+354,Delpinova ulica 18 B,5000,PARK,Parkirni boks,35.32,0.0015
+355,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+356,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+357,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+358,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+359,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+360,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+361,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+362,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+363,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+364,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+365,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+366,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+367,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+368,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+369,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+370,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+371,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+372,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+373,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+374,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+375,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+376,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+377,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+378,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+379,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+380,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+381,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+382,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+383,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+384,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+385,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+386,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+387,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+388,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+389,Delpinova ulica 18 B,5000,PARK,Parkirno mesto ,10.00,0.0004
+390,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+391,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+392,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+393,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+394,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+395,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+396,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+397,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+398,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+399,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+400,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+401,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+402,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+403,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+404,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+405,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+406,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+407,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+408,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+409,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+410,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+411,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+412,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+413,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+414,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+415,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+416,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+417,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+418,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+419,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+420,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+421,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+422,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+423,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+424,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+425,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+426,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+427,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+428,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+429,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+430,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+431,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+432,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+433,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+434,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+435,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+436,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+437,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+438,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+439,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+440,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+441,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+442,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+443,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+444,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+445,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+446,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+447,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+448,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+449,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+450,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+451,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+452,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+453,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+454,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+455,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+456,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+457,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+458,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+459,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+460,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+461,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+462,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+463,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+464,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+465,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+466,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+467,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+468,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+469,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+470,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+471,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+472,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+473,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+474,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+475,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+476,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+477,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+478,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+479,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+480,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+481,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+482,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+483,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+484,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+485,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+486,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+487,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+488,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+489,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+490,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+491,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+492,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+493,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+494,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+495,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+496,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+497,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+498,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+499,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+500,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+501,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+502,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+503,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+504,Delpinova ulica 18 B,5000,PARK,Parkirno mesto ,10.00,0.0004
+505,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+506,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+507,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+508,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+509,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+510,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+511,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+512,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+513,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+514,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+515,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+516,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+517,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+518,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+519,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+520,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+521,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+522,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+523,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+524,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+525,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+526,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+527,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+528,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+529,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+530,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+531,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+532,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+533,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+534,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+535,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+536,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+537,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+538,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+539,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+540,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+541,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+542,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+543,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+544,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+545,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+546,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+547,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+548,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+549,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+550,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+551,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+552,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+553,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+554,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+555,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+556,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+557,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+558,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+559,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+560,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+561,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+562,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+563,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+564,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+565,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+566,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+567,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+568,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+569,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+570,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+571,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+572,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+573,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+574,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+575,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+576,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+578,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+579,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+580,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+581,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+582,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+583,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+584,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+585,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+586,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+587,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+588,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+589,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+590,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+591,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+592,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+593,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+594,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+595,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+596,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+597,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+598,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+599,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+600,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+601,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+602,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+603,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+604,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+605,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+606,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+607,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+608,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+609,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+610,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+611,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+612,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+613,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+614,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+615,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+616,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+617,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+618,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+619,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+620,Delpinova ulica 18 B,5000,PARK,Parkirno mesto ,10.00,0.0004
+621,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+622,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+623,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+624,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+625,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+626,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+627,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+628,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+629,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+630,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+631,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - VIP,15.00,0.0006
+632,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+633,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+634,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+635,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+636,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+637,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+638,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+639,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+640,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+641,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+642,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+643,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+644,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+645,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+646,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+647,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+648,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+649,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+650,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+651,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+652,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+653,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+654,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+655,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+656,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+657,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+658,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+659,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+660,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+661,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+662,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+663,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+664,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+665,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+666,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+667,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+668,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+669,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+670,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+671,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - mot.kolesa,3.00,0.0001
+672,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+673,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+674,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+675,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+676,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+677,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+678,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+679,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+680,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+681,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+682,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+683,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+684,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+685,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+686,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+687,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+688,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+689,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+690,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+691,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+692,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+693,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+694,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+695,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+696,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+697,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+698,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+699,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+700,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+701,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+702,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+703,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+704,Delpinova ulica 18 B,5000,PARK,Parkirno mesto - invalidi,10.00,0.0004
+706,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+707,Delpinova ulica 18 B,5000,PARK,Parkirno mesto,10.00,0.0004
+708,Delpinova ulica 18 B,5000,TRG,Pasaža,161.77,0.0014
+709,Delpinova ulica 18 B,5000,PIS,Poslovna recepcija,44.53,0.0019
+710,Delpinova ulica 18 B,5000,TRG,Predprostor,7.54,0.0003

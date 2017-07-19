@@ -1,0 +1,57 @@
+{% extends "deli/delstavbe/detail/navigacija_menu/tabs/tab_base.html" %}
+{% load crispy_forms_tags %}
+
+
+<!-- TAB_NAVIGACIJA############################################ -->
+
+    <!--NASLOV-->
+    {% block detail_tab_title %}LASTNIKI{% endblock %}
+    <!--end NASLOV-->
+
+
+    <!--CONTROLER_LEFT-->
+    {% block detail_tab_controler_left %}
+    {% endblock %}
+    <!--end CONTROLER_LEFT-->
+
+
+    <!--CONTROLER_RIGHT-->
+    {% block detail_tab_controler_right %}
+    {% endblock %}
+    <!--end CONTROLER_RIGHT-->
+
+<!-- end TAB_NAVIGACIJA -->
+
+
+<!-- CONTENT################################################### -->
+
+    {% block detail_tab_content %}
+
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>LE</th>
+                <th>Lastniški delež</th>
+            </tr>
+
+            {% for interna_enota in object.lastniska_skupina.lastniska_enota.all %}
+
+            <tr>
+                <td>{{ interna_enota.elaborat.oznaka }}</td>
+                <td>{{ interna_enota.elaborat.povrsina_tlorisna_neto }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+
+
+
+
+
+    {% endblock %}
+    
+<!-- end CONTENT -->
+
+
+

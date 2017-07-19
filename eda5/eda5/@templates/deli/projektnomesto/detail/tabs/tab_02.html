@@ -1,0 +1,40 @@
+<!-- Obratovanje -->
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>parameter</th>
+        <th>vrednost</th>
+        <th>nastavljeno dne</th>
+    </tr>
+
+    {% for nastavitev in nastavitve %}
+    <tr>
+        <td>{{ nastavitev.obratovalni_parameter.oznaka }}</td>
+        <td>{{ nastavitev.vrednost }} {{ nastavitev.obratovalni_parameter.enota }}</td>
+        <td>{{ nastavitev.datum_nastavitve }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>parameter</th>
+        <th>vrednost</th>
+    </tr>
+
+    {% for nastavitev in nastavitev_max %}
+    <tr>
+        <td><b>{{ nastavitev.obratovalni_parameter.oznaka }}</b></td>
+        {% if nastavitev.vrednost == "OFF" %}
+        <td class="btn btn-danger">
+        {% else %}
+        <td class="btn btn-success">
+        {% endif %}
+            {{ nastavitev.vrednost }} {{ nastavitev.obratovalni_parameter.enota }}
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>

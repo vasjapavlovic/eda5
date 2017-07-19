@@ -1,0 +1,30 @@
+<table class="table-condensed table-striped">
+
+
+{% for object in object_list %}
+
+
+<tbody>
+<tr>
+<td class="bg-primary"><b>{{ object.naziv }} ({{ object.oznaka }})</b></a></td>
+<td class="bg-primary"></td>
+<td class="bg-primary"></td>
+</tr>
+
+
+
+
+{% for nadzorna_enota in object.nadzornaenota_set.all %}
+<tr>
+<td><a href="http://{{ nadzorna_enota.ip_naslov }}" target="_blank"><b>{{ nadzorna_enota.naziv }}</b></a></td>
+<td>{{ nadzorna_enota.opis }}</td>
+</tr>
+{% endfor %}
+
+{% endfor %}
+
+</tbody>
+
+
+
+</table>

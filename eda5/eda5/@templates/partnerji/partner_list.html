@@ -1,0 +1,51 @@
+{% extends "moduli/modul_list.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+
+<div class="container">
+    <small><i>
+        <a href="{% url 'moduli:partnerji:home' %}">Nazaj</a> | <a href="{% url 'moduli:partnerji:create' %}">Nov vnos</a>
+    </i></small>
+
+<div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+            <h1>Seznam Partnerjev</h1>
+            </div>
+
+            <div class="col-xs-6 col-md-6" align="right">
+                <form action="" method="GET">
+                    <input type="text" name="q" id="search_text" />
+                    <input type="submit" value="search">
+                    <a type="button" class="btn btn-default" href="{% url 'moduli:partnerji:partner_list' %}" >reset</a>
+                </form>
+            </div>
+        </div>
+</div>
+
+    <div class="table-condensed table-hover table-bordered">
+        <table class="table">
+            <tr>
+                <th>zap. št.</th>
+                <th>Naziv</th>
+                <th>Naslov</th>
+                <th>Davčna št.</th>
+                <th>Matična št.</th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><b><a href="{% url 'moduli:partnerji:detail' object.id %}">{{ object.kratko_ime }}</a></b></td>
+                <td>{{ object.naslov }}, {{ object.posta.postna_stevilka }} {{ object.posta.naziv }}</td>
+                <td>{{ object.davcna_st }}</td>
+                <td>{{ object.maticna_st }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% endblock %}

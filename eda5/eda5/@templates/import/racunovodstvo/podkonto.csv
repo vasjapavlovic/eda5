@@ -1,0 +1,14 @@
+oznaka,naziv,zap_st,skupina
+CIS,"Čiščenje, Dezinfekcija, Deratizacija",2,O
+ENR,"Energija, Vodarina in Kanalščina",1,O
+INV,Investicijsko Vzdrževanje,0,V
+ONU,Osnovne naloge upravljanja,1,U
+OST,Ostali stroški,7,O
+PRG,"Tehnični nadzori, pregledi",4,O
+TVZ,Tekoče vzdrževanje,3,O
+USP,Usposabljanje,3,E
+VAR,Zagotavljanje varnosti,5,O
+ZAV,Zavarovanja,6,O
+SDP,Sredstva porebna za delovanje podjetja,1,E
+VOD,Vodenje podjetja,1,E
+NAJ,Najemi,7,E

@@ -1,0 +1,11 @@
+<!-- Left Navbar Title-->
+
+
+<a class="btn btn-default navbar-btn" href="{% url 'moduli:home' %}">Moduli</a>
+
+<a class="btn btn-default navbar-btn"  href="{% url 'moduli:detail' modul_zavihek.modul.pk %}">{{ modul_zavihek.modul.naziv }}</a>
+
+<p class="btn navbar-btn"  class="text_black_bold">{{ modul_zavihek.naziv }}</p>
+
+
+

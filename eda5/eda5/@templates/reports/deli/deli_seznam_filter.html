@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+
+
+    <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+
+                {{ form|crispy  }}
+                {{ deli_seznam_filter_form|crispy  }}  
+
+        <input type="submit" value="Potrdi">
+
+
+        
+
+    </form>
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
