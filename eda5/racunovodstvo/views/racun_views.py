@@ -249,7 +249,7 @@ class RacunDetailView(DetailView):
 
         # sum stroska
         strosek_vrednost_brez_ddv = 0
-        strosek_vrednost_z_dvv = 0
+        strosek_vrednost_z_ddv = 0
 
         for strosek in strosek_list:
 
@@ -262,10 +262,10 @@ class RacunDetailView(DetailView):
                 stopnja_ddv = 0.220
 
             strosek_vrednost_brez_ddv += Decimal(strosek.osnova)
-            strosek_vrednost_z_dvv += Decimal(strosek.osnova) * (1 + Decimal(stopnja_ddv))
+            strosek_vrednost_z_ddv += Decimal(strosek.osnova) * (1 + Decimal(stopnja_ddv))
 
         context['strosek_vrednost_brez_ddv'] = "%.2f" % (strosek_vrednost_brez_ddv)
-        context['strosek_vrednost_z_dvv'] = "%.2f" % (strosek_vrednost_z_dvv)
+        context['strosek_vrednost_z_ddv'] = "%.2f" % (strosek_vrednost_z_ddv)
 
         return context
 

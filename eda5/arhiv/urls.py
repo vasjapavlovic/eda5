@@ -18,6 +18,12 @@ urlpatterns += [
     ),
 
     url(
+        r'^razdelilnik/(?P<pk>\d+)/arhiviranje-create/$', 
+        views.ArhiviranjeCreateFromRazdelilnik.as_view(), 
+        name="arhiviranje_create_from_razdelilnik"
+    ),
+
+    url(
         r'^reklamacija/(?P<pk>\d+)/arhiviranje-create/$', 
         views.ArhiviranjeCreateFromReklamacija.as_view(), 
         name="arhiviranje_create_from_reklamacija"

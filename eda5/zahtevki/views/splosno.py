@@ -23,6 +23,7 @@ from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.pomanjkljivosti.models import Pomanjkljivost
 from eda5.povprasevanje.models import Povprasevanje
+from eda5.razdelilnik.models import Razdelilnik
 from eda5.reklamacije.models import Reklamacija
 from eda5.sestanki.models import Sestanek
 from eda5.zaznamki.models import Zaznamek
@@ -133,6 +134,9 @@ class ZahtevekDetailView(LoginRequiredMixin, DetailView):
 
         # povprasevanje
         context['povprasevanje_list'] = Povprasevanje.objects.filter(zahtevek=self.object.id)
+
+        # razdelilnik
+        context['razdelilnik_list'] = Razdelilnik.objects.filter(zahtevek=self.object.id)
 
         # reklamacije
         context['reklamacija_list'] = Reklamacija.objects.filter(zahtevek=self.object.id)

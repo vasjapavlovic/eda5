@@ -14,6 +14,7 @@ from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 from eda5.povprasevanje.models import Povprasevanje
 from eda5.racunovodstvo.models import Racun
+from eda5.razdelilnik.models import Razdelilnik
 from eda5.reklamacije.models import Reklamacija
 from eda5.sestanki.models import Sestanek
 from eda5.skladisce.models import Dobava
@@ -101,6 +102,7 @@ class Arhiviranje(TimeStampedModel):
     dobava = models.ForeignKey(Dobava, blank=True, null=True)
     element = models.ForeignKey(Element, blank=True, null=True)
     povprasevanje = models.ForeignKey(Povprasevanje, blank=True, null=True)
+    razdelilnik = models.ForeignKey(Razdelilnik, blank=True, null=True)
     reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
     sestanek = models.ForeignKey(Sestanek, blank=True, null=True)
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)

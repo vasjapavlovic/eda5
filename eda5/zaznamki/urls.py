@@ -17,6 +17,12 @@ urlpatterns = [
     ),
 
     url(
+        r'^razdelilnik/(?P<pk>\d+)/zaznamek-create/$', 
+        views.ZaznamekCreateFromRazdelilnik.as_view(), 
+        name="zaznamek_create_from_razdelilnik"
+    ),
+
+    url(
         r'^reklamacija/(?P<pk>\d+)/zaznamek-create/$', 
         views.ZaznamekCreateFromReklamacija.as_view(), 
         name="zaznamek_create_from_reklamacija"

@@ -1,0 +1,42 @@
+<!-- ZAZNAMKI -->
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not zaznamek_list %}
+    Razdelilnik še nima dodanih zaznamkov.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:75%">
+            <col style="width:5%">
+
+        <thead>
+
+            <tr>
+                <th>datum</th>
+                <th>ura</th>
+                <th>tekst</th>
+                <th>Edit</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for zaznamek in zaznamek_list %}
+
+            <tr>
+                <td>{{ zaznamek.datum }}</td>
+                <td>{{ zaznamek.ura }}</td>
+                <td>{{ zaznamek.tekst }}</td>
+                <td><a href="{% url 'moduli:zaznamki:zaznamek_update' zaznamek.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}

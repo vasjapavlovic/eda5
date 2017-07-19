@@ -7,6 +7,7 @@ from . import managers
 # Models
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.povprasevanje.models import Povprasevanje
+from eda5.razdelilnik.models import Razdelilnik
 from eda5.reklamacije.models import Reklamacija
 from eda5.sestanki.models import Sestanek
 from eda5.skladisce.models import Dobava
@@ -20,6 +21,7 @@ class Zaznamek(models.Model):
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     dobava = models.ForeignKey(Dobava, blank=True, null=True)
     povprasevanje = models.ForeignKey(Povprasevanje, blank=True, null=True)
+    razdelilnik = models.ForeignKey(Razdelilnik, blank=True, null=True)
     reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
     sestanek = models.ForeignKey(Sestanek, blank=True, null=True)
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
@@ -41,6 +43,9 @@ class Zaznamek(models.Model):
 
         if self.delovninalog:
             return reverse("moduli:delovninalogi:dn_detail", kwargs={'pk': self.delovninalog.pk})
+
+        if self.razdelilnik:
+            return reverse("moduli:razdelilnik:razdelilnik_detail", kwargs={'pk': self.razdelilnik.pk})
 
         if self.reklamacija:
             return reverse("moduli:reklamacije:reklamacija_detail", kwargs={'pk': self.reklamacija.pk})

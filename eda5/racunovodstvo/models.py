@@ -61,7 +61,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
         ordering = ('-racunovodsko_leto', "-oznaka")
 
     def __str__(self):
-        return "%s | %s" % (self.dokument.oznaka, self.dokument.naziv)
+        return "%s|%s|%s-%s" % (self.dokument.oznaka, self.dokument.naziv, self.datum_storitve_od, self.datum_storitve_do)
 
 
 class Strosek(models.Model):
