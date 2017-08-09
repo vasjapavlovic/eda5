@@ -6,7 +6,7 @@ from django import forms
 from django.db.models import Q
 
 # Models
-from ..models import RacunRazdelilnik, Razdelilnik
+from ..models import Razdelilnik
 from eda5.racunovodstvo.models import Racun
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -17,47 +17,47 @@ class RazdelilnikCreateForm(forms.ModelForm):
     pass
 
 
-class RacunRazdelilnikCreateForm(forms.ModelForm):
+# class RacunRazdelilnikCreateForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super(RacunRazdelilnikCreateForm, self).__init__(*args, **kwargs)
-        # custom initial properties
+#     def __init__(self, *args, **kwargs):
+#         super(RacunRazdelilnikCreateForm, self).__init__(*args, **kwargs)
+#         # custom initial properties
 
-        # querysets
-        self.fields["racun"].queryset = Racun.objects.filter(davcna_klasifikacija=1).exclude(
-            racunrazdelilnik__isnull=False).order_by('-arhiviranje__dokument__aktivnost__datum_aktivnosti')  # davcna_klasifikacija=1 --> Razdelilnik,
-        self.fields["razdelilnik"].queryset = Razdelilnik.objects.exclude(status=4)  # status=4 --> zaključeno
+#         # querysets
+#         self.fields["racun"].queryset = Racun.objects.filter(davcna_klasifikacija=1).exclude(
+#             racunrazdelilnik__isnull=False).order_by('-arhiviranje__dokument__aktivnost__datum_aktivnosti')  # davcna_klasifikacija=1 --> Razdelilnik,
+#         self.fields["razdelilnik"].queryset = Razdelilnik.objects.exclude(status=4)  # status=4 --> zaključeno
 
-    class Meta:
-        model = RacunRazdelilnik
-        fields = (
-            'razdelilnik',
-            'racun',
-        )
+#     class Meta:
+#         model = RacunRazdelilnik
+#         fields = (
+#             'razdelilnik',
+#             'racun',
+#         )
 
 
 
-class RacunRazdelilnikUpdateForm(forms.ModelForm):
+# class RacunRazdelilnikUpdateForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super(RacunRazdelilnikUpdateForm, self).__init__(*args, **kwargs)
-        # custom initial properties
+#     def __init__(self, *args, **kwargs):
+#         super(RacunRazdelilnikUpdateForm, self).__init__(*args, **kwargs)
+#         # custom initial properties
 
-        # querysets
-        self.fields["racun"].queryset = Racun.objects.filter(davcna_klasifikacija=1).exclude(racunrazdelilnik__isnull=True)  # davcna_klasifikacija=1 --> Razdelilnik
-        self.fields["razdelilnik"].queryset = Razdelilnik.objects.exclude(status=4)  # status=4 --> zaključeno
+#         # querysets
+#         self.fields["racun"].queryset = Racun.objects.filter(davcna_klasifikacija=1).exclude(racunrazdelilnik__isnull=True)  # davcna_klasifikacija=1 --> Razdelilnik
+#         self.fields["razdelilnik"].queryset = Razdelilnik.objects.exclude(status=4)  # status=4 --> zaključeno
 
-    class Meta:
-        model = RacunRazdelilnik
-        fields = (
-            'razdelilnik',
-            'racun',
-            'is_razdeljen',
-            'razdeljen_datum',
-        )
-        widgets = {
-            'razdeljen_datum': DateInput(),
-        }
+#     class Meta:
+#         model = RacunRazdelilnik
+#         fields = (
+#             'razdelilnik',
+#             'racun',
+#             'is_razdeljen',
+#             'razdeljen_datum',
+#         )
+#         widgets = {
+#             'razdeljen_datum': DateInput(),
+#         }
 
 
 

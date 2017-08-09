@@ -4,6 +4,7 @@ class RacunManager(models.Manager):
     def create_racun(
         self,
         racunovodsko_leto=None,
+        stavba=None,
         oznaka=None,
         davcna_klasifikacija=None,
         datum_storitve_od=None,
@@ -20,6 +21,7 @@ class RacunManager(models.Manager):
         racun = self.model(
             racunovodsko_leto=racunovodsko_leto,
             oznaka=oznaka,
+            stavba=stavba,
             davcna_klasifikacija=davcna_klasifikacija,
             datum_storitve_od=datum_storitve_od,
             datum_storitve_do=datum_storitve_do,

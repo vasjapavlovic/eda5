@@ -24,7 +24,7 @@ class OpraviloAdmin(admin.ModelAdmin):
 
 @admin.register(DelovniNalog)
 class DelovniNalogAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['oznaka', 'opravilo__naziv']
 
 
 @admin.register(Delo)

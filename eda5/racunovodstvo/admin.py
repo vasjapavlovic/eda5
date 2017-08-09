@@ -32,11 +32,12 @@ class RacunAdmin(admin.ModelAdmin):
     ]
 
     search_fields = ['arhiviranje__dokument__oznaka']
-
+    raw_id_fields = ("racunovodsko_leto", "povracilo_stroskov_zaposlenemu",)
 
 @admin.register(Strosek)
 class StrosekAdmin(admin.ModelAdmin):
-    pass
+
+    raw_id_fields = ("racun", "delovni_nalog", "vrsta_stroska")
 
 
 @admin.register(Konto)

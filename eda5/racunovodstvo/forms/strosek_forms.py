@@ -26,8 +26,6 @@ class StrosekOsnovaCreateForm(forms.ModelForm):
             'naziv',
             'datum_storitve_od',
             'datum_storitve_do',
-            'obdobje_obracuna_leto',
-            'obdobje_obracuna_mesec',
             'delovni_nalog',
             'osnova',
             'stopnja_ddv',
@@ -41,15 +39,15 @@ class StrosekOsnovaCreateForm(forms.ModelForm):
 
 
 class StrosekRazdelilnikCreateForm(forms.ModelForm):
-
-    class Meta:
-        model = Strosek
-        fields = (
-            'lastniska_skupina',
-            'delilnik_vrsta',
-            'delilnik_kljuc',
-            'is_strosek_posameznidel',
-        )
+    pass
+    # class Meta:
+    #     model = Strosek
+    #     fields = (
+    #         'lastniska_skupina',
+    #         'delilnik_vrsta',
+    #         'delilnik_kljuc',
+    #         'is_strosek_posameznidel',
+    #     )
 
 
 class StrosekUpdateForm(forms.ModelForm):
@@ -61,16 +59,10 @@ class StrosekUpdateForm(forms.ModelForm):
             'naziv',
             'datum_storitve_od',
             'datum_storitve_do',
-            'obdobje_obracuna_leto',
-            'obdobje_obracuna_mesec',
             'delovni_nalog',
             'osnova',
             'stopnja_ddv',
             'vrsta_stroska',
-            'lastniska_skupina',
-            'delilnik_vrsta',
-            'delilnik_kljuc',
-            'is_strosek_posameznidel',
         )
 
         widgets = {

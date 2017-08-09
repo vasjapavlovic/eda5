@@ -62,6 +62,7 @@ class RacunCreateView(TemplateView):
             # racunovodsko_leto = racun_create_form.cleaned_data['racunovodsko_leto']
             # oznaka = racun_create_form.cleaned_data['oznaka']
             davcna_klasifikacija = racun_create_form.cleaned_data['davcna_klasifikacija']
+            stavba = racun_create_form.cleaned_data['stavba']
             datum_storitve_od = racun_create_form.cleaned_data['datum_storitve_od']
             datum_storitve_do = racun_create_form.cleaned_data['datum_storitve_do']
             valuta = racun_create_form.cleaned_data['valuta']
@@ -180,6 +181,7 @@ class RacunCreateView(TemplateView):
                 racunovodsko_leto=racunovodsko_leto,
                 oznaka=oznaka,
                 davcna_klasifikacija=davcna_klasifikacija,
+                stavba=stavba,
                 datum_storitve_od=datum_storitve_od,
                 datum_storitve_do=datum_storitve_do,
                 valuta=valuta,

@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from decimal import Decimal
 
 from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikvidiranModel
+from eda5.deli.models import Stavba
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.etaznalastnina.models import LastniskaSkupina
 from eda5.partnerji.models import Oseba
@@ -27,6 +28,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
     # ***Mandatory***
     oznaka = models.IntegerField()
     davcna_klasifikacija = models.IntegerField(choices=DAVCNA_KLASIFIKACIJA)
+    stavba = models.ForeignKey(Stavba, blank=True, null=True)
     valuta = models.DateField(blank=True, null=True)
     datum_storitve_od = models.DateField(blank=True, null=True)
     datum_storitve_do = models.DateField(blank=True, null=True)
@@ -61,23 +63,14 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
         ordering = ('-racunovodsko_leto', "-oznaka")
 
     def __str__(self):
-        return "%s|%s|%s-%s" % (self.dokument.oznaka, self.dokument.naziv, self.datum_storitve_od, self.datum_storitve_do)
+        return "%s-%s|%s|%s|%s|%s" % (
+            self.racunovodsko_leto, self.oznaka, 
+            self.davcna_klasifikacija,
+            self.dokument.oznaka, self.dokument.avtor.kratko_ime, self.dokument.datum_dokumenta)
 
 
 class Strosek(models.Model):
     # ---------------------------------------------------------------------------------------
-    DELILNIK_VRSTA = (
-            ("fiksni", "fiksni strošek"),
-            ("vuporabi", "LE v uporabi"),
-            ("delilniki", "po priloženem delilniku"),
-    )
-
-    DELILNIK_KLJUC = (
-            ("lastniski_delez", "lastniški delež"),
-            ("povrsina", "površina enote"),
-            ("st_enot", "število enot"),
-            ("oseba", "število oseb"),
-    )
 
     STOPNJE_DDV = (
         (0, "neobdavčeno"),
@@ -85,33 +78,39 @@ class Strosek(models.Model):
         (2, "višja stopnja"),
     )
 
-    # ATRIBUTES
-    # ***Relations***
-    racun = models.ForeignKey(Racun)
-    vrsta_stroska = models.ForeignKey("VrstaStroska")
-    lastniska_skupina = models.ForeignKey(LastniskaSkupina, blank=True, null=True)
+    # ATRIBUTI
+    ###########################################################
 
-    # *** Vezava računa na izvedeno opravilo ***
+    # Splošni podatki
+    oznaka = models.CharField(max_length=20)
+    naziv = models.CharField(max_length=200)
+
+    # Datum opravljene storitve
+    datum_storitve_od = models.DateField()
+    datum_storitve_do = models.DateField()
+
+    # Osnovna vrednost stroška
+    # vrednosti do 99.999,99 EUR (na dve decimalni mesti natančno)
+    osnova = models.DecimalField(decimal_places=5, max_digits=10, verbose_name='osnova za ddv')
+
+    # Stopnja DDV
+    # 0.22(22%) in 0.095(9,5%) | 0.000
+    stopnja_ddv = models.IntegerField(choices=STOPNJE_DDV, verbose_name="stopnja DDV")
+
+    # Strošek se vmesti v posamezno stroškovno mesto
+    # Glej opredelitev VrstaStroska spodaj
+    vrsta_stroska = models.ForeignKey("VrstaStroska")
+
+    # Strošek je del računa
+    racun = models.ForeignKey(Racun)
+
+    # Strošek vežemo na izvedeno opravilo s katerim
+    # ovrednotimo posamezno delo po delovnem nalogu
     delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
 
 
-    obdobje_obracuna_leto = models.ForeignKey(ObdobjeLeto)
-    obdobje_obracuna_mesec = models.ForeignKey(ObdobjeMesec)
-    # ***Mandatory***
-    oznaka = models.CharField(max_length=20)
-    naziv = models.CharField(max_length=200)
-    datum_storitve_od = models.DateField()
-    datum_storitve_do = models.DateField()
-    # vrednosti do 99.999,99 EUR (na dve decimalni mesti natančno)
-    osnova = models.DecimalField(decimal_places=5, max_digits=10, verbose_name='osnova za ddv')
-    # 0.22(22%) in 0.095(9,5%) | 0.000
-    stopnja_ddv = models.IntegerField(choices=STOPNJE_DDV, verbose_name="stopnja DDV")
-    delilnik_vrsta = models.CharField(blank=True, max_length=50, choices=DELILNIK_VRSTA)
-    delilnik_kljuc = models.CharField(blank=True, max_length=50, choices=DELILNIK_KLJUC)
-    is_strosek_posameznidel = models.NullBooleanField(verbose_name="strosek na posameznem delu")
-    # ***Optional***
-
     # OBJECT MANAGER
+    ###########################################################
     objects = StrosekManager()
 
     # CUSTOM PROPERTIES
@@ -146,10 +145,10 @@ class Strosek(models.Model):
     class Meta:
         verbose_name = 'strošek'
         verbose_name_plural = 'stroški'
-        ordering = ("oznaka",)
+        ordering = ("-racun__racunovodsko_leto", "-racun__oznaka", "-oznaka",)
 
     def __str__(self):
-        return "%s | %s" % (self.oznaka, self.naziv)
+        return "%s-%s-%s | %s" % (self.racun.racunovodsko_leto, self.racun.oznaka, self.oznaka, self.naziv)
 
 
 class Konto(models.Model):
