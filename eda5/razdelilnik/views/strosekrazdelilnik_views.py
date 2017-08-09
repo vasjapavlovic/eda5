@@ -29,32 +29,6 @@ from eda5.core.views import FilteredListView
 
 
 
-class StrosekRazdelilnikCreateRazdelilnikView(UpdateView):
-    model = Razdelilnik
-    template_name = "razdelilnik/strosekrazdelilnik/create/base.html"
-    fields = ('id', )
-
-
-    def post(self, request, *args, **kwargs):
-
-        razdelilnik = Razdelilnik.objects.get(id=self.get_object().id)
-
-        # zavihek
-        modul_zavihek = Zavihek.objects.get(oznaka="STROSEKRAZDELILNIK_CREATE")
-
-
-        StrosekRazdelilnik.objects.create_strosekrazdelilnik(
-            razdelilnik=razdelilnik,
-            strosek=strosek,
-        )
-
-
-
-        return HttpResponseRedirect(reverse('moduli:razdelilnik:razdelilnik_detail', kwargs={'pk': razdelilnik.pk}))
-
-
-
-
 class StrosekRazdelilnikCreateView(UpdateView):
     model = Strosek
     template_name = "razdelilnik/strosekrazdelilnik/create/base.html"
@@ -66,32 +40,50 @@ class StrosekRazdelilnikCreateView(UpdateView):
         modul_zavihek = Zavihek.objects.get(oznaka="STROSEKRAZDELILNIK_CREATE")
         context['modul_zavihek'] = modul_zavihek
 
+        # Pridobimo objekt instance = strošek
+        strosek = Strosek.objects.get(id=self.get_object().id)
+        context['strosek'] = strosek
+
+        # iz request.sessions pridobimo instanco razdelilnika
+        # v kateremu bomo obravnavali strošek. Glej
+        # razdelilnik:razdelilnik_views:RazdelilnikDetailView
+        razdelilnik_data = self.request.session.get('razdelilnik_data', None)
+        razdelilnik_pk = razdelilnik_data['razdelilnik_pk']
+        razdelilnik = Razdelilnik.objects.get(pk=razdelilnik_pk)
+        context['razdelilnik'] = razdelilnik
+
         return context
 
     def post(self, request, *args, **kwargs):
 
-        # object
-        strosek = Strosek.objects.get(id=self.get_object().id)
-        print(strosek)
-        razdelilnik_data = request.session.get('razdelilnik_data', None)
-        razdelilnik_pk = razdelilnik_data['razdelilnik_pk']
-        razdelilnik = Razdelilnik.objects.get(pk=razdelilnik_pk)
-        print(razdelilnik)
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="STROSEKRAZDELILNIK_CREATE")
 
+        # Pridobimo objekt instance = strošek
+        strosek = Strosek.objects.get(id=self.get_object().id)
 
-        StrosekRazdelilnik.objects.create_strosekrazdelilnik(
-            razdelilnik=razdelilnik,
-            strosek=strosek,
-        )
+        # iz request.sessions pridobimo instanco razdelilnika
+        # v kateremu bomo obravnavali strošek. Glej
+        # razdelilnik:razdelilnik_views:RazdelilnikDetailView
+        razdelilnik_data = request.session.get('razdelilnik_data', None)
+        razdelilnik_pk = razdelilnik_data['razdelilnik_pk']
+        razdelilnik = Razdelilnik.objects.get(pk=razdelilnik_pk)
 
 
+        # proces vezave stroška na razdelilnik kjer se bo razdelil
+        # v primeru, da se uporabnik premisli
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse('moduli:razdelilnik:razdelilnik_detail', kwargs={'pk': razdelilnik.pk}))
 
-        return HttpResponseRedirect(reverse('moduli:razdelilnik:razdelilnik_detail', kwargs={'pk': razdelilnik.pk}))
+        # Strošek vežemo na razdelilnik kjer se bo razdelil
+        else:
+            StrosekRazdelilnik.objects.create_strosekrazdelilnik(
+                razdelilnik=razdelilnik,
+                strosek=strosek,
+            )
+            return HttpResponseRedirect(reverse('moduli:razdelilnik:razdelilnik_detail', kwargs={'pk': razdelilnik.pk}))
 
-
-
+        
 
 class StrosekRazdelilnikUpdateView(LoginRequiredMixin, UpdateView):
     model = StrosekRazdelilnik

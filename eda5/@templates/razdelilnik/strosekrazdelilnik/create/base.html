@@ -53,17 +53,17 @@
 
     <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
         <div class="panel no_padding">
-            <div class="panel-heading background_dark_grey">Podatki o Strošku in razdelilniku</div>
+            <div class="panel-heading background_dark_grey">Vezava stroška k razdelilniku</div>
             <div class="panel-body background_grey">
-                {{ strosek_razdelilnik_create_form|crispy }}
+                Strosek: {{ strosek.racun.racunovodsko_leto }}-{{ strosek.racun.racunovodsko_leto }}-{{ strosek.oznaka }}<br>
+                Razdelilnik: {{ razdelilnik.oznaka }}
             </div>
         </div>
 
 
         <div class="panel ">
             <input class="bg-{{ modul_zavihek.modul.barva }}" type="submit" value="Potrdi Vnos">
-
-            
+            <input type="submit" name="cancel" value="Cancel" /> 
         </div>
 
 
