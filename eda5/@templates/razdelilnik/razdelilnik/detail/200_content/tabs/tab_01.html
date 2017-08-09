@@ -4,11 +4,11 @@
     <table class="table table-bordered table-striped">
             <col style="width:10%">
             <col style="width:10%">
+            <col style="width:40%">
+            <col style="width:15%">
             <col style="width:10%">
-            <col style="width:35%">
+            <col style="width:5%">
             <col style="width:10%">
-            <col style="width:20%">
-
         <thead>
 
             <tr style="font-size: 10px;" class="danger">
@@ -46,9 +46,7 @@
             <tr>
                 <tr style="font-size: 10px;" class="info">
                     <td>
-                        <b>{{ object.racun.racunovodsko_leto }}-
-                        {{ object.racun.racunovodsko_leto }}-
-                        {{ object.oznaka }}</b>
+                        <b>{{ object.racun.racunovodsko_leto }}-{{ object.racun.oznaka }}-{{ object.oznaka }}</b>
                     </td>
                     <td colspan=5>
                         <b>{{ object.naziv }}</b>
@@ -60,8 +58,8 @@
 
                 <tr style="font-size: 10px;">
                     <td><a href="{{ MEDIA_URL }}{{ object.racun.arhiviranje.dokument.priponka }}">{{ object.racun.arhiviranje.dokument.oznaka }}</a></td>
-                    <td>{{ object.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
                     <td>{{ object.racun.arhiviranje.dokument.datum_dokumenta }}</td>
+                    <td>{{ object.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
                     <td>{{ object.racun.datum_storitve_od }}-{{ object.racun.datum_storitve_do }}</td>
                     <td>{{ object.osnova }}</td>
                     <td>{{ object.stopnja_ddv_output }}</td>
@@ -87,10 +85,11 @@
     <table class="table table-bordered table-striped">
             <col style="width:10%">
             <col style="width:10%">
+            <col style="width:40%">
+            <col style="width:15%">
             <col style="width:10%">
-            <col style="width:35%">
+            <col style="width:5%">
             <col style="width:10%">
-            <col style="width:20%">
 
         <thead>
 
@@ -128,9 +127,7 @@
             <tr>
                 <tr style="font-size: 10px;" class="info">
                     <td>
-                        <b>{{ object.strosek.racun.racunovodsko_leto }}-
-                        {{ object.strosek.racun.racunovodsko_leto }}-
-                        {{ object.strosek.oznaka }}</b>
+                        <b>{{ object.strosek.racun.racunovodsko_leto }}-{{ object.strosek.racun.oznaka }}-{{ object.strosek.oznaka }}</b>
                     </td>
                     <td colspan=6>
                         <b>{{ object.strosek.naziv }}</b>
@@ -139,9 +136,9 @@
 
                 <tr style="font-size: 10px;">
                     <td><a href="{{ MEDIA_URL }}{{ object.strosek.racun.arhiviranje.dokument.priponka }}">{{ object.strosek.racun.arhiviranje.dokument.oznaka }}</a></td>
-                    <td>{{ object.strosek.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
                     <td>{{ object.strosek.racun.arhiviranje.dokument.datum_dokumenta }}</td>
-                    <td>{{ object.strosek.racun.datum_storitve_od }}-{{ object.racun.datum_storitve_do }}</td>
+                    <td>{{ object.strosek.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
+                    <td>{{ object.strosek.racun.datum_storitve_od }}-{{ object.strosek.racun.datum_storitve_do }}</td>
                     <td>{{ object.strosek.osnova }}</td>
                     <td>{{ object.strosek.stopnja_ddv_output }}</td>
                     <td>{{ object.strosek.strosek_z_ddv }}</td>
