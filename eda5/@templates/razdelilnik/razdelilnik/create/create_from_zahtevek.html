@@ -53,9 +53,9 @@
 
     <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
         <div class="panel no_padding">
-            <div class="panel-heading background_dark_grey">Podatki o reklamaciji</div>
+            <div class="panel-heading background_dark_grey">Podatki o razdelilniku</div>
             <div class="panel-body background_grey">
-                {{ reklamacija_create_from_zahtevek_form|crispy }}
+                {{ razdelilnik_create_from_zahtevek_form|crispy }}
             </div>
         </div>
 

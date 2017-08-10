@@ -20,7 +20,7 @@ from eda5.zaznamki.models import Zaznamek
 
 # Forms
 from ..forms.razdelilnik_forms import RazdelilnikSearchForm
-from ..forms.strosekrazdelilnik_forms import StrosekRazdelilnikCreateForm, StrosekRazdelilnikUpdateForm
+from ..forms.strosekrazdelilnik_forms import StrosekRazdelilnikUpdateRazdeliForm
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
 from eda5.zaznamki.forms import ZaznamekForm
 
@@ -85,15 +85,15 @@ class StrosekRazdelilnikCreateView(UpdateView):
 
         
 
-class StrosekRazdelilnikUpdateView(LoginRequiredMixin, UpdateView):
+class StrosekRazdelilnikUpdateRazdeliView(LoginRequiredMixin, UpdateView):
     model = StrosekRazdelilnik
-    form_class = StrosekRazdelilnikUpdateForm
+    form_class = StrosekRazdelilnikUpdateRazdeliForm
     template_name = "razdelilnik/strosekrazdelilnik/update/update.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(StrosekRazdelilnikUpdateView, self).get_context_data(*args, **kwargs)
+        context = super(StrosekRazdelilnikUpdateRazdeliView, self).get_context_data(*args, **kwargs)
 
-        modul_zavihek = Zavihek.objects.get(oznaka="RACUNRAZDELILNIK_CREATE")
+        modul_zavihek = Zavihek.objects.get(oznaka="STROSEKRAZDELILNIK_CREATE")
         context['modul_zavihek'] = modul_zavihek
 
         return context

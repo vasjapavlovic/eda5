@@ -5,3 +5,9 @@
 <li><a type="button" href="{% url 'moduli:arhiv:arhiviranje_create_from_razdelilnik' object.pk %}">Dodaj Dokument</a></li>
 
 <li><a type="button" href="{% url 'moduli:zaznamki:zaznamek_create_from_razdelilnik' object.pk %}">Dodaj Zaznamek</a></li>
+
+<li>
+    <form id="" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+        <input class="button_to_label" type="submit" value="Natisni seznam stroškov">
+    </form>
+</li>

@@ -13,8 +13,20 @@ DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 
-class RazdelilnikCreateForm(forms.ModelForm):
-    pass
+class RazdelilnikCreateFromZahtevekForm(forms.ModelForm):
+
+    class Meta:
+        model = Razdelilnik
+        fields = (
+            'stavba',
+            'obdobje_obracuna_leto',
+            'obdobje_obracuna_mesec',
+            'oznaka',
+            'naziv',
+        )
+        widgets = {
+        }
+
 
 
 # class RacunRazdelilnikCreateForm(forms.ModelForm):

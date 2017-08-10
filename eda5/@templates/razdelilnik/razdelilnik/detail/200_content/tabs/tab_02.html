@@ -1,87 +1,4 @@
-
-
-<div class="table-responsive">
-    <table class="table table-bordered table-striped">
-            <col style="width:10%">
-            <col style="width:10%">
-            <col style="width:40%">
-            <col style="width:15%">
-            <col style="width:10%">
-            <col style="width:5%">
-            <col style="width:10%">
-        <thead>
-
-            <tr style="font-size: 10px;" class="danger">
-                <th>int. oznaka</th>
-                <th colspan=5>Naziv</th>
-                <th>Ukazi</th>
-
-            </tr>
-            <tr style="font-size: 10px;" class="danger">
-                <th>št. dokumenta</th>
-                <th>Dobavitelj</th>
-                <th>Datum dokumenta</th>
-                <th>Datum opr. storitve</th>
-                <th>Vrednost BREZ</th>
-                <th>Stopnja DDV</th>
-                <th>Vrednost DDV</th>
-            </tr>
-
-        </thead>
-        <tbody>
-
-            {% regroup strosek_list by vrsta_stroska as vrstastroska_list %}
-            {% for vrsta_stroska in vrstastroska_list %}
-
-
-            <tr>
-                <td colspan=7 class="warning">
-                    <b>{{ vrsta_stroska.grouper }}</b>
-                </td>
-            </tr>
-
-
-            {% for object in vrsta_stroska.list %}
-            
-            <tr>
-                <tr style="font-size: 10px;" class="info">
-                    <td>
-                        <b>{{ object.racun.racunovodsko_leto }}-{{ object.racun.oznaka }}-{{ object.oznaka }}</b>
-                    </td>
-                    <td colspan=5>
-                        <b>{{ object.naziv }}</b>
-                    </td>
-                    <td colspan=7>
-                            <a href="{% url 'moduli:razdelilnik:strosekrazdelilnik_create' object.pk %}"><b>Poveži</b></a>
-                    </td>
-                </tr>
-
-                <tr style="font-size: 10px;">
-                    <td><a href="{{ MEDIA_URL }}{{ object.racun.arhiviranje.dokument.priponka }}">{{ object.racun.arhiviranje.dokument.oznaka }}</a></td>
-                    <td>{{ object.racun.arhiviranje.dokument.datum_dokumenta }}</td>
-                    <td>{{ object.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
-                    <td>{{ object.racun.datum_storitve_od }}-{{ object.racun.datum_storitve_do }}</td>
-                    <td>{{ object.osnova }}</td>
-                    <td>{{ object.stopnja_ddv_output }}</td>
-                    <td>{{ object.strosek_z_ddv }}</td>
-                </tr>
-                    
-            </tr>
-
-
-            {% endfor %}
-            {% endfor %}
-
-
-        </tbody>
-
-    </table>
-</div>
-
-
-
-
-
+NE-RAZDELJENI
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
             <col style="width:5%">
@@ -114,7 +31,7 @@
         </thead>
         <tbody>
 
-            {% regroup strosekrazdelilnik_list by strosek.vrsta_stroska as vrstastroska_list %}
+            {% regroup strosekrazdelilnik_nerazdeljeni by strosek.vrsta_stroska as vrstastroska_list %}
             {% for vrsta_stroska in vrstastroska_list %}
 
 
@@ -148,28 +65,99 @@
                     <td>{{ object.strosek.stopnja_ddv_output }}</td>
                     <td>{{ object.strosek.strosek_z_ddv }}</td>
                 </tr>
-
-                {% for postavka in object.strosekrazdelilnikpostavka_set.all %}
-                <tr style="font-size: 10px;">
-                    <td>{{ postavka.oznaka }}</td>
-                    <td>{{ postavka.naziv }}</td>
-                    <td>{{ postavka.lastniska_skupina.oznaka }}</td>
-                    <td>{{ postavka.delilnik_kljuc }}</td>
-                    <td>{{ postavka.delitev_vrsta }}</td>
-                    <td>{{ postavka.is_strosek_posameznidel }}</td>
-                    <td>{{ postavka.delilnik_vrednost }}</td>
-                    
-
-                </tr>
-                {% endfor %}
-
-
                     
             </tr>
 
-            
+            {% endfor %}
+            {% endfor %}
 
+
+        </tbody>
+
+        <tr style="font-size: 10px;">
+            <td colspan=7><b>SKUPAJ</b></td>
+        </tr>
+        <tr style="font-size: 10px;">
+            <td colspan=6>Skupaj Vrednost brez DDV</td>
+            <td>{{ vrednost_razdelilnik_osnova.vrednost }}</td>
+        </tr>
+        <tr style="font-size: 10px;">
+            <td colspan=6>Skupaj Vrednost z DDV</td>
+            <td>{{ vrednost_razdelilnik_zddv }}</td>
+        </tr>
+    </table>
+</div>
+
+RAZDELJENI
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+            <col style="width:5%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:35%">
+            <col style="width:15%">
+            <col style="width:10%">
+            <col style="width:5%">
+            <col style="width:10%">
+
+        <thead>
+
+            <tr style="font-size: 10px;" class="danger">
+                <th>ID</th>
+                <th>int. oznaka</th>
+                <th colspan=5>Naziv</th>
+
+            </tr>
+            <tr style="font-size: 10px;" class="danger">
+                <th>št. dokumenta</th>
+                <th>Dobavitelj</th>
+                <th>Datum dokumenta</th>
+                <th>Datum opr. storitve</th>
+                <th>Vrednost BREZ</th>
+                <th>Stopnja DDV</th>
+                <th>Vrednost DDV</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% regroup strosekrazdelilnik_razdeljeni by strosek.vrsta_stroska as vrstastroska_list %}
+            {% for vrsta_stroska in vrstastroska_list %}
+
+
+            <tr>
+                <td colspan=7 class="warning">
+                    <b>{{ vrsta_stroska.grouper }}</b>
+                </td>
+            </tr>
+
+
+            {% for object in vrsta_stroska.list %}
             
+            <tr>
+                <tr style="font-size: 10px;" class="info">
+                    <td><a href="{% url 'moduli:razdelilnik:strosekrazdelilnik_update_razdeli' object.pk %}">{{ object.pk }}</a>
+                    </td>
+                    <td>
+                        <b>{{ object.strosek.racun.racunovodsko_leto }}-{{ object.strosek.racun.oznaka }}-{{ object.strosek.oznaka }}</b>
+                    </td>
+                    <td colspan=5>
+                        <b>{{ object.strosek.naziv }}</b>
+                    </td>
+                </tr>
+
+                <tr style="font-size: 10px;">
+                    <td><a href="{{ MEDIA_URL }}{{ object.strosek.racun.arhiviranje.dokument.priponka }}">{{ object.strosek.racun.arhiviranje.dokument.oznaka }}</a></td>
+                    <td>{{ object.strosek.racun.arhiviranje.dokument.datum_dokumenta }}</td>
+                    <td>{{ object.strosek.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
+                    <td>{{ object.strosek.racun.datum_storitve_od }}-{{ object.strosek.racun.datum_storitve_do }}</td>
+                    <td>{{ object.strosek.osnova }}</td>
+                    <td>{{ object.strosek.stopnja_ddv_output }}</td>
+                    <td>{{ object.strosek.strosek_z_ddv }}</td>
+                </tr>
+                    
+            </tr>
+
             {% endfor %}
             {% endfor %}
 

@@ -37,6 +37,12 @@ class ZaporednaStevilka(models.Model):
 class ObdobjeLeto(models.Model):
     oznaka = models.IntegerField(primary_key=True)
 
+
+    # META AND STRING
+    # ------------------------------------------------------
+    class Meta:
+        ordering = ('-oznaka',)
+
     def __str__(self):
         return "%s" % (self.oznaka)
 

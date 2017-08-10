@@ -1,9 +1,10 @@
 from django.conf.urls import url, include
 
-from .views import razdelilnik_views, racunrazdelilnik_views, strosekrazdelilnik_views
+from .views import razdelilnik_views, strosekrazdelilnik_views
 
 urlpatterns = [
     # Razdelilnik
+    url(r'^razdelilnik-create/(?P<pk>\d+)$', razdelilnik_views.RazdelilnikCreateFromZahtevekView.as_view(), name="razdelilnik_create_from_zahtevek"),
     url(r'^razdelilnik-seznam/$', razdelilnik_views.RazdelilnikListView.as_view(), name="razdelilnik_list"),
     url(r'^(?P<pk>\d+)/detail/$', razdelilnik_views.RazdelilnikDetailView.as_view(), name="razdelilnik_detail"),
 
@@ -13,5 +14,5 @@ urlpatterns = [
 
     # RacunRazdelilnik
     url(r'^strosekrazdelilnik-create/(?P<pk>\d+)$', strosekrazdelilnik_views.StrosekRazdelilnikCreateView.as_view(), name="strosekrazdelilnik_create"),
-    url(r'^strosekrazdelilnik-update/(?P<pk>\d+)$', strosekrazdelilnik_views.StrosekRazdelilnikUpdateView.as_view(), name="strosekrazdelilnik_update"),
+    url(r'^strosekrazdelilnik-razdeli/(?P<pk>\d+)$', strosekrazdelilnik_views.StrosekRazdelilnikUpdateRazdeliView.as_view(), name="strosekrazdelilnik_update_razdeli"),
 ]

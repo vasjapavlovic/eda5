@@ -20,7 +20,9 @@ class Razdelilnik(StatusModel):
 
     # Oznaka razdelilnika
     # npr. "1" . Zaporedna št. Avtomatska generacija
-    oznaka = models.CharField(max_length=20)
+    oznaka = models.CharField(max_length=20, blank=True, null=True)
+    # avtomatsko generirana standardna oznaka
+    oznaka_gen = models.CharField(max_length=20, blank=True, null=True)
     
     # Naziv razdelilnika
     # npr. "2304-3037 / 2017-07" . Avtomatska generacija
@@ -185,7 +187,7 @@ class StrosekRazdelilnikPostavka(models.Model):
     class Meta:
         verbose_name = 'StrosekRazdelilnikPostavka'
         verbose_name_plural = 'StrosekRazdelilnikPostavke'
-        # ordering = ('-razdelilnik.obdobje_obracuna_leto', '-razdelilnik.obdobje_obracuna_mesec')
+        ordering = ('oznaka',)
 
     def __str__(self):
         return "%s-%s-%s" % (
