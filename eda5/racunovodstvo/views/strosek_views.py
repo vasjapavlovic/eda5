@@ -73,8 +73,6 @@ class StrosekCreateView(UpdateView):
             naziv = strosek_osnova_create_form.cleaned_data['naziv']
             datum_storitve_od = strosek_osnova_create_form.cleaned_data['datum_storitve_od']
             datum_storitve_do = strosek_osnova_create_form.cleaned_data['datum_storitve_do']
-            obdobje_obracuna_leto = strosek_osnova_create_form.cleaned_data['obdobje_obracuna_leto']
-            obdobje_obracuna_mesec = strosek_osnova_create_form.cleaned_data['obdobje_obracuna_mesec']
             delovni_nalog = strosek_osnova_create_form.cleaned_data['delovni_nalog']
             osnova = strosek_osnova_create_form.cleaned_data['osnova']
             stopnja_ddv = strosek_osnova_create_form.cleaned_data['stopnja_ddv']
@@ -101,8 +99,6 @@ class StrosekCreateView(UpdateView):
                 naziv=naziv,
                 datum_storitve_od=datum_storitve_od,
                 datum_storitve_do=datum_storitve_do,
-                obdobje_obracuna_leto=obdobje_obracuna_leto,
-                obdobje_obracuna_mesec=obdobje_obracuna_mesec,
                 delovni_nalog=delovni_nalog,
                 osnova=osnova,
                 stopnja_ddv=stopnja_ddv,

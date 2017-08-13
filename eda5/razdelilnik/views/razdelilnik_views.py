@@ -47,7 +47,7 @@ class RazdelilnikCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
         # zahtevek
         context['razdelilnik_create_from_zahtevek_form'] = RazdelilnikCreateFromZahtevekForm
 
-        modul_zavihek = Zavihek.objects.get(oznaka="reklamacija_create")
+        modul_zavihek = Zavihek.objects.get(oznaka="razdelilnik_create")
         context['modul_zavihek'] = modul_zavihek
 
         return context
@@ -73,7 +73,7 @@ class RazdelilnikCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 
         # zavihek
-        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_CREATE")
+        modul_zavihek = Zavihek.objects.get(oznaka="razdelilnik_create")
 
         # podatki o opravilu
         if razdelilnik_create_from_zahtevek_form.is_valid():
