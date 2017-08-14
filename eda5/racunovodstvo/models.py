@@ -145,7 +145,7 @@ class Strosek(models.Model):
     class Meta:
         verbose_name = 'strošek'
         verbose_name_plural = 'stroški'
-        ordering = ("-racun__racunovodsko_leto", "-racun__oznaka", "-oznaka",)
+        ordering = ("-racun__racunovodsko_leto", "-racun__oznaka", "oznaka",)
 
     def __str__(self):
         return "%s-%s-%s | %s" % (self.racun.racunovodsko_leto, self.racun.oznaka, self.oznaka, self.naziv)
