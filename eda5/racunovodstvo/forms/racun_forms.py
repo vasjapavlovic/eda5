@@ -24,8 +24,8 @@ class RacunCreateForm(forms.ModelForm):
         model = Racun
         fields = (
             "davcna_klasifikacija",
-            "datum_storitve_od",
             "stavba",
+            "datum_storitve_od",
             "datum_storitve_do",
             "valuta",
             "povracilo_stroskov_zaposlenemu",
