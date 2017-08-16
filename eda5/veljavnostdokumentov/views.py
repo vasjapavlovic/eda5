@@ -29,10 +29,6 @@ class VeljavnostDokumentaCreateView(UpdateView):
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
-        sledenje_dokumentaciji_seznam = VeljavnostDokumenta.objects.all()
-        context['sledenje_dokumentaciji_seznam'] = sledenje_dokumentaciji_seznam
-
-
         return context
 
     def post(self, request, *args, **kwargs):
