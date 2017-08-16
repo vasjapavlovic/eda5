@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from eda5.arhiv.models import Arhiviranje
 from eda5.core.models import TimeStampedModel, IsActiveModel
 from eda5.deli.models import Stavba
+from eda5.planiranje.models import PlaniranoOpravilo
 from eda5.racunovodstvo.models import VrstaStroska
 # Managers
 from . import managers
@@ -28,6 +29,10 @@ class VeljavnostDokumenta(TimeStampedModel, IsActiveModel):
 
     # Stroškovno mesto
     vrsta_stroska = models.ForeignKey(VrstaStroska, blank=True, null=True, verbose_name="Vrsta Stroška")
+
+    # Planirano opravilo
+    planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True, verbose_name="Planirano Opravilo")
+
 
     #   Optional
     # OBJECT MANAGER

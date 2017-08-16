@@ -13,6 +13,8 @@ class VeljavnostDokumentaCreateForm(forms.ModelForm):
         model = VeljavnostDokumenta
         fields = (
             'stavba',
+            'planirano_opravilo',
+            # vrsta_stroska --> eda5:racunovodstvo:vrsta_stroska --> izbiraForm
             'velja_od',
             'velja_do',
         )
@@ -30,6 +32,7 @@ class VeljavnostDokumentaUpdateForm(VeljavnostDokumentaCreateForm):
             'is_active',
             'stavba',
             'vrsta_stroska',
+            'planirano_opravilo',
             'velja_od',
             'velja_do',
         )

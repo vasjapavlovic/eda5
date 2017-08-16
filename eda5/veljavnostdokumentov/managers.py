@@ -8,6 +8,7 @@ class VeljavnostDokumentaManager(models.Manager):
         arhiviranje=None,
         stavba=None,
         vrsta_stroska=None,
+        planirano_opravilo=None,
         velja_od=None,
         velja_do=None,
     ):
@@ -16,6 +17,7 @@ class VeljavnostDokumentaManager(models.Manager):
             arhiviranje=arhiviranje,
             stavba=stavba,
             vrsta_stroska=vrsta_stroska,
+            planirano_opravilo=planirano_opravilo,
             velja_od=velja_od,
             velja_do=velja_do,
         )
