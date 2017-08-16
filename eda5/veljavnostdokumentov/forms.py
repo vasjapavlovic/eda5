@@ -12,6 +12,7 @@ class VeljavnostDokumentaCreateForm(forms.ModelForm):
     class Meta:
         model = VeljavnostDokumenta
         fields = (
+            'stavba',
             'velja_od',
             'velja_do',
         )
@@ -27,6 +28,8 @@ class VeljavnostDokumentaUpdateForm(VeljavnostDokumentaCreateForm):
         model = VeljavnostDokumenta
         fields = (
             'is_active',
+            'stavba',
+            'vrsta_stroska',
             'velja_od',
             'velja_do',
         )

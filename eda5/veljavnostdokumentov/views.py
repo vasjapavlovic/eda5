@@ -1,19 +1,17 @@
+# Python
+# Django
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView
-
-
-# Veljavnost dokumentov
-from .forms import VeljavnostDokumentaCreateForm, VeljavnostDokumentaUpdateForm
+# Models
 from .models import VeljavnostDokumenta
-
-
-# Arhiv
 from eda5.arhiv.models import Arhiviranje
-
-# Moduli
 from eda5.moduli.models import Zavihek
+# Managers
+# Forms
+from .forms import VeljavnostDokumentaCreateForm, VeljavnostDokumentaUpdateForm
+from eda5.racunovodstvo.forms.vrsta_stroska_forms import VrstaStroskaIzbiraVeljavnostDokumentovForm
 
 
 class VeljavnostDokumentaCreateView(UpdateView):
@@ -24,8 +22,8 @@ class VeljavnostDokumentaCreateView(UpdateView):
     def get_context_data(self, *args, **kwargs):
         context = super(VeljavnostDokumentaCreateView, self).get_context_data(*args, **kwargs)
 
-        # opravilo
         context['veljavnost_dokumenta_create_form'] = VeljavnostDokumentaCreateForm
+        context['vrsta_stroska_izbira_form'] = VrstaStroskaIzbiraVeljavnostDokumentovForm
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
@@ -41,17 +39,28 @@ class VeljavnostDokumentaCreateView(UpdateView):
 
         # forms
         veljavnost_dokumenta_create_form = VeljavnostDokumentaCreateForm(request.POST or None)
+        vrsta_stroska_izbira_form = VrstaStroskaIzbiraVeljavnostDokumentovForm(request.POST or None)
 
-        # zavihek
-        # modul_zavihek = Zavihek.objects.get(oznaka="VELJAVNOST_DOKUMENTA_CREATE")
 
-        # izdelamo opravilo (!!!elemente opravilu dodamo kasneje)
+        if vrsta_stroska_izbira_form.is_valid():
+            vrsta_stroska = vrsta_stroska_izbira_form.cleaned_data['vrsta_stroska']
+
+        else:
+            return render(request, self.template_name, {
+                'veljavnost_dokumenta_create_form': veljavnost_dokumenta_create_form,
+                'vrsta_stroska_izbira_form': vrsta_stroska_izbira_form,
+                }
+            )
+
         if veljavnost_dokumenta_create_form.is_valid():
+            stavba = veljavnost_dokumenta_create_form.cleaned_data['stavba']
             velja_od = veljavnost_dokumenta_create_form.cleaned_data['velja_od']
             velja_do = veljavnost_dokumenta_create_form.cleaned_data['velja_do']
 
             veljavnost_dokumenta_data = VeljavnostDokumenta.objects.create_veljavnost_dokumenta(
                 arhiviranje=arhiviranje,
+                stavba=stavba,
+                vrsta_stroska=vrsta_stroska,
                 velja_od=velja_od,
                 velja_do=velja_do,
             )
@@ -61,21 +70,12 @@ class VeljavnostDokumentaCreateView(UpdateView):
         else:
             return render(request, self.template_name, {
                 'veljavnost_dokumenta_create_form': veljavnost_dokumenta_create_form,
+                'vrsta_stroska_izbira_form': vrsta_stroska_izbira_form,
                 # 'modul_zavihek': modul_zavihek,
                 }
             )
 
-        if arhiviranje.zahtevek:
-            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': arhiviranje.zahtevek.pk}))
 
-        if arhiviranje.dobava:
-            return HttpResponseRedirect(reverse('moduli:skladisce:dobava_detail', kwargs={'pk': arhiviranje.dobava.pk}))
-
-        if arhiviranje.delovninalog:
-            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': arhiviranje.delovninalog.pk}))
-
-        if arhiviranje.reklamacija:
-            return HttpResponseRedirect(reverse('moduli:reklamacije:reklamacija_detail', kwargs={'pk': arhiviranje.reklamacija.pk}))
 
 
 class VeljavnostDokumentaUpdateView(UpdateView):
