@@ -55,11 +55,13 @@ class VeljavnostDokumentaCreateView(UpdateView):
             stavba = veljavnost_dokumenta_create_form.cleaned_data['stavba']
             velja_od = veljavnost_dokumenta_create_form.cleaned_data['velja_od']
             velja_do = veljavnost_dokumenta_create_form.cleaned_data['velja_do']
+            planirano_opravilo = veljavnost_dokumenta_create_form.cleaned_data['planirano_opravilo']
 
             veljavnost_dokumenta_data = VeljavnostDokumenta.objects.create_veljavnost_dokumenta(
                 arhiviranje=arhiviranje,
                 stavba=stavba,
                 vrsta_stroska=vrsta_stroska,
+                planirano_opravilo=planirano_opravilo,
                 velja_od=velja_od,
                 velja_do=velja_do,
             )
