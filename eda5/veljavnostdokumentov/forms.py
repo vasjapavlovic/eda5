@@ -12,7 +12,7 @@ class VeljavnostDokumentaCreateForm(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
-        super(VeljavnostDokumentaUpdateForm, self).__init__(*args, **kwargs)
+        super(VeljavnostDokumentaCreateForm, self).__init__(*args, **kwargs)
 
         self.fields['planirano_opravilo'].queryset = PlaniranoOpravilo.objects.filter(is_active=True)
 
