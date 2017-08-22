@@ -9,6 +9,7 @@ class VeljavnostDokumentaManager(models.Manager):
         stavba=None,
         vrsta_stroska=None,
         planirano_opravilo=None,
+        narocilo=None,
         velja_od=None,
         velja_do=None,
     ):
@@ -18,6 +19,7 @@ class VeljavnostDokumentaManager(models.Manager):
             stavba=stavba,
             vrsta_stroska=vrsta_stroska,
             planirano_opravilo=planirano_opravilo,
+            narocilo=narocilo,
             velja_od=velja_od,
             velja_do=velja_do,
         )

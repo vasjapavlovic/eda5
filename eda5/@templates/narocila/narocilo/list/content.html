@@ -18,7 +18,7 @@
                         <tr>
                             <td><b><a href="{% url 'moduli:narocila:narocilo_detail' object.id %}">{{ object.oznaka }}</a></b></td>
                             <td>{{ object.predmet }}</td>
-                            <td>{{ object.narocnik.naziv }}</td>
+                            <td>{{ object.narocnik.kratko_ime }}</td>
                             <td>{{ object.izvajalec.kratko_ime }}</td>
                         </tr>
 
