@@ -61,6 +61,7 @@ class Narocilo(TimeStampedModel):
     class Meta:
         verbose_name = 'naročilo'
         verbose_name_plural = 'naročila'
+        ordering=('-id',)
 
     def __str__(self):
         return '%s - %s' % (self.oznaka, self.predmet)
