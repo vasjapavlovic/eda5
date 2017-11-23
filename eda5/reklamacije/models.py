@@ -13,7 +13,7 @@ from eda5.zahtevki.models import Zahtevek
 
 class Reklamacija(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusModel):
 
-	''' 
+	'''
 	V modulu Reklamacije se beležijo reklamacije računov, izvedbe del,
 	reklamacije materiala. Sledenje reklamacijam so v primeru EDAFM
 	tudi merljiv cilj po ISO 9001.
@@ -45,7 +45,7 @@ class Reklamacija(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusMode
 	oznaka = models.CharField(
 		max_length=255,
 		verbose_name="oznaka",)
- 
+
 	naziv = models.CharField(
 		max_length=255,
 		verbose_name="naziv",)
@@ -60,7 +60,7 @@ class Reklamacija(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusMode
 		Partner,
 		related_name="reklamacija_narocnik",
 		verbose_name="naročnik",)
- 
+
 	izvajalec = models.ForeignKey(
 		Partner,
 		related_name="reklamacija_izvajalec",
@@ -72,12 +72,12 @@ class Reklamacija(TimeStampedModel, IsActiveModel, IsLikvidiranModel, StatusMode
 		decimal_places=2,
 		verbose_name="Okvirni Strošek Reklamacije",)
 
-	zahtevek = models.ForeignKey( 
+	zahtevek = models.ForeignKey(
 		Zahtevek,
 		blank=True, null=True,
 		verbose_name="zahtevek")
-	
-	delovninalog = models.ForeignKey( 
+
+	delovninalog = models.ForeignKey(
 		DelovniNalog,
 		blank=True, null=True,
 		verbose_name="delovninalog")

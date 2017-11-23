@@ -35,7 +35,7 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
         # redirecta na zahtevek pod katerim je dogodek registriran
         return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
 
-    # META AND STRING  
+    # META AND STRING
     class Meta:
     	verbose_name="dogodek"
     	verbose_name_plural="dogodki"
@@ -66,4 +66,4 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS
-    # META AND STRING  
+    # META AND STRING
