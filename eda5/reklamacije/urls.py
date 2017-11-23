@@ -13,25 +13,25 @@ urlpatterns = [
 urlpatterns += [
 
     url(
-    	r'^reklamacija/seznam/$', 
-    	reklamacija_views.ReklamacijaListView.as_view(), 
+    	r'^reklamacija/seznam/$',
+    	reklamacija_views.ReklamacijaListView.as_view(),
     	name="reklamacija_list"
     ),
 
     url(
-    	r'^(?P<pk>\d+)/detail/$', 
-    	reklamacija_views.ReklamacijaDetailView.as_view(), 
+    	r'^(?P<pk>\d+)/detail/$',
+    	reklamacija_views.ReklamacijaDetailView.as_view(),
     	name="reklamacija_detail"
     ),
 
     url(
-    	r'^(?P<pk>\d+)/reklamacija/create/$', 
-        reklamacija_views.ReklamacijaCreateFromZahtevekView.as_view(), 
+    	r'^(?P<pk>\d+)/reklamacija/create/$',
+        reklamacija_views.ReklamacijaCreateFromZahtevekView.as_view(),
         name="reklamacija_create_from_zahtevek"
     ),
 
-    url(r'^(?P<pk>\d+)/reklamacija/update/$', 
-        reklamacija_views.ReklamacijaUpdateView.as_view(), 
+    url(r'^(?P<pk>\d+)/reklamacija/update/$',
+        reklamacija_views.ReklamacijaUpdateView.as_view(),
         name="reklamacija_update"
     ),
 

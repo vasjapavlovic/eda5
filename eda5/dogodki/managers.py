@@ -26,3 +26,11 @@ class DogodekManager(models.Manager):
 
         dogodek.save(using=self._db)
         return dogodek
+
+        # zahtevki v reševanju
+    def status_vresevanju(self, **kwargs):
+        return self.filter(status=3).order_by('-id')
+
+    # zaključeni zahtevki
+    def status_zakljuceno(self, **kwargs):
+        return self.filter(status=4).order_by('-id')

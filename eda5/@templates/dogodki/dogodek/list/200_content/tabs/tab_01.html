@@ -1,0 +1,39 @@
+<!-- TAB_01 Content -->
+
+
+
+<!-- Ko še ni registriranih vnosov -->
+{% if not dogodki_vresevanju %}
+    V reševanju ni dogodkov.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>DATUM</th>
+                <th>OPIS</th>
+                <th>JE ŠKODA</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for object in dogodki_vresevanju %}
+
+            <tr>
+                <td><a href="">{{ object.pk }}</a></td>
+                <td>{{ object.datum_dogodka }}</td>
+                <td>{{ object.opis_dogodka }}</td>
+                <td>{{ object.is_nastala_skoda }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}
