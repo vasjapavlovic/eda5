@@ -25,7 +25,7 @@
             {% for object in dogodki_zakljuceno %}
 
             <tr>
-                <td><a href="">{{ object.pk }}</a></td>
+                <td><a href="{% url 'moduli:dogodki:dogodek_detail' object.pk %}">{{ object.pk }}</a></td>
                 <td>{{ object.datum_dogodka }}</td>
                 <td>{{ object.opis_dogodka }}</td>
                 <td>{{ object.is_nastala_skoda }}</td>

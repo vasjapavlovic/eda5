@@ -6,6 +6,7 @@ from . import managers
 
 # Models
 from eda5.delovninalogi.models import DelovniNalog
+from eda5.dogodki.models import Dogodek
 from eda5.povprasevanje.models import Povprasevanje
 from eda5.razdelilnik.models import Razdelilnik
 from eda5.reklamacije.models import Reklamacija
@@ -20,6 +21,7 @@ class Zaznamek(models.Model):
     #   Relations
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     dobava = models.ForeignKey(Dobava, blank=True, null=True)
+    dogodek = models.ForeignKey(Dogodek, blank=True, null=True)
     povprasevanje = models.ForeignKey(Povprasevanje, blank=True, null=True)
     razdelilnik = models.ForeignKey(Razdelilnik, blank=True, null=True)
     reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
@@ -38,11 +40,17 @@ class Zaznamek(models.Model):
     # METHODS
     def get_absolute_url(self):
 
-        if self.zahtevek:
-            return reverse("moduli:zahtevki:zahtevek_detail", kwargs={'pk': self.zahtevek.pk})
-
         if self.delovninalog:
             return reverse("moduli:delovninalogi:dn_detail", kwargs={'pk': self.delovninalog.pk})
+
+        if self.dobava:
+            return reverse("moduli:skladisce:dobava_detail", kwargs={'pk': self.dobava.pk})
+
+        if self.dogodek:
+            return reverse("moduli:dogodki:dogodek_detail", kwargs={'pk': self.dogodek.pk})
+
+        if self.povprasevanje:
+            return reverse("moduli:povprasevanje:povprasevanje_detail", kwargs={'pk': self.povprasevanje.pk})
 
         if self.razdelilnik:
             return reverse("moduli:razdelilnik:razdelilnik_detail", kwargs={'pk': self.razdelilnik.pk})
@@ -50,14 +58,12 @@ class Zaznamek(models.Model):
         if self.reklamacija:
             return reverse("moduli:reklamacije:reklamacija_detail", kwargs={'pk': self.reklamacija.pk})
 
-        if self.dobava:
-            return reverse("moduli:skladisce:dobava_detail", kwargs={'pk': self.dobava.pk})
-
         if self.sestanek:
             return reverse("moduli:sestanki:sestanek_detail", kwargs={'pk': self.sestanek.pk})
 
-        if self.povprasevanje:
-            return reverse("moduli:povprasevanje:povprasevanje_detail", kwargs={'pk': self.povprasevanje.pk})
+        if self.zahtevek:
+            return reverse("moduli:zahtevki:zahtevek_detail", kwargs={'pk': self.zahtevek.pk})
+
 
     # META AND STRING
     class Meta:

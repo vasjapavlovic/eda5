@@ -22,8 +22,8 @@
         </thead>
         <tbody>
 
-        
-            
+
+
 
             {% for arhiviranje in arhiv_mesto.arhiviranje_set.all %}
 
@@ -34,6 +34,7 @@
             {% if not arhiviranje.reklamacija %}<!-- če je direktno pod reklamacijo -->
             {% if not arhiviranje.sestanek %}<!-- če je direktno pod sestanek -->
             {% if not arhiviranje.povprasevanje %}<!-- če je direktno pod povprasevanje -->
+
 
             <!-- V primeru, da se dokument vodi v evidenci veljavnosti dokumentov -->
             {% if arhiviranje.veljavnostdokumenta.is_active %}
@@ -65,18 +66,18 @@
             {% endif %}
             {% endif %}
             {% endif %}
-            
+
             {% endfor %}
 
-            
 
-            
+
+
             <!-- Dokumentacija iz Delovnih nalogov -->
             {% for opravilo in object.opravilo_set.all %}
             {% for delovninalog in opravilo.delovninalog_set.all %}
 
 
-            
+
 
 
 
@@ -88,7 +89,7 @@
                 <td class="" colspan="6">Delovni nalog: št.: <b><a href="{% url 'moduli:delovninalogi:dn_detail' delovninalog.pk %}">{{ delovninalog.oznaka }}</a></b> | <b>{{ delovninalog.opravilo.naziv }}</b></td></tr>
 
             {% if delovninalog.strosek %}
-            
+
 
             <!-- vezava stroška na delovni nalog iz računovodstva -->
             <tr>
@@ -114,7 +115,7 @@
 
 
             {% for arhiviranje in delovninalog.arhiviranje_set.all %}
-                
+
             <!-- V primeru, da se dokument vodi v evidenci veljavnosti dokumentov -->
             {% if arhiviranje.veljavnostdokumenta.is_active %}
             <tr class="info">
@@ -138,7 +139,7 @@
                     {% endif %}
                 </td>
             </tr>
-            
+
             {% endfor %}
 
             {% endif %}
@@ -154,10 +155,10 @@
             <!-- HEADER pod dokumenti -->
             <!-- Če ni dokumentov headerja ne prikaži -->
             {% if dogodek.arhiviranje_set.all %}
-            <tr class="warning">
-                <td colspan="6"><b>Dogodek: ({{ dogodek.datum_dogodka }}) {{ dogodek.opis_dogodka }}</b></td>
-            </tr>
 
+            <tr class="warning table_bottom_border">
+                <td class="" colspan="6">Dogodek: št.: <b><a href="{% url 'moduli:dogodki:dogodek_detail' dogodek.pk %}">{{ dogodek.id }}</a></b> | <b>{{ dogodek.opis_dogodka }}</b></td></tr>
+            </tr>
             {% for arhiviranje in dogodek.arhiviranje_set.all %}
 
             <!-- V primeru, da se dokument vodi v evidenci veljavnosti dokumentov -->
@@ -185,7 +186,7 @@
             </tr>
 
             {% endfor %}
-            
+
             {% endif %}
 
             {% endfor %}
@@ -231,7 +232,7 @@
             </tr>
 
             {% endfor %}
-            
+
             {% endif %}
 
             {% endfor %}
@@ -277,7 +278,7 @@
             </tr>
 
             {% endfor %}
-            
+
             {% endif %}
 
             {% endfor %}
@@ -329,7 +330,7 @@
             </tr>
 
             {% endfor %}
-            
+
             {% endif %}
 
             {% endfor %}
@@ -377,7 +378,7 @@
             </tr>
 
             {% endfor %}
-            
+
             {% endif %}
 
             {% endfor %}

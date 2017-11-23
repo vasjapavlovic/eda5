@@ -1,0 +1,6 @@
+<li class="dropdown-header">Splošno Dogodek</li>
+<li><a type="button" href="{% url 'moduli:dogodki:dogodek_update_from_zahtevek' object.pk %}"><b>Uredi</b> Podatke</a></li>
+
+<li><a type="button" href="{% url 'moduli:arhiv:arhiviranje_create_from_dogodek' object.pk %}">Dodaj Dokument</a></li>
+
+<li><a type="button" href="{% url 'moduli:zaznamki:zaznamek_create_from_dogodek' object.pk %}">Dodaj Zaznamek</a></li>

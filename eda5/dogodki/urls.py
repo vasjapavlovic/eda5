@@ -28,4 +28,10 @@ urlpatterns += [
     ),
 
 
+    url(
+        r'^(?P<pk>\d+)/detail/$',
+        dogodek_views.DogodekDetailView.as_view(),
+        name="dogodek_detail"
+    ),
+
 ]

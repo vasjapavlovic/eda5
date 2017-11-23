@@ -1,0 +1,43 @@
+<!-- HEADER -->
+
+<!-- table col width -->
+<col style="width:15%">
+<col style="width:85%">
+
+
+<!-- Header -->
+
+<tr>
+    <td><small><b>ID</b></small></td>
+    <td></b>{{ object.pk }}</td>
+</tr>
+
+<tr>
+    <td><small><b>OPIS</b></small></td>
+    <td>{{ object.opis_dogodka }}</td>
+</tr>
+
+<tr>
+    <td><small><b>Datum</b></small></td>
+    <td>{{ object.datum_dogodka }}</td>
+</tr>
+
+<tr>
+    <td><small><b>Status</b></small></td>
+    <td></b>{{ object.get_status_display }}</b></td>
+</tr>
+
+<tr>
+    <td><small><b>Zahtevek</b></small></td>
+    <td>Dogodek se rešuje v zahtevku št. <a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></td>
+</tr>
+
+<tr>
+    <td><small><b>Prijava škode</b></small></td>
+    <td><a href="{{ MEDIA_URL }}{{ object.prijava_skode.dokument.priponka }}">{{ object.prijava_skode.dokument.oznaka }}</a></td>
+</tr>
+
+<tr>
+    <td><small><b>Poravnava škode</b></small></td>
+    <td><a href="{{ MEDIA_URL }}{{ object.poravnava_skode.dokument.priponka }}">{{ object.poravnava_skode.dokument.oznaka }}</a></td>
+</tr>

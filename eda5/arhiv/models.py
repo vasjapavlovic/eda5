@@ -2,6 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.apps import apps
 
 from . import managers
 
@@ -9,6 +10,7 @@ from . import managers
 from eda5.core.models import TimeStampedModel
 from eda5.deli.models import DelStavbe, Element
 from eda5.delovninalogi.models import DelovniNalog
+# dogodki.Dogodek
 from eda5.katalog.models import ModelArtikla
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
@@ -23,7 +25,7 @@ from eda5.zahtevki.models import Zahtevek
 # Forms
 
 ''' POZOR !!! uporabljeni DJANGO-SIGNALS.
-    Avtomatsko se izdelajo 
+    Avtomatsko se izdelajo
         - ArhivskoMesto
 '''
 
@@ -100,6 +102,7 @@ class Arhiviranje(TimeStampedModel):
     delovninalog = models.ForeignKey(DelovniNalog, blank=True, null=True)
     delstavbe = models.ForeignKey(DelStavbe, blank=True, null=True)
     dobava = models.ForeignKey(Dobava, blank=True, null=True)
+    dogodek = models.ForeignKey('dogodki.Dogodek', blank=True, null=True)
     element = models.ForeignKey(Element, blank=True, null=True)
     povprasevanje = models.ForeignKey(Povprasevanje, blank=True, null=True)
     razdelilnik = models.ForeignKey(Razdelilnik, blank=True, null=True)
@@ -108,7 +111,7 @@ class Arhiviranje(TimeStampedModel):
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
 
     # dodaj dogodek
-    
+
     ''' edino račun ima lahko samo eno priponko '''
     racun = models.OneToOneField(Racun, blank=True, null=True)
     # ********************************************************************
