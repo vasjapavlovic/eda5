@@ -32,7 +32,7 @@ from eda5.zaznamki.models import Zaznamek
 from ..forms import ZahtevekUpdateForm, ZahtevekIzbiraForm, ZahtevekSearchForm
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
 from eda5.delovninalogi.forms import OpraviloCreateForm, OpraviloElementUpdateForm, OpraviloPomanjkljivostUpdateForm
-from eda5.dogodki.forms import DogodekCreateForm, DogodekUpdateForm
+from eda5.dogodki.forms.dogodek_forms import DogodekCreateForm, DogodekUpdateForm
 from eda5.kljuci.forms import PredajaKljucaCreateForm, PredajaKljucaVraciloForm
 from eda5.zaznamki.forms import ZaznamekForm
 

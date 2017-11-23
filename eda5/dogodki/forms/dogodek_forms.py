@@ -2,7 +2,7 @@ from django import forms
 from django.db.models import Q
 from functools import partial
 
-from .models import Dogodek
+from ..models import Dogodek
 
 from eda5.arhiv.models import Arhiviranje
 from eda5.posta.models import Dokument
@@ -13,19 +13,19 @@ TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
 
 class DogodekCreateForm(forms.ModelForm):
 
-	class Meta:
-		model = Dogodek
-		fields = (
-			'datum_dogodka',
-			'opis_dogodka',
-			'cas_dogodka',
-			'is_potrebna_prijava_policiji',
-			'is_nastala_skoda',
-			'povzrocitelj',
+    class Meta:
+        model = Dogodek
+        fields = (
+            'datum_dogodka',
+            'opis_dogodka',
+            'cas_dogodka',
+            'is_potrebna_prijava_policiji',
+            'is_nastala_skoda',
+            'povzrocitelj',
 
 
-		)
-		widgets = {
+        )
+        widgets = {
             'datum_dogodka': DateInput(),
             'cas_dogodka':TimeInput(),
         }
@@ -88,22 +88,22 @@ class DogodekUpdateForm(forms.ModelForm):
 
 
     class Meta:
-    	model = Dogodek
-    	fields = (
-			'datum_dogodka',
-			'opis_dogodka',
-			'cas_dogodka',
-			'is_potrebna_prijava_policiji',
-			'povzrocitelj',
-			'predvidena_visina_skode',
-			'is_nastala_skoda',
-			'prijava_skode',
-			'prijava_policiji',
+        model = Dogodek
+        fields = (
+            'datum_dogodka',
+            'opis_dogodka',
+            'cas_dogodka',
+            'is_potrebna_prijava_policiji',
+            'povzrocitelj',
+            'predvidena_visina_skode',
+            'is_nastala_skoda',
+            'prijava_skode',
+            'prijava_policiji',
             'racun_za_popravilo',
-			'poravnava_skode',
-		)
+            'poravnava_skode',
+        )
 
-    	widgets = {
+        widgets = {
             'datum_dogodka': DateInput(),
             'cas_dogodka':TimeInput(),
         }

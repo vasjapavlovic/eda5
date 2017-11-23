@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 
-from ..forms import DogodekCreateForm, DogodekUpdateForm
+from ..forms.dogodek_forms import DogodekCreateForm, DogodekUpdateForm
 from ..models import Dogodek
 
 
