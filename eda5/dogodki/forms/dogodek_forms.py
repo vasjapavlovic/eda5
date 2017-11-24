@@ -36,17 +36,17 @@ class DogodekUpdateForm(forms.ModelForm):
         super(DogodekUpdateForm, self).__init__(*args, **kwargs)
 
         self.fields['prijava_skode'].queryset = Arhiviranje.objects.filter(
-            Q(zahtevek=self.instance.zahtevek) &
+            Q(lokacija_hrambe__oznaka=self.instance.zahtevek.oznaka) &
             Q(dokument__vrsta_dokumenta__oznaka="PS")
         )
 
         self.fields['prijava_policiji'].queryset = Arhiviranje.objects.filter(
-            Q(zahtevek=self.instance.zahtevek) &
+            Q(lokacija_hrambe__oznaka=self.instance.zahtevek.oznaka) &
             Q(dokument__vrsta_dokumenta__oznaka="ZAP")
         )
 
         self.fields['poravnava_skode'].queryset = Arhiviranje.objects.filter(
-            Q(zahtevek=self.instance.zahtevek)
+            Q(lokacija_hrambe__oznaka=self.instance.zahtevek.oznaka)
         )
 
         # filtriranje izbora dokumentov za racun_za_popravilo
