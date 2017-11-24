@@ -131,7 +131,6 @@ class ArhiviranjeSearchForm(forms.Form):
             return queryset.filter(
                 Q(dokument__naziv__icontains=naziv_filter)
                 )
-        
 
         # uporabnik filtrira po kratkem imenu in naslovu partnerja
         if oznaka_filter and naziv_filter:

@@ -33,18 +33,20 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
     objects = managers.DogodekManager()
     # CUSTOM PROPERTIES
     # METHODS
-    def get_absolute_url(self):
-        # redirecta na zahtevek pod katerim je dogodek registriran
-        return reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': self.zahtevek.pk})
 
+    def get_absolute_url(self):
+        return reverse('moduli:dogodki:dogodek_detail', kwargs={'pk': self.pk})
+
+    #---------------------------------------------------------
+    # META and STR
+    # ========================================================
     # META AND STRING
     class Meta:
-    	verbose_name="dogodek"
-    	verbose_name_plural="dogodki"
+        verbose_name="dogodek"
+        verbose_name_plural="dogodki"
 
     def __str__(self):
-    	return "%s (%s)" % (self.zahtevek.naziv, self.zahtevek.oznaka)  # Oznaka dogodka je kar oznaka zahtevka glede na to,
-    										  # da samo en dogodek lahko rešuje pod en zahtevek
+        return "%s | %s | %s" % (self.pk, self.opis_dogodka, self.datum_dogodka)
 
 #class ZahtevekSkodniDogodek2(models.Model):
     # ---------------------------------------------------------------------------------------
