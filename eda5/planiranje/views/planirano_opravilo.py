@@ -1,37 +1,33 @@
 # PYTHON ##############################################################
 from datetime import datetime, timedelta
 
-
 # DJANGO ##############################################################
 from django.core.urlresolvers import reverse
+from django.db.models import F, Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, UpdateView
 
-
-# INTERNO ##############################################################
-from ..forms import PlaniranoOpraviloCreateform
-from ..models import Plan, PlaniranoOpravilo, PlaniranaAktivnost
-
-
-# UVOŽENO ##############################################################
-
-# Moduli
-from eda5.moduli.models import Zavihek
-
-# Katalog
+# Models
+from ..models import Plan
+from ..models import PlaniranoOpravilo
+from ..models import PlaniranaAktivnost
+from eda5.delovninalogi.models import DelovniNalog
+from eda5.delovninalogi.models import Delo
+from eda5.delovninalogi.models import Opravilo
+from eda5.delovninalogi.models import VzorecOpravila
 from eda5.katalog.models import ArtikelPlan
-
-# Predpisi
+from eda5.moduli.models import Zavihek
 from eda5.predpisi.models import Predpis
 
-# Deli FORMS
-from eda5.deli.forms import\
-    projektnomesto_forms
+# Forms
+from ..forms import PlaniranoOpraviloCreateform
+from eda5.deli.forms import projektnomesto_forms
+from eda5.delovninalogi.forms import OpraviloElementUpdateForm
+from eda5.delovninalogi.forms import VzorecOpravilaCreateForm
 
-# Delovni Nalogi
-from eda5.delovninalogi.forms import OpraviloElementUpdateForm, VzorecOpravilaCreateForm
-from eda5.delovninalogi.models import Opravilo, VzorecOpravila
+
+
 
 
 class PlaniranoOpraviloCreateView(UpdateView):
@@ -112,6 +108,9 @@ class PlaniranoOpraviloDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(PlaniranoOpraviloDetailView, self).get_context_data(*args, **kwargs)
 
+        # instanca
+        planirano_opravilo = self.object.id
+
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="PLANIRANO_OPRAVILO_DETAIL")
         context['modul_zavihek'] = modul_zavihek
@@ -122,7 +121,7 @@ class PlaniranoOpraviloDetailView(DetailView):
 
         # Predpis
         # PlaniranoOpravilo --> PlaniranaAktivnost
-        # PlaniranaAktivnost --> artikel_plan 
+        # PlaniranaAktivnost --> artikel_plan
         # artikel_plan --> predpis_opravilo
         # predpis_opravilo --> predpis
         # predpis_opravilo --> artikel_plan
@@ -131,7 +130,7 @@ class PlaniranoOpraviloDetailView(DetailView):
 
         artikel_plan_list = []
 
- 
+
         for planirana_aktivnost in planirana_aktivnost_list:
             artikel_plan_obj = planirana_aktivnost.artikel_plan
             artikel_plan_list.append(artikel_plan_obj)
@@ -150,6 +149,81 @@ class PlaniranoOpraviloDetailView(DetailView):
         #     predpis_list.append(predpis_obj)
 
         context['predpis_opravilo_list'] = predpis_opravilo_list
+
+
+
+        # DNEVNIK IZVEDENIH DEL (delovni nalogi)
+
+        # Seznam delovnih nalogov glede na izbrano planirano opravilo
+        opravila_izvedena_list = DelovniNalog.objects.filter(opravilo__planirano_opravilo=planirano_opravilo)
+        # Prikaži samo zaključene delovne naloge
+        opravila_izvedena_list = opravila_izvedena_list.filter(status=4).annotate(porabljen_cas=Sum('delo__delo_cas_rac'))
+        # Razvrsti delovne naloge od zadnjega proti prvemu glede na datum izvedbe
+        opravila_izvedena_list = opravila_izvedena_list.order_by('-datum_stop')
+        # izpišemo vsebino v context
+        context['opravila_izvedena_list'] = opravila_izvedena_list
+
+
+        # POROČANJE O PORABLJENEM ČASU ZA POSAMEZNO OPRAVILO
+
+        def zaokrozen_zmin(time_input, zmin, operator):
+            '''
+            zaokroži čas glede na zmin podan v minutah
+            Author: Vasja Pavlovič 2017
+            '''
+            hours, reminder = divmod(time_input.seconds, 3600)
+            minutes, seconds = divmod(reminder, 60)
+            # koliko je celih
+            x, ostanek = divmod(minutes, zmin)
+            if ostanek > 0:
+                if operator == "+":
+                    x = x + 1
+                if operator == "-":
+                    x
+            # če je x=6 je potrebno tudi uro povečati +1
+            if x == 6:
+                hours = hours + 1
+            hours = hours
+            minutes = zmin * x
+            seconds = 0
+            zaokrozen_zmin = timedelta(hours=hours, minutes=minutes, seconds=seconds)
+            return zaokrozen_zmin
+
+        def pretvori_v_ure(time_input):
+            '''
+            timedelta object pretvori v ure npr. timedelta(hours=x)
+            '''
+            seconds = time_input.seconds
+            skupaj_ur = seconds/3600
+            return skupaj_ur
+
+
+        ##################################################################
+        '''
+        Izpis del v delovnem nalogu
+        '''
+        ##################################################################
+
+        for delovninalog in opravila_izvedena_list:
+
+            # enota za zaokroževanje
+            zmin = delovninalog.opravilo.zmin
+            # seznam del pod delovnim nalogom
+            delo_list = Delo.objects.filter(delovninalog=delovninalog).annotate(delo_cas=F('time_stop')-F('time_start'))
+
+
+            for delo in delo_list:
+                # osnovni delo_cas
+                delo_cas = delo.delo_cas
+                # zaokrožen delo_cas
+                delo_cas_rac = zaokrozen_zmin(delo_cas, zmin, '+')
+                # pretvorjen v decimalno številko delo_cas
+                delo_cas_rac = pretvori_v_ure(delo_cas_rac)
+                # shranimo v bazo
+                delo.delo_cas_rac = delo_cas_rac
+                delo.save()
+
+
 
         return context
 

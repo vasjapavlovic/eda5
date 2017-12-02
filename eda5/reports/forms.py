@@ -9,7 +9,7 @@ from django.utils.encoding import smart_text
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec
 from eda5.etaznalastnina.models import Program
 from eda5.narocila.models import Narocilo
-from eda5.racunovodstvo.models import SkupinaVrsteStroska, VrstaStroska 
+from eda5.racunovodstvo.models import SkupinaVrsteStroska, VrstaStroska
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})

@@ -1,0 +1,29 @@
+
+<script>
+
+$(function () {
+$('#chart_container2').highcharts({
+chart: {
+type: 'column'
+},
+title: {
+text: 'Planirano opravilo <br><b>{{ object.oznaka }}</b>'
+},
+xAxis: {
+categories: [{% for object in opravila_izvedena_list %}'{{ object.datum_stop }}',{% endfor %}]
+},
+yAxis: {
+title: {
+text: 'enota ...'
+}
+},
+series: [
+{
+name: '{{ object.oznaka }}',
+data: [{% for object in opravila_izvedena_list %}{{ object.porabljen_cas }},{% endfor %}]
+}
+]
+});
+});
+</script>
+

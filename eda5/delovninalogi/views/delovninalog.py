@@ -76,7 +76,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=self.object.id).distinct('delavec')
 
         # from za izbiro formata izvoza
-        context['format_form'] = FormatForm 
+        context['format_form'] = FormatForm
 
         # skladisce
         context['material_list'] = Dnevnik.objects.filter(delovninalog=self.object.id)
@@ -94,7 +94,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
 
-        
+
         ###########################################################################
         # FORMS
         ###########################################################################
@@ -104,13 +104,13 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         ###########################################################################
         # PRIDOBIMO PODATKE
         ###########################################################################
-        
+
 
         # instanca
         # Delovni nalog s katerim imamo opravka (instanca)
         delovninalog = DelovniNalog.objects.get(id=self.get_object().id)
 
-        
+
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
@@ -130,7 +130,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             '''
             hours, reminder = divmod(time_input.seconds, 3600)
             minutes, seconds = divmod(reminder, 60)
-            # koliko je celih 
+            # koliko je celih
             x, ostanek = divmod(minutes, zmin)
             if ostanek > 0:
                 if operator == "+":
@@ -181,12 +181,12 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             delo.save()
 
         '''
-        Glede na izračunane čase za izvedbo del 
+        Glede na izračunane čase za izvedbo del
         izračunamo skupne porabljene čase po VRSTA_DELA.
         '''
         delo_cas_vrstadela = Delo.objects.filter(delovninalog=delovninalog)
         vrstadel_cas_list = delo_cas_vrstadela.values('vrsta_dela__oznaka', 'vrsta_dela__naziv').order_by('vrsta_dela').annotate(vrstadela_cas_rac_sum=Sum('delo_cas_rac'))
-  
+
 
         '''
         Skupni čas porabljen za izvedbo vseh del
@@ -212,7 +212,7 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             ###########################################################################
             # UKAZI
             ###########################################################################
-        
+
             # iz instance pridobimo željene podatke
             # ki jih bomo uporabili v izpisu
             vrsta_dokumenta = "DELOVNI NALOG"
@@ -242,9 +242,9 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
             # izdelamo izpis
             filename = fill_template(
                 # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
-                'obrazci/delovninalogi/delovninalog_20170327.odt', 
-                # podatki za uporabo v oblikovni datoteki   
-                izpis_data,                     
+                'obrazci/delovninalogi/delovninalog_20170327.odt',
+                # podatki za uporabo v oblikovni datoteki
+                izpis_data,
                 output_format="pdf"
             )
 

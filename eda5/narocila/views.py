@@ -225,12 +225,12 @@ class NarociloDokumentCreateView(UpdateView):
 
         if narocilo_dokument_form.is_valid():
             vrsta_dokumenta = narocilo_dokument_form.cleaned_data['vrsta_dokumenta']
-            
+
             # VALIDACIJE **************************************************
             # Validacija 01
             # Če izbrane vrste dokumentov ni likvidiranih v zahtevku ne pusti naprej
 
-            # pridobimo isntanco arhiviranja za dostopanje do dokumentov, 
+            # pridobimo isntanco arhiviranja za dostopanje do dokumentov,
             # ki so arhivirani pod zahtevkom
             arhiviranje_zahtevek = Arhiviranje.objects.filter(zahtevek=zahtevek)
 

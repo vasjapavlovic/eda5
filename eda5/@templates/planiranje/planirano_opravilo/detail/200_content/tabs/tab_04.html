@@ -1,0 +1,27 @@
+<div class="table-responsive">
+<!-- Izvdena Opravila -->
+
+<div id="chart_container2"></div>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Zaključeno</th>
+        <th>Oznaka</th>
+        <th>čas</th>
+
+    </tr>
+
+    {% for object in opravila_izvedena_list %}
+
+    <tr>
+        <td>{{ object.datum_stop }}</td>
+        <td><a href="{% url 'moduli:delovninalogi:dn_detail' object.pk %}">{{ object.oznaka }}</a></td>
+        <td>{{object.porabljen_cas}}</td>
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+</div>
+

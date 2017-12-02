@@ -2,8 +2,9 @@ from django.db import models
 from django.db.models import get_model
 from django.utils import timezone
 
-# Naročila
+# Managers
 from . import managers
+from eda5.core.managers import StatusManager
 
 # Models
 
@@ -11,7 +12,7 @@ from . import managers
 from eda5 import arhiv
 
 # Core
-from eda5.core.models import TimeStampedModel
+from eda5.core.models import TimeStampedModel, StatusModel
 
 # Partnerji
 from eda5.partnerji.models import Partner, Oseba
@@ -32,7 +33,7 @@ class Narocilo(TimeStampedModel):
     zahtevek = models.ForeignKey(Zahtevek, null=True, blank=True)
     narocnik = models.ForeignKey(Partner, related_name="narocnik")
     izvajalec = models.ForeignKey(Partner, related_name="izvajalec")
-    
+
     # narocilo_narocilnica = models.OneToOneField("NarociloNarocilnica", blank=True, null=True)
     # narocilo_eposta = models.OneToOneField("NarosciloEposta", blank=True, null=True)
     narocilo_telefon = models.OneToOneField("NarociloTelefon", blank=True, null=True)
@@ -47,6 +48,7 @@ class Narocilo(TimeStampedModel):
     # ***Optional***
     # OBJECT MANAGER
     objects = managers.NarociloManager()
+
 
     # CUSTOM PROPERTIES
     @property
@@ -74,7 +76,7 @@ class NarociloDokument(TimeStampedModel):
     narocilo = models.OneToOneField(Narocilo, blank=True, null=True)
 
     vrsta_dokumenta = models.ForeignKey(
-        VrstaDokumenta, 
+        VrstaDokumenta,
         verbose_name="vrsta dokumenta")
     # ***Mandatory***
 
@@ -109,7 +111,7 @@ class NarociloTelefon(TimeStampedModel):
         verbose_name='čas dogovora')
 
     dogovor_person = models.CharField(
-        max_length=255, blank=True, null=True, 
+        max_length=255, blank=True, null=True,
         verbose_name='Oseba s katero si se dogovarjal')
 
     dogovor_phonenumber = models.CharField(
