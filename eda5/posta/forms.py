@@ -25,7 +25,7 @@ class AktivnostCreateForm(forms.ModelForm):
         model = Aktivnost
         fields = (
             'datum_aktivnosti',
-            
+
         )
         widgets = {
             'datum_aktivnosti': DateInput(),
@@ -36,11 +36,19 @@ class SkupinaDokumentaIzbiraForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SkupinaDokumentaIzbiraForm, self).__init__(*args, **kwargs)
-        
+
         self.fields['skupina_dokumenta'].required = False
+        self.fields['vrsta_dokumenta'].required = False
+        self.fields['skupina_dokumenta_hidden'].required = False
+        self.fields['vrsta_dokumenta_hidden'].required = False
 
     skupina_dokumenta = forms.ModelChoiceField(queryset=SkupinaDokumenta.objects.all())
+    vrsta_dokumenta = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())
+
+    # za filtriranje
+    skupina_dokumenta_hidden = forms.ModelChoiceField(queryset=SkupinaDokumenta.objects.all())
     vrsta_dokumenta_hidden = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())
+
 
 
 class DokumentCreateForm(forms.ModelForm):
@@ -130,7 +138,7 @@ class DokumentSearchForm(forms.Form):
                 Q(naslovnik__kratko_ime__icontains=naziv_filter) |
                 Q(naziv__icontains=naziv_filter)
             )
-        
+
 
         # uporabnik filtrira po kratkem imenu in naslovu partnerja
         if oznaka_filter and naziv_filter:
@@ -148,3 +156,34 @@ class DokumentSearchForm(forms.Form):
             )
 
         return queryset
+
+
+
+class DokumentFilterForm(forms.Form):
+
+    uporabim_filter = forms.BooleanField(label='Uporabi filter')
+    oznaka = forms.CharField(label='št. dokumenta', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+    kraj_izdaje = forms.CharField(label='kraj izdaje', required=False)
+    datum_od = forms.DateField(
+        label='OD datuma',
+        required=False,
+        widget=DateInput()
+        )
+    datum_do = forms.DateField(
+        label='DO datuma',
+        required=False,
+        widget=DateInput()
+        )
+
+    avtor = forms.IntegerField(
+        required=False,
+        widget=PartnerForeignKeyRawIdWidget(Dokument._meta.get_field('avtor').rel, site)
+        )
+
+    naslovnik = forms.IntegerField(
+        required=False,
+        widget=PartnerForeignKeyRawIdWidget(Dokument._meta.get_field('naslovnik').rel, site)
+        )
+
+

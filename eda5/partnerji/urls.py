@@ -5,7 +5,7 @@ from . import views
 
 # HOME
 urlpatterns = [
-    url(r'^$', views.PartnerHomeView.as_view(), name='home'),
+
 ]
 
 # Partner

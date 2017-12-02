@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content-body %}
+
+<!-- form za filtriranje -->
+<form method="GET" action="" enctype="multipart/form-data">
+  <table>
+
+
+    <tr>
+      <td>{{ dokument_filter_form.oznaka.label }}</td>
+      <td>{{ dokument_filter_form.oznaka }}</td>
+    </tr>
+    <tr>
+      <td>{{ dokument_filter_form.naziv.label }}</td>
+      <td>{{ dokument_filter_form.naziv }}</td>
+    </tr>
+    <tr>
+      <td>{{ dokument_filter_form.kraj_izdaje.label }}</td>
+      <td>{{ dokument_filter_form.kraj_izdaje }}</td>
+    </tr>
+
+
+
+    <tr>
+      <td>{{ dokument_filter_form.datum_od.label }}</td>
+      <td>{{ dokument_filter_form.datum_od }}</td>
+    </tr>
+    <tr>
+      <td>{{ dokument_filter_form.datum_do.label }}</td>
+      <td>{{ dokument_filter_form.datum_do }}</td>
+    </tr>
+
+    <tr>
+      <td>{{ dokument_filter_form.avtor.label }}</td>
+      <td>{{ dokument_filter_form.avtor }}</td>
+    </tr>
+
+    <tr>
+      <td>{{ dokument_filter_form.naslovnik.label }}</td>
+      <td>{{ dokument_filter_form.naslovnik }}</td>
+    </tr>
+
+
+    <tr>
+      <td>{{ vrsta_dokumenta_izbira.skupina_dokumenta.label }}</td>
+      <td>{{ vrsta_dokumenta_izbira.skupina_dokumenta }}</td>
+    </tr>
+
+    <tr>
+      <td>{{ vrsta_dokumenta_izbira.vrsta_dokumenta.label }}</td>
+      <td>{{ vrsta_dokumenta_izbira.vrsta_dokumenta }}</td>
+    </tr>
+
+    <tr>
+      <td>{{ dokument_filter_form.uporabim_filter.label }}</td>
+      <td>{{ dokument_filter_form.uporabim_filter }}</td>
+    </tr>
+
+  </table>
+
+
+  <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
+
+  <div id="reload_controls_view" style="display: none;">{% url 'moduli:posta:reload_controls' %}</div>
+</form>
+
+
+<div class="table-resposnive">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>vrsta dokumenta</td>
+                <td>oznaka</td>
+                <td>datum</td>
+                <td>avtor</td>
+                <td>naslovnik</td>
+                <td>predmet</td>
+                <td>priponka</td>
+                <td>Edit</td>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for dokument in dokument_list_filtered %}
+            <tr>
+
+                <td>{{ dokument.vrsta_dokumenta.naziv }} ({{ dokument.vrsta_dokumenta.oznaka }})</td>
+                <td><b><a href="{% url 'moduli:posta:dokument_detail' dokument.pk %}">{{ dokument.oznaka }}</a></b></td>
+                <td>{{ dokument.datum_dokumenta }}</td>
+                <td>{{ dokument.avtor.kratko_ime }}</td>
+                <td>{{ dokument.naslovnik.kratko_ime }}</td>
+                <td>{{ dokument.naziv }}</td>
+
+
+
+
+                <td><a href="{{ MEDIA_URL }}{{ dokument.priponka }}">priponka</a></td>
+                <td><a href="{% url 'moduli:posta:dokument_update' dokument.pk %}">Edit</a>{% if dokument.arhiviranje.zahtevek %}
+                <a href="{% url 'moduli:zahtevki:zahtevek_detail' dokument.arhiviranje.zahtevek.pk %}"><i class="fa fa-book" aria-hidden="true"></i>{% endif %}
+                </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+
+<!-- js related to the application -->
+<script>
+
+    $('#create_form').on('change', '#id_skupina_dokumenta', function()
+    {
+        reload_controls(this.value);
+    });
+
+    function reload_controls(skupina_dokumenta)
+    {
+        $.ajax
+        ({
+            type: 'POST',
+            url: $("#reload_controls_view").text(),
+            dataType: 'json',
+            data: "skupina_dokumenta="+skupina_dokumenta,
+            success: function(result)
+            {
+                //empty month drop down list
+                $("#id_vrsta_dokumenta").empty()
+
+                //add months with no report
+                $("#id_vrsta_dokumenta").append('<option value="">---------</option>')
+                $.each( result.list_to_display, function( index, value )
+                {
+                    //use the hidden drop down list to populate the month field
+                    vrsta_dokumenta=$("#id_vrsta_dokumenta_hidden option[value='" + value + "']").text()
+                    //add months to the drop down list
+                    $('#id_vrsta_dokumenta').append('<option value="'+value+'">'+vrsta_dokumenta+'</option>')
+
+                });
+            },
+            error: function(xhr, status, error)
+            {
+                window.console&&console.log(xhr.responseText);
+            }
+        });
+    }
+
+</script>
+
+{% endblock %}

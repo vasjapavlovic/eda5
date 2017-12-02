@@ -27,10 +27,6 @@ from eda5.moduli.models import Zavihek
 
 
 
-class PartnerHomeView(TemplateView):
-    template_name = "partnerji/home.html"
-
-
 class PartnerCreateView(CreateView):
     model = Partner
     form_class = PartnerCreateForm
@@ -92,13 +88,36 @@ class PartnerDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(PartnerDetailView, self).get_context_data(*args, **kwargs)
+
+        partner = self.object.id
+
+
         context['oseba_form'] = self.form_class
         context['trr_form'] = TrrCreateWidget
 
         modul_zavihek = Zavihek.objects.get(oznaka="PR_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
+
+
+        # SEZNAM DOKUMENTOV PO PARTNERJIH
+
+        # izdana pošta seznam
+        izdana_posta_partnerja = Dokument.objects.filter(avtor=partner)
+        # razporedi po datumu dokumenta
+        izdana_posta_partnerja = izdana_posta_partnerja.order_by('datum_dokumenta')
+        # izpiši v kontekst
+        context['izdana_posta_partnerja'] = izdana_posta_partnerja
+
+        # prejeta pošta seznam
+        prejeta_posta_partnerja = Dokument.objects.filter(naslovnik=partner)
+        # razporedi po datumu dokumenta
+        prejeta_posta_partnerja = prejeta_posta_partnerja.order_by('datum_dokumenta')
+        # izpiši v kontekst
+        context['prejeta_posta_partnerja'] = prejeta_posta_partnerja
+
         return context
+
 
     def post(self, request, *args, **kwargs):
         oseba_form = OsebaCreateWidget(request.POST or None)
@@ -182,7 +201,7 @@ class PartnerPopupCreateView(CreateView):
         if form.is_valid():
             try:
                 newObject = form.save()
-                print('New Object Saved') 
+                print('New Object Saved')
             except:
                 raise forms.ValidationError('Error-napisal Vasja')
                 newObject = None

@@ -10,7 +10,8 @@ title: {
 text: 'Planirano opravilo <br><b>{{ object.oznaka }}</b>'
 },
 xAxis: {
-categories: [{% for object in opravila_izvedena_list %}'{{ object.datum_stop }}',{% endfor %}]
+categories: [{% for object in opravila_izvedena_list %}'{{ object.oznaka }}',{% endfor %}]
+
 },
 yAxis: {
 title: {

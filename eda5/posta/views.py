@@ -1,33 +1,59 @@
-from django.shortcuts import render
-from django.db.models import Max, Q
-from django.http import JsonResponse
-from django.core.context_processors import csrf
-from django.views.generic.edit import FormMixin
-
-
-
+# Python
 import os
 
+# Django
 from django.conf import settings
+
+from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
+
+from django.db.models import Max
+from django.db.models import Q
+
 from django.http import HttpResponseRedirect
-from django.views.generic import DetailView, ListView, TemplateView, UpdateView
+from django.http import JsonResponse
+
+from django.shortcuts import render
+
+from django.views.generic import DetailView
+from django.views.generic import ListView
+from django.views.generic import TemplateView
+from django.views.generic import UpdateView
+from django.views.generic.edit import FormMixin
+
 from django.utils import timezone
 
-from .forms import AktivnostCreateForm, DokumentCreateForm, DokumentSearchForm, SkupinaDokumentaIzbiraForm
-from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
+# Utils
 
-from eda5.arhiv.forms import ArhiviranjeCreateForm
-from eda5.arhiv.models import Arhiviranje, ArhivMesto, Arhiv
+# Models
+from .models import Aktivnost
+from .models import Dokument
+from .models import SkupinaDokumenta
+from .models import VrstaDokumenta
 
-# core
-from eda5.core.views import FilteredListView
-
-from eda5.nastavitve.models import NastavitevPartnerja
-
-from eda5.partnerji.models import Oseba, Partner
+from eda5.arhiv.models import Arhiviranje
+from eda5.arhiv.models import ArhivMesto
+from eda5.arhiv.models import Arhiviranje
 
 from eda5.moduli.models import Zavihek
+from eda5.nastavitve.models import NastavitevPartnerja
+
+from eda5.partnerji.models import Oseba
+from eda5.partnerji.models import Partner
+
+
+# Forms
+from .forms import AktivnostCreateForm
+from .forms import DokumentCreateForm
+from .forms import DokumentFilterForm
+from .forms import DokumentSearchForm
+from .forms import SkupinaDokumentaIzbiraForm
+
+
+from eda5.arhiv.forms import ArhiviranjeCreateForm
+
+# Views
+from eda5.core.views import FilteredListView
 
 
 class PostaHomeView(TemplateView):
@@ -51,8 +77,91 @@ class DokumentListView(FilteredListView):
         return context
 
 
-    
+class DokumentCustomListView(TemplateView):
+    template_name = "posta/dokument/list_filter.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(DokumentCustomListView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_LIST_FILTERED")
+        context['modul_zavihek'] = modul_zavihek
+        return context
+
+    def get_form_kwargs(self):
+        return {
+          'initial': self.get_initial(),
+          'prefix': self.get_prefix(),
+          'data': self.request.GET or None
+        }
+
+    def get(self, request, *args, **kwargs):
+
+        # form za filtriranje
+        dokument_filter_form = DokumentFilterForm(request.GET or None)
+        vrsta_dokumenta_izbira = SkupinaDokumentaIzbiraForm(request.GET or None)
+
+        # na začetku so vsi formi neustrezni
+        dokument_filter_form_is_valid = False
+        vrsta_dokumenta_izbira_is_valid = False
+
+        # Filtriranje prejete in izdane pošte splošno
+        if dokument_filter_form.is_valid():
+            oznaka = dokument_filter_form.cleaned_data['oznaka']
+            naziv = dokument_filter_form.cleaned_data['naziv']
+            kraj_izdaje = dokument_filter_form.cleaned_data['kraj_izdaje']
+            avtor = dokument_filter_form.cleaned_data['avtor']
+            naslovnik = dokument_filter_form.cleaned_data['naslovnik']
+            datum_od = dokument_filter_form.cleaned_data['datum_od']
+            datum_do = dokument_filter_form.cleaned_data['datum_do']
+            dokument_filter_form_is_valid = True
+
+        # vrsta dokumenta form
+        if vrsta_dokumenta_izbira.is_valid():
+            vrsta_dokumenta = vrsta_dokumenta_izbira.cleaned_data['vrsta_dokumenta']
+            vrsta_dokumenta_izbira_is_valid = True
+
+
+        # IZDELAMO FILTRIRAN SEZNAM DOKUMENTOV
+        # če ne vpišemo niti enega podatka vrni prazen seznam - da ne odpiramo vseh dokumentov brez veze
+        if dokument_filter_form_is_valid == True and vrsta_dokumenta_izbira_is_valid == True:
+            dokument_list_filtered = Dokument.objects.filter()
+            dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
+        else:
+            dokument_list_filtered = []
+
+        if dokument_filter_form_is_valid == True:
+            # filtriraj samo glede na podane podatke. Če podatka ni ga ne uporabiš.
+            if oznaka:
+                dokument_list_filtered = dokument_list_filtered.filter(oznaka=oznaka)
+            if naziv:
+                dokument_list_filtered = dokument_list_filtered.filter(naziv__icontains=naziv)
+            if kraj_izdaje:
+                dokument_list_filtered = dokument_list_filtered.filter(kraj_izdaje__icontains=kraj_izdaje)
+
+            if avtor:
+                dokument_list_filtered = dokument_list_filtered.filter(avtor=avtor)
+
+            if naslovnik:
+                dokument_list_filtered = dokument_list_filtered.filter(naslovnik=naslovnik)
+
+            if datum_od:
+                dokument_list_filtered = dokument_list_filtered.filter(datum_dokumenta__gte=datum_od)
+
+            if datum_do:
+                dokument_list_filtered = dokument_list_filtered.filter(datum_dokumenta__lte=datum_do)
+
+            if vrsta_dokumenta:
+                dokument_list_filtered = dokument_list_filtered.filter(vrsta_dokumenta=vrsta_dokumenta)
+
+        # podatke izpišemo v kontekst
+        context = self.get_context_data(
+            dokument_filter_form=dokument_filter_form,
+            vrsta_dokumenta_izbira=vrsta_dokumenta_izbira,
+            dokument_list_filtered=dokument_list_filtered,
+        )
+
+        return self.render_to_response(context)
 
 class PostaDokumentDetailView(DetailView):
 

@@ -8,6 +8,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, UpdateView
 
+# Utils
+from eda5.core.utils import zaokrozen_zmin
+from eda5.core.utils import pretvori_v_ure
+
 # Models
 from ..models import Plan
 from ..models import PlaniranoOpravilo
@@ -25,6 +29,8 @@ from ..forms import PlaniranoOpraviloCreateform
 from eda5.deli.forms import projektnomesto_forms
 from eda5.delovninalogi.forms import OpraviloElementUpdateForm
 from eda5.delovninalogi.forms import VzorecOpravilaCreateForm
+
+
 
 
 
@@ -166,51 +172,12 @@ class PlaniranoOpraviloDetailView(DetailView):
 
         # POROČANJE O PORABLJENEM ČASU ZA POSAMEZNO OPRAVILO
 
-        def zaokrozen_zmin(time_input, zmin, operator):
-            '''
-            zaokroži čas glede na zmin podan v minutah
-            Author: Vasja Pavlovič 2017
-            '''
-            hours, reminder = divmod(time_input.seconds, 3600)
-            minutes, seconds = divmod(reminder, 60)
-            # koliko je celih
-            x, ostanek = divmod(minutes, zmin)
-            if ostanek > 0:
-                if operator == "+":
-                    x = x + 1
-                if operator == "-":
-                    x
-            # če je x=6 je potrebno tudi uro povečati +1
-            if x == 6:
-                hours = hours + 1
-            hours = hours
-            minutes = zmin * x
-            seconds = 0
-            zaokrozen_zmin = timedelta(hours=hours, minutes=minutes, seconds=seconds)
-            return zaokrozen_zmin
-
-        def pretvori_v_ure(time_input):
-            '''
-            timedelta object pretvori v ure npr. timedelta(hours=x)
-            '''
-            seconds = time_input.seconds
-            skupaj_ur = seconds/3600
-            return skupaj_ur
-
-
-        ##################################################################
-        '''
-        Izpis del v delovnem nalogu
-        '''
-        ##################################################################
-
         for delovninalog in opravila_izvedena_list:
 
             # enota za zaokroževanje
             zmin = delovninalog.opravilo.zmin
             # seznam del pod delovnim nalogom
             delo_list = Delo.objects.filter(delovninalog=delovninalog).annotate(delo_cas=F('time_stop')-F('time_start'))
-
 
             for delo in delo_list:
                 # osnovni delo_cas
@@ -222,8 +189,6 @@ class PlaniranoOpraviloDetailView(DetailView):
                 # shranimo v bazo
                 delo.delo_cas_rac = delo_cas_rac
                 delo.save()
-
-
 
         return context
 

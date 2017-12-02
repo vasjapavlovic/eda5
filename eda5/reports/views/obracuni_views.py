@@ -17,7 +17,7 @@ from templated_docs.http import FileResponse
 # Utils
 from eda5.core.utils import zaokrozen_zmin, pretvori_v_ure
 
-#Models
+# Models
 from eda5.deli.models import Podskupina, DelStavbe
 from eda5.delovninalogi.models import DelovniNalog, Delo, DeloVrsta
 from eda5.etaznalastnina.models import LastniskaSkupina, Program
@@ -41,19 +41,7 @@ class ObracunZbirniDelovniNalogView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ObracunZbirniDelovniNalogView, self).get_context_data(*args, **kwargs)
 
-    #     # zavihek
-    #     modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
-    #     context['modul_zavihek'] = modul_zavihek
-
-
         context['obracun_izpis_vrsta_form'] = ObracunIzpisVrstaForm
-    #     context['obracun_filter_form'] = ObracunFilterForm
-
-
-
-
-    #     context['dn_list'] = dn_list
-    #     context['naslov_data'] = naslov_data
 
         return context
 
@@ -118,7 +106,7 @@ class ObracunZbirniDelovniNalogView(TemplateView):
                     delo.save()
 
             '''
-            Glede na izračunane čase za izvedbo del 
+            Glede na izračunane čase za izvedbo del
             izračunamo skupne porabljene čase po VRSTA_DELA.
             '''
             dn_list = []
@@ -135,7 +123,7 @@ class ObracunZbirniDelovniNalogView(TemplateView):
                 if dela_filtered_list or material:
                     dn_list.append((dn, dela_filtered_list, vrstadel_cas_list, material))
 
-            
+
 
 
             naslov_data = {
@@ -152,13 +140,13 @@ class ObracunZbirniDelovniNalogView(TemplateView):
 
 
             context = self.get_context_data(
-                obracun_izredna_dela_form=obracun_izredna_dela_form, 
+                obracun_izredna_dela_form=obracun_izredna_dela_form,
                 naslov_data=naslov_data,
                 dn_list=dn_list,
             )
         else:
             context = self.get_context_data(
-                obracun_izredna_dela_form=obracun_izredna_dela_form, 
+                obracun_izredna_dela_form=obracun_izredna_dela_form,
             )
 
         return self.render_to_response(context)
@@ -211,7 +199,7 @@ class ObracunZbirniDelovniNalogView(TemplateView):
                 )
 
             '''
-            Glede na izračunane čase za izvedbo del 
+            Glede na izračunane čase za izvedbo del
             izračunamo skupne porabljene čase po VRSTA_DELA.
             '''
             dn_list = []
@@ -255,7 +243,7 @@ class ObracunZbirniDelovniNalogView(TemplateView):
                 )
 
             '''
-            Glede na izračunane čase za izvedbo del 
+            Glede na izračunane čase za izvedbo del
             izračunamo skupne porabljene čase po VRSTA_DELA.
             '''
             dn_list = []
@@ -288,7 +276,7 @@ class ObracunZbirniDelovniNalogView(TemplateView):
             # prenos podatkov za aplikacijo templated_docs
             if vrsta_izpisa == "neplanirano":
                 filename = fill_template(
-                    'reports/obracuni/obracun_neplanirana.ods', 
+                    'reports/obracuni/obracun_neplanirana.ods',
                     {'naslov_data': naslov_data, 'dn_list': dn_list},
                     output_format="xlsx"
                     )
@@ -298,7 +286,7 @@ class ObracunZbirniDelovniNalogView(TemplateView):
             # prenos podatkov za aplikacijo templated_docs
             if vrsta_izpisa == "neplanirano_delitev":
                 filename = fill_template(
-                    'reports/obracuni/obracun_neplanirana_delitev.ods', 
+                    'reports/obracuni/obracun_neplanirana_delitev.ods',
                     {'naslov_data': naslov_data, 'dn_list': dn_list},
                     output_format="xlsx"
                     )
@@ -341,7 +329,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
         ### PODATKI ##############################################################################
 
-        # naložimo form za filtriranje seznama delovnih nalogov 
+        # naložimo form za filtriranje seznama delovnih nalogov
         # ki se upoštevanjo pri izdelavi poročila
 
         obracun_izredna_dela_form = ObracunIzrednaDelaForm(request.GET or None)
@@ -376,11 +364,11 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
             delovninalog_filtered_list = DelovniNalog.objects.filter(
                 # delovni nalogi ki so del naročila
-                opravilo__narocilo=narocilo, 
+                opravilo__narocilo=narocilo,
                 # za izbrano stroškovno mesto
                 opravilo__vrsta_stroska=vrsta_stroska,
                 # samo zaključene delovne naloge
-                datum_stop__isnull=False, 
+                datum_stop__isnull=False,
                 )
 
             # dodatno filtriranje glede na izbrano odbodje
@@ -405,7 +393,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 # seznam del pod delovnim nalogom
                 delo_list = Delo.objects.filter(delovninalog=dn).annotate(delo_cas=F('time_stop')-F('time_start'))
 
-                
+
                 # Izdelamo porabljen čas za izvedbo dela
                 # v enoti UR in ga shranimo v bazo pod delo_cas_rac
 
@@ -421,12 +409,12 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                     delo.save()
 
             '''
-            Glede na izračunane čase za izvedbo del 
+            Glede na izračunane čase za izvedbo del
             izračunamo skupne porabljene čase po VRSTA_DELA.
             '''
 
 
-            
+
             vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).exclude(vrsta_dela__oznaka="ZUN").values(
                 'delovninalog__opravilo__planirano_opravilo__id', 'delovninalog__opravilo__planirano_opravilo__oznaka', 'vrsta_dela__id').annotate(
                 vrstadela_cas_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__opravilo__planirano_opravilo__oznaka')
@@ -466,10 +454,10 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 for dn in dela_delovninalog_list:
                     dn_id = dn['id']
                     delovninalog = DelovniNalog.objects.get(id=dn_id)
-                    
+
                     dn_rac_sum = dn['dn_rac_sum']
 
-                    # Končni rezultate: 
+                    # Končni rezultate:
                     # v planiranemu opravilu imamo delovninalog in računski čas
                     dn_list.append((delovninalog, dn_rac_sum))
 
@@ -485,7 +473,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 for i in material_delovninalog_list:
                     artikel_id = i['dnevnik__artikel__id']
                     artikel = Artikel.objects.filter(id=artikel_id).first()
-                    
+
                     if artikel:
                         artikel_dn_kom = i['material_kom']
                         material_dn_list.append((artikel, artikel_dn_kom))
@@ -522,14 +510,14 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
 
             context = self.get_context_data(
-                obracun_izredna_dela_form=obracun_izredna_dela_form, 
+                obracun_izredna_dela_form=obracun_izredna_dela_form,
                 naslov_data=naslov_data,
                 planiranoopravilo_vrstadel_sum_list=planiranoopravilo_vrstadel_sum_list,
                 skupaj_ur=skupaj_ur,
             )
         else:
             context = self.get_context_data(
-                obracun_izredna_dela_form=obracun_izredna_dela_form, 
+                obracun_izredna_dela_form=obracun_izredna_dela_form,
             )
 
         return self.render_to_response(context)
@@ -576,11 +564,11 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
 
             delovninalog_filtered_list = DelovniNalog.objects.filter(
                 # delovni nalogi ki so del naročila
-                opravilo__narocilo=narocilo, 
+                opravilo__narocilo=narocilo,
                 # za izbrano stroškovno mesto
                 opravilo__vrsta_stroska=vrsta_stroska,
                 # samo zaključene delovne naloge
-                datum_stop__isnull=False, 
+                datum_stop__isnull=False,
                 )
 
             # dodatno filtriranje glede na izbrano odbodje
@@ -605,7 +593,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 # seznam del pod delovnim nalogom
                 delo_list = Delo.objects.filter(delovninalog=dn).annotate(delo_cas=F('time_stop')-F('time_start'))
 
-                
+
                 # Izdelamo porabljen čas za izvedbo dela
                 # v enoti UR in ga shranimo v bazo pod delo_cas_rac
 
@@ -621,12 +609,12 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                     delo.save()
 
             '''
-            Glede na izračunane čase za izvedbo del 
+            Glede na izračunane čase za izvedbo del
             izračunamo skupne porabljene čase po VRSTA_DELA.
             '''
 
 
-            
+
             vrstadel_cas_list = Delo.objects.filter(delovninalog__in=delovninalog_filtered_list).exclude(vrsta_dela__oznaka="ZUN").values(
                 'delovninalog__opravilo__planirano_opravilo__id', 'delovninalog__opravilo__planirano_opravilo__oznaka', 'vrsta_dela__id').annotate(
                 vrstadela_cas_rac_sum=Sum('delo_cas_rac')).order_by('delovninalog__opravilo__planirano_opravilo__oznaka')
@@ -666,10 +654,10 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 for dn in dela_delovninalog_list:
                     dn_id = dn['id']
                     delovninalog = DelovniNalog.objects.get(id=dn_id)
-                    
+
                     dn_rac_sum = dn['dn_rac_sum']
 
-                    # Končni rezultate: 
+                    # Končni rezultate:
                     # v planiranemu opravilu imamo delovninalog in računski čas
                     dn_list.append((delovninalog, dn_rac_sum))
 
@@ -685,7 +673,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
                 for i in material_delovninalog_list:
                     artikel_id = i['dnevnik__artikel__id']
                     artikel = Artikel.objects.filter(id=artikel_id).first()
-                    
+
                     if artikel:
                         artikel_dn_kom = i['material_kom']
                         material_dn_list.append((artikel, artikel_dn_kom))
@@ -744,7 +732,7 @@ class ObracunZbirniDelovniNalogPlaniranaView(TemplateView):
             # prenos podatkov za aplikacijo templated_docs
             if vrsta_izpisa == "planirano":
                 filename = fill_template(
-                    'reports/obracuni/obracun_planirano.ods', 
+                    'reports/obracuni/obracun_planirano.ods',
                     {
                     'naslov_data': naslov_data,
                     'planiranoopravilo_vrstadel_sum_list': planiranoopravilo_vrstadel_sum_list,
