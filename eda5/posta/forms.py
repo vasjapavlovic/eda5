@@ -34,21 +34,18 @@ class AktivnostCreateForm(forms.ModelForm):
 
 class SkupinaDokumentaIzbiraForm(forms.Form):
 
+    skupina_dokumenta = forms.ModelChoiceField(queryset=SkupinaDokumenta.objects.all())
+    vrsta_dokumenta = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())
+
+    # za filtriranje
+    vrsta_dokumenta_hidden = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())
+
     def __init__(self, *args, **kwargs):
         super(SkupinaDokumentaIzbiraForm, self).__init__(*args, **kwargs)
 
         self.fields['skupina_dokumenta'].required = False
         self.fields['vrsta_dokumenta'].required = False
-        self.fields['skupina_dokumenta_hidden'].required = False
         self.fields['vrsta_dokumenta_hidden'].required = False
-
-    skupina_dokumenta = forms.ModelChoiceField(queryset=SkupinaDokumenta.objects.all())
-    vrsta_dokumenta = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())
-
-    # za filtriranje
-    skupina_dokumenta_hidden = forms.ModelChoiceField(queryset=SkupinaDokumenta.objects.all())
-    vrsta_dokumenta_hidden = forms.ModelChoiceField(queryset=VrstaDokumenta.objects.all())
-
 
 
 class DokumentCreateForm(forms.ModelForm):
@@ -64,7 +61,7 @@ class DokumentCreateForm(forms.ModelForm):
     class Meta:
         model = Dokument
         fields = (
-            'vrsta_dokumenta',
+            #'vrsta_dokumenta',
             'avtor',
             'naslovnik',
             'oznaka',

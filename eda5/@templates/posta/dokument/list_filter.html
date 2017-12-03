@@ -1,11 +1,47 @@
-{% extends "base.html" %}
+{% extends "base_200.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
 {% block content-body %}
 
+<link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
 <!-- form za filtriranje -->
-<form method="GET" action="" enctype="multipart/form-data">
+<form id="create_form" method="GET" action="" enctype="multipart/form-data">
+
+<div class="col-lg-6">
   <table>
 
 
@@ -33,6 +69,7 @@
       <td>{{ dokument_filter_form.datum_do }}</td>
     </tr>
 
+
     <tr>
       <td>{{ dokument_filter_form.avtor.label }}</td>
       <td>{{ dokument_filter_form.avtor }}</td>
@@ -42,8 +79,11 @@
       <td>{{ dokument_filter_form.naslovnik.label }}</td>
       <td>{{ dokument_filter_form.naslovnik }}</td>
     </tr>
+ </table>
+</div>
 
-
+<div class="col-lg-6">
+  <table>
     <tr>
       <td>{{ vrsta_dokumenta_izbira.skupina_dokumenta.label }}</td>
       <td>{{ vrsta_dokumenta_izbira.skupina_dokumenta }}</td>
@@ -55,15 +95,23 @@
     </tr>
 
     <tr>
+      <td>{{ vrsta_dokumenta_izbira.vrsta_dokumenta_hidden }}</td>
+    </tr>
+
+
+
+ </table>
+</div>
+
+<div class="col-lg-12">
+  <table>
+    <tr>
       <td>{{ dokument_filter_form.uporabim_filter.label }}</td>
       <td>{{ dokument_filter_form.uporabim_filter }}</td>
     </tr>
-
-  </table>
-
-
+    </table>
   <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
-
+</div>
   <div id="reload_controls_view" style="display: none;">{% url 'moduli:posta:reload_controls' %}</div>
 </form>
 
@@ -109,19 +157,29 @@
     </table>
 </div>
 
+
 {% endblock %}
+<!-- end PAGE CONTENT -->
+
 
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
 
+<script src="{% static 'js/custom_filter.js' %}"></script>
+
 
 <!-- js related to the application -->
 <script>
 
+    $("#id_vrsta_dokumenta").attr('disabled', true);
+
+
+
     $('#create_form').on('change', '#id_skupina_dokumenta', function()
     {
         reload_controls(this.value);
+
     });
 
     function reload_controls(skupina_dokumenta)
@@ -135,7 +193,8 @@
             success: function(result)
             {
                 //empty month drop down list
-                $("#id_vrsta_dokumenta").empty()
+                $("#id_vrsta_dokumenta").empty();
+                $("#id_vrsta_dokumenta").attr('disabled', false);
 
                 //add months with no report
                 $("#id_vrsta_dokumenta").append('<option value="">---------</option>')
@@ -158,3 +217,5 @@
 </script>
 
 {% endblock %}
+
+
