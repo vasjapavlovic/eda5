@@ -133,7 +133,7 @@ class DokumentCustomListView(TemplateView):
         if dokument_filter_form_is_valid == True:
             # filtriraj samo glede na podane podatke. Če podatka ni ga ne uporabiš.
             if oznaka:
-                dokument_list_filtered = dokument_list_filtered.filter(oznaka=oznaka)
+                dokument_list_filtered = dokument_list_filtered.filter(oznaka__icontains=oznaka)
             if naziv:
                 dokument_list_filtered = dokument_list_filtered.filter(naziv__icontains=naziv)
             if kraj_izdaje:

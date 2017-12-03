@@ -35,7 +35,7 @@ class VrstaStroskaIzbiraForm(forms.Form):
     vrsta_stroska = forms.ModelChoiceField(queryset=VrstaStroska.objects.all())
 
     # za filtriranje
-    konto_hidden = forms.ModelChoiceField(queryset=Konto.objects.all())
+    # konto_hidden = forms.ModelChoiceField(queryset=Konto.objects.all())
     podkonto_hidden = forms.ModelChoiceField(queryset=PodKonto.objects.all())
     skupina_vrste_stroska_hidden = forms.ModelChoiceField(queryset=SkupinaVrsteStroska.objects.all())
     vrsta_stroska_hidden = forms.ModelChoiceField(queryset=VrstaStroska.objects.all())
@@ -47,7 +47,7 @@ class VrstaStroskaIzbiraForm(forms.Form):
         super(VrstaStroskaIzbiraForm, self).__init__(*args, **kwargs)
 
         # filter
-        self.fields['konto_hidden'].required = False
+        #self.fields['konto_hidden'].required = False
         self.fields['podkonto_hidden'].required = False
         self.fields['skupina_vrste_stroska_hidden'].required = False
         self.fields['vrsta_stroska_hidden'].required = False
