@@ -4,7 +4,16 @@ from django.forms import formset_factory
 
 from ..models import Strosek
 
+# potrebno za RawIdWidget
+from django.contrib.admin.sites import site
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.core.exceptions import ValidationError
+from django.template.loader import render_to_string
+from django.utils import timezone
+
 from eda5.delovninalogi.models import DelovniNalog
+
+from eda5.delovninalogi.widgets import DelovniNalogSelectWithPop, DelovniNalogMultipleSelectWithPop, DelovniNalogForeignKeyRawIdWidget
 
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -35,7 +44,9 @@ class StrosekOsnovaCreateForm(forms.ModelForm):
         widgets = {
             'datum_storitve_od': DateInput(),
             'datum_storitve_do': DateInput(),
+            'delovni_nalog': DelovniNalogForeignKeyRawIdWidget(model._meta.get_field('delovni_nalog').rel, site),
         }
+
 
 
 class StrosekRazdelilnikCreateForm(forms.ModelForm):

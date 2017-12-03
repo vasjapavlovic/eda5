@@ -325,3 +325,12 @@ class DelovniNalogUpdateVresevanjuView(MessagesActionMixin, UpdateView):
 
 
 
+# POPUP
+# dodatek za filtriranje prikazanega seznama
+from eda5.core.views import FilteredListView
+from ..forms import DelovniNalogSearchForm
+class DelovniNalogPopUpListView(FilteredListView):
+    model = DelovniNalog
+    form_class= DelovniNalogSearchForm
+    template_name = "delovninalogi/delovninalog/popup/popup_base.html"
+    paginate_by = 10

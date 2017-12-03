@@ -1,0 +1,22 @@
+
+
+<div class="table-resposnive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Oznaka</th>
+                <th>Naziv</th>
+                <th>Status</th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td><b><a href="{% url 'moduli:delovninalogi:dn_detail' object.pk %}" onclick="opener.dismissRelatedLookupPopup(window, {{ object.pk }})">{{ object.oznaka }}</a></b></td>
+                <td>{{ object.opravilo.naziv }}</td>
+                <td>{{ object.get_status_display }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% include 'core/pagination.html' with form_target='list-filter' %}

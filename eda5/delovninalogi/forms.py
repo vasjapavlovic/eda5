@@ -8,6 +8,7 @@ from django import forms
 from django.contrib.admin.sites import site
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -206,10 +207,10 @@ class OpraviloElementUpdateForm(OpraviloUpdateForm):
         }
 
 
-                    
+
 
 ''' Ko je opravilo izdelano ga posodobimo tako, da mu
-dodelimo še katere pomanjkljivosti se v opravilu 
+dodelimo še katere pomanjkljivosti se v opravilu
 odpravljajo '''
 
 class OpraviloPomanjkljivostUpdateForm(OpraviloUpdateForm):
@@ -222,7 +223,7 @@ class OpraviloPomanjkljivostUpdateForm(OpraviloUpdateForm):
 
 
 ''' Ko je opravilo izdelano ga posodobimo tako, da mu
-dodelimo še katere pomanjkljivosti se v opravilu 
+dodelimo še katere pomanjkljivosti se v opravilu
 odpravljajo '''
 
 class OpraviloNalogaUpdateForm(OpraviloUpdateForm):
@@ -349,7 +350,7 @@ class DeloCreateForm(forms.ModelForm):
         if instance and instance.pk:
             return instance.oznaka
         else:
-            return self.cleaned_data['oznaka']        
+            return self.cleaned_data['oznaka']
 
     def clean_datum(self):
         """ poskrbimo: post ne more povoziti datuma, ki je readonly """
@@ -452,3 +453,41 @@ class DeloVrstaCreateForm(forms.ModelForm):
             'skupina',
         )
 
+
+# SEARCH FORMS
+
+class DelovniNalogSearchForm(forms.Form):
+    oznaka = forms.CharField(label='oznaka', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(DelovniNalogSearchForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['oznaka'] = ""
+        self.initial['naziv'] = ""
+
+    def filter_queryset(self, request, queryset):
+
+        oznaka_filter = self.cleaned_data['oznaka']
+        naziv_filter = self.cleaned_data['naziv']
+
+        # filtriranje samo po oznaki
+        if oznaka_filter and not naziv_filter:
+            return queryset.filter(oznaka__icontains=oznaka_filter)
+
+        # filtriranje ostalo
+        if naziv_filter and not oznaka_filter:
+            return queryset.filter(
+                Q(opravilo__naziv__icontains=naziv_filter)
+                )
+
+        # uporabnik filtrira po kratkem imenu in naslovu partnerja
+        if oznaka_filter and naziv_filter:
+            return queryset.filter(
+                Q(oznaka__icontains=oznaka_filter) & (
+                    Q(opravilo__naziv__icontains=naziv_filter)
+                )
+            )
+
+        return queryset
