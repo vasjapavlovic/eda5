@@ -1,10 +1,12 @@
 <!-- TAB_03 Content -->
 
+
 <div class="table-resposnive">
+Izdana pošta:
     <table class="table table-bordered table-striped">
     <tbody>
-        {% for skpartner in object.skupinapartnerjev_set.all %}
-        {% for dokument in skpartner.naslovnik.all %}
+        {% for dokument in izdana_posta_partnerja %}
+
 
 
         <tr>
@@ -16,14 +18,14 @@
         </tr>
 
         {% endfor %}
-        {% endfor %}
+
     </tbody>
 </table>
 
 <table class="table table-condensed">
+Prejeta pošta:
     <tbody>
-        {% for skpartner in object.skupinapartnerjev_set.all %}
-        {% for dokument in skpartner.avtor.all %}
+        {% for dokument in prejeta_posta_partnerja %}
 
 
         <tr>
@@ -35,7 +37,7 @@
         </tr>
 
         {% endfor %}
-        {% endfor %}
+
     </tbody>
 </table>
 </div>

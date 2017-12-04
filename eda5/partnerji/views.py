@@ -19,6 +19,8 @@ from .forms import OsebaCreateWidget, TrrCreateWidget, UvozPartnerjiCsvForm, Pos
 
 from .models import Partner, Oseba, TRRacun, Banka, Posta
 
+from eda5.posta.models import Dokument
+
 
 # mixins
 from .viewmixins import PartnerSearchMixin
