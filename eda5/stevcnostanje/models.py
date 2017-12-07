@@ -1,6 +1,6 @@
 from django.db import models
 
-from eda5.core.models import ObdobjeLeto, ObdobjeMesec, TimeStampedModel
+from eda5.core.models import ObdobjeLeto, ObdobjeMesec, TimeStampedModel, ZaporednaStevilka
 from eda5.deli.models import ProjektnoMesto
 from eda5.partnerji.models import Partner, Oseba
 from . import managers
@@ -56,6 +56,23 @@ class StevecStatus(TimeStampedModel):
         return "%s | %s" % (self.updated, self.stevec)
 
 
+class MeritevVrsta(ZaporednaStevilka):
+    # --------------------------------------------------------------------------------------
+    # ATRIBUTES
+    oznaka = models.CharField(max_length=13, unique=True)
+    naziv = models.CharField(max_length=255)
+
+    # META AND STRING
+    class Meta:
+        verbose_name = "vrsta meritve"
+        verbose_name_plural = "vrste meritev"
+        ordering = ("zap_st",)
+
+    def __str__(self):
+        return "%s | %s" % (self.stevec, self.oznaka)
+
+
+
 class Delilnik(models.Model):
     # ---------------------------------------------------------------------------------------
 
@@ -69,12 +86,20 @@ class Delilnik(models.Model):
 
     # ATRIBUTES
     #   Relations
-    stevec = models.ForeignKey(Stevec)
+
     #   Mandatory
     oznaka = models.CharField(max_length=20, unique=True)
+    naziv = models.CharField(max_length=255, blank=True, null=True)
+    meritev_vrsta = models.ForeignKey(MeritevVrsta, blank=True, null=True)
+
+    # Relacija na števec ( en števec ima lahko več delilnikov)
+    stevec = models.ForeignKey(Stevec)
+
+    # ODSTRANI - potrebne so bile zaradi migracije
     meritev = models.IntegerField(choices=MERITEV)
-    #   Optional
     opis = models.CharField(max_length=255, blank=True, null=True)
+
+
     # OBJECT MANAGER
     # CUSTOM PROPERTIES
     # METHODS

@@ -48,6 +48,7 @@ from .forms import DokumentCreateForm
 from .forms import DokumentFilterForm
 from .forms import DokumentSearchForm
 from .forms import SkupinaDokumentaIzbiraForm
+from .forms import VrstaDokumentaForm
 
 
 from eda5.arhiv.forms import ArhiviranjeCreateForm
@@ -100,10 +101,12 @@ class DokumentCustomListView(TemplateView):
         # form za filtriranje
         dokument_filter_form = DokumentFilterForm(request.GET or None)
         vrsta_dokumenta_izbira = SkupinaDokumentaIzbiraForm(request.GET or None)
+        vrsta_dokumenta_form = VrstaDokumentaForm(request.GET or None)
 
         # na začetku so vsi formi neustrezni
         dokument_filter_form_is_valid = False
         vrsta_dokumenta_izbira_is_valid = False
+        vrsta_dokumenta_form_is_valid = False
 
         # Filtriranje prejete in izdane pošte splošno
         if dokument_filter_form.is_valid():
@@ -118,13 +121,16 @@ class DokumentCustomListView(TemplateView):
 
         # vrsta dokumenta form
         if vrsta_dokumenta_izbira.is_valid():
-            vrsta_dokumenta = vrsta_dokumenta_izbira.cleaned_data['vrsta_dokumenta']
             vrsta_dokumenta_izbira_is_valid = True
 
 
+        if vrsta_dokumenta_form.is_valid():
+            vrsta_dokumenta = vrsta_dokumenta_form.cleaned_data['vrsta_dokumenta']
+            vrsta_dokumenta_form_is_valid = True
+
         # IZDELAMO FILTRIRAN SEZNAM DOKUMENTOV
         # če ne vpišemo niti enega podatka vrni prazen seznam - da ne odpiramo vseh dokumentov brez veze
-        if dokument_filter_form_is_valid == True and vrsta_dokumenta_izbira_is_valid == True:
+        if dokument_filter_form_is_valid == True:
             dokument_list_filtered = Dokument.objects.filter()
             dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
         else:
@@ -151,6 +157,7 @@ class DokumentCustomListView(TemplateView):
             if datum_do:
                 dokument_list_filtered = dokument_list_filtered.filter(datum_dokumenta__lte=datum_do)
 
+        if vrsta_dokumenta_form_is_valid == True:
             if vrsta_dokumenta:
                 dokument_list_filtered = dokument_list_filtered.filter(vrsta_dokumenta=vrsta_dokumenta)
 
@@ -158,6 +165,7 @@ class DokumentCustomListView(TemplateView):
         context = self.get_context_data(
             dokument_filter_form=dokument_filter_form,
             vrsta_dokumenta_izbira=vrsta_dokumenta_izbira,
+            vrsta_dokumenta_form=vrsta_dokumenta_form,
             dokument_list_filtered=dokument_list_filtered,
         )
 

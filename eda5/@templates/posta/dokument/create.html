@@ -40,8 +40,8 @@
                     {{ modul_zavihek.naziv }}
                 </div>
 
-                    
-            </div>   
+
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -55,7 +55,7 @@
         <div class="panel no_padding">
             <div class="panel-heading background_dark_grey">Podatki o obdelavi</div>
             <div class="panel-body background_grey">
-                {{ aktivnost_form | crispy  }} 
+                {{ aktivnost_form | crispy  }}
             </div>
         </div>
 
@@ -73,7 +73,7 @@
         <div class="panel ">
             <input class="bg-{{ modul_zavihek.modul.barva }}" type="submit" value="Potrdi Vnos">
 
-            
+
         </div>
 
         <div id="reload_controls_view" style="display: none;">{% url 'moduli:posta:reload_controls' %}</div>
@@ -93,7 +93,7 @@
 
 <!-- js related to the application -->
 <script>
-    
+
     $('#create_form').on('change', '#id_skupina_dokumenta', function()
     {
         reload_controls(this.value);
@@ -123,7 +123,7 @@
 
                 });
             },
-            error: function(xhr, status, error) 
+            error: function(xhr, status, error)
             {
                 window.console&&console.log(xhr.responseText);
             }
