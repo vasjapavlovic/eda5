@@ -7,14 +7,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('povprasevanje', '__first__'),
-        ('arhiv', '0001_initial'),
+        ('arhiv', '0002_auto_20171209_2221'),
+        ('racunovodstvo', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='arhiviranje',
-            name='povprasevanje',
-            field=models.ForeignKey(to='povprasevanje.Povprasevanje', blank=True, null=True),
+            name='racun',
+            field=models.OneToOneField(null=True, to='racunovodstvo.Racun', blank=True),
         ),
     ]
