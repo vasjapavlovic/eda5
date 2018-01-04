@@ -73,6 +73,7 @@ class StatusModel(models.Model):
     vResevanju = 3
     zakljuceno = 4
     deleted = 5
+    neaktivno = 6
 
     STATUS = (
         (draft, 'draft'),
@@ -81,6 +82,7 @@ class StatusModel(models.Model):
         (vResevanju, 'v reševanju'),
         (zakljuceno, 'zaključeno'),
         (deleted, 'izbrisano'),
+        (neaktivno, 'neaktivno'),
     )
 
     status = models.IntegerField(default=0, choices=STATUS)
@@ -112,3 +114,11 @@ class Opombe(models.Model):
 
     class Meta:
         abstract = True
+
+
+# Kombinacije
+
+class OsnovnaKombinacija(OsnovniPodatki, TimeStampedModel, StatusModel):
+
+        class Meta:
+            abstract = True
