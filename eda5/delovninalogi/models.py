@@ -326,5 +326,5 @@ class DeloVrstaSklop(models.Model):
 
 
 # KONTROLNI objekt_list
-class Aktivnost(models.Model):
+class Aktivnost(OsnovnaKombinacija):
     pass
