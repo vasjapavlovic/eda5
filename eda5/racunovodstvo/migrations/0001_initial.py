@@ -7,20 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('partnerji', '__first__'),
-        ('deli', '0001_initial'),
-        ('core', '__first__'),
-        ('delovninalogi', '__first__'),
+        ('core', '0001_initial'),
+        ('deli', '0002_auto_20180104_1543'),
+        ('partnerji', '0001_initial'),
+        ('delovninalogi', '0002_vzorecopravila_narocilo'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Konto',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=10)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=10, unique=True)),
                 ('naziv', models.CharField(max_length=50)),
-                ('zap_st', models.IntegerField(default=0, verbose_name='zaporedna Številka')),
+                ('zap_st', models.IntegerField(verbose_name='zaporedna Številka', default=0)),
             ],
             options={
                 'verbose_name': 'konto',
@@ -31,10 +31,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PodKonto',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=10)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=10, unique=True)),
                 ('naziv', models.CharField(max_length=50)),
-                ('zap_st', models.IntegerField(default=0, verbose_name='zaporedna Številka')),
+                ('zap_st', models.IntegerField(verbose_name='zaporedna Številka', default=0)),
                 ('skupina', models.ForeignKey(to='racunovodstvo.Konto')),
             ],
             options={
@@ -46,8 +46,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Racun',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_likvidiran', models.BooleanField(default=False)),
                 ('oznaka', models.IntegerField()),
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                 ('datum_storitve_od', models.DateField(null=True, blank=True)),
                 ('datum_storitve_do', models.DateField(null=True, blank=True)),
                 ('je_reprezentanca', models.BooleanField(default=False)),
-                ('reprezentanca_opis', models.CharField(null=True, blank=True, max_length=255)),
+                ('reprezentanca_opis', models.CharField(max_length=255, null=True, blank=True)),
                 ('zavrnjen', models.BooleanField(default=False)),
                 ('zavrnjen_datum', models.DateField(null=True, blank=True)),
                 ('zavrnjen_obrazlozitev_text', models.TextField(null=True, blank=True)),
@@ -73,10 +73,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SkupinaVrsteStroska',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
                 ('naziv', models.CharField(max_length=200)),
-                ('zap_st', models.IntegerField(default=0, verbose_name='zaporedna Številka')),
+                ('zap_st', models.IntegerField(verbose_name='zaporedna Številka', default=0)),
                 ('skupina', models.ForeignKey(to='racunovodstvo.PodKonto')),
             ],
             options={
@@ -88,14 +88,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Strosek',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=200)),
                 ('datum_storitve_od', models.DateField()),
                 ('datum_storitve_do', models.DateField()),
-                ('osnova', models.DecimalField(max_digits=10, verbose_name='osnova za ddv', decimal_places=5)),
-                ('stopnja_ddv', models.IntegerField(choices=[(0, 'neobdavčeno'), (1, 'nižja stopnja'), (2, 'višja stopnja')], verbose_name='stopnja DDV')),
-                ('delovni_nalog', models.OneToOneField(null=True, to='delovninalogi.DelovniNalog', blank=True)),
+                ('osnova', models.DecimalField(verbose_name='osnova za ddv', decimal_places=5, max_digits=10)),
+                ('stopnja_ddv', models.IntegerField(verbose_name='stopnja DDV', choices=[(0, 'neobdavčeno'), (1, 'nižja stopnja'), (2, 'višja stopnja')])),
+                ('delovni_nalog', models.OneToOneField(null=True, blank=True, to='delovninalogi.DelovniNalog')),
                 ('racun', models.ForeignKey(to='racunovodstvo.Racun')),
             ],
             options={
@@ -107,10 +107,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='VrstaStroska',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
                 ('naziv', models.CharField(max_length=200)),
-                ('zap_st', models.IntegerField(default=0, verbose_name='zaporedna Številka')),
+                ('zap_st', models.IntegerField(verbose_name='zaporedna Številka', default=0)),
                 ('skupina', models.ForeignKey(to='racunovodstvo.SkupinaVrsteStroska')),
             ],
             options={

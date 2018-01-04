@@ -7,20 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('deli', '0001_initial'),
-        ('core', '__first__'),
-        ('partnerji', '__first__'),
+        ('deli', '0002_auto_20180104_1543'),
+        ('core', '0001_initial'),
+        ('partnerji', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Delilnik',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
-                ('naziv', models.CharField(null=True, blank=True, max_length=255)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
+                ('naziv', models.CharField(max_length=255, null=True, blank=True)),
                 ('meritev', models.IntegerField(choices=[(1, 'Toplota [MWh]'), (2, 'Hlad [MWh]'), (3, 'Topla voda [m3]'), (4, 'Hladna voda [m3]'), (5, 'Elektrika [kWh]')])),
-                ('opis', models.CharField(null=True, blank=True, max_length=255)),
+                ('opis', models.CharField(max_length=255, null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'delilnik',
@@ -31,9 +31,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MeritevVrsta',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('zap_st', models.IntegerField(default=9999, verbose_name='zaporedna številka')),
-                ('oznaka', models.CharField(unique=True, max_length=13)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('zap_st', models.IntegerField(verbose_name='zaporedna številka', default=9999)),
+                ('oznaka', models.CharField(max_length=13, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
@@ -45,26 +45,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Odcitek',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('datum_odcitka', models.DateField()),
-                ('stanje_staro', models.DecimalField(max_digits=15, decimal_places=3)),
-                ('stanje_novo', models.DecimalField(max_digits=15, decimal_places=3)),
+                ('stanje_staro', models.DecimalField(decimal_places=3, max_digits=15)),
+                ('stanje_novo', models.DecimalField(decimal_places=3, max_digits=15)),
                 ('delilnik', models.ForeignKey(to='stevcnostanje.Delilnik')),
                 ('obdobje_leto', models.ForeignKey(to='core.ObdobjeLeto')),
                 ('obdobje_mesec', models.ForeignKey(to='core.ObdobjeMesec')),
-                ('odcital', models.ForeignKey(null=True, verbose_name='odčital', blank=True, to='partnerji.Oseba')),
+                ('odcital', models.ForeignKey(null=True, blank=True, verbose_name='odčital', to='partnerji.Oseba')),
             ],
             options={
-                'ordering': ('delilnik', 'datum_odcitka'),
                 'verbose_name': 'odcitek',
+                'ordering': ('delilnik', 'datum_odcitka'),
                 'verbose_name_plural': 'odcitki',
             },
         ),
         migrations.CreateModel(
             name='Stevec',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=13)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=13, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
                 ('is_distribucija', models.BooleanField(verbose_name='distribucijski števec')),
                 ('projektno_mesto', models.ForeignKey(null=True, blank=True, to='deli.ProjektnoMesto')),
@@ -79,8 +79,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StevecStatus',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('v_okvari', models.BooleanField()),
                 ('v_delovanju', models.BooleanField()),

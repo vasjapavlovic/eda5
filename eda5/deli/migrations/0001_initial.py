@@ -8,22 +8,20 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('katalog', '0001_initial'),
-        ('etaznalastnina', '__first__'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='DelStavbe',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('oznaka', models.CharField(unique=True, max_length=50)),
+                ('oznaka', models.CharField(max_length=50, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
-                ('funkcija', models.CharField(null=True, verbose_name='funkcija sistema', blank=True, max_length=255)),
-                ('bim_id', models.CharField(null=True, verbose_name='BIM ID', blank=True, max_length=100)),
-                ('lastniska_skupina', models.ForeignKey(null=True, verbose_name='lastniška skupina', blank=True, to='etaznalastnina.LastniskaSkupina')),
+                ('funkcija', models.CharField(verbose_name='funkcija sistema', max_length=255, null=True, blank=True)),
+                ('bim_id', models.CharField(verbose_name='BIM ID', max_length=100, null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'del stavbe',
@@ -34,13 +32,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Element',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('tovarniska_st', models.CharField(verbose_name='Tovarniška Številka', blank=True, max_length=100)),
-                ('serijska_st', models.CharField(verbose_name='Serijska Številka', blank=True, max_length=100)),
-                ('artikel', models.ForeignKey(null=True, verbose_name='Model', blank=True, to='katalog.ModelArtikla')),
+                ('tovarniska_st', models.CharField(verbose_name='Tovarniška Številka', max_length=100, blank=True)),
+                ('serijska_st', models.CharField(verbose_name='Serijska Številka', max_length=100, blank=True)),
+                ('artikel', models.ForeignKey(null=True, blank=True, verbose_name='Model', to='katalog.ModelArtikla')),
             ],
             options={
                 'verbose_name': 'element',
@@ -50,14 +48,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Etaza',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('oznaka', models.CharField(verbose_name='Oznaka', unique=True, max_length=50)),
-                ('naziv', models.CharField(null=True, verbose_name='Naziv', blank=True, max_length=255)),
-                ('opis', models.TextField(null=True, verbose_name='Opis', blank=True)),
-                ('elevation', models.DecimalField(null=True, verbose_name='Višinska kota Etaže', blank=True, decimal_places=5, max_digits=20)),
+                ('oznaka', models.CharField(verbose_name='Oznaka', max_length=50, unique=True)),
+                ('naziv', models.CharField(verbose_name='Naziv', max_length=255, null=True, blank=True)),
+                ('opis', models.TextField(verbose_name='Opis', null=True, blank=True)),
+                ('elevation', models.DecimalField(verbose_name='Višinska kota Etaže', decimal_places=5, null=True, blank=True, max_digits=20)),
             ],
             options={
                 'verbose_name': 'Etaža',
@@ -68,8 +66,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Lokacija',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('etaza', models.ForeignKey(verbose_name='Etaža', to='deli.Etaza')),
@@ -84,8 +82,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Nastavitev',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('datum_nastavitve', models.DateField()),
@@ -101,11 +99,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Podskupina',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
@@ -117,17 +115,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProjektnoMesto',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('oznaka', models.CharField(verbose_name='Oznaka', unique=True, max_length=20)),
+                ('oznaka', models.CharField(verbose_name='Oznaka', max_length=20, unique=True)),
                 ('naziv', models.CharField(verbose_name='Naziv', max_length=255)),
-                ('funkcija', models.CharField(null=True, verbose_name='Funkcija Elementa', blank=True, max_length=255)),
-                ('bim_id', models.CharField(null=True, verbose_name='BIM ID', blank=True, max_length=100)),
+                ('funkcija', models.CharField(verbose_name='Funkcija Elementa', max_length=255, null=True, blank=True)),
+                ('bim_id', models.CharField(verbose_name='BIM ID', max_length=100, null=True, blank=True)),
                 ('del_stavbe', models.ForeignKey(verbose_name='Del Stavbe', to='deli.DelStavbe')),
-                ('lokacija', models.ForeignKey(null=True, verbose_name='Lokacija v Stavbi', blank=True, to='deli.Lokacija')),
-                ('tip_elementa', models.ForeignKey(null=True, verbose_name='Tip Elementa', blank=True, to='katalog.TipArtikla')),
+                ('lokacija', models.ForeignKey(null=True, blank=True, verbose_name='Lokacija v Stavbi', to='deli.Lokacija')),
+                ('tip_elementa', models.ForeignKey(null=True, blank=True, verbose_name='Tip Elementa', to='katalog.TipArtikla')),
             ],
             options={
                 'verbose_name': 'projektno mesto',
@@ -138,11 +136,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Skupina',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
@@ -154,13 +152,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Stavba',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('updated', models.DateTimeField(null=True, auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('oznaka', models.CharField(verbose_name='Oznaka', unique=True, max_length=20)),
-                ('naziv', models.CharField(null=True, verbose_name='Naziv', blank=True, max_length=255)),
-                ('opis', models.TextField(null=True, verbose_name='Opis', blank=True)),
+                ('oznaka', models.CharField(verbose_name='Oznaka', max_length=20, unique=True)),
+                ('naziv', models.CharField(verbose_name='Naziv', max_length=255, null=True, blank=True)),
+                ('opis', models.TextField(verbose_name='Opis', null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'Stavba',
@@ -182,10 +180,5 @@ class Migration(migrations.Migration):
             model_name='element',
             name='projektno_mesto',
             field=models.ForeignKey(verbose_name='projektno mesto', to='deli.ProjektnoMesto'),
-        ),
-        migrations.AddField(
-            model_name='delstavbe',
-            name='podskupina',
-            field=models.ForeignKey(to='deli.Podskupina'),
         ),
     ]

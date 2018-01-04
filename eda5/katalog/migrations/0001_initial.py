@@ -14,9 +14,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ArtikelPlan',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('naziv', models.CharField(max_length=255)),
-                ('perioda_predpisana_enota', models.CharField(choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')], verbose_name='enota periode', max_length=5)),
+                ('perioda_predpisana_enota', models.CharField(verbose_name='enota periode', max_length=5, choices=[('dan', 'Dan'), ('teden', 'Teden'), ('mesec', 'Mesec'), ('leto', 'Leto')])),
                 ('perioda_predpisana_enota_kolicina', models.IntegerField(verbose_name='kolicina enote periode')),
                 ('perioda_predpisana_kolicina_na_enoto', models.IntegerField(verbose_name='kolicina na enoto periode')),
             ],
@@ -28,10 +28,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Karakteristika',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('oznaka', models.CharField(max_length=20)),
-                ('enota', models.CharField(blank=True, max_length=20)),
-                ('opis', models.CharField(verbose_name='opis', blank=True, max_length=255)),
+                ('enota', models.CharField(max_length=20, blank=True)),
+                ('opis', models.CharField(verbose_name='opis', max_length=255, blank=True)),
             ],
             options={
                 'verbose_name': 'karakteristika artikla',
@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='KarakteristikaVrednost',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('vrednost', models.CharField(max_length=20)),
             ],
             options={
@@ -52,8 +52,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ModelArtikla',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
@@ -65,10 +65,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ObratovalniParameter',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('oznaka', models.CharField(max_length=20)),
-                ('enota', models.CharField(blank=True, max_length=20)),
-                ('opis', models.CharField(verbose_name='opis', blank=True, max_length=255)),
+                ('enota', models.CharField(max_length=20, blank=True)),
+                ('opis', models.CharField(verbose_name='opis', max_length=255, blank=True)),
             ],
             options={
                 'verbose_name': 'obratovalni parameter',
@@ -78,8 +78,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Proizvajalec',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
                 ('naziv', models.CharField(max_length=100)),
             ],
             options={
@@ -91,9 +91,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RezervniDel',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('naziv', models.CharField(max_length=255)),
-                ('oznaka', models.CharField(blank=True, max_length=25)),
+                ('oznaka', models.CharField(max_length=25, blank=True)),
                 ('artikel', models.ForeignKey(to='katalog.ModelArtikla')),
             ],
             options={
@@ -104,8 +104,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TipArtikla',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=20)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=20, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={

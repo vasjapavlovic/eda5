@@ -7,21 +7,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('zahtevki', '__first__'),
-        ('reklamacije', '__first__'),
-        ('povprasevanje', '__first__'),
-        ('dogodki', '__first__'),
-        ('skladisce', '__first__'),
-        ('sestanki', '__first__'),
+        ('povprasevanje', '0001_initial'),
+        ('reklamacije', '0001_initial'),
+        ('delovninalogi', '0002_vzorecopravila_narocilo'),
+        ('sestanki', '0001_initial'),
+        ('dogodki', '0002_dogodek_zahtevek'),
         ('razdelilnik', '0001_initial'),
-        ('delovninalogi', '__first__'),
+        ('zahtevki', '0001_initial'),
+        ('skladisce', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Zaznamek',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('tekst', models.TextField(verbose_name='Tekst')),
                 ('datum', models.DateField(verbose_name='Datum')),
                 ('ura', models.TimeField(verbose_name='Ura')),

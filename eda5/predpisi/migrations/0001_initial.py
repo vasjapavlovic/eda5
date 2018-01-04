@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Predpis',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=25)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=25, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
@@ -25,10 +25,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PredpisOpravilo',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=25)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=25, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
-                ('predpis', models.ManyToManyField(blank=True, to='predpisi.Predpis')),
+                ('predpis', models.ManyToManyField(to='predpisi.Predpis', blank=True)),
             ],
             options={
                 'verbose_name': 'predpisano opravilo',
@@ -38,8 +38,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PredpisPodsklop',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('oznaka', models.CharField(unique=True, max_length=25)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('oznaka', models.CharField(max_length=25, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={
@@ -50,9 +50,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PredpisSklop',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('zap_st', models.IntegerField(default=9999, verbose_name='zaporedna številka')),
-                ('oznaka', models.CharField(unique=True, max_length=25)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('zap_st', models.IntegerField(verbose_name='zaporedna številka', default=9999)),
+                ('oznaka', models.CharField(max_length=25, unique=True)),
                 ('naziv', models.CharField(max_length=255)),
             ],
             options={

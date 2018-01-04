@@ -7,26 +7,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('etaznalastnina', '__first__'),
-        ('deli', '0001_initial'),
-        ('core', '__first__'),
+        ('etaznalastnina', '0002_auto_20180104_1543'),
+        ('core', '0001_initial'),
+        ('deli', '0002_auto_20180104_1543'),
+        ('zahtevki', '0001_initial'),
         ('racunovodstvo', '0001_initial'),
-        ('zahtevki', '__first__'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Razdelilnik',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('status', models.IntegerField(choices=[(0, 'draft'), (1, 'v čakanju'), (2, 'v planu'), (3, 'v reševanju'), (4, 'zaključeno'), (5, 'izbrisano')], default=0)),
-                ('oznaka', models.CharField(null=True, blank=True, max_length=20)),
-                ('oznaka_gen', models.CharField(null=True, blank=True, max_length=20)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('status', models.IntegerField(default=0, choices=[(0, 'draft'), (1, 'v čakanju'), (2, 'v planu'), (3, 'v reševanju'), (4, 'zaključeno'), (5, 'izbrisano'), (6, 'neaktivno')])),
+                ('oznaka', models.CharField(max_length=20, null=True, blank=True)),
+                ('oznaka_gen', models.CharField(max_length=20, null=True, blank=True)),
                 ('naziv', models.CharField(max_length=255)),
                 ('obdobje_obracuna_leto', models.ForeignKey(to='core.ObdobjeLeto')),
                 ('obdobje_obracuna_mesec', models.ForeignKey(to='core.ObdobjeMesec')),
                 ('stavba', models.ForeignKey(to='deli.Stavba')),
-                ('zahtevek', models.ForeignKey(null=True, verbose_name='zahtevek', blank=True, to='zahtevki.Zahtevek')),
+                ('zahtevek', models.ForeignKey(null=True, blank=True, verbose_name='zahtevek', to='zahtevki.Zahtevek')),
             ],
             options={
                 'verbose_name': 'Razdelilnik',
@@ -37,10 +37,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StrosekDelitevVrsta',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
-                ('skrajsan_naziv', models.CharField(null=True, blank=True, max_length=50)),
+                ('skrajsan_naziv', models.CharField(max_length=50, null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'Vrsta delitve stroška',
@@ -50,10 +50,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StrosekKljucDelitve',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
-                ('skrajsan_naziv', models.CharField(null=True, blank=True, max_length=50)),
+                ('skrajsan_naziv', models.CharField(max_length=50, null=True, blank=True)),
             ],
             options={
                 'verbose_name': 'Ključ delitve stroška',
@@ -63,8 +63,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StrosekLE',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('delilnik_vrednost', models.DecimalField(max_digits=8, decimal_places=4)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('delilnik_vrednost', models.DecimalField(decimal_places=4, max_digits=8)),
                 ('lastniska_enota_interna', models.ForeignKey(to='etaznalastnina.LastniskaEnotaInterna')),
             ],
             options={
@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StrosekRazdelilnik',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('is_razdeljen', models.BooleanField(default=False)),
                 ('razdeljen_datum', models.DateField(null=True, blank=True)),
                 ('razdelilnik', models.ForeignKey(to='razdelilnik.Razdelilnik')),
@@ -89,10 +89,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StrosekRazdelilnikPostavka',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('oznaka', models.CharField(max_length=20)),
                 ('naziv', models.CharField(max_length=255)),
-                ('delilnik_vrednost', models.DecimalField(max_digits=8, decimal_places=4)),
+                ('delilnik_vrednost', models.DecimalField(decimal_places=4, max_digits=8)),
                 ('is_strosek_posameznidel', models.NullBooleanField(verbose_name='strosek na posameznem delu')),
                 ('delilnik_kljuc', models.ForeignKey(null=True, blank=True, to='razdelilnik.StrosekKljucDelitve')),
                 ('delitev_vrsta', models.ForeignKey(null=True, blank=True, to='razdelilnik.StrosekDelitevVrsta')),

@@ -9,9 +9,15 @@ from django.dispatch import receiver
 from django.utils import timezone
 
 
-# Models
+
+# Managers
 from . import managers
-from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
+
+# Models
+from eda5.core.models import IsActiveModel
+from eda5.core.models import OsnovnaKombinacija
+from eda5.core.models import StatusModel
+from eda5.core.models import TimeStampedModel
 from eda5.deli.models import ProjektnoMesto
 from eda5.naloge.models import Naloga
 from eda5.narocila.models import Narocilo
@@ -19,8 +25,6 @@ from eda5.partnerji.models import Oseba
 from eda5.planiranje.models import PlaniranoOpravilo
 from eda5.pomanjkljivosti.models import Pomanjkljivost
 from eda5.zahtevki.models import Zahtevek
-
-
 
 
 
@@ -41,20 +45,20 @@ class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
 
 
     ''' Navezava na pomanjkljivosti, ki se v opravilu odpravljajo.
-    V opravilu se lahko odpravlja več pomanjkljivosti. 
+    V opravilu se lahko odpravlja več pomanjkljivosti.
     Pomanjkljivost se lahko odpravlja v več opravilih za katerega
     je potrebno svoje naročilo. '''
 
     pomanjkljivost = models.ManyToManyField(Pomanjkljivost, blank=True)
 
     ''' Navezava na naloge, ki se v opravilu urejajo.
-    V opravilu se lahko odpravlja več nalog. 
+    V opravilu se lahko odpravlja več nalog.
     Naloga se lahko odpravlja v več opravilih za katerega
     je potrebno svoje naročilo. '''
 
     naloga = models.ManyToManyField(Naloga, blank=True)
 
-    '''Opravilo se izvaja na posameznih elementih stavbe, 
+    '''Opravilo se izvaja na posameznih elementih stavbe,
     ki se jih definira tukaj'''
 
     element = models.ManyToManyField(ProjektnoMesto, blank=True)
@@ -72,7 +76,7 @@ class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
 
     # zaokrožitev minimalno minut
     zmin = models.IntegerField(
-        default=15, 
+        default=15,
         verbose_name='zaokrožitev [min]')
 
 
@@ -155,11 +159,11 @@ class DelovniNalog(TimeStampedModel, StatusModel):
         max_length=255)
     #   Optional
     nosilec = models.ForeignKey(
-        Oseba, blank=True, null=True, 
+        Oseba, blank=True, null=True,
         verbose_name="Izvajalec (kdo bo delo izvedel)")
 
     datum_plan = models.DateField(
-        blank=True, null=True, 
+        blank=True, null=True,
         verbose_name='V planu za dne')
 
     datum_start = models.DateField(
@@ -167,7 +171,7 @@ class DelovniNalog(TimeStampedModel, StatusModel):
         verbose_name="Začeto dne")
 
     datum_stop = models.DateField(
-        blank=True, null=True, 
+        blank=True, null=True,
         verbose_name="Končano dne")
 
     @receiver(post_save, sender=Opravilo)
@@ -191,7 +195,7 @@ class DelovniNalog(TimeStampedModel, StatusModel):
 
     # CUSTOM PROPERTIES
     def get_absolute_url(self):
-        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.pk}) 
+        return reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': self.pk})
 
     # @property
     # def delo_vdelu(self):
@@ -204,9 +208,9 @@ class DelovniNalog(TimeStampedModel, StatusModel):
     def racun_dokument(self):
         return self.strosek.racun.arhiviranje.dokument
 
-    
 
-    
+
+
 
 
 
@@ -240,7 +244,7 @@ class Delo(TimeStampedModel, StatusModel):
 
     delo_cas_rac = models.DecimalField(
         decimal_places=2, max_digits=5,
-        blank=True, null=True, 
+        blank=True, null=True,
         verbose_name="Porabljen čas [UR]"
     )
 
@@ -319,6 +323,3 @@ class DeloVrstaSklop(models.Model):
 
     def __str__(self):
         return "%s - %s" % (self.oznaka, self.naziv)
-
-
-
