@@ -1,6 +1,17 @@
 from django.db import models
 
 
+class OsnovniPodatki(models.Model):
+
+    oznaka = models.CharField(max_length=100, blank=True, null=True)
+    oznaka_gen = models.CharField(max_length=100, blank=True, null=True)
+    naziv = models.CharField(max_length=255, blank=True, null=True)
+    opis = models.TextField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+
 class TimeStampedModel(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -101,4 +112,3 @@ class Opombe(models.Model):
 
     class Meta:
         abstract = True
-
