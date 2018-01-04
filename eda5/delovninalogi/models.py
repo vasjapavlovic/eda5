@@ -323,3 +323,8 @@ class DeloVrstaSklop(models.Model):
 
     def __str__(self):
         return "%s - %s" % (self.oznaka, self.naziv)
+
+
+# KONTROLNI objekt_list
+class Aktivnost(models.Model):
+    pass
