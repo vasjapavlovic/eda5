@@ -1,7 +1,25 @@
 from django.test import TestCase
 
+from ..factories import AktivnostFactory
 
 from ..models import Aktivnost
+
+
+class AktivnostModelFactoryTest(TestCase):
+
+    def setUp(self):
+
+        self.aktivnost = AktivnostFactory()
+
+
+
+    def test_verbose_name(self):
+
+        zeljen_rezultat = 'Aktivnost'
+        objekt = self.aktivnost
+        dejanski_rezultat = objekt._meta.verbose_name
+        self.assertEquals(dejanski_rezultat, zeljen_rezultat)
+
 
 
 class AktivnostModelTest(TestCase):
