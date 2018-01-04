@@ -18,7 +18,7 @@ class AktivnostModelTest(TestCase):
         zeljen_rezultat = 'Aktivnost'
         objekt = Aktivnost.objects.get(oznaka="A1")
         dejanski_rezultat = objekt._meta.verbose_name
-        self.AssertEquals(dejanski_rezultat, zeljen_rezultat)
+        self.assertEquals(dejanski_rezultat, zeljen_rezultat)
 
 
     def test_verbose_name_plural(self):
@@ -26,7 +26,7 @@ class AktivnostModelTest(TestCase):
         zeljen_rezultat = 'Aktivnosti'
         objekt = Aktivnost.objects.get(oznaka="A1")
         dejanski_rezultat = objekt._meta.verbose_name_plural
-        self.AssertEquals(dejanski_rezultat, zeljen_rezultat)
+        self.assertEquals(dejanski_rezultat, zeljen_rezultat)
 
 
     def test_ordering(self):
@@ -34,4 +34,4 @@ class AktivnostModelTest(TestCase):
         zeljen_rezultat = 'A1'
         objekt_list = Aktivnost.objects.filter()
         dejanski_rezultat = objekt_list[0].oznaka  #oznaka prvega na seznamu
-        self.AssertEquals(dejanski_rezultat, zeljen_rezultat)
+        self.assertEquals(dejanski_rezultat, zeljen_rezultat)

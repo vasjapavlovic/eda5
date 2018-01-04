@@ -327,4 +327,8 @@ class DeloVrstaSklop(models.Model):
 
 # KONTROLNI objekt_list
 class Aktivnost(OsnovnaKombinacija):
-    pass
+
+    class Meta:
+        verbose_name='Aktivnost'
+        verbose_name_plural='Aktivnosti'
+        ordering=('oznaka',)
