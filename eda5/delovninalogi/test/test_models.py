@@ -13,6 +13,8 @@ class AktivnostModelTest(TestCase):
         Aktivnost.objects.create(oznaka='A3', naziv="Aktivnost 3")
         Aktivnost.objects.create(oznaka='A1', naziv="Aktivnost 2")
 
+
+
     def test_verbose_name(self):
 
         zeljen_rezultat = 'Aktivnost'
@@ -35,3 +37,10 @@ class AktivnostModelTest(TestCase):
         objekt_list = Aktivnost.objects.filter()
         dejanski_rezultat = objekt_list[0].oznaka  #oznaka prvega na seznamu
         self.assertEquals(dejanski_rezultat, zeljen_rezultat)
+
+
+class DelovniNalogi_TODO(TestCase):
+
+    def test_TODO(self):
+
+        self.fail('Dokončaj dodajanje aktivnosti.')
