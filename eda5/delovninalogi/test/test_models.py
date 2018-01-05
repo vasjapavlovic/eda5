@@ -44,6 +44,13 @@ class AktivnostModelTest(TestCase):
         dejanski_rezultat = objekt_list[0].oznaka  #oznaka prvega na seznamu
         self.assertEquals(dejanski_rezultat, zeljen_rezultat)
 
+    def test_opravilo_label(self):
+
+        zeljen_rezultat = 'opravilo'
+        objekt = Aktivnost.objects.get(oznaka='A1')
+        dejanski_rezultat = objekt._meta.get_field('opravilo').verbose_name
+        self.assertEquals(dejanski_rezultat, zeljen_rezultat)
+
 
 # class DelovniNalogi_TODO(TestCase):
 #
