@@ -1,10 +1,10 @@
 from django.test import TestCase
 
-from ..factories import AktivnostFactory, ArhivFactory
-
+from ..factories import AktivnostFactory
+from ..factories import ArhivFactory
+from eda5.deli.factories import ProjektnoMestoFactory
 
 from ..models import Aktivnost
-
 from eda5.partnerji.models import Posta
 
 
@@ -16,9 +16,13 @@ class AktivnostModelTest(TestCase):
         arhiv = ArhivFactory()
         arhiv.save()
 
-        aktivnost3 = AktivnostFactory.create(oznaka="A3")
-        aktivnost1 = AktivnostFactory.create(oznaka="A1")
-        aktivnost2 = AktivnostFactory.create(oznaka="A2")
+        pm1 = ProjektnoMestoFactory()
+        pm2 = ProjektnoMestoFactory()
+        pm3 = ProjektnoMestoFactory()
+
+        aktivnost3 = AktivnostFactory.create(oznaka="A3", projektno_mesto=(pm1, pm2, pm3))
+        aktivnost1 = AktivnostFactory.create(oznaka="A1", projektno_mesto=(pm1, pm2, pm3))
+        aktivnost2 = AktivnostFactory.create(oznaka="A2", projektno_mesto=(pm1, pm2, pm3))
 
         aktivnost3.save()
         aktivnost1.save()

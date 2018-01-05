@@ -2,16 +2,17 @@ import factory
 
 from .models import Aktivnost
 from .models import Opravilo
+from eda5.arhiv.models import Arhiv
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Partner, Oseba, Posta, Drzava
 from eda5.zahtevki.models import Zahtevek
 
 from eda5.deli.factories import ProjektnoMestoFactory
 
-from eda5.arhiv.models import Arhiv
 
 
-class ArhivFactory(factory.DjangoModelFactory):
+
+class ArhivFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Arhiv
 
@@ -20,14 +21,14 @@ class ArhivFactory(factory.DjangoModelFactory):
 
 
 
-class DrzavaFactory(factory.DjangoModelFactory):
+class DrzavaFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Drzava
 
     iso_koda = factory.Sequence(lambda n: '{0}'.format(n))
     naziv = 'B'
 
-class PostaFactory(factory.DjangoModelFactory):
+class PostaFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Posta
 
@@ -36,7 +37,7 @@ class PostaFactory(factory.DjangoModelFactory):
     drzava = factory.SubFactory(DrzavaFactory)
 
 
-class PartnerFactory(factory.DjangoModelFactory):
+class PartnerFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Partner
 
@@ -46,14 +47,14 @@ class PartnerFactory(factory.DjangoModelFactory):
     davcna_st = factory.Sequence(lambda n: '{0}'.format(n))
 
 
-class OsebaFactory(factory.DjangoModelFactory):
+class OsebaFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Oseba
 
     podjetje = factory.SubFactory(PartnerFactory)
 
 
-class ZahtevekFactory(ArhivFactory, factory.DjangoModelFactory):
+class ZahtevekFactory(ArhivFactory, factory.django.DjangoModelFactory):
     class Meta:
         model = Zahtevek
 
@@ -63,7 +64,7 @@ class ZahtevekFactory(ArhivFactory, factory.DjangoModelFactory):
 
 
 
-class NarociloFactory(factory.DjangoModelFactory):
+class NarociloFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Narocilo
 
@@ -75,7 +76,7 @@ class NarociloFactory(factory.DjangoModelFactory):
     datum_veljavnosti = "2017-11-11"
 
 
-class OpraviloFactory(factory.DjangoModelFactory):
+class OpraviloFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Opravilo
 
@@ -86,11 +87,21 @@ class OpraviloFactory(factory.DjangoModelFactory):
     rok_izvedbe = "2017-11-11"
 
 
-class AktivnostFactory(factory.DjangoModelFactory):
+class AktivnostFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Aktivnost
 
     oznaka = factory.Sequence(lambda n: u'Aktivnost {}'.format(n))
     naziv = 'Moja prva aktivnost'
     opravilo = factory.SubFactory(OpraviloFactory)
-    projektno_mesto =factory.SubFactory(ProjektnoMestoFactory)
+
+    @factory.post_generation
+    def projektno_mesto(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # A list of groups were passed in, use them
+            for pm in extracted:
+                self.projektno_mesto.add(pm)
