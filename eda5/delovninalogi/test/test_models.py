@@ -3,11 +3,13 @@ from django.test import TestCase
 from ..factories import AktivnostFactory
 from ..factories import AktivnostParameterSpecifikacijaFactory
 from ..factories import ArhivFactory
+from ..factories import OpcijaSelectFactory
 
 from eda5.deli.factories import ProjektnoMestoFactory
 
 from ..models import Aktivnost
 from ..models import AktivnostParameterSpecifikacija
+from ..models import OpcijaSelect
 from eda5.partnerji.models import Posta
 
 
@@ -113,3 +115,25 @@ class AktivnostParameterSpecifikacijaModelTest(TestCase):
         choices = objekt._meta.get_field('vrsta_vnosa').choices
         target = ((1, 'check'), (2, 'text'), (3, 'select'))
         self.assertEquals(choices, target)
+
+
+class OpcijaSelectModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        os1 = OpcijaSelectFactory()
+        os1.save()
+
+    def test_aktivnost_parameter_specifikacija_relacija(self):
+        objekt = OpcijaSelect.objects.first()
+        reuslt = objekt.aktivnost_parameter_specifikacija
+        self.assertFalse(reuslt is None)  # obstaja vnos
+
+    def test__str__(self):
+        objekt = OpcijaSelect.objects.first()
+        result = objekt.__str__()
+        cilj = '(' + objekt.oznaka + ')' + objekt.naziv
+        self.assertEquals(result, cilj)

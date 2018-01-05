@@ -3,6 +3,7 @@ import factory
 from .models import Aktivnost
 from .models import AktivnostParameterSpecifikacija
 from .models import Opravilo
+from .models import OpcijaSelect
 from eda5.arhiv.models import Arhiv
 from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Partner, Oseba, Posta, Drzava
@@ -115,3 +116,13 @@ class AktivnostParameterSpecifikacijaFactory(factory.django.DjangoModelFactory):
     oznaka = factory.Sequence(lambda n: u'PAS {}'.format(n))
     naziv = 'Parameter aktivnosti specifikacija'
     aktivnost = factory.SubFactory(AktivnostFactory)
+
+
+
+class OpcijaSelectFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = OpcijaSelect
+
+    oznaka = factory.Sequence(lambda n: 'Opcija {0}'.format(n))
+    naziv = factory.Sequence(lambda n: 'Opcija {0}'.format(n))
+    aktivnost_parameter_specifikacija = factory.SubFactory(AktivnostParameterSpecifikacijaFactory)

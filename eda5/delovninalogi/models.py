@@ -378,3 +378,14 @@ class AktivnostParameterSpecifikacija(OsnovnaKombinacija):
 
     class Meta:
         ordering = ['oznaka']
+
+
+class OpcijaSelect(OsnovnaKombinacija):
+
+    aktivnost_parameter_specifikacija = models.ForeignKey(
+        AktivnostParameterSpecifikacija,
+        verbose_name='aktivnost parameter specifikacija'
+        )
+
+    def __str__(self):
+        return "(%s)%s" % (self.oznaka, self.naziv)
