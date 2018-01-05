@@ -1,6 +1,9 @@
 from django.contrib import admin
 
 from .models import Opravilo, DelovniNalog, Delo, DeloVrsta, DeloVrstaSklop, VzorecOpravila
+from .models import Aktivnost
+from .models import AktivnostParameterSpecifikacija
+from .models import OpcijaSelect
 
 
 @admin.register(Opravilo)
@@ -12,8 +15,8 @@ class OpraviloAdmin(admin.ModelAdmin):
     )
     raw_id_fields = (
         "zahtevek",
-        "narocilo", 
-        "element", 
+        "narocilo",
+        "element",
         "vrsta_stroska",
         "nosilec",
         'planirano_opravilo',
@@ -44,11 +47,34 @@ class DeloVrstaSklopAdmin(admin.ModelAdmin):
 
 @admin.register(VzorecOpravila)
 class VzorecOpravilaAdmin(admin.ModelAdmin):
-    
+
     raw_id_fields = (
-        "narocilo", 
-        "element", 
+        "narocilo",
+        "element",
         "vrsta_stroska",
         "nosilec",
         'planirano_opravilo',
+        )
+
+
+
+@admin.register(Aktivnost)
+class AktivnostAdmin(admin.ModelAdmin):
+
+    raw_id_fields = (
+        'projektno_mesto',
+        'opravilo',
+        )
+
+@admin.register(AktivnostParameterSpecifikacija)
+class AktivnostParamaterSpecifikacijaAdmin(admin.ModelAdmin):
+    raw_id_fields = (
+        'aktivnost',
+        )
+
+
+@admin.register(OpcijaSelect)
+class OpcijaSelectAdmin(admin.ModelAdmin):
+    raw_id_fields = (
+        'aktivnost_parameter_specifikacija',
         )
