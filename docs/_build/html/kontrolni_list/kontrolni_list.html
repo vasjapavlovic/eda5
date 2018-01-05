@@ -1,0 +1,232 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>KONTROLNI LIST &#8212; EDA5 Project 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="DELOVNI NALOGI" href="../delovninalogi/delovninalogi.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../delovninalogi/delovninalogi.html" title="DELOVNI NALOGI"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EDA5 Project 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="kontrolni-list">
+<h1>KONTROLNI LIST<a class="headerlink" href="#kontrolni-list" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struktura">
+<h2>Struktura<a class="headerlink" href="#struktura" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="osnovna-shema">
+<span id="kontrolni-list-osnovna-shema"></span><h3>Osnovna shema<a class="headerlink" href="#osnovna-shema" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id1">
+<img alt="../_images/osnovna_struktura.png" src="../_images/osnovna_struktura.png" />
+<p class="caption"><span class="caption-text">Osnovna shema kontrolnega lista</span></p>
+</div>
+</div>
+<div class="section" id="definicije-pojmov">
+<span id="kontrolni-list-definicije-pojmov"></span><h3>Definicije pojmov<a class="headerlink" href="#definicije-pojmov" title="Permalink to this headline">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-aktivnost">Aktivnost</dt>
+<dd>Sklop kontrol, ki se izvajajo z določenim namenom</dd>
+<dt id="term-kontrolaspecifikacija">KontrolaSpecifikacija</dt>
+<dd>Definira kaj se kontrolira, kako se kontrolira in vrsto vnosa vrednosti kontrole
+(check, text, select)</dd>
+<dt id="term-kontrolavrednost">KontrolaVrednost</dt>
+<dd>Ugotovljena vrednost specificirane kontrole</dd>
+<dt id="term-kontrolaspecifikacijaopcijaselect">KontrolaSpecifikacijaOpcijaSelect</dt>
+<dd>Zaloga vrednosti pri načinu kontrole z izborom vrednosti - “select”</dd>
+<dt id="term-opravilo">Opravilo</dt>
+<dd>Povezava na opredelitev: <a class="reference internal" href="../delovninalogi/delovninalogi.html#delovni-nalogi-definicije-pojmov"><span class="std std-ref">Definicije pojmov</span></a></dd>
+<dt id="term-delovninalog">DelovniNalog</dt>
+<dd>Povezava na opredelitev: <a class="reference internal" href="../delovninalogi/delovninalogi.html#delovni-nalogi-definicije-pojmov"><span class="std std-ref">Definicije pojmov</span></a></dd>
+</dl>
+</div>
+</div>
+<div class="section" id="models">
+<h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="aktivnost-model">
+<span id="kontrolni-list-aktivnost-model"></span><h3>Aktivnost Model<a class="headerlink" href="#aktivnost-model" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="opravilo">
+<h4>opravilo<a class="headerlink" href="#opravilo" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">specifikacija</th>
+<th class="head">vrednost</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>field</td>
+<td>opravilo</td>
+</tr>
+<tr class="row-odd"><td>opis</td>
+<td>Relacija na opravilo kjer se bo aktivnost izvajala</td>
+</tr>
+<tr class="row-even"><td>Type</td>
+<td>models.ForeignKey</td>
+</tr>
+<tr class="row-odd"><td>MaxLength</td>
+<td>/</td>
+</tr>
+<tr class="row-even"><td>blank</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>null</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>verbose_name</td>
+<td>Opravilo</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="projektno-mesto">
+<h4>projektno_mesto<a class="headerlink" href="#projektno-mesto" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">specifikacija</th>
+<th class="head">vrednost</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>field</td>
+<td>projektno_mesto</td>
+</tr>
+<tr class="row-odd"><td>opis</td>
+<td>Aktivnost se izvaja na specificiranih projektnih
+mestih (ProjektnoMesto). Podlaga za servisno
+knjigo.</td>
+</tr>
+<tr class="row-even"><td>Type</td>
+<td>models.ManyToManyField</td>
+</tr>
+<tr class="row-odd"><td>MaxLength</td>
+<td>/</td>
+</tr>
+<tr class="row-even"><td>blank</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>null</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>verbose_name</td>
+<td>Projektno mesto</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="kontrolaspecifikacija-model">
+<span id="kontrolni-list-aktivnost-model-projektno-mesto"></span><h3>KontrolaSpecifikacija Model<a class="headerlink" href="#kontrolaspecifikacija-model" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">KONTROLNI LIST</a><ul>
+<li><a class="reference internal" href="#struktura">Struktura</a><ul>
+<li><a class="reference internal" href="#osnovna-shema">Osnovna shema</a></li>
+<li><a class="reference internal" href="#definicije-pojmov">Definicije pojmov</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#models">Models</a><ul>
+<li><a class="reference internal" href="#aktivnost-model">Aktivnost Model</a><ul>
+<li><a class="reference internal" href="#opravilo">opravilo</a></li>
+<li><a class="reference internal" href="#projektno-mesto">projektno_mesto</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#kontrolaspecifikacija-model">KontrolaSpecifikacija Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../delovninalogi/delovninalogi.html"
+                        title="previous chapter">DELOVNI NALOGI</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/kontrolni_list/kontrolni_list.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../delovninalogi/delovninalogi.html" title="DELOVNI NALOGI"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EDA5 Project 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015, Vasja Pavlovič.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
