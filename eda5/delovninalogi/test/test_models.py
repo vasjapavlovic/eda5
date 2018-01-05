@@ -55,5 +55,5 @@ class AktivnostModelTest(TestCase):
 
     def test_projektno_mesto_foreignKey(self):
         objekt = Aktivnost.objects.get(oznaka='A1')
-        result_1 = objekt.projektno_mesto
-        self.assertFalse(result_1 is None)  # obstaja vnos projektnega_mesta
+        result_1 = objekt.projektno_mesto.filter().count()
+        self.assertEquals(result_1, 3)  # kontrola many to many da obstajajo 3 vnosi

@@ -333,8 +333,13 @@ class Aktivnost(OsnovnaKombinacija):
         blank=True,
         null=True,
         verbose_name='opravilo'
-    )
+        )
 
+    projektno_mesto = models.ManyToManyField(
+        ProjektnoMesto,
+        blank=True,
+        verbose_name='projektno mesto'
+        )
 
 
 
