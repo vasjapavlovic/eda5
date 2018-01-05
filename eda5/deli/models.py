@@ -33,11 +33,11 @@ class Stavba(TimeStampedModel, IsActiveModel):
         verbose_name="Oznaka")
 
     naziv = models.CharField(
-        max_length=255, blank=True, null=True, 
+        max_length=255, blank=True, null=True,
         verbose_name="Naziv")
 
     opis = models.TextField(
-        blank=True, null=True, 
+        blank=True, null=True,
         verbose_name="Opis")
 
 
@@ -67,16 +67,16 @@ class Etaza(TimeStampedModel, IsActiveModel):
         verbose_name="Naziv")
 
     opis = models.TextField(
-        blank=True, null=True, 
+        blank=True, null=True,
         verbose_name="Opis")
 
     elevation = models.DecimalField(
-        decimal_places=5, max_digits=20, blank=True, null=True, 
+        decimal_places=5, max_digits=20, blank=True, null=True,
         verbose_name="Višinska kota Etaže")
 
     #R STAVBA Relacija na Stavbo
     stavba = models.ForeignKey(
-        Stavba, 
+        Stavba,
         verbose_name="Stavba")
 
 
@@ -216,7 +216,7 @@ class DelStavbe(TimeStampedModel, IsActiveModel):
 
     # ---------------------------------------------------------------------------------------
     # Del stavbe predstavlja sistem, napravo, prostor, gradbeni element ali opremo, ki je
-    # definirana oziroma oblikovana glede na (1) zaradi skupnega lastništva (2) smiselno po 
+    # definirana oziroma oblikovana glede na (1) zaradi skupnega lastništva (2) smiselno po
     # funkcionalnosti-razdelitev na več delov tudi v primeru enega lastnika zaradi smiselne
     # funkcionalnosti. Del stabe združuje projektna mesta na katerih se vodi servisna knjiga,
     # imajo planirane aktivnosti, ki so del plana obratovanja in vzdrževanja.
@@ -224,7 +224,7 @@ class DelStavbe(TimeStampedModel, IsActiveModel):
 
     # ATRIBUTES
     #===================================
-    
+
     # oznaka dela stavbe
     oznaka = models.CharField(
         max_length=50, unique=True,
@@ -237,19 +237,19 @@ class DelStavbe(TimeStampedModel, IsActiveModel):
 
     # funkcijo dela stavbe (sistema)
     funkcija = models.CharField(
-        max_length=255, blank=True, null=True, 
+        max_length=255, blank=True, null=True,
         verbose_name="funkcija sistema"
     )
 
     # BIM ID. Navezava na BIM program
     bim_id = models.CharField(
-        max_length=100, blank=True, null=True, 
+        max_length=100, blank=True, null=True,
         verbose_name='BIM ID'
     )
 
     #R# lastniška skupina - kdo je lastnik
     lastniska_skupina = models.ForeignKey(
-        LastniskaSkupina, blank=True, null=True, 
+        LastniskaSkupina, blank=True, null=True,
         verbose_name="lastniška skupina",
     )
 
@@ -315,23 +315,23 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
 
     # NAZIV projektnega mesta : npr. Toplotna črpalka ST
     naziv = models.CharField(
-        max_length=255, 
+        max_length=255,
         verbose_name="Naziv")
 
     # FUNKCIJA s katerim definiramo zakaj se bo ta element potreboval
     funkcija = models.CharField(
-        max_length=255, blank=True, null=True, 
+        max_length=255, blank=True, null=True,
         verbose_name="Funkcija Elementa")
 
     #R TIP ELEMENTA. Definira relacijo na TipArtikla. npr. Toplotna Črpalka
-    tip_elementa = models.ForeignKey(
-        TipArtikla, blank=True, null=True,
-        verbose_name='Tip Elementa')
+    # tip_elementa = models.ForeignKey(
+    #     TipArtikla, blank=True, null=True,
+    #     verbose_name='Tip Elementa')
 
     #R DEL STAVBE. Definiramo relacijo na DEL STAVBE, ki ga sestavlja več
     # projektnih mest
     del_stavbe = models.ForeignKey(
-        DelStavbe, 
+        DelStavbe,
         verbose_name='Del Stavbe')
 
     # BIM ID. Navezava na BIM program
@@ -358,7 +358,7 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
 
     # METHODS
 
-    # PROJEKTNO MESTO - !!!AVTO. Ob izdelavi dela stavbe se avtomatsko 
+    # PROJEKTNO MESTO - !!!AVTO. Ob izdelavi dela stavbe se avtomatsko
     # izdela splošno projektno mesto ki je potrebno za funkcioniranje
     # informacijskega sistema
 
@@ -406,7 +406,7 @@ class Element(TimeStampedModel, IsActiveModel):
     # gre.
     #
     # ELEMENT bi moral imeti OneToOneRelacijo glede na projektno mesto.
-    # Vendar, ker bo lahko  na projektnem mestu v življenski dobi bilo registriranih več 
+    # Vendar, ker bo lahko  na projektnem mestu v življenski dobi bilo registriranih več
     # elementov je potrebna OneToMany relacija.Projektno mesto bo pa vedno imelo aktiven samo
     # en element do katerega se dostopa z ukazom
     # element = ProjektnoMesto.objects.filter(is_active=True)[0]
@@ -427,12 +427,12 @@ class Element(TimeStampedModel, IsActiveModel):
 
     #R PROJEKTNO MESTO. Relacija na projektno mesto
     projektno_mesto = models.ForeignKey(
-        ProjektnoMesto, 
+        ProjektnoMesto,
         verbose_name='projektno mesto')
 
     #R ARTIKEL. Relacija na model artikla iz kataloga
     artikel = models.ForeignKey(
-        ModelArtikla, blank=True, null=True, 
+        ModelArtikla, blank=True, null=True,
         verbose_name='Model',)
 
 

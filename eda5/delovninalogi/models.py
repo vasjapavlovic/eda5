@@ -335,6 +335,9 @@ class Aktivnost(OsnovnaKombinacija):
         verbose_name='opravilo'
     )
 
+
+
+
     class Meta:
         verbose_name='Aktivnost'
         verbose_name_plural='Aktivnosti'
