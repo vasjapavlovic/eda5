@@ -50,4 +50,3 @@ class ProjektnoMestoFactory(factory.DjangoModelFactory):
     oznaka = factory.Sequence(lambda n: '{0}'.format(n))
     naziv = factory.Sequence(lambda n: 'Podskupina {0}'.format(n))
     del_stavbe = factory.SubFactory(DelStavbeFactory)
-    tip_elementa = None

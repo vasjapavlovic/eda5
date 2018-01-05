@@ -372,10 +372,12 @@ class ProjektnoMesto(TimeStampedModel, IsActiveModel):
             oznaka_dela_stavbe = delstavbe.oznaka
             oznaka_projektnega_mesta = "S-" + oznaka_dela_stavbe
 
-            #splošni tip elementa
-            splosni_tip_elementa = TipArtikla.objects.get(oznaka="splosno")
-
-            projektno_mesto = ProjektnoMesto(oznaka=oznaka_projektnega_mesta, naziv="splošno", funkcija="-", tip_elementa=splosni_tip_elementa, del_stavbe=instance)
+            projektno_mesto = ProjektnoMesto(
+                oznaka=oznaka_projektnega_mesta,
+                naziv="splošno",
+                funkcija="-",
+                del_stavbe=instance
+                )
 
             projektno_mesto.save()
 
