@@ -73,10 +73,10 @@ class PodskupinaAdmin(admin.ModelAdmin):
 @admin.register(models.DelStavbe)
 class DelStavbeAdmin(admin.ModelAdmin):
     list_display = (
-        "oznaka", 
-        "naziv", 
+        "oznaka",
+        "naziv",
         'funkcija',
-        "lastniska_skupina", 
+        "lastniska_skupina",
         "podskupina"
     )
     # dodati še lastniško skupino
@@ -95,7 +95,6 @@ class ProjektnoMestoAdmin(admin.ModelAdmin):
         'naziv',
         'funkcija',
         'bim_id',
-        'tip_elementa',
         'lokacija',
         'del_stavbe',
     )
@@ -105,7 +104,7 @@ class ProjektnoMestoAdmin(admin.ModelAdmin):
 
     ]
     ordering = [
-        "del_stavbe__oznaka", 
+        "del_stavbe__oznaka",
         "oznaka",
     ]
     raw_id_fields = ("lokacija", "del_stavbe")

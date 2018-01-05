@@ -15,7 +15,6 @@ class ProjektnoMestoCreateForm(forms.ModelForm):
             'naziv',
             'funkcija',
             'bim_id',
-            'tip_elementa',
             'lokacija',
             'del_stavbe',
         )
@@ -70,14 +69,12 @@ class ProjektnoMestoSearchForm(forms.Form):
         if naziv_filter and not oznaka_filter:
             return queryset.filter(
                 Q(naziv__icontains=naziv_filter) |
-                Q(tip_elementa__oznaka__icontains=naziv_filter) |
-                Q(tip_elementa__naziv__icontains=naziv_filter) |
                 Q(del_stavbe__oznaka__icontains=naziv_filter) |
                 Q(del_stavbe__naziv__icontains=naziv_filter) |
                 Q(del_stavbe__podskupina__oznaka__icontains=naziv_filter) |
                 Q(del_stavbe__podskupina__naziv__icontains=naziv_filter)
                 )
-        
+
 
         # uporabnik filtrira po kratkem imenu in naslovu partnerja
         if oznaka_filter and naziv_filter:
@@ -85,8 +82,6 @@ class ProjektnoMestoSearchForm(forms.Form):
                 Q(oznaka__icontains=oznaka_filter) &
                 (
                 Q(naziv__icontains=naziv_filter) |
-                Q(tip_elementa__oznaka__icontains=naziv_filter) |
-                Q(tip_elementa__naziv__icontains=naziv_filter) |
                 Q(del_stavbe__oznaka__icontains=naziv_filter) |
                 Q(del_stavbe__naziv__icontains=naziv_filter) |
                 Q(del_stavbe__podskupina__oznaka__icontains=naziv_filter) |
