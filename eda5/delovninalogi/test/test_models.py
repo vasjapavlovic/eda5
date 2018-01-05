@@ -5,12 +5,11 @@ from ..factories import AktivnostFactory
 from ..models import Aktivnost
 
 
-class AktivnostModelFactoryTest(TestCase):
 
+class AktivnostModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-
 
         aktivnost3 = AktivnostFactory.create(oznaka="A3")
         aktivnost1 = AktivnostFactory.create(oznaka="A1")
@@ -20,32 +19,7 @@ class AktivnostModelFactoryTest(TestCase):
         aktivnost1.save()
         aktivnost2.save()
 
-
         # aktivnost_list = AktivnostFactory.build_batch(2)
-
-
-
-    def test_verbose_name(self):
-
-        print(Aktivnost.objects.filter())
-
-        zeljen_rezultat = 'Aktivnost'
-        objekt = Aktivnost.objects.get(oznaka='A1')
-        dejanski_rezultat = objekt._meta.verbose_name
-        self.assertEquals(dejanski_rezultat, zeljen_rezultat)
-
-
-
-class AktivnostModelTest(TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-
-        Aktivnost.objects.create(oznaka='A2', naziv="Aktivnost 1")
-        Aktivnost.objects.create(oznaka='A3', naziv="Aktivnost 3")
-        Aktivnost.objects.create(oznaka='A1', naziv="Aktivnost 2")
-
-
 
     def test_verbose_name(self):
 
