@@ -1,6 +1,7 @@
 import factory
 
 from .models import Aktivnost
+from .models import AktivnostParameterSpecifikacija
 from .models import Opravilo
 from eda5.arhiv.models import Arhiv
 from eda5.narocila.models import Narocilo
@@ -105,3 +106,12 @@ class AktivnostFactory(factory.django.DjangoModelFactory):
             # A list of groups were passed in, use them
             for pm in extracted:
                 self.projektno_mesto.add(pm)
+
+
+class AktivnostParameterSpecifikacijaFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = AktivnostParameterSpecifikacija
+
+    oznaka = factory.Sequence(lambda n: u'PAS {}'.format(n))
+    naziv = 'Parameter aktivnosti specifikacija'
+    aktivnost = factory.SubFactory(AktivnostFactory)

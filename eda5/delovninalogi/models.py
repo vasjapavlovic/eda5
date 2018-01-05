@@ -342,7 +342,6 @@ class Aktivnost(OsnovnaKombinacija):
         )
 
 
-
     class Meta:
         verbose_name='Aktivnost'
         verbose_name_plural='Aktivnosti'
@@ -351,3 +350,31 @@ class Aktivnost(OsnovnaKombinacija):
 
     def __str__(self):
         return '(%s)%s' % (self.oznaka, self.naziv)
+
+
+class AktivnostParameterSpecifikacija(OsnovnaKombinacija):
+
+    aktivnost = models.ForeignKey(
+        Aktivnost,
+        verbose_name='aktivnost'
+        )
+
+    tip_check = 1
+    tip_vrednost = 2
+    tip_select = 3
+
+    VRSTE_VNOSA = (
+        (tip_check, 'check'),
+        (tip_vrednost, 'text'),
+        (tip_select, 'select'), # Zaloga vrednosti --> OpcijeSelect model
+        )
+
+    vrsta_vnosa = models.IntegerField(
+        choices=VRSTE_VNOSA,
+        default=1,
+        verbose_name='vrsta vnosa',
+        )
+
+
+    class Meta:
+        ordering = ['oznaka']
