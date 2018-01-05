@@ -328,6 +328,13 @@ class DeloVrstaSklop(models.Model):
 # KONTROLNI objekt_list
 class Aktivnost(OsnovnaKombinacija):
 
+    opravilo = models.ForeignKey(
+        Opravilo,
+        blank=True,
+        null=True,
+        verbose_name='opravilo'
+    )
+
     class Meta:
         verbose_name='Aktivnost'
         verbose_name_plural='Aktivnosti'
