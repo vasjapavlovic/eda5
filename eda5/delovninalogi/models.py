@@ -332,3 +332,7 @@ class Aktivnost(OsnovnaKombinacija):
         verbose_name='Aktivnost'
         verbose_name_plural='Aktivnosti'
         ordering=('oznaka',)
+
+
+    def __str__(self):
+        return '(%s)%s' % (self.oznaka, self.naziv)
