@@ -17,6 +17,17 @@ Osnovna shema
     Osnovna shema kontrolnega lista
 
 
+
+.. _kontrolni-list-struktura-izpis:
+Struktura izpis
+---------------
+
+.. figure:: images/kontrolni_list_struktura_izpis.png
+
+
+
+
+
 .. _kontrolni-list-definicije-pojmov:
 
 Definicije pojmov
