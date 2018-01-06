@@ -1,13 +1,16 @@
 from django.test import TestCase
 
-from eda5.delovninalogi.factories import AktivnostFactory
-from eda5.delovninalogi.factories import ArhivFactory
+from ..factories import AktivnostFactory
+from ..factories import AktivnostParameterSpecifikacijaFactory
+from eda5.arhiv.factories import ArhivFactory
+from ..factories import OpcijaSelectFactory
 
 from eda5.deli.factories import ProjektnoMestoFactory
 
-from eda5.delovninalogi.models import Aktivnost
-
-
+from ..models import Aktivnost
+from ..models import AktivnostParameterSpecifikacija
+from ..models import OpcijaSelect
+from eda5.partnerji.models import Posta
 
 
 
@@ -63,3 +66,74 @@ class AktivnostModelTest(TestCase):
         objekt = Aktivnost.objects.get(oznaka='A1')
         result_1 = objekt.projektno_mesto.filter().count()
         self.assertEquals(result_1, 3)  # kontrola many to many da obstajajo 3 vnosi
+
+
+class AktivnostParameterSpecifikacijaModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        aps3 = AktivnostParameterSpecifikacijaFactory(oznaka='APS3')
+        aps1 = AktivnostParameterSpecifikacijaFactory(oznaka='APS1')
+        aps2 = AktivnostParameterSpecifikacijaFactory(oznaka='APS2')
+
+        aps3.save()
+        aps1.save()
+        aps2.save()
+
+    def test_aktivnost_relacija(self):
+        objekt = AktivnostParameterSpecifikacija.objects.get(oznaka='APS1')
+        reuslt = objekt.aktivnost
+        self.assertFalse(reuslt is None)  # obstaja vnos
+
+    def test_aktivnost_label(self):
+        objekt = AktivnostParameterSpecifikacija.objects.get(oznaka='APS1')
+        result = objekt._meta.get_field('aktivnost').verbose_name
+        self.assertEquals(result, 'aktivnost')
+
+    def test_ordering(self):
+        '''
+        Seznam naj bo od najnižje aktivnosti do najvišje glede na oznako
+        '''
+        objekt_prvi = AktivnostParameterSpecifikacija.objects.filter().first()
+        self.assertEquals(objekt_prvi.oznaka, 'APS1')
+
+
+    def test_vrsta_vnosa_label(self):
+        objekt = AktivnostParameterSpecifikacija.objects.get(oznaka='APS1')
+        result = objekt._meta.get_field('vrsta_vnosa').verbose_name
+        self.assertEquals(result, 'vrsta vnosa')
+
+
+    def test_vrednost_vrsta_choices(self):
+        '''
+        Preverimo opcije izbire vrst vnosov
+        '''
+        objekt = AktivnostParameterSpecifikacija.objects.get(oznaka='APS1')
+        choices = objekt._meta.get_field('vrsta_vnosa').choices
+        target = ((1, 'check'), (2, 'text'), (3, 'select'))
+        self.assertEquals(choices, target)
+
+
+class OpcijaSelectModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        os1 = OpcijaSelectFactory()
+        os1.save()
+
+    def test_aktivnost_parameter_specifikacija_relacija(self):
+        objekt = OpcijaSelect.objects.first()
+        reuslt = objekt.aktivnost_parameter_specifikacija
+        self.assertFalse(reuslt is None)  # obstaja vnos
+
+    def test__str__(self):
+        objekt = OpcijaSelect.objects.first()
+        result = objekt.__str__()
+        cilj = '(' + objekt.oznaka + ')' + objekt.naziv
+        self.assertEquals(result, cilj)

@@ -57,6 +57,7 @@ LOCAL_APPS = (
     'eda5.etaznalastnina',  # elaborat etažne lastnine, interne lastniske enote
     'eda5.katalog',  # katalog artiklov
     'eda5.kljuci',  # podatki o ključih za dostopanje do prostorov,
+    'eda5.kontrolnilist',  # izdelava e-kontrolnih listov za opravila
     'eda5.import',  # uvoz podatkov v bazo
     'eda5.lastnistvo',  # prevzem v last, oddaja v najem
     'eda5.lokacija',  # lokacije elementov stavbe
