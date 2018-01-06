@@ -33,7 +33,7 @@ class Aktivnost(OsnovnaKombinacija):
         return '(%s)%s' % (self.oznaka, self.naziv)
 
 
-class AktivnostParameterSpecifikacija(OsnovnaKombinacija):
+class KontrolaSpecifikacija(OsnovnaKombinacija):
 
     aktivnost = models.ForeignKey(
         Aktivnost,
@@ -61,11 +61,11 @@ class AktivnostParameterSpecifikacija(OsnovnaKombinacija):
         ordering = ['oznaka']
 
 
-class OpcijaSelect(OsnovnaKombinacija):
+class KontrolaSpecifikacijaOpcijaSelect(OsnovnaKombinacija):
 
-    aktivnost_parameter_specifikacija = models.ForeignKey(
-        AktivnostParameterSpecifikacija,
-        verbose_name='aktivnost parameter specifikacija'
+    kontrola_specifikacija = models.ForeignKey(
+        KontrolaSpecifikacija,
+        verbose_name='specifikacija kontrole'
         )
 
     def __str__(self):

@@ -2,8 +2,8 @@ import factory
 
 
 from .models import Aktivnost
-from .models import AktivnostParameterSpecifikacija
-from .models import OpcijaSelect
+from .models import KontrolaSpecifikacija
+from .models import KontrolaSpecifikacijaOpcijaSelect
 
 from eda5.delovninalogi.factories import OpraviloFactory
 
@@ -27,20 +27,20 @@ class AktivnostFactory(factory.django.DjangoModelFactory):
                 self.projektno_mesto.add(pm)
 
 
-class AktivnostParameterSpecifikacijaFactory(factory.django.DjangoModelFactory):
+class KontrolaSpecifikacijaFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = AktivnostParameterSpecifikacija
+        model = KontrolaSpecifikacija
 
     oznaka = factory.Sequence(lambda n: u'PAS {}'.format(n))
-    naziv = 'Parameter aktivnosti specifikacija'
+    naziv = 'Specifikacija kontrole'
     aktivnost = factory.SubFactory(AktivnostFactory)
 
 
 
-class OpcijaSelectFactory(factory.django.DjangoModelFactory):
+class KontrolaSpecifikacijaOpcijaSelectFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = OpcijaSelect
+        model = KontrolaSpecifikacijaOpcijaSelect
 
     oznaka = factory.Sequence(lambda n: 'Opcija {0}'.format(n))
     naziv = factory.Sequence(lambda n: 'Opcija {0}'.format(n))
-    aktivnost_parameter_specifikacija = factory.SubFactory(AktivnostParameterSpecifikacijaFactory)
+    kontrola_specifikacija = factory.SubFactory(KontrolaSpecifikacijaFactory)
