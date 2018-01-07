@@ -43,16 +43,16 @@ class KontrolaSpecifikacija(OsnovnaKombinacija):
     tip_vrednost = 2
     tip_select = 3
 
-    VRSTE_VNOSA = (
+    VREDNOST_VRSTA = (
         (tip_check, 'check'),
         (tip_vrednost, 'text'),
         (tip_select, 'select'), # Zaloga vrednosti --> OpcijeSelect model
         )
 
-    vrsta_vnosa = models.IntegerField(
-        choices=VRSTE_VNOSA,
+    vrednost_vrsta = models.IntegerField(
+        choices=VREDNOST_VRSTA,
         default=1,
-        verbose_name='vrsta vnosa',
+        verbose_name='vrsta vrednosti',
         )
 
 

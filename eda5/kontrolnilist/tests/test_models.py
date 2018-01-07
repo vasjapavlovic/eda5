@@ -103,10 +103,15 @@ class KontrolaSpecifikacijaModelTest(TestCase):
         self.assertEquals(objekt_prvi.oznaka, 'APS1')
 
 
-    def test_vrsta_vnosa_label(self):
+    def test_vrednost_vrsta_label(self):
         objekt = KontrolaSpecifikacija.objects.get(oznaka='APS1')
-        result = objekt._meta.get_field('vrsta_vnosa').verbose_name
-        self.assertEquals(result, 'vrsta vnosa')
+        result = objekt._meta.get_field('vrednost_vrsta').verbose_name
+        self.assertEquals(result, 'vrsta vrednosti')
+
+    def test_vrednost_vrsta_default(self):
+        objekt = KontrolaSpecifikacija.objects.get(oznaka='APS1')
+        result = objekt._meta.get_field('vrednost_vrsta').default
+        self.assertEquals(result, 1)
 
 
     def test_vrednost_vrsta_choices(self):
@@ -114,7 +119,7 @@ class KontrolaSpecifikacijaModelTest(TestCase):
         Preverimo opcije izbire vrst vnosov
         '''
         objekt = KontrolaSpecifikacija.objects.get(oznaka='APS1')
-        choices = objekt._meta.get_field('vrsta_vnosa').choices
+        choices = objekt._meta.get_field('vrednost_vrsta').choices
         target = ((1, 'check'), (2, 'text'), (3, 'select'))
         self.assertEquals(choices, target)
 
