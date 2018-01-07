@@ -8,7 +8,7 @@
 <!-- #########################################################################-->
 {% block navigacija %}
     {% include "moduli/detail_navbar_title.html" %}
-{% endblock %}
+{% endblock navigacija %}
 
 
 
@@ -17,7 +17,7 @@
 <!-- #########################################################################-->
 {% block sidebar %}
     {% include "moduli/detail_sidebar.html" %}
-{% endblock %}
+{% endblock sidebar %}
 
 
 
@@ -30,10 +30,10 @@
 <li class="dropdown">
     <a href="#" data-toggle="dropdown"><b class="btn_ukazi navbar-btn">Ukazi</b></a>
     <ul class="dropdown-menu">
-        {% block navbar_right_podrobno %}{% endblock %}
+        {% block navbar_right_podrobno %}{% endblock navbar_right_podrobno %}
     </ul>
 </li>
-{% endblock %}
+{% endblock navbar_right %}
 
 
 
@@ -49,13 +49,13 @@
                 <thead>
                 </thead>
                 <tbody>
-                {% block content-header-content %}{% endblock %}
+                {% block content-header-content %}{% endblock content-header-content %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content-header %}
 
 
 
@@ -78,11 +78,11 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content-body%}
 
 
 
 {% block javascript_extra %}
 
 
-{% endblock %}
+{% endblock javascript_extra %}

@@ -181,7 +181,7 @@
 
                 <div class="navbar-header pull-left">
                     <text class="navbar-brand">Navigacija</text>
-                    {% block navigacija %}{% endblock %}
+                    {% block navigacija %}{% endblock navigacija %}
                     <a class="btn btn-default navbar-btn visible-xs" type="button" data-toggle="offcanvas">Hitre povezave</a>
 
                 </div>
@@ -189,7 +189,7 @@
                 <div class="navbar-header pull-right">
                     <ul class="nav navbar-nav navbar-right">
 
-                {% block navbar_right %}{% endblock %}
+                {% block navbar_right %}{% endblock navbar_right %}
 
 
 
@@ -214,11 +214,13 @@
 
 
                     <div class="col-xs-12 col-sm-12 no_padding">
-                    {% block content-header %}{% endblock %}
+                    {% block content-header %}
+                    {% endblock content-header %}
                     </div>
 
                     <div class="col-xs-12 col-sm-12 no_padding">
-                    {% block content-body %}{% endblock %}
+                    {% block content-body %}
+                    {% endblock content-body %}
                     </div>
 
 
