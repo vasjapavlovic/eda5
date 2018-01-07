@@ -2,6 +2,7 @@ import factory
 
 
 from .models import Opravilo
+from .models import DelovniNalog
 
 
 from eda5.narocila.models import Narocilo
@@ -14,10 +15,6 @@ from eda5.deli.factories import ProjektnoMestoFactory
 from eda5.partnerji.factories import OsebaFactory
 from eda5.partnerji.factories import PartnerFactory
 from eda5.zahtevki.factories import ZahtevekFactory
-
-
-
-
 
 
 
@@ -44,3 +41,13 @@ class OpraviloFactory(factory.django.DjangoModelFactory):
     narocilo = factory.SubFactory(NarociloFactory)
     nosilec = factory.SubFactory(OsebaFactory)
     rok_izvedbe = "2017-11-11"
+
+
+class DelovniNalogFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = DelovniNalog
+
+    naziv = factory.Sequence(lambda n: 'Opravilo {0}'.format(n))
+    opravilo = factory.SubFactory(OpraviloFactory)
+    nosilec = factory.SubFactory(OsebaFactory)

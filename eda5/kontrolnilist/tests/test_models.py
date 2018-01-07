@@ -4,12 +4,14 @@ from ..factories import AktivnostFactory
 from ..factories import KontrolaSpecifikacijaFactory
 from eda5.arhiv.factories import ArhivFactory
 from ..factories import KontrolaSpecifikacijaOpcijaSelectFactory
+from ..factories import KontrolaVrednostFactory
 
 from eda5.deli.factories import ProjektnoMestoFactory
 
 from ..models import Aktivnost
 from ..models import KontrolaSpecifikacija
 from ..models import KontrolaSpecifikacijaOpcijaSelect
+from ..models import KontrolaVrednost
 from eda5.partnerji.models import Posta
 
 
@@ -137,3 +139,89 @@ class KontrolaSpecifikacijaOpcijaSelectModelTest(TestCase):
         result = objekt.__str__()
         cilj = '(' + objekt.oznaka + ')' + objekt.naziv
         self.assertEquals(result, cilj)
+
+
+
+class KontrolaVrednostModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        kv1 = KontrolaVrednostFactory()
+        kv1.save()
+
+
+    def test_inherith_osnovnakombinacija(self):
+        '''
+        testiramo, da se uvozijo vsi atributi iz
+        osnovne kombinacije
+        '''
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.oznaka
+        self.assertFalse(result is None)  # obstaja vnos
+
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.oznaka_gen
+        self.assertFalse(result is None)  # obstaja vnos
+
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.naziv
+        self.assertFalse(result is None)  # obstaja vnos
+
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.opis
+        self.assertFalse(result is None)  # obstaja vnos
+
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.status
+        self.assertFalse(result is None)  # obstaja vnos
+
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.created
+        self.assertFalse(result is None)  # obstaja vnos
+
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.updated
+        self.assertFalse(result is None)  # obstaja vnos
+
+    def test_vrednost_check_label(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt._meta.get_field('vrednost_check').verbose_name
+        self.assertEquals(result, 'vrednost check')
+
+    def test_vrednost_text_label(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt._meta.get_field('vrednost_text').verbose_name
+        self.assertEquals(result, 'vrednost text')
+
+    def test_vrednost_select_label(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt._meta.get_field('vrednost_select').verbose_name
+        self.assertEquals(result, 'vrednost select')
+
+    def test_kontrola_specifikacija_relacija(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.kontrola_specifikacija
+        self.assertFalse(result is None)  # obstaja vnos
+
+    def test_delovni_nalog_relacija(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.delovni_nalog
+        self.assertFalse(result is None)  # obstaja vnos
+
+    def test_projektno_mesto_relacija(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt.projektno_mesto
+        self.assertFalse(result is None)  # obstaja vnos
+
+    def test_verbose_name(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt._meta.verbose_name
+        self.assertEquals(result, 'vrednost kontrole')
+
+    def test_verbose_name_plural(self):
+        objekt = KontrolaVrednost.objects.first()
+        result = objekt._meta.verbose_name_plural
+        self.assertEquals(result, 'vrednosti kontrol')

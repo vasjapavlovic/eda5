@@ -115,7 +115,14 @@ projektno_mesto
 
 
 
-.. _kontrolni-list-aktivnost-model-projektno-mesto:
+.. _kontrolni-list-kontrola-specifikacija-model:
 
 KontrolaSpecifikacija Model
+---------------------------
+
+
+
+.. _kontrolni-list-kontrola-vrednost-model:
+
+KontrolaVrednost Model
 ---------------------------
