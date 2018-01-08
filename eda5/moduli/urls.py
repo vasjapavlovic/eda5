@@ -2,7 +2,16 @@ from django.conf.urls import include, url
 
 from . import views
 
+
+
 urlpatterns = [
+    # Glavni URL za modul
+    url(r'^$', views.ModulHomeView.as_view(), name="home"),
+    url(r'^(?P<pk>\d+)/detail$', views.ModulDetailView.as_view(), name="detail"),
+]
+
+
+urlpatterns += [
     # registracija MODULOV (urlji)
     url(r'^arhiv/', include("eda5.arhiv.urls", namespace="arhiv")),
     url(r'^deli/', include("eda5.deli.urls", namespace="deli")),
@@ -36,10 +45,4 @@ urlpatterns = [
     url(r'^veljavnost-dokumentov/', include("eda5.veljavnostdokumentov.urls", namespace="veljavnostdokumentov")),
     url(r'^zahtevki/', include("eda5.zahtevki.urls", namespace="zahtevki")),
     url(r'^zaznamki/', include("eda5.zaznamki.urls", namespace="zaznamki")),
-]
-
-# Glavni URL za modul
-urlpatterns += [
-    url(r'^$', views.ModulHomeView.as_view(), name="home"),
-    url(r'^(?P<pk>\d+)/detail$', views.ModulDetailView.as_view(), name="detail"),
 ]

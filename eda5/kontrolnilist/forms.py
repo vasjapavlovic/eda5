@@ -41,7 +41,7 @@ KontrolaSpecifikacijaFormSet = inlineformset_factory(
     Aktivnost,
     KontrolaSpecifikacija,
     form=KontrolaSpecifikacijaCreateForm,
-    extra=2)
+    extra=1)
 
 
 # class KontrolaVrednostUpdateForm(forms.ModelForm):

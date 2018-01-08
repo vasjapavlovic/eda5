@@ -1,6 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import UpdateView
+from django.db import transaction
+from django.core.urlresolvers import reverse
+
 
 
 
@@ -17,7 +20,7 @@ from .forms import KontrolaSpecifikacijaFormSet
 
 
 
-class KontrolniListSpecifikacijaCreateView(UpdateView):
+class KontrolniListSpecifikacijaCreateView(LoginRequiredMixin, UpdateView):
     '''
     View za izdelavo specifikacije kontrolnega lista iz OPRAVILA
     '''
@@ -47,41 +50,33 @@ class KontrolniListSpecifikacijaCreateView(UpdateView):
         return context
 
 
-
     def post(self, request, *args, **kwargs):
 
-        context = self.get_context_data()
-        kontrolni_list_create_formset = context['kontrolni_list_create_formset']
-        aktivnost_create_form = context['aktivnost_create_form']
+        opravilo = Opravilo.objects.get(pk=self.get_object().pk)
 
-        # aktivnost_create_form_is_valid = False
-        # kontrolni_list_create_formset_is_valid = False
-        #
-        # aktivnost_create_form_is_valid = False
+        aktivnost_create_form = AktivnostCreateForm(self.request.POST)
+        kontrolni_list_create_formset = KontrolaSpecifikacijaFormSet(self.request.POST)
 
 
+        if aktivnost_create_form.is_valid():
+            # transaction.atomic() --> če je karkoli narobe se stanje v bazi povrne v prvotno stanje
+            with transaction.atomic():
+                aktivnost_create_form.instance.opravilo = opravilo
+                aktivnost_create_form_saved = aktivnost_create_form.save()
 
-        if kontrolni_list_create_formset.is_valid():
-            kontrola_specifikacija = kontrolni_list_create_formset['kontrola_specifikacija']
+                if kontrolni_list_create_formset.is_valid():
+                    kontrolni_list_create_formset.instance = aktivnost_create_form_saved
+                    kontrolni_list_create_formset.save()
 
-        with transaction.atomic():
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk}))
 
-            #form.instance.updated_by = self.request.user
-            self.object = kontrolni_list_create_formset.save()
-
-            if kontrola_specifikacija.is_valid():
-                kontrola_specifikacija.instance = self.object
-                kontrola_specifikacija.save()
-
-
-
-        if kontrolni_list_create_formset.is_valid():
-            return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
-
-        # če zgornji formi niso ustrezno izpolnjeni
 
         else:
-            return render(request, self.template_name, {
+            return render(
+                request,
+                self.template_name,
+                {
+                'aktivnost_create_form': aktivnost_create_form,
                 'kontrolni_list_create_formset': kontrolni_list_create_formset,
-                }
+                },
             )
