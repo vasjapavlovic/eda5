@@ -12,6 +12,7 @@ from braces.views import LoginRequiredMixin
 
 # Models
 from .models import Aktivnost
+from eda5.delovninalogi.models import DelovniNalog
 from eda5.delovninalogi.models import Opravilo
 from eda5.moduli.models import Zavihek
 
@@ -142,3 +143,9 @@ class KontrolniListAktivnostUpdateView(LoginRequiredMixin, UpdateView):
                 'kontrolni_list_create_formset': kontrolni_list_create_formset,
                 },
             )
+
+
+class KontrolaVrednostCreateView(LoginRequiredMixin, UpdateView):
+    model = DelovniNalog
+    template_name = 'kontrolnilist/kontrola_vrednost_create.html'
+    fields = ('id', )

@@ -3,9 +3,10 @@ from django.test import RequestFactory
 from django.core.urlresolvers import reverse
 
 # factories
-from eda5.arhiv.factories import ArhivFactory
 from ..factories import KontrolaSpecifikacijaFactory
+from eda5.arhiv.factories import ArhivFactory
 from eda5.users.factories import UserFactory
+from eda5.moduli.factories import ZavihekFactory
 
 # models
 from ..models import Aktivnost
@@ -331,7 +332,7 @@ class KontrolniListSpecifikacijaUpdateViewTest(TestCase):
         )
 
 
-class KontrolaVrednostFromDelovniNalogCreateViewTest(TestCase):
+class KontrolaVrednostCreateViewTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -357,4 +358,20 @@ class KontrolaVrednostFromDelovniNalogCreateViewTest(TestCase):
         dn = DelovniNalog.objects.first()
         url = '/moduli/kl/dn/{0}/kontrola-vrednost-create'.format(dn.id)
         response = self.client.get(url)
-        self.assertEquals(resposne.status_code, 200)
+        self.assertEquals(response.status_code, 200)
+
+    def test_view_url_namespace(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, 'kontrolnilist/kontrola_vrednost_create.html')
+
+        
