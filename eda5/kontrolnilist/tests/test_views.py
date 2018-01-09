@@ -145,6 +145,20 @@ class KontrolniListSpecifikacijaUpdateViewTest(TestCase):
         user.save()
 
 
+    def test_view_url_exists_at_desired_location(self):
+        '''
+        preverimo, da je url tak kot ga želimo
+        '''
+        self.client.login(username='vaspav', password='medomedo')
+        aktivnost = Aktivnost.objects.first()
+
+        url = '/moduli/kl/aktivnost/{0}/update'.format(aktivnost.pk)
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+
+
+
     def test_views_loads_the_right_template(self):
         '''
         preverimo če se view loada na pravi strani in vrne status kodo 200
@@ -154,6 +168,7 @@ class KontrolniListSpecifikacijaUpdateViewTest(TestCase):
         aktivnost = Aktivnost.objects.first()
 
         url = reverse('moduli:kontrolni_list:kontrolni_list_aktivnost_update', kwargs={'pk': aktivnost.pk})
+
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed('kontrolnilist/create.html')

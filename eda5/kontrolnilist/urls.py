@@ -20,7 +20,7 @@ urlpatterns += [
     ),
 
     url(
-        r'^(?P<pk>\d+)/aktivnost/update$',
+        r'^aktivnost/(?P<pk>\d+)/update$',
         views.KontrolniListAktivnostUpdateView.as_view(),
         name="kontrolni_list_aktivnost_update"
     ),
