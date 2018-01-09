@@ -67,7 +67,7 @@ class KontrolniListSpecifikacijaCreateViewTest(TestCase):
 
         aktivnost = Aktivnost.objects.first()
         opraviloid = aktivnost.opravilo.pk
-        url = '/moduli/kl/{}/specifikacija/create'.format(opraviloid)
+        url = '/moduli/kl/opravilo/{0}/aktivnost/create'.format(opraviloid)
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
 

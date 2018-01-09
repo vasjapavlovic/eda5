@@ -14,7 +14,7 @@ urlpatterns += [
 
     #  Pregled Opravila
     url(
-        r'^(?P<pk>\d+)/specifikacija/create$',
+        r'^opravilo/(?P<pk>\d+)/aktivnost/create$',
         views.KontrolniListSpecifikacijaCreateView.as_view(),
         name="kontrolni_list_specifikacija_create"
     ),
