@@ -48,9 +48,15 @@ class OpraviloDetailViewTest(TestCase):
 
     def test_view_namspace(self):
         self.client.login(username='vaspav', password='medomedo')
-
         opravilo = Opravilo.objects.first()
-
         url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})
         resp = self.client.get(url)
         self.assertEquals(resp.status_code, 200)
+
+
+    def test_views_loads_the_right_template(self):
+        self.client.login(username='vaspav', password='medomedo')
+        opravilo = Opravilo.objects.first()
+        url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})
+        resp = self.client.get(url)
+        self.assertTemplateUsed('/delovninalogi/opravilo/detail/base.html')
