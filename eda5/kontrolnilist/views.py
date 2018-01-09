@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from braces.views import LoginRequiredMixin
 
 # Models
+from .models import Aktivnost
 from eda5.delovninalogi.models import Opravilo
 from eda5.moduli.models import Zavihek
 
@@ -69,6 +70,67 @@ class KontrolniListSpecifikacijaCreateView(LoginRequiredMixin, UpdateView):
                     kontrolni_list_create_formset.save()
 
             return HttpResponseRedirect(reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk}))
+
+
+        else:
+            return render(
+                request,
+                self.template_name,
+                {
+                'aktivnost_create_form': aktivnost_create_form,
+                'kontrolni_list_create_formset': kontrolni_list_create_formset,
+                },
+            )
+
+class KontrolniListAktivnostUpdateView(LoginRequiredMixin, UpdateView):
+    '''
+    View za update aktivnosti
+    '''
+
+    model = Aktivnost
+    template_name = "kontrolnilist/create.html"
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(KontrolniListAktivnostUpdateView, self).get_context_data(*args, **kwargs)
+
+        aktivnost = Aktivnost.objects.get(id=self.object.id)
+        context['aktivnost'] = aktivnost
+
+        if self.request.POST:
+            context['aktivnost_create_form'] = AktivnostCreateForm(self.request.POST, instance=aktivnost)
+            context['kontrolni_list_create_formset'] = KontrolaSpecifikacijaFormSet(self.request.POST, instance=aktivnost)
+        else:
+            context['aktivnost_create_form'] = AktivnostCreateForm(instance=aktivnost)
+            context['kontrolni_list_create_formset'] = KontrolaSpecifikacijaFormSet(instance=aktivnost)
+
+
+        # # Zavihek
+        # modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        # context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+
+        aktivnost = Aktivnost.objects.get(pk=self.get_object().pk)
+
+        aktivnost_create_form = AktivnostCreateForm(self.request.POST, instance=aktivnost)
+        kontrolni_list_create_formset = KontrolaSpecifikacijaFormSet(self.request.POST, instance=aktivnost)
+
+
+        if aktivnost_create_form.is_valid():
+            # transaction.atomic() --> če je karkoli narobe se stanje v bazi povrne v prvotno stanje
+            with transaction.atomic():
+                aktivnost_create_form.instance = aktivnost
+                aktivnost_create_form_saved = aktivnost_create_form.save()
+
+                if kontrolni_list_create_formset.is_valid():
+                    kontrolni_list_create_formset.instance = aktivnost_create_form_saved
+                    kontrolni_list_create_formset.save()
+
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': aktivnost.opravilo.pk}))
 
 
         else:
