@@ -107,20 +107,22 @@ class OpraviloDetailViewTest(TestCase):
             oznaka='KS_2_AKT2' ,aktivnost__oznaka='AKT2', aktivnost__opravilo=opravilo)
         kontrola_specifikacija.save()
 
-
-
         url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})
         resp = self.client.get(url)
         # seznam kontrolni list
         context = resp.context
         kontrola_list = context['kontrola_list']
-        print(kontrola_list)
 
-
-
-
-
-        # izpis aktivnosti po željenem vrstnem redu
+        # izpis kontrol po željenem vrstnem redu
+        # AKT1
+        #   K1
+        #   K2
+        # AKT2
+        #   K1
+        #   K2
+        # AKT3
+        #   K1
+        #   K2
         ks_1 = kontrola_list[0]
         ks_2 = kontrola_list[1]
         ks_3 = kontrola_list[2]

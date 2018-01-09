@@ -325,6 +325,10 @@ class DelovniNalogUpdateVresevanjuView(MessagesActionMixin, UpdateView):
 
 
 
+
+
+
+
 # POPUP
 # dodatek za filtriranje prikazanega seznama
 from eda5.core.views import FilteredListView

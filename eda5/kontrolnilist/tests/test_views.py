@@ -10,8 +10,9 @@ from eda5.users.factories import UserFactory
 # models
 from ..models import Aktivnost
 from ..models import KontrolaSpecifikacija
-from eda5.users.models import User
+from eda5.delovninalogi.models import DelovniNalog
 from eda5.delovninalogi.models import Opravilo
+from eda5.users.models import User
 
 # Forms
 from ..forms import AktivnostCreateForm
@@ -328,3 +329,32 @@ class KontrolniListSpecifikacijaUpdateViewTest(TestCase):
             ks.count(),
             2
         )
+
+
+class KontrolaVrednostFromDelovniNalogCreateViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        zavihek = ZavihekFactory(oznaka='DN_DETAIL')
+        zavihek.save()
+
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1')
+        kontrola_specifikacija.save()
+
+        user = UserFactory()
+        user.save()
+        user.set_password('medomedo')
+        user.save()
+
+
+    def test_view_url_path(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = '/moduli/kl/dn/{0}/kontrola-vrednost-create'.format(dn.id)
+        response = self.client.get(url)
+        self.assertEquals(resposne.status_code, 200)
