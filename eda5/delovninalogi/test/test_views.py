@@ -60,3 +60,4 @@ class OpraviloDetailViewTest(TestCase):
         url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})
         resp = self.client.get(url)
         self.assertTemplateUsed('/delovninalogi/opravilo/detail/base.html')
+        
