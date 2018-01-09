@@ -1,5 +1,5 @@
+from django.core.urlresolvers import reverse
 from django.test import TestCase
-
 
 # Models
 from ..models import Opravilo
@@ -39,10 +39,18 @@ class OpraviloDetailViewTest(TestCase):
         self.client.login(username='vaspav', password='medomedo')
 
         opravilo = Opravilo.objects.first()
-        zavihek = Zavihek.objects.first()
-
 
         url = '/moduli/delovninalogi/opravila/{0}/detail'.format(opravilo.pk)
 
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+
+    def test_view_namspace(self):
+        self.client.login(username='vaspav', password='medomedo')
+
+        opravilo = Opravilo.objects.first()
+
+        url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})
         resp = self.client.get(url)
         self.assertEquals(resp.status_code, 200)
