@@ -77,7 +77,7 @@ class KontrolniListSpecifikacijaCreateViewTest(TestCase):
 
         aktivnost = Aktivnost.objects.first()
         opraviloid = aktivnost.opravilo.pk
-        url = reverse('moduli:kontrolni_list:kontrolni_list_specifikacija_create', kwargs={'pk': opraviloid})
+        url = reverse('moduli:kontrolni_list:kontrolni_list_aktivnost_create', kwargs={'pk': opraviloid})
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
 
@@ -87,7 +87,7 @@ class KontrolniListSpecifikacijaCreateViewTest(TestCase):
 
         aktivnost = Aktivnost.objects.first()
         opraviloid = aktivnost.opravilo.pk
-        url = reverse('moduli:kontrolni_list:kontrolni_list_specifikacija_create', kwargs={'pk': opraviloid})
+        url = reverse('moduli:kontrolni_list:kontrolni_list_aktivnost_create', kwargs={'pk': opraviloid})
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'kontrolnilist/create.html')
 
@@ -95,7 +95,7 @@ class KontrolniListSpecifikacijaCreateViewTest(TestCase):
 
         aktivnost = Aktivnost.objects.first()
         opraviloid = aktivnost.opravilo.pk
-        url = reverse('moduli:kontrolni_list:kontrolni_list_specifikacija_create', kwargs={'pk': opraviloid})
+        url = reverse('moduli:kontrolni_list:kontrolni_list_aktivnost_create', kwargs={'pk': opraviloid})
         response = self.client.get(url)
         self.assertEquals(response.status_code, 302)
 
@@ -107,7 +107,7 @@ class KontrolniListSpecifikacijaCreateViewTest(TestCase):
         aktivnost = Aktivnost.objects.first()
         opraviloid = aktivnost.opravilo.pk
 
-        url = reverse('moduli:kontrolni_list:kontrolni_list_specifikacija_create', kwargs={'pk': opraviloid})
+        url = reverse('moduli:kontrolni_list:kontrolni_list_aktivnost_create', kwargs={'pk': opraviloid})
 
         data={
             'oznaka': 'ozn',
