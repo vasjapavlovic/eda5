@@ -4,31 +4,36 @@
 <!-- Ko vnosi že obstajajo -->
 {% else %}
 
-<table class="table table-condensed table-bordered table-striped">
-    <thead>
 
-        <tr>
-            <th>oznaka</th>
-            <th>naziv</th>
-            <th>vrednost_vrsta</th>
-            <th>aktivnost</th>
-        </tr>
+    {% regroup kontrola_list by aktivnost as aktivnost_list %}
+    {% for aktivnost in aktivnost_list %}
+    {{ aktivnost.grouper }}
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
 
-    </thead>
-    <tbody>
+            <tr>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>vrsta vrednosti</th>
+                <th>aktivnost</th>
+            </tr>
 
-        {% for object in kontrola_list %}
+        </thead>
+        <tbody>
 
-        <tr>
-            <td>{{ object.oznaka }}</a></td>
-            <td>{{ object.naziv }}</td>
-            <td>{{ object.get_vrednost_vrsta_display }}</td>
-            <td>{{ object.aktivnost }}</td>
-        </tr>
+            {% for object in aktivnost.list %}
 
-        {% endfor %}
+            <tr>
+                <td>{{ object.oznaka }}</a></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.get_vrednost_vrsta_display }}</td>
+                <td><a href="{% url 'moduli:kontrolni_list:kontrolni_list_aktivnost_update' object.aktivnost.id %}">{{ object.aktivnost }}</a></td>
+            </tr>
 
-    </tbody>
-</table>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% endfor %}
 
 {% endif %}

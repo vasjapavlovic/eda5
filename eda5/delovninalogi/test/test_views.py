@@ -32,7 +32,9 @@ class OpraviloDetailViewTest(TestCase):
         #opravilo = OpraviloFactory()
         #opravilo.save()
 
-        kontrola_specifikacija = KontrolaSpecifikacijaFactory()
+
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1')
         kontrola_specifikacija.save()
 
         user = UserFactory()
@@ -87,3 +89,44 @@ class OpraviloDetailViewTest(TestCase):
         aktivnost = Aktivnost.objects.filter(opravilo=opravilo).first()
         kontrola_object = KontrolaSpecifikacija.objects.filter(aktivnost=aktivnost).first()
         self.assertTrue(any(kontrola_object == kontrola  for kontrola in kontrola_list))
+
+    def test_contex_kontrola_list_ordered_by_aktivnost(self):
+        self.client.login(username='vaspav', password='medomedo')
+        opravilo = Opravilo.objects.first()
+
+        # dodamo še dve kontroli
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_1_AKT3' ,aktivnost__oznaka='AKT3', aktivnost__opravilo=opravilo)
+        kontrola_specifikacija.save()
+
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_1_AKT2' ,aktivnost__oznaka='AKT2', aktivnost__opravilo=opravilo)
+        kontrola_specifikacija.save()
+
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_2_AKT2' ,aktivnost__oznaka='AKT2', aktivnost__opravilo=opravilo)
+        kontrola_specifikacija.save()
+
+
+
+        url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})
+        resp = self.client.get(url)
+        # seznam kontrolni list
+        context = resp.context
+        kontrola_list = context['kontrola_list']
+        print(kontrola_list)
+
+
+
+
+
+        # izpis aktivnosti po željenem vrstnem redu
+        ks_1 = kontrola_list[0]
+        ks_2 = kontrola_list[1]
+        ks_3 = kontrola_list[2]
+        ks_4 = kontrola_list[3]
+
+        self.assertEquals(ks_1.oznaka, 'KS_1_AKT1')
+        self.assertEquals(ks_2.oznaka, 'KS_1_AKT2')
+        self.assertEquals(ks_3.oznaka, 'KS_2_AKT2')
+        self.assertEquals(ks_4.oznaka, 'KS_1_AKT3')

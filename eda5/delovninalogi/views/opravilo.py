@@ -65,6 +65,8 @@ class OpraviloDetailView(DetailView):
         # kontrolni list (seznam kontrol - v templateu se uporabi regroup po aktivnosti)
         aktivnost_list = opravilo.aktivnost_set.filter()
         kontrola_list = KontrolaSpecifikacija.objects.filter(aktivnost__in=aktivnost_list)
+        # razporedimo glede na oznako aktivnosti in nato še glede na oznako kontrole
+        kontrola_list = kontrola_list.order_by('aktivnost__oznaka', 'oznaka')
         context['kontrola_list'] = kontrola_list
 
 
