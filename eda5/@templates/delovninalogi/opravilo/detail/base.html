@@ -1,75 +1,55 @@
-{% extends "base.html" %}
+{% extends "base_200.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-<!-- SideBar podatki -->
-{% block sidebar %}
-    {% include "moduli/detail_sidebar.html" %}
+
+
+<!-- #########################################################################-->
+<!--  NAVIGACIJA DESNO -->
+<!-- #########################################################################-->
+{% block navbar_right_podrobno %}
+    {% include "delovninalogi/opravilo/detail/100_navigacija/100_navigacija_right.html" %}
 {% endblock %}
-<!-- end SideBar podatki -->
 
 
 
-<!-- Navbar Title -->
-{% block navbar_title %}
-    {% include "moduli/detail_navbar_title.html" %}
+<!-- #########################################################################-->
+<!--  CONTENT HEADER -->
+<!-- #########################################################################-->
+{% block content-header-content %}
+    {% include "delovninalogi/opravilo/detail/200_content/100_content_header.html" %}
 {% endblock %}
-<!-- end Navbar Title -->
 
 
 
-<!-- Navbar-Left podatki -->
-{% block navbar_right %}
-
-<div class="navbar-collapse collapse stat" style="height: 1px;">
-    <ul id="main-menu" class="nav navbar-nav navbar-right">
-        <li class="dropdown hidden-xs">
-            <button href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i> Ukazi <i class="fa fa-caret-down"></i></button>
-
-            <ul class="dropdown-menu">
-                {% include "delovninalogi/opravilo/detail/navbar_left.html" %}
-            </ul>
-        </li>
-    </ul>
-</div>
-
+<!-- #########################################################################-->
+<!--  CONTENT BODY -->
+<!-- #########################################################################-->
+{% block content-body-items %}
+    {% include "delovninalogi/opravilo/detail/200_content/200_content_body_items.html" %}
 {% endblock %}
-<!-- end Navbar-Left podatki -->
 
 
-
-
-
-<!-- PAGE CONTENT -->
-{% block content-body %}
-    
-    <!-- panel -->
-<div class="row">
-    <div class="col-sm-6 col-md-6">
-        <div class="panel">
-            <div class="panel-heading no-collapse">Podrobnosti Opravila</div>
-                <table style="row-height=5; !important" class="table table-condensed table-bordered">
-                    <font color="black">
-                        <thead>
-                        </thead>
-                        <tbody>
-                        {% include "delovninalogi/opravilo/detail/header.html" %}
-                        </tbody>
-                    </font>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% include "delovninalogi/opravilo/detail/content.html" %}
-{% include "delovninalogi/opravilo/detail/modal.html" %}
+{% block content-body-tabs %}
+    {% include "delovninalogi/opravilo/detail/200_content/300_content_body_tabs.html" %}
 {% endblock %}
-<!-- end PAGE CONTENT -->
+
+
+{% block content-modal %}
+    {% include "delovninalogi/opravilo/detail/200_content/400_content_modal.html" %}
+{% endblock %}
 
 
 
-<!-- JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
+<!--  JAVASCRIPT EXTRA -->
+<!-- #########################################################################-->
 {% block javascript_extra %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').dataTable();
+        } );
+    </script>
+
 {% endblock %}
-<!-- end JAVASCRIPT EXTRA -->
