@@ -1,0 +1,34 @@
+{% if not kontrola_list %}
+    Opravilo še nima določenih kontrol.
+
+<!-- Ko vnosi že obstajajo -->
+{% else %}
+
+<table class="table table-condensed table-bordered table-striped">
+    <thead>
+
+        <tr>
+            <th>oznaka</th>
+            <th>naziv</th>
+            <th>vrednost_vrsta</th>
+            <th>aktivnost</th>
+        </tr>
+
+    </thead>
+    <tbody>
+
+        {% for object in kontrola_list %}
+
+        <tr>
+            <td>{{ object.oznaka }}</a></td>
+            <td>{{ object.naziv }}</td>
+            <td>{{ object.get_vrednost_vrsta_display }}</td>
+            <td>{{ object.aktivnost }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endif %}

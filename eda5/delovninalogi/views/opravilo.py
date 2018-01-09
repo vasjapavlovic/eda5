@@ -16,12 +16,14 @@ from django.utils.html import escape  # popup
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 # Models
-from ..models import Opravilo, VzorecOpravila
+from ..models import Opravilo, VzorecOpravila, DelovniNalog
 from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto
+from eda5.kontrolnilist.models import KontrolaSpecifikacija
 from eda5.moduli.models import Zavihek
 from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
 from eda5.pomanjkljivosti.models import Pomanjkljivost
 from eda5.zahtevki.models import Zahtevek
+
 
 # Forms
 from ..forms import OpraviloUpdateForm, VzorecOpravilaIzbiraForm, OpraviloCreateForm
@@ -50,9 +52,21 @@ class OpraviloDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(OpraviloDetailView, self).get_context_data(*args, **kwargs)
 
+        opravilo = Opravilo.objects.get(id=self.get_object().id)
+
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_DETAIL")
         context['modul_zavihek'] = modul_zavihek
+
+        # delovni naloga
+        delovninalog_list = DelovniNalog.objects.filter(opravilo=opravilo)
+        context['delovninalog_list'] = delovninalog_list
+
+        # kontrolni list (seznam kontrol - v templateu se uporabi regroup po aktivnosti)
+        aktivnost_list = opravilo.aktivnost_set.filter()
+        kontrola_list = KontrolaSpecifikacija.objects.filter(aktivnost__in=aktivnost_list)
+        context['kontrola_list'] = kontrola_list
+
 
         return context
 
@@ -269,12 +283,12 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
         # PRIDOBIMO PODATKE
         ###########################################################################
 
-        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost 
+        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost
         nahajala '''
 
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 
-        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost 
+        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost
         nahajala '''
 
         modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
@@ -341,13 +355,13 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
             ''' opravilu dodelimo izbrane naloge '''
 
             opravilo_object.naloga = naloga_list
-        
+
             ''' opravilu dodelimo izbrane pomanjkljivosti '''
 
             opravilo_object.pomanjkljivost = pomanjkljivost_list
 
             ''' opravilu dodelimo elemente, ki so vezani na pomanjkljivost '''
-            
+
             element_list = []
             for pomanjkljivost in pomanjkljivost_list:
                 for element in pomanjkljivost.element.all():
@@ -376,7 +390,7 @@ class OpraviloCreatePomanjkljivosti(UpdateView):
                 }
             )
 
-        
+
 
 
 # #########################################################
@@ -467,7 +481,7 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
                 }
             )
 
-        
+
 
 
 # view called with ajax to reload the month drop down list
@@ -556,9 +570,3 @@ def reload_controls_delovninalogi_planirano_opravilo_view(request):
             ###########################################################################
             # UKAZI
             ###########################################################################
-
-
-
-
-
-
