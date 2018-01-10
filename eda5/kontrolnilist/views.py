@@ -12,6 +12,8 @@ from braces.views import LoginRequiredMixin
 
 # Models
 from .models import Aktivnost
+from .models import KontrolaSpecifikacija
+from .models import KontrolaVrednost
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.delovninalogi.models import Opravilo
 from eda5.moduli.models import Zavihek
@@ -19,6 +21,7 @@ from eda5.moduli.models import Zavihek
 # Forms
 from .forms import AktivnostCreateForm
 from .forms import KontrolaSpecifikacijaFormSet
+from .forms import KontrolaVrednostCreateFormset
 
 
 
@@ -149,3 +152,41 @@ class KontrolaVrednostCreateView(LoginRequiredMixin, UpdateView):
     model = DelovniNalog
     template_name = 'kontrolnilist/kontrola_vrednost_create.html'
     fields = ('id', )
+
+
+    def post(self, request, *args, **kwawrgs):
+
+        dn = DelovniNalog.objects.get(id=self.get_object().id)
+
+
+        # logika za izdelavo vrednosti specificiranih kontrol
+        # pridobimo kontrole, ki so izdelane v dn.opravilo
+        kontrola_list = KontrolaSpecifikacija.objects.filter(aktivnost__opravilo=dn.opravilo)
+
+        for kontrola in kontrola_list:
+            kontrola_vrednost_vnos = KontrolaVrednost.objects.create(
+                delovni_nalog=dn,
+                kontrola_specifikacija=kontrola,
+                # projektno_mesto se doda naknadno
+            )
+            kontrola_vrednost_vnos.save()
+
+
+            projektno_mesto_list = kontrola.aktivnost.projektno_mesto.all()
+            kontrola_vrednost_vnos.projektno_mesto = projektno_mesto_list
+            kontrola_vrednost_vnos.save()
+
+
+
+        return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.pk}))
+
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(KontrolaVrednostCreateView, self).get_context_data(*args, **kwargs)
+        # new context data go here
+
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context

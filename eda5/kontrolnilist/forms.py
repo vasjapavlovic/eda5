@@ -44,6 +44,22 @@ KontrolaSpecifikacijaFormSet = inlineformset_factory(
     extra=1)
 
 
+class BaseKontrolaVrednostFormSet():
+    '''
+    base form set potrebujemo, da izvedemo razporejanje (ordering)
+    glede na naše želje
+    '''
+    pass
+
+
+
+
+
+class KontrolaVrednostCreateFormset(forms.ModelForm):
+    pass
+
+
+
 # class KontrolaVrednostUpdateForm(forms.ModelForm):
 #     pass
 

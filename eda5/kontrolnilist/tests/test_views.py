@@ -374,4 +374,39 @@ class KontrolaVrednostCreateViewTest(TestCase):
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'kontrolnilist/kontrola_vrednost_create.html')
 
-        
+
+    def test_post_creates_kontrolni_list(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
+
+        post_data = {}
+        response = self.client.post(url, post_data)
+
+        # prekontroliram če je vrednost za kontrolo iz dn.opravilo vnešena.
+        # trenutna vrednost je default = assertFalse
+        self.assertTrue(dn.kontrolavrednost_set.exists())
+        kontrola_vrednost_0 = dn.kontrolavrednost_set.first()
+        kv_0 = kontrola_vrednost_0
+        kv_0_vrednost = kv_0.vrednost_check
+        self.assertEquals(kv_0_vrednost, False)
+
+        # dodana kontrola vsebuje tudi projektna mesta
+        self.assertTrue(kv_0.projektno_mesto, True)
+
+
+
+
+
+    # def test_formset_for_kontrola_vrednost_input_data_in_context(self):
+    #     self.client.login(username='vaspav', password='medomedo')
+    #     dn = DelovniNalog.objects.first()
+    #     url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
+    #     resp = self.client.get(url)
+    #
+    #     context = resp.context
+    #     formset = context['kontrola_vrednost_create_formset']
+    #     form = formset.form
+    #     field_vrednost_check = form['vrednost_check']
+    #     vrednost = field_vrednost_check.value()
+    #     self.assertEquals(vrednost, False)

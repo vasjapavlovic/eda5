@@ -87,8 +87,9 @@ class KontrolaVrednost(OsnovnaKombinacija):
         verbose_name='delovni nalog'
     )
 
-    projektno_mesto = models.ForeignKey(
+    projektno_mesto = models.ManyToManyField(
         ProjektnoMesto,
+        blank=True,
         verbose_name='projektno mesto'
     )
 

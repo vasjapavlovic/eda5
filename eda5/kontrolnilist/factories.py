@@ -61,4 +61,14 @@ class KontrolaVrednostFactory(factory.django.DjangoModelFactory):
     vrednost_text = 'abc'
     kontrola_specifikacija = factory.SubFactory(KontrolaSpecifikacijaFactory)
     delovni_nalog = factory.SubFactory(DelovniNalogFactory)
-    projektno_mesto = factory.SubFactory(ProjektnoMestoFactory)
+
+    @factory.post_generation
+    def projektno_mesto(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # A list of groups were passed in, use them
+            for pm in extracted:
+                self.projektno_mesto.add(pm)
