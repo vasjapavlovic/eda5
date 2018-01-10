@@ -180,3 +180,10 @@ class DelovniNalogDetailViewTest(TestCase):
         dn = DelovniNalog.objects.first()
         url = reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.id})
         resp = self.client.get(url)
+
+        context = resp.context
+        formset = context['kontrola_vrednost_create_formset']
+        form = formset.form
+        field_vrednost_check = form['vrednost_check']
+        vrednost = field_vrednost_check.value()
+        self.assertEquals(vrednost, False)

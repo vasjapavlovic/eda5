@@ -1,10 +1,16 @@
 from django.test import TestCase
 
+from ..models import KontrolaVrednost
 
 from ..forms import AktivnostCreateForm
 from ..forms import KontrolaSpecifikacijaCreateForm
+from ..forms import KontrolaVrednostUpdateFormSet
 
-class TestAktivnostCreateForm(TestCase):
+from ..factories import KontrolaVrednostFactory
+from eda5.arhiv.factories import ArhivFactory
+
+
+class AktivnostCreateFormTest(TestCase):
 
 
     def form_data(self, oznaka, naziv, opis):
@@ -47,7 +53,7 @@ class TestAktivnostCreateForm(TestCase):
 
 
 
-class TestKontrolaSpecifikacijaCreateForm(TestCase):
+class KontrolaSpecifikacijaCreateFormTest(TestCase):
 
     def setUp(self):
         pass
@@ -65,4 +71,52 @@ class TestKontrolaSpecifikacijaCreateForm(TestCase):
 
     def test_valid_data(self):
         form = self.form_data('oznaka1', 'naziv1', 'opis1', 2)
+        self.assertTrue(form.is_valid())
+
+
+
+class KontrolaVrednostUpdateFormSetTest(TestCase):
+
+
+    @classmethod
+    def setUpTestData(cls):
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        kontrola_vrednost = KontrolaVrednostFactory()
+        kontrola_vrednost.save()
+
+
+    def form_data(self, TF, IF, dn, kv_id, vrednost_check, vrednost_text, vrednost_select ):
+
+        return KontrolaVrednostUpdateFormSet(
+            delovninalog=dn,
+            data={
+                'form-TOTAL_FORMS': TF,
+                'form-INITIAL_FORMS': IF,
+                'form-0-id': kv_id,
+                'form-0-vrednost_check': vrednost_check,
+                'form-0-vrednost_text': vrednost_text,
+                'form-0-vrednost_select': vrednost_select,
+            }
+
+        )
+
+    def test_valid_data(self):
+
+        kv = KontrolaVrednost.objects.first()
+        dn = kv.delovni_nalog
+        kv_id = kv.id
+
+        data = {
+            'form-TOTAL_FORMS': 1,
+            'form-INITIAL_FORMS': 1,
+            'form-0-id': kv_id,
+            'form-0-vrednost_check': True,
+            'form-0-vrednost_text': '',
+            'form-0-vrednost_select': '',
+        }
+
+        # vrednost check
+        form = self.form_data(1, 1, dn, kv_id, True, '', '')
         self.assertTrue(form.is_valid())

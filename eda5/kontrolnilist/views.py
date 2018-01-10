@@ -21,7 +21,7 @@ from eda5.moduli.models import Zavihek
 # Forms
 from .forms import AktivnostCreateForm
 from .forms import KontrolaSpecifikacijaFormSet
-from .forms import KontrolaVrednostCreateFormset
+
 
 
 

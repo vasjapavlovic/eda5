@@ -1,8 +1,14 @@
 from django import forms
+from django.forms import BaseModelFormSet
+from django.forms import modelformset_factory
 from django.forms.models import inlineformset_factory
+
 
 from .models import Aktivnost
 from .models import KontrolaSpecifikacija
+from .models import KontrolaSpecifikacijaOpcijaSelect
+from .models import KontrolaVrednost
+
 
 
 
@@ -15,9 +21,7 @@ class AktivnostCreateForm(forms.ModelForm):
             'naziv',
             'opis',
         )
-        widgets = {
 
-        }
 
     def __init__(self, *args, **kwargs):
         # kwargs pop
@@ -44,54 +48,58 @@ KontrolaSpecifikacijaFormSet = inlineformset_factory(
     extra=1)
 
 
-class BaseKontrolaVrednostFormSet():
+class BaseKontrolaVrednostUpdateFormSet(BaseModelFormSet):
     '''
     base form set potrebujemo, da izvedemo razporejanje (ordering)
     glede na naše želje
     '''
-    pass
+    def __init__(self, *args, **kwargs):
+        delovninalog = kwargs.pop('delovninalog')
+        super(BaseKontrolaVrednostUpdateFormSet, self).__init__(*args, **kwargs)
+
+        queryset = KontrolaVrednost.objects.filter(delovni_nalog=delovninalog)
+        queryset = queryset.order_by(
+            # glede na etažo
+            '-projektno_mesto__lokacija__etaza__elevation',
+            # glede na prostor
+            'projektno_mesto__lokacija__prostor',
+            # glede na projektno mesto
+            'projektno_mesto',
+            # glede na aktivnost
+            'kontrola_specifikacija__aktivnost__oznaka',
+            # glede na specifikacijo kontrole
+            'kontrola_specifikacija__oznaka',
+            )
+
+        self.queryset = queryset
 
 
 
 
+class KontrolaVrednostUpdateForm(forms.ModelForm):
+    '''
+    Form za update vrednosti - izpolnjevanje e-kontrolnega lista
+    '''
 
-class KontrolaVrednostCreateFormset(forms.ModelForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super(KontrolaVrednostUpdateForm, self).__init__(*args, **kwargs)
+
+        self.fields['vrednost_select'].queryset = KontrolaSpecifikacijaOpcijaSelect.objects.filter(
+            kontrola_specifikacija=self.instance.kontrola_specifikacija)
+
+    class Meta:
+        model = KontrolaVrednost
+        fields = (
+            'vrednost_select',
+            'vrednost_text',
+            'vrednost_check',
+        )
 
 
+KontrolaVrednostUpdateFormSet = modelformset_factory(
+    KontrolaVrednost,
+    extra=0,
+    form=KontrolaVrednostUpdateForm,
+    formset=BaseKontrolaVrednostUpdateFormSet,
 
-# class KontrolaVrednostUpdateForm(forms.ModelForm):
-#     pass
-
-
-
-
-
-# # FILTRIRAMO FORMSET - KATERI FORMSI SE PRIKAŽEJO
-# class BaseVrednostFormSet(BaseModelFormSet):
-#     def __init__(self, *args, **kwargs):
-#         '''
-#         filtriramo formset glede na delovninalog v kateremu se kontrolni list obravnava,
-#         Razporedimo obstoječi queryset zaradi uporabe regroup opcije
-#         v templates.
-#         '''
-#         delovninalogid = kwargs.pop('delovninalogid')
-#
-#         super(BaseVrednostFormSet, self).__init__(*args, **kwargs)
-#
-#         queryset = ParameterAktivnostiVrednost.objects.filter(delovninalog=delovninalogid)
-#
-#         queryset = queryset.order_by(
-#             # glede na etažo
-#             '-projektno_mesto__lokacija__etaza__elevation',
-#             # glede na prostor
-#             'projektno_mesto__lokacija__prostor',
-#             # glede na projektno mesto
-#             'projektno_mesto',
-#             # glede na aktivnost
-#             'parameter_atkivnosti_specifikacija__aktivnost__oznaka',
-#             # glede na specifikacijo parametra
-#             'parameter_atkivnosti_specifikacija__oznaka',
-#             )
-#
-#         self.queryset = queryset
+)
