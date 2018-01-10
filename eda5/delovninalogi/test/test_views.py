@@ -4,17 +4,17 @@ from django.test import TestCase
 # Models
 from ..models import DelovniNalog
 from ..models import Opravilo
-from eda5.moduli.models import Zavihek
 from eda5.kontrolnilist.models import Aktivnost
 from eda5.kontrolnilist.models import KontrolaSpecifikacija
-
+from eda5.moduli.models import Zavihek
 
 # factories
+from ..factories import DelovniNalogFactory
 from ..factories import OpraviloFactory
 from eda5.arhiv.factories import ArhivFactory
-from eda5.users.factories import UserFactory
-from eda5.moduli.factories import ZavihekFactory
 from eda5.kontrolnilist.factories import KontrolaSpecifikacijaFactory
+from eda5.moduli.factories import ZavihekFactory
+from eda5.users.factories import UserFactory
 
 
 class OpraviloDetailViewTest(TestCase):
@@ -132,3 +132,51 @@ class OpraviloDetailViewTest(TestCase):
         self.assertEquals(ks_2.oznaka, 'KS_1_AKT2')
         self.assertEquals(ks_3.oznaka, 'KS_2_AKT2')
         self.assertEquals(ks_4.oznaka, 'KS_1_AKT3')
+
+
+class DelovniNalogDetailViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        zavihek = ZavihekFactory(oznaka='DN_DETAIL')
+        zavihek.save()
+
+        dn = DelovniNalogFactory()
+        dn.save()
+
+        user = UserFactory()
+        user.save()
+        user.set_password('medomedo')
+        user.save()
+
+
+    def test_view_url_path(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = '/moduli/delovninalogi/dn/{0}/detail'.format(dn.pk)
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_view_namspace(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_view_loads_the_right_template(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertTemplateUsed('/delovninalogi/delovninalog/detail/base.html')
+
+    def test_formset_for_kontrola_vrednost_input_data_in_context(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.id})
+        resp = self.client.get(url)

@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import Aktivnost
 from .models import KontrolaSpecifikacija
 from .models import KontrolaSpecifikacijaOpcijaSelect
+from .models import KontrolaVrednost
 
 
 
@@ -26,4 +27,13 @@ class KontrolaSpecifikacijaAdmin(admin.ModelAdmin):
 class KontrolaSpecifikacijaOpcijaSelectAdmin(admin.ModelAdmin):
     raw_id_fields = (
         'kontrola_specifikacija',
+        )
+
+
+@admin.register(KontrolaVrednost)
+class KontrolaVrednostAdmin(admin.ModelAdmin):
+    raw_id_fields = (
+        'projektno_mesto',
+        'kontrola_specifikacija',
+        'delovni_nalog',
         )

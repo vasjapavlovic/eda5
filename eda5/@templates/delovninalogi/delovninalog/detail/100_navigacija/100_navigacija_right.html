@@ -6,6 +6,7 @@
 <li><a href="" type="button"><b>Uredi</b> Podatke</a></li>
 <li><a href="{% url 'moduli:arhiv:arhiviranje_create_from_delovninalog' object.pk %}" type="button"><b>Dodaj</b> Dokument</a></li>
 <li><a href="{% url 'moduli:zaznamki:zaznamek_create_from_delovninalog' object.pk %}" type="button"><b>Dodaj</b> Zaznamek</a></li>
+<li><a href="{% url 'moduli:kontrolni_list:kontrola_vrednost_create' object.pk %}" type="button"><b>Izdelaj</b> Kontrolni list</a></li>
 
 
 
@@ -17,7 +18,7 @@
 
 <li class="divider"></li>
 <li class="dropdown-header">Delo in Material</li>
-        
+
         <li>
             <a href="{% url 'moduli:delovninalogi:delo_create_from_delovninalog' object.pk %}">
             <b>Dodaj</b> Delo</a>
@@ -49,7 +50,7 @@
     {% endif %}
 
     {% if object.status == 4 %}
-   
+
 <li>
     <form id="" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
         <input class="button_to_label" type="submit" value="Natisni delovni nalog">
@@ -59,7 +60,7 @@
 
 
 
-    
+
     {% endif %}
 
 {% endif %}

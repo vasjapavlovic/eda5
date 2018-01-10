@@ -393,20 +393,3 @@ class KontrolaVrednostCreateViewTest(TestCase):
 
         # dodana kontrola vsebuje tudi projektna mesta
         self.assertTrue(kv_0.projektno_mesto, True)
-
-
-
-
-
-    # def test_formset_for_kontrola_vrednost_input_data_in_context(self):
-    #     self.client.login(username='vaspav', password='medomedo')
-    #     dn = DelovniNalog.objects.first()
-    #     url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
-    #     resp = self.client.get(url)
-    #
-    #     context = resp.context
-    #     formset = context['kontrola_vrednost_create_formset']
-    #     form = formset.form
-    #     field_vrednost_check = form['vrednost_check']
-    #     vrednost = field_vrednost_check.value()
-    #     self.assertEquals(vrednost, False)
