@@ -23,6 +23,7 @@ from eda5.moduli.models import Zavihek
 # Forms
 from .forms import AktivnostCreateForm
 from .forms import KontrolaSpecifikacijaFormSet
+from .forms import KontrolaVrednostUpdateFormSet
 
 
 
@@ -184,6 +185,29 @@ class KontrolaVrednostCreateView(LoginRequiredMixin, UpdateView):
         context = super(KontrolaVrednostCreateView, self).get_context_data(*args, **kwargs)
         # new context data go here
 
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+class KontrolaVrednostUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = DelovniNalog
+    template_name = 'kontrolnilist/update.html'
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(KontrolaVrednostUpdateView, self).get_context_data(*args, **kwargs)
+
+
+        dn = DelovniNalog.objects.get(id=self.object.id)
+
+        # Kontrolni List
+        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSet(delovninalog=dn)
+        context['kontrola_vrednost_update_formset'] = kontrola_vrednost_update_formset
+
+        # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 

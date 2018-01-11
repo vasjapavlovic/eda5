@@ -126,3 +126,16 @@ KontrolaSpecifikacija Model
 
 KontrolaVrednost Model
 ---------------------------
+
+
+Views
+######
+
+
+Kontrolni list Create View --> priprava e-kontrolnega lista
+
+
+Kontrolni list Update View --> izpolnjevanje ekontrolnega lista
+
+
+Kontrolni list Print View --> Printanje kontrolnega lista

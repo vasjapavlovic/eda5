@@ -180,22 +180,7 @@ class DelovniNalogDetailViewTest(TestCase):
         resp = self.client.get(url)
         self.assertTemplateUsed('/delovninalogi/delovninalog/detail/base.html')
 
-    def test_formset_for_kontrola_vrednost_input_data_in_context(self):
-        self.client.login(username='vaspav', password='medomedo')
-        kv = KontrolaVrednost.objects.first()
-        ks = kv.kontrola_specifikacija
-        dn = kv.delovni_nalog
 
-        url = reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.id})
-        resp = self.client.get(url)
-
-        context = resp.context
-        formset = context['kontrola_vrednost_update_formset']
-        form = formset.forms[0]
-
-        field_vrednost_check = form['vrednost_check']
-        vrednost = field_vrednost_check.value()
-        self.assertEquals(vrednost, False)
 
     # def test_specifikacija_vrednost_vrsta_select_ponudi_izbiro(self):
     #     self.client.login(username='vaspav', password='medomedo')

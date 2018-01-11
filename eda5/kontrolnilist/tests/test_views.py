@@ -4,8 +4,10 @@ from django.core.urlresolvers import reverse
 
 # factories
 from ..factories import KontrolaSpecifikacijaFactory
+from ..factories import KontrolaVrednostFactory
 from eda5.arhiv.factories import ArhivFactory
 from eda5.deli.factories import ProjektnoMestoFactory
+from eda5.delovninalogi.factories import DelovniNalogFactory
 from eda5.users.factories import UserFactory
 from eda5.moduli.factories import ZavihekFactory
 
@@ -413,3 +415,65 @@ class KontrolaVrednostCreateViewTest(TestCase):
 
         post_data = {}
         response = self.client.post(url, post_data)
+
+
+class KontrolaVrednostUpdateViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        zavihek = ZavihekFactory(oznaka='DN_DETAIL')
+        zavihek.save()
+
+        dn = DelovniNalogFactory()
+        dn.save()
+
+        kontrola_vrednost = KontrolaVrednostFactory()
+        kontrola_vrednost.save()
+
+        user = UserFactory()
+        user.save()
+        user.set_password('medomedo')
+        user.save()
+
+    def test_view_url_path(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = '/moduli/kl/dn/{0}/kontrola-vrednost-update'.format(dn.pk)
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_view_url_namespace(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_update', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+
+    def test_view_uses_correct_template(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_update', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertTemplateUsed('kontrolnilist/update.html')
+
+    def test_formset_for_kontrola_vrednost_input_data_in_context(self):
+        self.client.login(username='vaspav', password='medomedo')
+        kv = KontrolaVrednost.objects.first()
+        ks = kv.kontrola_specifikacija
+        dn = kv.delovni_nalog
+
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_update', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+
+        context = resp.context
+        formset = context['kontrola_vrednost_update_formset']
+        form = formset.forms[0]
+
+        field_vrednost_check = form['vrednost_check']
+        vrednost = field_vrednost_check.value()
+        self.assertEquals(vrednost, False)

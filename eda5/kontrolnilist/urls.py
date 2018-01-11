@@ -31,5 +31,11 @@ urlpatterns += [
         name="kontrola_vrednost_create"
     ),
 
+    url(
+        r'^dn/(?P<pk>\d+)/kontrola-vrednost-update$',
+        views.KontrolaVrednostUpdateView.as_view(),
+        name="kontrola_vrednost_update"
+    ),
+
 
 ]

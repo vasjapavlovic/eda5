@@ -30,7 +30,7 @@ from eda5.zaznamki.models import Zaznamek
 from ..forms import OpraviloUpdateForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm
 from ..forms import DelovniNalogVresevanjuModelForm, DeloCreateForm, DeloKoncajUpdateForm
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
-from eda5.kontrolnilist.forms import KontrolaVrednostUpdateFormSet
+
 from eda5.reports.forms import FormatForm
 from eda5.zaznamki.forms import ZaznamekForm
 
@@ -89,10 +89,6 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['zaznamek_form'] = ZaznamekForm
         context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=dn)
 
-
-        # Kontrolni List
-        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSet(delovninalog=dn)
-        context['kontrola_vrednost_update_formset'] = kontrola_vrednost_update_formset
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
