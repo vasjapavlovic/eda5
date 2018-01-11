@@ -103,20 +103,9 @@ class KontrolaVrednostUpdateFormSetTest(TestCase):
         )
 
     def test_valid_data(self):
-
         kv = KontrolaVrednost.objects.first()
         dn = kv.delovni_nalog
         kv_id = kv.id
-
-        data = {
-            'form-TOTAL_FORMS': 1,
-            'form-INITIAL_FORMS': 1,
-            'form-0-id': kv_id,
-            'form-0-vrednost_check': True,
-            'form-0-vrednost_text': '',
-            'form-0-vrednost_select': '',
-        }
-
         # vrednost check
         form = self.form_data(1, 1, dn, kv_id, True, '', '')
         self.assertTrue(form.is_valid())

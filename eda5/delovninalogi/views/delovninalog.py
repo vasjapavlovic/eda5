@@ -65,6 +65,9 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(DelovniNalogDetailView, self).get_context_data(*args, **kwargs)
 
+
+        dn = DelovniNalog.objects.get(id=self.object.id)
+
         # arhiv
         context['arhiviranje_form'] = ArhiviranjeDelovniNalogForm
 
@@ -73,22 +76,23 @@ class DelovniNalogDetailView(MessagesActionMixin, DetailView):
         context['koncana_dela'] = Delo.objects.koncana_dela()
         context['delo_create_form'] = DeloCreateForm
         context['delo_update_form'] = DeloKoncajUpdateForm
-        context['delo_list'] = Delo.objects.filter(delovninalog=self.object.id)
-        context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=self.object.id).distinct('delavec')
+        context['delo_list'] = Delo.objects.filter(delovninalog=dn)
+        context['delo_delavec_distinct_list'] = Delo.objects.filter(delovninalog=dn).distinct('delavec')
 
         # from za izbiro formata izvoza
         context['format_form'] = FormatForm
 
         # skladisce
-        context['material_list'] = Dnevnik.objects.filter(delovninalog=self.object.id)
+        context['material_list'] = Dnevnik.objects.filter(delovninalog=dn)
 
         # zaznamek
         context['zaznamek_form'] = ZaznamekForm
-        context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=self.object.id)
+        context['zaznamek_list'] = Zaznamek.objects.filter(delovninalog=dn)
 
 
         # Kontrolni List
-        kontrola_vrednost_create_formset = KontrolaVrednostUpdateFormSet()
+        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSet(delovninalog=dn)
+        context['kontrola_vrednost_update_formset'] = kontrola_vrednost_update_formset
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")

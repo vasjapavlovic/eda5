@@ -84,8 +84,11 @@ class KontrolaVrednostUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(KontrolaVrednostUpdateForm, self).__init__(*args, **kwargs)
 
-        self.fields['vrednost_select'].queryset = KontrolaSpecifikacijaOpcijaSelect.objects.filter(
-            kontrola_specifikacija=self.instance.kontrola_specifikacija)
+        # če je izbrana vrsta_vrednosti = SELECT
+        if self.instance.kontrola_specifikacija.vrednost_vrsta == 3:
+            self.fields['vrednost_select'].queryset = KontrolaSpecifikacijaOpcijaSelect.objects.filter(
+                kontrola_specifikacija=self.instance.kontrola_specifikacija)
+
 
     class Meta:
         model = KontrolaVrednost

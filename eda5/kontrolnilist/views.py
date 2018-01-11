@@ -14,9 +14,11 @@ from braces.views import LoginRequiredMixin
 from .models import Aktivnost
 from .models import KontrolaSpecifikacija
 from .models import KontrolaVrednost
+from eda5.deli.models import ProjektnoMesto
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.delovninalogi.models import Opravilo
 from eda5.moduli.models import Zavihek
+
 
 # Forms
 from .forms import AktivnostCreateForm
@@ -160,23 +162,19 @@ class KontrolaVrednostCreateView(LoginRequiredMixin, UpdateView):
 
 
         # logika za izdelavo vrednosti specificiranih kontrol
-        # pridobimo kontrole, ki so izdelane v dn.opravilo
-        kontrola_list = KontrolaSpecifikacija.objects.filter(aktivnost__opravilo=dn.opravilo)
 
-        for kontrola in kontrola_list:
-            kontrola_vrednost_vnos = KontrolaVrednost.objects.create(
-                delovni_nalog=dn,
-                kontrola_specifikacija=kontrola,
-                # projektno_mesto se doda naknadno
-            )
-            kontrola_vrednost_vnos.save()
+        aktivnost_list = dn.opravilo.aktivnost_set.all()
+        for aktivnost in aktivnost_list:
+            ks_list = aktivnost.kontrolaspecifikacija_set.all()
 
-
-            projektno_mesto_list = kontrola.aktivnost.projektno_mesto.all()
-            kontrola_vrednost_vnos.projektno_mesto = projektno_mesto_list
-            kontrola_vrednost_vnos.save()
-
-
+            for ks in ks_list:
+                 projektna_mesta_specifikacije = ks.aktivnost.projektno_mesto.all()
+                 for pm in projektna_mesta_specifikacije:
+                    vrednost = KontrolaVrednost.objects.create(
+                            delovni_nalog=dn,
+                            kontrola_specifikacija=ks,
+                            projektno_mesto=pm,
+                        )
 
         return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.pk}))
 

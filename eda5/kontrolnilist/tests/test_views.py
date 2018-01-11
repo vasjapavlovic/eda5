@@ -5,12 +5,15 @@ from django.core.urlresolvers import reverse
 # factories
 from ..factories import KontrolaSpecifikacijaFactory
 from eda5.arhiv.factories import ArhivFactory
+from eda5.deli.factories import ProjektnoMestoFactory
 from eda5.users.factories import UserFactory
 from eda5.moduli.factories import ZavihekFactory
+
 
 # models
 from ..models import Aktivnost
 from ..models import KontrolaSpecifikacija
+from ..models import KontrolaVrednost
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.delovninalogi.models import Opravilo
 from eda5.users.models import User
@@ -347,6 +350,13 @@ class KontrolaVrednostCreateViewTest(TestCase):
             oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1')
         kontrola_specifikacija.save()
 
+        pm_1 = ProjektnoMestoFactory(oznaka='PM_1')
+
+        aktivnost_1 = Aktivnost.objects.get(oznaka='AKT1')
+        aktivnost_1.projektno_mesto = [pm_1,]
+        aktivnost_1.save()
+
+
         user = UserFactory()
         user.save()
         user.set_password('medomedo')
@@ -381,7 +391,7 @@ class KontrolaVrednostCreateViewTest(TestCase):
         url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
 
         post_data = {}
-        response = self.client.post(url, post_data)
+        response = self.client.post(url)
 
         # prekontroliram če je vrednost za kontrolo iz dn.opravilo vnešena.
         # trenutna vrednost je default = assertFalse
@@ -393,3 +403,13 @@ class KontrolaVrednostCreateViewTest(TestCase):
 
         # dodana kontrola vsebuje tudi projektna mesta
         self.assertTrue(kv_0.projektno_mesto, True)
+
+    def test_post_izdela_vrednosti_za_vsako_kombinacijo_specifikacije_in_projektnega_mesta(self):
+
+
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
+
+        post_data = {}
+        response = self.client.post(url, post_data)

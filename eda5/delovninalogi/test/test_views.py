@@ -6,6 +6,8 @@ from ..models import DelovniNalog
 from ..models import Opravilo
 from eda5.kontrolnilist.models import Aktivnost
 from eda5.kontrolnilist.models import KontrolaSpecifikacija
+from eda5.kontrolnilist.models import KontrolaVrednost
+from eda5.kontrolnilist.models import KontrolaSpecifikacijaOpcijaSelect
 from eda5.moduli.models import Zavihek
 
 # factories
@@ -13,8 +15,11 @@ from ..factories import DelovniNalogFactory
 from ..factories import OpraviloFactory
 from eda5.arhiv.factories import ArhivFactory
 from eda5.kontrolnilist.factories import KontrolaSpecifikacijaFactory
+from eda5.kontrolnilist.factories import KontrolaSpecifikacijaOpcijaSelectFactory
+from eda5.kontrolnilist.factories import KontrolaVrednostFactory
 from eda5.moduli.factories import ZavihekFactory
 from eda5.users.factories import UserFactory
+
 
 
 class OpraviloDetailViewTest(TestCase):
@@ -145,8 +150,8 @@ class DelovniNalogDetailViewTest(TestCase):
         zavihek = ZavihekFactory(oznaka='DN_DETAIL')
         zavihek.save()
 
-        dn = DelovniNalogFactory()
-        dn.save()
+        kontrola_vrednost = KontrolaVrednostFactory()
+        kontrola_vrednost.save()
 
         user = UserFactory()
         user.save()
@@ -177,13 +182,50 @@ class DelovniNalogDetailViewTest(TestCase):
 
     def test_formset_for_kontrola_vrednost_input_data_in_context(self):
         self.client.login(username='vaspav', password='medomedo')
-        dn = DelovniNalog.objects.first()
+        kv = KontrolaVrednost.objects.first()
+        ks = kv.kontrola_specifikacija
+        dn = kv.delovni_nalog
+
         url = reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.id})
         resp = self.client.get(url)
 
         context = resp.context
-        formset = context['kontrola_vrednost_create_formset']
-        form = formset.form
+        formset = context['kontrola_vrednost_update_formset']
+        form = formset.forms[0]
+
         field_vrednost_check = form['vrednost_check']
         vrednost = field_vrednost_check.value()
         self.assertEquals(vrednost, False)
+
+    # def test_specifikacija_vrednost_vrsta_select_ponudi_izbiro(self):
+    #     self.client.login(username='vaspav', password='medomedo')
+    #
+    #     # vnesemo testne podatke
+    #     # izdelamo specifikacijo
+    #     ks = KontrolaSpecifikacijaFactory(oznaka="KS_1", vrednost_vrsta=3)
+    #     ks.save()
+    #     ks_1 = KontrolaSpecifikacija.objects.get(oznaka='KS_1')
+    #
+    #     # opcije za izbiro
+    #     os_ks_1 = KontrolaSpecifikacijaOpcijaSelectFactory(oznaka='O_1', naziv='opcija 1' , kontrola_specifikacija=ks_1)
+    #     os_ks_1.save()
+    #     os_ks_2 = KontrolaSpecifikacijaOpcijaSelectFactory(oznaka='O_2', naziv='opcija 2',  kontrola_specifikacija=ks_1)
+    #     os_ks_2.save()
+    #     os_ks_3 = KontrolaSpecifikacijaOpcijaSelectFactory(oznaka='O_3', naziv='opcija 3',  kontrola_specifikacija=ks_1)
+    #     os_ks_3.save()
+    #
+    #     # izdelamo vrednost iz specifikacija 1
+    #     kv_1 = KontrolaVrednostFactory(oznaka='KV_1' , kontrola_specifikacija=ks_1)
+    #     kv_1.save()
+    #
+    #     url = reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': kv_1.delovni_nalog.id})
+    #     resp = self.client.get(url)
+    #
+    #     context = resp.context
+    #     formset = context['kontrola_vrednost_update_formset']
+    #     #print(formset[0].instance.vrednost_select)
+    #
+    #     form = formset.forms[0]
+    #
+    #     field_vrednost_select = form['vrednost_select']
+    #     self.fail("dokončaj test")
