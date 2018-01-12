@@ -190,7 +190,7 @@ KontrolniListPrintOblika01View
 
 
 KontrolniListPrintOblika02View
--------------------------------
+******************************
 
 
 .. glossary::
