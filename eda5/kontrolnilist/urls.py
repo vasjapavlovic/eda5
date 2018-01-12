@@ -45,4 +45,11 @@ urlpatterns += [
     ),
 
 
+    url(
+        r'^(?P<pk>\d+)/kontrolni-list-print-oblika01$',
+        views.KontrolniListPrintOblika01View.as_view(),
+        name="kontrolni_list_print_oblika01"
+    ),
+
+
 ]

@@ -1,9 +1,14 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.views.generic import UpdateView
+
 from django.db import transaction
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.utils import timezone
+from django.views.generic import UpdateView
 
+# Templated docs
+from templated_docs import fill_template
+from templated_docs.http import FileResponse
 
 
 
@@ -275,3 +280,79 @@ class KontrolniListUpdateOblika02View(LoginRequiredMixin, UpdateView):
                     'kontrola_vrednost_update_formset': kontrola_vrednost_update_formset,
                 },
             )
+
+
+class KontrolniListPrintOblika01View(LoginRequiredMixin, UpdateView):
+
+    model = DelovniNalog
+    template_name = 'kontrolnilist/print_oblika01.html'
+    fields = ('id', )
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(KontrolniListPrintOblika01View, self).get_context_data(*args, **kwargs)
+
+        dn = DelovniNalog.objects.get(id=self.object.id)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+
+
+        dn = DelovniNalog.objects.get(id=self.get_object().id)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+
+        vrednost_list = KontrolaVrednost.objects.filter(delovni_nalog=dn)
+
+        # razporeditev
+        vrednost_list = vrednost_list.order_by(
+            # glede na etažo
+            '-projektno_mesto__lokacija__etaza__elevation',
+            # glede na prostor
+            'projektno_mesto__lokacija__prostor',
+            # glede na projektno mesto
+            'projektno_mesto',
+            # glede na aktivnost
+            'kontrola_specifikacija__aktivnost__oznaka',
+            # glede na specifikacijo kontrole
+            'kontrola_specifikacija__oznaka',
+            )
+
+        print(vrednost_list)
+
+        # iz instance pridobimo željene podatke
+        # ki jih bomo uporabili v izpisu
+        vrsta_dokumenta = "KONTROLNI LIST"
+        opravilo = dn.opravilo
+        narocilo = dn.opravilo.narocilo
+        datum = timezone.localtime(timezone.now()).date()
+
+        izpis_data = {
+            'vrednost_list': vrednost_list,
+            'delovninalog': dn,
+            'opravilo': opravilo,
+            'narocilo': narocilo,
+            'datum': datum,
+        }
+
+
+
+        # izdelamo izpis
+        filename = fill_template(
+            # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+            'obrazci/kontrolnilist/kontrolni_list_20171216.ods',
+            # podatki za uporabo v oblikovni datoteki
+            izpis_data,
+            output_format="xlsx"
+        )
+
+        visible_filename = '{}.{}'.format(dn.oznaka ,"xlsx")
+
+        return FileResponse(filename, visible_filename)

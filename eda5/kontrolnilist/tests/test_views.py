@@ -612,43 +612,46 @@ class KontrolniListUpdateOblika02ViewTest(TestCase):
 
 
 
-# class KojntrolniListPrintViewTest(TestCase):
-#
-#     @classmethod
-#     def setUpTestData(cls):
-#
-#         arhiv = ArhivFactory()
-#         arhiv.save()
-#
-#         dn = DelovniNalogFactory()
-#         dn.save()
-#
-#         kontrola_vrednost = KontrolaVrednostFactory()
-#         kontrola_vrednost.save()
-#
-#         user = UserFactory()
-#         user.save()
-#         user.set_password('medomedo')
-#         user.save()
-#
-#     def test_view_url_path(self):
-#         login = self.client.login(username='vaspav', password='medomedo')
-#         dn = DelovniNalog.objects.first()
-#         url = '/moduli/kl/dn/{0}/kontrolni-list-print'.format(dn.pk)
-#         resp = self.client.get(url)
-#         self.assertEquals(resp.status_code, 200)
-#
-#     def test_view_url_namespace(self):
-#         login = self.client.login(username='vaspav', password='medomedo')
-#         dn = DelovniNalog.objects.first()
-#         url = reverse('moduli:kontrolni_list:kontrolni_list_print', kwargs={'pk': dn.pk})
-#         resp = self.client.get(url)
-#         self.assertEquals(resp.status_code, 200)
-#
-#
-#     def test_view_uses_correct_template(self):
-#         login = self.client.login(username='vaspav', password='medomedo')
-#         dn = DelovniNalog.objects.first()
-#         url = reverse('moduli:kontrolni_list:kontrolni_list_print', kwargs={'pk': dn.pk})
-#         resp = self.client.get(url)
-#         self.assertTemplateUsed('kontrolnilist/print.html')
+class KojntrolniListPrintViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        zavihek = ZavihekFactory(oznaka='DN_DETAIL')
+        zavihek.save()
+
+        dn = DelovniNalogFactory()
+        dn.save()
+
+        kontrola_vrednost = KontrolaVrednostFactory()
+        kontrola_vrednost.save()
+
+        user = UserFactory()
+        user.save()
+        user.set_password('medomedo')
+        user.save()
+
+    def test_view_url_path(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = '/moduli/kl/{0}/kontrolni-list-print-oblika01'.format(dn.pk)
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_view_url_namespace(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrolni_list_print_oblika01', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+
+    def test_view_uses_correct_template(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrolni_list_print_oblika01', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertTemplateUsed('kontrolnilist/print_oblika01.html')
