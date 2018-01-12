@@ -132,8 +132,10 @@ Views
 ######
 
 
+s
+
 KontrolniListUpdateOblika01View
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*******************************
 
 
 .. glossary::
@@ -152,7 +154,7 @@ KontrolniListUpdateOblika01View
 
 
 KontrolniListUpdateOblika02View
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*******************************
 
 
 .. glossary::
@@ -171,7 +173,7 @@ KontrolniListUpdateOblika02View
 
 
 KontrolniListPrintOblika01View
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+******************************
 
 
 .. glossary::
@@ -190,7 +192,7 @@ KontrolniListPrintOblika01View
 
 
 KontrolniListPrintOblika02View
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+******************************
 
 
 .. glossary::
