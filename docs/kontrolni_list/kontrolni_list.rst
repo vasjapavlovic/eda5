@@ -135,6 +135,7 @@ Views
 KontrolniListUpdateOblika01View
 -------------------------------
 
+
 .. glossary::
 
     Namen
@@ -152,6 +153,7 @@ KontrolniListUpdateOblika01View
 
 KontrolniListUpdateOblika02View
 -------------------------------
+
 
 .. glossary::
 
@@ -171,6 +173,7 @@ KontrolniListUpdateOblika02View
 KontrolniListPrintOblika01View
 -------------------------------
 
+
 .. glossary::
 
     Namen
@@ -188,6 +191,7 @@ KontrolniListPrintOblika01View
 
 KontrolniListPrintOblika02View
 -------------------------------
+
 
 .. glossary::
 
