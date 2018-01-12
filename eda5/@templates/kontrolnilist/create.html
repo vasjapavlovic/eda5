@@ -34,9 +34,9 @@
 
 
 
-    <form action="" method="post">{% csrf_token %}
+<form action="" method="post">{% csrf_token %}
 
-        {{ aktivnost_create_form | crispy }}
+    {{ aktivnost_create_form | crispy }}
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -45,13 +45,14 @@
             {% for form in kontrolni_list_create_formset.forms %}
                 {% if forloop.first %}
                     <thead>
-                    <tr>
-                        {% for field in form.visible_fields %}
-                            <th>{{ field.label|capfirst }}</th>
-                        {% endfor %}
-                    </tr>
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
                     </thead>
                 {% endif %}
+
                 <tr class="{% cycle row1,row2 %} formset_row">
                     {% for field in form.visible_fields %}
                         <td>
@@ -68,10 +69,11 @@
                 </tr>
             {% endfor %}
         </table>
-    </div>
+        </div>
         <input type="submit" value="Save"/> <a href="">back to the list</a>
-    </form>
-</div>
+    </div>
+</form>
+
 
 
 {% endblock content-body %}

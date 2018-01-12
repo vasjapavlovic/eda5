@@ -106,3 +106,39 @@ KontrolaVrednostUpdateFormSet = modelformset_factory(
     formset=BaseKontrolaVrednostUpdateFormSet,
 
 )
+
+
+
+
+
+class BaseKontrolaVrednostUpdateFormSetV2(BaseModelFormSet):
+    '''
+    base form set potrebujemo, da izvedemo razporejanje (ordering)
+    glede na naše želje
+    '''
+    def __init__(self, *args, **kwargs):
+        delovninalog = kwargs.pop('delovninalog')
+        super(BaseKontrolaVrednostUpdateFormSetV2, self).__init__(*args, **kwargs)
+
+        queryset = KontrolaVrednost.objects.filter(delovni_nalog=delovninalog)
+        queryset = queryset.order_by(
+            # glede na aktivnost
+            'kontrola_specifikacija__aktivnost__oznaka',
+            # glede na specifikacijo kontrole
+            'kontrola_specifikacija__oznaka',
+            # glede na del stavbe
+            'projektno_mesto__del_stavbe',
+            # glede na projektno mesto
+            'projektno_mesto__oznaka',
+            )
+
+        self.queryset = queryset
+
+
+KontrolaVrednostUpdateFormSetV2 = modelformset_factory(
+    KontrolaVrednost,
+    extra=0,
+    form=KontrolaVrednostUpdateForm,
+    formset=BaseKontrolaVrednostUpdateFormSetV2,
+
+)

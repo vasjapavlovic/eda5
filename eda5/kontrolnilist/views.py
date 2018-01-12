@@ -24,6 +24,7 @@ from eda5.moduli.models import Zavihek
 from .forms import AktivnostCreateForm
 from .forms import KontrolaSpecifikacijaFormSet
 from .forms import KontrolaVrednostUpdateFormSet
+from .forms import KontrolaVrednostUpdateFormSetV2
 
 
 
@@ -204,11 +205,48 @@ class KontrolaVrednostUpdateView(LoginRequiredMixin, UpdateView):
         dn = DelovniNalog.objects.get(id=self.object.id)
 
         # Kontrolni List
-        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSet(delovninalog=dn)
+        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSet(prefix='form', delovninalog=dn)
         context['kontrola_vrednost_update_formset'] = kontrola_vrednost_update_formset
+
+        # Kontrolni List
+        kontrola_vrednost_update_formset_v2 = KontrolaVrednostUpdateFormSetV2(prefix='formV2', delovninalog=dn)
+        context['kontrola_vrednost_update_formset_v2'] = kontrola_vrednost_update_formset_v2
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
         return context
+
+
+    def post(self, request, *args, **kwargs):
+
+        dn = DelovniNalog.objects.get(id=self.get_object().id)
+        formset = KontrolaVrednostUpdateFormSet(request.POST or None, delovninalog=dn)
+        formsetV2 = KontrolaVrednostUpdateFormSetV2(request.POST or None, delovninalog=dn)
+
+        if formset.is_valid():
+            formset.save()
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.pk}))
+        else:
+            return render(
+                request,
+                self.template_name,
+                {
+                    'kontrola_vrednost_update_formset': kontrola_vrednost_update_formset,
+                    'kontrola_vrednost_update_formset_v2': kontrola_vrednost_update_formset_v2,
+                },
+            )
+
+        if formsetV2.is_valid():
+            formsetV2.save()
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.pk}))
+        else:
+            return render(
+                request,
+                self.template_name,
+                {
+                    'kontrola_vrednost_update_formset': kontrola_vrednost_update_formset,
+                    'kontrola_vrednost_update_formset_v2': kontrola_vrednost_update_formset_v2,
+                },
+            )

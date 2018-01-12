@@ -132,10 +132,73 @@ Views
 ######
 
 
-Kontrolni list Create View --> priprava e-kontrolnega lista
+KontrolniListUpdateOblika01View
+-------------------------------
+
+.. glossary::
+
+    Namen
+        Izpolnjevanje e-kontrolnega lista združeno po aktivnosti
+
+    Url path
+        /moduli/kl/{pk}/update-oblika01
+
+    Url namespace
+        update_oblika01
+
+    Template
+        kontrolnilist/update_oblika01.html
 
 
-Kontrolni list Update View --> izpolnjevanje ekontrolnega lista
+KontrolniListUpdateOblika02View
+-------------------------------
+
+.. glossary::
+
+    Namen
+        Izpolnjevanje e-kontrolnega lista združeno po projektnih mestih
+
+    Url path
+        /moduli/kl/{pk}/update-oblika02
+
+    Url namespace
+        update_oblika02
+
+    Template
+        kontrolnilist/update_oblika02.html
 
 
-Kontrolni list Print View --> Printanje kontrolnega lista
+KontrolniListPrintOblika01View
+-------------------------------
+
+.. glossary::
+
+    Namen
+        Tiskanje obrazca kontrolnega lista združeno po aktivnosti
+
+    Url path
+        /moduli/kl/{pk}/print-oblika01
+
+    Url namespace
+        update_oblika01
+
+    Template
+        kontrolnilist/print_oblika01.html
+
+
+KontrolniListPrintOblika02View
+-------------------------------
+
+.. glossary::
+
+    Namen
+        Tiskanje obrazca kontrolnega lista združeno po projektnih mestih
+
+    Url path
+        /moduli/kl/{pk}/print-oblika02
+
+    Url namespace
+        update_oblika02
+
+    Template
+        kontrolnilist/print_oblika02.html

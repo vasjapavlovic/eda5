@@ -7,45 +7,45 @@
 
     {% regroup kontrola_list by aktivnost as aktivnost_list %}
     {% for aktivnost in aktivnost_list %}
-    {{ aktivnost.grouper }}
-
-
-    <table class="table table-condensed table-bordered table-striped">
-        <!-- table col width -->
-        <col style="width:15%">
-        <col style="width:20%">
-        <col style="width:35%">
-        <col style="width:15%">
-        <col style="width:15%">
-
-
-        <thead>
-
-            <tr>
-                <th>oznaka</th>
-                <th>naziv</th>
-                <th>navodila</th>
-                <th>vrsta vrednosti</th>
-                <th>aktivnost</th>
-            </tr>
-
-        </thead>
-        <tbody>
-
-            {% for object in aktivnost.list %}
-
-            <tr>
-                <td>{{ object.oznaka }}</td>
-                <td>{{ object.naziv }}</td>
-                <td>{{ object.opis }}</td>
-                <td>{{ object.get_vrednost_vrsta_display }}</td>
-                <td><a href="{% url 'moduli:kontrolni_list:kontrolni_list_aktivnost_update' object.aktivnost.id %}">{{ object.aktivnost }}</a></td>
-            </tr>
-
+        <a href="{% url 'moduli:kontrolni_list:kontrolni_list_aktivnost_update' aktivnost.grouper.id %}">{{ aktivnost.grouper }}</a>
+        <ul>
+            {% for pm in aktivnost.grouper.projektno_mesto.all %}
+                <li><b>[{{ pm.oznaka }}]</b>{{ pm.naziv }}</li>
             {% endfor %}
+        </ul>
 
-        </tbody>
-    </table>
+        <table class="table table-condensed table-bordered table-striped">
+            <!-- table col width -->
+            <col style="width:15%">
+            <col style="width:30%">
+            <col style="width:40%">
+            <col style="width:15%">
+
+
+            <thead>
+
+                <tr>
+                    <th>oznaka</th>
+                    <th>naziv</th>
+                    <th>navodila</th>
+                    <th>vrsta vrednosti</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                {% for object in aktivnost.list %}
+
+                    <tr>
+                        <td>{{ object.oznaka }}</td>
+                        <td>{{ object.naziv }}</td>
+                        <td>{{ object.opis }}</td>
+                        <td>{{ object.get_vrednost_vrsta_display }}</td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
     {% endfor %}
 
 {% endif %}

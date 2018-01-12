@@ -477,3 +477,104 @@ class KontrolaVrednostUpdateViewTest(TestCase):
         field_vrednost_check = form['vrednost_check']
         vrednost = field_vrednost_check.value()
         self.assertEquals(vrednost, False)
+
+    def test_post_formset_saves_vrednost_check(self):
+        self.client.login(username='vaspav', password='medomedo')
+
+        kv = KontrolaVrednost.objects.first()
+        ks = kv.kontrola_specifikacija
+        dn = kv.delovni_nalog
+
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_update', kwargs={'pk': dn.pk})
+
+
+        post_data = {
+            'form-TOTAL_FORMS': 1,
+            'form-INITIAL_FORMS': 1,
+            'form-0-id': kv.id,
+            'form-0-vrednost_check': True,
+            'form-0-vrednost_text': '',
+            'form-0-vrednost_select': '',
+        }
+
+        self.client.post(url, post_data)
+
+
+        kv_changed = KontrolaVrednost.objects.first()
+        kv_vrednost_check = kv_changed.vrednost_check
+        self.assertEquals(kv_vrednost_check, True)
+
+    def test_post_formsetV2_saves_vrednost_check(self):
+        self.client.login(username='vaspav', password='medomedo')
+
+        kv = KontrolaVrednost.objects.first()
+        ks = kv.kontrola_specifikacija
+        dn = kv.delovni_nalog
+
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_update', kwargs={'pk': dn.pk})
+
+
+        post_data = {
+            # Form
+            'form-TOTAL_FORMS': 1,
+            'form-INITIAL_FORMS': 1,
+            'form-0-id': kv.id,
+
+            # FormV2
+            'formV2-TOTAL_FORMS': 1,
+            'formV2-INITIAL_FORMS': 1,
+            'formV2-0-id': kv.id,
+            'formV2-0-vrednost_check': True,
+            'formV2-0-vrednost_text': '',
+            'formV2-0-vrednost_select': '',
+        }
+
+        self.client.post(url, post_data)
+
+
+        kv_changed = KontrolaVrednost.objects.first()
+        kv_vrednost_check = kv_changed.vrednost_check
+        self.assertEquals(kv_vrednost_check, True)
+
+
+
+class KojntrolniListPrintViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        dn = DelovniNalogFactory()
+        dn.save()
+
+        kontrola_vrednost = KontrolaVrednostFactory()
+        kontrola_vrednost.save()
+
+        user = UserFactory()
+        user.save()
+        user.set_password('medomedo')
+        user.save()
+
+    def test_view_url_path(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = '/moduli/kl/dn/{0}/kontrolni-list-print'.format(dn.pk)
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_view_url_namespace(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrolni_list_print', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+
+    def test_view_uses_correct_template(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrolni_list_print', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertTemplateUsed('kontrolnilist/print.html')
