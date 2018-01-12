@@ -130,7 +130,3 @@ urlpatterns += [
         delo.DeloUpdateView.as_view(),
         name="delo_update_from_delovninalog"),
 ]
-
-
-
-

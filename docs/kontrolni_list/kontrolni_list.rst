@@ -142,13 +142,13 @@ KontrolniListUpdateOblika01View
         Izpolnjevanje e-kontrolnega lista združeno po aktivnosti
 
     Url path
-        /moduli/kl/{pk}/update-oblika01
+        /moduli/kl/{pk}/kontrolni-list-update-oblika01
 
     Url namespace
         update_oblika01
 
     Template
-        kontrolnilist/update_oblika01.html
+        kontrolnilist/kontrolni_list_update_oblika01.html
 
 
 KontrolniListUpdateOblika02View
@@ -161,13 +161,13 @@ KontrolniListUpdateOblika02View
         Izpolnjevanje e-kontrolnega lista združeno po projektnih mestih
 
     Url path
-        /moduli/kl/{pk}/update-oblika02
+        /moduli/kl/{pk}/kontrolni-list-update-oblika02
 
     Url namespace
         update_oblika02
 
     Template
-        kontrolnilist/update_oblika02.html
+        kontrolnilist/kontrolni_list_update_oblika02.html
 
 
 KontrolniListPrintOblika01View
@@ -180,13 +180,13 @@ KontrolniListPrintOblika01View
         Tiskanje obrazca kontrolnega lista združeno po aktivnosti
 
     Url path
-        /moduli/kl/{pk}/print-oblika01
+        /moduli/kl/{pk}/kontrolni-list-print-oblika01
 
     Url namespace
         update_oblika01
 
     Template
-        kontrolnilist/print_oblika01.html
+        kontrolnilist/kontrolni_list_print_oblika01.html
 
 
 KontrolniListPrintOblika02View
@@ -199,10 +199,10 @@ KontrolniListPrintOblika02View
         Tiskanje obrazca kontrolnega lista združeno po projektnih mestih
 
     Url path
-        /moduli/kl/{pk}/print-oblika02
+        /moduli/kl/{pk}/kontrolni-list-print-oblika02
 
     Url namespace
         update_oblika02
 
     Template
-        kontrolnilist/print_oblika02.html
+        kontrolnilist/kontrolni_list_print_oblika02.html

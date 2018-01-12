@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+
+<form id="form_v2" method="post" action="">{% csrf_token %}
+    {{ kontrola_vrednost_update_formset.management_form }}
+
+    <table class="table table-bordered border_hairline_grey">
+        <thead class="background_grey">
+            <tr>
+                <th colspan=2>Aktivnost</th>
+            </tr>
+
+            <!-- oznake aktivnosti  -->
+            <tr>
+                <td>Projektno mesto</td>
+                <td>Kontrola</td>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- aktivnost  -->
+            {% regroup kontrola_vrednost_update_formset by instance.kontrola_specifikacija.aktivnost as object1_list %}
+            {% for object1 in object1_list %}
+                <tr class="background_dark_grey_header">
+                    <td colspan=6><b>{{ object1.grouper.naziv }} ({{ object1.grouper.oznaka }})</b></td>
+                </tr>
+
+
+                <!-- kontrola specifikacija  -->
+                {% regroup object1.list by instance.kontrola_specifikacija as object2_list %}
+                {% for object2 in object2_list %}
+                    <tr class="background_yellow">
+                        <td colspan=6><b>{{ object2.grouper.naziv }} ({{ object2.grouper.oznaka }})</b></td>
+                    </tr>
+
+                    <!-- parameter specifikacija  -->
+                    {% for field in object2.list %}
+
+                        <!-- FORM ID - Field je hidden ampak mora biti prikazan ker drugače vrne napako MultiValueDictKeyError
+                        https://stackoverflow.com/questions/15980475/multivaluedictkeyerror-in-django-modelformset-factory
+                        -->
+                        {{field.id}}
+                        <tr>
+                            <td><b>[{{ field.instance.projektno_mesto.oznaka }}]</b>{{ field.instance.projektno_mesto.naziv }} <br><i>{{ field.instance.projektno_mesto.del_stavbe.oznaka }} {{ field.instance.projektno_mesto.del_stavbe.naziv }}</i></td>
+
+
+                            {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'check' %}
+                            <td>{{ field.vrednost_check }}</td>
+                            {% endif %}
+
+                            {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'text' %}
+                            <td>{{ field.vrednost_text }}</td>
+                            {% endif %}
+
+                            {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'select' %}
+                            <td>{{ field.vrednost_select }}</td>
+                            {% endif %}
+
+
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <input type="submit" value="Potrdi">
+</form>
+
+{% endblock content-body %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+{% endblock javascript_extra %}
+<!-- end JAVASCRIPT EXTRA -->

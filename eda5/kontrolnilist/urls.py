@@ -32,9 +32,16 @@ urlpatterns += [
     ),
 
     url(
-        r'^dn/(?P<pk>\d+)/kontrola-vrednost-update$',
-        views.KontrolaVrednostUpdateView.as_view(),
-        name="kontrola_vrednost_update"
+        r'^(?P<pk>\d+)/kontrolni-list-update-oblika01$',
+        views.KontrolniListUpdateOblika01View.as_view(),
+        name="kontrolni_list_update_oblika01"
+    ),
+
+
+    url(
+        r'^(?P<pk>\d+)/kontrolni-list-update-oblika02$',
+        views.KontrolniListUpdateOblika02View.as_view(),
+        name="kontrolni_list_update_oblika02"
     ),
 
 

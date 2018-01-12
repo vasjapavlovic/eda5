@@ -48,14 +48,14 @@ KontrolaSpecifikacijaFormSet = inlineformset_factory(
     extra=1)
 
 
-class BaseKontrolaVrednostUpdateFormSet(BaseModelFormSet):
+class BaseKontrolaVrednostUpdateFormSetOblika01(BaseModelFormSet):
     '''
     base form set potrebujemo, da izvedemo razporejanje (ordering)
     glede na naše želje
     '''
     def __init__(self, *args, **kwargs):
         delovninalog = kwargs.pop('delovninalog')
-        super(BaseKontrolaVrednostUpdateFormSet, self).__init__(*args, **kwargs)
+        super(BaseKontrolaVrednostUpdateFormSetOblika01, self).__init__(*args, **kwargs)
 
         queryset = KontrolaVrednost.objects.filter(delovni_nalog=delovninalog)
         queryset = queryset.order_by(
@@ -99,11 +99,11 @@ class KontrolaVrednostUpdateForm(forms.ModelForm):
         )
 
 
-KontrolaVrednostUpdateFormSet = modelformset_factory(
+KontrolaVrednostUpdateFormSetOblika01 = modelformset_factory(
     KontrolaVrednost,
     extra=0,
     form=KontrolaVrednostUpdateForm,
-    formset=BaseKontrolaVrednostUpdateFormSet,
+    formset=BaseKontrolaVrednostUpdateFormSetOblika01,
 
 )
 
@@ -111,14 +111,14 @@ KontrolaVrednostUpdateFormSet = modelformset_factory(
 
 
 
-class BaseKontrolaVrednostUpdateFormSetV2(BaseModelFormSet):
+class BaseKontrolaVrednostUpdateFormSetOblika02(BaseModelFormSet):
     '''
     base form set potrebujemo, da izvedemo razporejanje (ordering)
     glede na naše želje
     '''
     def __init__(self, *args, **kwargs):
         delovninalog = kwargs.pop('delovninalog')
-        super(BaseKontrolaVrednostUpdateFormSetV2, self).__init__(*args, **kwargs)
+        super(BaseKontrolaVrednostUpdateFormSetOblika02, self).__init__(*args, **kwargs)
 
         queryset = KontrolaVrednost.objects.filter(delovni_nalog=delovninalog)
         queryset = queryset.order_by(
@@ -135,10 +135,10 @@ class BaseKontrolaVrednostUpdateFormSetV2(BaseModelFormSet):
         self.queryset = queryset
 
 
-KontrolaVrednostUpdateFormSetV2 = modelformset_factory(
+KontrolaVrednostUpdateFormSetOblika02 = modelformset_factory(
     KontrolaVrednost,
     extra=0,
     form=KontrolaVrednostUpdateForm,
-    formset=BaseKontrolaVrednostUpdateFormSetV2,
+    formset=BaseKontrolaVrednostUpdateFormSetOblika02,
 
 )

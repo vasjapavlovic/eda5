@@ -4,7 +4,7 @@ from ..models import KontrolaVrednost
 
 from ..forms import AktivnostCreateForm
 from ..forms import KontrolaSpecifikacijaCreateForm
-from ..forms import KontrolaVrednostUpdateFormSet
+from ..forms import KontrolaVrednostUpdateFormSetOblika01
 
 from ..factories import KontrolaVrednostFactory
 from eda5.arhiv.factories import ArhivFactory
@@ -75,7 +75,7 @@ class KontrolaSpecifikacijaCreateFormTest(TestCase):
 
 
 
-class KontrolaVrednostUpdateFormSetTest(TestCase):
+class KontrolaVrednostUpdateFormSetOblika01Test(TestCase):
 
 
     @classmethod
@@ -89,7 +89,7 @@ class KontrolaVrednostUpdateFormSetTest(TestCase):
 
     def form_data(self, TF, IF, dn, kv_id, vrednost_check, vrednost_text, vrednost_select ):
 
-        return KontrolaVrednostUpdateFormSet(
+        return KontrolaVrednostUpdateFormSetOblika01(
             delovninalog=dn,
             data={
                 'form-TOTAL_FORMS': TF,

@@ -23,8 +23,8 @@ from eda5.moduli.models import Zavihek
 # Forms
 from .forms import AktivnostCreateForm
 from .forms import KontrolaSpecifikacijaFormSet
-from .forms import KontrolaVrednostUpdateFormSet
-from .forms import KontrolaVrednostUpdateFormSetV2
+from .forms import KontrolaVrednostUpdateFormSetOblika01
+from .forms import KontrolaVrednostUpdateFormSetOblika02
 
 
 
@@ -192,25 +192,23 @@ class KontrolaVrednostCreateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class KontrolaVrednostUpdateView(LoginRequiredMixin, UpdateView):
+class KontrolniListUpdateOblika01View(LoginRequiredMixin, UpdateView):
 
     model = DelovniNalog
-    template_name = 'kontrolnilist/update.html'
+    template_name = 'kontrolnilist/update_oblika01.html'
     fields = ('id', )
 
     def get_context_data(self, *args, **kwargs):
-        context = super(KontrolaVrednostUpdateView, self).get_context_data(*args, **kwargs)
+        context = super(KontrolniListUpdateOblika01View, self).get_context_data(*args, **kwargs)
 
 
         dn = DelovniNalog.objects.get(id=self.object.id)
 
         # Kontrolni List
-        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSet(prefix='form', delovninalog=dn)
-        context['kontrola_vrednost_update_formset'] = kontrola_vrednost_update_formset
+        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSetOblika01(delovninalog=dn)
+        context['kontrola_vrednost_update_oblika01_formset'] = kontrola_vrednost_update_formset
 
-        # Kontrolni List
-        kontrola_vrednost_update_formset_v2 = KontrolaVrednostUpdateFormSetV2(prefix='formV2', delovninalog=dn)
-        context['kontrola_vrednost_update_formset_v2'] = kontrola_vrednost_update_formset_v2
+
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
@@ -222,8 +220,7 @@ class KontrolaVrednostUpdateView(LoginRequiredMixin, UpdateView):
     def post(self, request, *args, **kwargs):
 
         dn = DelovniNalog.objects.get(id=self.get_object().id)
-        formset = KontrolaVrednostUpdateFormSet(request.POST or None, delovninalog=dn)
-        formsetV2 = KontrolaVrednostUpdateFormSetV2(request.POST or None, delovninalog=dn)
+        formset = KontrolaVrednostUpdateFormSetOblika01(request.POST or None, delovninalog=dn)
 
         if formset.is_valid():
             formset.save()
@@ -234,12 +231,41 @@ class KontrolaVrednostUpdateView(LoginRequiredMixin, UpdateView):
                 self.template_name,
                 {
                     'kontrola_vrednost_update_formset': kontrola_vrednost_update_formset,
-                    'kontrola_vrednost_update_formset_v2': kontrola_vrednost_update_formset_v2,
                 },
             )
 
-        if formsetV2.is_valid():
-            formsetV2.save()
+class KontrolniListUpdateOblika02View(LoginRequiredMixin, UpdateView):
+
+    model = DelovniNalog
+    template_name = 'kontrolnilist/update_oblika02.html'
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(KontrolniListUpdateOblika02View, self).get_context_data(*args, **kwargs)
+
+
+        dn = DelovniNalog.objects.get(id=self.object.id)
+
+        # Kontrolni List
+        kontrola_vrednost_update_formset = KontrolaVrednostUpdateFormSetOblika02(delovninalog=dn)
+        context['kontrola_vrednost_update_oblika02_formset'] = kontrola_vrednost_update_formset
+
+
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_DETAIL")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        dn = DelovniNalog.objects.get(id=self.get_object().id)
+
+        formset = KontrolaVrednostUpdateFormSetOblika02(request.POST or None, delovninalog=dn)
+
+        if formset.is_valid():
+            formset.save()
             return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': dn.pk}))
         else:
             return render(
@@ -247,6 +273,5 @@ class KontrolaVrednostUpdateView(LoginRequiredMixin, UpdateView):
                 self.template_name,
                 {
                     'kontrola_vrednost_update_formset': kontrola_vrednost_update_formset,
-                    'kontrola_vrednost_update_formset_v2': kontrola_vrednost_update_formset_v2,
                 },
             )
