@@ -5,7 +5,6 @@ from functools import partial
 
 from django import forms
 # potrebno za RawIdWidget
-from django.contrib.admin.sites import site
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -24,6 +23,7 @@ from eda5.posta.models import Dokument
 #Forms
 
 # Widgets
+from django.contrib.admin.sites import site
 from eda5.deli.widgets import ProjektnoMestoSelectWithPop, ProjektnoMestoMultipleSelectWithPop
 from eda5.deli.widgets import ProjektnoMestoForeignKeyRawIdWidget, ProjektnoMestoManyToManyRawIdWidget
 from eda5.partnerji.widgets import PartnerForeignKeyRawIdWidget, OsebaForeignKeyRawIdWidget

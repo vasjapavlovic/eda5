@@ -36,7 +36,7 @@
 
 <form id="form" method="post" action="">{% csrf_token %}
 
-    {{ kontrola_vrednost_update_formset.management_form }}
+    {{ kontrola_vrednost_update_oblika01_formset.management_form }}
 
     <table class="table table-bordered border_hairline_grey">
         <thead class="background_grey">
@@ -61,13 +61,13 @@
 
 
             <!-- projektno mesto  -->
-            {% regroup kontrola_vrednost_update_formset by instance.projektno_mesto as object1_list %}
+            {% regroup kontrola_vrednost_update_oblika01_formset by instance.projektno_mesto as object1_list %}
 
             {% for object1 in object1_list %}
 
                 <tr class="background_dark_grey_header">
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ object1.grouper }}</td>
+                    <td>{{ object1.grouper.oznaka }}</td>
                     <td>{{ object1.grouper.naziv }}</td>
                     <td>{{ object1.grouper.lokacija.etaza.oznaka }}</td>
                     <td></td>
@@ -85,7 +85,7 @@
                 </tr>
 
 
-                    <!-- parameter specifikacija  -->
+                    <!-- kontrole  -->
                     {% for field in object2.list %}
 
                         <!-- FORM ID - FIeld je hidden ampak mora biti prikazan ker drugače vrne napako MultiValueDictKeyError

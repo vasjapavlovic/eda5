@@ -348,15 +348,8 @@ class KontrolaVrednostCreateViewTest(TestCase):
         zavihek = ZavihekFactory(oznaka='DN_DETAIL')
         zavihek.save()
 
-        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
-            oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1')
-        kontrola_specifikacija.save()
-
-        pm_1 = ProjektnoMestoFactory(oznaka='PM_1')
-
-        aktivnost_1 = Aktivnost.objects.get(oznaka='AKT1')
-        aktivnost_1.projektno_mesto = [pm_1,]
-        aktivnost_1.save()
+        dn = DelovniNalogFactory()
+        dn.save()
 
 
         user = UserFactory()
@@ -392,19 +385,45 @@ class KontrolaVrednostCreateViewTest(TestCase):
         dn = DelovniNalog.objects.first()
         url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
 
+        # vhodni podatki
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1', aktivnost__opravilo=dn.opravilo)
+        kontrola_specifikacija.save()
+
+        pm_1 = ProjektnoMestoFactory(oznaka='PM_1')
+        pm_2 = ProjektnoMestoFactory(oznaka='PM_2')
+
+        aktivnost_1 = Aktivnost.objects.get(oznaka='AKT1')
+        aktivnost_1.projektno_mesto = [pm_1, pm_2]
+        aktivnost_1.save()
+
         post_data = {}
         response = self.client.post(url)
 
-        # prekontroliram če je vrednost za kontrolo iz dn.opravilo vnešena.
-        # trenutna vrednost je default = assertFalse
-        self.assertTrue(dn.kontrolavrednost_set.exists())
-        kontrola_vrednost_0 = dn.kontrolavrednost_set.first()
-        kv_0 = kontrola_vrednost_0
-        kv_0_vrednost = kv_0.vrednost_check
-        self.assertEquals(kv_0_vrednost, False)
+        kv_list = KontrolaVrednost.objects.filter()
 
-        # dodana kontrola vsebuje tudi projektna mesta
-        self.assertTrue(kv_0.projektno_mesto, True)
+        self.assertEquals(len(kv_list), 2)
+
+
+    def test_post_does_not_creates_kontrolni_list_without_projektno_mesto(self):
+        self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
+
+        # vhodni podatki
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1', aktivnost__opravilo=dn.opravilo)
+        kontrola_specifikacija.save()
+
+
+        post_data = {}
+        response = self.client.post(url)
+
+        kv_list = KontrolaVrednost.objects.filter()
+
+        self.assertEquals(len(kv_list), 0)
+
+
 
     def test_post_izdela_vrednosti_za_vsako_kombinacijo_specifikacije_in_projektnega_mesta(self):
 
@@ -612,7 +631,7 @@ class KontrolniListUpdateOblika02ViewTest(TestCase):
 
 
 
-class KojntrolniListPrintViewTest(TestCase):
+class KontrolniListPrintOblika01ViewTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -655,3 +674,48 @@ class KojntrolniListPrintViewTest(TestCase):
         url = reverse('moduli:kontrolni_list:kontrolni_list_print_oblika01', kwargs={'pk': dn.pk})
         resp = self.client.get(url)
         self.assertTemplateUsed('kontrolnilist/print_oblika01.html')
+
+
+class KontrolniListPrintOblika02ViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        zavihek = ZavihekFactory(oznaka='DN_DETAIL')
+        zavihek.save()
+
+        dn = DelovniNalogFactory()
+        dn.save()
+
+        kontrola_vrednost = KontrolaVrednostFactory()
+        kontrola_vrednost.save()
+
+        user = UserFactory()
+        user.save()
+        user.set_password('medomedo')
+        user.save()
+
+    def test_view_url_path(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = '/moduli/kl/{0}/kontrolni-list-print-oblika02'.format(dn.pk)
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_view_url_namespace(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrolni_list_print_oblika02', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+
+    def test_view_uses_correct_template(self):
+        login = self.client.login(username='vaspav', password='medomedo')
+        dn = DelovniNalog.objects.first()
+        url = reverse('moduli:kontrolni_list:kontrolni_list_print_oblika02', kwargs={'pk': dn.pk})
+        resp = self.client.get(url)
+        self.assertTemplateUsed('kontrolnilist/print_oblika02.html')

@@ -34,7 +34,7 @@
 
 
 <form id="form_v2" method="post" action="">{% csrf_token %}
-    {{ kontrola_vrednost_update_formset.management_form }}
+    {{ kontrola_vrednost_update_oblika02_formset.management_form }}
 
     <table class="table table-bordered border_hairline_grey">
         <thead class="background_grey">
@@ -50,29 +50,34 @@
         </thead>
         <tbody>
             <!-- aktivnost  -->
-            {% regroup kontrola_vrednost_update_formset by instance.kontrola_specifikacija.aktivnost as object1_list %}
+            {% regroup kontrola_vrednost_update_oblika02_formset by instance.kontrola_specifikacija.aktivnost as object1_list %}
             {% for object1 in object1_list %}
                 <tr class="background_dark_grey_header">
                     <td colspan=6><b>{{ object1.grouper.naziv }} ({{ object1.grouper.oznaka }})</b></td>
                 </tr>
 
 
-                <!-- kontrola specifikacija  -->
-                {% regroup object1.list by instance.kontrola_specifikacija as object2_list %}
+                <!-- kontrola projektno_mesto  -->
+                {% regroup object1.list by instance.projektno_mesto as object2_list %}
                 {% for object2 in object2_list %}
                     <tr class="background_yellow">
                         <td colspan=6><b>{{ object2.grouper.naziv }} ({{ object2.grouper.oznaka }})</b></td>
                     </tr>
 
-                    <!-- parameter specifikacija  -->
+                    <!-- kontrole  -->
                     {% for field in object2.list %}
 
-                        <!-- FORM ID - Field je hidden ampak mora biti prikazan ker drugače vrne napako MultiValueDictKeyError
+                        <!-- FORM ID - FIeld je hidden ampak mora biti prikazan ker drugače vrne napako MultiValueDictKeyError
                         https://stackoverflow.com/questions/15980475/multivaluedictkeyerror-in-django-modelformset-factory
                         -->
                         {{field.id}}
                         <tr>
-                            <td><b>[{{ field.instance.projektno_mesto.oznaka }}]</b>{{ field.instance.projektno_mesto.naziv }} <br><i>{{ field.instance.projektno_mesto.del_stavbe.oznaka }} {{ field.instance.projektno_mesto.del_stavbe.naziv }}</i></td>
+                            <td>{{ field.instance.kontrola_specifikacija.oznaka }}</td>
+                            <td colspan=4>{{ field.instance.kontrola_specifikacija.naziv }}
+                            {% if not field.instance.kontrola_specifikacija.opis == '' %}
+                            [<i>{{ field.instance.kontrola_specifikacija.opis }}</i>]
+                            {% endif %}
+                            </td>
 
 
                             {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'check' %}
@@ -86,8 +91,6 @@
                             {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'select' %}
                             <td>{{ field.vrednost_select }}</td>
                             {% endif %}
-
-
                         </tr>
                     {% endfor %}
                 {% endfor %}

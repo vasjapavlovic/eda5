@@ -9,6 +9,9 @@ from .models import KontrolaSpecifikacija
 from .models import KontrolaSpecifikacijaOpcijaSelect
 from .models import KontrolaVrednost
 
+from django.contrib.admin.sites import site
+from eda5.deli.widgets import ProjektnoMestoForeignKeyRawIdWidget, ProjektnoMestoManyToManyRawIdWidget
+
 
 
 
@@ -20,7 +23,11 @@ class AktivnostCreateForm(forms.ModelForm):
             'oznaka',
             'naziv',
             'opis',
+            'projektno_mesto',
         )
+        widgets = {
+            'projektno_mesto': ProjektnoMestoManyToManyRawIdWidget(model._meta.get_field('projektno_mesto').rel, site),
+        }
 
 
     def __init__(self, *args, **kwargs):
@@ -124,12 +131,12 @@ class BaseKontrolaVrednostUpdateFormSetOblika02(BaseModelFormSet):
         queryset = queryset.order_by(
             # glede na aktivnost
             'kontrola_specifikacija__aktivnost__oznaka',
-            # glede na specifikacijo kontrole
-            'kontrola_specifikacija__oznaka',
             # glede na del stavbe
             'projektno_mesto__del_stavbe',
             # glede na projektno mesto
             'projektno_mesto__oznaka',
+            # glede na specifikacijo kontrole
+            'kontrola_specifikacija__oznaka',
             )
 
         self.queryset = queryset
