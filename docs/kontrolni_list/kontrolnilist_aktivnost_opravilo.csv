@@ -1,7 +1,7 @@
-﻿field;opravilo
+field;opravilo
 opis;Relacija na opravilo kjer se bo aktivnost izvajala 
 Type;models.ForeignKey 
 MaxLength;/
-blank;True
-null;True
+blank;TRUE
+null;TRUE
 verbose_name;Opravilo
