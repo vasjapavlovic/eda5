@@ -138,6 +138,22 @@ class OpraviloDetailViewTest(TestCase):
         self.assertEquals(ks_3.oznaka, 'KS_2_AKT2')
         self.assertEquals(ks_4.oznaka, 'KS_1_AKT3')
 
+    def test_dont_show_not_deleted(self):
+        # edini vnos spremenimo da je status = 5 - deleted
+        aktivnost_0 = Aktivnost.objects.first()
+        aktivnost_0.status = 5
+        aktivnost_0.save()
+
+        self.client.login(username='vaspav', password='medomedo')
+        opravilo = Opravilo.objects.first()
+        url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})
+        resp = self.client.get(url)
+        # dobim ven seznam delovnih nalogov
+        context = resp.context
+        kontrola_list = context['kontrola_list']
+        self.assertEquals(len(kontrola_list), 0)
+
+
 
 class DelovniNalogDetailViewTest(TestCase):
 

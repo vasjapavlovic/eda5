@@ -95,13 +95,34 @@ class KontrolniListSpecifikacijaCreateView(LoginRequiredMixin, UpdateView):
                 },
             )
 
+
+class AktivnostSoftDeleteView(LoginRequiredMixin, UpdateView):
+    '''
+    Status aktivnosti spremenimo v "izbirsano"
+    '''
+    model = Aktivnost
+    template_name = "kontrolnilist/aktivnost/soft_delete.html"
+    fields = ('id', )
+
+
+    def post(self, request, *args, **kwargs):
+
+        akt = Aktivnost.objects.get(id=self.get_object().id)
+        akt.status = 5
+        akt.save()
+
+        return HttpResponseRedirect(reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': akt.opravilo.pk}))
+
+
+
+
 class KontrolniListAktivnostUpdateView(LoginRequiredMixin, UpdateView):
     '''
     View za update aktivnosti
     '''
 
     model = Aktivnost
-    template_name = "kontrolnilist/create.html"
+    template_name = "kontrolnilist/aktivnost/update.html"
     fields = ('id', )
 
     def get_context_data(self, *args, **kwargs):
@@ -163,14 +184,15 @@ class KontrolaVrednostCreateView(LoginRequiredMixin, UpdateView):
     fields = ('id', )
 
 
-    def post(self, request, *args, **kwawrgs):
+    def post(self, request, *args, **kwargs):
 
         dn = DelovniNalog.objects.get(id=self.get_object().id)
 
 
         # logika za izdelavo vrednosti specificiranih kontrol
 
-        aktivnost_list = dn.opravilo.aktivnost_set.all()
+        aktivnost_list = Aktivnost.objects.not_deleted()  # samo status ne izbrisano
+        aktivnost_list = aktivnost_list.filter(opravilo=dn.opravilo)  # aktivnost v obstoječem delovnem nalogu
         for aktivnost in aktivnost_list:
             ks_list = aktivnost.kontrolaspecifikacija_set.all()
 

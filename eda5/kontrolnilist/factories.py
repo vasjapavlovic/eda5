@@ -19,6 +19,7 @@ class AktivnostFactory(factory.django.DjangoModelFactory):
     naziv = 'Moja prva aktivnost'
     opravilo = factory.SubFactory(OpraviloFactory)
 
+
     @factory.post_generation
     def projektno_mesto(self, create, extracted, **kwargs):
         if not create:

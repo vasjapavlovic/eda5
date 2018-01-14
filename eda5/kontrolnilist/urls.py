@@ -59,4 +59,11 @@ urlpatterns += [
     ),
 
 
+    url(
+        r'^aktivnost/(?P<pk>\d+)/delete$',
+        views.AktivnostSoftDeleteView.as_view(),
+        name="aktivnost_delete"
+    ),
+
+
 ]

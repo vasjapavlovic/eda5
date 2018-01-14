@@ -3,11 +3,9 @@ from django.db import models
 
 class StatusManager(models.Manager):
 
-    use_for_related_fields = True
-
     ''' ne prikaži objektov s statusom = izbrisano '''
-    def not_deleted(self, **kwargs):
-        return self.exclude(status=5, **kwargs)
+    def not_deleted(self):
+        return super(StatusManager, self).get_query_set().exclude(status=5, **kwargs)
 
     ''' ne prikaži objektov s statusom = zaključeno '''
     def not_closed(self, **kwargs):

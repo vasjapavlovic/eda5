@@ -3,6 +3,7 @@ from django.test import RequestFactory
 from django.core.urlresolvers import reverse
 
 # factories
+from ..factories import AktivnostFactory
 from ..factories import KontrolaSpecifikacijaFactory
 from ..factories import KontrolaVrednostFactory
 from eda5.arhiv.factories import ArhivFactory
@@ -134,6 +135,63 @@ class KontrolniListSpecifikacijaCreateViewTest(TestCase):
         self.assertEquals(ks.oznaka, 'A1')
 
 
+class AktivnostSoftDeleteViewTest(TestCase):
+
+
+    @classmethod
+    def setUpTestData(cls):
+        arhiv = ArhivFactory()
+        arhiv.save()
+
+        zavihek = ZavihekFactory(oznaka='OPRAVILO_DETAIL')
+        zavihek.save()
+
+        akt = AktivnostFactory()
+        akt.save()
+
+        user = UserFactory()
+        user.save()
+        user.set_password('medomedo')
+        user.save()
+
+    def test_url_path(self):
+        akt = Aktivnost.objects.first()
+        login= self.client.login(username='vaspav', password='medomedo')
+        url = '/moduli/kl/aktivnost/{0}/delete'.format(akt.pk)
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_url_namespace(self):
+        akt = Aktivnost.objects.first()
+        login= self.client.login(username='vaspav', password='medomedo')
+        url = reverse('moduli:kontrolni_list:aktivnost_delete', kwargs={'pk': akt.pk})
+        resp = self.client.get(url)
+        self.assertEquals(resp.status_code, 200)
+
+    def test_loads_correct_template(self):
+        akt = Aktivnost.objects.first()
+        login= self.client.login(username='vaspav', password='medomedo')
+        url = reverse('moduli:kontrolni_list:aktivnost_delete', kwargs={'pk': akt.pk})
+        resp = self.client.get(url)
+        self.assertTemplateUsed(resp, 'kontrolnilist/aktivnost/soft_delete.html')
+
+    def test_changes_status_deleted_on_confirm(self):
+        login= self.client.login(username='vaspav', password='medomedo')
+        akt = Aktivnost.objects.first()
+
+        # na začetku je status 0
+        self.assertEquals(akt.status, 0)
+
+        # izbrišemo aktivnost
+        url_aktivnost = reverse('moduli:kontrolni_list:aktivnost_delete', kwargs={'pk': akt.pk})
+        resp = self.client.post(url_aktivnost, {})
+
+        # po spremembi je status 5
+        akt = Aktivnost.objects.first()
+        self.assertEquals(akt.status, 5)
+
+
+
 class KontrolniListSpecifikacijaUpdateViewTest(TestCase):
 
 
@@ -178,7 +236,7 @@ class KontrolniListSpecifikacijaUpdateViewTest(TestCase):
 
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed('kontrolnilist/create.html')
+        self.assertTemplateUsed('kontrolnilist/aktivnost/update.html')
 
 
     def test_view_updates_data(self):
@@ -405,7 +463,7 @@ class KontrolaVrednostCreateViewTest(TestCase):
         self.assertEquals(len(kv_list), 2)
 
 
-    def test_post_does_not_creates_kontrolni_list_without_projektno_mesto(self):
+    def test_post_does_not_create_kontrolni_list_without_projektno_mesto(self):
         self.client.login(username='vaspav', password='medomedo')
         dn = DelovniNalog.objects.first()
         url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
@@ -423,17 +481,35 @@ class KontrolaVrednostCreateViewTest(TestCase):
 
         self.assertEquals(len(kv_list), 0)
 
-
-
-    def test_post_izdela_vrednosti_za_vsako_kombinacijo_specifikacije_in_projektnega_mesta(self):
-
-
+    def test_post_does_not_create_kontrolni_list_for_aktivnost_with_status_deleted(self):
         self.client.login(username='vaspav', password='medomedo')
         dn = DelovniNalog.objects.first()
         url = reverse('moduli:kontrolni_list:kontrola_vrednost_create', kwargs={'pk': dn.id})
 
+        # vhodni podatki
+        # vhodni podatki
+        kontrola_specifikacija = KontrolaSpecifikacijaFactory(
+            oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1', aktivnost__opravilo=dn.opravilo)
+        kontrola_specifikacija.save()
+
+        pm_1 = ProjektnoMestoFactory(oznaka='PM_1')
+        pm_2 = ProjektnoMestoFactory(oznaka='PM_2')
+
+        aktivnost_1 = Aktivnost.objects.get(oznaka='AKT1')
+        aktivnost_1.projektno_mesto = [pm_1, pm_2]
+        aktivnost_1.save()
+
+        akt1 = Aktivnost.objects.get(oznaka='AKT1')
+        akt1.status = 5
+        akt1.save()
+
         post_data = {}
-        response = self.client.post(url, post_data)
+        response = self.client.post(url)
+
+        kv_list = KontrolaVrednost.objects.filter()
+
+        self.assertEquals(len(kv_list), 0)
+
 
 
 class KontrolniListUpdateOblika01ViewTest(TestCase):

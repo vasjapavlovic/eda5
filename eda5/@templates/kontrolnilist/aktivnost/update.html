@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+
+
+<form action="" method="post">{% csrf_token %}
+    <a href="{% url 'moduli:kontrolni_list:aktivnost_delete' object.id %}">izbriši</a>
+
+    {{ aktivnost_create_form | crispy }}
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            {{ kontrolni_list_create_formset.management_form }}
+
+            {% for form in kontrolni_list_create_formset.forms %}
+                {% if forloop.first %}
+                    <thead>
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                {% endif %}
+
+                <tr class="{% cycle row1,row2 %} formset_row">
+                    {% for field in form.visible_fields %}
+                        <td>
+                            {# Include the hidden fields in the form #}
+                            {% if forloop.first %}
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                            {% endif %}
+                            {{ field.errors.as_ul }}
+                            {{ field }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <input type="submit" value="Save"/> <a href="">back to the list</a>
+    </div>
+</form>
+
+
+
+{% endblock content-body %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="{% static 'js/jquery_formset.js' %}"></script>
+<script type="text/javascript">
+    $('.formset_row').formset({
+        addText: 'add family member',
+        deleteText: 'remove',
+        prefix: 'kontrola_specifikacija_set'
+    });
+</script>
+{% endblock javascript_extra %}
+<!-- end JAVASCRIPT EXTRA -->

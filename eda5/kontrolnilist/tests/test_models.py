@@ -69,6 +69,22 @@ class AktivnostModelTest(TestCase):
         result_1 = objekt.projektno_mesto.filter().count()
         self.assertEquals(result_1, 3)  # kontrola many to many da obstajajo 3 vnosi
 
+    def test_not_deleted_manager(self):
+        aktivnost3 = Aktivnost.objects.get(oznaka="A3")
+        aktivnost3.status = 5
+        aktivnost3.save()
+
+        aktivnost2 = Aktivnost.objects.get(oznaka="A2")
+        aktivnost2.status = 3
+        aktivnost2.save()
+
+        vse_aktivnosti = Aktivnost.objects.filter()
+        self.assertEquals(len(vse_aktivnosti), 3)
+
+        not_deleted_aktivnosti = Aktivnost.objects.not_deleted()
+        self.assertEquals(len(not_deleted_aktivnosti), 2)
+
+
 
 class KontrolaSpecifikacijaModelTest(TestCase):
 

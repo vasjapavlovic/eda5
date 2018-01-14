@@ -53,6 +53,10 @@ class AktivnostCreateFormTest(TestCase):
 
 
 
+
+
+
+
 class KontrolaSpecifikacijaCreateFormTest(TestCase):
 
     def setUp(self):

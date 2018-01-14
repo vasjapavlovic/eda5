@@ -1,5 +1,7 @@
 from django.db import models
 
+from .managers import StatusManager
+
 
 class OsnovniPodatki(models.Model):
 
@@ -86,6 +88,12 @@ class StatusModel(models.Model):
     )
 
     status = models.IntegerField(default=0, choices=STATUS)
+
+
+
+    # MODEL Manager
+    objects = StatusManager()
+
 
     class Meta:
         abstract = True

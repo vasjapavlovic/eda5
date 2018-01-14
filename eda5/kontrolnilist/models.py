@@ -7,6 +7,8 @@ from eda5.deli.models import ProjektnoMesto
 
 
 
+
+
 # KONTROLNI objekt_list
 class Aktivnost(OsnovnaKombinacija):
 
@@ -20,6 +22,9 @@ class Aktivnost(OsnovnaKombinacija):
         blank=True,
         verbose_name='projektno mesto'
         )
+
+
+
 
 
     class Meta:
