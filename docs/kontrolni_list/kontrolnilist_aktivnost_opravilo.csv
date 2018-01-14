@@ -1,0 +1,7 @@
+﻿field;opravilo
+opis;Relacija na opravilo kjer se bo aktivnost izvajala 
+Type;models.ForeignKey 
+MaxLength;/
+blank;True
+null;True
+verbose_name;Opravilo

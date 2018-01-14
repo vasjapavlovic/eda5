@@ -88,6 +88,10 @@ opravilo
 | verbose_name  | Opravilo                                           |
 +---------------+----------------------------------------------------+
 
+.. csv-table:: The contents of my xlsx sheet exported to mytable.csv
+   :widths: 15 40
+   :header: "Specifikacija", "Vrednost"
+   :file: kontrolnilist_aktivnost_opravilo.csv
 
 projektno_mesto
 ^^^^^^^^^^^^^^^

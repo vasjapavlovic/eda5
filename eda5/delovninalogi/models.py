@@ -35,6 +35,10 @@ class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
     zahtevek = models.ForeignKey(Zahtevek)
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
     nosilec = models.ForeignKey(Oseba)
+
+    '''
+    Navezava na planirano opravilo po planu
+    '''
     planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
 
 
