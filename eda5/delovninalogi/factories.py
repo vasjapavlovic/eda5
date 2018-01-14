@@ -43,6 +43,18 @@ class OpraviloFactory(factory.django.DjangoModelFactory):
     rok_izvedbe = "2017-11-11"
 
 
+class VzorecOpravilaFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = VzorecOpravilo
+
+    oznaka = factory.Sequence(lambda n: 'vz_opr_{0}'.format(n))
+    naziv = factory.Sequence(lambda n: 'Vzorec opravila {0}'.format(n))
+    narocilo = factory.SubFactory(NarociloFactory)
+    nosilec = factory.SubFactory(OsebaFactory)
+    rok_izvedbe = "2017-11-11"
+    planirano_opravilo = factory.SubFactory(PlaniranoOpraviloFactory)
+
+
 class DelovniNalogFactory(factory.django.DjangoModelFactory):
 
     class Meta:

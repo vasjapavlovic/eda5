@@ -111,21 +111,23 @@ class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
         return "%s - %s" % (self.oznaka, self.naziv)
 
 
-class VzorecOpravila(TimeStampedModel, IsActiveModel):
+class VzorecOpravila(IsActiveModel, OsnovnaKombinacija):
     # ---------------------------------------------------------------------------------------
     # ATRIBUTES
     #   Relations
     narocilo = models.ForeignKey(Narocilo, verbose_name='naročilo')
     nosilec = models.ForeignKey(Oseba)
     planirano_opravilo = models.ForeignKey(PlaniranoOpravilo, blank=True, null=True)
-    element = models.ManyToManyField(ProjektnoMesto)
+    element = models.ManyToManyField(
+        ProjektnoMesto,
+        blank=True,
+    )
     vrsta_stroska = models.ForeignKey("racunovodstvo.VrstaStroska", blank=True, null=True, verbose_name="vrsta stroška")
     #   Mandatory
-    oznaka = models.CharField(max_length=20)
-    naziv = models.CharField(max_length=255)
     rok_izvedbe = models.DateField(blank=True, null=True)
-    is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno iz strani nadzornika")
+    is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno s strani nadzornika")
     #   Optional
+    # AKTIVNOST FOREIGN KEY
 
     # OBJECT MANAGER
     objects = managers.VzorecOpravilaManager()
