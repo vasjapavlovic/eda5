@@ -224,7 +224,7 @@ class RacunListView(ListView):
         context['racun_nelikvidiran_list'] = racun_nelikvidiran_list
 
         # seznam arhivirane računovodske dokumentacije
-        racun_likvidiran_list = Racun.objects.all()
+        racun_likvidiran_list = Racun.objects.filter().order_by('racunovodsko_leto', '-oznaka')[:500]
         context['racun_likvidiran_list'] = racun_likvidiran_list
 
         # zavihek
