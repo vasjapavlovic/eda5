@@ -29,6 +29,7 @@ from eda5.zaznamki.models import Zaznamek
 # Forms
 from ..forms import OpraviloUpdateForm, DelovniNalogVcakanjuModelForm, DelovniNalogVplanuModelForm
 from ..forms import DelovniNalogVresevanjuModelForm, DeloCreateForm, DeloKoncajUpdateForm
+from ..forms import DelovniNalogSearchForm
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
 
 from eda5.reports.forms import FormatForm
@@ -36,6 +37,9 @@ from eda5.zaznamki.forms import ZaznamekForm
 
 # Mixins
 from ..mixins import MessagesActionMixin
+
+# utils
+from eda5.core.views import FilteredListView
 
 
 
@@ -50,9 +54,27 @@ class DelovniNalogList(ListView):
         context['dn_vcakanju_list'] = self.model.objects.dn_vcakanju()
         context['dn_vplanu_list'] = self.model.objects.dn_vplanu()
         context['dn_vresevanju_list'] = self.model.objects.dn_vresevanju()
-        context['dn_zakljuceni_list'] = self.model.objects.dn_zakljuceni()
+        context['dn_zakljuceni_list'] = self.model.objects.dn_zakljuceni()[:50]
 
         modul_zavihek = Zavihek.objects.get(oznaka="DN_LIST")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
+
+class DelovniNalogZakljuceniList(FilteredListView):
+
+    model = DelovniNalog
+    form_class= DelovniNalogSearchForm
+    template_name = "delovninalogi/delovninalog/list_zakljuceni/base.html"
+    paginate_by = 100
+
+    def get_context_data(self, *args, **kwargs):
+
+        context = super(DelovniNalogZakljuceniList, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DN_ZAKLJUCENI_LIST")
         context['modul_zavihek'] = modul_zavihek
 
         return context

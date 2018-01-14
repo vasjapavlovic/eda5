@@ -23,6 +23,11 @@ urlpatterns += [
         name="dn_list"),
 
 
+    url(r'^dn-zakljuceni/$',
+        delovninalog.DelovniNalogZakljuceniList.as_view(),
+        name="dn_zakljuceni_list"),
+
+
     url(r'^dn/(?P<pk>\d+)/detail$',
         delovninalog.DelovniNalogDetailView.as_view(),
         name="dn_detail"),
