@@ -15,6 +15,7 @@ class OpraviloManager(models.Manager):
                         nosilec=None,
                         vrsta_stroska=None,
                         planirano_opravilo=None,
+                        aktivnost=None,
                         ):
         if not zahtevek:
             raise ValueError("Izbran mora biti zahtevek")
@@ -126,4 +127,3 @@ class DeloManager(models.Manager):
 
         delo.save(using=self._db)
         return delo
-

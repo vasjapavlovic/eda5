@@ -7,7 +7,57 @@ from eda5.deli.models import ProjektnoMesto
 
 
 
+# KONTROLNI objekt_list
+class PlanAktivnost(OsnovnaKombinacija):
 
+    planirano_opravilo = models.ForeignKey(
+        'planiranje.PlaniranoOpravilo',
+        verbose_name='planirano opravilo'
+        )
+
+    projektno_mesto = models.ManyToManyField(
+        ProjektnoMesto,
+        blank=True,
+        verbose_name='projektno mesto'
+        )
+
+
+    class Meta:
+        verbose_name='Planirana Aktivnost'
+        verbose_name_plural='Planirane Aktivnosti'
+        ordering=('oznaka',)
+
+
+    def __str__(self):
+        return '(%s)%s' % (self.oznaka, self.naziv)
+
+
+class PlanKontrolaSpecifikacija(OsnovnaKombinacija):
+
+    plan_aktivnost = models.ForeignKey(
+        PlanAktivnost,
+        verbose_name='planirana aktivnost'
+        )
+
+    tip_check = 1
+    tip_vrednost = 2
+    tip_select = 3
+
+    VREDNOST_VRSTA = (
+        (tip_check, 'check'),
+        (tip_vrednost, 'text'),
+        (tip_select, 'select'), # Zaloga vrednosti --> OpcijeSelect model
+        )
+
+    vrednost_vrsta = models.IntegerField(
+        choices=VREDNOST_VRSTA,
+        default=1,
+        verbose_name='vrsta vrednosti',
+        )
+
+
+    class Meta:
+        ordering = ['oznaka']
 
 # KONTROLNI objekt_list
 class Aktivnost(OsnovnaKombinacija):
@@ -22,8 +72,6 @@ class Aktivnost(OsnovnaKombinacija):
         blank=True,
         verbose_name='projektno mesto'
         )
-
-
 
 
 

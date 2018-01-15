@@ -86,6 +86,7 @@ class AktivnostModelTest(TestCase):
 
 
 
+
 class KontrolaSpecifikacijaModelTest(TestCase):
 
     @classmethod

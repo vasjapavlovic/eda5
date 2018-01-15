@@ -121,11 +121,14 @@ class PlaniranoOpravilo(TimeStampedModel, IsActiveModel):
 
     # zaokrožitev minimalno minut
     zmin = models.IntegerField(
-        default=15, 
+        default=15,
         verbose_name='zaokrožitev [min]')
-    
+
     #   Optional
     opomba = models.TextField(blank=True)
+
+
+
     # OBJECT MANAGER
     objects = managers.PlaniranoOpraviloManager()
 

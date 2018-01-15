@@ -18,6 +18,7 @@ from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 # Models
 from ..models import Opravilo, VzorecOpravila, DelovniNalog
 from eda5.deli.models import Skupina, Podskupina, DelStavbe, ProjektnoMesto
+from eda5.kontrolnilist.models import Aktivnost
 from eda5.kontrolnilist.models import KontrolaSpecifikacija
 from eda5.moduli.models import Zavihek
 from eda5.planiranje.models import SkupinaPlanov, Plan, PlaniranoOpravilo
@@ -473,6 +474,36 @@ class OpraviloCreateFromVzorecFromZahtevekView(UpdateView):
             zmin = planirano_opravilo.zmin
             opravilo_object.zmin = zmin
             opravilo_object.save()
+
+            # iz planiranega opravila poberemo podatke o aktivnostih, ki so predvidena za izvajanje
+
+            # izdelati moramo aktivnost in pripadajoče specifikacije kontrol
+            plan_aktivnost_list = planirano_opravilo.planaktivnost_set.all()
+
+            for pa in plan_aktivnost_list:
+                # dodamo aktivnosti
+                aktivnost = Aktivnost.objects.create(
+                    oznaka=pa.oznaka,
+                    naziv=pa.naziv,
+                    opis=pa.opis,
+                    opravilo=opravilo_object
+                )
+                aktivnost.save()
+                # dodamo še projektna mesta
+                aktivnost.projektno_mesto = pa.projektno_mesto.all()
+                aktivnost.save()
+
+                # dodamo še specifikacijo kontrol
+                plan_kontrola_specifikacija_list = pa.plankontrolaspecifikacija_set.all()
+                for pks in plan_kontrola_specifikacija_list:
+                    kontrola_specifikacija = KontrolaSpecifikacija.objects.create(
+                        oznaka=pks.oznaka,
+                        naziv=pks.naziv,
+                        opis=pks.opis,
+                        vrednost_vrsta=pks.vrednost_vrsta,
+                        aktivnost=aktivnost,
+                    )
+
 
             return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
 

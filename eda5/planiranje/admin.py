@@ -40,6 +40,7 @@ class PlanAdmin(admin.ModelAdmin):
 
 @admin.register(PlaniranoOpravilo)
 class PlaniranoOpraviloAdmin(admin.ModelAdmin):
+
     pass
 
 

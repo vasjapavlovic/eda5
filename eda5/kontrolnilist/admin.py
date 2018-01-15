@@ -5,6 +5,9 @@ from .models import KontrolaSpecifikacija
 from .models import KontrolaSpecifikacijaOpcijaSelect
 from .models import KontrolaVrednost
 
+from .models import PlanAktivnost
+from .models import PlanKontrolaSpecifikacija
+
 
 
 
@@ -36,4 +39,29 @@ class KontrolaVrednostAdmin(admin.ModelAdmin):
         'projektno_mesto',
         'kontrola_specifikacija',
         'delovni_nalog',
+        )
+
+
+class PlanKontrolaSpeciikacijaInline(admin.TabularInline):
+    model = PlanKontrolaSpecifikacija
+    extra = 0
+
+
+@admin.register(PlanAktivnost)
+class PlanAktivnostAdmin(admin.ModelAdmin):
+
+    raw_id_fields = (
+        'planirano_opravilo',
+        'projektno_mesto',
+        )
+    inlines = [
+        PlanKontrolaSpeciikacijaInline,
+    ]
+
+
+
+@admin.register(PlanKontrolaSpecifikacija)
+class PlanKontrolaSpecifikacijaAdmin(admin.ModelAdmin):
+    raw_id_fields = (
+        'plan_aktivnost',
         )
