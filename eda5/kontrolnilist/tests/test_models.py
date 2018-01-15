@@ -2,9 +2,9 @@ from django.test import TestCase
 
 from ..factories import AktivnostFactory
 from ..factories import KontrolaSpecifikacijaFactory
-from eda5.arhiv.factories import ArhivFactory
 from ..factories import KontrolaSpecifikacijaOpcijaSelectFactory
 from ..factories import KontrolaVrednostFactory
+from eda5.arhiv.factories import ArhivFactory
 
 from eda5.deli.factories import ProjektnoMestoFactory
 

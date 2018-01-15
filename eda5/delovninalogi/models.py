@@ -28,6 +28,8 @@ from eda5.zahtevki.models import Zahtevek
 
 
 
+
+
 class Opravilo(TimeStampedModel, IsActiveModel, StatusModel):
     # ---------------------------------------------------------------------------------------
     #   RELATIONS
@@ -126,10 +128,15 @@ class VzorecOpravila(IsActiveModel, OsnovnaKombinacija):
         ProjektnoMesto,
         blank=True,
     )
-    vrsta_stroska = models.ForeignKey("racunovodstvo.VrstaStroska", blank=True, null=True, verbose_name="vrsta stroška")
+    vrsta_stroska = models.ForeignKey("racunovodstvo.VrstaStroska", blank=True, null=True, verbose_name="stroškovno mesto")
     #   Mandatory
     rok_izvedbe = models.DateField(blank=True, null=True)
     is_potrjen = models.BooleanField(default=False, verbose_name="Potrjeno s strani nadzornika")
+
+    aktivnost = models.ManyToManyField(
+        'kontrolnilist.Aktivnost',
+        blank=True,
+    )
     #   Optional
     # AKTIVNOST FOREIGN KEY
 
