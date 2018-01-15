@@ -4,4 +4,4 @@ Type;models.ForeignKey,
 MaxLength;/,
 blank;TRUE,
 null;TRUE,
-verbose_name;Opravilo,
+verbose_name;Opravilo
