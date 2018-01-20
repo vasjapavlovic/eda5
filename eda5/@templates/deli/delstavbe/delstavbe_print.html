@@ -1,0 +1,25 @@
+<form id="form" method="post" action="">{% csrf_token %}
+
+    {{ form  }}
+    <input type="submit" value="Potrdi">
+
+    <h1>
+    {{ stavba.oznaka }}
+    {{ stavba.naziv }}
+    </h1>
+
+
+    {% regroup print_data.del_stavbe_list by podskupina.skupina as skupina_list %}{% for skupina in skupina_list %}
+    {{ skupina.grouper.oznaka }} {{ skupina.grouper.naziv }}<br>
+
+    {% regroup skupina.list by podskupina as podskupina_list %}{% for podskupina in podskupina_list %}
+    {{ podskupina.grouper.oznaka }} {{ podskupina.grouper.naziv }}<br>
+
+    {% for object in podskupina.list %}
+    {{ object.oznaka }} | {{ object.naziv }} | {{ object.funkcija }}<br>
+
+
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+</form>

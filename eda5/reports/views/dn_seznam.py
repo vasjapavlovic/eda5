@@ -91,7 +91,11 @@ class PrintPlanOVView(TemplateView):
 
             # pridobimo seznam delovnih nalogov
 
-            planirana_opravila_list = PlaniranoOpravilo.objects.filter(is_active=True).order_by('plan__sklop__zap_st')
+            planirana_opravila_list = PlaniranoOpravilo.objects.filter(is_active=True).order_by(
+                'plan__sklop__zap_st',
+                'plan__oznaka',
+                'oznaka',
+            )
 
             # prenos podatkov za aplikacijo templated_docs
 
@@ -141,7 +145,7 @@ class PrintPlanOVView(TemplateView):
 
 #     delovninalogi = DelovniNalog.objects.filter()
 
-    
+
 #     p.drawString(0, 0, 'DELOVNI NALOG')
 #     x = 0
 #     y = 0
@@ -161,4 +165,3 @@ class PrintPlanOVView(TemplateView):
 #     buffer.close()
 #     response.write(pdf)
 #     return response
-

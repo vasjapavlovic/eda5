@@ -1,0 +1,27 @@
+
+
+<a href='{% url "moduli:planiranje:plan_aktivnost_create" plan.pk %}'>Dodaj Aktivnost</a>
+
+
+<table border="1" width="100%">
+    <col style="width:10%">
+    <col style="width:70%">
+    <col style="width:20%">
+
+    <thead>
+        <tr>
+            <th>oznaka</th>
+            <th>naziv</th>
+            <th>perioda</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pa in plan_aktivnost_list %}
+        <tr>
+            <td><a href="{% url 'moduli:planiranje:plan_aktivnost_detail' pa.pk %}">{{ pa.oznaka }}</a></td>
+            <td>{{ pa.naziv }}</td>
+            <td>{{ pa.perioda_enota }} x {{ pa.perioda_enota_kolicina }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

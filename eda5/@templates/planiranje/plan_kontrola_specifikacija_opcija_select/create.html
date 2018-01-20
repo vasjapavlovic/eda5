@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
+
+
+<form action="" method="post">{% csrf_token %}
+
+    {{ plan_kontrola_specifikacija_opcija_select_create_form | crispy }}
+
+        <input type="submit" value="Save"/> <a href="">back to the list</a>
+
+</form>
+
+
+
+{% endblock content-body %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+
+{% endblock javascript_extra %}
+<!-- end JAVASCRIPT EXTRA -->

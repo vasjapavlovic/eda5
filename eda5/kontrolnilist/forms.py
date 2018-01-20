@@ -23,11 +23,14 @@ class AktivnostCreateForm(forms.ModelForm):
             'oznaka',
             'naziv',
             'opis',
-            'projektno_mesto',
+            'perioda_enota',
+            'perioda_enota_kolicina',
+            'perioda_kolicina_na_enoto',
+            'zap_st',
+            'status',
+
         )
-        widgets = {
-            'projektno_mesto': ProjektnoMestoManyToManyRawIdWidget(model._meta.get_field('projektno_mesto').rel, site),
-        }
+
 
 
     def __init__(self, *args, **kwargs):
@@ -46,13 +49,15 @@ class KontrolaSpecifikacijaCreateForm(forms.ModelForm):
             'naziv',
             'opis',
             'vrednost_vrsta',
+            'projektno_mesto',
+            'zap_st',
+            'status',
         )
+        widgets = {
+            'projektno_mesto': ProjektnoMestoManyToManyRawIdWidget(model._meta.get_field('projektno_mesto').rel, site),
+        }
 
-KontrolaSpecifikacijaFormSet = inlineformset_factory(
-    Aktivnost,
-    KontrolaSpecifikacija,
-    form=KontrolaSpecifikacijaCreateForm,
-    extra=1)
+
 
 
 class BaseKontrolaVrednostUpdateFormSetOblika01(BaseModelFormSet):
@@ -73,8 +78,13 @@ class BaseKontrolaVrednostUpdateFormSetOblika01(BaseModelFormSet):
             # glede na projektno mesto
             'projektno_mesto',
             # glede na aktivnost
-            'kontrola_specifikacija__aktivnost__oznaka',
+            'kontrola_specifikacija__kontrola_skupina__aktivnost__zap_st',
+            'kontrola_specifikacija__kontrola_skupina__aktivnost__oznaka',
+            # glede na skupino kontrol
+            'kontrola_specifikacija__kontrola_skupina__zap_st',
+            'kontrola_specifikacija__kontrola_skupina__oznaka',
             # glede na specifikacijo kontrole
+            'kontrola_specifikacija__zap_st',
             'kontrola_specifikacija__oznaka',
             )
 
@@ -130,12 +140,17 @@ class BaseKontrolaVrednostUpdateFormSetOblika02(BaseModelFormSet):
         queryset = KontrolaVrednost.objects.filter(delovni_nalog=delovninalog)
         queryset = queryset.order_by(
             # glede na aktivnost
-            'kontrola_specifikacija__aktivnost__oznaka',
+            'kontrola_specifikacija__kontrola_skupina__aktivnost__zap_st',
+            'kontrola_specifikacija__kontrola_skupina__aktivnost__oznaka',
             # glede na del stavbe
             'projektno_mesto__del_stavbe',
             # glede na projektno mesto
             'projektno_mesto__oznaka',
+            # glede na skupino kontrol
+            'kontrola_specifikacija__kontrola_skupina__zap_st',
+            'kontrola_specifikacija__kontrola_skupina__oznaka',
             # glede na specifikacijo kontrole
+            'kontrola_specifikacija__zap_st',
             'kontrola_specifikacija__oznaka',
             )
 

@@ -5,12 +5,14 @@ from django.db.models import Max
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
+from django.shortcuts import render
+from django.utils import timezone
 
 # Mixins
 from braces.views import LoginRequiredMixin
 
 # Models
-from ..models import Skupina, Podskupina, DelStavbe, ProjektnoMesto, Element
+from ..models import Stavba, Skupina, Podskupina, DelStavbe, ProjektnoMesto, Element
 from eda5.delovninalogi.models import Opravilo, DelovniNalog
 from eda5.katalog.models import ObratovalniParameter
 from eda5.moduli.models import Zavihek
@@ -19,6 +21,11 @@ from eda5.racunovodstvo.models import Strosek
 # Forms
 from ..forms import skupina_forms, podskupina_forms, delstavbe_forms
 from ..forms import projektnomesto_forms, element_forms, nastavitev_forms
+
+# templated docs
+from templated_docs import fill_template
+from templated_docs.http import FileResponse
+from eda5.reports.forms import FormatForm
 
 
 
@@ -116,7 +123,7 @@ class DelDetailView(LoginRequiredMixin, DetailView):
 
         # Servisna knjiga
         delstavbe_instance = DelStavbe.objects.get(id=self.object.id)
-        
+
         # seznam delovnih nalogov (za servisno knjigo)
         servisna_knjiga = []
         # seznam opravil kjer je vsebovan element
@@ -133,3 +140,102 @@ class DelDetailView(LoginRequiredMixin, DetailView):
 
         return context
 
+
+class DelStavbePrintView(LoginRequiredMixin, UpdateView):
+    model = Stavba
+    template_name = 'deli/delstavbe/delstavbe_print.html'
+    fields = ('id', )
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DelStavbePrintView, self).get_context_data(*args, **kwargs)
+
+        form = FormatForm()
+        context['form'] = form
+
+        stavba = Stavba.objects.get(id=1)
+        del_stavbe_list = DelStavbe.objects.filter(stavba=stavba)
+        del_stavbe_list = del_stavbe_list.filter(is_active=True)
+        del_stavbe_list = del_stavbe_list.order_by(
+            'podskupina__skupina',
+            'podskupina',
+            'oznaka',
+        )
+
+        print_data = {
+            'stavba': stavba,
+            'del_stavbe_list': del_stavbe_list,
+
+        }
+
+        context['print_data'] = print_data
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+
+        stavba = Stavba.objects.get(id=1)
+        del_stavbe_list = DelStavbe.objects.filter(stavba=stavba)
+        del_stavbe_list = del_stavbe_list.filter(is_active=True)
+        del_stavbe_list = del_stavbe_list.order_by(
+            'podskupina__skupina',
+            'podskupina',
+            'oznaka',
+        )
+
+        print_data = {
+            'stavba': stavba,
+            'del_stavbe_list': del_stavbe_list,
+
+        }
+
+
+        form = FormatForm(request.POST or None)
+        # deli_seznam_filter_form = DeliSeznamFilterForm(request.POST or None)
+
+        form_is_valid = False
+        # deli_seznam_filter_form_is_valid = False
+
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
+
+        if form.is_valid():
+            doctypex = form.cleaned_data['format_field']
+            form_is_valid = True
+
+        # if deli_seznam_filter_form.is_valid():
+        #     program = deli_seznam_filter_form.cleaned_data['program']
+        #     deli_filter_list = DelStavbe.objects.filter(lastniska_skupina__program=program)
+        #     deli_seznam_filter_form_is_valid = True
+
+        #Če so formi pravilno izpolnjeni
+
+        if form_is_valid == True:
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
+
+            # pridobimo današnji datum za izpis na izpisu
+
+            datum_danes = timezone.now().date()
+
+
+            # prenos podatkov za aplikacijo templated_docs
+
+            filename = fill_template(
+                'obrazci/delstavbe/delstavbe_print.odt', {'print_data': print_data, 'datum_danes': datum_danes}, output_format=doctypex)
+            visible_filename = 'stavba_{}_deli_seznam.{}'.format(stavba.oznaka, doctypex)
+
+            return FileResponse(filename, visible_filename)
+
+
+        # v primeru, da so zgornji Form-i NISO ustrezno izpolnjeni
+        # izvrši spodnje ukaze
+
+        else:
+            return render(request, self.template_name, {
+                'form': form,
+                # 'deli_seznam_filter_form': deli_seznam_filter_form,
+                }
+            )

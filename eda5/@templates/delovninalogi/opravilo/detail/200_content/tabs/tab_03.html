@@ -5,47 +5,103 @@
 {% else %}
 
 
-    {% regroup kontrola_list by aktivnost as aktivnost_list %}
+    {% regroup kontrola_list by kontrola_skupina.aktivnost as aktivnost_list %}
     {% for aktivnost in aktivnost_list %}
-        <a href="{% url 'moduli:kontrolni_list:kontrolni_list_aktivnost_update' aktivnost.grouper.id %}">{{ aktivnost.grouper }}</a>
-        <ul>
-            {% for pm in aktivnost.grouper.projektno_mesto.all %}
-                <li><b>[{{ pm.oznaka }}]</b>{{ pm.naziv }}</li>
-            {% endfor %}
-        </ul>
 
-        <table class="table table-condensed table-bordered table-striped">
-            <!-- table col width -->
-            <col style="width:15%">
-            <col style="width:30%">
-            <col style="width:40%">
-            <col style="width:15%">
 
+        <table border="1" width="100%">
+            <col style="width:10%">
+            <col style="width:70%">
+            <col style="width:20%">
 
             <thead>
-
                 <tr>
                     <th>oznaka</th>
                     <th>naziv</th>
-                    <th>navodila</th>
-                    <th>vrsta vrednosti</th>
+                    <th>perioda</th>
                 </tr>
-
             </thead>
             <tbody>
-
-                {% for object in aktivnost.list %}
-
-                    <tr>
-                        <td>{{ object.oznaka }}</td>
-                        <td>{{ object.naziv }}</td>
-                        <td>{{ object.opis }}</td>
-                        <td>{{ object.get_vrednost_vrsta_display }}</td>
-                    </tr>
-
-                {% endfor %}
+                <tr>
+                    <td><a href="">{{ aktivnost.grouper.oznaka }}</td>
+                    <td>{{ aktivnost.grouper.naziv }}</td>
+                    <td>{{ aktivnost.grouper.perioda_enota }} x {{ aktivnost.grouper.perioda_enota_kolicina }}</td>
+                </tr>
             </tbody>
         </table>
+
+        <a href=''>Dodaj Skupino Kontrol</a>
+
+        <table border="1" width="100%">
+            <col style="width:10%">
+            <col style="width:25%">
+            <col style="width:25%">
+            <col style="width:20%">
+            <col style="width:20%">
+
+            <thead>
+                <tr bgcolor="#c4c5c6">
+                    <th colspan=5>skupina</th>
+                </tr>
+                <tr bgcolor="#c4c5c6">
+                    <th>oznaka</th>
+                    <th>naziv</th>
+                    <th>navodila</th>
+                    <th>vrsta</th>
+                    <th>projektna mesta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% regroup aktivnost.list by kontrola_skupina as ksk_list %}
+                {% for ksk in ksk_list %}
+
+                <tr bgcolor="#ffe900">
+                    <td colspan=5><a href="">{{ ksk.grouper.naziv }}</a> <a href=''>Dodaj Kontrolo</a></td>
+                </tr>
+
+                {% for ks in ksk.list %}
+                {% if ks %}
+                <tr>
+                    <td><a href=''>{{ ks.oznaka }}</td>
+                    <td>{{ ks.naziv }}</td>
+                    <td>{{ ks.opis }}</td>
+                    <td>{{ ks.get_vrednost_vrsta_display }}
+
+                        {% if ks.vrednost_vrsta == 3 %}
+                        <br><a href=''>Dodaj Opcijo</a>
+                        <ul>
+                            {% for opcija in ks.kontrolaspecifikacijaopcijaselect_set.all  %}
+                            <li><a href="">{{ opcija.naziv }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {% for pm in spec.plan_kontrola_specifikacija.projektno_mesto.all %}
+                            <li>{{ pm.oznaka }} {{ pm.naziv }}</li>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+
+
+                {% endif %}
+                {% endfor %}
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+
+
+
+
+
+
     {% endfor %}
 
 {% endif %}

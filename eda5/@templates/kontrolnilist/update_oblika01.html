@@ -77,7 +77,7 @@
 
 
                 <!-- aktivnost  -->
-                {% regroup object1.list by instance.kontrola_specifikacija.aktivnost as object2_list %}
+                {% regroup object1.list by instance.kontrola_specifikacija.kontrola_skupina.aktivnost as object2_list %}
                 {% for object2 in object2_list %}
 
                 <tr class="background_yellow">
@@ -85,8 +85,17 @@
                 </tr>
 
 
+                <!-- skupina kontrol  -->
+                {% regroup object2.list by instance.kontrola_specifikacija.kontrola_skupina as object3_list %}
+                {% for object3 in object3_list %}
+
+                <tr class="background_yellow">
+                    <td colspan=6><b>{{ object3.grouper.naziv }}</b></td>
+                </tr>
+
+
                     <!-- kontrole  -->
-                    {% for field in object2.list %}
+                    {% for field in object3.list %}
 
                         <!-- FORM ID - FIeld je hidden ampak mora biti prikazan ker drugače vrne napako MultiValueDictKeyError
                         https://stackoverflow.com/questions/15980475/multivaluedictkeyerror-in-django-modelformset-factory
@@ -113,6 +122,7 @@
                             <td>{{ field.vrednost_select }}</td>
                             {% endif %}
                         </tr>
+                    {% endfor %}
                     {% endfor %}
                 {% endfor %}
             {% endfor %}

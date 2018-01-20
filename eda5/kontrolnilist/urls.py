@@ -13,11 +13,11 @@ urlpatterns += [
 
 
     #  Pregled Opravila
-    url(
-        r'^opravilo/(?P<pk>\d+)/aktivnost/create$',
-        views.KontrolniListSpecifikacijaCreateView.as_view(),
-        name="kontrolni_list_aktivnost_create"
-    ),
+    # url(
+    #     r'^opravilo/(?P<pk>\d+)/aktivnost/create$',
+    #     views.KontrolniListSpecifikacijaCreateView.as_view(),
+    #     name="kontrolni_list_aktivnost_create"
+    # ),
 
     url(
         r'^aktivnost/(?P<pk>\d+)/update$',

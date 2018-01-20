@@ -68,6 +68,12 @@ class VeljavnostDokumentaCreateView(UpdateView):
 
             veljavnost_dokumenta_object = VeljavnostDokumenta.objects.get(id=veljavnost_dokumenta_data.pk)
 
+            if arhiviranje.zahtevek:
+                return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': arhiviranje.zahtevek.pk}))
+
+            if arhiviranje.delovninalog:
+                return HttpResponseRedirect(reverse('moduli:delovninalogi:dn_detail', kwargs={'pk': arhiviranje.delovninalog.pk}))
+
         else:
             return render(request, self.template_name, {
                 'veljavnost_dokumenta_create_form': veljavnost_dokumenta_create_form,

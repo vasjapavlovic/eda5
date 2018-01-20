@@ -8,6 +8,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, UpdateView
 
+# Mixins
+from braces.views import LoginRequiredMixin
+
 # Utils
 from eda5.core.utils import zaokrozen_zmin
 from eda5.core.utils import pretvori_v_ure
@@ -16,6 +19,7 @@ from eda5.core.utils import pretvori_v_ure
 from ..models import Plan
 from ..models import PlaniranoOpravilo
 from ..models import PlaniranaAktivnost
+from ..models import PlanAktivnost
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.delovninalogi.models import Delo
 from eda5.delovninalogi.models import Opravilo
@@ -274,3 +278,66 @@ class VzorecOpravilaCreateView(UpdateView):
                     'moduli:planiranje:planirano_opravilo_detail',
                     kwargs={'pk': planirano_opravilo.pk})
                     )
+
+
+
+class PlaniranoOpraviloAutoCreateView(LoginRequiredMixin, UpdateView):
+    model = Plan
+    template_name = 'planiranje/planirano_opravilo/create_auto.html'
+    fields = ('id',)
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PlaniranoOpraviloAutoCreateView, self).get_context_data(*args, **kwargs)
+
+        plan = Plan.objects.get(id=self.get_object().id)
+
+        plan_aktivnost_list = PlanAktivnost.objects.filter(
+            plan=plan
+        )
+
+        context['plan_aktivnost_list'] = plan_aktivnost_list
+
+
+        return context
+
+
+
+
+    def post(self, request, *args, **kwargs):
+
+        plan = Plan.objects.get(id=self.get_object().id)
+
+        # izdelamo seznam aktivnosti za vsako projektno mesto svojo aktivnost
+        plan_aktivnost_list = PlanAktivnost.objects.filter(
+            plan=plan
+        )
+
+        for pa in plan_aktivnost_list:
+
+            planirano_opravilo = PlaniranoOpravilo.objects.create(
+                oznaka=pa.oznaka,
+                naziv=pa.naziv,
+                perioda_predpisana_enota=pa.perioda_enota,
+                perioda_predpisana_enota_kolicina=pa.perioda_enota_kolicina,
+                perioda_predpisana_kolicina_na_enoto=pa.perioda_kolicina_na_enoto,
+                plan=plan,
+
+            )
+
+            # plan_aktivnosti dodelimo planirano opravilo
+            pa.planirano_opravilo = planirano_opravilo
+            pa.save()
+
+        return HttpResponseRedirect(reverse('moduli:planiranje:plan_detail', kwargs={'pk': plan.pk}))
+
+
+
+
+
+
+
+
+
+
+        #

@@ -1,0 +1,30 @@
+<form id="form" method="post" action="">{% csrf_token %}
+
+    {{ form  }}
+    <input type="submit" value="Potrdi">
+
+    <h1>
+    {{ plan.oznaka }}
+    {{ plan.naziv }}
+    </h1>
+
+    {% regroup print_data.planirano_opravilo_list by osnova as osnova_list %}
+
+    {% for osnova in osnova_list %}
+    <ul>
+    <b>{{ osnova.grouper.oznaka }} {{ osnova.grouper.naziv }}</b>
+
+    {% for po in osnova.list %}
+    <li>{{ po.oznaka }} {{ po.naziv }}</li><br>
+    {% endfor %}
+
+
+
+
+
+
+
+
+    </ul>
+    {% endfor %}
+</form>

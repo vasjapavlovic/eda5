@@ -1,0 +1,17 @@
+<form action="" method="post">{% csrf_token %}
+
+
+        {% for pa in plan_aktivnost_list %}
+
+            {{ pa }} --> Planirano Opravilo {{ pa.oznaka }}<br>
+
+
+        {% endfor %}<br>
+
+
+
+
+        IZ AKTIVNOSTI IZDELAM PLANIRANA OPRAVILA?
+        <input type="submit" value="Potrdi"/>
+
+</form>

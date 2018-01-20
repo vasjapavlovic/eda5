@@ -258,6 +258,13 @@ class DelStavbe(TimeStampedModel, IsActiveModel):
         Podskupina,
     )
 
+    #R# klasifikacija v podskupino
+    stavba = models.ForeignKey(
+        Stavba,
+        blank=True,
+        null=True,
+    )
+
 
     # OBJECT MANAGER
     #===================================
