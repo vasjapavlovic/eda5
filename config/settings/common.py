@@ -79,6 +79,7 @@ LOCAL_APPS = (
     'eda5.razdelilnik',  # razdelilnik
     'eda5.reports',  # poročanje
     'eda5.reklamacije',  # reklamacije
+    'eda5.servisnaknjiga',  # servisna knjiga
     'eda5.sestanki',  # sestanki, zbori lastnikov
     'eda5.stevcnostanje',
     'eda5.users',  # custom users app

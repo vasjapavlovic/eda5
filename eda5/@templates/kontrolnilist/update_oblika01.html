@@ -118,6 +118,14 @@
                             <td>{{ field.vrednost_text }}</td>
                             {% endif %}
 
+                            {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'number' %}
+                            <td>{{ field.vrednost_number }}</td>
+                            {% endif %}
+
+                            {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'yes_no' %}
+                            <td>{{ field.vrednost_yes_no }}</td>
+                            {% endif %}
+
                             {% if field.instance.kontrola_specifikacija.get_vrednost_vrsta_display == 'select' %}
                             <td>{{ field.vrednost_select }}</td>
                             {% endif %}

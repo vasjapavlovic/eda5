@@ -112,6 +112,8 @@ class KontrolaVrednostUpdateForm(forms.ModelForm):
         fields = (
             'vrednost_select',
             'vrednost_text',
+            'vrednost_number',
+            'vrednost_yes_no',
             'vrednost_check',
         )
 

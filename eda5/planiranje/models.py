@@ -260,14 +260,19 @@ class PlanKontrolaSpecifikacija(OsnovnaKombinacija, ZaporednaStevilka):
         )
 
     tip_check = 1
-    tip_vrednost = 2
+    tip_vrednost_text = 2
     tip_select = 3
+    tip_vrednost_number = 4
+    tip_vrednost_yes_no = 5
 
     VREDNOST_VRSTA = (
         (tip_check, 'check'),
-        (tip_vrednost, 'text'),
+        (tip_vrednost_text, 'text'),
+        (tip_vrednost_number, 'number'),
+        (tip_vrednost_yes_no, 'yes_no'),
         (tip_select, 'select'), # Zaloga vrednosti --> OpcijeSelect model
         )
+
 
     vrednost_vrsta = models.IntegerField(
         choices=VREDNOST_VRSTA,

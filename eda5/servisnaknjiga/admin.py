@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+
+from .models import Parameter
+
+@admin.register(Parameter)
+class ParameterAdmin(admin.ModelAdmin):
+    raw_id_fields=(
+        'plan_kontrola_specifikacija',
+        'projektno_mesto',
+    )

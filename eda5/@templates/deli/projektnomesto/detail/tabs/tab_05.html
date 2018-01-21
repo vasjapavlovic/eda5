@@ -1,1 +1,7 @@
 <!-- Dokumentacija -->
+
+{% for parameter in report_parameter_list %}
+
+<a href="{% url 'moduli:servisnaknjiga:parameter_detail' parameter.pk %}">{{ parameter }}</a><br>
+
+{% endfor %}

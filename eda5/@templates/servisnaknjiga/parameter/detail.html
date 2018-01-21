@@ -1,0 +1,202 @@
+{% extends "base_200.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+{% load tag_library %}
+
+{% block content-body-tabs %}
+<h1>PARAMETER</h1>
+
+<table border="1" width="100%">
+    <col style="width:30%">
+
+
+
+    <thead>
+        <tr bgcolor='#ffffff'>
+            <th>projektno mesto</th>
+            <th>kontrola</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr bgcolor='#ffffff'>
+            <td>{{ object.projektno_mesto.oznaka }}</td>
+            <td>{{ object.plan_kontrola_specifikacija.naziv }}</td>
+
+        </tr>
+    </tbody>
+</table>
+
+
+<h2>GRAF</h2>
+<table border="1" width="100%">
+    <thead>
+        <tr bgcolor='#ffffff'>
+            <th>Graf {{ object.plan_kontrola_specifikacija.naziv }}</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr bgcolor='#ffffff'>
+            <td>
+                <div id="chart_container" style="width:100%; height:400px;"></div>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+<h2>VREDNOSTI</h2>
+<table border='1' width='100%'>
+
+    <thead>
+        <tr bgcolor='#ffffff'>
+            <th>datum</th>
+            <th>vrednost</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pkv in parameter_kontrola_vrednost_list %}
+        {% if pkv %}
+        <tr bgcolor='#ffffff'>
+            <td>{{ pkv.delovni_nalog.datum_start }}</td>
+            {% if object.plan_kontrola_specifikacija.vrednost_vrsta == 4 %}
+            <td>{{ pkv.vrednost_number }}</td>
+            {% endif %}
+
+            {% if object.plan_kontrola_specifikacija.vrednost_vrsta == 5 %}
+            <td>{{ pkv.vrednost_yes_no }}</td>
+            {% endif %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block javascript_extra %}
+
+
+{% if object.plan_kontrola_specifikacija.vrednost_vrsta == 4 %}
+<script>
+
+$(
+    function () {
+        $('#chart_container').highcharts({
+            chart: {
+                type: 'line'
+            },
+
+            title: {
+                text: ''
+            },
+
+
+            xAxis: {
+
+                tickInterval: 10,
+                tickWidth: 1,
+                gridLineWidth: 1,
+                labels: {
+                    align: 'left',
+                    x: 3,
+                    y: -3
+                },
+                categories: [{% for pkv in parameter_kontrola_vrednost_list %}{% if pkv.delovni_nalog.datum_start %}{{ pkv.delovni_nalog.datum_start.year }}{% endif %},{% endfor %}]
+
+
+            },
+
+            yAxis: {
+                title: {
+                    text: 'vrednost'
+                },
+            },
+
+
+            tooltip: {
+                shared: true,
+                crosshairs: true
+            },
+
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+
+
+
+            series: [
+                {
+                    name: '{{ object.plan_kontrola_specifikacija.naziv }}',
+                    data: [{% for pkv in parameter_kontrola_vrednost_list %}{% if pkv.vrednost_number %}{{ pkv.vrednost_number }}{% endif %},{% endfor %}]
+                }
+            ]
+
+        });
+    }
+);
+
+</script>
+{% endif %}
+
+
+{% if object.plan_kontrola_specifikacija.vrednost_vrsta == 5 %}
+
+<script>
+
+$(
+    function () {
+        $('#chart_container').highcharts({
+            chart: {
+                type: 'column'
+            },
+
+            title: {
+                text: ''
+            },
+
+
+            xAxis: {
+
+                tickInterval: 1,
+                tickWidth: 1,
+                gridLineWidth: 1,
+                labels: {
+                    align: 'left',
+                    x: 3,
+                    y: -3
+                },
+                categories: [{% for pkv in parameter_kontrola_vrednost_list %}{% if pkv.delovni_nalog.datum_start %}{{ pkv.delovni_nalog.datum_start.year }}{% endif %},{% endfor %}]
+
+
+            },
+
+            yAxis: {
+                title: {
+                    text: 'vrednost'
+                },
+            },
+
+
+
+            series: [
+                {
+                    name: '{{ object.plan_kontrola_specifikacija.naziv }}',
+                    data: [{% for pkv in parameter_kontrola_vrednost_list %}{y:{% if pkv.vrednost_yes_no %} {{ pkv.vrednost_yes_no }} {% endif %}, {% if pkv.vrednost_yes_no == 1 %}color: 'green'{% else %}color: 'red'{% endif %}},{% endfor %}]
+                }
+            ]
+
+        });
+    }
+);
+
+</script>
+{% endif %}
+
+
+{% endblock %}

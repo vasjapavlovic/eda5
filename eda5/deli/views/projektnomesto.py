@@ -47,6 +47,10 @@ from eda5.racunovodstvo.models import \
 
 
 
+from eda5.servisnaknjiga.models import Parameter
+
+
+
 class ProjektnoMestoCreateView(CreateView):
 
     model = ProjektnoMesto
@@ -73,7 +77,7 @@ class ProjektnoMestoCreateView(CreateView):
     #     if form.is_valid():
     #         try:
     #             newObject = form.save()
-    #             print('New Object Saved') 
+    #             print('New Object Saved')
     #         except:
     #             newObject = None
     #             print('New = NONE')
@@ -104,6 +108,8 @@ class ProjektnoMestoDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProjektnoMestoDetailView, self).get_context_data(*args, **kwargs)
+
+        projektno_mesto = ProjektnoMesto.objects.get(id=self.get_object().id)
 
         # Servisna knjiga
         # seznam delovnih nalogov (za servisno knjigo)
@@ -138,8 +144,9 @@ class ProjektnoMestoDetailView(DetailView):
         #     )
         context['nastavitev_max'] = []
 
-        
 
+        report_parameter_list = Parameter.objects.filter(projektno_mesto=projektno_mesto)
+        context['report_parameter_list'] = report_parameter_list
 
         # Zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="ELEMENT_DETAIL")
@@ -181,7 +188,7 @@ class ProjektnoMestoPopupCreateView(CreateView):
         if form.is_valid():
             try:
                 newObject = form.save()
-                print('New Object Saved') 
+                print('New Object Saved')
             except:
                 raise forms.ValidationError('Error-napisal Vasja')
                 newObject = None

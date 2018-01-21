@@ -39,6 +39,7 @@ urlpatterns += [
     url(r'^razdelilnik/', include("eda5.razdelilnik.urls", namespace="razdelilnik")),
     url(r'^reklamacije/', include("eda5.reklamacije.urls", namespace="reklamacije")),
     url(r'^reports/', include("eda5.reports.urls", namespace="reports")),
+    url(r'^servisnaknjiga/', include("eda5.servisnaknjiga.urls", namespace="servisnaknjiga")),
     url(r'^sestanki/', include("eda5.sestanki.urls", namespace="sestanki")),
     url(r'^skladisce/', include("eda5.skladisce.urls", namespace="skladisce")),
     url(r'^stevcno-stanje/', include("eda5.stevcnostanje.urls", namespace="stevcnostanje")),

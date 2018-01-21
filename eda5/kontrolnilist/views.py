@@ -17,7 +17,9 @@ from braces.views import LoginRequiredMixin
 
 # Models
 from .models import Aktivnost
+from .models import KontrolaSkupina
 from .models import KontrolaSpecifikacija
+from .models import KontrolaSpecifikacijaOpcijaSelect
 from .models import KontrolaVrednost
 from eda5.deli.models import ProjektnoMesto
 from eda5.delovninalogi.models import DelovniNalog
@@ -459,3 +461,107 @@ class KontrolniListPrintOblika02View(LoginRequiredMixin, UpdateView):
         visible_filename = '{}.{}'.format(dn.oznaka ,"xlsx")
 
         return FileResponse(filename, visible_filename)
+
+
+
+
+class OpraviloKontrolniListCreateView(LoginRequiredMixin, UpdateView):
+    '''
+    Izdelava kontrolnega lista za nazaj. Če ima opravilo definirano planirano_opravilo
+    se izdela kontrolni list glede na izbrano planirano opravilo  . Če obstaja
+    '''
+    model = Opravilo
+    template_name = "kontrolnilist/create_from_opravilo.html"
+    fields = ('id', )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(OpraviloKontrolniListCreateView, self).get_context_data(*args, **kwargs)
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # object
+        opravilo = Opravilo.objects.get(id=self.get_object().id)
+
+
+        if opravilo.planirano_opravilo:
+
+            planirano_opravilo = opravilo.planirano_opravilo
+
+            # izdelati moramo aktivnost in pripadajoče specifikacije kontrol
+            plan_aktivnost_list = planirano_opravilo.planaktivnost_set.all()
+
+            for pa in plan_aktivnost_list:
+                # dodamo aktivnosti
+                aktivnost = Aktivnost.objects.create(
+                    oznaka=pa.oznaka,
+                    naziv=pa.naziv,
+                    opis=pa.opis,
+                    perioda_enota=pa.perioda_enota,
+                    perioda_enota_kolicina=pa.perioda_enota_kolicina,
+                    perioda_kolicina_na_enoto=pa.perioda_kolicina_na_enoto,
+                    zap_st=pa.zap_st,
+                    status=pa.status,
+                    plan_aktivnost=pa,
+                    opravilo=opravilo,
+
+                )
+                aktivnost.save()
+
+
+                # izdelamo skupine kontrol če obstajajo
+                if pa.plankontrolaskupina_set:
+                    pksk_list = pa.plankontrolaskupina_set.all()
+                    for pksk in pksk_list:
+                        kontrola_skupina = KontrolaSkupina.objects.create(
+                            oznaka=pksk.oznaka,
+                            naziv=pksk.naziv,
+                            plan_kontrola_skupina=pksk,  # pomembno zaradi navezave
+                            zap_st=pksk.zap_st,
+                            status=pksk.status,
+                            aktivnost=aktivnost,
+
+                        )
+
+                        kontrola_skupina.save()
+
+                        # dodamo še specifikacijo kontrol
+                        plan_kontrola_specifikacija_list = pksk.plankontrolaspecifikacija_set.all()
+                        for pks in plan_kontrola_specifikacija_list:
+
+                            kontrola_specifikacija = KontrolaSpecifikacija.objects.create(
+                                oznaka=pks.oznaka,
+                                naziv=pks.naziv,
+                                opis=pks.opis,
+                                vrednost_vrsta=pks.vrednost_vrsta,
+                                zap_st=pks.zap_st,
+                                status=pks.status,
+                                plan_kontrola_specifikacija=pks,
+                                kontrola_skupina=kontrola_skupina,
+                            )
+
+                            kontrola_specifikacija.save()
+                            # dodamo še projektna mesta
+                            kontrola_specifikacija.projektno_mesto = pks.projektno_mesto.all()
+                            kontrola_specifikacija.save()
+
+                            # če je vrsta SELECT (=3) dodamo še opcije select
+                            if pks.vrednost_vrsta == 3:
+                                pos_list = pks.plankontrolaspecifikacijaopcijaselect_set.all()
+                                for pos in pos_list:
+                                    kontrola_specifikacija_opcija_select = KontrolaSpecifikacijaOpcijaSelect.objects.create(
+                                        oznaka=pos.oznaka,
+                                        naziv=pos.naziv,
+                                        opis=pos.opis,
+                                        kontrola_specifikacija=kontrola_specifikacija,
+                                    )
+
+
+            return HttpResponseRedirect(reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk}))
+
+        else:
+            return render(request, self.template_name, {
+
+                }
+            )

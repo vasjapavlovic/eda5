@@ -101,12 +101,16 @@ class KontrolaSpecifikacija(OsnovnaKombinacija, ZaporednaStevilka):
     )
 
     tip_check = 1
-    tip_vrednost = 2
+    tip_vrednost_text = 2
     tip_select = 3
+    tip_vrednost_number = 4
+    tip_vrednost_yes_no = 5
 
     VREDNOST_VRSTA = (
         (tip_check, 'check'),
-        (tip_vrednost, 'text'),
+        (tip_vrednost_text, 'text'),
+        (tip_vrednost_number, 'number'),
+        (tip_vrednost_yes_no, 'yes_no'),
         (tip_select, 'select'), # Zaloga vrednosti --> OpcijeSelect model
         )
 
@@ -162,11 +166,36 @@ class KontrolaVrednost(OsnovnaKombinacija):
         verbose_name="vrednost check"
     )
 
+
+    yes = 1
+    no = -1
+
+    VREDNOST = (
+        (yes, 'DA'),
+        (no, 'NE'),
+        )
+
+    vrednost_yes_no = models.IntegerField(
+        choices=VREDNOST,
+        blank=True,
+        null=True,
+        verbose_name='vrednost DA/NE',
+        )
+
     vrednost_text = models.CharField(
         blank=True,
         null=True,
         max_length=255,
         verbose_name="vrednost text"
+    )
+
+    vrednost_number = models.DecimalField(
+        decimal_places=2,
+        max_digits=50,
+        blank=True,
+        null=True,
+        max_length=255,
+        verbose_name="vrednost število"
     )
 
     vrednost_select = models.ForeignKey(
