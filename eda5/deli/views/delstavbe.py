@@ -78,7 +78,11 @@ class DelListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = DelStavbe.objects.all().order_by("podskupina")
+        queryset = DelStavbe.objects.all().order_by(
+            "podskupina__skupina",
+            "podskupina",
+            "oznaka",
+            )
         return queryset
 
     def post(self, request, *args, **kwargs):

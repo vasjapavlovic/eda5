@@ -407,7 +407,6 @@ class KontrolniListPrintOblika02View(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
 
-
         dn = DelovniNalog.objects.get(id=self.get_object().id)
 
         # zavihek

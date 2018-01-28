@@ -1,46 +1,58 @@
 <!-- naslov -->
-{% regroup object_list by podskupina.skupina as skupina_list2 %}
-
-    {% for object in skupina_list2 %}
-     {{ object.grouper}}
-
-
-<!-- posamezni paneli -->
-        {% regroup object.list by podskupina as podskupina_list2 %}
-
-            {% for object in podskupina_list2 %}
-             
-<div class="panel panel-info">
-    <!-- naslov panela -->
-    <div class="panel-heading">{{ object.grouper}}</div>
-    <table class="table">
-        <thead>
-            <th>oznaka</th>
-            <th>opis</th>
-            <th>funkcija</th>
-            <th>edit</th>
-            <th>prikaz zunanji</th>
-        </thead>
-
-        <!-- posamezni vnosi delov -->
-        {% for object in object.list %}
-        <tbody>
-            <td class="col-md-1"><b><a href="{% url 'moduli:deli:del_detail' object.pk %}">({{ object.oznaka }})</a></b></td>
-            <td class="col-md-3">{{ object.naziv }}</td>
-            <td class="col-md-3">{{ object.funkcija }}</td>
-            <td class="col-md-1">
-                <a type="button" href="{% url 'moduli:deli:del_update' object.pk %}"> 
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </a>
-            </td>
-            <td><a href="{% url 'moduli:reports:delstavbe_detail' object.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-        </tbody>
-        {% endfor %}
+{% regroup object_list by podskupina.skupina as skupina_list %}
+{% for skupina in skupina_list %}
+<b>{{ skupina.grouper}}</b><br>
 
 
-    </table>
-</div>
+    {% regroup skupina.list by podskupina as podskupina_list %}
+    {% for podskupina in podskupina_list %}
+    <div class="row">
+        <a
+            class=""
+            data-toggle="collapse"
+            href="#deli{{ forloop.parentloop.counter }}{{ forloop.counter }}"
+            role="button"
+            aria-expanded="false"
+            aria-controls="deli"
+            >
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        </a>
+        {{ podskupina.grouper}}
 
+    </div>
+
+
+
+        <div class="collapse" id="deli{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>oznaka</th>
+                        <th>opis</th>
+                        <th>funkcija</th>
+                        <th>edit</th>
+                        <th>prikaz zunanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ds in podskupina.list %}
+                    <tr>
+                        <td class="col-md-1"><b><a href="{% url 'moduli:deli:del_detail' ds.pk %}">({{ ds.oznaka }})</a></b></td>
+                        <td class="col-md-3">{{ ds.naziv }}</td>
+                        <td class="col-md-3">{{ ds.funkcija }}</td>
+                        <td class="col-md-1">
+                        <a type="button" href="{% url 'moduli:deli:del_update' ds.pk %}">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        </td>
+                        <td><a href="{% url 'moduli:reports:delstavbe_detail' ds.pk %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    {% endfor %}
+<br>
 {% endfor %}
-{% endfor %}
-
