@@ -39,7 +39,7 @@ class OpraviloDetailViewTest(TestCase):
 
 
         kontrola_specifikacija = KontrolaSpecifikacijaFactory(
-            oznaka='KS_1_AKT1' ,aktivnost__oznaka='AKT1')
+            oznaka='KS_1_AKT1' ,kontrola_skupina__aktivnost__oznaka='AKT1')
         kontrola_specifikacija.save()
 
         user = UserFactory()
@@ -92,7 +92,7 @@ class OpraviloDetailViewTest(TestCase):
         context = resp.context
         kontrola_list = context['kontrola_list']
         aktivnost = Aktivnost.objects.filter(opravilo=opravilo).first()
-        kontrola_object = KontrolaSpecifikacija.objects.filter(aktivnost=aktivnost).first()
+        kontrola_object = KontrolaSpecifikacija.objects.filter(kontrola_skupina__aktivnost=aktivnost).first()
         self.assertTrue(any(kontrola_object == kontrola  for kontrola in kontrola_list))
 
     def test_contex_kontrola_list_ordered_by_aktivnost(self):
@@ -101,15 +101,15 @@ class OpraviloDetailViewTest(TestCase):
 
         # dodamo še dve kontroli
         kontrola_specifikacija = KontrolaSpecifikacijaFactory(
-            oznaka='KS_1_AKT3' ,aktivnost__oznaka='AKT3', aktivnost__opravilo=opravilo)
+            oznaka='KS_1_AKT3' ,kontrola_skupina__aktivnost__oznaka='AKT3', kontrola_skupina__aktivnost__opravilo=opravilo)
         kontrola_specifikacija.save()
 
         kontrola_specifikacija = KontrolaSpecifikacijaFactory(
-            oznaka='KS_1_AKT2' ,aktivnost__oznaka='AKT2', aktivnost__opravilo=opravilo)
+            oznaka='KS_1_AKT2' ,kontrola_skupina__aktivnost__oznaka='AKT2', kontrola_skupina__aktivnost__opravilo=opravilo)
         kontrola_specifikacija.save()
 
         kontrola_specifikacija = KontrolaSpecifikacijaFactory(
-            oznaka='KS_2_AKT2' ,aktivnost__oznaka='AKT2', aktivnost__opravilo=opravilo)
+            oznaka='KS_2_AKT2' ,kontrola_skupina__aktivnost__oznaka='AKT2', kontrola_skupina__aktivnost__opravilo=opravilo)
         kontrola_specifikacija.save()
 
         url = reverse('moduli:delovninalogi:opravilo_detail', kwargs={'pk': opravilo.pk})

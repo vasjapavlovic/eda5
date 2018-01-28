@@ -56,6 +56,7 @@ class VeljavnostDokumentaCreateView(UpdateView):
             velja_od = veljavnost_dokumenta_create_form.cleaned_data['velja_od']
             velja_do = veljavnost_dokumenta_create_form.cleaned_data['velja_do']
             planirano_opravilo = veljavnost_dokumenta_create_form.cleaned_data['planirano_opravilo']
+            narocilo = veljavnost_dokumenta_create_form.cleaned_data['narocilo']
 
             veljavnost_dokumenta_data = VeljavnostDokumenta.objects.create_veljavnost_dokumenta(
                 arhiviranje=arhiviranje,
@@ -64,6 +65,7 @@ class VeljavnostDokumentaCreateView(UpdateView):
                 planirano_opravilo=planirano_opravilo,
                 velja_od=velja_od,
                 velja_do=velja_do,
+                narocilo=narocilo,
             )
 
             veljavnost_dokumenta_object = VeljavnostDokumenta.objects.get(id=veljavnost_dokumenta_data.pk)

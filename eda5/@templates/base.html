@@ -127,9 +127,11 @@
 
                             <!-- link vsebina -->
                             <ul class="dropdown-menu">
+                                {% if user.username %}
                                 <li><a href="{% url 'users:detail' user.username %}">Moj račun</a></li>
                                 <li class="divider"></li>
                                 <li><a href="{% url 'account_logout' %}">Odjava</a></li>
+                                {% endif %}
                             </ul>
                         </li>
                     </ul>

@@ -65,7 +65,9 @@ class KontrolaSkupina(OsnovnaKombinacija, ZaporednaStevilka):
     # potreben zaradi izdelave iz vzorcev opravil (planirana opravila)
     plan_kontrola_skupina = models.ForeignKey(
         PlanKontrolaSkupina,
-        verbose_name='planiranja skupina kontrol'
+        blank=True,
+        null=True,
+        verbose_name='planiranja skupina kontrol',
         )
 
 

@@ -2,6 +2,7 @@ import factory
 
 
 from .models import Aktivnost
+from .models import KontrolaSkupina
 from .models import KontrolaSpecifikacija
 from .models import KontrolaSpecifikacijaOpcijaSelect
 from .models import KontrolaVrednost
@@ -17,19 +18,32 @@ class AktivnostFactory(factory.django.DjangoModelFactory):
 
     oznaka = factory.Sequence(lambda n: u'Aktivnost {}'.format(n))
     naziv = 'Moja prva aktivnost'
+    perioda_enota = 1
+    perioda_enota_kolicina = 1
+    perioda_kolicina_na_enoto = 1
     opravilo = factory.SubFactory(OpraviloFactory)
 
 
-    @factory.post_generation
-    def projektno_mesto(self, create, extracted, **kwargs):
-        if not create:
-            # Simple build, do nothing.
-            return
+    # @factory.post_generation
+    # def projektno_mesto(self, create, extracted, **kwargs):
+    #     if not create:
+    #         # Simple build, do nothing.
+    #         return
+    #
+    #     if extracted:
+    #         # A list of groups were passed in, use them
+    #         for pm in extracted:
+    #             self.projektno_mesto.add(pm)
 
-        if extracted:
-            # A list of groups were passed in, use them
-            for pm in extracted:
-                self.projektno_mesto.add(pm)
+
+class KontrolaSkupinaFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = KontrolaSkupina
+
+
+    naziv = factory.Sequence(lambda n: u'KS_{}'.format(n))
+    aktivnost = factory.SubFactory(AktivnostFactory)
+
 
 
 class KontrolaSpecifikacijaFactory(factory.django.DjangoModelFactory):
@@ -38,8 +52,7 @@ class KontrolaSpecifikacijaFactory(factory.django.DjangoModelFactory):
 
     oznaka = factory.Sequence(lambda n: u'PAS {}'.format(n))
     naziv = 'Specifikacija kontrole'
-    aktivnost = factory.SubFactory(AktivnostFactory)
-
+    kontrola_skupina = factory.SubFactory(KontrolaSkupinaFactory)
 
 
 class KontrolaSpecifikacijaOpcijaSelectFactory(factory.django.DjangoModelFactory):

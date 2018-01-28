@@ -23,13 +23,13 @@ class AktivnostModelTest(TestCase):
         arhiv = ArhivFactory()
         arhiv.save()
 
-        pm1 = ProjektnoMestoFactory()
-        pm2 = ProjektnoMestoFactory()
-        pm3 = ProjektnoMestoFactory()
+        # pm1 = ProjektnoMestoFactory()
+        # pm2 = ProjektnoMestoFactory()
+        # pm3 = ProjektnoMestoFactory()
 
-        aktivnost3 = AktivnostFactory.create(oznaka="A3", projektno_mesto=(pm1, pm2, pm3))
-        aktivnost1 = AktivnostFactory.create(oznaka="A1", projektno_mesto=(pm1, pm2, pm3))
-        aktivnost2 = AktivnostFactory.create(oznaka="A2", projektno_mesto=(pm1, pm2, pm3))
+        aktivnost3 = AktivnostFactory.create(oznaka="A3")
+        aktivnost1 = AktivnostFactory.create(oznaka="A1")
+        aktivnost2 = AktivnostFactory.create(oznaka="A2")
 
         aktivnost3.save()
         aktivnost1.save()
@@ -64,11 +64,6 @@ class AktivnostModelTest(TestCase):
         result_1 = objekt.opravilo
         self.assertFalse(result_1 is None)  # obstaja vnos opravila
 
-    def test_projektno_mesto_foreignKey(self):
-        objekt = Aktivnost.objects.get(oznaka='A1')
-        result_1 = objekt.projektno_mesto.filter().count()
-        self.assertEquals(result_1, 3)  # kontrola many to many da obstajajo 3 vnosi
-
     def test_not_deleted_manager(self):
         aktivnost3 = Aktivnost.objects.get(oznaka="A3")
         aktivnost3.status = 5
@@ -102,15 +97,15 @@ class KontrolaSpecifikacijaModelTest(TestCase):
         aps1.save()
         aps2.save()
 
-    def test_aktivnost_relacija(self):
+    def test_kontrola_skupina_relacija(self):
         objekt = KontrolaSpecifikacija.objects.get(oznaka='APS1')
-        reuslt = objekt.aktivnost
+        reuslt = objekt.kontrola_skupina
         self.assertFalse(reuslt is None)  # obstaja vnos
 
-    def test_aktivnost_label(self):
+    def test_kontrola_skupina_label(self):
         objekt = KontrolaSpecifikacija.objects.get(oznaka='APS1')
-        result = objekt._meta.get_field('aktivnost').verbose_name
-        self.assertEquals(result, 'aktivnost')
+        result = objekt._meta.get_field('kontrola_skupina').verbose_name
+        self.assertEquals(result, 'Skupina kontrol')
 
     def test_ordering(self):
         '''
