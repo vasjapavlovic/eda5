@@ -3,6 +3,7 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.generic import DetailView, UpdateView
+from django.shortcuts import redirect
 
 # Models
 from .models import Zaznamek
@@ -19,6 +20,9 @@ from eda5.zahtevki.models import Zahtevek
 # Forms
 from .forms import ZaznamekUpdateForm, ZaznamekCreateForm
 
+# views
+from eda5.zahtevki.views.splosno import ZahtevekDetailView
+
 
 class ZaznamekUpdateFromZahtevekView(UpdateView):
     model = Zaznamek
@@ -27,81 +31,84 @@ class ZaznamekUpdateFromZahtevekView(UpdateView):
 
 
 class ZaznamekCreateFromZahtevek(DetailView):
-	model = Zahtevek
-	template_name = "zaznamki/zaznamek/create_from_zahtevek.html"
-	fields = ('id', )
+    model = Zahtevek
+    template_name = "zaznamki/zaznamek/create_from_zahtevek.html"
+    fields = ('id', )
 
 
-	def get_context_data(self, *args, **kwargs):
-		context = super(ZaznamekCreateFromZahtevek, self).get_context_data(*args, **kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super(ZaznamekCreateFromZahtevek, self).get_context_data(*args, **kwargs)
 
-		# zahtevek
-		context['zaznamek_create_form'] = ZaznamekCreateForm
+        # zahtevek
+        context['zaznamek_create_form'] = ZaznamekCreateForm
 
-		modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_CREATE")
-		context['modul_zavihek'] = modul_zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_CREATE")
+        context['modul_zavihek'] = modul_zavihek
 
-		return context
+        return context
 
-	def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
-	    # ====================================
-	    # FORMS
-	    # ====================================
+        # ====================================
+        # FORMS
+        # ====================================
 
-	    zaznamek_create_form = ZaznamekCreateForm(request.POST or None)
+        zaznamek_create_form = ZaznamekCreateForm(request.POST or None)
 
-	    ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
-	    Pomembno zaradi načina struktura View-ja '''
+        ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
+        Pomembno zaradi načina struktura View-ja '''
 
-	    zaznamek_create_form_is_valid = False
+        zaznamek_create_form_is_valid = False
 
-	    ###########################################################################
-	    # PRIDOBIMO PODATKE
-	    ###########################################################################
+        ###########################################################################
+        # PRIDOBIMO PODATKE
+        ###########################################################################
 
-	    # zahtevek
-	    zahtevek = Zahtevek.objects.get(id=self.get_object().id)
+        # zahtevek
+        zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 
-	    # zavihek
-	    modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_CREATE")
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_CREATE")
 
-	    # podatki o opravilu
-	    if zaznamek_create_form.is_valid():
-	        tekst = zaznamek_create_form.cleaned_data['tekst']
-	        datum = zaznamek_create_form.cleaned_data['datum']
-	        ura = zaznamek_create_form.cleaned_data['ura']
-	        zaznamek_create_form_is_valid = True
+        # podatki o opravilu
 
-	    ''' v primeru, da so zgornji Form-i ustrezno izpolnjeni
-	    izvrši spodnje ukaze '''
+        if zaznamek_create_form.is_valid():
+            tekst = zaznamek_create_form.cleaned_data['tekst']
+            datum = zaznamek_create_form.cleaned_data['datum']
+            ura = zaznamek_create_form.cleaned_data['ura']
+            zaznamek_create_form_is_valid = True
 
-	    if zaznamek_create_form_is_valid == True:
-	        ###########################################################################
-	        # UKAZI
-	        ###########################################################################
 
-	        # Izdelamo zaznamek
 
-	        Zaznamek.objects.create_zaznamek(
-	        	tekst=tekst,
-	            datum=datum,
-	            ura=ura,
-	            zahtevek=zahtevek,
-	        )
+        if zaznamek_create_form_is_valid == True:
 
-	        # izvedemo preusmeritev
+            ###########################################################################
+            # UKAZI
+            ###########################################################################
 
-	        return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': zahtevek.pk}))
+            # Izdelamo zaznamek
 
-	    # če zgornji formi niso ustrezno izpolnjeni
 
-	    else:
-	        return render(request, self.template_name, {
-	            'zaznamek_create_form': zaznamek_create_form,
-	            'modul_zavihek': modul_zavihek,
-	            }
-	        )
+            zaznamek = Zaznamek.objects.create_zaznamek(
+            tekst=tekst,
+            datum=datum,
+            ura=ura,
+            zahtevek=zahtevek,
+            )
+
+
+            request.session['tab_active'] = 'zaznamki'
+
+            return redirect('moduli:zahtevki:zahtevek_detail', zahtevek.pk)
+
+
+            # če zgornji formi niso ustrezno izpolnjeni
+        else:
+            return render(request, self.template_name, {
+            'zaznamek_create_form': zaznamek_create_form,
+            'modul_zavihek': modul_zavihek,
+            }
+            )
 
 
 class ZaznamekCreateFromReklamacija(DetailView):
