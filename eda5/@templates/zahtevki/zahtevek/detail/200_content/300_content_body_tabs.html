@@ -1,121 +1,121 @@
 <!--tab******************************** -->
-<div id="podatki" class="tab-pane active">
+<div id="podatki" class="tab-pane {% if not tab_active %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_01.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_01.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="opravila" class="tab-pane">
+<div id="opravila" class="tab-pane {% if tab_active == "opravila" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_02.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_02.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="dokumentacija" class="tab-pane">
+<div id="dokumentacija" class="tab-pane {% if tab_active == "dokumentacija" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_03.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_03.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="zaznamki" class="tab-pane">
+<div id="zaznamki" class="tab-pane {% if tab_active == "zaznamki" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_04.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_04.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="podzahtevki" class="tab-pane">
+<div id="podzahtevki" class="tab-pane {% if tab_active == "podzahtevki" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_05.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_05.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="predaja_lastnine" class="tab-pane">
+<div id="predaja_lastnine" class="tab-pane {% if tab_active == "predaja_lastnine" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_06.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_06.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="kljuci" class="tab-pane">
+<div id="kljuci" class="tab-pane {% if tab_active == "kljuci" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_08.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_08.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="dogodki" class="tab-pane">
+<div id="dogodki" class="tab-pane {% if tab_active == "dogodki" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_07.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_07.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="narocila" class="tab-pane">
+<div id="narocila" class="tab-pane {% if tab_active == "narocila" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_09.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_09.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="pomanjkljivosti" class="tab-pane">
+<div id="pomanjkljivosti" class="tab-pane {% if tab_active == "pomanjkljivosti" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_10.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_10.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="reklamacije" class="tab-pane">
+<div id="reklamacije" class="tab-pane {% if tab_active == "reklamacije" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_11.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_11.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 
 <!--tab******************************** -->
-<div id="sestanki" class="tab-pane">
+<div id="sestanki" class="tab-pane {% if tab_active == "sestanki" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_12.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_12.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 <!--tab******************************** -->
-<div id="povprasevanje" class="tab-pane">
+<div id="povprasevanje" class="tab-pane {% if tab_active == "povprasevanje" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_13.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_13.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->
 
 
 <!--tab******************************** -->
-<div id="razdelilnik" class="tab-pane">
+<div id="razdelilnik" class="tab-pane {% if tab_active == "razdelilnik" %}active{% endif %}">
     <div class="profile-desk">
-        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_14.html" %}  
+        {% include "zahtevki/zahtevek/detail/200_content/tabs/tab_14.html" %}
     </div> <!-- end profile-desk -->
 </div> <!-- end tab -->

@@ -157,6 +157,11 @@ class ZahtevekDetailView(LoginRequiredMixin, DetailView):
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_DETAIL")
         context['modul_zavihek'] = modul_zavihek
 
+        # podatek o aktivnemu tab preko sessions
+        tab_active = self.request.session.pop('tab_active', None)
+        self.request.session.modified = True
+        context['tab_active'] = tab_active
+
         return context
 
     def post(self, request, *args, **kwargs):

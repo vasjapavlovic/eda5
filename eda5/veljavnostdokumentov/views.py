@@ -70,7 +70,10 @@ class VeljavnostDokumentaCreateView(UpdateView):
 
             veljavnost_dokumenta_object = VeljavnostDokumenta.objects.get(id=veljavnost_dokumenta_data.pk)
 
+
+
             if arhiviranje.zahtevek:
+                request.session['tab_active'] = 'dokumentacija'
                 return HttpResponseRedirect(reverse('moduli:zahtevki:zahtevek_detail', kwargs={'pk': arhiviranje.zahtevek.pk}))
 
             if arhiviranje.delovninalog:
