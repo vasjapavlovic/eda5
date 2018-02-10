@@ -13,6 +13,7 @@ Contents:
 
    delovninalogi/delovninalogi
    kontrolni_list/kontrolni_list
+   pomanjkljivosti/index
 
 
 
