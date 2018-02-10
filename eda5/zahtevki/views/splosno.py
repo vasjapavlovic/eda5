@@ -38,13 +38,25 @@ from eda5.zaznamki.forms import ZaznamekForm
 
 # Views
 from eda5.core.views import FilteredListView
+from eda5.core.forms import OsnovnaKombinacijaSearchForm
 
 
 class ZahtevekListView(LoginRequiredMixin, FilteredListView):
     model = Zahtevek
-    form_class= ZahtevekSearchForm
+    # form_class= ZahtevekSearchForm
+    form_class = OsnovnaKombinacijaSearchForm
     template_name = "zahtevki/zahtevek/list/base.html"
     paginate_by = 30
+
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super(ZahtevekListView, self).get_queryset(*args, **kwargs)
+
+        # ne prikaži izbrisanih
+        status_izbirsano = 5
+        queryset = queryset.exclude(status=status_izbirsano)
+
+        return queryset
 
     def get_context_data(self, *args, **kwargs):
         context = super(ZahtevekListView, self).get_context_data(*args, **kwargs)
@@ -56,6 +68,7 @@ class ZahtevekListView(LoginRequiredMixin, FilteredListView):
         modul_zavihek = Zavihek.objects.get(oznaka="ZAHTEVEK_LIST")
         context['modul_zavihek'] = modul_zavihek
         return context
+
 
 
 class ZahtevekCreateIzbiraView(LoginRequiredMixin, TemplateView):

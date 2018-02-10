@@ -162,7 +162,6 @@ class Skupina(TimeStampedModel, IsActiveModel):
 
 
 class Podskupina(TimeStampedModel, IsActiveModel):
-
     # ---------------------------------------------------------------------------------------
     # Podskupina delov stavbe združuje dele stavbe (glej spodaj deli stavbe) glede na
     # funkcionalnost. Npr. Ogrevanje in haljenje, Vodovod in kanalizacija, Streha, Fasada,...
