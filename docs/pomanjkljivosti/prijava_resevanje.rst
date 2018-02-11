@@ -30,9 +30,40 @@ Osnovna struktura
 
 
 
-REŠEVANJE POMANJKLJIVOSTI
-#########################
+PROCES REŠEVANJA POMANJKLJIVOSTI
+################################
 
+
+#. Pomanjkljivost likvidiramo pod zahtevek
+------------------------------------------
+
+    Pomanjkljivost likvidiramo pod zahtevek. S tem definiramo kje se bo reševala.
+    Predvsem gre za to, da se definira arhivsko mesto za dokumentacijo.
+
+
+#. Zabeležka dogovorov iz sestankov
+-----------------------------------
+
+
+#. Izvedba del
+--------------
+
+
+#. Zabeležka pomembnih ustnih dogovorv, izjav, ...
+--------------------------------------------------
+
+
+
+PROCESNA DEJANJA
+################
+
+Del procesnih dejanj:
+* Opravila
+* zaznamki
+* Dogodki
+
+
+Evidentirajo se sledeči vnosi:
 
 #. Zabeležka opravil kjer se pomanjkljivost rešuje
 #. Pomembni zaznamki v vezi z pomanjkljivostjo
