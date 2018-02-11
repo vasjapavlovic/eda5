@@ -24,6 +24,8 @@ Glej reševanje dogodkov.
 
 
 Osnovna struktura
+-----------------
+
 .. figure:: images/pomanjkljivosti_evidentiranje_resevanje.png
 
 
