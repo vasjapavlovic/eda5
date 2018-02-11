@@ -16,10 +16,12 @@ Postopek reševanja dogodkov
 ---------------------------
 
 #. Postopek reševanja dogodkov
-.. figure:: images/dogodki/postopek_resevanja_dogodkov.png
+
+    .. figure:: images/dogodki/postopek_resevanja_dogodkov.png
 
 #. Postopek prijave kaznivih dejanj policiji
-.. figure:: images/dogodki/postopek_prijave_kaznivih_dejanj_policiji.png
+
+    .. figure:: images/dogodki/postopek_prijave_kaznivih_dejanj_policiji.png
 
 
 
