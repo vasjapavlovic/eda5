@@ -1,7 +1,7 @@
-====================================
-PRIJAVA IN REŠEVANJE POMANJKLJIVOSTI
-====================================
-====================================
+==================
+REŠEVANJE DOGODKOV
+==================
+==================
 
 
 Uvod
@@ -12,9 +12,15 @@ Prijava pomanjkljivosti iz dveh virov:
 * Dogodki (ugotovitve zunanjih, Škodni dogodki (strojelomi, viharji, ...))
 
 
-Evidentiranje iz Opravil
-------------------------
-Pri izvajanju rednih pregledov se v delovnem nalogu evidentirajo pomanjkljivosti.
+Postopek reševanja dogodkov
+---------------------------
+
+#. Postopek reševanja dogodkov
+.. figure:: images/dogodki/postopek_resevanja_dogodkov.png
+
+#. Postopek prijave kaznivih dejanj policiji
+.. figure:: images/dogodki/postopek_prijave_kaznivih_dejanj_policiji.png
+
 
 
 Evidentiranje preko dogodkov
@@ -24,7 +30,6 @@ Glej reševanje dogodkov.
 
 
 Osnovna struktura
-.. figure:: images/pomanjkljivosti_evidentiranje_resevanje.png
 
 
 Definicije pojmov
