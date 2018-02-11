@@ -4,8 +4,8 @@ PRIJAVA IN REŠEVANJE POMANJKLJIVOSTI
 ====================================
 
 
-Uvod
-####
+PRIJAVA POMANJKLJIVOSTI
+#######################
 
 Prijava pomanjkljivosti iz dveh virov:
 * Opravila (med izvedbo del / kontroliranjem)
@@ -27,5 +27,23 @@ Osnovna struktura
 .. figure:: images/pomanjkljivosti_evidentiranje_resevanje.png
 
 
-Definicije pojmov
-#################
+
+REŠEVANJE POMANJKLJIVOSTI
+#########################
+
+
+#. Zabeležka opravil kjer se pomanjkljivost rešuje
+#. Pomembni zaznamki v vezi z pomanjkljivostjo
+#. Dogodki vezani na pomanjkljivost
+
+
+Zabeležka opravil kjer se pomanjkljivost rešuje
+-----------------------------------------------
+
+
+Pomembni zaznamki v vezi z pomanjkljivostjo
+-------------------------------------------
+
+
+Dogodki vezani na pomanjkljivost
+--------------------------------
