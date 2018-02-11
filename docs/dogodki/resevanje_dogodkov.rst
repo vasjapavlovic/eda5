@@ -15,13 +15,13 @@ Prijava pomanjkljivosti iz dveh virov:
 Postopek reševanja dogodkov
 ---------------------------
 
-.. figure:: dogodki/images/postopek_resevanja_dogodkov.png
+.. figure:: images/postopek_resevanja_dogodkov.png
 
 
 Postopek prijave kaznivih dejanj policiji
 -----------------------------------------
 
-.. figure:: dogodki/images/postopek_prijave_kaznivih_dejanj_policiji.png
+.. figure:: images/postopek_prijave_kaznivih_dejanj_policiji.png
 
 
 
