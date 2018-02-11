@@ -12,21 +12,6 @@ Contents:
    :maxdepth: 2
 
    delovninalogi/delovninalogi
+   dogodki/index
    kontrolni_list/kontrolni_list
    pomanjkljivosti/index
-
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-
-
-
-
-Here is a reference to label-name: :ref:`kontrolni-list-definicije-pojmov`
