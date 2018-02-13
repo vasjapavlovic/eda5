@@ -119,7 +119,7 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
     ###########################################################################
 
     def get_absolute_url(self):
-        return reverse('moduli:pomanjkljivosti:pomanjkljivost_list')
+        return reverse('moduli:pomanjkljivosti:pomanjkljivost_detail', kwargs={"pk": self.pk})
 
     ###########################################################################
     # META AND STRING

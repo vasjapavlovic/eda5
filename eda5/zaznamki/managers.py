@@ -11,11 +11,12 @@ class ZaznamekManager(models.Manager):
         zahtevek=None,
         delovninalog=None,
         dogodek=None,
+        pomanjkljivost=None,
+        povprasevanje=None,
         razdelilnik=None,
         reklamacija=None,
         dobava=None,
         sestanek=None,
-        povprasevanje=None,
     ):
 
         zaznamek = self.model(
@@ -25,11 +26,12 @@ class ZaznamekManager(models.Manager):
             zahtevek=zahtevek,
             delovninalog=delovninalog,
             dogodek=dogodek,
+            pomanjkljivost=pomanjkljivost,
+            povprasevanje=povprasevanje,
             razdelilnik=razdelilnik,
             reklamacija=reklamacija,
             dobava=dobava,
             sestanek=sestanek,
-            povprasevanje=povprasevanje,
         )
 
         zaznamek.save(using=self._db)

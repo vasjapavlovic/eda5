@@ -11,6 +11,7 @@ from braces.views import LoginRequiredMixin
 from .models import Pomanjkljivost
 from eda5.moduli.models import Zavihek
 from eda5.zahtevki.models import Zahtevek
+from eda5.zaznamki.models import Zaznamek
 
 # Forms
 from .forms import PomanjkljivostCreateForm, PomanjkljivostCreateFromZahtevekForm, PomanjkljivostLikvidirajPodZahtevek
@@ -86,6 +87,9 @@ class PomanjkljivostDetailView(LoginRequiredMixin, DetailView):
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
         context['modul_zavihek'] = modul_zavihek
+
+        # Zaznamek
+        context['zaznamek_list'] = Zaznamek.objects.filter(pomanjkljivost=self.object.id).order_by('-datum', '-ura')
 
         return context
 
@@ -213,7 +217,7 @@ Likvidacija se izvrši preko dveh VIEWs. V privem izberemo pomanjkljivosti
 in ji dodelimo zahevek. V drugem pa pomanjkljivosti dodamo še ostale
 vrednosti
 
-Relacija: 
+Relacija:
 - PomanjkljivostIzbiraFromZahtevek
 - PomanjkljivostLikvidirajPodZahtevekView
 
@@ -254,12 +258,12 @@ class PomanjkljivostIzbiraFromZahtevek(LoginRequiredMixin, UpdateView):
         # PRIDOBIMO PODATKE
         ###########################################################################
 
-        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost 
+        ''' Pridobimo instanco zahtevka kjer se bo pomanjkljivost
         nahajala '''
 
         zahtevek = Zahtevek.objects.get(id=self.get_object().id)
 
-        ''' Pridobimo instanco pomanjkljivosti, ki jo želimo 
+        ''' Pridobimo instanco pomanjkljivosti, ki jo želimo
         dodati pod zahtevek '''
 
         # ko je pomanjkljivost izbrana
@@ -280,9 +284,9 @@ class PomanjkljivostIzbiraFromZahtevek(LoginRequiredMixin, UpdateView):
             pomanjkljivost.save()
 
             return HttpResponseRedirect(reverse(
-                'moduli:pomanjkljivosti:pomanjkljivost_likvidiraj_pod_zahtevek', 
+                'moduli:pomanjkljivosti:pomanjkljivost_likvidiraj_pod_zahtevek',
                 kwargs={
-                    'pk': pomanjkljivost.pk, 
+                    'pk': pomanjkljivost.pk,
                 }))
 
 
@@ -305,7 +309,7 @@ class PomanjkljivostLikvidirajPodZahtevekView(LoginRequiredMixin, UpdateView):
         # pomanjkljivost
         context['pomanjkljivost_likvidiraj_pod_zahtevek_form'] = PomanjkljivostLikvidirajPodZahtevek
         context['pomanjkljivost_element_update_form'] = PomanjkljivostElementUpdateForm
-        
+
         # vrnemo narejene podatke
         return context
 
@@ -319,7 +323,7 @@ class PomanjkljivostLikvidirajPodZahtevekView(LoginRequiredMixin, UpdateView):
 
         pomanjkljivost_likvidiraj_pod_zahtevek_form = PomanjkljivostLikvidirajPodZahtevek(request.POST or None)
         pomanjkljivost_element_update_form = PomanjkljivostElementUpdateForm(request.POST or None)
-        
+
 
         ###########################################################################
         # PRIDOBIMO PODATKE
@@ -407,9 +411,3 @@ class PomanjkljivostUpdateView(UpdateView):
         context['modul_zavihek'] = modul_zavihek
 
         return context
-
-
-
-
-
-

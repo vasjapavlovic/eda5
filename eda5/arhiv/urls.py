@@ -59,8 +59,10 @@ urlpatterns += [
         name="arhiviranje_create_from_dogodek"
     ),
 
+    url(
+        r'^pomanjkljivost/(?P<pk>\d+)/arhiviranje-create/$',
+        views.ArhiviranjeCreateFromPomanjkljivost.as_view(),
+        name="arhiviranje_create_from_pomanjkljivost"
+    ),
+
 ]
-
-
-
-

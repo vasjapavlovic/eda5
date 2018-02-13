@@ -58,4 +58,10 @@ urlpatterns = [
         name="zaznamek_create_from_dogodek"
     ),
 
+    url(
+        r'^pomanjkljivost/(?P<pk>\d+)/zaznamek-create/$',
+        views.ZaznamekCreateFromPomanjkljivost.as_view(),
+        name="zaznamek_create_from_pomanjkljivost"
+    ),
+
 ]

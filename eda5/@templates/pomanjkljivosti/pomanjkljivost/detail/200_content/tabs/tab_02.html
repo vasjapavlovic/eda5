@@ -1,29 +1,56 @@
+<!-- DOKUMENTI -->
 
-<table class="table table-striped table-bordered">
-    <tr>
-        <th>oznaka</th>
-        <th>naziv</th>
-        <th>namen</th>
-        <th>obseg</th>
-        <th>perioda</th>
-        <th>opombe</th>
-        
+<!-- Ko še ni registriranih vnosov -->
+{% if not object.arhiviranje_set.all and not object.racun_dokument %}
+    Dogodek še nima arhiviranih dokumentov.
 
-    </tr>
+{% else %}
 
-{% for planirano_opravilo in planirano_opravilo_list %}
+    <table class="table table-bordered table-striped">
+        <thead>
 
-    <tr>
+            <tr>
+                <th>oznaka</th>
+                <th>vrsta dokumenta</th>
+                <th>datum</th>
+                <th>naziv</th>
+                <th>izdal</th>
+                <th>veljavnost</th>
+            </tr>
 
-        <td><a href="{% url 'moduli:planiranje:planirano_opravilo_detail' planirano_opravilo.pk %}">{{ planirano_opravilo.oznaka }}</a></td>
-        <td>{{ planirano_opravilo.naziv }}</td>
-        <td>{{ planirano_opravilo.namen }}</td>
-        <td>{{ planirano_opravilo.obseg }}</td>
-        <td>{{ planirano_opravilo.perioda_predpisana_enota_kolicina }} {{ planirano_opravilo.perioda_predpisana_enota }}</td>
-        <td>{{ planirano_opravilo.opomba }}</td>
+        </thead>
+        <tbody>
 
-    </tr>
-    
-{% endfor %}
 
-</table>
+            {% for arhiviranje in object.arhiviranje_set.all %}
+
+            <!-- V primeru, da se dokument vodi v evidenci veljavnosti dokumentov -->
+            {% if arhiviranje.veljavnostdokumenta.is_active %}
+            <tr class="info">
+            {% else %}
+            <tr>
+            {% endif %}
+                <td><b><a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}">{{ arhiviranje.dokument.oznaka }}</a></b></td>
+                <td>({{ arhiviranje.dokument.vrsta_dokumenta.oznaka }}) {{ arhiviranje.dokument.vrsta_dokumenta.naziv }}</td>
+                <td>{{ arhiviranje.dokument.datum_dokumenta }}</td>
+                <td>{{ arhiviranje.dokument.naziv }}</td>
+                <td>{{ arhiviranje.dokument.avtor.kratko_ime }}</td>
+                <td>
+                    <!-- Če se sledenje veljavnosti dokumenta izvaja -->
+                    {% if arhiviranje.veljavnostdokumenta %}
+                    <a href="{% url 'moduli:veljavnostdokumentov:veljavnost_dokumenta_update' arhiviranje.veljavnostdokumenta.pk  %}"><i class="fa fa-link" aria-hidden="true"></i>
+                    </a>
+
+                    <!-- Če ni sledenja veljavnosti dokumenta -->
+                    {% else %}
+                    <a href="{% url 'moduli:veljavnostdokumentov:veljavnost_dokumenta_create' arhiviranje.pk  %}"><i class="fa fa-chain-broken" aria-hidden="true"></i>
+                    {% endif %}
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endif %}

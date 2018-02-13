@@ -14,6 +14,7 @@ from eda5.delovninalogi.models import DelovniNalog
 from eda5.katalog.models import ModelArtikla
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
+from eda5.pomanjkljivosti.models import Pomanjkljivost
 from eda5.povprasevanje.models import Povprasevanje
 from eda5.racunovodstvo.models import Racun
 from eda5.razdelilnik.models import Razdelilnik
@@ -104,16 +105,14 @@ class Arhiviranje(TimeStampedModel):
     dobava = models.ForeignKey(Dobava, blank=True, null=True)
     dogodek = models.ForeignKey('dogodki.Dogodek', blank=True, null=True)
     element = models.ForeignKey(Element, blank=True, null=True)
+    pomanjkljivost = models.ForeignKey(Pomanjkljivost, blank=True, null=True)
     povprasevanje = models.ForeignKey(Povprasevanje, blank=True, null=True)
     razdelilnik = models.ForeignKey(Razdelilnik, blank=True, null=True)
     reklamacija = models.ForeignKey(Reklamacija, blank=True, null=True)
     sestanek = models.ForeignKey(Sestanek, blank=True, null=True)
     zahtevek = models.ForeignKey(Zahtevek, blank=True, null=True)
-
-    # dodaj dogodek
-
     ''' edino račun ima lahko samo eno priponko '''
-    racun = models.OneToOneField(Racun, blank=True, null=True)
+    racun = models.OneToOneField(Racun, blank=True, null=True)  # "racun" can have only one dokument
     # ********************************************************************
 
     #   Mandatory
