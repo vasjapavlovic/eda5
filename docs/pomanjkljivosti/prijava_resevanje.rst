@@ -59,9 +59,10 @@ PROCESNA DEJANJA
 
 Del procesnih dejanj:
 * Opravila
+    * Zaznamki v delovnih nalogih so namenjeni "UGOTOVITVAM" in se prikažejo pod procesna dejanja pomanjkljivosti
 * zaznamki
 * Dogodki
-
+* Reklamacije
 
 Evidentirajo se sledeči vnosi:
 

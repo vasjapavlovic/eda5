@@ -8,8 +8,12 @@ from django.core.urlresolvers import reverse
 # Models
 from eda5.core.models import TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel
 from eda5.deli.models import ProjektnoMesto
+
+from eda5.dogodki.models import Dogodek
 from eda5.partnerji.models import Oseba
 from eda5.zahtevki.models import Zahtevek
+
+
 
 # Forms
 
@@ -24,9 +28,9 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
     # ATRIBUTES
     ###########################################################################
 
-    ''' 
-    Navezavo na točen element uredi administrator. 
-    Posamezni uporabniki podatke vpisujejo ročno. 
+    '''
+    Navezavo na točen element uredi administrator.
+    Posamezni uporabniki podatke vpisujejo ročno.
     '''
 
 
@@ -51,23 +55,23 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
         verbose_name='datum ugotovitve')
 
     prijavil_text = models.CharField(
-        max_length=255, 
+        max_length=255,
         verbose_name='prijavil')
 
     element_text = models.CharField(
-        max_length=255, blank=True, null=True, 
+        max_length=255, blank=True, null=True,
         verbose_name='element opisno')
 
     etaza_text = models.CharField(
-        max_length=50, blank=True, null=True, 
+        max_length=50, blank=True, null=True,
         verbose_name='etaža opisno')
 
     lokacija_text = models.CharField(
-        max_length=255, blank=True, null=True, 
+        max_length=255, blank=True, null=True,
         verbose_name='lokacija opisno')
 
     # priponka = models.FileField(
-    #     upload_to=dokument_directory_path, 
+    #     upload_to=dokument_directory_path,
     #     verbose_name='Fotograija')
 
 
@@ -80,24 +84,26 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
         verbose_name='naziv pomanjkljivosti')
 
     opis = models.TextField(
-        blank=True, null=True, 
+        blank=True, null=True,
         verbose_name='opis pomanjkljivosti')
 
-    ''' Projektno mesto je del dela stavbe, ima lokacijo 
+
+    ''' Projektno mesto je del dela stavbe, ima lokacijo
     (etaža, površina, stavba) '''
 
     element = models.ManyToManyField(
-        ProjektnoMesto, blank=True, 
+        ProjektnoMesto, blank=True,
         verbose_name='element')
 
-    ''' Navezava na zahtevek kjer se pomanjkljivost 
+    ''' Navezava na zahtevek kjer se pomanjkljivost
     rešuje '''
-     
+
     zahtevek = models.ForeignKey(
-        Zahtevek, blank=True, null=True, 
+        Zahtevek, blank=True, null=True,
         verbose_name='zahtevek')
 
-    
+
+
     ###########################################################################
     # OBJECT MANAGER
     ###########################################################################
@@ -125,4 +131,3 @@ class Pomanjkljivost(TimeStampedModel, IsLikvidiranModel, PrioritetaModel, Statu
 
     def __str__(self):
         return "(%s) %s | %s" % (self.oznaka, self.naziv, self.opis_text)
-
