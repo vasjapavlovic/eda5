@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe, obracuni_views
+from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe, obracuni_views, iso9001_views
 
 
 # Racun
@@ -54,11 +54,15 @@ urlpatterns += [
 urlpatterns += [
 
     url(
-        r'^edacenter/delstavbe/zunanji(?P<pk>\d+)zunanji$', 
-        delstavbe.ReportDelStavbeView.as_view(), 
+        r'^edacenter/delstavbe/zunanji(?P<pk>\d+)zunanji$',
+        delstavbe.ReportDelStavbeView.as_view(),
         name="delstavbe_detail"
     ),
+]
 
 
+# ISO 9001
+urlpatterns += [
+    url(r'^iso9001/$', iso9001_views.Porocanje.as_view(), name="iso9001_view"),
 
 ]
