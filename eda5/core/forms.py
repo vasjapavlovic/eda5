@@ -41,7 +41,7 @@ class OsnovnaKombinacijaSearchForm(forms.Form):
 
     oznaka = forms.CharField(label='oznaka', required=False)
     naziv = forms.CharField(label='naziv', required=False)
-    status = forms.MultipleChoiceField(choices=STATUS)
+    status = forms.ChoiceField(choices=STATUS)
 
 
     # začetne nastavitve prikazanega "form"
@@ -59,7 +59,7 @@ class OsnovnaKombinacijaSearchForm(forms.Form):
         naziv = self.cleaned_data['naziv']
         status = self.cleaned_data['status']
 
-        print(status)
+
 
         # filtriranje samo po oznaki
         if oznaka:

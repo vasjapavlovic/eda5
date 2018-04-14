@@ -1,5 +1,39 @@
-{{ object }}
+<table class='table table-bordered'>
+    <header>
+        <tr>
+            <th>zap. št.</th>
+            <th>datum</th>
+            <th>čas</th>
+            <th>vrsta</th>
+            <th>vsebina</th>
+        </tr>
+    </header>
 
-{% for object in object.opravilo_set.all %}
-    <li>{{ object }}</li>
-{% endfor %}
+
+    <body>
+        {% for object in procesna_dejanja %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ object.pd_datum }}</td>
+            <td>{{ object.pd_cas }}</td>
+            <td>{{ object.pd_vrsta }}</td>
+
+            <!-- Delovni Nalog -->
+            {% if object.pd_vrsta == 'opravilo' %}
+            <td>{{ object.pd_vsebina }} [<a href="{% url 'moduli:delovninalogi:dn_detail' object.pk %}">{{ object.pd_oznaka }}</a>]</td>
+            {% endif %}
+
+            <!-- Zaznamek -->
+            {% if object.pd_vrsta == 'zaznamek' %}
+            <td>{{ object.pd_vsebina }} [<a href="{% url 'moduli:zaznamki:zaznamek_update' object.pk %}">{{ object.pd_oznaka }}</a>]</td>
+            {% endif %}
+
+            <!-- Dogodek -->
+            {% if object.pd_vrsta == 'dogodek' %}
+            <td>{{ object.pd_vsebina }} [<a href="{% url 'moduli:dogodki:dogodek_detail' object.pk %}">{{ object.pd_oznaka }}</a>]</td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+    </body>
+</table>

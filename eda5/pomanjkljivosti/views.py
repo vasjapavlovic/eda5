@@ -1,5 +1,9 @@
+from itertools import chain
+from operator import itemgetter
+
 # Splošno Django
 from django.core.urlresolvers import reverse
+from django.db.models import F, Value, CharField
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
@@ -9,6 +13,8 @@ from braces.views import LoginRequiredMixin
 
 # Models
 from .models import Pomanjkljivost
+from eda5.delovninalogi.models import DelovniNalog
+from eda5.dogodki.models import Dogodek
 from eda5.moduli.models import Zavihek
 from eda5.zahtevki.models import Zahtevek
 from eda5.zaznamki.models import Zaznamek
@@ -84,12 +90,75 @@ class PomanjkljivostDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(PomanjkljivostDetailView, self).get_context_data(*args, **kwargs)
 
+        pomanjkljivost = Pomanjkljivost.objects.get(id=self.get_object().pk)
+
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="pomanjkljivost_detail")
         context['modul_zavihek'] = modul_zavihek
 
         # Zaznamek
-        context['zaznamek_list'] = Zaznamek.objects.filter(pomanjkljivost=self.object.id).order_by('-datum', '-ura')
+        zaznamek_list= Zaznamek.objects.filter(pomanjkljivost=self.object.id).order_by('-datum', '-ura')
+        context['zaznamek_list'] = zaznamek_list
+
+        # Procesna dejanja
+        delovninalogi = DelovniNalog.objects.filter(opravilo__pomanjkljivost=pomanjkljivost)
+        delovninalogi = delovninalogi.annotate(pd_datum=F('datum_stop'))
+        delovninalogi = delovninalogi.annotate(pd_cas=Value('/', CharField()))
+        delovninalogi = delovninalogi.annotate(pd_vrsta=Value('opravilo', CharField()))
+        delovninalogi = delovninalogi.annotate(pd_vsebina=F('opravilo__naziv'))
+        delovninalogi = delovninalogi.annotate(pd_oznaka=F('oznaka'))
+        delovninalogi = delovninalogi.annotate(pd_dn_zaznamki=F('zaznamek'))
+        delovninalogi = delovninalogi.values('pd_datum', 'pd_cas', 'pd_vrsta','pd_vsebina', 'pd_oznaka', 'pk', 'pd_dn_zaznamki')
+
+
+        # Zaznamki, ki so del delovnih nalogov
+        delovninalogi_pomanjkljivost = DelovniNalog.objects.filter(opravilo__pomanjkljivost=pomanjkljivost)
+        zaznamki_dn_pomanjkljivost = Zaznamek.objects.filter(delovninalog__in=delovninalogi_pomanjkljivost)
+        zaznamki_dn_pomanjkljivost = zaznamki_dn_pomanjkljivost.annotate(
+            pd_datum=F('datum'),
+            pd_cas=F('ura'),
+            pd_vrsta=Value('zaznamek', CharField()),
+            pd_vsebina=F('tekst'),
+            pd_oznaka=F('pk'),
+            pd_dn_zaznamki=Value('/', CharField()))
+
+        # zaznamki = zaznamki.annotate(pd_vsebina=F('tekst'))
+        zaznamki_dn_pomanjkljivost = zaznamki_dn_pomanjkljivost.values('pd_datum', 'pd_cas', 'pd_vrsta','pd_vsebina', 'pd_oznaka', 'pk', 'pd_dn_zaznamki')
+
+        zaznamki = zaznamek_list
+        zaznamki = zaznamki.annotate(
+            pd_datum=F('datum'),
+            pd_cas=F('ura'),
+            pd_vrsta=Value('zaznamek', CharField()),
+            pd_vsebina=F('tekst'),
+            pd_oznaka=F('pk'),
+            pd_dn_zaznamki=Value('/', CharField()))
+
+        # zaznamki = zaznamki.annotate(pd_vsebina=F('tekst'))
+        zaznamki = zaznamki.values('pd_datum', 'pd_cas', 'pd_vrsta','pd_vsebina', 'pd_oznaka', 'pk', 'pd_dn_zaznamki')
+
+        dogodki = Dogodek.objects.filter(pomanjkljivost=pomanjkljivost)
+        #dogodki = dogodki.annotate(pd_datum=F('datum_dogodka'))
+        #dogodki = dogodki.annotate(pd_vsebina=F('opis_dogodka'))
+        dogodki = dogodki.annotate(
+            pd_datum=F('datum_dogodka'),
+            pd_cas=Value('/', CharField()),
+            pd_vrsta=Value('dogodek', CharField()),
+            pd_vsebina=F('opis_dogodka'),
+            pd_oznaka=F('pk'),
+            pd_dn_zaznamki=Value('/', CharField()))
+        dogodki = dogodki.values('pd_datum', 'pd_cas', 'pd_vrsta','pd_vsebina', 'pd_oznaka', 'pk', 'pd_dn_zaznamki')
+
+        # https://chriskief.com/2015/01/12/combine-2-django-querysets-from-different-models/
+        # https://stackoverflow.com/questions/34042961/when-i-tried-to-sort-a-list-i-got-an-error-dict-object-has-no-attribute
+        procesna_dejanja = sorted(
+            chain(delovninalogi, dogodki, zaznamki, zaznamki_dn_pomanjkljivost),
+            key=itemgetter('pd_datum'),
+            reverse=False)
+
+        context['procesna_dejanja'] = procesna_dejanja
+
+
 
         return context
 

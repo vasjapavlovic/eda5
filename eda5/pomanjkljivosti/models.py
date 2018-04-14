@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from eda5.core.models import TimeStampedModel, IsLikvidiranModel, PrioritetaModel, StatusModel
 from eda5.deli.models import ProjektnoMesto
 
-from eda5.dogodki.models import Dogodek
+
 from eda5.partnerji.models import Oseba
 from eda5.zahtevki.models import Zahtevek
 

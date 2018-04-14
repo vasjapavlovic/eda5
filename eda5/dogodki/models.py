@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from . import managers
 
 from eda5.core.models import IsActiveModel, StatusModel, TimeStampedModel
+from eda5.pomanjkljivosti.models import Pomanjkljivost
 from eda5.zahtevki.models import Zahtevek
 
 
@@ -28,6 +29,8 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
     prijava_policiji = models.ForeignKey('arhiv.Arhiviranje', blank=True, null=True, related_name="prijava_policiji")
     racun_za_popravilo = models.ForeignKey('arhiv.Arhiviranje', blank=True, null=True, related_name="racun_za_popravilo")
     poravnava_skode = models.ForeignKey('arhiv.Arhiviranje', blank=True, null=True, related_name="poravnava_skode")
+
+    pomanjkljivost = models.ManyToManyField(Pomanjkljivost, blank=True)
 
     # OBJECT MANAGER
     objects = managers.DogodekManager()
