@@ -63,6 +63,7 @@ urlpatterns += [
 
 # ISO 9001
 urlpatterns += [
-    url(r'^iso9001/$', iso9001_views.Porocanje.as_view(), name="iso9001_view"),
+    url(r'^iso9001/DP01-02$', iso9001_views.DP01_02.as_view(), name="DP01_02"),
+    url(r'^iso9001/DP01-03$', iso9001_views.DP01_03.as_view(), name="DP01_03"),
 
 ]

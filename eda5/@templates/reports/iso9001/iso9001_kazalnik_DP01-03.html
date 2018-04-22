@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content-body %}
+
+<h1>DP01-03 Minimalizacija nepredvidljivih stroškov obratovanja in vzdrževanja, ki niso zavarovani.</h1><br><br>
+
+
+
+{% regroup strosek_seznam by vrsta_stroska as vrsta_stroska_list %}
+
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>skupina</th>
+                <th>št. računa</th>
+                <th>datum storitve</th>
+                <th>strošek oznaka</th>
+                <th>dobavitelj</th>
+                <th>osnova EUR</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for vrstastroska in vrsta_stroska_list %}
+
+            <tr class="warning"><th colspan=6>{{ vrstastroska.grouper.oznaka }} {{ vrstastroska.grouper.naziv }}</th></tr>
+            {% for strosek in vrstastroska.list %}
+            <tr>
+                <td></td>
+                <td>{{ strosek.racun.arhiviranje.dokument.oznaka }}</td>
+                <td>{{ strosek.racun.datum_storitve_od }}-{{ strosek.racun.datum_storitve_do }}</td>
+                <td>{{ strosek.racun.oznaka }}-{{ strosek.oznaka }}</td>
+                <td>{{ strosek.racun.arhiviranje.dokument.avtor }}</td>
+                <td>{{ strosek.osnova }}</td>
+
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+{% block content-body %}
+
+<h1>NEPRAVOČASNO IZVEDENA PLANRANA OPRAVILA</h1><br><br>
+
+
+{% regroup delovninalog_planirani_list by opravilo.planirano_opravilo as po_list %}
+
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>skupina</th>
+                <th>oznaka</th>
+                <th>naziv</th>
+                <th>rok</th>
+                <th>datum_end</th>
+                <th>perioda obdobje</th>
+                <th>perioda količina</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for po in po_list %}
+
+            <tr class="warning"><th colspan=7>{{ po.grouper.oznaka }} {{ po.grouper.naziv }}</th></tr>
+            {% for dn in po.list %}
+            <tr>
+                <td></td>
+                <td>{{ dn.oznaka }}</td>
+                <td>{{ dn.opravilo.naziv }}</td>
+                <td>{{ dn.opravilo.rok_izvedbe }}</td>
+                <td>{{ dn.datum_stop }}</td>
+                <td>{{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota }}</td>
+                <td>{{ dn.opravilo.planirano_opravilo.perioda_predpisana_enota_kolicina }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+
+
+
+{% endblock %}
