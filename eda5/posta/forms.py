@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.contrib.admin.sites import site  # popup
 
-from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta
+from .models import Aktivnost, Dokument, SkupinaDokumenta, VrstaDokumenta, KlasifikacijaDokumenta
 
 from eda5.partnerji.widgets import PartnerSelectWithPop, PartnerMultipleSelectWithPop, PartnerForeignKeyRawIdWidget
 
@@ -83,6 +83,8 @@ class VrstaDokumentaForm(forms.ModelForm):
         fields = (
             'vrsta_dokumenta',
         )
+
+
 
 
 class SkupinaDokumentaCreateForm(forms.ModelForm):
@@ -192,3 +194,6 @@ class DokumentFilterForm(forms.Form):
         )
 
 
+class KlasifikacijaDokumentaForm(forms.Form):
+
+    klasifikacija_dokumenta = forms.ModelChoiceField(queryset=KlasifikacijaDokumenta.objects.filter())

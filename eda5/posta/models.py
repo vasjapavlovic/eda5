@@ -54,6 +54,7 @@ class Dokument(TimeStampedModel):
     #   Relations
     aktivnost = models.OneToOneField(Aktivnost)
     vrsta_dokumenta = models.ForeignKey('VrstaDokumenta', verbose_name="vrsta dokumenta")
+    klasifikacija_dokumenta = models.ForeignKey('KlasifikacijaDokumenta', blank=True, null=True, verbose_name="Klasifikacija dokumenta")
     avtor = models.ForeignKey(Partner, related_name="avtor")
     naslovnik = models.ForeignKey(Partner, related_name="naslovnik")
     #   Mandatory
@@ -122,10 +123,10 @@ class VrstaDokumenta(ZaporednaStevilka):
 class KlasifikacijaDokumenta(OsnovniPodatki, ZaporednaStevilka, TimeStampedModel):
     vrsta_dokumenta = models.ForeignKey(VrstaDokumenta, verbose_name='Vrsta dokumenta')
 
-    proces_oznaka = models.CharField(max_length=10, unique=True, verbose_name='Oznaka procesa')
+    proces_oznaka = models.CharField(max_length=10, verbose_name='Oznaka procesa')
     proces_naziv = models.CharField(max_length=255, verbose_name='Naziv procesa')
 
-    postopek_oznaka = models.CharField(max_length=10, unique=True, verbose_name='Oznaka postopka')
+    postopek_oznaka = models.CharField(max_length=10, verbose_name='Oznaka postopka')
     postopek_naziv = models.CharField(max_length=255, verbose_name='Naziv postopka')
 
     class Meta:

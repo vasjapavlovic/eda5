@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Dokument, SkupinaDokumenta, Aktivnost, VrstaDokumenta
+from .models import Dokument, SkupinaDokumenta, Aktivnost, VrstaDokumenta, KlasifikacijaDokumenta
 
 class VrstaDokumentaInline(admin.TabularInline):
     model = VrstaDokumenta
@@ -33,3 +33,10 @@ class VrstaDokumentaAdmin(admin.ModelAdmin):
     inlines = [
         DokumentInline,
     ]
+
+
+@admin.register(KlasifikacijaDokumenta)
+class KlasifikacijaDokumentaAdmin(admin.ModelAdmin):
+
+    list_display = ('oznaka', 'naziv', 'postopek_oznaka', 'postopek_naziv', 'proces_oznaka', 'proces_naziv')
+    search_fields = ['oznaka', 'naziv', 'proces_oznaka', 'proces_naziv', 'postopek_oznaka', 'postopek_naziv']
