@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from eda5.core.models import TimeStampedModel, ZaporednaStevilka
+from eda5.core.models import TimeStampedModel, ZaporednaStevilka, OsnovniPodatki
 from eda5.partnerji.models import Oseba, Partner
 
 from . import managers
@@ -88,7 +88,7 @@ class Dokument(TimeStampedModel):
     def get_absolute_url(self):
         return reverse("moduli:posta:list_likvidacija")
 
-    def __str__(self):      
+    def __str__(self):
         return "(%s) %s | %s" % (self.oznaka, self.naziv, self.datum_dokumenta, )
 
 
@@ -113,6 +113,24 @@ class VrstaDokumenta(ZaporednaStevilka):
     class Meta:
         verbose_name = "Vrsta Dokumenta"
         verbose_name_plural = "Vrste Dokumentov"
+        ordering = ('oznaka', )
+
+    def __str__(self):
+        return "%s - %s" % (self.oznaka, self.naziv)
+
+
+class KlasifikacijaDokumenta(OsnovniPodatki, ZaporednaStevilka, TimeStampedModel):
+    vrsta_dokumenta = models.ForeignKey(VrstaDokumenta, verbose_name='Vrsta dokumenta')
+
+    proces_oznaka = models.CharField(max_length=10, unique=True, verbose_name='Oznaka procesa')
+    proces_naziv = models.CharField(max_length=255, verbose_name='Naziv procesa')
+
+    postopek_oznaka = models.CharField(max_length=10, unique=True, verbose_name='Oznaka postopka')
+    postopek_naziv = models.CharField(max_length=255, verbose_name='Naziv postopka')
+
+    class Meta:
+        verbose_name = "Klasifikacija dokumenta"
+        verbose_name_plural = "Klasifikacija dokumentov"
         ordering = ('oznaka', )
 
     def __str__(self):
