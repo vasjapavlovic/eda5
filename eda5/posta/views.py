@@ -345,3 +345,20 @@ def reload_controls_view(request):
     context['list_to_display'] = list(VrstaDokumenta.objects.filter(skupina=skupina_dokumenta).values_list('id', flat=True))
 
     return JsonResponse(context)
+
+
+# POPUP
+# dodatek za filtriranje prikazanega seznama
+from eda5.core.views import FilteredListView
+class DokumentPopUpListView(FilteredListView):
+    model = Dokument
+    form_class= DokumentSearchForm
+    template_name = "posta/dokument/popup/popup_base.html"
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super(DokumentPopUpListView, self).get_queryset(*args, **kwargs)
+        queryset = queryset.filter(arhiviranje__isnull=True)
+        skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
+        queryset = queryset.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
+        return queryset

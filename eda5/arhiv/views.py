@@ -79,6 +79,8 @@ class ArhiviranjeCreateFromZahtevek(DetailView):
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="arhiviranje_create")
 
+
+
         # Podatki za arhiviranje dokumenta
         if arhiviranje_create_form.is_valid():
             dokument = arhiviranje_create_form.cleaned_data['dokument']
@@ -91,6 +93,7 @@ class ArhiviranjeCreateFromZahtevek(DetailView):
             arhiviral = Oseba.objects.get(user=user)
 
             arhiviranje_create_form_is_valid = True
+
         ''' v primeru, da so zgornji Form-i ustrezno izpolnjeni
         izvrši spodnje ukaze '''
 

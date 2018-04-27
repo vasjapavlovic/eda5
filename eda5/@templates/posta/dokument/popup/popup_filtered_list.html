@@ -1,0 +1,30 @@
+
+
+<div class="table-resposnive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Oznaka</th>
+                <th>Naziv</th>
+                <th>Vrsta Dokumenta</th>
+                <th>Avtor</th>
+                <th>Naslovnik</th>
+                <th>Priponka</th>
+                <th>Edit</th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td><b><a href="" onclick="opener.dismissRelatedLookupPopup(window, {{ object.pk }})">{{ object.oznaka }}</a></b></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.vrsta_dokumenta.naziv }}</td>
+                <td>{{ object.avtor.kratko_ime }}</td>
+                <td>{{ object.naslovnik.kratko_ime }}</td>
+                <td><a href="{{ MEDIA_URL }}{{ object.priponka }}">Priponka</a></td>
+                <td><a href="{% url 'moduli:posta:dokument_update' object.pk %}">Edit</a></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% include 'core/pagination.html' with form_target='list-filter' %}

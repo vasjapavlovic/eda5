@@ -1,11 +1,12 @@
 from django import forms
 from django.db.models import Q
+from django.contrib.admin.sites import site  # popup
 
 from .models import Arhiviranje, ArhivMesto
-
 from eda5.posta.models import Dokument, VrstaDokumenta, SkupinaDokumenta
 from eda5.partnerji.models import Oseba
 
+from eda5.posta.widgets import DokumentForeignKeyRawIdWidget
 
 
 class ArhiviranjeCreateForm(forms.ModelForm):
@@ -14,12 +15,8 @@ class ArhiviranjeCreateForm(forms.ModelForm):
 
         super(ArhiviranjeCreateForm, self).__init__(*args, **kwargs)
 
-        # 1. prikaži samo nearhivirane dokumente
-        # 2. prikazati samo specifično vrsto dokumentov
-
-
-        self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True)
         self.fields["dokument"].required = True
+        self.fields['dokument'].widget.attrs['readonly'] = True
 
     class Meta:
         model = Arhiviranje
@@ -30,19 +27,16 @@ class ArhiviranjeCreateForm(forms.ModelForm):
             'fizicni',
             'lokacija_hrambe',
         )
+        widgets = {
+            'dokument': DokumentForeignKeyRawIdWidget(model._meta.get_field('dokument').rel, site),
+        }
 
 
 class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
 
     def __init__(self, *args, **kwargs):
         super(ArhiviranjeZahtevekForm, self).__init__(*args, **kwargs)
-
-        # 1. prikaži samo neračunovodske dokumente (skupni_dokumenta not "RAC")
-        skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
-        self.fields["dokument"].queryset = Dokument.objects.filter(arhiviranje__isnull=True
-                                                                   ).exclude(
-                                                                   vrsta_dokumenta__skupina=skupina_dokumenta
-                                                                   )
+        pass
 
     class Meta(ArhiviranjeCreateForm.Meta):
         fields = (
@@ -50,6 +44,7 @@ class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
             'elektronski',
             'fizicni',
         )
+
 
 
 class ArhiviranjeRacunForm(ArhiviranjeCreateForm):

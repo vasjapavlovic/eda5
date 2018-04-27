@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.PostaHomeView.as_view(), name="home"),
+    url(r'^dokument/popup-list/?$', views.DokumentPopUpListView.as_view(), name='dokument_popup_list'),
 ]
 
 # DOKUMENT
