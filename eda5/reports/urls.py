@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe, obracuni_views
+from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe, obracuni_views, letno_porocilo_upravnika_views
 
 
 # Racun
@@ -54,11 +54,19 @@ urlpatterns += [
 urlpatterns += [
 
     url(
-        r'^edacenter/delstavbe/zunanji(?P<pk>\d+)zunanji$', 
-        delstavbe.ReportDelStavbeView.as_view(), 
+        r'^edacenter/delstavbe/zunanji(?P<pk>\d+)zunanji$',
+        delstavbe.ReportDelStavbeView.as_view(),
         name="delstavbe_detail"
     ),
+]
 
+# Letno poročilo letno_porocilo_upravnika
 
+urlpatterns += [
 
+    url(
+        r'^letno-porocilo-upravnika/porocanje-stroski/$',
+        letno_porocilo_upravnika_views.PorocanjeStroskiView.as_view(),
+        name="porocanje_stroski"
+    ),
 ]

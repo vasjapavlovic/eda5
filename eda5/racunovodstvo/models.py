@@ -64,7 +64,7 @@ class Racun(TimeStampedModel, IsLikvidiranModel):
 
     def __str__(self):
         return "%s-%s|%s|%s|%s|%s" % (
-            self.racunovodsko_leto, self.oznaka, 
+            self.racunovodsko_leto, self.oznaka,
             self.davcna_klasifikacija,
             self.dokument.oznaka, self.dokument.avtor.kratko_ime, self.dokument.datum_dokumenta)
 
@@ -138,6 +138,20 @@ class Strosek(models.Model):
         strosek_z_ddv = Decimal(self.osnova) * (1 + Decimal(stopnja_ddv))
 
         return "%.2f" % (strosek_z_ddv)
+
+    @property
+    def strosek_z_ddv_st(self):
+        # določimo ddv
+        if self.stopnja_ddv == 0:
+            stopnja_ddv = 0.000
+        if self.stopnja_ddv == 1:
+            stopnja_ddv = 0.095
+        if self.stopnja_ddv == 2:
+            stopnja_ddv = 0.220
+
+        strosek_z_ddv = Decimal(self.osnova) * (1 + Decimal(stopnja_ddv))
+
+        return strosek_z_ddv
 
     # METHODS
 

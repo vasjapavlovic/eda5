@@ -1,0 +1,99 @@
+{% extends "base_200.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+<link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+<!-- form za filtriranje -->
+<form id="filter_form" method="GET" action="" enctype="multipart/form-data">
+  <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
+</form>
+
+
+<form id="filter_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+  <button type="submit" name="page" value="1">{% trans 'Natisni seznam stroškov' %}</button>
+</form>
+
+
+<div class="table-resposnive">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Št. dokumenta</td>
+                <td>Datum opravljene storitve od</td>
+                <td>Datum opravljene storitve do</td>
+                <td>Partner d.š.</td>
+                <td>Partner kratko ime</td>
+                <td>Oznaka stroškovnega mesta</td>
+                <td>Naziv stroškovnega mesta</td>
+                <td>Razdelilnik</td>
+                <td>Znesek brez ddv</td>
+                <td>stopnja ddv</td>
+                <td>znesek z ddv</td>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for strosek in strosek_list %}
+            <tr>
+                <td>{{ strosek.racun.arhiviranje.dokument.oznaka }}</td>
+                <td>{{ strosek.datum_storitve_od }}</td>
+                <td>{{ strosek.datum_storitve_do }}</td>
+                <td>{{ strosek.racun.arhiviranje.dokument.avtor.davcna_st }}</td>
+                <td>{{ strosek.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
+                <td>{{ strosek.vrsta_stroska.oznaka }}</td>
+                <td>{{ strosek.vrsta_stroska.naziv }}</td>
+                <td>{{ strosek.strosekrazdelilnik.razdelilnik.obdobje_obracuna_leto.oznaka }}-{{ strosek.strosekrazdelilnik.razdelilnik.obdobje_obracuna_mesec.oznaka }}</td>
+                <td>{{ strosek.osnova }}</td>
+                <td>{{ strosek.stopnja_ddv_output }}</td>
+                <td>{{ strosek.strosek_z_ddv }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}
