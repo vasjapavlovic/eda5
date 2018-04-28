@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^racun-create/$', racun_views.RacunCreateView.as_view(), name="racun_create"),
     url(r'^(?P<pk>\d+)/racun/update/$', racun_views.RacunUpdateView.as_view(), name="racun_update"),
     url(r'^racun-seznam/$', racun_views.RacunListView.as_view(), name="racun_list"),
+    url(r'^seznam-likvidiranih-racunov/$', racun_views.RacunLikvidiranListView.as_view(), name="racun_likvidiran_list"),
     url(r'^racun/(?P<pk>\d+)/detail/$', racun_views.RacunDetailView.as_view(), name="racun_detail"),
 ]
 

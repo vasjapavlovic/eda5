@@ -47,7 +47,7 @@ class ArhiviranjeZahtevekForm(ArhiviranjeCreateForm):
 
 
 
-class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
+class ArhiviranjeRacunForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
@@ -62,7 +62,11 @@ class ArhiviranjeRacunForm(ArhiviranjeCreateForm):
             Q(arhiviranje__isnull=True, vrsta_dokumenta__oznaka="AVR",)
             )
 
-    class Meta(ArhiviranjeCreateForm.Meta):
+        self.fields["dokument"].required = True
+
+
+    class Meta:
+        model = Arhiviranje
         fields = (
             'dokument',
         )

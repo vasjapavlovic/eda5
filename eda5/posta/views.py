@@ -46,6 +46,7 @@ from eda5.partnerji.models import Partner
 from .forms import AktivnostCreateForm
 from .forms import DokumentCreateForm
 from .forms import DokumentFilterForm
+from .forms import DokumentFilterForm2
 from .forms import DokumentSearchForm
 from .forms import KlasifikacijaDokumentaForm
 from .forms import SkupinaDokumentaIzbiraForm
@@ -350,11 +351,25 @@ def reload_controls_view(request):
 # POPUP
 # dodatek za filtriranje prikazanega seznama
 from eda5.core.views import FilteredListView
-class DokumentPopUpListView(FilteredListView):
-    model = Dokument
-    form_class= DokumentSearchForm
+class DokumentPopUpListView(TemplateView):
+
     template_name = "posta/dokument/popup/popup_base.html"
     paginate_by = 10
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DokumentPopUpListView, self).get_context_data(*args, **kwargs)
+
+        dokument_list_filtered = Dokument.objects.filter()
+        dokument_list_filtered = dokument_list_filtered.filter(arhiviranje__isnull=True)
+        skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
+        dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
+        dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
+        context['dokument_list_filtered2'] = dokument_list_filtered
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_LIST_FILTERED")
+        context['modul_zavihek'] = modul_zavihek
+        return context
 
     def get_queryset(self, *args, **kwargs):
         queryset = super(DokumentPopUpListView, self).get_queryset(*args, **kwargs)
@@ -362,3 +377,100 @@ class DokumentPopUpListView(FilteredListView):
         skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
         queryset = queryset.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
         return queryset
+
+    def get_form_kwargs(self):
+        return {
+          'initial': self.get_initial(),
+          'prefix': self.get_prefix(),
+          'data': self.request.GET or None
+        }
+
+    def get(self, request, *args, **kwargs):
+
+        # form za filtriranje
+        dokument_filter_form = DokumentFilterForm(request.GET or None)
+        vrsta_dokumenta_izbira = SkupinaDokumentaIzbiraForm(request.GET or None)
+        vrsta_dokumenta_form = VrstaDokumentaForm(request.GET or None)
+        klasifikacija_dokumenta_form = KlasifikacijaDokumentaForm(request.GET or None)
+
+        # na začetku so vsi formi neustrezni
+        dokument_filter_form_is_valid = False
+        vrsta_dokumenta_izbira_is_valid = False
+        vrsta_dokumenta_form_is_valid = False
+        klasifikacija_dokumenta_form_is_valid = False
+
+        # Filtriranje prejete in izdane pošte splošno
+        if dokument_filter_form.is_valid():
+            oznaka = dokument_filter_form.cleaned_data['oznaka']
+            naziv = dokument_filter_form.cleaned_data['naziv']
+            kraj_izdaje = dokument_filter_form.cleaned_data['kraj_izdaje']
+            avtor = dokument_filter_form.cleaned_data['avtor']
+            naslovnik = dokument_filter_form.cleaned_data['naslovnik']
+            datum_od = dokument_filter_form.cleaned_data['datum_od']
+            datum_do = dokument_filter_form.cleaned_data['datum_do']
+            dokument_filter_form_is_valid = True
+
+        # vrsta dokumenta form
+        if vrsta_dokumenta_izbira.is_valid():
+            vrsta_dokumenta_izbira_is_valid = True
+
+
+        if vrsta_dokumenta_form.is_valid():
+            vrsta_dokumenta = vrsta_dokumenta_form.cleaned_data['vrsta_dokumenta']
+            vrsta_dokumenta_form_is_valid = True
+
+        if klasifikacija_dokumenta_form.is_valid():
+            klasifikacija_dokumenta = klasifikacija_dokumenta_form.cleaned_data['klasifikacija_dokumenta']
+            klasifikacija_dokumenta_form_is_valid = True
+
+        # IZDELAMO FILTRIRAN SEZNAM DOKUMENTOV
+        # če ne vpišemo niti enega podatka vrni prazen seznam - da ne odpiramo vseh dokumentov brez veze
+        if dokument_filter_form_is_valid == True:
+            dokument_list_filtered = Dokument.objects.filter()
+            dokument_list_filtered = dokument_list_filtered.filter(arhiviranje__isnull=True)
+            skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
+            dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
+            dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
+
+        else:
+            dokument_list_filtered = []
+
+        if dokument_filter_form_is_valid == True:
+            # filtriraj samo glede na podane podatke. Če podatka ni ga ne uporabiš.
+            if oznaka:
+                dokument_list_filtered = dokument_list_filtered.filter(oznaka__icontains=oznaka)
+            if naziv:
+                dokument_list_filtered = dokument_list_filtered.filter(naziv__icontains=naziv)
+            if kraj_izdaje:
+                dokument_list_filtered = dokument_list_filtered.filter(kraj_izdaje__icontains=kraj_izdaje)
+
+            if avtor:
+                dokument_list_filtered = dokument_list_filtered.filter(avtor=avtor)
+
+            if naslovnik:
+                dokument_list_filtered = dokument_list_filtered.filter(naslovnik=naslovnik)
+
+            if datum_od:
+                dokument_list_filtered = dokument_list_filtered.filter(datum_dokumenta__gte=datum_od)
+
+            if datum_do:
+                dokument_list_filtered = dokument_list_filtered.filter(datum_dokumenta__lte=datum_do)
+
+        if vrsta_dokumenta_form_is_valid == True:
+            if vrsta_dokumenta:
+                dokument_list_filtered = dokument_list_filtered.filter(vrsta_dokumenta=vrsta_dokumenta)
+
+        if klasifikacija_dokumenta_form_is_valid == True:
+            if klasifikacija_dokumenta:
+                dokument_list_filtered = dokument_list_filtered.filter(klasifikacija_dokumenta=klasifikacija_dokumenta)
+
+        # podatke izpišemo v kontekst
+        context = self.get_context_data(
+            dokument_filter_form=dokument_filter_form,
+            vrsta_dokumenta_izbira=vrsta_dokumenta_izbira,
+            vrsta_dokumenta_form=vrsta_dokumenta_form,
+            dokument_list_filtered=dokument_list_filtered,
+            klasifikacija_dokumenta_form=klasifikacija_dokumenta_form,
+        )
+
+        return self.render_to_response(context)

@@ -5,6 +5,7 @@ from functools import partial
 from django import forms
 from django.contrib.admin.sites import site
 from django.utils import timezone
+from django.db.models import Q
 
 # Models
 from ..models import Racun, Konto, PodKonto
@@ -68,3 +69,47 @@ class PodkontoCreateForm(forms.ModelForm):
             'zap_st',
             'skupina',
         )
+
+
+
+class RacunSearchForm(forms.Form):
+    oznaka = forms.CharField(label='oznaka', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+
+    # začetne nastavitve prikazanega "form"
+    def __init__(self, *args, **kwargs):
+        super(RacunSearchForm, self).__init__(*args, **kwargs)
+        # na začetku so okenca za vnos filtrov prazna
+        self.initial['oznaka'] = ""
+        self.initial['naziv'] = ""
+
+    def filter_queryset(self, request, queryset):
+
+        oznaka_filter = self.cleaned_data['oznaka']
+        naziv_filter = self.cleaned_data['naziv']
+
+        # filtriranje samo po oznaki
+        if oznaka_filter and not naziv_filter:
+            return queryset.filter(
+                Q(oznaka__icontains=oznaka_filter)
+            )
+
+        # filtriranje ostalo
+        if naziv_filter and not oznaka_filter:
+            return queryset.filter(
+                Q(arhiviranje__dokument__oznaka__icontains=naziv_filter)
+            )
+
+
+        # uporabnik filtrira po kratkem imenu in naslovu partnerja
+        if oznaka_filter and naziv_filter:
+            return queryset.filter(
+                (
+                    Q(oznaka__icontains=oznaka_filter)
+                ) &
+                (
+                    Q(arhiviranje__dokument__oznaka__icontains=naziv_filter)
+                )
+            )
+
+        return queryset

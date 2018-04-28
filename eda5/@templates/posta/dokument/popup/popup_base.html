@@ -1,31 +1,187 @@
+{% extends "base_200.html" %}
 {% load staticfiles i18n %}
 {% load crispy_forms_tags %}
 
-        <link href="{% static 'aircraft/lib/bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
-        <link href="{% static 'aircraft/lib/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
-        <link href="{% static 'aircraft/stylesheets/theme.css' %}" rel="stylesheet" type="text/css">
-        <link href="{% static 'aircraft/stylesheets/premium.css' %}" rel="stylesheet" type="text/css">
-        <!---Project css-->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
-        <script src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}" type="text/javascript" ></script>
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+
 
             <h1>Seznam dokumentov:</h1>
 
-                <form id="list-filter" action="">
+            <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+            <form id="create_form" method="GET" action="" enctype="multipart/form-data">
+
+            <div class="col-lg-6">
+              <table>
 
 
-                    <label name="" id="" input="{{ form.oznaka.html_name }}">{{ form.oznaka.label}}</label>
-                    <input name="{{ form.oznaka.html_name }}" value="{{ form.oznaka.value }}" type="search">
+                <tr>
+                  <td>{{ dokument_filter_form.oznaka.label }}</td>
+                  <td>{{ dokument_filter_form.oznaka }}</td>
+                </tr>
+                <tr>
+                  <td>{{ dokument_filter_form.naziv.label }}</td>
+                  <td>{{ dokument_filter_form.naziv }}</td>
+                </tr>
+                <tr>
+                  <td>{{ dokument_filter_form.kraj_izdaje.label }}</td>
+                  <td>{{ dokument_filter_form.kraj_izdaje }}</td>
+                </tr>
 
-                    <label name="" id="" input="{{ form.naziv.html_name }}">{{ form.naziv.label}}</label>
-                    <input name="{{ form.naziv.html_name }}" value="{{ form.naziv.value }}" type="search">
 
 
+                <tr>
+                  <td>{{ dokument_filter_form.datum_od.label }}</td>
+                  <td>{{ dokument_filter_form.datum_od }}</td>
+                </tr>
+                <tr>
+                  <td>{{ dokument_filter_form.datum_do.label }}</td>
+                  <td>{{ dokument_filter_form.datum_do }}</td>
+                </tr>
 
-                    <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
 
-                </form>
+                <tr>
+                  <td>{{ dokument_filter_form.avtor.label }}</td>
+                  <td>{{ dokument_filter_form.avtor }}</td>
+                </tr>
+
+                <tr>
+                  <td>{{ dokument_filter_form.naslovnik.label }}</td>
+                  <td>{{ dokument_filter_form.naslovnik }}</td>
+                </tr>
+             </table>
+            </div>
+
+            <div class="col-lg-6">
+              <table>
+                <tr>
+                  <td>{{ vrsta_dokumenta_izbira.skupina_dokumenta.label }}</td>
+                  <td>{{ vrsta_dokumenta_izbira.skupina_dokumenta }}</td>
+                </tr>
+
+                <tr>
+                  <td>{{ vrsta_dokumenta_form.vrsta_dokumenta.label }}</td>
+                  <td>{{ vrsta_dokumenta_form.vrsta_dokumenta }}</td>
+                </tr>
+
+                <tr>
+                  <td>{{ vrsta_dokumenta_izbira.vrsta_dokumenta_hidden }}</td>
+                </tr>
+
+             </table>
+            </div>
+
+            <div class="col-lg-6">
+              <table>
+                <tr>
+                  <td>{{ klasifikacija_dokumenta_form.klasifikacija_dokumenta.label }}</td>
+                  <td>{{ klasifikacija_dokumenta_form.klasifikacija_dokumenta }}</td>
+                </tr>
+
+            </table>
+            </div>
+
+
+            <div class="col-lg-12">
+              <table>
+                <tr>
+                  <td>{{ dokument_filter_form.uporabim_filter.label }}</td>
+                  <td>{{ dokument_filter_form.uporabim_filter }}</td>
+                </tr>
+                </table>
+              <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
+            </div>
+              <div id="reload_controls_view" style="display: none;">{% url 'moduli:posta:reload_controls' %}</div>
+            </form>
 
                 <div class="results">
                   {% include 'posta/dokument/popup/popup_filtered_list.html' %}
                 </div>
+
+{% endblock %}
+                <!-- JAVASCRIPT EXTRA -->
+                {% block javascript_extra %}
+
+                <script src="{% static 'js/custom_filter.js' %}"></script>
+
+
+                <!-- js related to the application -->
+                <script>
+
+                    $("#id_vrsta_dokumenta").attr('disabled', true);
+
+
+
+                    $('#create_form').on('change', '#id_skupina_dokumenta', function()
+                    {
+                        reload_controls(this.value);
+
+                    });
+
+                    function reload_controls(skupina_dokumenta)
+                    {
+                        $.ajax
+                        ({
+                            type: 'POST',
+                            url: $("#reload_controls_view").text(),
+                            dataType: 'json',
+                            data: "skupina_dokumenta="+skupina_dokumenta,
+                            success: function(result)
+                            {
+                                //empty month drop down list
+                                $("#id_vrsta_dokumenta").empty();
+                                $("#id_vrsta_dokumenta").attr('disabled', false);
+
+                                //add months with no report
+                                $("#id_vrsta_dokumenta").append('<option value="">---------</option>')
+                                $.each( result.list_to_display, function( index, value )
+                                {
+                                    //use the hidden drop down list to populate the month field
+                                    vrsta_dokumenta=$("#id_vrsta_dokumenta_hidden option[value='" + value + "']").text()
+                                    //add months to the drop down list
+                                    $('#id_vrsta_dokumenta').append('<option value="'+value+'">'+vrsta_dokumenta+'</option>')
+
+                                });
+                            },
+                            error: function(xhr, status, error)
+                            {
+                                window.console&&console.log(xhr.responseText);
+                            }
+                        });
+                    }
+
+                </script>
+
+                {% endblock %}

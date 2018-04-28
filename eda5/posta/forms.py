@@ -193,6 +193,31 @@ class DokumentFilterForm(forms.Form):
         widget=PartnerForeignKeyRawIdWidget(Dokument._meta.get_field('naslovnik').rel, site)
         )
 
+class DokumentFilterForm2(forms.Form):
+    oznaka = forms.CharField(label='št. dokumenta', required=False)
+    naziv = forms.CharField(label='naziv', required=False)
+    kraj_izdaje = forms.CharField(label='kraj izdaje', required=False)
+    datum_od = forms.DateField(
+        label='OD datuma',
+        required=False,
+        widget=DateInput()
+        )
+    datum_do = forms.DateField(
+        label='DO datuma',
+        required=False,
+        widget=DateInput()
+        )
+
+    avtor = forms.IntegerField(
+        required=False,
+        widget=PartnerForeignKeyRawIdWidget(Dokument._meta.get_field('avtor').rel, site)
+        )
+
+    naslovnik = forms.IntegerField(
+        required=False,
+        widget=PartnerForeignKeyRawIdWidget(Dokument._meta.get_field('naslovnik').rel, site)
+        )
+
 
 class KlasifikacijaDokumentaForm(forms.Form):
 

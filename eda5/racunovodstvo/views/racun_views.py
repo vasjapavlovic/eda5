@@ -10,9 +10,14 @@ from django.shortcuts import render
 
 
 
+
 # INTERNO ############################################################
 from ..models import Racun, Strosek
 from ..forms.racun_forms import RacunCreateForm, RacunUpdateForm
+from ..forms.racun_forms import RacunSearchForm
+
+# Views
+from eda5.core.views import FilteredListView
 
 
 # UVOŽENO ############################################################
@@ -231,6 +236,28 @@ class RacunListView(ListView):
         modul_zavihek = Zavihek.objects.get(oznaka="RACUN_LIST")
 
         context['modul_zavihek'] = modul_zavihek
+        return context
+
+class RacunLikvidiranListView(FilteredListView):
+    model = Racun
+    form_class= RacunSearchForm
+    template_name = "racunovodstvo/racun/racun_likvidiran_list/base.html"
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super(RacunLikvidiranListView, self).get_queryset(*args, **kwargs)
+        # Order
+        queryset = queryset.filter().order_by('racunovodsko_leto')
+        queryset = queryset.filter().order_by('-oznaka')
+        # Return
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RacunLikvidiranListView, self).get_context_data(*args, **kwargs)
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="likvidirani_racuni_list")
+        context['modul_zavihek'] = modul_zavihek
+        # Return
         return context
 
 

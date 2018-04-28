@@ -12,7 +12,8 @@
                 <th>Edit</th>
             </tr>
 
-            {% for object in object_list %}
+            {% if dokument_list_filtered %}
+            {% for object in dokument_list_filtered %}
             <tr>
                 <td><b><a href="" onclick="opener.dismissRelatedLookupPopup(window, {{ object.pk }})">{{ object.oznaka }}</a></b></td>
                 <td>{{ object.naziv }}</td>
@@ -23,6 +24,22 @@
                 <td><a href="{% url 'moduli:posta:dokument_update' object.pk %}">Edit</a></td>
             </tr>
             {% endfor %}
+            {% endif %}
+
+            {% if not dokument_list_filtered %}
+            {% for object in dokument_list_filtered2 %}
+            <tr>
+                <td><b><a href="" onclick="opener.dismissRelatedLookupPopup(window, {{ object.pk }})">{{ object.oznaka }}</a></b></td>
+                <td>{{ object.naziv }}</td>
+                <td>{{ object.vrsta_dokumenta.naziv }}</td>
+                <td>{{ object.avtor.kratko_ime }}</td>
+                <td>{{ object.naslovnik.kratko_ime }}</td>
+                <td><a href="{{ MEDIA_URL }}{{ object.priponka }}">Priponka</a></td>
+                <td><a href="{% url 'moduli:posta:dokument_update' object.pk %}">Edit</a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+
 
         </table>
     </div>
