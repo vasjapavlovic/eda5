@@ -46,6 +46,7 @@
 <form id="filter_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 
     {{ letno_porocilo_upravnika_izpis_izbira_form }}
+
   <button type="submit" name="page" value="1">{% trans 'Natisni seznam stroškov' %}</button>
 </form>
 

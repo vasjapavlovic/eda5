@@ -69,4 +69,9 @@ urlpatterns += [
         letno_porocilo_upravnika_views.PorocanjeStroskiView.as_view(),
         name="porocanje_stroski"
     ),
+    url(
+        r'^letno-porocilo-upravnika/porocanje-izvedena-dela/$',
+        letno_porocilo_upravnika_views.PorocanjeIzvedenaDelaView.as_view(),
+        name="porocanje_izvedena_dela"
+    ),
 ]

@@ -1,0 +1,107 @@
+{% extends "base_200.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+<link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+<!-- form za filtriranje -->
+<form id="filter_form" method="GET" action="" enctype="multipart/form-data">
+    {{ izpis_izbira_form }}
+    {{ leto_izbira_form }}
+  <button type="submit" name="page" value="1">{% trans 'Prikaži seznam' %}</button>
+</form>
+
+
+<form id="filter_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+
+
+  <button type="submit" name="page" value="1">{% trans 'Natisni seznam' %}</button>
+</form>
+
+
+<div class="table-resposnive">
+
+
+
+    <table class="table table-bordered">
+        <thead>
+
+            <tr>
+                <th>Datum</th>
+                <th>Oznaka Delovnega naloga</th>
+                <th>Naziv opravila</th>
+                <th>Izvajalec</th>
+                <th>Naročilo</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% regroup dn_list by planirano_opravilo_osnova as osnova_list %}
+            {% for osnova in osnova_list %}
+            <tr><th colspan=5>{{ osnova.grouper }}</th></tr>
+
+
+            {% regroup osnova.list by planirano_opravilo as po_list %}
+            {% for po in po_list %}
+            <tr><th colspan=5>{{ po.grouper }}</th></tr>
+
+            {% for object in po.list %}
+            <tr>
+                <td>{{ object.datum_stop }}</td>
+                <td>{{ object.oznaka }}</td>
+                <td>{{ object.opravilo.naziv }}</td>
+                <td>{{ object.opravilo.narocilo.izvajalec.kratko_ime }}</td>
+                <td>{{ object.opravilo.narocilo.oznaka }}</td>
+            </tr>
+            {% endfor %}
+
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}

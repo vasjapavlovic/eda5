@@ -9,6 +9,7 @@ from django.utils.encoding import smart_text
 from eda5.core.models import ObdobjeLeto, ObdobjeMesec
 from eda5.etaznalastnina.models import Program
 from eda5.narocila.models import Narocilo
+from eda5.planiranje.models import Plan
 from eda5.racunovodstvo.models import SkupinaVrsteStroska, VrstaStroska
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
@@ -93,10 +94,26 @@ class ObracunIzpisVrstaForm(forms.Form):
 
 
 
-class LetnoPorociloUpravnikaIzpisIzbiraForm(forms.Form):
+class LetnoPorociloUpravnikaStroskiIzpisIzbiraForm(forms.Form):
     IZBIRE = (
         (1, "Seznam stroškov"),
         (2, "Skupine stroškov"),
         (3, "Vrste stroškov"),
     )
     izpis_izbira = forms.ChoiceField(choices=IZBIRE)
+
+
+
+
+class LetnoPorociloUpravnikaIzvedenaDelaIzpisIzbiraForm(forms.Form):
+
+
+    plan_list = Plan.objects.filter()
+
+    izbrani_plan = forms.ModelChoiceField(
+        queryset=plan_list)
+
+class LetoIzbiraForm(forms.Form):
+
+    obdobje_leto = forms.ModelChoiceField(
+        queryset=ObdobjeLeto.objects.all())
