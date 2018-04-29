@@ -90,3 +90,13 @@ class ObracunIzpisVrstaForm(forms.Form):
     )
 
     vrsta_izpisa_field = forms.ChoiceField(choices=VRSTA_IZPISA_CHOICES)
+
+
+
+class LetnoPorociloUpravnikaIzpisIzbiraForm(forms.Form):
+    IZBIRE = (
+        (1, "Seznam stroškov"),
+        (2, "Skupine stroškov"),
+        (3, "Vrste stroškov"),
+    )
+    izpis_izbira = forms.ChoiceField(choices=IZBIRE)
