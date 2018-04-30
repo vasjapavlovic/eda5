@@ -299,7 +299,7 @@ class PlanPrintView(LoginRequiredMixin, UpdateView):
             # prenos podatkov za aplikacijo templated_docs
 
             filename = fill_template(
-                'obrazci/planiranje/plan/plan_print.odt', {'print_data': print_data, 'datum_danes': datum_danes}, output_format=doctypex)
+                'obrazci/planiranje/plan/plan.ods', {'print_data': print_data, 'datum_danes': datum_danes}, output_format=doctypex)
             visible_filename = 'plan_{}.{}'.format(plan.oznaka, doctypex)
 
             return FileResponse(filename, visible_filename)

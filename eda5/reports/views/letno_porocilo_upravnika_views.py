@@ -22,7 +22,7 @@ from eda5.racunovodstvo.models import Strosek, PodKonto, SkupinaVrsteStroska, Vr
 
 # Forms
 from eda5.reports.forms import FormatForm
-from ..forms import LetnoPorociloUpravnikaStroskiIzpisIzbiraForm, LetnoPorociloUpravnikaIzvedenaDelaIzpisIzbiraForm, LetoIzbiraForm
+from ..forms import LetnoPorociloUpravnikaStroskiIzpisIzbiraForm, PlanIzbiraForm, LetoIzbiraForm, IzvedenaDelaIzpisIzbiraForm, UporabimFilterForm, ObracunIzrednaDelaForm
 
 
 # Views
@@ -204,8 +204,14 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
         modul_zavihek = Zavihek.objects.get(oznaka="REPORT_LETNO_POROCILO_UPRAVNIKA_IZVEDENA_DELA")
         context['modul_zavihek'] = modul_zavihek
 
-        izpis_izbira_form = LetnoPorociloUpravnikaIzvedenaDelaIzpisIzbiraForm()
+        izpis_izbira_form = IzvedenaDelaIzpisIzbiraForm()
         context['izpis_izbira_form'] = izpis_izbira_form
+
+        izredna_dela_filter_form = ObracunIzrednaDelaForm()
+        context['izredna_dela_filter_form'] = izredna_dela_filter_form
+
+
+
 
         # seznam stroškov
 
@@ -214,59 +220,196 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
 
+        modul_zavihek = Zavihek.objects.get(oznaka="REPORT_LETNO_POROCILO_UPRAVNIKA_IZVEDENA_DELA")
 
 
-        # osnovni seznam, ki ga bomo filtrirali
-        dn_list = DelovniNalog.objects.filter()
-        dn_list = dn_list.order_by('opravilo__planirano_opravilo__osnova__zap_st', 'opravilo__planirano_opravilo__oznaka', 'datum_stop')
-
-        dn_list = dn_list.annotate(planirano_opravilo_osnova = Concat('opravilo__planirano_opravilo__osnova__oznaka', Value(' - '), 'opravilo__planirano_opravilo__osnova__naziv'))
-        dn_list = dn_list.annotate(planirano_opravilo = Concat('opravilo__planirano_opravilo__oznaka', Value(' - '), 'opravilo__planirano_opravilo__naziv'))
-
-        izpis_izbira_form = LetnoPorociloUpravnikaIzvedenaDelaIzpisIzbiraForm(request.GET or None)
-        izpis_izbira_form_is_valid = False
-
+        # form za filtriranje
+        uporabim_filter_form = UporabimFilterForm(request.GET or None)
+        plan_izbira_form = PlanIzbiraForm(request.GET or None)
         leto_izbira_form = LetoIzbiraForm(request.GET or None)
+
+        # na začetku so vsi formi neustrezni
+        uporabim_filter_form_is_valid = False
+        plan_izbira_form_is_valid = False
         leto_izbira_form_is_valid = False
 
-        if izpis_izbira_form.is_valid():
-            izbrani_plan = izpis_izbira_form.cleaned_data['izbrani_plan']
-            izpis_izbira_form_is_valid = True
+        # osnovni seznam, ki ga bomo filtrirali
 
-        if leto_izbira_form.is_valid():
-            obdobje_leto = leto_izbira_form.cleaned_data['obdobje_leto']
-            leto_izbira_form_is_valid = True
-
-        if izpis_izbira_form_is_valid == True:
-            dn_list = dn_list.filter(opravilo__planirano_opravilo__plan=izbrani_plan)
-
-        if leto_izbira_form_is_valid == True:
-            dn_list = dn_list.filter(datum_stop__year=obdobje_leto.oznaka)
+        if uporabim_filter_form.is_valid():
+            # izpis_izbira = izpis_izbira_form.cleaned_data['izpis_izbira']
+            uporabim_filter_form_is_valid = True
 
 
+        if uporabim_filter_form_is_valid == True:
+            dn_list = DelovniNalog.objects.filter()
+            dn_list = dn_list.order_by('opravilo__planirano_opravilo__osnova__zap_st', 'opravilo__planirano_opravilo__oznaka', 'datum_stop')
+
+            dn_list = dn_list.annotate(planirano_opravilo_osnova = Concat('opravilo__planirano_opravilo__osnova__oznaka', Value(' - '), 'opravilo__planirano_opravilo__osnova__naziv'))
+            dn_list = dn_list.annotate(planirano_opravilo = Concat('opravilo__planirano_opravilo__oznaka', Value(' - '), 'opravilo__planirano_opravilo__naziv'))
 
 
+            if leto_izbira_form.is_valid():
+                obdobje_leto = leto_izbira_form.cleaned_data['obdobje_leto']
+                leto_izbira_form_is_valid = True
 
-        # Forms za Filtriranje
-
-        # Na začetku so vsi neustrezni
-
-        # Pridobimo podatke iz formsu
-
-
-        # Izdelamo filtriran seznam glede
-        # v specifičnem letu
+            if plan_izbira_form.is_valid():
+                izbrani_plan = plan_izbira_form.cleaned_data['izbrani_plan']
+                plan_izbira_form_is_valid = True
 
 
 
+            if leto_izbira_form_is_valid == True:
+                dn_list = dn_list.filter(datum_stop__year=obdobje_leto.oznaka)
+
+            if plan_izbira_form_is_valid == True:
+                dn_list = dn_list.filter(opravilo__planirano_opravilo__plan=izbrani_plan)
+
+        else:
+
+            dn_list = []
 
 
-        # Izpišemo podatke v context
 
         context = self.get_context_data(
-            dn_list=dn_list,
-            izpis_izbira_form=izpis_izbira_form,
+            uporabim_filter_form=uporabim_filter_form,
+            plan_izbira_form=plan_izbira_form,
             leto_izbira_form=leto_izbira_form,
+            dn_list=dn_list,
+            modul_zavihek=modul_zavihek,
         )
 
         return self.render_to_response(context)
+
+
+    def post(self, request, *args, **kwargs):
+
+        modul_zavihek = Zavihek.objects.get(oznaka="REPORT_LETNO_POROCILO_UPRAVNIKA_IZVEDENA_DELA")
+
+
+
+
+        # form za filtriranje
+        format_form = FormatForm(request.POST or None)
+        izpis_izbira_form = IzvedenaDelaIzpisIzbiraForm(request.POST or None)
+        plan_izbira_form = PlanIzbiraForm(request.POST or None)
+        leto_izbira_form = LetoIzbiraForm(request.POST or None)
+        izredna_dela_filter_form = ObracunIzrednaDelaForm(request.POST or None)
+
+        # na začetku so vsi formi neustrezni
+        izpis_izbira_form_is_valid = False
+        plan_izbira_form_is_valid = False
+        leto_izbira_form_is_valid = False
+        format_form_is_valid = True
+        izredna_dela_filter_form_is_valid = False
+
+        # osnovni seznam, ki ga bomo filtrirali
+
+        if izpis_izbira_form.is_valid():
+            izpis_izbira = izpis_izbira_form.cleaned_data['izpis_izbira']
+            izpis_izbira_form_is_valid = True
+
+
+
+        if format_form_is_valid == True:
+
+
+            dn_list = DelovniNalog.objects.filter()
+            dn_list = dn_list.order_by('opravilo__planirano_opravilo__osnova__zap_st', 'opravilo__planirano_opravilo__oznaka', 'datum_stop')
+
+            dn_izredno_list = dn_list.filter(opravilo__planirano_opravilo__isnull=True)
+
+
+            if izpis_izbira_form_is_valid == True:
+
+                if izpis_izbira == '1':
+                    dn_list = dn_list.annotate(planirano_opravilo_osnova = Concat('opravilo__planirano_opravilo__osnova__oznaka', Value(' - '), 'opravilo__planirano_opravilo__osnova__naziv'))
+                    dn_list = dn_list.annotate(planirano_opravilo = Concat('opravilo__planirano_opravilo__oznaka', Value(' - '), 'opravilo__planirano_opravilo__naziv'))
+
+
+
+                    if leto_izbira_form.is_valid():
+                        obdobje_leto = leto_izbira_form.cleaned_data['obdobje_leto']
+                        leto_izbira_form_is_valid = True
+
+                    if plan_izbira_form.is_valid():
+                        izbrani_plan = plan_izbira_form.cleaned_data['izbrani_plan']
+                        plan_izbira_form_is_valid = True
+
+
+
+                    if leto_izbira_form_is_valid == True:
+                        dn_list = dn_list.filter(datum_stop__year=obdobje_leto.oznaka)
+
+                    if plan_izbira_form_is_valid == True:
+                        dn_list = dn_list.filter(opravilo__planirano_opravilo__plan=izbrani_plan)
+
+
+                    izpis_data = {
+                        'plan_oznaka': izbrani_plan.oznaka,
+                        'plan_naziv': izbrani_plan.naziv,
+                        'obdobje_leto': obdobje_leto,
+                        'dn_list': dn_list,
+                    }
+
+                    # izdelamo izpis
+                    filename = fill_template(
+                        # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+                        'obrazci/letno_porocilo_upravnika/letno_porocilo_upravnika_izvedena_dela.ods',
+                        # podatki za uporabo v oblikovni datoteki
+                        izpis_data,
+                        output_format="xlsx"
+                    )
+
+                    visible_filename = '{}.{}'.format('letno_porocilo_upravnika_stroski' ,"xlsx")
+
+                    return FileResponse(filename, visible_filename)
+
+                if izpis_izbira == '2':
+
+                    if izredna_dela_filter_form.is_valid():
+                        vrsta_stroska = izredna_dela_filter_form.cleaned_data['vrsta_stroska']
+                        narocilo = izredna_dela_filter_form.cleaned_data['narocilo']
+                        datum_od = izredna_dela_filter_form.cleaned_data['datum_od']
+                        datum_do = izredna_dela_filter_form.cleaned_data['datum_do']
+                        izredna_dela_filter_form_is_valid = True
+
+                    if izredna_dela_filter_form_is_valid == True:
+                        dn_izredno_list = dn_izredno_list.filter(opravilo__vrsta_stroska=vrsta_stroska)
+                        dn_izredno_list = dn_izredno_list.filter(opravilo__narocilo=narocilo)
+                        dn_izredno_list = dn_izredno_list.filter(datum_start__gte=datum_od)
+                        dn_izredno_list = dn_izredno_list.filter(datum_start__lte=datum_do)
+
+
+                    izpis_data = {
+                        'vrsta_stroska_oznaka': vrsta_stroska.oznaka,
+                        'vrsta_stroska_naziv': vrsta_stroska.naziv,
+                        'obdobje_od': datum_od,
+                        'obdobje_do': datum_do,
+                        'dn_list': dn_izredno_list,
+                    }
+
+                    # izdelamo izpis
+                    filename = fill_template(
+                        # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+                        'obrazci/letno_porocilo_upravnika/letno_porocilo_upravnika_izvedena_dela_izredna.ods',
+                        # podatki za uporabo v oblikovni datoteki
+                        izpis_data,
+                        output_format="xlsx"
+                    )
+
+                    visible_filename = '{}.{}'.format('letno_porocilo_upravnika_stroski' ,"xlsx")
+
+                    return FileResponse(filename, visible_filename)
+
+
+
+        # IF NOT VALID
+        return render(
+            request, self.template_name, {
+                'format_form': format_form,
+                'izpis_izbira_form': izpis_izbira_form,
+                'plan_izbira_form': plan_izbira_form,
+                'leto_izbira_form': leto_izbira_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )

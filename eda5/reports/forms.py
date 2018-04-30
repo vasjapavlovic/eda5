@@ -105,7 +105,7 @@ class LetnoPorociloUpravnikaStroskiIzpisIzbiraForm(forms.Form):
 
 
 
-class LetnoPorociloUpravnikaIzvedenaDelaIzpisIzbiraForm(forms.Form):
+class PlanIzbiraForm(forms.Form):
 
 
     plan_list = Plan.objects.filter()
@@ -117,3 +117,18 @@ class LetoIzbiraForm(forms.Form):
 
     obdobje_leto = forms.ModelChoiceField(
         queryset=ObdobjeLeto.objects.all())
+
+
+class UporabimFilterForm(forms.Form):
+
+    uporabim_filter = forms.BooleanField(label='Uporabi filter')
+
+
+class IzvedenaDelaIzpisIzbiraForm(forms.Form):
+    IZBIRE = (
+        (0, "----"),
+        (1, "Izvedena opravila po planih obratovanja in vzdrževanja"),
+        (2, "Izredna opravila"),
+    )
+
+    izpis_izbira = forms.ChoiceField(choices=IZBIRE, required=False)
