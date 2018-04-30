@@ -165,7 +165,7 @@ class RazdelilnikDetailView(LoginRequiredMixin, DetailView):
         context['zaznamek_list'] = Zaznamek.objects.filter(razdelilnik=self.object.id).order_by('-datum', '-ura')
 
         # Format - izvoz
-        context['format_form'] = FormatForm 
+        context['format_form'] = FormatForm
 
 
         # OSTALO
@@ -185,10 +185,10 @@ class RazdelilnikDetailView(LoginRequiredMixin, DetailView):
                 # filtriramo glede na stavbo
                 racun__stavba=razdelilnik.stavba,
                 # samo stroški, ki niso vezani na razdelilnik
-                strosekrazdelilnik__isnull=True, 
+                strosekrazdelilnik__isnull=True,
                 # filtriramo glede na mesec obracuna
                 #datum_storitve_od__month__lte=razdelilnik.obdobje_obracuna_mesec,
-                # zanimajo nas samo stroški, ki so del razdelilnika 
+                # zanimajo nas samo stroški, ki so del razdelilnika
                 #racun__davcna_klasifikacija=1
                 )\
             .order_by(
@@ -255,10 +255,10 @@ class RazdelilnikDetailView(LoginRequiredMixin, DetailView):
         # vrni vrednost = 0
         if vrednost_razdelilnik_ddvvisja['vrednost'] == None:
             vrednost_razdelilnik_ddvvisja['vrednost'] = 0
-        
-        # seštevek vrednosti Z DDV za vse stroške iz seznama zgoraj 
+
+        # seštevek vrednosti Z DDV za vse stroške iz seznama zgoraj
         vrednost_razdelilnik_zddv = vrednost_razdelilnik_ddvbrez['vrednost'] + \
-            vrednost_razdelilnik_ddvnizja['vrednost'] + vrednost_razdelilnik_ddvvisja['vrednost'] 
+            vrednost_razdelilnik_ddvnizja['vrednost'] + vrednost_razdelilnik_ddvvisja['vrednost']
 
 
         # Izpišemo v context za prikaz
@@ -282,7 +282,7 @@ class RazdelilnikDetailView(LoginRequiredMixin, DetailView):
         ###########################################################################
         arhiviranje_create_form = ArhiviranjeZahtevekForm(request.POST or None)
         format_form = FormatForm(request.POST or None)
-        
+
 
         ''' Vsi forms za vnose so nazačetku neustrezno izpolnjeni.
         Pomembno zaradi načina struktura View-ja '''
@@ -338,7 +338,7 @@ class RazdelilnikDetailView(LoginRequiredMixin, DetailView):
             ###########################################################################
             # UKAZI
             ###########################################################################
-        
+
             # iz instance pridobimo željene podatke
             # ki jih bomo uporabili v izpisu
 
@@ -392,8 +392,8 @@ class RazdelilnikDetailView(LoginRequiredMixin, DetailView):
             # vrni vrednost = 0
             if vrednost_razdelilnik_ddvvisja['vrednost'] == None:
                 vrednost_razdelilnik_ddvvisja['vrednost'] = 0
-            
-            # seštevek vrednosti Z DDV za vse stroške iz seznama zgoraj 
+
+            # seštevek vrednosti Z DDV za vse stroške iz seznama zgoraj
             vrednost_razdelilnik_zddv = vrednost_razdelilnik_ddvbrez['vrednost'] + \
                 vrednost_razdelilnik_ddvnizja['vrednost'] + vrednost_razdelilnik_ddvvisja['vrednost']
 
@@ -425,13 +425,13 @@ class RazdelilnikDetailView(LoginRequiredMixin, DetailView):
             # izdelamo izpis
             filename = fill_template(
                 # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
-                'obrazci/razdelilnik/seznam_stroskov_20170810.odt', 
-                # podatki za uporabo v oblikovni datoteki   
-                izpis_data,                     
-                output_format="pdf"
+                'obrazci/razdelilnik/seznam_stroskov_po_razdelilniku.ods',
+                # podatki za uporabo v oblikovni datoteki
+                izpis_data,
+                output_format="xlsx"
             )
 
-            visible_filename = '{}.{}'.format(razdelilnik.oznaka ,"pdf")
+            visible_filename = '{}.{}'.format(razdelilnik.oznaka ,"xlsx")
 
             return FileResponse(filename, visible_filename)
 
