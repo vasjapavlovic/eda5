@@ -359,12 +359,12 @@ class DokumentPopUpListView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(DokumentPopUpListView, self).get_context_data(*args, **kwargs)
 
-        # dokument_list_filtered = Dokument.objects.filter()
-        # dokument_list_filtered = dokument_list_filtered.filter(arhiviranje__isnull=True)
-        # skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
-        # dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
-        # dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
-        # context['dokument_list_filtered2'] = dokument_list_filtered
+        dokument_list_filtered = Dokument.objects.filter()
+        dokument_list_filtered = dokument_list_filtered.filter(arhiviranje__isnull=True)
+        skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
+        dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
+        dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
+        context['dokument_list_filtered2'] = dokument_list_filtered
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_LIST_FILTERED")
@@ -432,8 +432,10 @@ class DokumentPopUpListView(TemplateView):
             dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
             dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
 
+        else:
+            dokument_list_filtered = []
 
-
+        if dokument_filter_form_is_valid == True:
             # filtriraj samo glede na podane podatke. Če podatka ni ga ne uporabiš.
             if oznaka:
                 dokument_list_filtered = dokument_list_filtered.filter(oznaka__icontains=oznaka)
@@ -453,9 +455,6 @@ class DokumentPopUpListView(TemplateView):
 
             if datum_do:
                 dokument_list_filtered = dokument_list_filtered.filter(datum_dokumenta__lte=datum_do)
-
-        else:
-            dokument_list_filtered = []
 
         if vrsta_dokumenta_form_is_valid == True:
             if vrsta_dokumenta:
