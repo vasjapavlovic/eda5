@@ -359,12 +359,12 @@ class DokumentPopUpListView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(DokumentPopUpListView, self).get_context_data(*args, **kwargs)
 
-        dokument_list_filtered = Dokument.objects.filter()
-        dokument_list_filtered = dokument_list_filtered.filter(arhiviranje__isnull=True)
-        skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
-        dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
-        dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
-        context['dokument_list_filtered2'] = dokument_list_filtered
+        # dokument_list_filtered = Dokument.objects.filter()
+        # dokument_list_filtered = dokument_list_filtered.filter(arhiviranje__isnull=True)
+        # skupina_dokumenta = SkupinaDokumenta.objects.get(oznaka="RAC")
+        # dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
+        # dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
+        # context['dokument_list_filtered2'] = dokument_list_filtered
 
         # zavihek
         modul_zavihek = Zavihek.objects.get(oznaka="DOKUMENT_LIST_FILTERED")
