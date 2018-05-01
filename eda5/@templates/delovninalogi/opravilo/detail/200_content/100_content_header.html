@@ -30,8 +30,24 @@
     <td>{{ object.rok_izvedbe }}</td>
 </tr>
 <tr>
+    <td><small><b>Planirano opravilo</b></small></td>
+    {% if object.planirano_opravilo %}
+    <td><a href="{% url 'moduli:planiranje:planirano_opravilo_detail' object.planirano_opravilo.pk %}">({{ object.planirano_opravilo.oznaka }})</a> {{ object.planirano_opravilo.naziv }}</td>
+    {% else %}
+    <td>NE</td>
+    {% endif %}
+</tr>
+<tr>
+    <td><small><b>Opravilo se izvaja na delu stavbe</b></small></td>
+    <td>
+        {% for pm in object.element.all %}
+        <li>{{ pm.del_stavbe.oznaka }} {{ pm.del_stavbe.naziv }}</li>
+        {% endfor %}
+    </td>
+</tr>
+<tr>
     <td><small><b>Naročilo</b></small></td>
-    <td><a href="{% url 'moduli:narocila:narocilo_detail' object.narocilo.pk %}">{{ object.narocilo.oznaka }}</a></td>
+    <td><a href="{% url 'moduli:narocila:narocilo_detail' object.narocilo.pk %}">({{ object.narocilo.oznaka }})</a> {{ object.narocilo.predmet }}</td>
 </tr>
 <tr>
 	<td><b>Zahtevek</b></td>

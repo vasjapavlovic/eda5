@@ -110,6 +110,16 @@ class OpraviloUpdateView(UpdateView):
     form_class = OpraviloUpdateForm
     template_name = "delovninalogi/opravilo/update.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(OpraviloUpdateView, self).get_context_data(*args, **kwargs)
+
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="OPRAVILO_CREATE")
+        context['modul_zavihek'] = modul_zavihek
+
+        return context
+
 
 # #########################################################
 # OPRAVILO SPLOŠNO CREATE VIEW

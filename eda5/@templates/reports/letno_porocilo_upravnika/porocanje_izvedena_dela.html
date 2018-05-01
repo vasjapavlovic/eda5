@@ -75,6 +75,8 @@
                 <th>Naziv opravila</th>
                 <th>Izvajalec</th>
                 <th>Naročilo</th>
+                <th>Pogodba</th>
+
             </tr>
         </thead>
 
@@ -92,10 +94,16 @@
             {% for object in po.list %}
             <tr>
                 <td>{{ object.datum_stop }}</td>
-                <td>{{ object.oznaka }}</td>
+                <td><a href="{% url 'moduli:delovninalogi:dn_detail' object.pk %}">{{ object.oznaka }}</a></td>
                 <td>{{ object.opravilo.naziv }}</td>
                 <td>{{ object.opravilo.narocilo.izvajalec.kratko_ime }}</td>
                 <td>{{ object.opravilo.narocilo.oznaka }}</td>
+                {% if object.opravilo.narocilo.narocilodokument %}
+                <td><a href="{{ MEDIA_URL }}{{ object.opravilo.narocilo.narocilodokument.dokument.dokument.priponka }}">{{ object.opravilo.narocilo.narocilodokument.dokument.dokument.oznaka }}</td>
+                {% endif %}
+                {% if object.opravilo.narocilo.narocilotelefon %}
+                <td>{{ object.opravilo.narocilo.narociltelefon.dogovor_text }}-{{ object.opravilo.narocilo.narociltelefon.dogovor_date }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
 

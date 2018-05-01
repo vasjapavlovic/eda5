@@ -11,7 +11,7 @@
         <td><b style="color:#0000FF">{{ object.predmet }}</b></td>
     </tr>
 
-    {% if object.narocilo_dokument %}
+    {% if object.narocilodokument %}
     <tr>
         <td><small><b>vrsta</b></small></td>
         <td>Naročilo po Dokumentu</td>
@@ -19,17 +19,21 @@
     <tr>
         <td><small><b>Priponka</b></small></td>
         <td>
-            {% for arhiviranje in object.narocilo_dokument.arhiviranje_set.all %}
-            <a href="{{ MEDIA_URL }}{{ arhiviranje.dokument.priponka }}" target="_blank"><li>{{ arhiviranje.dokument.priponka }}</li></a>
-            {% endfor %}
+
+            <a href="{{ MEDIA_URL }}{{ object.dokument.dokument.priponka }}" target="_blank"><li>{{ object.narocilodokument.dokument.dokument.oznaka }} {{ object.narocilodokument.dokument.dokument.naziv }}</li></a>
+
         </td>
     </tr>
     {% endif %}
 
-    {% if object.narocilo_telefon %}
+    {% if object.narocilotelefon %}
     <tr>
         <td><small><b>vrsta</b></small></td>
         <td>Naročilo po Telefonu</td>
+    </tr>
+    <tr>
+        <td><small><b>dogovor</b></small></td>
+        <td>{{ dogovor_text }}</td>
     </tr>
     {% endif %}
 

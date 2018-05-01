@@ -161,7 +161,7 @@ class VzorecOpravilaCreateForm(forms.ModelForm):
             'rok_izvedbe',
             'narocilo',
             'nosilec',
-            'vrsta_stroska',
+            'vrsta_stroska'
         )
         widgets = {
             'rok_izvedbe': DateInput(),
@@ -186,6 +186,7 @@ class OpraviloUpdateForm(forms.ModelForm):
             'naziv',
             'rok_izvedbe',
             'vrsta_stroska',
+            'status',
             )
         widgets = {
             'rok_izvedbe': DateInput(),
