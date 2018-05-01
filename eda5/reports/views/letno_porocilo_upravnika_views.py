@@ -378,6 +378,7 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
                         dn_izredno_list = dn_izredno_list.filter(opravilo__narocilo=narocilo)
                         dn_izredno_list = dn_izredno_list.filter(datum_start__gte=datum_od)
                         dn_izredno_list = dn_izredno_list.filter(datum_start__lte=datum_do)
+                        dn_izredno_list = dn_izredno_list.order_by('datum_start')
 
 
                     izpis_data = {
