@@ -93,7 +93,7 @@
 
             {% for object in po.list %}
             <tr>
-                <td>{{ object.datum_stop }}</td>
+                <td>{{ object.datum_start }}</td>
                 <td><a href="{% url 'moduli:delovninalogi:dn_detail' object.pk %}">{{ object.oznaka }}</a></td>
                 <td>{{ object.opravilo.naziv }}</td>
                 <td>{{ object.opravilo.narocilo.izvajalec.kratko_ime }}</td>
