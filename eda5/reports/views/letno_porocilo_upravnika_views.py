@@ -16,6 +16,7 @@ from braces.views import LoginRequiredMixin
 
 # Models
 from eda5.delovninalogi.models import DelovniNalog
+from eda5.deli.models import DelStavbe, ProjektnoMesto
 from eda5.moduli.models import Zavihek
 from eda5.racunovodstvo.models import Strosek, PodKonto, SkupinaVrsteStroska, VrstaStroska
 
@@ -378,6 +379,53 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
                         dn_izredno_list = dn_izredno_list.filter(opravilo__narocilo=narocilo)
                         dn_izredno_list = dn_izredno_list.filter(datum_start__gte=datum_od)
                         dn_izredno_list = dn_izredno_list.filter(datum_start__lte=datum_do)
+                        dn_izredno_list = dn_izredno_list.order_by('datum_start')
+
+
+                    izpis_data = {
+                        'vrsta_stroska_oznaka': vrsta_stroska.oznaka,
+                        'vrsta_stroska_naziv': vrsta_stroska.naziv,
+                        'obdobje_od': datum_od,
+                        'obdobje_do': datum_do,
+                        'dn_list': dn_izredno_list,
+                    }
+
+                    # izdelamo izpis
+                    filename = fill_template(
+                        # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+                        'obrazci/letno_porocilo_upravnika/letno_porocilo_upravnika_izvedena_dela_izredna.ods',
+                        # podatki za uporabo v oblikovni datoteki
+                        izpis_data,
+                        output_format="xlsx"
+                    )
+
+                    visible_filename = '{}.{}'.format('letno_porocilo_upravnika_stroski' ,"xlsx")
+
+                    return FileResponse(filename, visible_filename)
+
+
+                if izpis_izbira == '3':
+
+                    if izredna_dela_filter_form.is_valid():
+                        vrsta_stroska = izredna_dela_filter_form.cleaned_data['vrsta_stroska']
+                        datum_od = izredna_dela_filter_form.cleaned_data['datum_od']
+                        datum_do = izredna_dela_filter_form.cleaned_data['datum_do']
+                        izredna_dela_filter_form_is_valid = True
+
+                    if izredna_dela_filter_form_is_valid == True:
+                        dn_izredno_list = dn_izredno_list.filter(opravilo__vrsta_stroska=vrsta_stroska)
+                        dn_izredno_list = dn_izredno_list.filter(datum_start__gte=datum_od)
+                        dn_izredno_list = dn_izredno_list.filter(datum_start__lte=datum_do)
+
+                        del_list = DelStavbe.objects.filter()
+                        del_list = del_list.exclude(podskupina__oznaka="CA")
+
+                        projektno_mesto_list = ProjektnoMesto.objects.filter()
+                        projektno_mesto_list = projektno_mesto_list.filter(del_stavbe__in=del_list)
+
+                        dn_izredno_list = dn_izredno_list.filter(opravilo__element__in=projektno_mesto_list)
+                        dn_izredno_list = dn_izredno_list.distinct()
+
                         dn_izredno_list = dn_izredno_list.order_by('datum_start')
 
 

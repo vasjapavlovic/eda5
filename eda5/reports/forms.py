@@ -129,6 +129,7 @@ class IzvedenaDelaIzpisIzbiraForm(forms.Form):
         (0, "----"),
         (1, "Izvedena opravila po planih obratovanja in vzdrževanja"),
         (2, "Izredna opravila"),
+        (3, "Izredna opravila zunanji"),
     )
 
     izpis_izbira = forms.ChoiceField(choices=IZBIRE, required=False)
