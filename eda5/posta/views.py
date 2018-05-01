@@ -432,10 +432,8 @@ class DokumentPopUpListView(TemplateView):
             dokument_list_filtered = dokument_list_filtered.exclude(vrsta_dokumenta__skupina=skupina_dokumenta)
             dokument_list_filtered = dokument_list_filtered.order_by('-datum_dokumenta')
 
-        else:
-            dokument_list_filtered = []
 
-        if dokument_filter_form_is_valid == True:
+
             # filtriraj samo glede na podane podatke. Če podatka ni ga ne uporabiš.
             if oznaka:
                 dokument_list_filtered = dokument_list_filtered.filter(oznaka__icontains=oznaka)
@@ -455,6 +453,9 @@ class DokumentPopUpListView(TemplateView):
 
             if datum_do:
                 dokument_list_filtered = dokument_list_filtered.filter(datum_dokumenta__lte=datum_do)
+
+        else:
+            dokument_list_filtered = []
 
         if vrsta_dokumenta_form_is_valid == True:
             if vrsta_dokumenta:
