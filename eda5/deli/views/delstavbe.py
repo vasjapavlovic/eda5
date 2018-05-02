@@ -228,8 +228,8 @@ class DelStavbePrintView(LoginRequiredMixin, UpdateView):
             # prenos podatkov za aplikacijo templated_docs
 
             filename = fill_template(
-                'obrazci/delstavbe/delstavbe_print.odt', {'print_data': print_data, 'datum_danes': datum_danes}, output_format=doctypex)
-            visible_filename = 'stavba_{}_deli_seznam.{}'.format(stavba.oznaka, doctypex)
+                'obrazci/delstavbe/seznam_delov_stavbe.ods', {'print_data': print_data, 'datum_danes': datum_danes}, output_format=doctypex)
+            visible_filename = 'Seznam delov stavbe {}.{}'.format(stavba.naziv, doctypex)
 
             return FileResponse(filename, visible_filename)
 

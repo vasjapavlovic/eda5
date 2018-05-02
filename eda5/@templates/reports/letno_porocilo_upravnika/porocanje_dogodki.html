@@ -1,0 +1,110 @@
+{% extends "base_200.html" %}
+{% load staticfiles i18n %}
+{% load crispy_forms_tags %}
+
+<!-- SideBar podatki -->
+{% block sidebar %}
+    {% include "moduli/detail_sidebar.html" %}
+{% endblock %}
+<!-- end SideBar podatki -->
+
+
+
+<!-- Navbar Title -->
+{% block navbar_title %}
+    {% include "moduli/detail_navbar_title.html" %}
+{% endblock %}
+<!-- end Navbar Title -->
+
+
+
+<!-- Navbar-Left podatki -->
+{% block navbar_right %}
+{% endblock %}
+<!-- end Navbar-Left podatki -->
+
+
+
+<!-- PAGE TITLE -->
+{% block content_title %}
+<!-- Title -->{{ modul_zavihek.naziv }}<!-- end Title -->
+{% endblock %}
+<!-- end PAGE TITLE -->
+
+
+
+<!-- PAGE CONTENT -->
+{% block content-body %}
+<link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+
+<!-- form za filtriranje -->
+
+<form id="create_form" method="GET" action="" enctype="multipart/form-data">
+
+    {{ uporabim_filter_form }}
+    {{ leto_izbira_form }}
+    {{ dogodek_filter_form }}
+
+
+  <button type="submit" name="page" value="1">{% trans 'Prikaži seznam' %}</button>
+</form>
+
+<form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+
+    {{ uporabim_filter_form }}
+    {{ leto_izbira_form }}
+    {{ izpis_izbira_form }}
+
+
+  <button type="submit" name="page" value="1">{% trans 'Natisni' %}</button>
+</form>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>DATUM</th>
+                <th>ČAS</th>
+                <th>OPIS</th>
+                <th>JE ŠKODA</th>
+                <th>PREDVIDENA VIŠINA ŠKODE</th>
+                <th>Prijava škode</th>
+                <th>Prijava policiji</th>
+                <th>Edit</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            {% for object in dogodek_list %}
+
+            <tr>
+                <td><a href="{% url 'moduli:dogodki:dogodek_detail' object.pk %}">{{ object.pk }}</a></td>
+                <td>{{ object.datum_dogodka }}</td>
+                <td>{{ object.cas_dogodka }}</td>
+                <td>{{ object.opis_dogodka }}</td>
+                <td>{{ object.is_nastala_skoda }}</td>
+                <td>{{ object.predvidena_visina_skode }}</td>
+                <td>{{ object.prijava_skode }}</td>
+                <td>{{ object.prijava_policiji }}</td>
+                <td><a href="{% url 'moduli:dogodki:dogodek_update_from_zahtevek' object.pk %}">Edit</a></td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+<!-- end PAGE CONTENT -->
+
+
+
+<!-- JAVASCRIPT EXTRA -->
+{% block javascript_extra %}
+{% endblock %}

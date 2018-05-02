@@ -124,12 +124,32 @@ class UporabimFilterForm(forms.Form):
     uporabim_filter = forms.BooleanField(label='Uporabi filter')
 
 
+
+
+
 class IzvedenaDelaIzpisIzbiraForm(forms.Form):
     IZBIRE = (
         (0, "----"),
         (1, "Izvedena opravila po planih obratovanja in vzdrževanja"),
         (2, "Izredna opravila"),
         (3, "Izredna opravila zunanji"),
+    )
+
+    izpis_izbira = forms.ChoiceField(choices=IZBIRE, required=False)
+
+
+class DogodekFilterForm(forms.Form):
+
+    zavarovani_dogodki = forms.BooleanField(label='Prikaži samo zavarovane dogodke', required=False)
+    nezavarovani_dogodki = forms.BooleanField(label='Prikaži nezavarovane dogodke', required=False)
+
+
+class DogodkiIzpisIzbiraForm(forms.Form):
+    IZBIRE = (
+        (0, "----"),
+        (1, "Zavarovani dogodki"),
+        (2, "Pomembni dogodki"),
+
     )
 
     izpis_izbira = forms.ChoiceField(choices=IZBIRE, required=False)

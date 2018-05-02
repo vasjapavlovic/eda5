@@ -17,13 +17,14 @@ from braces.views import LoginRequiredMixin
 # Models
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.deli.models import DelStavbe, ProjektnoMesto
+from eda5.dogodki.models import Dogodek
 from eda5.moduli.models import Zavihek
 from eda5.racunovodstvo.models import Strosek, PodKonto, SkupinaVrsteStroska, VrstaStroska
 
 
 # Forms
 from eda5.reports.forms import FormatForm
-from ..forms import LetnoPorociloUpravnikaStroskiIzpisIzbiraForm, PlanIzbiraForm, LetoIzbiraForm, IzvedenaDelaIzpisIzbiraForm, UporabimFilterForm, ObracunIzrednaDelaForm
+from ..forms import LetnoPorociloUpravnikaStroskiIzpisIzbiraForm, PlanIzbiraForm, LetoIzbiraForm, IzvedenaDelaIzpisIzbiraForm, UporabimFilterForm, ObracunIzrednaDelaForm, DogodekFilterForm, DogodkiIzpisIzbiraForm
 
 
 # Views
@@ -451,6 +452,200 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
                     visible_filename = '{} {}-{}.{}'.format('Izvedena izredna dela', vrsta_stroska.oznaka, datum_od.year, "xlsx")
 
                     return FileResponse(filename, visible_filename)
+
+
+
+        # IF NOT VALID
+        return render(
+            request, self.template_name, {
+                'format_form': format_form,
+                'izpis_izbira_form': izpis_izbira_form,
+                'plan_izbira_form': plan_izbira_form,
+                'leto_izbira_form': leto_izbira_form,
+                'modul_zavihek': modul_zavihek,
+                }
+            )
+
+
+class PorocanjeDogodkiView(LoginRequiredMixin, TemplateView):
+    template_name = "reports/letno_porocilo_upravnika/porocanje_dogodki.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PorocanjeDogodkiView, self).get_context_data(*args, **kwargs)
+
+        # zavihek
+        modul_zavihek = Zavihek.objects.get(oznaka="REPORT_LETNO_POROCILO_UPRAVNIKA_DOGODKI")
+        context['modul_zavihek'] = modul_zavihek
+
+        izpis_izbira_form = DogodkiIzpisIzbiraForm()
+        context['izpis_izbira_form'] = izpis_izbira_form
+
+
+
+        return context
+
+
+    def get(self, request, *args, **kwargs):
+
+        modul_zavihek = Zavihek.objects.get(oznaka="REPORT_LETNO_POROCILO_UPRAVNIKA_DOGODKI")
+
+        # form za filtriranje
+        uporabim_filter_form = UporabimFilterForm(request.GET or None)
+        leto_izbira_form = LetoIzbiraForm(request.GET or None)
+        dogodek_filter_form =  DogodekFilterForm(request.GET or None)
+
+        # na začetku so vsi formi neustrezni
+        uporabim_filter_form_is_valid = False
+        leto_izbira_form_is_valid = False
+        dogodek_filter_form_is_valid = False
+
+        # osnovni seznam, ki ga bomo filtrirali
+
+        if uporabim_filter_form.is_valid():
+            # izpis_izbira = izpis_izbira_form.cleaned_data['izpis_izbira']
+            uporabim_filter_form_is_valid = True
+
+
+        if uporabim_filter_form_is_valid == True:
+            dogodek_list = Dogodek.objects.filter()
+            dogodek_list = dogodek_list.order_by('datum_dogodka', 'cas_dogodka')
+
+
+            if leto_izbira_form.is_valid():
+                obdobje_leto = leto_izbira_form.cleaned_data['obdobje_leto']
+                leto_izbira_form_is_valid = True
+
+            if leto_izbira_form_is_valid == True:
+                dogodek_list = dogodek_list.filter(datum_dogodka__year=obdobje_leto.oznaka)
+
+
+            if dogodek_filter_form.is_valid():
+                zavarovani_dogodki = dogodek_filter_form.cleaned_data['zavarovani_dogodki']
+                nezavarovani_dogodki = dogodek_filter_form.cleaned_data['nezavarovani_dogodki']
+                dogodek_filter_form_is_valid = True
+
+            if dogodek_filter_form_is_valid == True:
+                if zavarovani_dogodki == True:
+                    dogodek_list = dogodek_list.filter(prijava_skode__isnull=False)
+
+                if nezavarovani_dogodki == True:
+                    dogodek_list = dogodek_list.filter(prijava_skode__isnull=True)
+
+        else:
+
+            dogodek_list = []
+
+
+        context = self.get_context_data(
+            uporabim_filter_form=uporabim_filter_form,
+            leto_izbira_form=leto_izbira_form,
+            dogodek_filter_form=dogodek_filter_form,
+            dogodek_list=dogodek_list,
+            modul_zavihek=modul_zavihek,
+        )
+
+        return self.render_to_response(context)
+
+
+    def post(self, request, *args, **kwargs):
+
+        modul_zavihek = Zavihek.objects.get(oznaka="REPORT_LETNO_POROCILO_UPRAVNIKA_DOGODKI")
+
+        # form za filtriranje
+        format_form = FormatForm(request.POST or None)
+        uporabim_filter_form = UporabimFilterForm(request.POST or None)
+        leto_izbira_form = LetoIzbiraForm(request.POST or None)
+        dogodek_filter_form =  DogodekFilterForm(request.POST or None)
+        izpis_izbira_form = DogodkiIzpisIzbiraForm(request.POST or None)
+
+        # na začetku so vsi formi neustrezni
+        uporabim_filter_form_is_valid = False
+        leto_izbira_form_is_valid = False
+        dogodek_filter_form_is_valid = False
+        izpis_izbira_form_is_valid = False
+        format_form_is_valid = True
+
+        # form za filtriranje
+
+        # osnovni seznam, ki ga bomo filtrirali
+
+        if izpis_izbira_form.is_valid():
+            izpis_izbira = izpis_izbira_form.cleaned_data['izpis_izbira']
+            izpis_izbira_form_is_valid = True
+
+
+
+        if format_form_is_valid == True:
+
+            dogodek_list = Dogodek.objects.filter()
+            dogodek_list = dogodek_list.order_by('datum_dogodka', 'cas_dogodka')
+
+            if leto_izbira_form.is_valid():
+                obdobje_leto = leto_izbira_form.cleaned_data['obdobje_leto']
+                leto_izbira_form_is_valid = True
+
+            if leto_izbira_form_is_valid == True:
+                dogodek_list = dogodek_list.filter(datum_dogodka__year=obdobje_leto.oznaka)
+
+
+            if dogodek_filter_form.is_valid():
+                zavarovani_dogodki = dogodek_filter_form.cleaned_data['zavarovani_dogodki']
+                nezavarovani_dogodki = dogodek_filter_form.cleaned_data['nezavarovani_dogodki']
+                dogodek_filter_form_is_valid = True
+
+            if dogodek_filter_form_is_valid == True:
+                if zavarovani_dogodki == True:
+                    dogodek_list = dogodek_list.filter(prijava_skode__isnull=False)
+
+                if nezavarovani_dogodki == True:
+                    dogodek_list = dogodek_list.filter(prijava_skode__isnull=True)
+
+
+
+            if izpis_izbira_form_is_valid == True:
+
+                if izpis_izbira == '1':
+                    dogodek_list = dogodek_list.filter(prijava_skode__isnull=False)
+
+                    izpis_data = {
+                        'obdobje_leto': obdobje_leto,
+                        'dogodek_list': dogodek_list,
+                    }
+
+                    # izdelamo izpis
+                    filename = fill_template(
+                        # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+                        'obrazci/letno_porocilo_upravnika/letno_porocilo_upravnika_zavarovane_skode.ods',
+                        # podatki za uporabo v oblikovni datoteki
+                        izpis_data,
+                        output_format="xlsx"
+                    )
+
+                    visible_filename = '{} {}.{}'.format('Škode krite iz naslova pogodb z zavarovalnico', obdobje_leto, "xlsx")
+
+                    return FileResponse(filename, visible_filename)
+
+                if izpis_izbira == '2':
+
+
+                    izpis_data = {
+                        'obdobje_leto': obdobje_leto,
+                        'dogodek_list': dogodek_list,
+                    }
+
+                    # izdelamo izpis
+                    filename = fill_template(
+                        # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
+                        'obrazci/letno_porocilo_upravnika/letno_porocilo_upravnika_dogodki.ods',
+                        # podatki za uporabo v oblikovni datoteki
+                        izpis_data,
+                        output_format="xlsx"
+                    )
+
+                    visible_filename = '{} {}.{}'.format('Pomembni dogodki v letu', obdobje_leto, "xlsx")
+
+                    return FileResponse(filename, visible_filename)
+
 
 
 

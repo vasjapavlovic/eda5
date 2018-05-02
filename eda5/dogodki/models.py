@@ -32,6 +32,12 @@ class Dogodek(IsActiveModel, TimeStampedModel, StatusModel):
 
     pomanjkljivost = models.ManyToManyField(Pomanjkljivost, blank=True)
 
+    prijavljena_skoda = models.TextField(blank=True, null=True, verbose_name="prijavljena škoda")
+    st_prijave_skode = models.CharField(max_length=50, null=True, blank=True, verbose_name="Št. prijave škode")
+    st_zahtevka_zavarovalnice = models.CharField(max_length=50, null=True, blank=True, verbose_name="Št. zahtevka zavarovalnice")
+    st_zavarovalne_police = models.CharField(max_length=50, null=True, blank=True, verbose_name="Št. zavarovalne police")
+
+
     # OBJECT MANAGER
     objects = managers.DogodekManager()
     # CUSTOM PROPERTIES
