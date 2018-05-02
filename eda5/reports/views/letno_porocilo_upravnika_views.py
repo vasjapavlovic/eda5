@@ -361,7 +361,7 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
                         output_format="xlsx"
                     )
 
-                    visible_filename = '{}.{}'.format('letno_porocilo_upravnika_stroski' ,"xlsx")
+                    visible_filename = '{} {}-{}.{}'.format('Izvedena planirana opravila', izbrani_plan.oznaka, obdobje_leto, "xlsx")
 
                     return FileResponse(filename, visible_filename)
 
@@ -387,6 +387,7 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
                         'vrsta_stroska_naziv': vrsta_stroska.naziv,
                         'obdobje_od': datum_od,
                         'obdobje_do': datum_do,
+                        'obdobje_leto': datum_od.year,
                         'dn_list': dn_izredno_list,
                     }
 
@@ -399,7 +400,7 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
                         output_format="xlsx"
                     )
 
-                    visible_filename = '{}.{}'.format('letno_porocilo_upravnika_stroski' ,"xlsx")
+                    visible_filename = '{} {}-{}.{}'.format('Izvedena izredna dela', vrsta_stroska.oznaka, datum_od.year, "xlsx")
 
                     return FileResponse(filename, visible_filename)
 
@@ -418,7 +419,7 @@ class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
                         dn_izredno_list = dn_izredno_list.filter(datum_start__lte=datum_do)
 
                         del_list = DelStavbe.objects.filter()
-                        del_list = del_list.exclude(podskupina__oznaka="CA")
+                        # del_list = del_list.exclude(podskupina__oznaka="CA")
 
                         projektno_mesto_list = ProjektnoMesto.objects.filter()
                         projektno_mesto_list = projektno_mesto_list.filter(del_stavbe__in=del_list)
