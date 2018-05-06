@@ -6,6 +6,7 @@ from eda5.core.models import TimeStampedModel, ObdobjeLeto, ObdobjeMesec, IsLikv
 from eda5.deli.models import Stavba
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.etaznalastnina.models import LastniskaSkupina
+from eda5.narocila.models import Narocilo
 from eda5.partnerji.models import Oseba
 from eda5.posta.models import Dokument
 
@@ -107,6 +108,9 @@ class Strosek(models.Model):
     # Strošek vežemo na izvedeno opravilo s katerim
     # ovrednotimo posamezno delo po delovnem nalogu
     delovni_nalog = models.OneToOneField(DelovniNalog, blank=True, null=True)
+
+
+    narocilo = models.ForeignKey(Narocilo, blank=True, null=True, verbose_name="ID Naročila")
 
 
     # OBJECT MANAGER

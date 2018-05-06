@@ -36,6 +36,7 @@ class StrosekOsnovaCreateForm(forms.ModelForm):
             'datum_storitve_od',
             'datum_storitve_do',
             'delovni_nalog',
+            'narocilo',
             'osnova',
             'stopnja_ddv',
             # 'vrsta_stroska', --> vrsta stroska se izbere pod StrosekVrstaIzbiraForm
@@ -71,6 +72,7 @@ class StrosekUpdateForm(forms.ModelForm):
             'datum_storitve_od',
             'datum_storitve_do',
             'delovni_nalog',
+            'narocilo',
             'osnova',
             'stopnja_ddv',
             'vrsta_stroska',
@@ -80,4 +82,3 @@ class StrosekUpdateForm(forms.ModelForm):
             'datum_storitve_od': DateInput(),
             'datum_storitve_do': DateInput(),
         }
-

@@ -21,7 +21,7 @@ from eda5.zaznamki.models import Zaznamek
 
 # Forms
 from ..forms import sestanek_forms
-from eda5.reports.forms import FormatForm
+from eda5.reports.forms.forms import FormatForm
 
 
 class SestanekCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
@@ -188,7 +188,7 @@ class SestanekDetailView(LoginRequiredMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
 
-        
+
         ###########################################################################
         # FORMS
         ###########################################################################
@@ -198,7 +198,7 @@ class SestanekDetailView(LoginRequiredMixin, DetailView):
         ###########################################################################
         # PRIDOBIMO PODATKE
         ###########################################################################
-        
+
         # instanca
         # Sestanek s katerim imamo opravka (instanca)
         sestanek = Sestanek.objects.get(id=self.get_object().id)
@@ -228,9 +228,9 @@ class SestanekDetailView(LoginRequiredMixin, DetailView):
             # izdelamo izpis
             filename = fill_template(
                 # oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
-                'sestanki/sestanek/detail/zapisniksestanka_20170503.ods', 
-                # podatki za uporabo v oblikovni datoteki   
-                izpis_data,                     
+                'sestanki/sestanek/detail/zapisniksestanka_20170503.ods',
+                # podatki za uporabo v oblikovni datoteki
+                izpis_data,
                 output_format="xlsx"
             )
 

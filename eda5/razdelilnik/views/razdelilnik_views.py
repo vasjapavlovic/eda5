@@ -23,7 +23,7 @@ from eda5.zaznamki.models import Zaznamek
 # Forms
 from ..forms.razdelilnik_forms import RazdelilnikSearchForm, RazdelilnikCreateFromZahtevekForm
 from eda5.arhiv.forms import ArhiviranjeZahtevekForm
-from eda5.reports.forms import FormatForm
+from eda5.reports.forms.forms import FormatForm
 from eda5.zaznamki.forms import ZaznamekForm
 
 # Views

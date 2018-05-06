@@ -9,7 +9,7 @@ from reportlab.lib.pagesizes import letter, A3, A4
 
 
 
-from ..forms import ReportForm
+from ..forms.forms import ReportForm
 
 
 
@@ -69,26 +69,3 @@ class ReportDelavciVDelu(TemplateView):
         context['delavdelu'] = delavdelu
 
         return context
-
-
-class ReportDelovniNalogODnevnik(TemplateView):
-    template_name = "reports/delovninalog/dnevnik/base.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(ReportDelovniNalogODnevnik, self).get_context_data(*args, **kwargs)
-
-        # zavihek
-        modul_zavihek = Zavihek.objects.get(oznaka="DELOVNI_NALOG_DNEVNIK")
-        context['modul_zavihek'] = modul_zavihek
-
-        delovninalogi = DelovniNalog.objects.filter(status=4)
-        context['delovninalogi'] = delovninalogi
-
-        return context
-
-
-
-
-
-
-

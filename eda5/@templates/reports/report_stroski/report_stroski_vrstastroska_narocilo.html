@@ -35,36 +35,62 @@
 
 <!-- PAGE CONTENT -->
 {% block content-body %}
+<link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
 
-    <link rel="stylesheet" href="{% static 'css/css_hidden.css' %}" />
+<!-- form za filtriranje -->
+<form id="create_form" method="GET" action="" enctype="multipart/form-data">
 
-    <form id="create_form" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+    {{ uporabim_filter_form | crispy }}
+    {{ vrsta_stroska_izbira_form | crispy }}
+    {{ narocilo_izbira_form | crispy }}
+    {{ leto_izbira_form | crispy }}
 
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Podatki o Strošku</div>
-            <div class="panel-body">
-                {{ strosek_osnova_create_form | crispy  }}
+  <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
 
-            </div>
-        </div>
+  <div id="reload_controls_vrsta_stroska_podkonto_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_podkonto_view' %}</div>
+  <div id="reload_controls_vrsta_stroska_skupinavrstestroska_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_skupinavrstestroska_view' %}</div>
+  <div id="reload_controls_vrsta_stroska_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_view' %}</div>
 
-        <div class="panel panel-{{ modul_zavihek.modul.barva }}">
-            <div class="panel-heading">Izberi Stroškovno Mesto</div>
-            <div class="panel-body">
-
-                {{ vrsta_stroska_izbira_form | crispy  }}
+</form>
 
 
-            </div>
-        </div>
+<div class="table-resposnive">
 
-        <input type="submit" value="Potrdi">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Št. dokumenta</td>
+                <td>Datum opravljene storitve od</td>
+                <td>Datum opravljene storitve do</td>
+                <td>Partner d.š.</td>
+                <td>Partner kratko ime</td>
+                <td>Znesek brez ddv</td>
 
-        <div id="reload_controls_vrsta_stroska_podkonto_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_podkonto_view' %}</div>
-        <div id="reload_controls_vrsta_stroska_skupinavrstestroska_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_skupinavrstestroska_view' %}</div>
-        <div id="reload_controls_vrsta_stroska_view" style="display: none;">{% url 'moduli:racunovodstvo:reload_controls_vrsta_stroska_view' %}</div>
+            </tr>
+        </thead>
 
-    </form>
+
+        <tbody>
+            {% for strosek in strosek_list %}
+            <tr>
+                <td><a href="{% url 'moduli:posta:dokument_update' strosek.racun.arhiviranje.dokument.pk %}">{{ strosek.racun.arhiviranje.dokument.oznaka }}</a></td>
+                <td>{{ strosek.datum_storitve_od }}</td>
+                <td>{{ strosek.datum_storitve_do }}</td>
+                <td>{{ strosek.racun.arhiviranje.dokument.avtor.davcna_st }}</td>
+                <td>{{ strosek.racun.arhiviranje.dokument.avtor.kratko_ime }}</td>
+                <td>{{ strosek.osnova }}</td>
+
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td colspan=5><b>SKUPAJ</b></td>
+                <td>{{strosek_sum_brezddv.skupaj}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 
 {% endblock %}
 <!-- end PAGE CONTENT -->
@@ -73,7 +99,6 @@
 
 <!-- JAVASCRIPT EXTRA -->
 {% block javascript_extra %}
-
 <!--  Filter Nosilca Zahtevka glede na naročilo -->
 <script src="{% static 'js/custom_filter.js' %}"></script>
 
@@ -225,5 +250,4 @@
     }
 
 </script>
-
 {% endblock %}

@@ -23,8 +23,8 @@ from eda5.racunovodstvo.models import Strosek, PodKonto, SkupinaVrsteStroska, Vr
 
 
 # Forms
-from eda5.reports.forms import FormatForm
-from ..forms import LetnoPorociloUpravnikaStroskiIzpisIzbiraForm, PlanIzbiraForm, LetoIzbiraForm, IzvedenaDelaIzpisIzbiraForm, UporabimFilterForm, ObracunIzrednaDelaForm, DogodekFilterForm, DogodkiIzpisIzbiraForm
+from ..forms.forms import FormatForm
+from ..forms.forms import LetnoPorociloUpravnikaStroskiIzpisIzbiraForm, PlanIzbiraForm, LetoIzbiraForm, IzvedenaDelaIzpisIzbiraForm, UporabimFilterForm, ObracunIzrednaDelaForm, DogodekFilterForm, DogodkiIzpisIzbiraForm
 
 
 # Views

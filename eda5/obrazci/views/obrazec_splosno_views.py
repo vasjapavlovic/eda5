@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView, CreateView	
+from django.views.generic import DetailView, ListView, CreateView
 
 # templated docs
 from templated_docs import fill_template
@@ -11,12 +11,12 @@ from eda5.moduli.models import Zavihek
 
 # Forms
 from ..forms.forms import ObrazecCreateForm
-from eda5.reports.forms import FormatForm
+from eda5.reports.forms.forms import FormatForm
 
 
 
 class DopisCreateView(CreateView):
-	
+
 	model = ObrazecSplosno
 	template_name = "obrazci/dopis/create/create.html"
 	form_class = ObrazecCreateForm
@@ -94,7 +94,7 @@ class DopisCreateView(CreateView):
 
 
 class DopisListView(ListView):
-	
+
 	model = ObrazecSplosno
 	template_name = "obrazci/dopis/list/base.html"
 
@@ -111,7 +111,7 @@ class DopisListView(ListView):
 		return context
 
 class DopisDetailView(DetailView):
-	
+
 	model = ObrazecSplosno
 	template_name = 'obrazci/dopis/detail/base.html'
 
@@ -124,7 +124,7 @@ class DopisDetailView(DetailView):
 		context['modul_zavihek'] = modul_zavihek
 
 		# from za izbiro formata izvoza
-		context['form'] = FormatForm 
+		context['form'] = FormatForm
 
 		obrazec = ObrazecSplosno.objects.get(id=self.get_object().id)
 		context['obrazec'] = obrazec
@@ -157,7 +157,7 @@ class DopisDetailView(DetailView):
             ###########################################################################
             # UKAZI
             ###########################################################################
-		
+
 			# iz instance pridobimo željene podatke
 			# ki jih bomo uporabili v izpisu
 			izpis_data = {
@@ -177,9 +177,9 @@ class DopisDetailView(DetailView):
 			# izdelamo izpis
 			filename = fill_template(
 				# oblikovna datoteka v formatu .odb, ki jo želimo uporabiti
-	            'obrazci/dopis/dopis_01.odt', 
-	            # podatki za uporabo v oblikovni datoteki	
-	            izpis_data,						
+	            'obrazci/dopis/dopis_01.odt',
+	            # podatki za uporabo v oblikovni datoteki
+	            izpis_data,
 	            output_format=doctypex
 	        )
 

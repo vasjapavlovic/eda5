@@ -1,12 +1,18 @@
 from django.conf.urls import url
 
-from .views import dn_seznam, ostalo, deli, dn_racun_dnevnik, delstavbe, obracuni_views, letno_porocilo_upravnika_views
+from .views import \
+    dn_seznam,\
+    ostalo,\
+    deli,\
+    dn_racun_dnevnik,\
+    delstavbe,\
+    obracuni_views,\
+    letno_porocilo_upravnika_views,\
+    racunovodstvo_reports_views,\
+    delovninalogi_reports_views
 
 
-# Racun
-urlpatterns = [
-
-]
+urlpatterns = []
 
 # Strosek
 urlpatterns += [
@@ -19,64 +25,101 @@ urlpatterns += [
     url(r'^dn-view/$', dn_seznam.dn_view, name="create_pdf_view"),
 ]
 
-# print plan ov
+# PLANIRANJE REPORTS
 urlpatterns += [
-    url(r'^planirano-opravilo-list/$', dn_seznam.PrintPlanOVView.as_view(), name="print_plan_ov"),
+    # (PREGLEJ ALI JE ZA IZBRISATI)
+    url(
+        r'^planirano-opravilo-list/$',
+        dn_seznam.PrintPlanOVView.as_view(),
+        name="print_plan_ov"
+    ),
 ]
 
-# print plan ov
-urlpatterns += [
-    url(r'^deli-list-filter/$', deli.DeliSeznamPrintView.as_view(), name="print_deli_seznam_filter"),
-    url(r'^prostori-list-filter/$', deli.ProstoriSeznamPrintView.as_view(), name="print_prostori_seznam_filter"),
-]
 
 # racuni in dnevniki izvedenih del
 urlpatterns += [
     url(r'^dn-zbirni-dnevnik/$', dn_racun_dnevnik.DnevnikIzvedenihDelView.as_view(), name="print_dnevnik_izvedenih_del"),
 ]
 
-# obracuni
+
+# DEL STAVBE REPORTS
 urlpatterns += [
-    url(r'^obracuni/zbirni-delovni-nalog/$', obracuni_views.ObracunZbirniDelovniNalogView.as_view(), name="obracuni_zbirni_delovni_nalog_view"),
-    url(r'^obracuni/zbirni-delovni-nalog-planirano/$', obracuni_views.ObracunZbirniDelovniNalogPlaniranaView.as_view(), name="obracuni_zbirni_delovni_nalog_planirano_view"),
-]
-
-
-
-# Delovninalog
-urlpatterns += [
-    url(r'^delavci_v_delu/$', ostalo.ReportDelavciVDelu.as_view(), name="delavci_v_delu"),
-    url(r'^dnevnik_izvedenih_del/$', ostalo.ReportDelovniNalogODnevnik.as_view(), name="dnevnik"),
-]
-
-
-# DelStavbe
-urlpatterns += [
-
+    # Servisna knjiga za zunanje
     url(
         r'^edacenter/delstavbe/zunanji(?P<pk>\d+)zunanji$',
         delstavbe.ReportDelStavbeView.as_view(),
         name="delstavbe_detail"
     ),
+    # Deli seznam - filtrirano (PREGLEJ ALI JE ZA IZBRISATI)
+    url(
+        r'^deli-list-filter/$',
+        deli.DeliSeznamPrintView.as_view(),
+        name="print_deli_seznam_filter"
+    ),
+    # Prostori seznam filtrirano (PREGLEJ ALI JE ZA IZBRISATI)
+    url(
+        r'^prostori-list-filter/$',
+        deli.ProstoriSeznamPrintView.as_view(),
+        name="print_prostori_seznam_filter"
+    ),
 ]
 
-# Letno poročilo letno_porocilo_upravnika
-
+# LETNO POROČILO UPRAVNIKA
 urlpatterns += [
-
+    # Stroški
     url(
         r'^letno-porocilo-upravnika/porocanje-stroski/$',
         letno_porocilo_upravnika_views.PorocanjeStroskiView.as_view(),
         name="porocanje_stroski"
     ),
+    # Izvedena dela
     url(
         r'^letno-porocilo-upravnika/porocanje-izvedena-dela/$',
         letno_porocilo_upravnika_views.PorocanjeIzvedenaDelaView.as_view(),
         name="porocanje_izvedena_dela"
     ),
+    # Dogodki
     url(
         r'^letno-porocilo-upravnika/porocanje-dogodki/$',
         letno_porocilo_upravnika_views.PorocanjeDogodkiView.as_view(),
         name="porocanje_dogodki"
+    ),
+]
+
+# RAČUNOVODSTVO REPORTS
+urlpatterns += [
+    # Stroški
+    url(
+        r'^racunovodstvo-reports/stroski/$',
+        racunovodstvo_reports_views.ReportStroskiVrstaStroskaNarocilo.as_view(),
+        name="racunovodstvo_reports_stroski"
+    ),
+]
+
+# DELOVNINALOGI REPORTS
+urlpatterns += [
+    # Zbirni delovni nalog izredno
+    url(
+        r'^obracuni/zbirni-delovni-nalog/$',
+        obracuni_views.ObracunZbirniDelovniNalogView.as_view(),
+        name="obracuni_zbirni_delovni_nalog_view"
+    ),
+    # Zbirni delovni nalog planirano
+    url(
+        r'^obracuni/zbirni-delovni-nalog-planirano/$',
+        obracuni_views.ObracunZbirniDelovniNalogPlaniranaView.as_view(),
+        name="obracuni_zbirni_delovni_nalog_planirano_view"
+    ),
+    # Evidenca delovnega časa
+    url(
+        r'^delovnianlogi-reports/evidenca-delovnega-casa/$',
+        delovninalogi_reports_views.EvidencaDelovnegaCasa.as_view(),
+        name="delovninalogi_reports_evidenadelovnegacasa"
+    ),
+    # Delavci v delu
+    url(
+        r'^delavci_v_delu/$',
+        ostalo.ReportDelavciVDelu.as_view(),
+        name="delavci_v_delu"
     ),
 ]

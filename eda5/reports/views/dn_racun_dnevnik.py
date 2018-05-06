@@ -20,7 +20,7 @@ from eda5.delovninalogi.models import DelovniNalog
 from eda5.etaznalastnina.models import LastniskaSkupina, Program
 
 # Reports
-from eda5.reports.forms import FormatForm, DeliSeznamFilterForm
+from ..forms.forms import FormatForm, DeliSeznamFilterForm
 
 
 
@@ -103,4 +103,3 @@ class DnevnikIzvedenihDelView(TemplateView):
                 # 'deli_seznam_filter_form': deli_seznam_filter_form,
                 }
             )
-

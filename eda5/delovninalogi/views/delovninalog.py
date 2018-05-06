@@ -32,7 +32,7 @@ from ..forms import DelovniNalogVresevanjuModelForm, DeloCreateForm, DeloKoncajU
 from ..forms import DelovniNalogSearchForm
 from eda5.arhiv.forms import ArhiviranjeDelovniNalogForm
 
-from eda5.reports.forms import FormatForm
+from eda5.reports.forms.forms import FormatForm
 from eda5.zaznamki.forms import ZaznamekForm
 
 # Mixins

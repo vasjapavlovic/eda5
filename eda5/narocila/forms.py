@@ -25,10 +25,9 @@ from eda5.posta.models import VrstaDokumenta
 from eda5.zahtevki.models import Zahtevek
 
 
-
-
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 TimeInput = partial(forms.TimeInput, {'class': 'timepicker'})
+
 
 
 class NarociloCreateIzbiraForm(forms.Form):
@@ -132,7 +131,7 @@ class NarociloDokumentUpdateForm(forms.ModelForm):
         ''' Pri izbiri dokumenta prikažemo samo pogodbe in naročilnice '''
         self.fields['dokument'].queryset = Arhiviranje.objects.filter(
 
-        Q(zahtevek=self.instance.narocilo.zahtevek) & 
+        Q(zahtevek=self.instance.narocilo.zahtevek) &
             (
                 Q(dokument__vrsta_dokumenta__oznaka="PGD") |
                 Q(dokument__vrsta_dokumenta__oznaka="NRC")
@@ -144,3 +143,9 @@ class NarociloDokumentUpdateForm(forms.ModelForm):
         fields = [
             'dokument',
         ]
+
+
+class NarociloSelectForm(forms.Form):
+
+    narocilo = forms.ModelChoiceField(
+        queryset=Narocilo.objects.filter(), required=False)
