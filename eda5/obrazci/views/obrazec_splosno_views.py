@@ -11,7 +11,7 @@ from eda5.moduli.models import Zavihek
 
 # Forms
 from ..forms.forms import ObrazecCreateForm
-from eda5.reports.forms.forms import FormatForm
+from eda5.reports.forms import FormatForm
 
 
 

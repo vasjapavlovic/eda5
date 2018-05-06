@@ -9,7 +9,7 @@ from reportlab.lib.pagesizes import letter, A3, A4
 
 
 
-from ..forms.forms import ReportForm
+from ..forms import ReportForm
 
 
 

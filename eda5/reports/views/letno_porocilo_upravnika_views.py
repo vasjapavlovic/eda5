@@ -23,8 +23,15 @@ from eda5.racunovodstvo.models import Strosek, PodKonto, SkupinaVrsteStroska, Vr
 
 
 # Forms
-from ..forms.forms import FormatForm
-from ..forms.forms import LetnoPorociloUpravnikaStroskiIzpisIzbiraForm, PlanIzbiraForm, LetoIzbiraForm, IzvedenaDelaIzpisIzbiraForm, UporabimFilterForm, ObracunIzrednaDelaForm, DogodekFilterForm, DogodkiIzpisIzbiraForm
+from ..forms import \
+    FormatForm,\
+    LetnoPorociloUpravnikaStroskiIzpisIzbiraForm,\
+    PlanIzbiraForm, LetoIzbiraForm,\
+    IzvedenaDelaIzpisIzbiraForm,\
+    UporabimFilterForm,\
+    ObracunIzrednaDelaForm,\
+    DogodekFilterForm,\
+    DogodkiIzpisIzbiraForm
 
 
 # Views
@@ -195,6 +202,7 @@ class PorocanjeStroskiView(LoginRequiredMixin, TemplateView):
                 'modul_zavihek': modul_zavihek,
                 }
             )
+
 
 class PorocanjeIzvedenaDelaView(LoginRequiredMixin, TemplateView):
     template_name = "reports/letno_porocilo_upravnika/porocanje_izvedena_dela.html"

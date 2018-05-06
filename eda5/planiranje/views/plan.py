@@ -29,7 +29,7 @@ from braces.views import LoginRequiredMixin
 # templated docs
 from templated_docs import fill_template
 from templated_docs.http import FileResponse
-from eda5.reports.forms.forms import FormatForm
+from eda5.reports.forms import FormatForm
 
 
 class PlanCreateView(CreateView):

@@ -24,23 +24,22 @@ from eda5.racunovodstvo.models import Strosek, PodKonto, SkupinaVrsteStroska, Vr
 
 
 # Forms
-from ..forms.forms import \
-    FormatForm,\
-    LetnoPorociloUpravnikaStroskiIzpisIzbiraForm,\
-    PlanIzbiraForm,\
+from ..forms import \
     LetoIzbiraForm,\
-    IzvedenaDelaIzpisIzbiraForm,\
+    MesecIzbiraForm,\
     UporabimFilterForm,\
-    ObracunIzrednaDelaForm,\
-    DogodekFilterForm,\
-    DogodkiIzpisIzbiraForm,\
-    DelavecIzbiraForm
+    DelavecIzbiraForm,\
+    NarociloSelectForm,\
+    VrstaStroskaIzbiraForm,\
+    ObdobjeDatumForm
 
-from eda5.racunovodstvo.forms.vrsta_stroska_forms import VrstaStroskaIzbiraForm
-from eda5.narocila.forms import NarociloSelectForm
 
 # Views
 from eda5.core.views import FilteredListView
+
+# Utils
+from eda5.core.utils import zaokrozen_zmin
+from eda5.core.utils import pretvori_v_ure
 
 # Templated docs
 from templated_docs import fill_template
@@ -61,14 +60,15 @@ class EvidencaDelovnegaCasa(TemplateView):
         return context
 
 
-
     def get(self, request, *args, **kwargs):
 
         uporabim_filter_form = UporabimFilterForm(request.GET or None)
         delavec_izbira_form = DelavecIzbiraForm(request.GET or None)
         vrsta_stroska_izbira_form = VrstaStroskaIzbiraForm(request.GET or None, davcna_klasifikacija=None)
         leto_izbira_form = LetoIzbiraForm(request.GET or None)
+        mesec_izbira_form = MesecIzbiraForm(request.GET or None)
         narocilo_izbira_form = NarociloSelectForm(request.GET or None)
+        obdobje_datum_form = ObdobjeDatumForm(request.GET or None)
 
         delo_list = Delo.objects.filter().order_by('datum')
 
@@ -86,6 +86,19 @@ class EvidencaDelovnegaCasa(TemplateView):
                 if obdobje_leto:
                     delo_list = delo_list.filter(datum__year=obdobje_leto.oznaka)
 
+            if mesec_izbira_form.is_valid():
+                obdobje_mesec = mesec_izbira_form.cleaned_data['obdobje_mesec']
+                if obdobje_mesec:
+                    delo_list = delo_list.filter(datum__month=obdobje_mesec.oznaka)
+
+            if obdobje_datum_form.is_valid():
+                datum_od = obdobje_datum_form.cleaned_data['datum_od']
+                datum_do = obdobje_datum_form.cleaned_data['datum_do']
+                if datum_od:
+                    delo_list = delo_list.filter(datum__gte=datum_od)
+                if datum_do:
+                    delo_list = delo_list.filter(datum__lte=datum_do)
+
             if vrsta_stroska_izbira_form.is_valid():
                 vrsta_stroska = vrsta_stroska_izbira_form.cleaned_data['vrsta_stroska']
                 if vrsta_stroska:
@@ -97,6 +110,25 @@ class EvidencaDelovnegaCasa(TemplateView):
                     delo_list = delo_list.filter(delovninalog__opravilo__narocilo=narocilo)
 
 
+            # preračun delo_cas_rac
+            delo_list = delo_list.annotate(delo_cas=F('time_stop')-F('time_start'))
+
+            for delo in delo_list:
+
+                # osnovni dejanski delo_cas
+                delo_cas = delo.delo_cas
+                # enota za zaokroževanje
+                zmin = delo.delovninalog.opravilo.zmin
+                # zaokrožen delo_cas
+                delo_cas_rac = zaokrozen_zmin(delo_cas, zmin, '+')
+                # pretvorjen v decimalno številko delo_cas
+                delo_cas_rac = pretvori_v_ure(delo_cas_rac)
+                # shranimo v bazo
+                delo.delo_cas_rac = delo_cas_rac
+                delo.save()
+
+
+
             delo_cas_sum = delo_list.aggregate(skupaj=Sum('delo_cas_rac'))
 
             context = self.get_context_data(
@@ -106,6 +138,8 @@ class EvidencaDelovnegaCasa(TemplateView):
                 uporabim_filter_form=uporabim_filter_form,
                 vrsta_stroska_izbira_form=vrsta_stroska_izbira_form,
                 leto_izbira_form=leto_izbira_form,
+                mesec_izbira_form=mesec_izbira_form,
+                obdobje_datum_form=obdobje_datum_form,
                 narocilo_izbira_form=narocilo_izbira_form,
             )
 
@@ -115,6 +149,8 @@ class EvidencaDelovnegaCasa(TemplateView):
                 delavec_izbira_form=delavec_izbira_form,
                 vrsta_stroska_izbira_form=vrsta_stroska_izbira_form,
                 leto_izbira_form=leto_izbira_form,
+                mesec_izbira_form=mesec_izbira_form,
+                obdobje_datum_form=obdobje_datum_form,
                 narocilo_izbira_form=narocilo_izbira_form,
             )
 

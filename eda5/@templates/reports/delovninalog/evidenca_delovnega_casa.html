@@ -40,11 +40,65 @@
 <!-- form za filtriranje -->
 <form id="create_form" method="GET" action="" enctype="multipart/form-data">
 
+
     {{ uporabim_filter_form | crispy }}
     {{ delavec_izbira_form | crispy }}
-    {{ vrsta_stroska_izbira_form | crispy }}
-    {{ narocilo_izbira_form | crispy }}
-    {{ leto_izbira_form | crispy }}
+
+
+
+    <div class="row">
+        <a class="" data-toggle="collapse"
+            href="#obdobje"
+            role="button"
+            aria-expanded="false"
+            aria-controls="obdobje">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        PODATKI O OBDOBJU</a>
+    </div>
+
+    <div class="collapse" id="obdobje">
+        {{ leto_izbira_form | crispy }}
+        {{ mesec_izbira_form | crispy }}
+        {{obdobje_datum_form|crispy}}
+
+    </div>
+
+
+    <div class="row">
+        <a class="" data-toggle="collapse"
+            href="#narocilo"
+            role="button"
+            aria-expanded="false"
+            aria-controls="narocilo">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        PODATKI O NAROČILU</a>
+    </div>
+
+    <div class="collapse" id="narocilo">
+        {{ narocilo_izbira_form | crispy }}
+    </div>
+
+
+    <div class="row">
+        <a class="" data-toggle="collapse"
+            href="#vrsta_stroska"
+            role="button"
+            aria-expanded="false"
+            aria-controls="vrsta_stroska">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        VRSTA STROŠKA</a>
+    </div>
+
+    <div class="collapse" id="vrsta_stroska">
+        {{ vrsta_stroska_izbira_form | crispy }}
+    </div>
+
+
+
+
+
+
+
 
   <button type="submit" name="page" value="1">{% trans 'Search' %}</button>
 

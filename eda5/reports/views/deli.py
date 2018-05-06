@@ -17,7 +17,7 @@ from eda5.deli.models import Podskupina, DelStavbe
 from eda5.etaznalastnina.models import LastniskaSkupina, Program
 
 # Reports
-from ..forms.forms import FormatForm, DeliSeznamFilterForm
+from ..forms import FormatForm, DeliSeznamFilterForm
 
 
 

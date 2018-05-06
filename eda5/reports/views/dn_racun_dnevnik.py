@@ -20,7 +20,7 @@ from eda5.delovninalogi.models import DelovniNalog
 from eda5.etaznalastnina.models import LastniskaSkupina, Program
 
 # Reports
-from ..forms.forms import FormatForm, DeliSeznamFilterForm
+from ..forms import FormatForm, DeliSeznamFilterForm
 
 
 

@@ -143,9 +143,3 @@ class NarociloDokumentUpdateForm(forms.ModelForm):
         fields = [
             'dokument',
         ]
-
-
-class NarociloSelectForm(forms.Form):
-
-    narocilo = forms.ModelChoiceField(
-        queryset=Narocilo.objects.filter(), required=False)

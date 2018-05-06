@@ -3,10 +3,17 @@
 # Django
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.db.models import Q, F, Sum
+from django.db.models import \
+    Q,\
+    F,\
+    Sum
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, UpdateView
+from django.views.generic import \
+    TemplateView,\
+    ListView,\
+    DetailView,\
+    UpdateView
 from django.db.models import Value
 from django.db.models.functions import Concat
 
@@ -22,27 +29,23 @@ from eda5.delovninalogi.models import DelovniNalog
 from eda5.deli.models import DelStavbe, ProjektnoMesto
 from eda5.dogodki.models import Dogodek
 from eda5.moduli.models import Zavihek
-from eda5.racunovodstvo.models import Strosek, PodKonto, SkupinaVrsteStroska, VrstaStroska
+from eda5.racunovodstvo.models import \
+    Strosek,\
+    PodKonto,\
+    SkupinaVrsteStroska,\
+    VrstaStroska
 
 # Views
 from eda5.core.views import FilteredListView
 
 # Forms
-from ..forms.forms import \
+from ..forms import \
     FormatForm,\
-    LetnoPorociloUpravnikaStroskiIzpisIzbiraForm,\
-    PlanIzbiraForm,\
     LetoIzbiraForm,\
     IzvedenaDelaIzpisIzbiraForm,\
     UporabimFilterForm,\
-    ObracunIzrednaDelaForm,\
-    DogodekFilterForm,\
-    DogodkiIzpisIzbiraForm
-    
-from eda5.narocila.forms import NarociloSelectForm
+    NarociloSelectForm
 from eda5.racunovodstvo.forms.vrsta_stroska_forms import VrstaStroskaIzbiraForm
-
-
 
 
 class ReportStroskiVrstaStroskaNarocilo(TemplateView):

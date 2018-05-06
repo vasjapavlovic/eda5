@@ -63,7 +63,7 @@ class PartnerSearchForm(forms.Form):
         # uporabnik filtrira samo po naslovu partnerja
         if davcna_st_filter and not kratko_ime_filter:
             return queryset.filter(davcna_st__icontains=davcna_st_filter)
-        
+
 
         # uporabnik filtrira po kratkem imenu in naslovu partnerja
         if kratko_ime_filter and davcna_st_filter:
@@ -103,7 +103,7 @@ class OsebaSearchForm(forms.Form):
                 Q(priimek__icontains=naziv_filter) |
                 Q(ime__icontains=naziv_filter)
             )
-        
+
 
         # uporabnik filtrira po kratkem imenu in naslovu partnerja
         if oznaka_filter and naziv_filter:

@@ -4,7 +4,7 @@ from django.utils import timezone
 from templated_docs import fill_template
 from templated_docs.http import FileResponse
 
-from ..forms.forms import FormatForm
+from ..forms import FormatForm
 
 from eda5.delovninalogi.models import DelovniNalog
 from eda5.planiranje.models import PlaniranoOpravilo, Plan

@@ -28,8 +28,8 @@ from eda5.racunovodstvo.models import VrstaStroska
 from eda5.skladisce.models import Dnevnik, Artikel
 
 # Forms
-from ..forms.forms import ObracunIzrednaDelaForm
-from ..forms.forms import DeliSeznamFilterForm, ObracunFilterForm, ObracunIzpisVrstaForm
+from ..forms import ObracunIzrednaDelaForm
+from ..forms import DeliSeznamFilterForm, ObracunFilterForm, ObracunIzpisVrstaForm
 
 
 

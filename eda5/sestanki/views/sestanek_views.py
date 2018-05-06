@@ -21,7 +21,7 @@ from eda5.zaznamki.models import Zaznamek
 
 # Forms
 from ..forms import sestanek_forms
-from eda5.reports.forms.forms import FormatForm
+from eda5.reports.forms import FormatForm
 
 
 class SestanekCreateFromZahtevekView(LoginRequiredMixin, UpdateView):
