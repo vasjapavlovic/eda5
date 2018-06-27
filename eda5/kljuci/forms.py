@@ -39,11 +39,11 @@ class PredajaKljucaVraciloForm(forms.ModelForm):
 		# Prikažemo samo dokumentacijo, ki je del zahtevka v katerem se predaja ključev izvaja.
 		# Prikaže naj samo zapisnike
 		self.fields['predaja_zapisnik'].queryset = Arhiviranje.objects.filter(
-			Q(zahtevek=self.instance.zahtevek) & 
+			Q(zahtevek=self.instance.zahtevek) &
 			Q(dokument__vrsta_dokumenta__oznaka="ZAP")
 		)
 		self.fields['vracilo_zapisnik'].queryset = Arhiviranje.objects.filter(
-			Q(zahtevek=self.instance.zahtevek) & 
+			Q(zahtevek=self.instance.zahtevek) &
 			Q(dokument__vrsta_dokumenta__oznaka="ZAP")
 		)
 

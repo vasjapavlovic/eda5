@@ -41,6 +41,7 @@ class Kljuc(models.Model):
     STATUS_DALJINCA = (
         (1, "za uporabo"),
         (2, "odpisan"),  # zaradi izgube ali npr okvare daljinca
+        (3, "vzdrzevanje"),  # zaradi izgube ali npr okvare daljinca
     )
 
     # ATRIBUTES

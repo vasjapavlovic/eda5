@@ -20,23 +20,41 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <table id="datatable" class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>zap. št.</th>
                                 <th>Oznaka</th>
-                                <th>datum predaje</th>
+                                <th>Datum predaje</th>
+                                <th>zahtevek</th>
+                                <th>Uporabnik</th>
+                                <th>Status uporabnika</th>
+
                             </tr>
                         </thead>
 
 
                         <tbody>
                             {% for object in object_list %}
+                            {% if object.kljuc.status_kljuca == 3 %}
+                            <tr class="info">
+                            {% endif %}
+
+                            {% if object.kljuc.status_kljuca == 2 %}
+                            <tr class="danger">
+                            {% else %}
                             <tr>
-                                <td>{{ object.id }}</td>
-                                <td><b><a href="">{{ object.oznaka }}</a></b></td>
-                                <td><b>{{ object.datum_predaje_kljuca }}</b></td>
+                            {% endif %}
+
+                                <td>{{forloop.counter}}</td>
+                                <td><b><a href="">{{ object.kljuc.oznaka }}</a></b></td>
+                                <td>{{ object.predaja_datum }}</td>
+                                <td><b><a href="{% url 'moduli:zahtevki:zahtevek_detail' object.zahtevek.pk %}">{{ object.zahtevek.oznaka }}</a></b></td>
+                                <td>{{object.zahtevek.predajalastnine.kupec.kratko_ime}}</td>
+                                <td>{% if object.zahtevek.predajalastnine.prodajalastnine_set.all %}Lastnik {% endif %}
+                                {% if object.zahtevek.predajalastnine.najemlastnine_set.all %}Najemnik {% endif %}</td>
                             </tr>
+
                             {% endfor %}
                         </tbody>
                     </table>
